@@ -1,0 +1,333 @@
+{
+  "id": 9245,
+  "title": "Complexity Attack: Bagaimana Struktur Data yang Buruk Bisa Dimanfaatkan untuk Serangan ReDoS",
+  "slug": "complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos",
+  "url": "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/",
+  "date": "2026-01-14T00:10:25",
+  "date_gmt": "2026-01-14T00:10:25",
+  "modified": "2026-07-06T21:31:48",
+  "modified_gmt": "2026-07-06T21:31:48",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    984,
+    682,
+    985
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1033840156-612x612-1.jpg",
+  "excerpt": "Pengantar Dalam dunia keamanan aplikasi, tidak semua serangan membutuhkan eksploitasi celah teknis yang rumit. Salah satu ancaman yang sering luput dari perhatian adalah Complexity Attack, serangan yang memanfaatkan kerumitan algoritma dan struktur data untuk melumpuhkan sistem. Salah satu bentuk paling populer dari serangan ini adalah Regular Expression Denial of Service (ReDoS). ReDoS bekerja dengan cara sederhana namun mematikan: penyerang mengirimkan input tertentu yang menyebabkan engine regex bekerja sangat lambat, menghabiskan CPU, dan akhirnya membuat aplikasi tidak responsif. Ironisnya, celah ini sering muncul bukan karena bug keamanan, melainkan karena desain struktur data dan pola regex yang buruk. Apa Itu Complexity Attack?…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"363\" data-end=\"379\"><span style=\"color: #000000;\"><strong data-start=\"366\" data-end=\"379\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"381\" data-end=\"766\"><span style=\"color: #000000;\">Dalam dunia keamanan aplikasi, tidak semua serangan membutuhkan eksploitasi celah teknis yang rumit. Salah satu ancaman yang sering luput dari perhatian adalah Complexity Attack, serangan yang memanfaatkan kerumitan algoritma dan struktur data untuk melumpuhkan sistem. Salah satu bentuk paling populer dari serangan ini adalah Regular Expression Denial of Service (ReDoS).</span></p>\n<p style=\"text-align: justify;\" data-start=\"768\" data-end=\"1106\"><span style=\"color: #000000;\">ReDoS bekerja dengan cara sederhana namun mematikan: penyerang mengirimkan input tertentu yang menyebabkan engine regex bekerja sangat lambat, menghabiskan CPU, dan akhirnya membuat aplikasi tidak responsif. Ironisnya, celah ini sering muncul bukan karena bug keamanan, melainkan karena desain struktur data dan pola regex yang buruk.</span></p>\n<hr data-start=\"1108\" data-end=\"1111\" />\n<h3 style=\"text-align: justify;\" data-start=\"1113\" data-end=\"1146\"><span style=\"color: #000000;\"><strong data-start=\"1116\" data-end=\"1146\">Apa Itu Complexity Attack?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1153\" data-end=\"1195\"><span style=\"color: #000000;\"><strong data-start=\"1157\" data-end=\"1195\">Eksploitasi Kompleksitas Algoritma</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1197\" data-end=\"1269\"><span style=\"color: #000000;\">Complexity Attack adalah serangan yang mengeksploitasi perbedaan antara:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1270\" data-end=\"1337\">\n<li data-start=\"1270\" data-end=\"1303\">\n<p data-start=\"1272\" data-end=\"1303\"><span style=\"color: #000000;\"><strong data-start=\"1272\" data-end=\"1303\">Kasus normal (average case)</strong></span></p>\n</li>\n<li data-start=\"1304\" data-end=\"1337\">\n<p data-start=\"1306\" data-end=\"1337\"><span style=\"color: #000000;\"><strong data-start=\"1306\" data-end=\"1337\">Kasus terburuk (worst case)</strong></span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1339\" data-end=\"1490\"><span style=\"color: #000000;\">Jika sebuah algoritma memiliki kompleksitas waktu eksponensial pada kondisi tertentu, maka penyerang dapat dengan sengaja menciptakan kondisi tersebut.</span></p>\n<blockquote>\n<p data-start=\"1339\" data-end=\"1490\">baca juga : <a href=\"https://buletinsiber.com/infrastructure-as-code-iac-mengunci-celah-keamanan-pada-terraform-sebelum-deploy-ke-production/\">Infrastructure as Code (IaC): Mengunci Celah Keamanan pada Terraform Sebelum Deploy ke Production</a></p>\n</blockquote>\n<hr data-start=\"1492\" data-end=\"1495\" />\n<h4 style=\"text-align: justify;\" data-start=\"1497\" data-end=\"1544\"><span style=\"color: #000000;\"><strong data-start=\"1501\" data-end=\"1544\">Hubungan Complexity Attack dengan ReDoS</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1546\" data-end=\"1701\"><span style=\"color: #000000;\">ReDoS merupakan bentuk khusus dari Complexity Attack yang menargetkan <strong data-start=\"1616\" data-end=\"1645\">regular expression engine</strong>, terutama yang menggunakan pendekatan <strong data-start=\"1684\" data-end=\"1700\">backtracking</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1703\" data-end=\"1911\"><span style=\"color: #000000;\">Menurut OWASP, ReDoS terjadi ketika regex membutuhkan waktu komputasi berlebihan akibat pola yang ambigu </span><span style=\"color: #000000;\"><em data-start=\"1810\" data-end=\"1911\">(dikutip dari <a href=\"https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS\">OWASP</a>).</em></span></p>\n<hr data-start=\"1913\" data-end=\"1916\" />\n<h3 style=\"text-align: justify;\" data-start=\"1918\" data-end=\"1964\"><span style=\"color: #000000;\"><strong data-start=\"1921\" data-end=\"1964\">Bagaimana ReDoS Bekerja di Balik Layar?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1971\" data-end=\"2009\"><span style=\"color: #000000;\"><strong data-start=\"1975\" data-end=\"2009\">Backtracking pada Regex Engine</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2011\" data-end=\"2145\"><span style=\"color: #000000;\">Banyak bahasa pemrograman (seperti Java, JavaScript, Python, dan PHP) menggunakan regex engine berbasis backtracking. Engine ini akan:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"2146\" data-end=\"2235\">\n<li data-start=\"2146\" data-end=\"2173\">\n<p data-start=\"2149\" data-end=\"2173\"><span style=\"color: #000000;\">Mencoba mencocokkan pola</span></p>\n</li>\n<li data-start=\"2174\" data-end=\"2207\">\n<p data-start=\"2177\" data-end=\"2207\"><span style=\"color: #000000;\">Jika gagal, mundur (backtrack)</span></p>\n</li>\n<li data-start=\"2208\" data-end=\"2235\">\n<p data-start=\"2211\" data-end=\"2235\"><span style=\"color: #000000;\">Mencoba kemungkinan lain</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2237\" data-end=\"2316\"><span style=\"color: #000000;\">Pada pola tertentu, jumlah percobaan ini dapat <strong data-start=\"2284\" data-end=\"2315\">meledak secara eksponensial</strong>.</span></p>\n<hr data-start=\"2318\" data-end=\"2321\" />\n<h4 style=\"text-align: justify;\" data-start=\"2323\" data-end=\"2358\"><span style=\"color: #000000;\"><strong data-start=\"2327\" data-end=\"2358\">Contoh Pola Regex Berbahaya</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"2360\" data-end=\"2386\"><span style=\"color: #000000;\"><strong data-start=\"2365\" data-end=\"2386\">Nested Quantifier</strong></span></h6>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\" style=\"text-align: justify;\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre! language-regex\">^(a+)+$<br />\n</code></span></div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"2409\" data-end=\"2430\"><span style=\"color: #000000;\">Dengan input seperti:</span></p>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\" style=\"text-align: justify;\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre!\"><span class=\"hljs-attribute\">aaaaaaaaaaaaaaaaX</span><br />\n</code></span></div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"2458\" data-end=\"2549\"><span style=\"color: #000000;\">Engine regex akan mencoba jutaan kemungkinan sebelum menyadari bahwa input tidak cocok.</span></p>\n<hr data-start=\"2551\" data-end=\"2554\" />\n<h4 style=\"text-align: justify;\" data-start=\"2556\" data-end=\"2589\"><span style=\"color: #000000;\"><strong data-start=\"2560\" data-end=\"2589\">Dampak Langsung ke Sistem</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"2591\" data-end=\"2726\">\n<li data-start=\"2591\" data-end=\"2619\">\n<p data-start=\"2593\" data-end=\"2619\"><span style=\"color: #000000;\">CPU usage melonjak drastis</span></p>\n</li>\n<li data-start=\"2620\" data-end=\"2646\">\n<p data-start=\"2622\" data-end=\"2646\"><span style=\"color: #000000;\">Thread aplikasi terkunci</span></p>\n</li>\n<li data-start=\"2647\" data-end=\"2681\">\n<p data-start=\"2649\" data-end=\"2681\"><span style=\"color: #000000;\">Service menjadi lambat atau down</span></p>\n</li>\n<li data-start=\"2682\" data-end=\"2726\">\n<p data-start=\"2684\" data-end=\"2726\"><span style=\"color: #000000;\">Dapat dieksploitasi dari satu request saja</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/\">Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux</a></p></blockquote>\n<hr data-start=\"2900\" data-end=\"2903\" />\n<h3 style=\"text-align: justify;\" data-start=\"2905\" data-end=\"2954\"><span style=\"color: #000000;\"><strong data-start=\"2908\" data-end=\"2954\">Peran Struktur Data yang Buruk dalam ReDoS</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2961\" data-end=\"3008\"><span style=\"color: #000000;\"><strong data-start=\"2965\" data-end=\"3008\">Regex sebagai Struktur Data Tersembunyi</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3010\" data-end=\"3149\"><span style=\"color: #000000;\">Regex sering diperlakukan sebagai string biasa, padahal secara internal ia adalah <strong data-start=\"3092\" data-end=\"3118\">struktur data kompleks</strong> yang menentukan alur eksekusi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3151\" data-end=\"3166\"><span style=\"color: #000000;\">Kesalahan umum:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3167\" data-end=\"3254\">\n<li data-start=\"3167\" data-end=\"3199\">\n<p data-start=\"3169\" data-end=\"3199\"><span style=\"color: #000000;\">Terlalu banyak wildcard (<code data-start=\"3194\" data-end=\"3198\">.*</code>)</span></p>\n</li>\n<li data-start=\"3200\" data-end=\"3219\">\n<p data-start=\"3202\" data-end=\"3219\"><span style=\"color: #000000;\">Nested repetition</span></p>\n</li>\n<li data-start=\"3220\" data-end=\"3254\">\n<p data-start=\"3222\" data-end=\"3254\"><span style=\"color: #000000;\">Alternation berlapis (<code data-start=\"3244\" data-end=\"3253\">(a|aa)+</code>)</span></p>\n</li>\n</ul>\n<hr data-start=\"3256\" data-end=\"3259\" />\n<h4 style=\"text-align: justify;\" data-start=\"3261\" data-end=\"3292\"><span style=\"color: #000000;\"><strong data-start=\"3265\" data-end=\"3292\">Kurangnya Batasan Input</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3294\" data-end=\"3325\"><span style=\"color: #000000;\">Tanpa pembatasan panjang input:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3326\" data-end=\"3439\">\n<li data-start=\"3326\" data-end=\"3366\">\n<p data-start=\"3328\" data-end=\"3366\"><span style=\"color: #000000;\">Penyerang bebas mengirim payload besar</span></p>\n</li>\n<li data-start=\"3367\" data-end=\"3405\">\n<p data-start=\"3369\" data-end=\"3405\"><span style=\"color: #000000;\">Kompleksitas waktu meningkat drastis</span></p>\n</li>\n<li data-start=\"3406\" data-end=\"3439\">\n<p data-start=\"3408\" data-end=\"3439\"><span style=\"color: #000000;\">Serangan menjadi sangat efisien</span></p>\n</li>\n</ul>\n<hr data-start=\"3441\" data-end=\"3444\" />\n<h3 style=\"text-align: justify;\" data-start=\"3446\" data-end=\"3485\"><span style=\"color: #000000;\"><strong data-start=\"3449\" data-end=\"3485\">Strategi Mitigasi Serangan ReDoS</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3492\" data-end=\"3525\"><span style=\"color: #000000;\"><strong data-start=\"3496\" data-end=\"3525\">Hindari Pola Regex Ambigu</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3527\" data-end=\"3540\"><span style=\"color: #000000;\">Prinsip aman:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3541\" data-end=\"3639\">\n<li data-start=\"3541\" data-end=\"3568\">\n<p data-start=\"3543\" data-end=\"3568\"><span style=\"color: #000000;\">Hindari nested quantifier</span></p>\n</li>\n<li data-start=\"3569\" data-end=\"3599\">\n<p data-start=\"3571\" data-end=\"3599\"><span style=\"color: #000000;\">Gunakan anchor (<code data-start=\"3587\" data-end=\"3590\">^</code> dan <code data-start=\"3595\" data-end=\"3598\">$</code>)</span></p>\n</li>\n<li data-start=\"3600\" data-end=\"3639\">\n<p data-start=\"3602\" data-end=\"3639\"><span style=\"color: #000000;\">Spesifik pada karakter yang diizinkan</span></p>\n</li>\n</ul>\n<hr data-start=\"3641\" data-end=\"3644\" />\n<h4 style=\"text-align: justify;\" data-start=\"3646\" data-end=\"3674\"><span style=\"color: #000000;\"><strong data-start=\"3650\" data-end=\"3674\">Batasi Panjang Input</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3676\" data-end=\"3714\"><span style=\"color: #000000;\">Validasi input sebelum regex diproses:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3715\" data-end=\"3774\">\n<li data-start=\"3715\" data-end=\"3740\">\n<p data-start=\"3717\" data-end=\"3740\"><span style=\"color: #000000;\">Maksimum panjang string</span></p>\n</li>\n<li data-start=\"3741\" data-end=\"3774\">\n<p data-start=\"3743\" data-end=\"3774\"><span style=\"color: #000000;\">Tolak input abnormal lebih awal</span></p>\n</li>\n</ul>\n<hr data-start=\"3776\" data-end=\"3779\" />\n<h4 style=\"text-align: justify;\" data-start=\"3781\" data-end=\"3819\"><span style=\"color: #000000;\"><strong data-start=\"3785\" data-end=\"3819\">Gunakan Regex Engine yang Aman</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3821\" data-end=\"3854\"><span style=\"color: #000000;\">Beberapa engine modern mendukung:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3855\" data-end=\"3929\">\n<li data-start=\"3855\" data-end=\"3875\">\n<p data-start=\"3857\" data-end=\"3875\"><span style=\"color: #000000;\"><strong data-start=\"3857\" data-end=\"3875\">Time-out regex</strong></span></p>\n</li>\n<li data-start=\"3876\" data-end=\"3899\">\n<p data-start=\"3878\" data-end=\"3899\"><span style=\"color: #000000;\"><strong data-start=\"3878\" data-end=\"3899\">Linear-time regex</strong></span></p>\n</li>\n<li data-start=\"3900\" data-end=\"3929\">\n<p data-start=\"3902\" data-end=\"3929\"><span style=\"color: #000000;\"><strong data-start=\"3902\" data-end=\"3929\">Non-backtracking engine</strong></span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3931\" data-end=\"3985\"><span style=\"color: #000000;\">Langkah ini dapat mencegah regex berjalan tanpa batas.</span></p>\n<hr data-start=\"3987\" data-end=\"3990\" />\n<h4 style=\"text-align: justify;\" data-start=\"3992\" data-end=\"4038\"><span style=\"color: #000000;\"><strong data-start=\"3996\" data-end=\"4038\">Uji Regex terhadap Worst-Case Scenario</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"4040\" data-end=\"4065\"><span style=\"color: #000000;\">Lakukan pengujian dengan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4066\" data-end=\"4121\">\n<li data-start=\"4066\" data-end=\"4081\">\n<p data-start=\"4068\" data-end=\"4081\"><span style=\"color: #000000;\">Input panjang</span></p>\n</li>\n<li data-start=\"4082\" data-end=\"4101\">\n<p data-start=\"4084\" data-end=\"4101\"><span style=\"color: #000000;\">Karakter berulang</span></p>\n</li>\n<li data-start=\"4102\" data-end=\"4121\">\n<p data-start=\"4104\" data-end=\"4121\"><span style=\"color: #000000;\">Pola hampir cocok</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4123\" data-end=\"4184\"><span style=\"color: #000000;\">Ini penting untuk mendeteksi risiko sebelum aplikasi dirilis.</span></p>\n<blockquote>\n<p data-start=\"4123\" data-end=\"4184\">baca juga : <a href=\"https://buletinsiber.com/bgp-hijacking-bagaimana-peretas-bisa-membelokkan-rute-internet-global-ke-server-mereka-sendiri/\">BGP Hijacking: Bagaimana Peretas Bisa Membelokkan Rute Internet Global ke Server Mereka Sendiri</a></p>\n</blockquote>\n<hr data-start=\"4186\" data-end=\"4189\" />\n<h2 style=\"text-align: justify;\" data-start=\"4191\" data-end=\"4208\"><span style=\"color: #000000;\"><strong data-start=\"4194\" data-end=\"4208\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4210\" data-end=\"4440\"><span style=\"color: #000000;\">Complexity Attack membuktikan bahwa ancaman siber tidak selalu berasal dari eksploitasi celah tradisional. ReDoS memanfaatkan kelemahan desain algoritma dan struktur data, khususnya pada regex yang tidak dirancang dengan aman.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4442\" data-end=\"4699\"><span style=\"color: #000000;\">Dengan memahami cara kerja regex engine, menghindari pola berbahaya, serta menerapkan pembatasan input, pengembang dapat mencegah serangan ReDoS sejak tahap desain. Dalam keamanan aplikasi modern, efisiensi algoritma adalah bagian dari pertahanan siber.</span></p>\n",
+  "content_text": "Pengantar\nDalam dunia keamanan aplikasi, tidak semua serangan membutuhkan eksploitasi celah teknis yang rumit. Salah satu ancaman yang sering luput dari perhatian adalah Complexity Attack, serangan yang memanfaatkan kerumitan algoritma dan struktur data untuk melumpuhkan sistem. Salah satu bentuk paling populer dari serangan ini adalah Regular Expression Denial of Service (ReDoS).\nReDoS bekerja dengan cara sederhana namun mematikan: penyerang mengirimkan input tertentu yang menyebabkan engine regex bekerja sangat lambat, menghabiskan CPU, dan akhirnya membuat aplikasi tidak responsif. Ironisnya, celah ini sering muncul bukan karena bug keamanan, melainkan karena desain struktur data dan pola regex yang buruk.\nApa Itu Complexity Attack?\nEksploitasi Kompleksitas Algoritma\nComplexity Attack adalah serangan yang mengeksploitasi perbedaan antara:\nKasus normal (average case)\nKasus terburuk (worst case)\nJika sebuah algoritma memiliki kompleksitas waktu eksponensial pada kondisi tertentu, maka penyerang dapat dengan sengaja menciptakan kondisi tersebut.\nbaca juga :  Infrastructure as Code (IaC): Mengunci Celah Keamanan pada Terraform Sebelum Deploy ke Production\nHubungan Complexity Attack dengan ReDoS\nReDoS merupakan bentuk khusus dari Complexity Attack yang menargetkan  regular expression engine , terutama yang menggunakan pendekatan  backtracking .\nMenurut OWASP, ReDoS terjadi ketika regex membutuhkan waktu komputasi berlebihan akibat pola yang ambigu    (dikutip dari  OWASP ).\nBagaimana ReDoS Bekerja di Balik Layar?\nBacktracking pada Regex Engine\nBanyak bahasa pemrograman (seperti Java, JavaScript, Python, dan PHP) menggunakan regex engine berbasis backtracking. Engine ini akan:\nMencoba mencocokkan pola\nJika gagal, mundur (backtrack)\nMencoba kemungkinan lain\nPada pola tertentu, jumlah percobaan ini dapat  meledak secara eksponensial .\nContoh Pola Regex Berbahaya\nNested Quantifier\n^(a+)+$\nDengan input seperti:\naaaaaaaaaaaaaaaaX\nEngine regex akan mencoba jutaan kemungkinan sebelum menyadari bahwa input tidak cocok.\nDampak Langsung ke Sistem\nCPU usage melonjak drastis\nThread aplikasi terkunci\nService menjadi lambat atau down\nDapat dieksploitasi dari satu request saja\nbaca juga :  Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux\nPeran Struktur Data yang Buruk dalam ReDoS\nRegex sebagai Struktur Data Tersembunyi\nRegex sering diperlakukan sebagai string biasa, padahal secara internal ia adalah  struktur data kompleks  yang menentukan alur eksekusi.\nKesalahan umum:\nTerlalu banyak wildcard ( .* )\nNested repetition\nAlternation berlapis ( (a|aa)+ )\nKurangnya Batasan Input\nTanpa pembatasan panjang input:\nPenyerang bebas mengirim payload besar\nKompleksitas waktu meningkat drastis\nSerangan menjadi sangat efisien\nStrategi Mitigasi Serangan ReDoS\nHindari Pola Regex Ambigu\nPrinsip aman:\nHindari nested quantifier\nGunakan anchor ( ^  dan  $ )\nSpesifik pada karakter yang diizinkan\nBatasi Panjang Input\nValidasi input sebelum regex diproses:\nMaksimum panjang string\nTolak input abnormal lebih awal\nGunakan Regex Engine yang Aman\nBeberapa engine modern mendukung:\nTime-out regex\nLinear-time regex\nNon-backtracking engine\nLangkah ini dapat mencegah regex berjalan tanpa batas.\nUji Regex terhadap Worst-Case Scenario\nLakukan pengujian dengan:\nInput panjang\nKarakter berulang\nPola hampir cocok\nIni penting untuk mendeteksi risiko sebelum aplikasi dirilis.\nbaca juga :  BGP Hijacking: Bagaimana Peretas Bisa Membelokkan Rute Internet Global ke Server Mereka Sendiri\nKesimpulan\nComplexity Attack membuktikan bahwa ancaman siber tidak selalu berasal dari eksploitasi celah tradisional. ReDoS memanfaatkan kelemahan desain algoritma dan struktur data, khususnya pada regex yang tidak dirancang dengan aman.\nDengan memahami cara kerja regex engine, menghindari pola berbahaya, serta menerapkan pembatasan input, pengembang dapat mencegah serangan ReDoS sejak tahap desain. Dalam keamanan aplikasi modern, efisiensi algoritma adalah bagian dari pertahanan siber.",
+  "raw": {
+    "id": 9245,
+    "date": "2026-01-14T00:10:25",
+    "date_gmt": "2026-01-14T00:10:25",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9245"
+    },
+    "modified": "2026-07-06T21:31:48",
+    "modified_gmt": "2026-07-06T21:31:48",
+    "slug": "complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/",
+    "title": {
+      "rendered": "Complexity Attack: Bagaimana Struktur Data yang Buruk Bisa Dimanfaatkan untuk Serangan ReDoS"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"363\" data-end=\"379\"><span style=\"color: #000000;\"><strong data-start=\"366\" data-end=\"379\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"381\" data-end=\"766\"><span style=\"color: #000000;\">Dalam dunia keamanan aplikasi, tidak semua serangan membutuhkan eksploitasi celah teknis yang rumit. Salah satu ancaman yang sering luput dari perhatian adalah Complexity Attack, serangan yang memanfaatkan kerumitan algoritma dan struktur data untuk melumpuhkan sistem. Salah satu bentuk paling populer dari serangan ini adalah Regular Expression Denial of Service (ReDoS).</span></p>\n<p style=\"text-align: justify;\" data-start=\"768\" data-end=\"1106\"><span style=\"color: #000000;\">ReDoS bekerja dengan cara sederhana namun mematikan: penyerang mengirimkan input tertentu yang menyebabkan engine regex bekerja sangat lambat, menghabiskan CPU, dan akhirnya membuat aplikasi tidak responsif. Ironisnya, celah ini sering muncul bukan karena bug keamanan, melainkan karena desain struktur data dan pola regex yang buruk.</span></p>\n<hr data-start=\"1108\" data-end=\"1111\" />\n<h3 style=\"text-align: justify;\" data-start=\"1113\" data-end=\"1146\"><span style=\"color: #000000;\"><strong data-start=\"1116\" data-end=\"1146\">Apa Itu Complexity Attack?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1153\" data-end=\"1195\"><span style=\"color: #000000;\"><strong data-start=\"1157\" data-end=\"1195\">Eksploitasi Kompleksitas Algoritma</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1197\" data-end=\"1269\"><span style=\"color: #000000;\">Complexity Attack adalah serangan yang mengeksploitasi perbedaan antara:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1270\" data-end=\"1337\">\n<li data-start=\"1270\" data-end=\"1303\">\n<p data-start=\"1272\" data-end=\"1303\"><span style=\"color: #000000;\"><strong data-start=\"1272\" data-end=\"1303\">Kasus normal (average case)</strong></span></p>\n</li>\n<li data-start=\"1304\" data-end=\"1337\">\n<p data-start=\"1306\" data-end=\"1337\"><span style=\"color: #000000;\"><strong data-start=\"1306\" data-end=\"1337\">Kasus terburuk (worst case)</strong></span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1339\" data-end=\"1490\"><span style=\"color: #000000;\">Jika sebuah algoritma memiliki kompleksitas waktu eksponensial pada kondisi tertentu, maka penyerang dapat dengan sengaja menciptakan kondisi tersebut.</span></p>\n<blockquote>\n<p data-start=\"1339\" data-end=\"1490\">baca juga : <a href=\"https://buletinsiber.com/infrastructure-as-code-iac-mengunci-celah-keamanan-pada-terraform-sebelum-deploy-ke-production/\">Infrastructure as Code (IaC): Mengunci Celah Keamanan pada Terraform Sebelum Deploy ke Production</a></p>\n</blockquote>\n<hr data-start=\"1492\" data-end=\"1495\" />\n<h4 style=\"text-align: justify;\" data-start=\"1497\" data-end=\"1544\"><span style=\"color: #000000;\"><strong data-start=\"1501\" data-end=\"1544\">Hubungan Complexity Attack dengan ReDoS</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1546\" data-end=\"1701\"><span style=\"color: #000000;\">ReDoS merupakan bentuk khusus dari Complexity Attack yang menargetkan <strong data-start=\"1616\" data-end=\"1645\">regular expression engine</strong>, terutama yang menggunakan pendekatan <strong data-start=\"1684\" data-end=\"1700\">backtracking</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1703\" data-end=\"1911\"><span style=\"color: #000000;\">Menurut OWASP, ReDoS terjadi ketika regex membutuhkan waktu komputasi berlebihan akibat pola yang ambigu </span><span style=\"color: #000000;\"><em data-start=\"1810\" data-end=\"1911\">(dikutip dari <a href=\"https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS\">OWASP</a>).</em></span></p>\n<hr data-start=\"1913\" data-end=\"1916\" />\n<h3 style=\"text-align: justify;\" data-start=\"1918\" data-end=\"1964\"><span style=\"color: #000000;\"><strong data-start=\"1921\" data-end=\"1964\">Bagaimana ReDoS Bekerja di Balik Layar?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1971\" data-end=\"2009\"><span style=\"color: #000000;\"><strong data-start=\"1975\" data-end=\"2009\">Backtracking pada Regex Engine</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2011\" data-end=\"2145\"><span style=\"color: #000000;\">Banyak bahasa pemrograman (seperti Java, JavaScript, Python, dan PHP) menggunakan regex engine berbasis backtracking. Engine ini akan:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"2146\" data-end=\"2235\">\n<li data-start=\"2146\" data-end=\"2173\">\n<p data-start=\"2149\" data-end=\"2173\"><span style=\"color: #000000;\">Mencoba mencocokkan pola</span></p>\n</li>\n<li data-start=\"2174\" data-end=\"2207\">\n<p data-start=\"2177\" data-end=\"2207\"><span style=\"color: #000000;\">Jika gagal, mundur (backtrack)</span></p>\n</li>\n<li data-start=\"2208\" data-end=\"2235\">\n<p data-start=\"2211\" data-end=\"2235\"><span style=\"color: #000000;\">Mencoba kemungkinan lain</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2237\" data-end=\"2316\"><span style=\"color: #000000;\">Pada pola tertentu, jumlah percobaan ini dapat <strong data-start=\"2284\" data-end=\"2315\">meledak secara eksponensial</strong>.</span></p>\n<hr data-start=\"2318\" data-end=\"2321\" />\n<h4 style=\"text-align: justify;\" data-start=\"2323\" data-end=\"2358\"><span style=\"color: #000000;\"><strong data-start=\"2327\" data-end=\"2358\">Contoh Pola Regex Berbahaya</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"2360\" data-end=\"2386\"><span style=\"color: #000000;\"><strong data-start=\"2365\" data-end=\"2386\">Nested Quantifier</strong></span></h6>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\" style=\"text-align: justify;\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre! language-regex\">^(a+)+$<br />\n</code></span></div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"2409\" data-end=\"2430\"><span style=\"color: #000000;\">Dengan input seperti:</span></p>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\" style=\"text-align: justify;\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre!\"><span class=\"hljs-attribute\">aaaaaaaaaaaaaaaaX</span><br />\n</code></span></div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"2458\" data-end=\"2549\"><span style=\"color: #000000;\">Engine regex akan mencoba jutaan kemungkinan sebelum menyadari bahwa input tidak cocok.</span></p>\n<hr data-start=\"2551\" data-end=\"2554\" />\n<h4 style=\"text-align: justify;\" data-start=\"2556\" data-end=\"2589\"><span style=\"color: #000000;\"><strong data-start=\"2560\" data-end=\"2589\">Dampak Langsung ke Sistem</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"2591\" data-end=\"2726\">\n<li data-start=\"2591\" data-end=\"2619\">\n<p data-start=\"2593\" data-end=\"2619\"><span style=\"color: #000000;\">CPU usage melonjak drastis</span></p>\n</li>\n<li data-start=\"2620\" data-end=\"2646\">\n<p data-start=\"2622\" data-end=\"2646\"><span style=\"color: #000000;\">Thread aplikasi terkunci</span></p>\n</li>\n<li data-start=\"2647\" data-end=\"2681\">\n<p data-start=\"2649\" data-end=\"2681\"><span style=\"color: #000000;\">Service menjadi lambat atau down</span></p>\n</li>\n<li data-start=\"2682\" data-end=\"2726\">\n<p data-start=\"2684\" data-end=\"2726\"><span style=\"color: #000000;\">Dapat dieksploitasi dari satu request saja</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/\">Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux</a></p></blockquote>\n<hr data-start=\"2900\" data-end=\"2903\" />\n<h3 style=\"text-align: justify;\" data-start=\"2905\" data-end=\"2954\"><span style=\"color: #000000;\"><strong data-start=\"2908\" data-end=\"2954\">Peran Struktur Data yang Buruk dalam ReDoS</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2961\" data-end=\"3008\"><span style=\"color: #000000;\"><strong data-start=\"2965\" data-end=\"3008\">Regex sebagai Struktur Data Tersembunyi</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3010\" data-end=\"3149\"><span style=\"color: #000000;\">Regex sering diperlakukan sebagai string biasa, padahal secara internal ia adalah <strong data-start=\"3092\" data-end=\"3118\">struktur data kompleks</strong> yang menentukan alur eksekusi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3151\" data-end=\"3166\"><span style=\"color: #000000;\">Kesalahan umum:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3167\" data-end=\"3254\">\n<li data-start=\"3167\" data-end=\"3199\">\n<p data-start=\"3169\" data-end=\"3199\"><span style=\"color: #000000;\">Terlalu banyak wildcard (<code data-start=\"3194\" data-end=\"3198\">.*</code>)</span></p>\n</li>\n<li data-start=\"3200\" data-end=\"3219\">\n<p data-start=\"3202\" data-end=\"3219\"><span style=\"color: #000000;\">Nested repetition</span></p>\n</li>\n<li data-start=\"3220\" data-end=\"3254\">\n<p data-start=\"3222\" data-end=\"3254\"><span style=\"color: #000000;\">Alternation berlapis (<code data-start=\"3244\" data-end=\"3253\">(a|aa)+</code>)</span></p>\n</li>\n</ul>\n<hr data-start=\"3256\" data-end=\"3259\" />\n<h4 style=\"text-align: justify;\" data-start=\"3261\" data-end=\"3292\"><span style=\"color: #000000;\"><strong data-start=\"3265\" data-end=\"3292\">Kurangnya Batasan Input</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3294\" data-end=\"3325\"><span style=\"color: #000000;\">Tanpa pembatasan panjang input:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3326\" data-end=\"3439\">\n<li data-start=\"3326\" data-end=\"3366\">\n<p data-start=\"3328\" data-end=\"3366\"><span style=\"color: #000000;\">Penyerang bebas mengirim payload besar</span></p>\n</li>\n<li data-start=\"3367\" data-end=\"3405\">\n<p data-start=\"3369\" data-end=\"3405\"><span style=\"color: #000000;\">Kompleksitas waktu meningkat drastis</span></p>\n</li>\n<li data-start=\"3406\" data-end=\"3439\">\n<p data-start=\"3408\" data-end=\"3439\"><span style=\"color: #000000;\">Serangan menjadi sangat efisien</span></p>\n</li>\n</ul>\n<hr data-start=\"3441\" data-end=\"3444\" />\n<h3 style=\"text-align: justify;\" data-start=\"3446\" data-end=\"3485\"><span style=\"color: #000000;\"><strong data-start=\"3449\" data-end=\"3485\">Strategi Mitigasi Serangan ReDoS</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3492\" data-end=\"3525\"><span style=\"color: #000000;\"><strong data-start=\"3496\" data-end=\"3525\">Hindari Pola Regex Ambigu</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3527\" data-end=\"3540\"><span style=\"color: #000000;\">Prinsip aman:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3541\" data-end=\"3639\">\n<li data-start=\"3541\" data-end=\"3568\">\n<p data-start=\"3543\" data-end=\"3568\"><span style=\"color: #000000;\">Hindari nested quantifier</span></p>\n</li>\n<li data-start=\"3569\" data-end=\"3599\">\n<p data-start=\"3571\" data-end=\"3599\"><span style=\"color: #000000;\">Gunakan anchor (<code data-start=\"3587\" data-end=\"3590\">^</code> dan <code data-start=\"3595\" data-end=\"3598\">$</code>)</span></p>\n</li>\n<li data-start=\"3600\" data-end=\"3639\">\n<p data-start=\"3602\" data-end=\"3639\"><span style=\"color: #000000;\">Spesifik pada karakter yang diizinkan</span></p>\n</li>\n</ul>\n<hr data-start=\"3641\" data-end=\"3644\" />\n<h4 style=\"text-align: justify;\" data-start=\"3646\" data-end=\"3674\"><span style=\"color: #000000;\"><strong data-start=\"3650\" data-end=\"3674\">Batasi Panjang Input</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3676\" data-end=\"3714\"><span style=\"color: #000000;\">Validasi input sebelum regex diproses:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3715\" data-end=\"3774\">\n<li data-start=\"3715\" data-end=\"3740\">\n<p data-start=\"3717\" data-end=\"3740\"><span style=\"color: #000000;\">Maksimum panjang string</span></p>\n</li>\n<li data-start=\"3741\" data-end=\"3774\">\n<p data-start=\"3743\" data-end=\"3774\"><span style=\"color: #000000;\">Tolak input abnormal lebih awal</span></p>\n</li>\n</ul>\n<hr data-start=\"3776\" data-end=\"3779\" />\n<h4 style=\"text-align: justify;\" data-start=\"3781\" data-end=\"3819\"><span style=\"color: #000000;\"><strong data-start=\"3785\" data-end=\"3819\">Gunakan Regex Engine yang Aman</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3821\" data-end=\"3854\"><span style=\"color: #000000;\">Beberapa engine modern mendukung:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3855\" data-end=\"3929\">\n<li data-start=\"3855\" data-end=\"3875\">\n<p data-start=\"3857\" data-end=\"3875\"><span style=\"color: #000000;\"><strong data-start=\"3857\" data-end=\"3875\">Time-out regex</strong></span></p>\n</li>\n<li data-start=\"3876\" data-end=\"3899\">\n<p data-start=\"3878\" data-end=\"3899\"><span style=\"color: #000000;\"><strong data-start=\"3878\" data-end=\"3899\">Linear-time regex</strong></span></p>\n</li>\n<li data-start=\"3900\" data-end=\"3929\">\n<p data-start=\"3902\" data-end=\"3929\"><span style=\"color: #000000;\"><strong data-start=\"3902\" data-end=\"3929\">Non-backtracking engine</strong></span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3931\" data-end=\"3985\"><span style=\"color: #000000;\">Langkah ini dapat mencegah regex berjalan tanpa batas.</span></p>\n<hr data-start=\"3987\" data-end=\"3990\" />\n<h4 style=\"text-align: justify;\" data-start=\"3992\" data-end=\"4038\"><span style=\"color: #000000;\"><strong data-start=\"3996\" data-end=\"4038\">Uji Regex terhadap Worst-Case Scenario</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"4040\" data-end=\"4065\"><span style=\"color: #000000;\">Lakukan pengujian dengan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4066\" data-end=\"4121\">\n<li data-start=\"4066\" data-end=\"4081\">\n<p data-start=\"4068\" data-end=\"4081\"><span style=\"color: #000000;\">Input panjang</span></p>\n</li>\n<li data-start=\"4082\" data-end=\"4101\">\n<p data-start=\"4084\" data-end=\"4101\"><span style=\"color: #000000;\">Karakter berulang</span></p>\n</li>\n<li data-start=\"4102\" data-end=\"4121\">\n<p data-start=\"4104\" data-end=\"4121\"><span style=\"color: #000000;\">Pola hampir cocok</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4123\" data-end=\"4184\"><span style=\"color: #000000;\">Ini penting untuk mendeteksi risiko sebelum aplikasi dirilis.</span></p>\n<blockquote>\n<p data-start=\"4123\" data-end=\"4184\">baca juga : <a href=\"https://buletinsiber.com/bgp-hijacking-bagaimana-peretas-bisa-membelokkan-rute-internet-global-ke-server-mereka-sendiri/\">BGP Hijacking: Bagaimana Peretas Bisa Membelokkan Rute Internet Global ke Server Mereka Sendiri</a></p>\n</blockquote>\n<hr data-start=\"4186\" data-end=\"4189\" />\n<h2 style=\"text-align: justify;\" data-start=\"4191\" data-end=\"4208\"><span style=\"color: #000000;\"><strong data-start=\"4194\" data-end=\"4208\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4210\" data-end=\"4440\"><span style=\"color: #000000;\">Complexity Attack membuktikan bahwa ancaman siber tidak selalu berasal dari eksploitasi celah tradisional. ReDoS memanfaatkan kelemahan desain algoritma dan struktur data, khususnya pada regex yang tidak dirancang dengan aman.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4442\" data-end=\"4699\"><span style=\"color: #000000;\">Dengan memahami cara kerja regex engine, menghindari pola berbahaya, serta menerapkan pembatasan input, pengembang dapat mencegah serangan ReDoS sejak tahap desain. Dalam keamanan aplikasi modern, efisiensi algoritma adalah bagian dari pertahanan siber.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dalam dunia keamanan aplikasi, tidak semua serangan membutuhkan eksploitasi celah teknis yang rumit. Salah satu ancaman yang sering luput dari perhatian adalah Complexity Attack, serangan yang memanfaatkan kerumitan algoritma dan struktur data untuk melumpuhkan sistem. Salah satu bentuk paling populer dari serangan ini adalah Regular Expression Denial of Service (ReDoS). ReDoS bekerja dengan cara sederhana namun mematikan: penyerang mengirimkan input tertentu yang menyebabkan engine regex bekerja sangat lambat, menghabiskan CPU, dan akhirnya membuat aplikasi tidak responsif. Ironisnya, celah ini sering muncul bukan karena bug keamanan, melainkan karena desain struktur data dan pola regex yang buruk. Apa Itu Complexity Attack?&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 4325,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Complexity Attack",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      984,
+      682,
+      985
+    ],
+    "class_list": [
+      "post-9245",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-complexity",
+      "tag-keamanan",
+      "tag-redos"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Complexity Attack: Bagaimana Struktur Data yang Buruk Bisa Dimanfaatkan untuk Serangan ReDoS - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Complexity Attack: Bagaimana Struktur Data yang Buruk Bisa Dimanfaatkan untuk Serangan ReDoS - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dalam dunia keamanan aplikasi, tidak semua serangan membutuhkan eksploitasi celah teknis yang rumit. Salah satu ancaman yang sering luput dari perhatian adalah Complexity Attack, serangan yang memanfaatkan kerumitan algoritma dan struktur data untuk melumpuhkan sistem. Salah satu bentuk paling populer dari serangan ini adalah Regular Expression Denial of Service (ReDoS). ReDoS bekerja dengan cara sederhana namun mematikan: penyerang mengirimkan input tertentu yang menyebabkan engine regex bekerja sangat lambat, menghabiskan CPU, dan akhirnya membuat aplikasi tidak responsif. Ironisnya, celah ini sering muncul bukan karena bug keamanan, melainkan karena desain struktur data dan pola regex yang buruk. Apa Itu Complexity Attack?...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-01-14T00:10:25+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T21:31:48+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1033840156-612x612-1.jpg\" />\n\t<meta property=\"og:image:width\" content=\"612\" />\n\t<meta property=\"og:image:height\" content=\"408\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/\",\"url\":\"https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/\",\"name\":\"Complexity Attack: Bagaimana Struktur Data yang Buruk Bisa Dimanfaatkan untuk Serangan ReDoS - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1033840156-612x612-1.jpg\",\"datePublished\":\"2026-01-14T00:10:25+00:00\",\"dateModified\":\"2026-07-06T21:31:48+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1033840156-612x612-1.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1033840156-612x612-1.jpg\",\"width\":612,\"height\":408,\"caption\":\"Virus infected malware lurking. computer data on screen. binary code double exposure. systematic line of data and random bits of information. white blue transfer text motion on black space\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Complexity Attack: Bagaimana Struktur Data yang Buruk Bisa Dimanfaatkan untuk Serangan ReDoS\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Complexity Attack: Bagaimana Struktur Data yang Buruk Bisa Dimanfaatkan untuk Serangan ReDoS - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Complexity Attack: Bagaimana Struktur Data yang Buruk Bisa Dimanfaatkan untuk Serangan ReDoS - buletinsiber.com",
+      "og_description": "Pengantar Dalam dunia keamanan aplikasi, tidak semua serangan membutuhkan eksploitasi celah teknis yang rumit. Salah satu ancaman yang sering luput dari perhatian adalah Complexity Attack, serangan yang memanfaatkan kerumitan algoritma dan struktur data untuk melumpuhkan sistem. Salah satu bentuk paling populer dari serangan ini adalah Regular Expression Denial of Service (ReDoS). ReDoS bekerja dengan cara sederhana namun mematikan: penyerang mengirimkan input tertentu yang menyebabkan engine regex bekerja sangat lambat, menghabiskan CPU, dan akhirnya membuat aplikasi tidak responsif. Ironisnya, celah ini sering muncul bukan karena bug keamanan, melainkan karena desain struktur data dan pola regex yang buruk. Apa Itu Complexity Attack?...",
+      "og_url": "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-01-14T00:10:25+00:00",
+      "article_modified_time": "2026-07-06T21:31:48+00:00",
+      "og_image": [
+        {
+          "width": 612,
+          "height": 408,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1033840156-612x612-1.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/",
+            "url": "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/",
+            "name": "Complexity Attack: Bagaimana Struktur Data yang Buruk Bisa Dimanfaatkan untuk Serangan ReDoS - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1033840156-612x612-1.jpg",
+            "datePublished": "2026-01-14T00:10:25+00:00",
+            "dateModified": "2026-07-06T21:31:48+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1033840156-612x612-1.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1033840156-612x612-1.jpg",
+            "width": 612,
+            "height": 408,
+            "caption": "Virus infected malware lurking. computer data on screen. binary code double exposure. systematic line of data and random bits of information. white blue transfer text motion on black space"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/complexity-attack-bagaimana-struktur-data-yang-buruk-bisa-dimanfaatkan-untuk-serangan-redos/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Complexity Attack: Bagaimana Struktur Data yang Buruk Bisa Dimanfaatkan untuk Serangan ReDoS"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9245",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9245"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 3,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9245/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9248,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9245/revisions/9248"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4325"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9245"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9245"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9245"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

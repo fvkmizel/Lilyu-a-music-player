@@ -1,0 +1,326 @@
+{
+  "id": 10248,
+  "title": "Unpatched Windows Search URI: Celah Keamanan Windows yang Bisa Mencuri Hash NTLMv2",
+  "slug": "unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2",
+  "url": "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/",
+  "date": "2026-06-03T12:51:20",
+  "date_gmt": "2026-06-03T12:51:20",
+  "modified": "2026-06-30T18:24:44",
+  "modified_gmt": "2026-06-30T18:24:44",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    983
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/06/NTLM.jpg",
+  "excerpt": "Pengantar Dunia keamanan siber kembali dihebohkan dengan temuan kerentanan baru pada sistem operasi Windows. Seorang peneliti keamanan menemukan bahwa fitur Windows Search URI dapat dimanfaatkan oleh penyerang untuk memperoleh hash NTLMv2 milik pengguna Windows. Yang lebih mengkhawatirkan, hingga saat ini celah tersebut belum mendapatkan patch resmi dari Microsoft. Meskipun tidak memungkinkan penyerang langsung mengambil alih komputer korban, kebocoran hash NTLMv2 dapat menjadi langkah awal untuk melakukan serangan yang lebih serius, terutama di lingkungan perusahaan yang menggunakan Active Directory. Artikel ini akan membahas bagaimana kerentanan tersebut bekerja, risiko yang ditimbulkan, serta langkah-langkah yang dapat dilakukan untuk mengurangi dampaknya. Apa Itu Windows…",
+  "content_html": "<h2>Pengantar</h2>\n<p>Dunia keamanan siber kembali dihebohkan dengan temuan kerentanan baru pada sistem operasi Windows. Seorang peneliti keamanan menemukan bahwa fitur <strong>Windows Search URI</strong> dapat dimanfaatkan oleh penyerang untuk memperoleh <strong>hash NTLMv2</strong> milik pengguna Windows. Yang lebih mengkhawatirkan, hingga saat ini celah tersebut belum mendapatkan patch resmi dari Microsoft.</p>\n<p>Meskipun tidak memungkinkan penyerang langsung mengambil alih komputer korban, kebocoran hash NTLMv2 dapat menjadi langkah awal untuk melakukan serangan yang lebih serius, terutama di lingkungan perusahaan yang menggunakan Active Directory.</p>\n<p>Artikel ini akan membahas bagaimana kerentanan tersebut bekerja, risiko yang ditimbulkan, serta langkah-langkah yang dapat dilakukan untuk mengurangi dampaknya.</p>\n<hr />\n<h2>Apa Itu Windows Search URI?</h2>\n<p>Windows memiliki fitur pencarian bawaan yang memudahkan pengguna menemukan file, folder, dokumen, maupun sumber daya jaringan. Untuk menjalankan fungsi tersebut, Windows menggunakan protokol khusus yang dikenal sebagai <strong>Search URI</strong>.</p>\n<p>Protokol ini biasanya menggunakan format seperti:</p>\n<pre><code>search:\r\n</code></pre>\n<p>atau</p>\n<pre><code>search-ms:\r\n</code></pre>\n<p>Ketika URI tersebut dibuka, Windows akan menjalankan fitur pencarian dan menampilkan hasil sesuai parameter yang diberikan.</p>\n<p>Awalnya fitur ini dibuat untuk meningkatkan produktivitas pengguna. Namun seperti banyak fitur lainnya, jika tidak dirancang dengan pengamanan yang memadai maka dapat menjadi pintu masuk bagi penyerang.</p>\n<hr />\n<h2>Bagaimana Kerentanan Ini Bekerja?</h2>\n<p>Kerentanan ini memanfaatkan cara Windows menangani permintaan pencarian melalui Search URI.</p>\n<p>Dalam skenario serangan, penyerang dapat membuat tautan khusus yang mengarahkan komputer korban untuk melakukan koneksi ke server yang dikendalikan oleh penyerang.</p>\n<p>Ketika koneksi tersebut terjadi, Windows secara otomatis mencoba melakukan proses autentikasi menggunakan protokol NTLM. Pada proses inilah hash NTLMv2 milik pengguna dapat bocor ke server penyerang.</p>\n<p>Secara sederhana, prosesnya adalah sebagai berikut:</p>\n<ol>\n<li>Penyerang membuat tautan Search URI berbahaya.</li>\n<li>Korban mengklik tautan tersebut.</li>\n<li>Windows mencoba mengakses sumber daya yang ditentukan.</li>\n<li>Sistem mengirimkan informasi autentikasi NTLM.</li>\n<li>Penyerang memperoleh hash NTLMv2 korban.</li>\n</ol>\n<p>Yang membuat celah ini berbahaya adalah korban sering kali tidak menyadari bahwa proses autentikasi tersebut sedang berlangsung.</p>\n<hr />\n<h2>Mengenal Hash NTLMv2</h2>\n<p>NTLMv2 merupakan mekanisme autentikasi yang masih banyak digunakan pada lingkungan Windows.</p>\n<p>Hash NTLMv2 bukanlah password asli pengguna, tetapi merupakan representasi terenkripsi dari kredensial yang digunakan saat proses login.</p>\n<p>Walaupun bukan password secara langsung, hash ini tetap sangat berharga bagi penyerang karena dapat digunakan dalam berbagai jenis serangan, seperti:</p>\n<ul>\n<li>Pass-the-Hash</li>\n<li>NTLM Relay Attack</li>\n<li>Brute Force Offline</li>\n<li>Credential Theft</li>\n</ul>\n<p>Jika hash berhasil disalahgunakan, penyerang dapat memperoleh akses ke sistem atau layanan lain tanpa mengetahui password asli korban.</p>\n<hr />\n<h2>Mengapa Kerentanan Ini Berbahaya?</h2>\n<h3>1. Tidak Membutuhkan Malware</h3>\n<p>Penyerang tidak perlu menginstal malware pada komputer korban.</p>\n<p>Cukup dengan membuat korban membuka tautan yang telah disiapkan, proses pencurian hash dapat terjadi.</p>\n<h3>2. Interaksi Korban Sangat Minim</h3>\n<p>Dalam banyak kasus, korban hanya perlu:</p>\n<ul>\n<li>Mengklik link</li>\n<li>Membuka file tertentu</li>\n<li>Mengakses dokumen yang berisi tautan berbahaya</li>\n</ul>\n<p>Hal ini membuat serangan menjadi lebih mudah dilakukan.</p>\n<h3>3. Dapat Menjadi Titik Awal Serangan yang Lebih Besar</h3>\n<p>Hash yang berhasil dicuri dapat digunakan untuk:</p>\n<ul>\n<li>Mengakses server internal</li>\n<li>Menyebarkan serangan ke sistem lain</li>\n<li>Meningkatkan hak akses</li>\n<li>Mengambil alih akun domain</li>\n</ul>\n<p>Bagi organisasi besar, risiko ini sangat signifikan.</p>\n<hr />\n<h2>Skenario Serangan</h2>\n<h3>Melalui Email Phishing</h3>\n<p>Metode yang paling umum adalah email phishing.</p>\n<p>Penyerang mengirimkan email yang tampak sah, misalnya:</p>\n<ul>\n<li>Undangan rapat</li>\n<li>Dokumen perusahaan</li>\n<li>Informasi pengiriman paket</li>\n<li>Pemberitahuan sistem</li>\n</ul>\n<p>Di dalam email tersebut terdapat tautan Search URI yang telah dimodifikasi.</p>\n<p>Saat korban mengklik tautan tersebut, proses pencurian hash dimulai.</p>\n<hr />\n<h3>Melalui Website Berbahaya</h3>\n<p>Penyerang juga dapat menempatkan tautan Search URI pada website yang tampak normal.</p>\n<p>Ketika pengguna mengakses atau mengklik tautan tertentu, Windows akan melakukan koneksi ke server penyerang.</p>\n<hr />\n<h3>Dalam Jaringan Perusahaan</h3>\n<p>Lingkungan perusahaan menjadi target yang sangat menarik.</p>\n<p>Jika penyerang berhasil memperoleh hash milik administrator domain atau pengguna dengan hak akses tinggi, dampaknya bisa sangat besar.</p>\n<p>Serangan dapat berkembang menjadi:</p>\n<ul>\n<li>Lateral movement</li>\n<li>Privilege escalation</li>\n<li>Domain compromise</li>\n</ul>\n<hr />\n<h2>Mengapa Belum Ditambal?</h2>\n<p>Menurut laporan yang beredar, Microsoft telah menerima informasi mengenai temuan ini.</p>\n<p>Namun hingga saat ini belum tersedia pembaruan keamanan resmi.</p>\n<p>Dalam beberapa kasus, vendor perangkat lunak dapat menganggap suatu temuan sebagai:</p>\n<ul>\n<li>Perilaku sistem yang sesuai desain</li>\n<li>Risiko rendah</li>\n<li>Membutuhkan kondisi khusus untuk dieksploitasi</li>\n</ul>\n<p>Meski demikian, banyak peneliti keamanan menilai bahwa potensi penyalahgunaan kerentanan ini cukup serius karena berkaitan dengan pencurian kredensial.</p>\n<hr />\n<h2>Dampak Terhadap Active Directory</h2>\n<p>Banyak organisasi masih menggunakan Active Directory sebagai pusat manajemen pengguna dan komputer.</p>\n<p>Jika hash NTLMv2 berhasil diperoleh, penyerang dapat mencoba melakukan:</p>\n<h3>Pass-the-Hash</h3>\n<p>Menggunakan hash yang dicuri untuk melakukan autentikasi tanpa mengetahui password.</p>\n<h3>NTLM Relay</h3>\n<p>Meneruskan proses autentikasi ke layanan lain untuk mendapatkan akses tidak sah.</p>\n<h3>Credential Cracking</h3>\n<p>Melakukan proses brute force terhadap hash guna mendapatkan password asli.</p>\n<p>Apabila salah satu metode tersebut berhasil, seluruh jaringan perusahaan dapat terancam.</p>\n<hr />\n<h2>Cara Mitigasi Sementara</h2>\n<p>Karena belum tersedia patch resmi, administrator sistem perlu menerapkan beberapa langkah mitigasi.</p>\n<h3>1. Kurangi Penggunaan NTLM</h3>\n<p>Jika memungkinkan, beralihlah ke metode autentikasi yang lebih modern seperti:</p>\n<ul>\n<li>Kerberos</li>\n<li>Certificate-based Authentication</li>\n<li>Windows Hello for Business</li>\n</ul>\n<hr />\n<h3>2. Batasi Koneksi SMB Keluar</h3>\n<p>Sebagian besar serangan pencurian hash memanfaatkan koneksi SMB.</p>\n<p>Administrator dapat memblokir koneksi SMB ke jaringan eksternal melalui firewall.</p>\n<hr />\n<h3>3. Aktifkan SMB Signing</h3>\n<p>SMB Signing membantu mengurangi risiko serangan relay dengan memastikan integritas komunikasi.</p>\n<hr />\n<h3>4. Gunakan Multi-Factor Authentication (MFA)</h3>\n<p>MFA tidak mencegah pencurian hash secara langsung, tetapi dapat mengurangi risiko jika kredensial berhasil disalahgunakan.</p>\n<hr />\n<h3>5. Edukasi Pengguna</h3>\n<p>Pengguna merupakan lapisan pertahanan pertama.</p>\n<p>Pastikan karyawan memahami risiko:</p>\n<ul>\n<li>Email phishing</li>\n<li>Tautan mencurigakan</li>\n<li>File dari sumber tidak dikenal</li>\n</ul>\n<p>Kesadaran keamanan yang baik dapat mengurangi peluang keberhasilan serangan.</p>\n<hr />\n<h2>Monitoring dan Deteksi</h2>\n<p>Tim keamanan juga perlu meningkatkan pemantauan terhadap aktivitas jaringan.</p>\n<p>Beberapa hal yang perlu diperhatikan antara lain:</p>\n<h3>Aktivitas NTLM yang Tidak Biasa</h3>\n<p>Perhatikan autentikasi yang mengarah ke:</p>\n<ul>\n<li>Alamat IP eksternal</li>\n<li>Server yang tidak dikenal</li>\n<li>Domain mencurigakan</li>\n</ul>\n<h3>Koneksi SMB Keluar</h3>\n<p>Koneksi SMB ke internet umumnya tidak diperlukan dan dapat menjadi indikator aktivitas berbahaya.</p>\n<h3>Log Keamanan Windows</h3>\n<p>Pantau event log yang berkaitan dengan:</p>\n<ul>\n<li>Authentication Failure</li>\n<li>NTLM Authentication</li>\n<li>Network Access</li>\n<li>Credential Validation</li>\n</ul>\n<p>Integrasi dengan SIEM dan EDR dapat membantu mendeteksi aktivitas mencurigakan lebih cepat.</p>\n<hr />\n<h2>Best Practice untuk Organisasi</h2>\n<p>Untuk meningkatkan keamanan jangka panjang, organisasi sebaiknya:</p>\n<ul>\n<li>Mengurangi ketergantungan pada NTLM.</li>\n<li>Mengimplementasikan prinsip Zero Trust.</li>\n<li>Melakukan audit akun secara berkala.</li>\n<li>Mengaktifkan MFA pada seluruh akun penting.</li>\n<li>Membatasi hak akses pengguna.</li>\n<li>Memperbarui sistem operasi dan aplikasi secara rutin.</li>\n<li>Melakukan pelatihan keamanan siber kepada karyawan.</li>\n</ul>\n<p>Langkah-langkah tersebut dapat membantu mengurangi risiko meskipun celah keamanan baru terus bermunculan.</p>\n<hr />\n<h2>Kesimpulan</h2>\n<p>Kerentanan pada Windows Search URI menunjukkan bahwa bahkan fitur yang tampak sederhana dapat menjadi celah keamanan yang berbahaya. Dengan memanfaatkan mekanisme Search URI, penyerang berpotensi memperoleh hash NTLMv2 pengguna dan menggunakannya untuk serangan lanjutan.</p>\n<p>Walaupun hingga saat ini belum tersedia patch resmi dari Microsoft, organisasi dan pengguna dapat mengambil langkah mitigasi untuk mengurangi risiko. Membatasi penggunaan NTLM, memblokir koneksi SMB yang tidak diperlukan, mengaktifkan MFA, serta meningkatkan kesadaran keamanan pengguna merupakan beberapa tindakan yang dapat dilakukan sejak sekarang.</p>\n<p>Di tengah meningkatnya ancaman siber, pendekatan keamanan yang proaktif tetap menjadi kunci utama dalam melindungi sistem dan data dari berbagai jenis serangan yang terus berkembang.</p>\n",
+  "content_text": "Pengantar\nDunia keamanan siber kembali dihebohkan dengan temuan kerentanan baru pada sistem operasi Windows. Seorang peneliti keamanan menemukan bahwa fitur  Windows Search URI  dapat dimanfaatkan oleh penyerang untuk memperoleh  hash NTLMv2  milik pengguna Windows. Yang lebih mengkhawatirkan, hingga saat ini celah tersebut belum mendapatkan patch resmi dari Microsoft.\nMeskipun tidak memungkinkan penyerang langsung mengambil alih komputer korban, kebocoran hash NTLMv2 dapat menjadi langkah awal untuk melakukan serangan yang lebih serius, terutama di lingkungan perusahaan yang menggunakan Active Directory.\nArtikel ini akan membahas bagaimana kerentanan tersebut bekerja, risiko yang ditimbulkan, serta langkah-langkah yang dapat dilakukan untuk mengurangi dampaknya.\nApa Itu Windows Search URI?\nWindows memiliki fitur pencarian bawaan yang memudahkan pengguna menemukan file, folder, dokumen, maupun sumber daya jaringan. Untuk menjalankan fungsi tersebut, Windows menggunakan protokol khusus yang dikenal sebagai  Search URI .\nProtokol ini biasanya menggunakan format seperti:\nsearch:\natau\nsearch-ms:\nKetika URI tersebut dibuka, Windows akan menjalankan fitur pencarian dan menampilkan hasil sesuai parameter yang diberikan.\nAwalnya fitur ini dibuat untuk meningkatkan produktivitas pengguna. Namun seperti banyak fitur lainnya, jika tidak dirancang dengan pengamanan yang memadai maka dapat menjadi pintu masuk bagi penyerang.\nBagaimana Kerentanan Ini Bekerja?\nKerentanan ini memanfaatkan cara Windows menangani permintaan pencarian melalui Search URI.\nDalam skenario serangan, penyerang dapat membuat tautan khusus yang mengarahkan komputer korban untuk melakukan koneksi ke server yang dikendalikan oleh penyerang.\nKetika koneksi tersebut terjadi, Windows secara otomatis mencoba melakukan proses autentikasi menggunakan protokol NTLM. Pada proses inilah hash NTLMv2 milik pengguna dapat bocor ke server penyerang.\nSecara sederhana, prosesnya adalah sebagai berikut:\nPenyerang membuat tautan Search URI berbahaya.\nKorban mengklik tautan tersebut.\nWindows mencoba mengakses sumber daya yang ditentukan.\nSistem mengirimkan informasi autentikasi NTLM.\nPenyerang memperoleh hash NTLMv2 korban.\nYang membuat celah ini berbahaya adalah korban sering kali tidak menyadari bahwa proses autentikasi tersebut sedang berlangsung.\nMengenal Hash NTLMv2\nNTLMv2 merupakan mekanisme autentikasi yang masih banyak digunakan pada lingkungan Windows.\nHash NTLMv2 bukanlah password asli pengguna, tetapi merupakan representasi terenkripsi dari kredensial yang digunakan saat proses login.\nWalaupun bukan password secara langsung, hash ini tetap sangat berharga bagi penyerang karena dapat digunakan dalam berbagai jenis serangan, seperti:\nPass-the-Hash\nNTLM Relay Attack\nBrute Force Offline\nCredential Theft\nJika hash berhasil disalahgunakan, penyerang dapat memperoleh akses ke sistem atau layanan lain tanpa mengetahui password asli korban.\nMengapa Kerentanan Ini Berbahaya?\n1. Tidak Membutuhkan Malware\nPenyerang tidak perlu menginstal malware pada komputer korban.\nCukup dengan membuat korban membuka tautan yang telah disiapkan, proses pencurian hash dapat terjadi.\n2. Interaksi Korban Sangat Minim\nDalam banyak kasus, korban hanya perlu:\nMengklik link\nMembuka file tertentu\nMengakses dokumen yang berisi tautan berbahaya\nHal ini membuat serangan menjadi lebih mudah dilakukan.\n3. Dapat Menjadi Titik Awal Serangan yang Lebih Besar\nHash yang berhasil dicuri dapat digunakan untuk:\nMengakses server internal\nMenyebarkan serangan ke sistem lain\nMeningkatkan hak akses\nMengambil alih akun domain\nBagi organisasi besar, risiko ini sangat signifikan.\nSkenario Serangan\nMelalui Email Phishing\nMetode yang paling umum adalah email phishing.\nPenyerang mengirimkan email yang tampak sah, misalnya:\nUndangan rapat\nDokumen perusahaan\nInformasi pengiriman paket\nPemberitahuan sistem\nDi dalam email tersebut terdapat tautan Search URI yang telah dimodifikasi.\nSaat korban mengklik tautan tersebut, proses pencurian hash dimulai.\nMelalui Website Berbahaya\nPenyerang juga dapat menempatkan tautan Search URI pada website yang tampak normal.\nKetika pengguna mengakses atau mengklik tautan tertentu, Windows akan melakukan koneksi ke server penyerang.\nDalam Jaringan Perusahaan\nLingkungan perusahaan menjadi target yang sangat menarik.\nJika penyerang berhasil memperoleh hash milik administrator domain atau pengguna dengan hak akses tinggi, dampaknya bisa sangat besar.\nSerangan dapat berkembang menjadi:\nLateral movement\nPrivilege escalation\nDomain compromise\nMengapa Belum Ditambal?\nMenurut laporan yang beredar, Microsoft telah menerima informasi mengenai temuan ini.\nNamun hingga saat ini belum tersedia pembaruan keamanan resmi.\nDalam beberapa kasus, vendor perangkat lunak dapat menganggap suatu temuan sebagai:\nPerilaku sistem yang sesuai desain\nRisiko rendah\nMembutuhkan kondisi khusus untuk dieksploitasi\nMeski demikian, banyak peneliti keamanan menilai bahwa potensi penyalahgunaan kerentanan ini cukup serius karena berkaitan dengan pencurian kredensial.\nDampak Terhadap Active Directory\nBanyak organisasi masih menggunakan Active Directory sebagai pusat manajemen pengguna dan komputer.\nJika hash NTLMv2 berhasil diperoleh, penyerang dapat mencoba melakukan:\nPass-the-Hash\nMenggunakan hash yang dicuri untuk melakukan autentikasi tanpa mengetahui password.\nNTLM Relay\nMeneruskan proses autentikasi ke layanan lain untuk mendapatkan akses tidak sah.\nCredential Cracking\nMelakukan proses brute force terhadap hash guna mendapatkan password asli.\nApabila salah satu metode tersebut berhasil, seluruh jaringan perusahaan dapat terancam.\nCara Mitigasi Sementara\nKarena belum tersedia patch resmi, administrator sistem perlu menerapkan beberapa langkah mitigasi.\n1. Kurangi Penggunaan NTLM\nJika memungkinkan, beralihlah ke metode autentikasi yang lebih modern seperti:\nKerberos\nCertificate-based Authentication\nWindows Hello for Business\n2. Batasi Koneksi SMB Keluar\nSebagian besar serangan pencurian hash memanfaatkan koneksi SMB.\nAdministrator dapat memblokir koneksi SMB ke jaringan eksternal melalui firewall.\n3. Aktifkan SMB Signing\nSMB Signing membantu mengurangi risiko serangan relay dengan memastikan integritas komunikasi.\n4. Gunakan Multi-Factor Authentication (MFA)\nMFA tidak mencegah pencurian hash secara langsung, tetapi dapat mengurangi risiko jika kredensial berhasil disalahgunakan.\n5. Edukasi Pengguna\nPengguna merupakan lapisan pertahanan pertama.\nPastikan karyawan memahami risiko:\nEmail phishing\nTautan mencurigakan\nFile dari sumber tidak dikenal\nKesadaran keamanan yang baik dapat mengurangi peluang keberhasilan serangan.\nMonitoring dan Deteksi\nTim keamanan juga perlu meningkatkan pemantauan terhadap aktivitas jaringan.\nBeberapa hal yang perlu diperhatikan antara lain:\nAktivitas NTLM yang Tidak Biasa\nPerhatikan autentikasi yang mengarah ke:\nAlamat IP eksternal\nServer yang tidak dikenal\nDomain mencurigakan\nKoneksi SMB Keluar\nKoneksi SMB ke internet umumnya tidak diperlukan dan dapat menjadi indikator aktivitas berbahaya.\nLog Keamanan Windows\nPantau event log yang berkaitan dengan:\nAuthentication Failure\nNTLM Authentication\nNetwork Access\nCredential Validation\nIntegrasi dengan SIEM dan EDR dapat membantu mendeteksi aktivitas mencurigakan lebih cepat.\nBest Practice untuk Organisasi\nUntuk meningkatkan keamanan jangka panjang, organisasi sebaiknya:\nMengurangi ketergantungan pada NTLM.\nMengimplementasikan prinsip Zero Trust.\nMelakukan audit akun secara berkala.\nMengaktifkan MFA pada seluruh akun penting.\nMembatasi hak akses pengguna.\nMemperbarui sistem operasi dan aplikasi secara rutin.\nMelakukan pelatihan keamanan siber kepada karyawan.\nLangkah-langkah tersebut dapat membantu mengurangi risiko meskipun celah keamanan baru terus bermunculan.\nKesimpulan\nKerentanan pada Windows Search URI menunjukkan bahwa bahkan fitur yang tampak sederhana dapat menjadi celah keamanan yang berbahaya. Dengan memanfaatkan mekanisme Search URI, penyerang berpotensi memperoleh hash NTLMv2 pengguna dan menggunakannya untuk serangan lanjutan.\nWalaupun hingga saat ini belum tersedia patch resmi dari Microsoft, organisasi dan pengguna dapat mengambil langkah mitigasi untuk mengurangi risiko. Membatasi penggunaan NTLM, memblokir koneksi SMB yang tidak diperlukan, mengaktifkan MFA, serta meningkatkan kesadaran keamanan pengguna merupakan beberapa tindakan yang dapat dilakukan sejak sekarang.\nDi tengah meningkatnya ancaman siber, pendekatan keamanan yang proaktif tetap menjadi kunci utama dalam melindungi sistem dan data dari berbagai jenis serangan yang terus berkembang.",
+  "raw": {
+    "id": 10248,
+    "date": "2026-06-03T12:51:20",
+    "date_gmt": "2026-06-03T12:51:20",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=10248"
+    },
+    "modified": "2026-06-30T18:24:44",
+    "modified_gmt": "2026-06-30T18:24:44",
+    "slug": "unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/",
+    "title": {
+      "rendered": "Unpatched Windows Search URI: Celah Keamanan Windows yang Bisa Mencuri Hash NTLMv2"
+    },
+    "content": {
+      "rendered": "<h2>Pengantar</h2>\n<p>Dunia keamanan siber kembali dihebohkan dengan temuan kerentanan baru pada sistem operasi Windows. Seorang peneliti keamanan menemukan bahwa fitur <strong>Windows Search URI</strong> dapat dimanfaatkan oleh penyerang untuk memperoleh <strong>hash NTLMv2</strong> milik pengguna Windows. Yang lebih mengkhawatirkan, hingga saat ini celah tersebut belum mendapatkan patch resmi dari Microsoft.</p>\n<p>Meskipun tidak memungkinkan penyerang langsung mengambil alih komputer korban, kebocoran hash NTLMv2 dapat menjadi langkah awal untuk melakukan serangan yang lebih serius, terutama di lingkungan perusahaan yang menggunakan Active Directory.</p>\n<p>Artikel ini akan membahas bagaimana kerentanan tersebut bekerja, risiko yang ditimbulkan, serta langkah-langkah yang dapat dilakukan untuk mengurangi dampaknya.</p>\n<hr />\n<h2>Apa Itu Windows Search URI?</h2>\n<p>Windows memiliki fitur pencarian bawaan yang memudahkan pengguna menemukan file, folder, dokumen, maupun sumber daya jaringan. Untuk menjalankan fungsi tersebut, Windows menggunakan protokol khusus yang dikenal sebagai <strong>Search URI</strong>.</p>\n<p>Protokol ini biasanya menggunakan format seperti:</p>\n<pre><code>search:\r\n</code></pre>\n<p>atau</p>\n<pre><code>search-ms:\r\n</code></pre>\n<p>Ketika URI tersebut dibuka, Windows akan menjalankan fitur pencarian dan menampilkan hasil sesuai parameter yang diberikan.</p>\n<p>Awalnya fitur ini dibuat untuk meningkatkan produktivitas pengguna. Namun seperti banyak fitur lainnya, jika tidak dirancang dengan pengamanan yang memadai maka dapat menjadi pintu masuk bagi penyerang.</p>\n<hr />\n<h2>Bagaimana Kerentanan Ini Bekerja?</h2>\n<p>Kerentanan ini memanfaatkan cara Windows menangani permintaan pencarian melalui Search URI.</p>\n<p>Dalam skenario serangan, penyerang dapat membuat tautan khusus yang mengarahkan komputer korban untuk melakukan koneksi ke server yang dikendalikan oleh penyerang.</p>\n<p>Ketika koneksi tersebut terjadi, Windows secara otomatis mencoba melakukan proses autentikasi menggunakan protokol NTLM. Pada proses inilah hash NTLMv2 milik pengguna dapat bocor ke server penyerang.</p>\n<p>Secara sederhana, prosesnya adalah sebagai berikut:</p>\n<ol>\n<li>Penyerang membuat tautan Search URI berbahaya.</li>\n<li>Korban mengklik tautan tersebut.</li>\n<li>Windows mencoba mengakses sumber daya yang ditentukan.</li>\n<li>Sistem mengirimkan informasi autentikasi NTLM.</li>\n<li>Penyerang memperoleh hash NTLMv2 korban.</li>\n</ol>\n<p>Yang membuat celah ini berbahaya adalah korban sering kali tidak menyadari bahwa proses autentikasi tersebut sedang berlangsung.</p>\n<hr />\n<h2>Mengenal Hash NTLMv2</h2>\n<p>NTLMv2 merupakan mekanisme autentikasi yang masih banyak digunakan pada lingkungan Windows.</p>\n<p>Hash NTLMv2 bukanlah password asli pengguna, tetapi merupakan representasi terenkripsi dari kredensial yang digunakan saat proses login.</p>\n<p>Walaupun bukan password secara langsung, hash ini tetap sangat berharga bagi penyerang karena dapat digunakan dalam berbagai jenis serangan, seperti:</p>\n<ul>\n<li>Pass-the-Hash</li>\n<li>NTLM Relay Attack</li>\n<li>Brute Force Offline</li>\n<li>Credential Theft</li>\n</ul>\n<p>Jika hash berhasil disalahgunakan, penyerang dapat memperoleh akses ke sistem atau layanan lain tanpa mengetahui password asli korban.</p>\n<hr />\n<h2>Mengapa Kerentanan Ini Berbahaya?</h2>\n<h3>1. Tidak Membutuhkan Malware</h3>\n<p>Penyerang tidak perlu menginstal malware pada komputer korban.</p>\n<p>Cukup dengan membuat korban membuka tautan yang telah disiapkan, proses pencurian hash dapat terjadi.</p>\n<h3>2. Interaksi Korban Sangat Minim</h3>\n<p>Dalam banyak kasus, korban hanya perlu:</p>\n<ul>\n<li>Mengklik link</li>\n<li>Membuka file tertentu</li>\n<li>Mengakses dokumen yang berisi tautan berbahaya</li>\n</ul>\n<p>Hal ini membuat serangan menjadi lebih mudah dilakukan.</p>\n<h3>3. Dapat Menjadi Titik Awal Serangan yang Lebih Besar</h3>\n<p>Hash yang berhasil dicuri dapat digunakan untuk:</p>\n<ul>\n<li>Mengakses server internal</li>\n<li>Menyebarkan serangan ke sistem lain</li>\n<li>Meningkatkan hak akses</li>\n<li>Mengambil alih akun domain</li>\n</ul>\n<p>Bagi organisasi besar, risiko ini sangat signifikan.</p>\n<hr />\n<h2>Skenario Serangan</h2>\n<h3>Melalui Email Phishing</h3>\n<p>Metode yang paling umum adalah email phishing.</p>\n<p>Penyerang mengirimkan email yang tampak sah, misalnya:</p>\n<ul>\n<li>Undangan rapat</li>\n<li>Dokumen perusahaan</li>\n<li>Informasi pengiriman paket</li>\n<li>Pemberitahuan sistem</li>\n</ul>\n<p>Di dalam email tersebut terdapat tautan Search URI yang telah dimodifikasi.</p>\n<p>Saat korban mengklik tautan tersebut, proses pencurian hash dimulai.</p>\n<hr />\n<h3>Melalui Website Berbahaya</h3>\n<p>Penyerang juga dapat menempatkan tautan Search URI pada website yang tampak normal.</p>\n<p>Ketika pengguna mengakses atau mengklik tautan tertentu, Windows akan melakukan koneksi ke server penyerang.</p>\n<hr />\n<h3>Dalam Jaringan Perusahaan</h3>\n<p>Lingkungan perusahaan menjadi target yang sangat menarik.</p>\n<p>Jika penyerang berhasil memperoleh hash milik administrator domain atau pengguna dengan hak akses tinggi, dampaknya bisa sangat besar.</p>\n<p>Serangan dapat berkembang menjadi:</p>\n<ul>\n<li>Lateral movement</li>\n<li>Privilege escalation</li>\n<li>Domain compromise</li>\n</ul>\n<hr />\n<h2>Mengapa Belum Ditambal?</h2>\n<p>Menurut laporan yang beredar, Microsoft telah menerima informasi mengenai temuan ini.</p>\n<p>Namun hingga saat ini belum tersedia pembaruan keamanan resmi.</p>\n<p>Dalam beberapa kasus, vendor perangkat lunak dapat menganggap suatu temuan sebagai:</p>\n<ul>\n<li>Perilaku sistem yang sesuai desain</li>\n<li>Risiko rendah</li>\n<li>Membutuhkan kondisi khusus untuk dieksploitasi</li>\n</ul>\n<p>Meski demikian, banyak peneliti keamanan menilai bahwa potensi penyalahgunaan kerentanan ini cukup serius karena berkaitan dengan pencurian kredensial.</p>\n<hr />\n<h2>Dampak Terhadap Active Directory</h2>\n<p>Banyak organisasi masih menggunakan Active Directory sebagai pusat manajemen pengguna dan komputer.</p>\n<p>Jika hash NTLMv2 berhasil diperoleh, penyerang dapat mencoba melakukan:</p>\n<h3>Pass-the-Hash</h3>\n<p>Menggunakan hash yang dicuri untuk melakukan autentikasi tanpa mengetahui password.</p>\n<h3>NTLM Relay</h3>\n<p>Meneruskan proses autentikasi ke layanan lain untuk mendapatkan akses tidak sah.</p>\n<h3>Credential Cracking</h3>\n<p>Melakukan proses brute force terhadap hash guna mendapatkan password asli.</p>\n<p>Apabila salah satu metode tersebut berhasil, seluruh jaringan perusahaan dapat terancam.</p>\n<hr />\n<h2>Cara Mitigasi Sementara</h2>\n<p>Karena belum tersedia patch resmi, administrator sistem perlu menerapkan beberapa langkah mitigasi.</p>\n<h3>1. Kurangi Penggunaan NTLM</h3>\n<p>Jika memungkinkan, beralihlah ke metode autentikasi yang lebih modern seperti:</p>\n<ul>\n<li>Kerberos</li>\n<li>Certificate-based Authentication</li>\n<li>Windows Hello for Business</li>\n</ul>\n<hr />\n<h3>2. Batasi Koneksi SMB Keluar</h3>\n<p>Sebagian besar serangan pencurian hash memanfaatkan koneksi SMB.</p>\n<p>Administrator dapat memblokir koneksi SMB ke jaringan eksternal melalui firewall.</p>\n<hr />\n<h3>3. Aktifkan SMB Signing</h3>\n<p>SMB Signing membantu mengurangi risiko serangan relay dengan memastikan integritas komunikasi.</p>\n<hr />\n<h3>4. Gunakan Multi-Factor Authentication (MFA)</h3>\n<p>MFA tidak mencegah pencurian hash secara langsung, tetapi dapat mengurangi risiko jika kredensial berhasil disalahgunakan.</p>\n<hr />\n<h3>5. Edukasi Pengguna</h3>\n<p>Pengguna merupakan lapisan pertahanan pertama.</p>\n<p>Pastikan karyawan memahami risiko:</p>\n<ul>\n<li>Email phishing</li>\n<li>Tautan mencurigakan</li>\n<li>File dari sumber tidak dikenal</li>\n</ul>\n<p>Kesadaran keamanan yang baik dapat mengurangi peluang keberhasilan serangan.</p>\n<hr />\n<h2>Monitoring dan Deteksi</h2>\n<p>Tim keamanan juga perlu meningkatkan pemantauan terhadap aktivitas jaringan.</p>\n<p>Beberapa hal yang perlu diperhatikan antara lain:</p>\n<h3>Aktivitas NTLM yang Tidak Biasa</h3>\n<p>Perhatikan autentikasi yang mengarah ke:</p>\n<ul>\n<li>Alamat IP eksternal</li>\n<li>Server yang tidak dikenal</li>\n<li>Domain mencurigakan</li>\n</ul>\n<h3>Koneksi SMB Keluar</h3>\n<p>Koneksi SMB ke internet umumnya tidak diperlukan dan dapat menjadi indikator aktivitas berbahaya.</p>\n<h3>Log Keamanan Windows</h3>\n<p>Pantau event log yang berkaitan dengan:</p>\n<ul>\n<li>Authentication Failure</li>\n<li>NTLM Authentication</li>\n<li>Network Access</li>\n<li>Credential Validation</li>\n</ul>\n<p>Integrasi dengan SIEM dan EDR dapat membantu mendeteksi aktivitas mencurigakan lebih cepat.</p>\n<hr />\n<h2>Best Practice untuk Organisasi</h2>\n<p>Untuk meningkatkan keamanan jangka panjang, organisasi sebaiknya:</p>\n<ul>\n<li>Mengurangi ketergantungan pada NTLM.</li>\n<li>Mengimplementasikan prinsip Zero Trust.</li>\n<li>Melakukan audit akun secara berkala.</li>\n<li>Mengaktifkan MFA pada seluruh akun penting.</li>\n<li>Membatasi hak akses pengguna.</li>\n<li>Memperbarui sistem operasi dan aplikasi secara rutin.</li>\n<li>Melakukan pelatihan keamanan siber kepada karyawan.</li>\n</ul>\n<p>Langkah-langkah tersebut dapat membantu mengurangi risiko meskipun celah keamanan baru terus bermunculan.</p>\n<hr />\n<h2>Kesimpulan</h2>\n<p>Kerentanan pada Windows Search URI menunjukkan bahwa bahkan fitur yang tampak sederhana dapat menjadi celah keamanan yang berbahaya. Dengan memanfaatkan mekanisme Search URI, penyerang berpotensi memperoleh hash NTLMv2 pengguna dan menggunakannya untuk serangan lanjutan.</p>\n<p>Walaupun hingga saat ini belum tersedia patch resmi dari Microsoft, organisasi dan pengguna dapat mengambil langkah mitigasi untuk mengurangi risiko. Membatasi penggunaan NTLM, memblokir koneksi SMB yang tidak diperlukan, mengaktifkan MFA, serta meningkatkan kesadaran keamanan pengguna merupakan beberapa tindakan yang dapat dilakukan sejak sekarang.</p>\n<p>Di tengah meningkatnya ancaman siber, pendekatan keamanan yang proaktif tetap menjadi kunci utama dalam melindungi sistem dan data dari berbagai jenis serangan yang terus berkembang.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dunia keamanan siber kembali dihebohkan dengan temuan kerentanan baru pada sistem operasi Windows. Seorang peneliti keamanan menemukan bahwa fitur Windows Search URI dapat dimanfaatkan oleh penyerang untuk memperoleh hash NTLMv2 milik pengguna Windows. Yang lebih mengkhawatirkan, hingga saat ini celah tersebut belum mendapatkan patch resmi dari Microsoft. Meskipun tidak memungkinkan penyerang langsung mengambil alih komputer korban, kebocoran hash NTLMv2 dapat menjadi langkah awal untuk melakukan serangan yang lebih serius, terutama di lingkungan perusahaan yang menggunakan Active Directory. Artikel ini akan membahas bagaimana kerentanan tersebut bekerja, risiko yang ditimbulkan, serta langkah-langkah yang dapat dilakukan untuk mengurangi dampaknya. Apa Itu Windows&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 10249,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Unpatched Windows Search URI",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      983
+    ],
+    "class_list": [
+      "post-10248",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-ntlm"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Unpatched Windows Search URI: Celah Keamanan Windows yang Bisa Mencuri Hash NTLMv2 - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Unpatched Windows Search URI: Celah Keamanan Windows yang Bisa Mencuri Hash NTLMv2 - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dunia keamanan siber kembali dihebohkan dengan temuan kerentanan baru pada sistem operasi Windows. Seorang peneliti keamanan menemukan bahwa fitur Windows Search URI dapat dimanfaatkan oleh penyerang untuk memperoleh hash NTLMv2 milik pengguna Windows. Yang lebih mengkhawatirkan, hingga saat ini celah tersebut belum mendapatkan patch resmi dari Microsoft. Meskipun tidak memungkinkan penyerang langsung mengambil alih komputer korban, kebocoran hash NTLMv2 dapat menjadi langkah awal untuk melakukan serangan yang lebih serius, terutama di lingkungan perusahaan yang menggunakan Active Directory. Artikel ini akan membahas bagaimana kerentanan tersebut bekerja, risiko yang ditimbulkan, serta langkah-langkah yang dapat dilakukan untuk mengurangi dampaknya. Apa Itu Windows...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-06-03T12:51:20+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T18:24:44+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/06/NTLM.jpg\" />\n\t<meta property=\"og:image:width\" content=\"900\" />\n\t<meta property=\"og:image:height\" content=\"470\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/\",\"url\":\"https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/\",\"name\":\"Unpatched Windows Search URI: Celah Keamanan Windows yang Bisa Mencuri Hash NTLMv2 - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/06/NTLM.jpg\",\"datePublished\":\"2026-06-03T12:51:20+00:00\",\"dateModified\":\"2026-06-30T18:24:44+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/06/NTLM.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/06/NTLM.jpg\",\"width\":900,\"height\":470},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Unpatched Windows Search URI: Celah Keamanan Windows yang Bisa Mencuri Hash NTLMv2\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Unpatched Windows Search URI: Celah Keamanan Windows yang Bisa Mencuri Hash NTLMv2 - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Unpatched Windows Search URI: Celah Keamanan Windows yang Bisa Mencuri Hash NTLMv2 - buletinsiber.com",
+      "og_description": "Pengantar Dunia keamanan siber kembali dihebohkan dengan temuan kerentanan baru pada sistem operasi Windows. Seorang peneliti keamanan menemukan bahwa fitur Windows Search URI dapat dimanfaatkan oleh penyerang untuk memperoleh hash NTLMv2 milik pengguna Windows. Yang lebih mengkhawatirkan, hingga saat ini celah tersebut belum mendapatkan patch resmi dari Microsoft. Meskipun tidak memungkinkan penyerang langsung mengambil alih komputer korban, kebocoran hash NTLMv2 dapat menjadi langkah awal untuk melakukan serangan yang lebih serius, terutama di lingkungan perusahaan yang menggunakan Active Directory. Artikel ini akan membahas bagaimana kerentanan tersebut bekerja, risiko yang ditimbulkan, serta langkah-langkah yang dapat dilakukan untuk mengurangi dampaknya. Apa Itu Windows...",
+      "og_url": "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-06-03T12:51:20+00:00",
+      "article_modified_time": "2026-06-30T18:24:44+00:00",
+      "og_image": [
+        {
+          "width": 900,
+          "height": 470,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/06/NTLM.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/",
+            "url": "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/",
+            "name": "Unpatched Windows Search URI: Celah Keamanan Windows yang Bisa Mencuri Hash NTLMv2 - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/06/NTLM.jpg",
+            "datePublished": "2026-06-03T12:51:20+00:00",
+            "dateModified": "2026-06-30T18:24:44+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/06/NTLM.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/06/NTLM.jpg",
+            "width": 900,
+            "height": 470
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/unpatched-windows-search-uri-celah-keamanan-windows-yang-bisa-mencuri-hash-ntlmv2/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Unpatched Windows Search URI: Celah Keamanan Windows yang Bisa Mencuri Hash NTLMv2"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10248",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=10248"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10248/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 10250,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10248/revisions/10250"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/10249"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=10248"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=10248"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=10248"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

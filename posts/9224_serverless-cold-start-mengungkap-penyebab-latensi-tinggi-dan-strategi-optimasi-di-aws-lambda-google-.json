@@ -1,0 +1,329 @@
+{
+  "id": 9224,
+  "title": "Serverless Cold Start: Mengungkap Penyebab Latensi Tinggi dan Strategi Optimasi di AWS Lambda & Google Cloud Functions",
+  "slug": "serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions",
+  "url": "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/",
+  "date": "2026-01-13T00:10:09",
+  "date_gmt": "2026-01-13T00:10:09",
+  "modified": "2026-07-06T21:31:48",
+  "modified_gmt": "2026-07-06T21:31:48",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    974,
+    63
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/06/FAQ-Seputar-Open-Source-vs-Proprietary-Software-1024x576-1.png",
+  "excerpt": "Pengantar Arsitektur serverless semakin populer karena kemudahan skalabilitas dan efisiensi biaya. Layanan seperti AWS Lambda dan Google Cloud Functions memungkinkan pengembang menjalankan kode tanpa perlu mengelola server. Namun, di balik fleksibilitas tersebut terdapat satu tantangan klasik: cold start. Cold start sering menjadi penyebab utama lonjakan latensi yang terasa “tanpa sebab”, terutama pada aplikasi dengan kebutuhan respons cepat. Artikel ini membedah apa itu serverless cold start, mengapa ia terjadi, serta strategi teknis untuk mengoptimalkan performa latensi pada AWS Lambda dan Google Cloud Functions. Apa Itu Serverless Cold Start? Cold start adalah kondisi ketika platform serverless harus menyiapkan lingkungan eksekusi baru sebelum…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"364\" data-end=\"380\"><span style=\"color: #000000;\"><strong data-start=\"367\" data-end=\"380\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"382\" data-end=\"692\"><span style=\"color: #000000;\">Arsitektur <em data-start=\"393\" data-end=\"405\">serverless</em> semakin populer karena kemudahan skalabilitas dan efisiensi biaya. Layanan seperti AWS Lambda dan Google Cloud Functions memungkinkan pengembang menjalankan kode tanpa perlu mengelola server. Namun, di balik fleksibilitas tersebut terdapat satu tantangan klasik: cold start.</span></p>\n<p style=\"text-align: justify;\" data-start=\"694\" data-end=\"1009\"><span style=\"color: #000000;\">Cold start sering menjadi penyebab utama lonjakan latensi yang terasa “tanpa sebab”, terutama pada aplikasi dengan kebutuhan respons cepat. Artikel ini membedah apa itu serverless cold start, mengapa ia terjadi, serta strategi teknis untuk mengoptimalkan performa latensi pada AWS Lambda dan Google Cloud Functions.</span></p>\n<hr data-start=\"1011\" data-end=\"1014\" />\n<h3 style=\"text-align: justify;\" data-start=\"1016\" data-end=\"1053\"><span style=\"color: #000000;\"><strong data-start=\"1019\" data-end=\"1053\">Apa Itu Serverless Cold Start?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"1055\" data-end=\"1202\"><span style=\"color: #000000;\">Cold start adalah kondisi ketika platform serverless harus <strong data-start=\"1114\" data-end=\"1153\">menyiapkan lingkungan eksekusi baru</strong> sebelum menjalankan fungsi. Proses ini mencakup:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1204\" data-end=\"1367\">\n<li data-start=\"1204\" data-end=\"1234\">\n<p data-start=\"1206\" data-end=\"1234\"><span style=\"color: #000000;\">Alokasi resource komputasi</span></p>\n</li>\n<li data-start=\"1235\" data-end=\"1288\">\n<p data-start=\"1237\" data-end=\"1288\"><span style=\"color: #000000;\">Inisialisasi runtime (Node.js, Python, Java, dll)</span></p>\n</li>\n<li data-start=\"1289\" data-end=\"1320\">\n<p data-start=\"1291\" data-end=\"1320\"><span style=\"color: #000000;\">Load dependency dan library</span></p>\n</li>\n<li data-start=\"1321\" data-end=\"1367\">\n<p data-start=\"1323\" data-end=\"1367\"><span style=\"color: #000000;\">Menjalankan kode inisialisasi (<em data-start=\"1354\" data-end=\"1366\">init phase</em>)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1369\" data-end=\"1486\"><span style=\"color: #000000;\">Selama fase ini, request pertama akan mengalami <strong data-start=\"1417\" data-end=\"1441\">latensi lebih tinggi</strong> dibanding request berikutnya (<em data-start=\"1472\" data-end=\"1484\">warm start</em>).</span></p>\n<blockquote>\n<p data-start=\"1369\" data-end=\"1486\">baca juga : <a href=\"https://buletinsiber.com/bypass-firewall-bagaimana-teknik-dns-tunneling-menyundupkan-data-keluar-dari-jaringan-perusahaan/\">Bypass Firewall: Bagaimana Teknik DNS Tunneling Menyundupkan Data Keluar dari Jaringan Perusahaan</a></p>\n</blockquote>\n<hr data-start=\"1488\" data-end=\"1491\" />\n<h3 style=\"text-align: justify;\" data-start=\"1493\" data-end=\"1527\"><span style=\"color: #000000;\"><strong data-start=\"1496\" data-end=\"1527\">Mengapa Cold Start Terjadi?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1534\" data-end=\"1571\"><span style=\"color: #000000;\"><strong data-start=\"1538\" data-end=\"1571\">Model Eksekusi Berbasis Event</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1573\" data-end=\"1805\"><span style=\"color: #000000;\">Serverless bersifat <em data-start=\"1593\" data-end=\"1607\">event-driven</em>. Jika sebuah fungsi tidak dipanggil dalam periode tertentu, penyedia cloud dapat menghentikan environment untuk menghemat resource. Saat ada request baru, sistem harus membuat environment dari nol.</span></p>\n<hr data-start=\"1807\" data-end=\"1810\" />\n<h4 style=\"text-align: justify;\" data-start=\"1812\" data-end=\"1849\"><span style=\"color: #000000;\"><strong data-start=\"1816\" data-end=\"1849\">Ukuran Dependency dan Runtime</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1851\" data-end=\"2056\"><span style=\"color: #000000;\">Semakin besar ukuran package dan semakin berat runtime (misalnya Java dibanding Node.js), semakin lama waktu inisialisasi. Dependency yang dimuat saat startup sangat berpengaruh terhadap durasi cold start.</span></p>\n<hr data-start=\"2058\" data-end=\"2061\" />\n<h4 style=\"text-align: justify;\" data-start=\"2063\" data-end=\"2087\"><span style=\"color: #000000;\"><strong data-start=\"2067\" data-end=\"2087\">Isolasi Keamanan</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2089\" data-end=\"2233\"><span style=\"color: #000000;\">Platform serverless menggunakan isolasi kuat (container atau microVM). Proses ini penting untuk keamanan, namun menambah overhead waktu startup.</span></p>\n<hr data-start=\"2235\" data-end=\"2238\" />\n<h3 style=\"text-align: justify;\" data-start=\"2240\" data-end=\"2297\"><span style=\"color: #000000;\"><strong data-start=\"2243\" data-end=\"2297\">Cold Start di AWS Lambda vs Google Cloud Functions</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2304\" data-end=\"2322\"><span style=\"color: #000000;\"><strong data-start=\"2308\" data-end=\"2322\">AWS Lambda</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2324\" data-end=\"2461\"><span style=\"color: #000000;\">AWS Lambda memisahkan fase eksekusi menjadi <strong data-start=\"2368\" data-end=\"2376\">Init</strong>, <strong data-start=\"2378\" data-end=\"2388\">Invoke</strong>, dan <strong data-start=\"2394\" data-end=\"2406\">Shutdown</strong>. Cold start terjadi saat fase <em data-start=\"2437\" data-end=\"2443\">Init</em>, terutama ketika:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2463\" data-end=\"2540\">\n<li data-start=\"2463\" data-end=\"2490\">\n<p data-start=\"2465\" data-end=\"2490\"><span style=\"color: #000000;\">Fungsi jarang dipanggil</span></p>\n</li>\n<li data-start=\"2491\" data-end=\"2510\">\n<p data-start=\"2493\" data-end=\"2510\"><span style=\"color: #000000;\">Menggunakan VPC</span></p>\n</li>\n<li data-start=\"2511\" data-end=\"2540\">\n<p data-start=\"2513\" data-end=\"2540\"><span style=\"color: #000000;\">Menggunakan runtime berat</span></p>\n</li>\n</ul>\n<hr data-start=\"2715\" data-end=\"2718\" />\n<h4 style=\"text-align: justify;\" data-start=\"2720\" data-end=\"2750\"><span style=\"color: #000000;\"><strong data-start=\"2724\" data-end=\"2750\">Google Cloud Functions</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2752\" data-end=\"2933\"><span style=\"color: #000000;\">Google Cloud Functions juga mengalami cold start, terutama pada <em data-start=\"2816\" data-end=\"2835\">1st Gen Functions</em>. Lingkungan eksekusi akan di-<em data-start=\"2865\" data-end=\"2875\">recreate</em> jika idle terlalu lama atau terjadi autoscaling dari nol. (dikutip dari <a href=\"https://cloud.google.com/functions/docs/concepts/execution-environment\">google cloud functions</a>).</span></p>\n<blockquote>\n<p data-start=\"2752\" data-end=\"2933\">baca juga : <a href=\"https://buletinsiber.com/cve-2025-32462-kerentanan-berbahaya-pada-sudo-di-sistem-linux-unix/\">CVE‑2025‑32462: Kerentanan Berbahaya pada Sudo di Sistem Linux/Unix</a></p>\n</blockquote>\n<hr data-start=\"3114\" data-end=\"3117\" />\n<h3 style=\"text-align: justify;\" data-start=\"3119\" data-end=\"3160\"><span style=\"color: #000000;\"><strong data-start=\"3122\" data-end=\"3160\">Strategi Mengoptimalkan Cold Start</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3167\" data-end=\"3200\"><span style=\"color: #000000;\"><strong data-start=\"3171\" data-end=\"3200\">Pilih Runtime yang Ringan</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3202\" data-end=\"3247\"><span style=\"color: #000000;\">Gunakan runtime dengan startup cepat seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3249\" data-end=\"3271\">\n<li data-start=\"3249\" data-end=\"3260\">\n<p data-start=\"3251\" data-end=\"3260\"><span style=\"color: #000000;\">Node.js</span></p>\n</li>\n<li data-start=\"3261\" data-end=\"3271\">\n<p data-start=\"3263\" data-end=\"3271\"><span style=\"color: #000000;\">Python</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3273\" data-end=\"3329\"><span style=\"color: #000000;\">Hindari runtime berat jika tidak benar-benar dibutuhkan.</span></p>\n<hr data-start=\"3331\" data-end=\"3334\" />\n<h4 style=\"text-align: justify;\" data-start=\"3336\" data-end=\"3365\"><span style=\"color: #000000;\"><strong data-start=\"3340\" data-end=\"3365\">Minimalkan Dependency</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"3367\" data-end=\"3525\">\n<li data-start=\"3367\" data-end=\"3405\">\n<p data-start=\"3369\" data-end=\"3405\"><span style=\"color: #000000;\">Hapus library yang tidak digunakan</span></p>\n</li>\n<li data-start=\"3406\" data-end=\"3460\">\n<p data-start=\"3408\" data-end=\"3460\"><span style=\"color: #000000;\">Gunakan <em data-start=\"3416\" data-end=\"3425\">bundler</em> untuk mengecilkan ukuran package</span></p>\n</li>\n<li data-start=\"3461\" data-end=\"3525\">\n<p data-start=\"3463\" data-end=\"3525\"><span style=\"color: #000000;\">Pindahkan inisialisasi berat ke luar handler jika memungkinkan</span></p>\n</li>\n</ul>\n<hr data-start=\"3527\" data-end=\"3530\" />\n<h4 style=\"text-align: justify;\" data-start=\"3532\" data-end=\"3567\"><span style=\"color: #000000;\"><strong data-start=\"3536\" data-end=\"3567\">Manfaatkan Warm-Up Strategy</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3569\" data-end=\"3723\"><span style=\"color: #000000;\">Kirim request berkala (cron job) agar fungsi tetap dalam kondisi <em data-start=\"3634\" data-end=\"3640\">warm</em>. Meskipun bukan solusi ideal, cara ini efektif untuk sistem dengan traffic rendah.</span></p>\n<hr data-start=\"3725\" data-end=\"3728\" />\n<h4 style=\"text-align: justify;\" data-start=\"3730\" data-end=\"3782\"><span style=\"color: #000000;\"><strong data-start=\"3734\" data-end=\"3782\">Gunakan Provisioned Concurrency (AWS Lambda)</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3784\" data-end=\"3936\"><span style=\"color: #000000;\">AWS menyediakan <strong data-start=\"3800\" data-end=\"3827\">Provisioned Concurrency</strong> untuk menjaga sejumlah instance Lambda tetap aktif, sehingga cold start dapat dieliminasi hampir sepenuhnya.</span></p>\n<hr data-start=\"3938\" data-end=\"3941\" />\n<h4 style=\"text-align: justify;\" data-start=\"3943\" data-end=\"3977\"><span style=\"color: #000000;\"><strong data-start=\"3947\" data-end=\"3977\">Optimasi Kode Inisialisasi</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"3979\" data-end=\"4093\">\n<li data-start=\"3979\" data-end=\"4020\">\n<p data-start=\"3981\" data-end=\"4020\"><span style=\"color: #000000;\">Hindari koneksi database saat startup</span></p>\n</li>\n<li data-start=\"4021\" data-end=\"4049\">\n<p data-start=\"4023\" data-end=\"4049\"><span style=\"color: #000000;\">Lazy load resource berat</span></p>\n</li>\n<li data-start=\"4050\" data-end=\"4093\">\n<p data-start=\"4052\" data-end=\"4093\"><span style=\"color: #000000;\">Gunakan connection pooling secara efisien</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/\">Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem</a></p></blockquote>\n<hr data-start=\"4095\" data-end=\"4098\" />\n<h2 style=\"text-align: justify;\" data-start=\"4100\" data-end=\"4117\"><span style=\"color: #000000;\"><strong data-start=\"4103\" data-end=\"4117\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4119\" data-end=\"4358\"><span style=\"color: #000000;\">Serverless cold start bukanlah bug, melainkan konsekuensi desain dari arsitektur serverless yang mengutamakan efisiensi dan skalabilitas. Namun, tanpa optimasi yang tepat, cold start dapat berdampak signifikan terhadap pengalaman pengguna.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4360\" data-end=\"4644\"><span style=\"color: #000000;\">Dengan memahami cara kerja cold start pada AWS Lambda dan Google Cloud Functions, serta menerapkan strategi optimasi seperti pemilihan runtime, pengurangan dependency, dan fitur concurrency, latensi dapat ditekan secara signifikan tanpa mengorbankan keunggulan serverless itu sendiri.</span></p>\n",
+  "content_text": "Pengantar\nArsitektur  serverless  semakin populer karena kemudahan skalabilitas dan efisiensi biaya. Layanan seperti AWS Lambda dan Google Cloud Functions memungkinkan pengembang menjalankan kode tanpa perlu mengelola server. Namun, di balik fleksibilitas tersebut terdapat satu tantangan klasik: cold start.\nCold start sering menjadi penyebab utama lonjakan latensi yang terasa “tanpa sebab”, terutama pada aplikasi dengan kebutuhan respons cepat. Artikel ini membedah apa itu serverless cold start, mengapa ia terjadi, serta strategi teknis untuk mengoptimalkan performa latensi pada AWS Lambda dan Google Cloud Functions.\nApa Itu Serverless Cold Start?\nCold start adalah kondisi ketika platform serverless harus  menyiapkan lingkungan eksekusi baru  sebelum menjalankan fungsi. Proses ini mencakup:\nAlokasi resource komputasi\nInisialisasi runtime (Node.js, Python, Java, dll)\nLoad dependency dan library\nMenjalankan kode inisialisasi ( init phase )\nSelama fase ini, request pertama akan mengalami  latensi lebih tinggi  dibanding request berikutnya ( warm start ).\nbaca juga :  Bypass Firewall: Bagaimana Teknik DNS Tunneling Menyundupkan Data Keluar dari Jaringan Perusahaan\nMengapa Cold Start Terjadi?\nModel Eksekusi Berbasis Event\nServerless bersifat  event-driven . Jika sebuah fungsi tidak dipanggil dalam periode tertentu, penyedia cloud dapat menghentikan environment untuk menghemat resource. Saat ada request baru, sistem harus membuat environment dari nol.\nUkuran Dependency dan Runtime\nSemakin besar ukuran package dan semakin berat runtime (misalnya Java dibanding Node.js), semakin lama waktu inisialisasi. Dependency yang dimuat saat startup sangat berpengaruh terhadap durasi cold start.\nIsolasi Keamanan\nPlatform serverless menggunakan isolasi kuat (container atau microVM). Proses ini penting untuk keamanan, namun menambah overhead waktu startup.\nCold Start di AWS Lambda vs Google Cloud Functions\nAWS Lambda\nAWS Lambda memisahkan fase eksekusi menjadi  Init ,  Invoke , dan  Shutdown . Cold start terjadi saat fase  Init , terutama ketika:\nFungsi jarang dipanggil\nMenggunakan VPC\nMenggunakan runtime berat\nGoogle Cloud Functions\nGoogle Cloud Functions juga mengalami cold start, terutama pada  1st Gen Functions . Lingkungan eksekusi akan di- recreate  jika idle terlalu lama atau terjadi autoscaling dari nol. (dikutip dari  google cloud functions ).\nbaca juga :  CVE‑2025‑32462: Kerentanan Berbahaya pada Sudo di Sistem Linux/Unix\nStrategi Mengoptimalkan Cold Start\nPilih Runtime yang Ringan\nGunakan runtime dengan startup cepat seperti:\nNode.js\nPython\nHindari runtime berat jika tidak benar-benar dibutuhkan.\nMinimalkan Dependency\nHapus library yang tidak digunakan\nGunakan  bundler  untuk mengecilkan ukuran package\nPindahkan inisialisasi berat ke luar handler jika memungkinkan\nManfaatkan Warm-Up Strategy\nKirim request berkala (cron job) agar fungsi tetap dalam kondisi  warm . Meskipun bukan solusi ideal, cara ini efektif untuk sistem dengan traffic rendah.\nGunakan Provisioned Concurrency (AWS Lambda)\nAWS menyediakan  Provisioned Concurrency  untuk menjaga sejumlah instance Lambda tetap aktif, sehingga cold start dapat dieliminasi hampir sepenuhnya.\nOptimasi Kode Inisialisasi\nHindari koneksi database saat startup\nLazy load resource berat\nGunakan connection pooling secara efisien\nbaca juga :  Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem\nKesimpulan\nServerless cold start bukanlah bug, melainkan konsekuensi desain dari arsitektur serverless yang mengutamakan efisiensi dan skalabilitas. Namun, tanpa optimasi yang tepat, cold start dapat berdampak signifikan terhadap pengalaman pengguna.\nDengan memahami cara kerja cold start pada AWS Lambda dan Google Cloud Functions, serta menerapkan strategi optimasi seperti pemilihan runtime, pengurangan dependency, dan fitur concurrency, latensi dapat ditekan secara signifikan tanpa mengorbankan keunggulan serverless itu sendiri.",
+  "raw": {
+    "id": 9224,
+    "date": "2026-01-13T00:10:09",
+    "date_gmt": "2026-01-13T00:10:09",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9224"
+    },
+    "modified": "2026-07-06T21:31:48",
+    "modified_gmt": "2026-07-06T21:31:48",
+    "slug": "serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/",
+    "title": {
+      "rendered": "Serverless Cold Start: Mengungkap Penyebab Latensi Tinggi dan Strategi Optimasi di AWS Lambda &#038; Google Cloud Functions"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"364\" data-end=\"380\"><span style=\"color: #000000;\"><strong data-start=\"367\" data-end=\"380\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"382\" data-end=\"692\"><span style=\"color: #000000;\">Arsitektur <em data-start=\"393\" data-end=\"405\">serverless</em> semakin populer karena kemudahan skalabilitas dan efisiensi biaya. Layanan seperti AWS Lambda dan Google Cloud Functions memungkinkan pengembang menjalankan kode tanpa perlu mengelola server. Namun, di balik fleksibilitas tersebut terdapat satu tantangan klasik: cold start.</span></p>\n<p style=\"text-align: justify;\" data-start=\"694\" data-end=\"1009\"><span style=\"color: #000000;\">Cold start sering menjadi penyebab utama lonjakan latensi yang terasa “tanpa sebab”, terutama pada aplikasi dengan kebutuhan respons cepat. Artikel ini membedah apa itu serverless cold start, mengapa ia terjadi, serta strategi teknis untuk mengoptimalkan performa latensi pada AWS Lambda dan Google Cloud Functions.</span></p>\n<hr data-start=\"1011\" data-end=\"1014\" />\n<h3 style=\"text-align: justify;\" data-start=\"1016\" data-end=\"1053\"><span style=\"color: #000000;\"><strong data-start=\"1019\" data-end=\"1053\">Apa Itu Serverless Cold Start?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"1055\" data-end=\"1202\"><span style=\"color: #000000;\">Cold start adalah kondisi ketika platform serverless harus <strong data-start=\"1114\" data-end=\"1153\">menyiapkan lingkungan eksekusi baru</strong> sebelum menjalankan fungsi. Proses ini mencakup:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1204\" data-end=\"1367\">\n<li data-start=\"1204\" data-end=\"1234\">\n<p data-start=\"1206\" data-end=\"1234\"><span style=\"color: #000000;\">Alokasi resource komputasi</span></p>\n</li>\n<li data-start=\"1235\" data-end=\"1288\">\n<p data-start=\"1237\" data-end=\"1288\"><span style=\"color: #000000;\">Inisialisasi runtime (Node.js, Python, Java, dll)</span></p>\n</li>\n<li data-start=\"1289\" data-end=\"1320\">\n<p data-start=\"1291\" data-end=\"1320\"><span style=\"color: #000000;\">Load dependency dan library</span></p>\n</li>\n<li data-start=\"1321\" data-end=\"1367\">\n<p data-start=\"1323\" data-end=\"1367\"><span style=\"color: #000000;\">Menjalankan kode inisialisasi (<em data-start=\"1354\" data-end=\"1366\">init phase</em>)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1369\" data-end=\"1486\"><span style=\"color: #000000;\">Selama fase ini, request pertama akan mengalami <strong data-start=\"1417\" data-end=\"1441\">latensi lebih tinggi</strong> dibanding request berikutnya (<em data-start=\"1472\" data-end=\"1484\">warm start</em>).</span></p>\n<blockquote>\n<p data-start=\"1369\" data-end=\"1486\">baca juga : <a href=\"https://buletinsiber.com/bypass-firewall-bagaimana-teknik-dns-tunneling-menyundupkan-data-keluar-dari-jaringan-perusahaan/\">Bypass Firewall: Bagaimana Teknik DNS Tunneling Menyundupkan Data Keluar dari Jaringan Perusahaan</a></p>\n</blockquote>\n<hr data-start=\"1488\" data-end=\"1491\" />\n<h3 style=\"text-align: justify;\" data-start=\"1493\" data-end=\"1527\"><span style=\"color: #000000;\"><strong data-start=\"1496\" data-end=\"1527\">Mengapa Cold Start Terjadi?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1534\" data-end=\"1571\"><span style=\"color: #000000;\"><strong data-start=\"1538\" data-end=\"1571\">Model Eksekusi Berbasis Event</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1573\" data-end=\"1805\"><span style=\"color: #000000;\">Serverless bersifat <em data-start=\"1593\" data-end=\"1607\">event-driven</em>. Jika sebuah fungsi tidak dipanggil dalam periode tertentu, penyedia cloud dapat menghentikan environment untuk menghemat resource. Saat ada request baru, sistem harus membuat environment dari nol.</span></p>\n<hr data-start=\"1807\" data-end=\"1810\" />\n<h4 style=\"text-align: justify;\" data-start=\"1812\" data-end=\"1849\"><span style=\"color: #000000;\"><strong data-start=\"1816\" data-end=\"1849\">Ukuran Dependency dan Runtime</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1851\" data-end=\"2056\"><span style=\"color: #000000;\">Semakin besar ukuran package dan semakin berat runtime (misalnya Java dibanding Node.js), semakin lama waktu inisialisasi. Dependency yang dimuat saat startup sangat berpengaruh terhadap durasi cold start.</span></p>\n<hr data-start=\"2058\" data-end=\"2061\" />\n<h4 style=\"text-align: justify;\" data-start=\"2063\" data-end=\"2087\"><span style=\"color: #000000;\"><strong data-start=\"2067\" data-end=\"2087\">Isolasi Keamanan</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2089\" data-end=\"2233\"><span style=\"color: #000000;\">Platform serverless menggunakan isolasi kuat (container atau microVM). Proses ini penting untuk keamanan, namun menambah overhead waktu startup.</span></p>\n<hr data-start=\"2235\" data-end=\"2238\" />\n<h3 style=\"text-align: justify;\" data-start=\"2240\" data-end=\"2297\"><span style=\"color: #000000;\"><strong data-start=\"2243\" data-end=\"2297\">Cold Start di AWS Lambda vs Google Cloud Functions</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2304\" data-end=\"2322\"><span style=\"color: #000000;\"><strong data-start=\"2308\" data-end=\"2322\">AWS Lambda</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2324\" data-end=\"2461\"><span style=\"color: #000000;\">AWS Lambda memisahkan fase eksekusi menjadi <strong data-start=\"2368\" data-end=\"2376\">Init</strong>, <strong data-start=\"2378\" data-end=\"2388\">Invoke</strong>, dan <strong data-start=\"2394\" data-end=\"2406\">Shutdown</strong>. Cold start terjadi saat fase <em data-start=\"2437\" data-end=\"2443\">Init</em>, terutama ketika:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2463\" data-end=\"2540\">\n<li data-start=\"2463\" data-end=\"2490\">\n<p data-start=\"2465\" data-end=\"2490\"><span style=\"color: #000000;\">Fungsi jarang dipanggil</span></p>\n</li>\n<li data-start=\"2491\" data-end=\"2510\">\n<p data-start=\"2493\" data-end=\"2510\"><span style=\"color: #000000;\">Menggunakan VPC</span></p>\n</li>\n<li data-start=\"2511\" data-end=\"2540\">\n<p data-start=\"2513\" data-end=\"2540\"><span style=\"color: #000000;\">Menggunakan runtime berat</span></p>\n</li>\n</ul>\n<hr data-start=\"2715\" data-end=\"2718\" />\n<h4 style=\"text-align: justify;\" data-start=\"2720\" data-end=\"2750\"><span style=\"color: #000000;\"><strong data-start=\"2724\" data-end=\"2750\">Google Cloud Functions</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2752\" data-end=\"2933\"><span style=\"color: #000000;\">Google Cloud Functions juga mengalami cold start, terutama pada <em data-start=\"2816\" data-end=\"2835\">1st Gen Functions</em>. Lingkungan eksekusi akan di-<em data-start=\"2865\" data-end=\"2875\">recreate</em> jika idle terlalu lama atau terjadi autoscaling dari nol. (dikutip dari <a href=\"https://cloud.google.com/functions/docs/concepts/execution-environment\">google cloud functions</a>).</span></p>\n<blockquote>\n<p data-start=\"2752\" data-end=\"2933\">baca juga : <a href=\"https://buletinsiber.com/cve-2025-32462-kerentanan-berbahaya-pada-sudo-di-sistem-linux-unix/\">CVE‑2025‑32462: Kerentanan Berbahaya pada Sudo di Sistem Linux/Unix</a></p>\n</blockquote>\n<hr data-start=\"3114\" data-end=\"3117\" />\n<h3 style=\"text-align: justify;\" data-start=\"3119\" data-end=\"3160\"><span style=\"color: #000000;\"><strong data-start=\"3122\" data-end=\"3160\">Strategi Mengoptimalkan Cold Start</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3167\" data-end=\"3200\"><span style=\"color: #000000;\"><strong data-start=\"3171\" data-end=\"3200\">Pilih Runtime yang Ringan</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3202\" data-end=\"3247\"><span style=\"color: #000000;\">Gunakan runtime dengan startup cepat seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3249\" data-end=\"3271\">\n<li data-start=\"3249\" data-end=\"3260\">\n<p data-start=\"3251\" data-end=\"3260\"><span style=\"color: #000000;\">Node.js</span></p>\n</li>\n<li data-start=\"3261\" data-end=\"3271\">\n<p data-start=\"3263\" data-end=\"3271\"><span style=\"color: #000000;\">Python</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3273\" data-end=\"3329\"><span style=\"color: #000000;\">Hindari runtime berat jika tidak benar-benar dibutuhkan.</span></p>\n<hr data-start=\"3331\" data-end=\"3334\" />\n<h4 style=\"text-align: justify;\" data-start=\"3336\" data-end=\"3365\"><span style=\"color: #000000;\"><strong data-start=\"3340\" data-end=\"3365\">Minimalkan Dependency</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"3367\" data-end=\"3525\">\n<li data-start=\"3367\" data-end=\"3405\">\n<p data-start=\"3369\" data-end=\"3405\"><span style=\"color: #000000;\">Hapus library yang tidak digunakan</span></p>\n</li>\n<li data-start=\"3406\" data-end=\"3460\">\n<p data-start=\"3408\" data-end=\"3460\"><span style=\"color: #000000;\">Gunakan <em data-start=\"3416\" data-end=\"3425\">bundler</em> untuk mengecilkan ukuran package</span></p>\n</li>\n<li data-start=\"3461\" data-end=\"3525\">\n<p data-start=\"3463\" data-end=\"3525\"><span style=\"color: #000000;\">Pindahkan inisialisasi berat ke luar handler jika memungkinkan</span></p>\n</li>\n</ul>\n<hr data-start=\"3527\" data-end=\"3530\" />\n<h4 style=\"text-align: justify;\" data-start=\"3532\" data-end=\"3567\"><span style=\"color: #000000;\"><strong data-start=\"3536\" data-end=\"3567\">Manfaatkan Warm-Up Strategy</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3569\" data-end=\"3723\"><span style=\"color: #000000;\">Kirim request berkala (cron job) agar fungsi tetap dalam kondisi <em data-start=\"3634\" data-end=\"3640\">warm</em>. Meskipun bukan solusi ideal, cara ini efektif untuk sistem dengan traffic rendah.</span></p>\n<hr data-start=\"3725\" data-end=\"3728\" />\n<h4 style=\"text-align: justify;\" data-start=\"3730\" data-end=\"3782\"><span style=\"color: #000000;\"><strong data-start=\"3734\" data-end=\"3782\">Gunakan Provisioned Concurrency (AWS Lambda)</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3784\" data-end=\"3936\"><span style=\"color: #000000;\">AWS menyediakan <strong data-start=\"3800\" data-end=\"3827\">Provisioned Concurrency</strong> untuk menjaga sejumlah instance Lambda tetap aktif, sehingga cold start dapat dieliminasi hampir sepenuhnya.</span></p>\n<hr data-start=\"3938\" data-end=\"3941\" />\n<h4 style=\"text-align: justify;\" data-start=\"3943\" data-end=\"3977\"><span style=\"color: #000000;\"><strong data-start=\"3947\" data-end=\"3977\">Optimasi Kode Inisialisasi</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"3979\" data-end=\"4093\">\n<li data-start=\"3979\" data-end=\"4020\">\n<p data-start=\"3981\" data-end=\"4020\"><span style=\"color: #000000;\">Hindari koneksi database saat startup</span></p>\n</li>\n<li data-start=\"4021\" data-end=\"4049\">\n<p data-start=\"4023\" data-end=\"4049\"><span style=\"color: #000000;\">Lazy load resource berat</span></p>\n</li>\n<li data-start=\"4050\" data-end=\"4093\">\n<p data-start=\"4052\" data-end=\"4093\"><span style=\"color: #000000;\">Gunakan connection pooling secara efisien</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/\">Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem</a></p></blockquote>\n<hr data-start=\"4095\" data-end=\"4098\" />\n<h2 style=\"text-align: justify;\" data-start=\"4100\" data-end=\"4117\"><span style=\"color: #000000;\"><strong data-start=\"4103\" data-end=\"4117\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4119\" data-end=\"4358\"><span style=\"color: #000000;\">Serverless cold start bukanlah bug, melainkan konsekuensi desain dari arsitektur serverless yang mengutamakan efisiensi dan skalabilitas. Namun, tanpa optimasi yang tepat, cold start dapat berdampak signifikan terhadap pengalaman pengguna.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4360\" data-end=\"4644\"><span style=\"color: #000000;\">Dengan memahami cara kerja cold start pada AWS Lambda dan Google Cloud Functions, serta menerapkan strategi optimasi seperti pemilihan runtime, pengurangan dependency, dan fitur concurrency, latensi dapat ditekan secara signifikan tanpa mengorbankan keunggulan serverless itu sendiri.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Arsitektur serverless semakin populer karena kemudahan skalabilitas dan efisiensi biaya. Layanan seperti AWS Lambda dan Google Cloud Functions memungkinkan pengembang menjalankan kode tanpa perlu mengelola server. Namun, di balik fleksibilitas tersebut terdapat satu tantangan klasik: cold start. Cold start sering menjadi penyebab utama lonjakan latensi yang terasa “tanpa sebab”, terutama pada aplikasi dengan kebutuhan respons cepat. Artikel ini membedah apa itu serverless cold start, mengapa ia terjadi, serta strategi teknis untuk mengoptimalkan performa latensi pada AWS Lambda dan Google Cloud Functions. Apa Itu Serverless Cold Start? Cold start adalah kondisi ketika platform serverless harus menyiapkan lingkungan eksekusi baru sebelum&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 2541,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "serverless cold start",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      974,
+      63
+    ],
+    "class_list": [
+      "post-9224",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-cold_start",
+      "tag-serverless"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Serverless Cold Start: Mengungkap Penyebab Latensi Tinggi dan Strategi Optimasi di AWS Lambda &amp; Google Cloud Functions - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Serverless Cold Start: Mengungkap Penyebab Latensi Tinggi dan Strategi Optimasi di AWS Lambda &amp; Google Cloud Functions - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Arsitektur serverless semakin populer karena kemudahan skalabilitas dan efisiensi biaya. Layanan seperti AWS Lambda dan Google Cloud Functions memungkinkan pengembang menjalankan kode tanpa perlu mengelola server. Namun, di balik fleksibilitas tersebut terdapat satu tantangan klasik: cold start. Cold start sering menjadi penyebab utama lonjakan latensi yang terasa “tanpa sebab”, terutama pada aplikasi dengan kebutuhan respons cepat. Artikel ini membedah apa itu serverless cold start, mengapa ia terjadi, serta strategi teknis untuk mengoptimalkan performa latensi pada AWS Lambda dan Google Cloud Functions. Apa Itu Serverless Cold Start? Cold start adalah kondisi ketika platform serverless harus menyiapkan lingkungan eksekusi baru sebelum...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-01-13T00:10:09+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T21:31:48+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/06/FAQ-Seputar-Open-Source-vs-Proprietary-Software-1024x576-1.png\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"576\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/\",\"url\":\"https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/\",\"name\":\"Serverless Cold Start: Mengungkap Penyebab Latensi Tinggi dan Strategi Optimasi di AWS Lambda & Google Cloud Functions - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/FAQ-Seputar-Open-Source-vs-Proprietary-Software-1024x576-1.png\",\"datePublished\":\"2026-01-13T00:10:09+00:00\",\"dateModified\":\"2026-07-06T21:31:48+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/06/FAQ-Seputar-Open-Source-vs-Proprietary-Software-1024x576-1.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/FAQ-Seputar-Open-Source-vs-Proprietary-Software-1024x576-1.png\",\"width\":1024,\"height\":576},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Serverless Cold Start: Mengungkap Penyebab Latensi Tinggi dan Strategi Optimasi di AWS Lambda &#038; Google Cloud Functions\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Serverless Cold Start: Mengungkap Penyebab Latensi Tinggi dan Strategi Optimasi di AWS Lambda & Google Cloud Functions - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Serverless Cold Start: Mengungkap Penyebab Latensi Tinggi dan Strategi Optimasi di AWS Lambda & Google Cloud Functions - buletinsiber.com",
+      "og_description": "Pengantar Arsitektur serverless semakin populer karena kemudahan skalabilitas dan efisiensi biaya. Layanan seperti AWS Lambda dan Google Cloud Functions memungkinkan pengembang menjalankan kode tanpa perlu mengelola server. Namun, di balik fleksibilitas tersebut terdapat satu tantangan klasik: cold start. Cold start sering menjadi penyebab utama lonjakan latensi yang terasa “tanpa sebab”, terutama pada aplikasi dengan kebutuhan respons cepat. Artikel ini membedah apa itu serverless cold start, mengapa ia terjadi, serta strategi teknis untuk mengoptimalkan performa latensi pada AWS Lambda dan Google Cloud Functions. Apa Itu Serverless Cold Start? Cold start adalah kondisi ketika platform serverless harus menyiapkan lingkungan eksekusi baru sebelum...",
+      "og_url": "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-01-13T00:10:09+00:00",
+      "article_modified_time": "2026-07-06T21:31:48+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 576,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/06/FAQ-Seputar-Open-Source-vs-Proprietary-Software-1024x576-1.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/",
+            "url": "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/",
+            "name": "Serverless Cold Start: Mengungkap Penyebab Latensi Tinggi dan Strategi Optimasi di AWS Lambda & Google Cloud Functions - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/FAQ-Seputar-Open-Source-vs-Proprietary-Software-1024x576-1.png",
+            "datePublished": "2026-01-13T00:10:09+00:00",
+            "dateModified": "2026-07-06T21:31:48+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/06/FAQ-Seputar-Open-Source-vs-Proprietary-Software-1024x576-1.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/FAQ-Seputar-Open-Source-vs-Proprietary-Software-1024x576-1.png",
+            "width": 1024,
+            "height": 576
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/serverless-cold-start-mengungkap-penyebab-latensi-tinggi-dan-strategi-optimasi-di-aws-lambda-google-cloud-functions/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Serverless Cold Start: Mengungkap Penyebab Latensi Tinggi dan Strategi Optimasi di AWS Lambda &#038; Google Cloud Functions"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9224",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9224"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 3,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9224/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9227,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9224/revisions/9227"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2541"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9224"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9224"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9224"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

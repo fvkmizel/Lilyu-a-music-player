@@ -1,0 +1,313 @@
+{
+  "id": 2929,
+  "title": "Game of Tokens: Double Submit Cookie vs. Synchronizer Token",
+  "slug": "game-of-tokens-double-submit-cookie-vs-synchronizer-token",
+  "url": "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/",
+  "date": "2025-07-07T08:40:46",
+  "date_gmt": "2025-07-07T08:40:46",
+  "modified": "2025-07-07T08:40:46",
+  "modified_gmt": "2025-07-07T08:40:46",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/1_pwf7aoWk5WJCnKWYm6eLiQ.jpg",
+  "excerpt": "Ketika membahas cara melindungi aplikasi dari serangan CSRF (Cross-Site Request Forgery), dua metode yang paling sering dipakai adalah: Double Submit Cookie Synchronizer Token Kedua metode ini ibarat dua strategi dalam “permainan token” untuk menjaga keamanan aplikasi web. Tapi apa bedanya? Mana yang lebih baik? Yuk, kita bahas dengan bahasa sederhana! 🎯 Apa Tujuan Token CSRF? Token CSRF adalah nilai unik dan acak yang dikirim ke browser pengguna untuk memastikan bahwa permintaan yang masuk benar-benar dari pengguna yang sah, bukan dari penyerang. Cara kerjanya, server akan membandingkan token yang dikirim oleh klien dengan token yang dia simpan untuk memastikan permintaan valid….",
+  "content_html": "<h1 data-start=\"90\" data-end=\"154\"></h1>\n<p data-start=\"156\" data-end=\"295\">Ketika membahas cara melindungi aplikasi dari serangan <strong data-start=\"211\" data-end=\"248\">CSRF (Cross-Site Request Forgery)</strong>, dua metode yang paling sering dipakai adalah:</p>\n<ul data-start=\"297\" data-end=\"348\">\n<li data-start=\"297\" data-end=\"323\">\n<p data-start=\"299\" data-end=\"323\"><strong data-start=\"299\" data-end=\"323\">Double Submit Cookie</strong></p>\n</li>\n<li data-start=\"324\" data-end=\"348\">\n<p data-start=\"326\" data-end=\"348\"><strong data-start=\"326\" data-end=\"348\">Synchronizer Token</strong></p>\n</li>\n</ul>\n<p data-start=\"350\" data-end=\"528\">Kedua metode ini ibarat dua strategi dalam “permainan token” untuk menjaga keamanan aplikasi web. Tapi apa bedanya? Mana yang lebih baik? Yuk, kita bahas dengan bahasa sederhana!</p>\n<hr data-start=\"530\" data-end=\"533\" />\n<h2 data-start=\"535\" data-end=\"563\">🎯 Apa Tujuan Token CSRF?</h2>\n<p data-start=\"565\" data-end=\"738\">Token CSRF adalah nilai unik dan acak yang dikirim ke browser pengguna untuk memastikan bahwa permintaan yang masuk benar-benar dari pengguna yang sah, bukan dari penyerang.</p>\n<p data-start=\"740\" data-end=\"874\">Cara kerjanya, server akan membandingkan token yang dikirim oleh klien dengan token yang dia simpan untuk memastikan permintaan valid.</p>\n<hr data-start=\"876\" data-end=\"879\" />\n<h2 data-start=\"881\" data-end=\"930\">🥇 Double Submit Cookie: Cara Main yang Simpel</h2>\n<h3 data-start=\"932\" data-end=\"947\">Cara Kerja:</h3>\n<ol data-start=\"949\" data-end=\"1328\">\n<li data-start=\"949\" data-end=\"1001\">\n<p data-start=\"952\" data-end=\"1001\">Server mengirim <strong data-start=\"968\" data-end=\"989\">cookie CSRF token</strong> ke browser.</p>\n</li>\n<li data-start=\"1002\" data-end=\"1170\">\n<p data-start=\"1005\" data-end=\"1073\">Saat pengguna mengirim permintaan POST/PUT/DELETE, browser mengirim:</p>\n<ul data-start=\"1077\" data-end=\"1170\">\n<li data-start=\"1077\" data-end=\"1107\">\n<p data-start=\"1079\" data-end=\"1107\">Cookie CSRF token (otomatis)</p>\n</li>\n<li data-start=\"1111\" data-end=\"1170\">\n<p data-start=\"1113\" data-end=\"1170\">Token yang sama <strong data-start=\"1129\" data-end=\"1158\">di dalam body atau header</strong> permintaan.</p>\n</li>\n</ul>\n</li>\n<li data-start=\"1171\" data-end=\"1271\">\n<p data-start=\"1174\" data-end=\"1271\">Server membandingkan <strong data-start=\"1195\" data-end=\"1220\">nilai token di cookie</strong> dan <strong data-start=\"1225\" data-end=\"1270\">nilai token yang dikirim dalam permintaan</strong>.</p>\n</li>\n<li data-start=\"1272\" data-end=\"1328\">\n<p data-start=\"1275\" data-end=\"1328\">Jika cocok, permintaan diterima. Jika tidak, ditolak.</p>\n</li>\n</ol>\n<h3 data-start=\"1330\" data-end=\"1344\">Kelebihan:</h3>\n<ul data-start=\"1346\" data-end=\"1456\">\n<li data-start=\"1346\" data-end=\"1398\">\n<p data-start=\"1348\" data-end=\"1398\">Tidak perlu menyimpan token di server (stateless).</p>\n</li>\n<li data-start=\"1399\" data-end=\"1456\">\n<p data-start=\"1401\" data-end=\"1456\">Lebih mudah diterapkan di aplikasi yang skalanya besar.</p>\n</li>\n</ul>\n<h3 data-start=\"1458\" data-end=\"1473\">Kekurangan:</h3>\n<ul data-start=\"1475\" data-end=\"1624\">\n<li data-start=\"1475\" data-end=\"1544\">\n<p data-start=\"1477\" data-end=\"1544\">Jika cookie bisa dibaca oleh script jahat (XSS), token bisa dicuri.</p>\n</li>\n<li data-start=\"1545\" data-end=\"1624\">\n<p data-start=\"1547\" data-end=\"1624\">Membutuhkan mekanisme untuk memastikan cookie tidak bisa diakses sembarangan.</p>\n</li>\n</ul>\n<hr data-start=\"1626\" data-end=\"1629\" />\n<h2 data-start=\"1631\" data-end=\"1677\">🥈 Synchronizer Token: Cara Main yang Ketat</h2>\n<h3 data-start=\"1679\" data-end=\"1694\">Cara Kerja:</h3>\n<ol data-start=\"1696\" data-end=\"1987\">\n<li data-start=\"1696\" data-end=\"1776\">\n<p data-start=\"1699\" data-end=\"1776\">Server membuat token CSRF unik dan <strong data-start=\"1734\" data-end=\"1765\">menyimpannya di sesi server</strong> (session).</p>\n</li>\n<li data-start=\"1777\" data-end=\"1855\">\n<p data-start=\"1780\" data-end=\"1855\">Token ini juga disisipkan ke setiap form atau permintaan API yang sensitif.</p>\n</li>\n<li data-start=\"1856\" data-end=\"1951\">\n<p data-start=\"1859\" data-end=\"1951\">Saat permintaan masuk, server mencocokkan token yang diterima dengan token yang ada di sesi.</p>\n</li>\n<li data-start=\"1952\" data-end=\"1987\">\n<p data-start=\"1955\" data-end=\"1987\">Jika cocok, permintaan diterima.</p>\n</li>\n</ol>\n<h3 data-start=\"1989\" data-end=\"2003\">Kelebihan:</h3>\n<ul data-start=\"2005\" data-end=\"2105\">\n<li data-start=\"2005\" data-end=\"2050\">\n<p data-start=\"2007\" data-end=\"2050\">Lebih aman karena token disimpan di server.</p>\n</li>\n<li data-start=\"2051\" data-end=\"2105\">\n<p data-start=\"2053\" data-end=\"2105\">Sulit bagi penyerang untuk menebak token yang valid.</p>\n</li>\n</ul>\n<h3 data-start=\"2107\" data-end=\"2122\">Kekurangan:</h3>\n<ul data-start=\"2124\" data-end=\"2260\">\n<li data-start=\"2124\" data-end=\"2166\">\n<p data-start=\"2126\" data-end=\"2166\">Membutuhkan penyimpanan sesi (stateful).</p>\n</li>\n<li data-start=\"2167\" data-end=\"2260\">\n<p data-start=\"2169\" data-end=\"2260\">Bisa jadi kurang cocok untuk aplikasi yang sangat skalabel karena harus simpan banyak sesi.</p>\n</li>\n</ul>\n<hr data-start=\"2262\" data-end=\"2265\" />\n<h2 data-start=\"2267\" data-end=\"2293\">⚔️ Perbandingan Singkat</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2295\" data-end=\"3014\">\n<thead data-start=\"2295\" data-end=\"2400\">\n<tr data-start=\"2295\" data-end=\"2400\">\n<th data-start=\"2295\" data-end=\"2319\" data-col-size=\"sm\">Fitur</th>\n<th data-start=\"2319\" data-end=\"2359\" data-col-size=\"sm\">Double Submit Cookie</th>\n<th data-start=\"2359\" data-end=\"2400\" data-col-size=\"sm\">Synchronizer Token</th>\n</tr>\n</thead>\n<tbody data-start=\"2503\" data-end=\"3014\">\n<tr data-start=\"2503\" data-end=\"2606\">\n<td data-start=\"2503\" data-end=\"2527\" data-col-size=\"sm\">Simpan Token</td>\n<td data-start=\"2527\" data-end=\"2566\" data-col-size=\"sm\">Di cookie (client-side)</td>\n<td data-col-size=\"sm\" data-start=\"2566\" data-end=\"2606\">Di server (session)</td>\n</tr>\n<tr data-start=\"2607\" data-end=\"2709\">\n<td data-start=\"2607\" data-end=\"2632\" data-col-size=\"sm\">Bebas sesi (stateless)</td>\n<td data-start=\"2632\" data-end=\"2670\" data-col-size=\"sm\">Ya</td>\n<td data-col-size=\"sm\" data-start=\"2670\" data-end=\"2709\">Tidak</td>\n</tr>\n<tr data-start=\"2710\" data-end=\"2810\">\n<td data-start=\"2710\" data-end=\"2735\" data-col-size=\"sm\">Kemudahan Implementasi</td>\n<td data-col-size=\"sm\" data-start=\"2735\" data-end=\"2772\">Lebih mudah</td>\n<td data-col-size=\"sm\" data-start=\"2772\" data-end=\"2810\">Lebih rumit</td>\n</tr>\n<tr data-start=\"2811\" data-end=\"2912\">\n<td data-start=\"2811\" data-end=\"2835\" data-col-size=\"sm\">Keamanan</td>\n<td data-col-size=\"sm\" data-start=\"2835\" data-end=\"2873\">Rentan jika XSS menyerang cookie</td>\n<td data-col-size=\"sm\" data-start=\"2873\" data-end=\"2912\">Lebih aman karena token di server</td>\n</tr>\n<tr data-start=\"2913\" data-end=\"3014\">\n<td data-start=\"2913\" data-end=\"2937\" data-col-size=\"sm\">Skalabilitas</td>\n<td data-col-size=\"sm\" data-start=\"2937\" data-end=\"2975\">Lebih cocok untuk sistem besar</td>\n<td data-col-size=\"sm\" data-start=\"2975\" data-end=\"3014\">Bisa jadi tantangan di sistem besar</td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"3016\" data-end=\"3019\" />\n<h2 data-start=\"3021\" data-end=\"3051\">🎮 Mana yang Harus Dipilih?</h2>\n<ul data-start=\"3053\" data-end=\"3291\">\n<li data-start=\"3053\" data-end=\"3172\">\n<p data-start=\"3055\" data-end=\"3172\">Jika aplikasi kamu <strong data-start=\"3074\" data-end=\"3087\">stateless</strong> atau menggunakan <strong data-start=\"3105\" data-end=\"3119\">API modern</strong>, <strong data-start=\"3121\" data-end=\"3145\">Double Submit Cookie</strong> bisa jadi pilihan praktis.</p>\n</li>\n<li data-start=\"3173\" data-end=\"3291\">\n<p data-start=\"3175\" data-end=\"3291\">Jika kamu punya aplikasi dengan <strong data-start=\"3207\" data-end=\"3229\">session management</strong> dan ingin keamanan ekstra, <strong data-start=\"3257\" data-end=\"3279\">Synchronizer Token</strong> lebih aman.</p>\n</li>\n</ul>\n<p data-start=\"3293\" data-end=\"3323\">Namun, yang terpenting adalah:</p>\n<blockquote data-start=\"3325\" data-end=\"3409\">\n<p data-start=\"3327\" data-end=\"3409\"><strong data-start=\"3327\" data-end=\"3409\">Gunakan salah satu metode ini dengan benar, dan jangan lupa proteksi dari XSS!</strong></p>\n</blockquote>\n<hr data-start=\"3411\" data-end=\"3414\" />\n<h2 data-start=\"3416\" data-end=\"3432\">🧾 Kesimpulan</h2>\n<p data-start=\"3434\" data-end=\"3594\">Token CSRF adalah senjata utama melawan serangan CSRF. Baik <strong data-start=\"3494\" data-end=\"3518\">Double Submit Cookie</strong> maupun <strong data-start=\"3526\" data-end=\"3548\">Synchronizer Token</strong> punya kelebihan dan kekurangan masing-masing.</p>\n<p data-start=\"3596\" data-end=\"3757\">Pilih strategi yang paling cocok dengan kebutuhan dan arsitektur aplikasi kamu, dan selalu pastikan aplikasi kamu terlindungi dari serangan lain seperti <strong data-start=\"3749\" data-end=\"3756\">XSS</strong>.</p>\n<p data-start=\"3596\" data-end=\"3757\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n",
+  "content_text": "Ketika membahas cara melindungi aplikasi dari serangan  CSRF (Cross-Site Request Forgery) , dua metode yang paling sering dipakai adalah:\nDouble Submit Cookie\nSynchronizer Token\nKedua metode ini ibarat dua strategi dalam “permainan token” untuk menjaga keamanan aplikasi web. Tapi apa bedanya? Mana yang lebih baik? Yuk, kita bahas dengan bahasa sederhana!\n🎯 Apa Tujuan Token CSRF?\nToken CSRF adalah nilai unik dan acak yang dikirim ke browser pengguna untuk memastikan bahwa permintaan yang masuk benar-benar dari pengguna yang sah, bukan dari penyerang.\nCara kerjanya, server akan membandingkan token yang dikirim oleh klien dengan token yang dia simpan untuk memastikan permintaan valid.\n🥇 Double Submit Cookie: Cara Main yang Simpel\nCara Kerja:\nServer mengirim  cookie CSRF token  ke browser.\nSaat pengguna mengirim permintaan POST/PUT/DELETE, browser mengirim:\nCookie CSRF token (otomatis)\nToken yang sama  di dalam body atau header  permintaan.\nServer membandingkan  nilai token di cookie  dan  nilai token yang dikirim dalam permintaan .\nJika cocok, permintaan diterima. Jika tidak, ditolak.\nKelebihan:\nTidak perlu menyimpan token di server (stateless).\nLebih mudah diterapkan di aplikasi yang skalanya besar.\nKekurangan:\nJika cookie bisa dibaca oleh script jahat (XSS), token bisa dicuri.\nMembutuhkan mekanisme untuk memastikan cookie tidak bisa diakses sembarangan.\n🥈 Synchronizer Token: Cara Main yang Ketat\nCara Kerja:\nServer membuat token CSRF unik dan  menyimpannya di sesi server  (session).\nToken ini juga disisipkan ke setiap form atau permintaan API yang sensitif.\nSaat permintaan masuk, server mencocokkan token yang diterima dengan token yang ada di sesi.\nJika cocok, permintaan diterima.\nKelebihan:\nLebih aman karena token disimpan di server.\nSulit bagi penyerang untuk menebak token yang valid.\nKekurangan:\nMembutuhkan penyimpanan sesi (stateful).\nBisa jadi kurang cocok untuk aplikasi yang sangat skalabel karena harus simpan banyak sesi.\n⚔️ Perbandingan Singkat\nFitur\nDouble Submit Cookie\nSynchronizer Token\nSimpan Token\nDi cookie (client-side)\nDi server (session)\nBebas sesi (stateless)\nYa\nTidak\nKemudahan Implementasi\nLebih mudah\nLebih rumit\nKeamanan\nRentan jika XSS menyerang cookie\nLebih aman karena token di server\nSkalabilitas\nLebih cocok untuk sistem besar\nBisa jadi tantangan di sistem besar\n🎮 Mana yang Harus Dipilih?\nJika aplikasi kamu  stateless  atau menggunakan  API modern ,  Double Submit Cookie  bisa jadi pilihan praktis.\nJika kamu punya aplikasi dengan  session management  dan ingin keamanan ekstra,  Synchronizer Token  lebih aman.\nNamun, yang terpenting adalah:\nGunakan salah satu metode ini dengan benar, dan jangan lupa proteksi dari XSS!\n🧾 Kesimpulan\nToken CSRF adalah senjata utama melawan serangan CSRF. Baik  Double Submit Cookie  maupun  Synchronizer Token  punya kelebihan dan kekurangan masing-masing.\nPilih strategi yang paling cocok dengan kebutuhan dan arsitektur aplikasi kamu, dan selalu pastikan aplikasi kamu terlindungi dari serangan lain seperti  XSS .\nPenulias : Muhammad Aditya Alkhawarizmi\nNim : 23156201023\njurusan : Sistem Komputer",
+  "raw": {
+    "id": 2929,
+    "date": "2025-07-07T08:40:46",
+    "date_gmt": "2025-07-07T08:40:46",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2929"
+    },
+    "modified": "2025-07-07T08:40:46",
+    "modified_gmt": "2025-07-07T08:40:46",
+    "slug": "game-of-tokens-double-submit-cookie-vs-synchronizer-token",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/",
+    "title": {
+      "rendered": "Game of Tokens: Double Submit Cookie vs. Synchronizer Token"
+    },
+    "content": {
+      "rendered": "<h1 data-start=\"90\" data-end=\"154\"></h1>\n<p data-start=\"156\" data-end=\"295\">Ketika membahas cara melindungi aplikasi dari serangan <strong data-start=\"211\" data-end=\"248\">CSRF (Cross-Site Request Forgery)</strong>, dua metode yang paling sering dipakai adalah:</p>\n<ul data-start=\"297\" data-end=\"348\">\n<li data-start=\"297\" data-end=\"323\">\n<p data-start=\"299\" data-end=\"323\"><strong data-start=\"299\" data-end=\"323\">Double Submit Cookie</strong></p>\n</li>\n<li data-start=\"324\" data-end=\"348\">\n<p data-start=\"326\" data-end=\"348\"><strong data-start=\"326\" data-end=\"348\">Synchronizer Token</strong></p>\n</li>\n</ul>\n<p data-start=\"350\" data-end=\"528\">Kedua metode ini ibarat dua strategi dalam “permainan token” untuk menjaga keamanan aplikasi web. Tapi apa bedanya? Mana yang lebih baik? Yuk, kita bahas dengan bahasa sederhana!</p>\n<hr data-start=\"530\" data-end=\"533\" />\n<h2 data-start=\"535\" data-end=\"563\">🎯 Apa Tujuan Token CSRF?</h2>\n<p data-start=\"565\" data-end=\"738\">Token CSRF adalah nilai unik dan acak yang dikirim ke browser pengguna untuk memastikan bahwa permintaan yang masuk benar-benar dari pengguna yang sah, bukan dari penyerang.</p>\n<p data-start=\"740\" data-end=\"874\">Cara kerjanya, server akan membandingkan token yang dikirim oleh klien dengan token yang dia simpan untuk memastikan permintaan valid.</p>\n<hr data-start=\"876\" data-end=\"879\" />\n<h2 data-start=\"881\" data-end=\"930\">🥇 Double Submit Cookie: Cara Main yang Simpel</h2>\n<h3 data-start=\"932\" data-end=\"947\">Cara Kerja:</h3>\n<ol data-start=\"949\" data-end=\"1328\">\n<li data-start=\"949\" data-end=\"1001\">\n<p data-start=\"952\" data-end=\"1001\">Server mengirim <strong data-start=\"968\" data-end=\"989\">cookie CSRF token</strong> ke browser.</p>\n</li>\n<li data-start=\"1002\" data-end=\"1170\">\n<p data-start=\"1005\" data-end=\"1073\">Saat pengguna mengirim permintaan POST/PUT/DELETE, browser mengirim:</p>\n<ul data-start=\"1077\" data-end=\"1170\">\n<li data-start=\"1077\" data-end=\"1107\">\n<p data-start=\"1079\" data-end=\"1107\">Cookie CSRF token (otomatis)</p>\n</li>\n<li data-start=\"1111\" data-end=\"1170\">\n<p data-start=\"1113\" data-end=\"1170\">Token yang sama <strong data-start=\"1129\" data-end=\"1158\">di dalam body atau header</strong> permintaan.</p>\n</li>\n</ul>\n</li>\n<li data-start=\"1171\" data-end=\"1271\">\n<p data-start=\"1174\" data-end=\"1271\">Server membandingkan <strong data-start=\"1195\" data-end=\"1220\">nilai token di cookie</strong> dan <strong data-start=\"1225\" data-end=\"1270\">nilai token yang dikirim dalam permintaan</strong>.</p>\n</li>\n<li data-start=\"1272\" data-end=\"1328\">\n<p data-start=\"1275\" data-end=\"1328\">Jika cocok, permintaan diterima. Jika tidak, ditolak.</p>\n</li>\n</ol>\n<h3 data-start=\"1330\" data-end=\"1344\">Kelebihan:</h3>\n<ul data-start=\"1346\" data-end=\"1456\">\n<li data-start=\"1346\" data-end=\"1398\">\n<p data-start=\"1348\" data-end=\"1398\">Tidak perlu menyimpan token di server (stateless).</p>\n</li>\n<li data-start=\"1399\" data-end=\"1456\">\n<p data-start=\"1401\" data-end=\"1456\">Lebih mudah diterapkan di aplikasi yang skalanya besar.</p>\n</li>\n</ul>\n<h3 data-start=\"1458\" data-end=\"1473\">Kekurangan:</h3>\n<ul data-start=\"1475\" data-end=\"1624\">\n<li data-start=\"1475\" data-end=\"1544\">\n<p data-start=\"1477\" data-end=\"1544\">Jika cookie bisa dibaca oleh script jahat (XSS), token bisa dicuri.</p>\n</li>\n<li data-start=\"1545\" data-end=\"1624\">\n<p data-start=\"1547\" data-end=\"1624\">Membutuhkan mekanisme untuk memastikan cookie tidak bisa diakses sembarangan.</p>\n</li>\n</ul>\n<hr data-start=\"1626\" data-end=\"1629\" />\n<h2 data-start=\"1631\" data-end=\"1677\">🥈 Synchronizer Token: Cara Main yang Ketat</h2>\n<h3 data-start=\"1679\" data-end=\"1694\">Cara Kerja:</h3>\n<ol data-start=\"1696\" data-end=\"1987\">\n<li data-start=\"1696\" data-end=\"1776\">\n<p data-start=\"1699\" data-end=\"1776\">Server membuat token CSRF unik dan <strong data-start=\"1734\" data-end=\"1765\">menyimpannya di sesi server</strong> (session).</p>\n</li>\n<li data-start=\"1777\" data-end=\"1855\">\n<p data-start=\"1780\" data-end=\"1855\">Token ini juga disisipkan ke setiap form atau permintaan API yang sensitif.</p>\n</li>\n<li data-start=\"1856\" data-end=\"1951\">\n<p data-start=\"1859\" data-end=\"1951\">Saat permintaan masuk, server mencocokkan token yang diterima dengan token yang ada di sesi.</p>\n</li>\n<li data-start=\"1952\" data-end=\"1987\">\n<p data-start=\"1955\" data-end=\"1987\">Jika cocok, permintaan diterima.</p>\n</li>\n</ol>\n<h3 data-start=\"1989\" data-end=\"2003\">Kelebihan:</h3>\n<ul data-start=\"2005\" data-end=\"2105\">\n<li data-start=\"2005\" data-end=\"2050\">\n<p data-start=\"2007\" data-end=\"2050\">Lebih aman karena token disimpan di server.</p>\n</li>\n<li data-start=\"2051\" data-end=\"2105\">\n<p data-start=\"2053\" data-end=\"2105\">Sulit bagi penyerang untuk menebak token yang valid.</p>\n</li>\n</ul>\n<h3 data-start=\"2107\" data-end=\"2122\">Kekurangan:</h3>\n<ul data-start=\"2124\" data-end=\"2260\">\n<li data-start=\"2124\" data-end=\"2166\">\n<p data-start=\"2126\" data-end=\"2166\">Membutuhkan penyimpanan sesi (stateful).</p>\n</li>\n<li data-start=\"2167\" data-end=\"2260\">\n<p data-start=\"2169\" data-end=\"2260\">Bisa jadi kurang cocok untuk aplikasi yang sangat skalabel karena harus simpan banyak sesi.</p>\n</li>\n</ul>\n<hr data-start=\"2262\" data-end=\"2265\" />\n<h2 data-start=\"2267\" data-end=\"2293\">⚔️ Perbandingan Singkat</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2295\" data-end=\"3014\">\n<thead data-start=\"2295\" data-end=\"2400\">\n<tr data-start=\"2295\" data-end=\"2400\">\n<th data-start=\"2295\" data-end=\"2319\" data-col-size=\"sm\">Fitur</th>\n<th data-start=\"2319\" data-end=\"2359\" data-col-size=\"sm\">Double Submit Cookie</th>\n<th data-start=\"2359\" data-end=\"2400\" data-col-size=\"sm\">Synchronizer Token</th>\n</tr>\n</thead>\n<tbody data-start=\"2503\" data-end=\"3014\">\n<tr data-start=\"2503\" data-end=\"2606\">\n<td data-start=\"2503\" data-end=\"2527\" data-col-size=\"sm\">Simpan Token</td>\n<td data-start=\"2527\" data-end=\"2566\" data-col-size=\"sm\">Di cookie (client-side)</td>\n<td data-col-size=\"sm\" data-start=\"2566\" data-end=\"2606\">Di server (session)</td>\n</tr>\n<tr data-start=\"2607\" data-end=\"2709\">\n<td data-start=\"2607\" data-end=\"2632\" data-col-size=\"sm\">Bebas sesi (stateless)</td>\n<td data-start=\"2632\" data-end=\"2670\" data-col-size=\"sm\">Ya</td>\n<td data-col-size=\"sm\" data-start=\"2670\" data-end=\"2709\">Tidak</td>\n</tr>\n<tr data-start=\"2710\" data-end=\"2810\">\n<td data-start=\"2710\" data-end=\"2735\" data-col-size=\"sm\">Kemudahan Implementasi</td>\n<td data-col-size=\"sm\" data-start=\"2735\" data-end=\"2772\">Lebih mudah</td>\n<td data-col-size=\"sm\" data-start=\"2772\" data-end=\"2810\">Lebih rumit</td>\n</tr>\n<tr data-start=\"2811\" data-end=\"2912\">\n<td data-start=\"2811\" data-end=\"2835\" data-col-size=\"sm\">Keamanan</td>\n<td data-col-size=\"sm\" data-start=\"2835\" data-end=\"2873\">Rentan jika XSS menyerang cookie</td>\n<td data-col-size=\"sm\" data-start=\"2873\" data-end=\"2912\">Lebih aman karena token di server</td>\n</tr>\n<tr data-start=\"2913\" data-end=\"3014\">\n<td data-start=\"2913\" data-end=\"2937\" data-col-size=\"sm\">Skalabilitas</td>\n<td data-col-size=\"sm\" data-start=\"2937\" data-end=\"2975\">Lebih cocok untuk sistem besar</td>\n<td data-col-size=\"sm\" data-start=\"2975\" data-end=\"3014\">Bisa jadi tantangan di sistem besar</td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"3016\" data-end=\"3019\" />\n<h2 data-start=\"3021\" data-end=\"3051\">🎮 Mana yang Harus Dipilih?</h2>\n<ul data-start=\"3053\" data-end=\"3291\">\n<li data-start=\"3053\" data-end=\"3172\">\n<p data-start=\"3055\" data-end=\"3172\">Jika aplikasi kamu <strong data-start=\"3074\" data-end=\"3087\">stateless</strong> atau menggunakan <strong data-start=\"3105\" data-end=\"3119\">API modern</strong>, <strong data-start=\"3121\" data-end=\"3145\">Double Submit Cookie</strong> bisa jadi pilihan praktis.</p>\n</li>\n<li data-start=\"3173\" data-end=\"3291\">\n<p data-start=\"3175\" data-end=\"3291\">Jika kamu punya aplikasi dengan <strong data-start=\"3207\" data-end=\"3229\">session management</strong> dan ingin keamanan ekstra, <strong data-start=\"3257\" data-end=\"3279\">Synchronizer Token</strong> lebih aman.</p>\n</li>\n</ul>\n<p data-start=\"3293\" data-end=\"3323\">Namun, yang terpenting adalah:</p>\n<blockquote data-start=\"3325\" data-end=\"3409\">\n<p data-start=\"3327\" data-end=\"3409\"><strong data-start=\"3327\" data-end=\"3409\">Gunakan salah satu metode ini dengan benar, dan jangan lupa proteksi dari XSS!</strong></p>\n</blockquote>\n<hr data-start=\"3411\" data-end=\"3414\" />\n<h2 data-start=\"3416\" data-end=\"3432\">🧾 Kesimpulan</h2>\n<p data-start=\"3434\" data-end=\"3594\">Token CSRF adalah senjata utama melawan serangan CSRF. Baik <strong data-start=\"3494\" data-end=\"3518\">Double Submit Cookie</strong> maupun <strong data-start=\"3526\" data-end=\"3548\">Synchronizer Token</strong> punya kelebihan dan kekurangan masing-masing.</p>\n<p data-start=\"3596\" data-end=\"3757\">Pilih strategi yang paling cocok dengan kebutuhan dan arsitektur aplikasi kamu, dan selalu pastikan aplikasi kamu terlindungi dari serangan lain seperti <strong data-start=\"3749\" data-end=\"3756\">XSS</strong>.</p>\n<p data-start=\"3596\" data-end=\"3757\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Ketika membahas cara melindungi aplikasi dari serangan CSRF (Cross-Site Request Forgery), dua metode yang paling sering dipakai adalah: Double Submit Cookie Synchronizer Token Kedua metode ini ibarat dua strategi dalam “permainan token” untuk menjaga keamanan aplikasi web. Tapi apa bedanya? Mana yang lebih baik? Yuk, kita bahas dengan bahasa sederhana! 🎯 Apa Tujuan Token CSRF? Token CSRF adalah nilai unik dan acak yang dikirim ke browser pengguna untuk memastikan bahwa permintaan yang masuk benar-benar dari pengguna yang sah, bukan dari penyerang. Cara kerjanya, server akan membandingkan token yang dikirim oleh klien dengan token yang dia simpan untuk memastikan permintaan valid&#8230;.</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 2931,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      385
+    ],
+    "class_list": [
+      "post-2929",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-cross-site-request-forgery-csrf"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Game of Tokens: Double Submit Cookie vs. Synchronizer Token - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Game of Tokens: Double Submit Cookie vs. Synchronizer Token - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Ketika membahas cara melindungi aplikasi dari serangan CSRF (Cross-Site Request Forgery), dua metode yang paling sering dipakai adalah: Double Submit Cookie Synchronizer Token Kedua metode ini ibarat dua strategi dalam “permainan token” untuk menjaga keamanan aplikasi web. Tapi apa bedanya? Mana yang lebih baik? Yuk, kita bahas dengan bahasa sederhana! 🎯 Apa Tujuan Token CSRF? Token CSRF adalah nilai unik dan acak yang dikirim ke browser pengguna untuk memastikan bahwa permintaan yang masuk benar-benar dari pengguna yang sah, bukan dari penyerang. Cara kerjanya, server akan membandingkan token yang dikirim oleh klien dengan token yang dia simpan untuk memastikan permintaan valid....\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-07T08:40:46+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/1_pwf7aoWk5WJCnKWYm6eLiQ.jpg\" />\n\t<meta property=\"og:image:width\" content=\"400\" />\n\t<meta property=\"og:image:height\" content=\"300\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/\",\"url\":\"https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/\",\"name\":\"Game of Tokens: Double Submit Cookie vs. Synchronizer Token - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1_pwf7aoWk5WJCnKWYm6eLiQ.jpg\",\"datePublished\":\"2025-07-07T08:40:46+00:00\",\"dateModified\":\"2025-07-07T08:40:46+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1_pwf7aoWk5WJCnKWYm6eLiQ.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1_pwf7aoWk5WJCnKWYm6eLiQ.jpg\",\"width\":400,\"height\":300},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Game of Tokens: Double Submit Cookie vs. Synchronizer Token\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Game of Tokens: Double Submit Cookie vs. Synchronizer Token - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Game of Tokens: Double Submit Cookie vs. Synchronizer Token - buletinsiber.com",
+      "og_description": "Ketika membahas cara melindungi aplikasi dari serangan CSRF (Cross-Site Request Forgery), dua metode yang paling sering dipakai adalah: Double Submit Cookie Synchronizer Token Kedua metode ini ibarat dua strategi dalam “permainan token” untuk menjaga keamanan aplikasi web. Tapi apa bedanya? Mana yang lebih baik? Yuk, kita bahas dengan bahasa sederhana! 🎯 Apa Tujuan Token CSRF? Token CSRF adalah nilai unik dan acak yang dikirim ke browser pengguna untuk memastikan bahwa permintaan yang masuk benar-benar dari pengguna yang sah, bukan dari penyerang. Cara kerjanya, server akan membandingkan token yang dikirim oleh klien dengan token yang dia simpan untuk memastikan permintaan valid....",
+      "og_url": "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-07T08:40:46+00:00",
+      "og_image": [
+        {
+          "width": 400,
+          "height": 300,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1_pwf7aoWk5WJCnKWYm6eLiQ.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/",
+            "url": "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/",
+            "name": "Game of Tokens: Double Submit Cookie vs. Synchronizer Token - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1_pwf7aoWk5WJCnKWYm6eLiQ.jpg",
+            "datePublished": "2025-07-07T08:40:46+00:00",
+            "dateModified": "2025-07-07T08:40:46+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1_pwf7aoWk5WJCnKWYm6eLiQ.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1_pwf7aoWk5WJCnKWYm6eLiQ.jpg",
+            "width": 400,
+            "height": 300
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/game-of-tokens-double-submit-cookie-vs-synchronizer-token/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Game of Tokens: Double Submit Cookie vs. Synchronizer Token"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2929",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2929"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2929/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 3711,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2929/revisions/3711"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2931"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2929"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2929"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2929"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

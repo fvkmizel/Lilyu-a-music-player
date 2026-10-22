@@ -1,0 +1,308 @@
+{
+  "id": 17899,
+  "title": "Mengamankan AI Agent yang Memiliki Akses Sistem: Panduan Praktis",
+  "slug": "mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis",
+  "url": "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/",
+  "date": "2026-07-30T11:53:33",
+  "date_gmt": "2026-07-30T11:53:33",
+  "modified": "2026-07-30T11:53:33",
+  "modified_gmt": "2026-07-30T11:53:33",
+  "author": {
+    "id": 23,
+    "name": "Ezril Fahrul Rizal"
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Uncategorized"
+    }
+  ],
+  "tags": [],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_6hwcbo6hwcbo6hwc-1024x559.png",
+  "excerpt": "Bayangkan ini: sebuah agen pemrosesan faktur, yang memiliki akses luas ke sistem keuangan perusahaan, berhasil dimanipulasi melalui prompt injection. Instruksi berbahaya yang tersembunyi dalam data yang dibacanya membuat agen tersebut mulai memproses pembayaran palsu—semua terjadi di bawah akun layanan bersama tanpa jejak audit yang jelas . Ini bukan skenario fiksi ilmiah. Ini adalah konsekuensi nyata dari menerapkan model keamanan yang dirancang untuk manusia ke agen AI yang otonom. Kehadiran AI agent yang dapat mengakses sistem internal, API, dan data sensitif mengubah lanskap keamanan secara fundamental. Artikel ini akan membahas secara praktis bagaimana mengamankan AI agent dengan pendekatan yang terstruktur, mulai dari identitas…",
+  "content_html": "<p class=\"ds-markdown-paragraph\"><span class=\"\">Bayangkan ini: sebuah agen pemrosesan faktur, yang memiliki akses luas ke sistem keuangan perusahaan, berhasil dimanipulasi melalui </span><em><span class=\"\">prompt injection</span></em><span class=\"\">. Instruksi berbahaya yang tersembunyi dalam data yang dibacanya membuat agen tersebut mulai memproses pembayaran palsu—semua terjadi di bawah akun layanan bersama tanpa jejak audit yang jelas </span><span class=\"\">. Ini bukan skenario fiksi ilmiah. Ini adalah konsekuensi nyata dari menerapkan model keamanan yang dirancang untuk manusia ke agen AI yang otonom.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Kehadiran AI agent yang dapat mengakses sistem internal, API, dan data sensitif mengubah lanskap keamanan secara fundamental. Artikel ini akan membahas secara praktis bagaimana mengamankan AI agent dengan pendekatan yang terstruktur, mulai dari identitas hingga kontrol akses dan pemantauan berkelanjutan.</span></p>\n<h2><span class=\"\">1. Perlakukan Agen sebagai Identitas Kelas Satu</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Kesalahan paling umum adalah memperlakukan agen AI seperti akun layanan biasa atau, lebih buruk lagi, meminjam kredensial manusia. Agen bukanlah manusia dan bukan sekadar perangkat lunak statis. Mereka memiliki siklus hidup, perilaku dinamis, dan tingkat otonomi yang berbeda.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Prinsip utamanya: Setiap agen harus memiliki identitas uniknya sendiri, dengan kredensial yang berumur pendek dan terikat pada tugas spesifik (</span><em><span class=\"\">Zero Standing Privilege</span></em><span class=\"\">)</span></strong><span class=\"\"> </span><span class=\"\">. Jangan pernah menggunakan akun bersama. Identitas agen idealnya terikat pada kode dan model spesifik yang dijalankannya, sehingga jika model atau kode berubah, akses otomatis ditolak </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Langkah pertama yang bisa dilakukan:</span></strong></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Buat inventarisasi semua agen yang beroperasi di lingkungan Anda. Tidak ada agen yang boleh beroperasi tanpa terdaftar </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Tetapkan pemilik manusia yang bertanggung jawab untuk setiap agen </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Gunakan OAuth 2.0, OpenID Connect, atau SPIFFE untuk otentikasi dan otorisasi, sama seperti yang Anda lakukan untuk pengguna dan layanan lainnya </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">2. Terapkan Prinsip Hak Akses Minimum dan Zero Trust</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Memberi agen akses luas &#8220;untuk berjaga-jaga&#8221; adalah resep bencana. Agen harus diberikan hak akses paling minimum yang diperlukan untuk menyelesaikan tugasnya </span><span class=\"\">. Ini adalah penerapan prinsip </span><em><span class=\"\">least privilege</span></em><span class=\"\"> dalam konteks AI.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Akses harus bersifat </span><em><span class=\"\">just-in-time</span></em><span class=\"\">, bukan permanen.</span></strong></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Kredensial berumur pendek:</span></strong><span class=\"\"> Gunakan token yang berlaku hanya untuk durasi tugas tertentu. Jika agen selesai atau dicurigai disusupi, token dicabut secara otomatis </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Otorisasi berkelanjutan:</span></strong><span class=\"\"> Jangan hanya memeriksa akses sekali di awal. Evaluasi akses secara terus-menerus berdasarkan konteks: apa yang sedang dilakukan agen, data apa yang diakses, dan apakah ada sinyal risiko yang muncul </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Mikro-segmentasi:</span></strong><span class=\"\"> Pisahkan agen ke dalam zona keamanan yang berbeda. Agen yang mengakses email tidak perlu berada di jaringan yang sama dengan agen yang mengelola infrastruktur </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">3. Kontrol Ketat atas Tools dan Data</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Agen AI berinteraksi dengan dunia melalui </span><em><span class=\"\">tools</span></em><span class=\"\"> (API, perintah shell, database). Setiap </span><em><span class=\"\">tool</span></em><span class=\"\"> adalah pintu masuk potensial bagi serangan.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Batasi dan awasi dengan ketat:</span></strong></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><em><span class=\"\">Tool Allowlist</span></em><span class=\"\">:</span></strong><span class=\"\"> Tentukan secara eksplisit </span><em><span class=\"\">tool</span></em><span class=\"\"> mana yang boleh digunakan agen. Jangan izinkan agen untuk secara dinamis memanggil </span><em><span class=\"\">tool</span></em><span class=\"\"> baru atau menjalankan kode arbitrer </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Validasi Input dan Output:</span></strong><span class=\"\"> Perlakukan semua data eksternal (dari web, email, PDF) sebagai tidak tepercaya. Pisahkan instruksi sistem dari konten pengguna untuk mencegah serangan </span><em><span class=\"\">prompt injection</span></em><span class=\"\"> </span><span class=\"\">. Filter juga keluaran agen untuk mencegah kebocoran data atau eksekusi perintah berbahaya </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Sandboxing:</span></strong><span class=\"\"> Jalankan agen dalam lingkungan yang terisolasi (</span><em><span class=\"\">sandbox</span></em><span class=\"\">)—seperti kontainer atau mesin virtual—yang terpisah dari sistem host </span><span class=\"\">. Ini membatasi &#8220;radius ledakan&#8221; jika agen bertindak di luar kendali. Wardgate, misalnya, adalah contoh </span><em><span class=\"\">gateway</span></em><span class=\"\"> yang dirancang untuk mengisolasi kredensial dan mengeksekusi perintah di lingkungan terisolasi yang disebut </span><em><span class=\"\">conclave</span></em><span class=\"\"> </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">4. Pastikan Rantai Delegasi yang Jelas dan Audit yang Ketat</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Ketika agen bertindak atas nama pengguna (misalnya, &#8220;tolong kirimkan email ini untuk saya&#8221;), rantai otorisasi harus jelas dan dapat diaudit.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Jejak yang tidak terputus:</span></strong></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Gunakan token </span><em><span class=\"\">on-behalf-of</span></em><span class=\"\"> (OBO) yang berisi identitas agen dan identitas pengguna yang diwakilinya </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Pada setiap langkah dalam alur kerja multi-agen, lingkup akses harus menyempit, bukan melebar </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Catat semua aktivitas dalam log yang tidak dapat diubah (</span><em><span class=\"\">immutable logs</span></em><span class=\"\">). Rekam setiap keputusan, panggilan API, dan </span><em><span class=\"\">tool</span></em><span class=\"\"> yang digunakan, serta konteks keputusan tersebut dibuat </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Dengan ini, ketika terjadi insiden, tim keamanan dapat menjawab pertanyaan paling kritis: &#8220;Agen mana yang melakukan ini? Atas nama siapa? Bagaimana ini bisa terjadi?&#8221; </span><span class=\"\">.</span></p>\n<h2><span class=\"\">5. Libatkan Manusia untuk Tindakan Kritis dan Siapkan &#8216;Kill Switch&#8217;</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Meskipun otonom, agen tidak boleh sepenuhnya lepas kendali, terutama untuk tindakan yang berdampak besar. </span><strong><span class=\"\">Manusia harus tetap berada dalam loop (</span><em><span class=\"\">Human-in-the-Loop</span></em><span class=\"\">)</span></strong><span class=\"\"> untuk tindakan-tindakan tertentu, seperti:</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Melakukan transaksi keuangan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Menghapus data produksi </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Mengubah konfigurasi keamanan.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Mengirim komunikasi ke luar organisasi </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Selain itu, selalu siapkan </span><strong><span class=\"\">&#8220;Kill Switch&#8221;</span></strong><span class=\"\">—mekanisme darurat yang secara instan mencabut akses agen ke semua sistem, terlepas dari proses penalaran agen itu sendiri </span><span class=\"\">. Ini adalah penghenti darurat jika semua lapisan pertahanan lainnya gagal.</span></p>\n<h2><span class=\"\">Kesimpulan</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Mengamankan AI agent dengan akses sistem bukanlah tentang menambahkan satu lapisan keamanan tambahan, tetapi tentang </span><strong><span class=\"\">memperluas kerangka keamanan yang sudah ada</span></strong><span class=\"\">—seperti IAM, kontrol akses, dan audit—ke jenis identitas baru yang dinamis dan otonom </span><span class=\"\">. Kuncinya adalah konsistensi: perlakukan agen dengan disiplin yang sama seperti Anda memperlakukan pengguna atau sistem penting lainnya.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Dengan mengimplementasikan identitas yang kuat, hak akses minimum, kontrol </span><em><span class=\"\">tool</span></em><span class=\"\"> yang ketat, audit yang menyeluruh, dan pengawasan manusia, Anda dapat memanfaatkan kekuatan AI agent secara aman dan bertanggung jawab. Keamanan bukanlah penghalang adopsi, melainkan fondasi yang memungkinkan agen AI berkembang tanpa menciptakan risiko baru yang tidak terkendali.</span></p>\n",
+  "content_text": "Bayangkan ini: sebuah agen pemrosesan faktur, yang memiliki akses luas ke sistem keuangan perusahaan, berhasil dimanipulasi melalui    prompt injection   . Instruksi berbahaya yang tersembunyi dalam data yang dibacanya membuat agen tersebut mulai memproses pembayaran palsu—semua terjadi di bawah akun layanan bersama tanpa jejak audit yang jelas   . Ini bukan skenario fiksi ilmiah. Ini adalah konsekuensi nyata dari menerapkan model keamanan yang dirancang untuk manusia ke agen AI yang otonom.\nKehadiran AI agent yang dapat mengakses sistem internal, API, dan data sensitif mengubah lanskap keamanan secara fundamental. Artikel ini akan membahas secara praktis bagaimana mengamankan AI agent dengan pendekatan yang terstruktur, mulai dari identitas hingga kontrol akses dan pemantauan berkelanjutan.\n1. Perlakukan Agen sebagai Identitas Kelas Satu\nKesalahan paling umum adalah memperlakukan agen AI seperti akun layanan biasa atau, lebih buruk lagi, meminjam kredensial manusia. Agen bukanlah manusia dan bukan sekadar perangkat lunak statis. Mereka memiliki siklus hidup, perilaku dinamis, dan tingkat otonomi yang berbeda.\nPrinsip utamanya: Setiap agen harus memiliki identitas uniknya sendiri, dengan kredensial yang berumur pendek dan terikat pada tugas spesifik (   Zero Standing Privilege   )      . Jangan pernah menggunakan akun bersama. Identitas agen idealnya terikat pada kode dan model spesifik yang dijalankannya, sehingga jika model atau kode berubah, akses otomatis ditolak   .\nLangkah pertama yang bisa dilakukan:\nBuat inventarisasi semua agen yang beroperasi di lingkungan Anda. Tidak ada agen yang boleh beroperasi tanpa terdaftar   .\nTetapkan pemilik manusia yang bertanggung jawab untuk setiap agen   .\nGunakan OAuth 2.0, OpenID Connect, atau SPIFFE untuk otentikasi dan otorisasi, sama seperti yang Anda lakukan untuk pengguna dan layanan lainnya   .\n2. Terapkan Prinsip Hak Akses Minimum dan Zero Trust\nMemberi agen akses luas “untuk berjaga-jaga” adalah resep bencana. Agen harus diberikan hak akses paling minimum yang diperlukan untuk menyelesaikan tugasnya   . Ini adalah penerapan prinsip    least privilege    dalam konteks AI.\nAkses harus bersifat    just-in-time   , bukan permanen.\nKredensial berumur pendek:    Gunakan token yang berlaku hanya untuk durasi tugas tertentu. Jika agen selesai atau dicurigai disusupi, token dicabut secara otomatis   .\nOtorisasi berkelanjutan:    Jangan hanya memeriksa akses sekali di awal. Evaluasi akses secara terus-menerus berdasarkan konteks: apa yang sedang dilakukan agen, data apa yang diakses, dan apakah ada sinyal risiko yang muncul   .\nMikro-segmentasi:    Pisahkan agen ke dalam zona keamanan yang berbeda. Agen yang mengakses email tidak perlu berada di jaringan yang sama dengan agen yang mengelola infrastruktur   .\n3. Kontrol Ketat atas Tools dan Data\nAgen AI berinteraksi dengan dunia melalui    tools    (API, perintah shell, database). Setiap    tool    adalah pintu masuk potensial bagi serangan.\nBatasi dan awasi dengan ketat:\nTool Allowlist   :    Tentukan secara eksplisit    tool    mana yang boleh digunakan agen. Jangan izinkan agen untuk secara dinamis memanggil    tool    baru atau menjalankan kode arbitrer   .\nValidasi Input dan Output:    Perlakukan semua data eksternal (dari web, email, PDF) sebagai tidak tepercaya. Pisahkan instruksi sistem dari konten pengguna untuk mencegah serangan    prompt injection      . Filter juga keluaran agen untuk mencegah kebocoran data atau eksekusi perintah berbahaya   .\nSandboxing:    Jalankan agen dalam lingkungan yang terisolasi (   sandbox   )—seperti kontainer atau mesin virtual—yang terpisah dari sistem host   . Ini membatasi “radius ledakan” jika agen bertindak di luar kendali. Wardgate, misalnya, adalah contoh    gateway    yang dirancang untuk mengisolasi kredensial dan mengeksekusi perintah di lingkungan terisolasi yang disebut    conclave      .\n4. Pastikan Rantai Delegasi yang Jelas dan Audit yang Ketat\nKetika agen bertindak atas nama pengguna (misalnya, “tolong kirimkan email ini untuk saya”), rantai otorisasi harus jelas dan dapat diaudit.\nJejak yang tidak terputus:\nGunakan token    on-behalf-of    (OBO) yang berisi identitas agen dan identitas pengguna yang diwakilinya   .\nPada setiap langkah dalam alur kerja multi-agen, lingkup akses harus menyempit, bukan melebar   .\nCatat semua aktivitas dalam log yang tidak dapat diubah (   immutable logs   ). Rekam setiap keputusan, panggilan API, dan    tool    yang digunakan, serta konteks keputusan tersebut dibuat   .\nDengan ini, ketika terjadi insiden, tim keamanan dapat menjawab pertanyaan paling kritis: “Agen mana yang melakukan ini? Atas nama siapa? Bagaimana ini bisa terjadi?”   .\n5. Libatkan Manusia untuk Tindakan Kritis dan Siapkan ‘Kill Switch’\nMeskipun otonom, agen tidak boleh sepenuhnya lepas kendali, terutama untuk tindakan yang berdampak besar.    Manusia harus tetap berada dalam loop (   Human-in-the-Loop   )    untuk tindakan-tindakan tertentu, seperti:\nMelakukan transaksi keuangan   .\nMenghapus data produksi   .\nMengubah konfigurasi keamanan.\nMengirim komunikasi ke luar organisasi   .\nSelain itu, selalu siapkan    “Kill Switch”   —mekanisme darurat yang secara instan mencabut akses agen ke semua sistem, terlepas dari proses penalaran agen itu sendiri   . Ini adalah penghenti darurat jika semua lapisan pertahanan lainnya gagal.\nKesimpulan\nMengamankan AI agent dengan akses sistem bukanlah tentang menambahkan satu lapisan keamanan tambahan, tetapi tentang    memperluas kerangka keamanan yang sudah ada   —seperti IAM, kontrol akses, dan audit—ke jenis identitas baru yang dinamis dan otonom   . Kuncinya adalah konsistensi: perlakukan agen dengan disiplin yang sama seperti Anda memperlakukan pengguna atau sistem penting lainnya.\nDengan mengimplementasikan identitas yang kuat, hak akses minimum, kontrol    tool    yang ketat, audit yang menyeluruh, dan pengawasan manusia, Anda dapat memanfaatkan kekuatan AI agent secara aman dan bertanggung jawab. Keamanan bukanlah penghalang adopsi, melainkan fondasi yang memungkinkan agen AI berkembang tanpa menciptakan risiko baru yang tidak terkendali.",
+  "raw": {
+    "id": 17899,
+    "date": "2026-07-30T11:53:33",
+    "date_gmt": "2026-07-30T11:53:33",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=17899"
+    },
+    "modified": "2026-07-30T11:53:33",
+    "modified_gmt": "2026-07-30T11:53:33",
+    "slug": "mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/",
+    "title": {
+      "rendered": "Mengamankan AI Agent yang Memiliki Akses Sistem: Panduan Praktis"
+    },
+    "content": {
+      "rendered": "<p class=\"ds-markdown-paragraph\"><span class=\"\">Bayangkan ini: sebuah agen pemrosesan faktur, yang memiliki akses luas ke sistem keuangan perusahaan, berhasil dimanipulasi melalui </span><em><span class=\"\">prompt injection</span></em><span class=\"\">. Instruksi berbahaya yang tersembunyi dalam data yang dibacanya membuat agen tersebut mulai memproses pembayaran palsu—semua terjadi di bawah akun layanan bersama tanpa jejak audit yang jelas </span><span class=\"\">. Ini bukan skenario fiksi ilmiah. Ini adalah konsekuensi nyata dari menerapkan model keamanan yang dirancang untuk manusia ke agen AI yang otonom.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Kehadiran AI agent yang dapat mengakses sistem internal, API, dan data sensitif mengubah lanskap keamanan secara fundamental. Artikel ini akan membahas secara praktis bagaimana mengamankan AI agent dengan pendekatan yang terstruktur, mulai dari identitas hingga kontrol akses dan pemantauan berkelanjutan.</span></p>\n<h2><span class=\"\">1. Perlakukan Agen sebagai Identitas Kelas Satu</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Kesalahan paling umum adalah memperlakukan agen AI seperti akun layanan biasa atau, lebih buruk lagi, meminjam kredensial manusia. Agen bukanlah manusia dan bukan sekadar perangkat lunak statis. Mereka memiliki siklus hidup, perilaku dinamis, dan tingkat otonomi yang berbeda.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Prinsip utamanya: Setiap agen harus memiliki identitas uniknya sendiri, dengan kredensial yang berumur pendek dan terikat pada tugas spesifik (</span><em><span class=\"\">Zero Standing Privilege</span></em><span class=\"\">)</span></strong><span class=\"\"> </span><span class=\"\">. Jangan pernah menggunakan akun bersama. Identitas agen idealnya terikat pada kode dan model spesifik yang dijalankannya, sehingga jika model atau kode berubah, akses otomatis ditolak </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Langkah pertama yang bisa dilakukan:</span></strong></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Buat inventarisasi semua agen yang beroperasi di lingkungan Anda. Tidak ada agen yang boleh beroperasi tanpa terdaftar </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Tetapkan pemilik manusia yang bertanggung jawab untuk setiap agen </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Gunakan OAuth 2.0, OpenID Connect, atau SPIFFE untuk otentikasi dan otorisasi, sama seperti yang Anda lakukan untuk pengguna dan layanan lainnya </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">2. Terapkan Prinsip Hak Akses Minimum dan Zero Trust</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Memberi agen akses luas &#8220;untuk berjaga-jaga&#8221; adalah resep bencana. Agen harus diberikan hak akses paling minimum yang diperlukan untuk menyelesaikan tugasnya </span><span class=\"\">. Ini adalah penerapan prinsip </span><em><span class=\"\">least privilege</span></em><span class=\"\"> dalam konteks AI.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Akses harus bersifat </span><em><span class=\"\">just-in-time</span></em><span class=\"\">, bukan permanen.</span></strong></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Kredensial berumur pendek:</span></strong><span class=\"\"> Gunakan token yang berlaku hanya untuk durasi tugas tertentu. Jika agen selesai atau dicurigai disusupi, token dicabut secara otomatis </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Otorisasi berkelanjutan:</span></strong><span class=\"\"> Jangan hanya memeriksa akses sekali di awal. Evaluasi akses secara terus-menerus berdasarkan konteks: apa yang sedang dilakukan agen, data apa yang diakses, dan apakah ada sinyal risiko yang muncul </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Mikro-segmentasi:</span></strong><span class=\"\"> Pisahkan agen ke dalam zona keamanan yang berbeda. Agen yang mengakses email tidak perlu berada di jaringan yang sama dengan agen yang mengelola infrastruktur </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">3. Kontrol Ketat atas Tools dan Data</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Agen AI berinteraksi dengan dunia melalui </span><em><span class=\"\">tools</span></em><span class=\"\"> (API, perintah shell, database). Setiap </span><em><span class=\"\">tool</span></em><span class=\"\"> adalah pintu masuk potensial bagi serangan.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Batasi dan awasi dengan ketat:</span></strong></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><em><span class=\"\">Tool Allowlist</span></em><span class=\"\">:</span></strong><span class=\"\"> Tentukan secara eksplisit </span><em><span class=\"\">tool</span></em><span class=\"\"> mana yang boleh digunakan agen. Jangan izinkan agen untuk secara dinamis memanggil </span><em><span class=\"\">tool</span></em><span class=\"\"> baru atau menjalankan kode arbitrer </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Validasi Input dan Output:</span></strong><span class=\"\"> Perlakukan semua data eksternal (dari web, email, PDF) sebagai tidak tepercaya. Pisahkan instruksi sistem dari konten pengguna untuk mencegah serangan </span><em><span class=\"\">prompt injection</span></em><span class=\"\"> </span><span class=\"\">. Filter juga keluaran agen untuk mencegah kebocoran data atau eksekusi perintah berbahaya </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Sandboxing:</span></strong><span class=\"\"> Jalankan agen dalam lingkungan yang terisolasi (</span><em><span class=\"\">sandbox</span></em><span class=\"\">)—seperti kontainer atau mesin virtual—yang terpisah dari sistem host </span><span class=\"\">. Ini membatasi &#8220;radius ledakan&#8221; jika agen bertindak di luar kendali. Wardgate, misalnya, adalah contoh </span><em><span class=\"\">gateway</span></em><span class=\"\"> yang dirancang untuk mengisolasi kredensial dan mengeksekusi perintah di lingkungan terisolasi yang disebut </span><em><span class=\"\">conclave</span></em><span class=\"\"> </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">4. Pastikan Rantai Delegasi yang Jelas dan Audit yang Ketat</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Ketika agen bertindak atas nama pengguna (misalnya, &#8220;tolong kirimkan email ini untuk saya&#8221;), rantai otorisasi harus jelas dan dapat diaudit.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Jejak yang tidak terputus:</span></strong></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Gunakan token </span><em><span class=\"\">on-behalf-of</span></em><span class=\"\"> (OBO) yang berisi identitas agen dan identitas pengguna yang diwakilinya </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Pada setiap langkah dalam alur kerja multi-agen, lingkup akses harus menyempit, bukan melebar </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Catat semua aktivitas dalam log yang tidak dapat diubah (</span><em><span class=\"\">immutable logs</span></em><span class=\"\">). Rekam setiap keputusan, panggilan API, dan </span><em><span class=\"\">tool</span></em><span class=\"\"> yang digunakan, serta konteks keputusan tersebut dibuat </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Dengan ini, ketika terjadi insiden, tim keamanan dapat menjawab pertanyaan paling kritis: &#8220;Agen mana yang melakukan ini? Atas nama siapa? Bagaimana ini bisa terjadi?&#8221; </span><span class=\"\">.</span></p>\n<h2><span class=\"\">5. Libatkan Manusia untuk Tindakan Kritis dan Siapkan &#8216;Kill Switch&#8217;</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Meskipun otonom, agen tidak boleh sepenuhnya lepas kendali, terutama untuk tindakan yang berdampak besar. </span><strong><span class=\"\">Manusia harus tetap berada dalam loop (</span><em><span class=\"\">Human-in-the-Loop</span></em><span class=\"\">)</span></strong><span class=\"\"> untuk tindakan-tindakan tertentu, seperti:</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Melakukan transaksi keuangan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Menghapus data produksi </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Mengubah konfigurasi keamanan.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Mengirim komunikasi ke luar organisasi </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Selain itu, selalu siapkan </span><strong><span class=\"\">&#8220;Kill Switch&#8221;</span></strong><span class=\"\">—mekanisme darurat yang secara instan mencabut akses agen ke semua sistem, terlepas dari proses penalaran agen itu sendiri </span><span class=\"\">. Ini adalah penghenti darurat jika semua lapisan pertahanan lainnya gagal.</span></p>\n<h2><span class=\"\">Kesimpulan</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Mengamankan AI agent dengan akses sistem bukanlah tentang menambahkan satu lapisan keamanan tambahan, tetapi tentang </span><strong><span class=\"\">memperluas kerangka keamanan yang sudah ada</span></strong><span class=\"\">—seperti IAM, kontrol akses, dan audit—ke jenis identitas baru yang dinamis dan otonom </span><span class=\"\">. Kuncinya adalah konsistensi: perlakukan agen dengan disiplin yang sama seperti Anda memperlakukan pengguna atau sistem penting lainnya.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Dengan mengimplementasikan identitas yang kuat, hak akses minimum, kontrol </span><em><span class=\"\">tool</span></em><span class=\"\"> yang ketat, audit yang menyeluruh, dan pengawasan manusia, Anda dapat memanfaatkan kekuatan AI agent secara aman dan bertanggung jawab. Keamanan bukanlah penghalang adopsi, melainkan fondasi yang memungkinkan agen AI berkembang tanpa menciptakan risiko baru yang tidak terkendali.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Bayangkan ini: sebuah agen pemrosesan faktur, yang memiliki akses luas ke sistem keuangan perusahaan, berhasil dimanipulasi melalui prompt injection. Instruksi berbahaya yang tersembunyi dalam data yang dibacanya membuat agen tersebut mulai memproses pembayaran palsu—semua terjadi di bawah akun layanan bersama tanpa jejak audit yang jelas . Ini bukan skenario fiksi ilmiah. Ini adalah konsekuensi nyata dari menerapkan model keamanan yang dirancang untuk manusia ke agen AI yang otonom. Kehadiran AI agent yang dapat mengakses sistem internal, API, dan data sensitif mengubah lanskap keamanan secara fundamental. Artikel ini akan membahas secara praktis bagaimana mengamankan AI agent dengan pendekatan yang terstruktur, mulai dari identitas&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 23,
+    "featured_media": 17902,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1
+    ],
+    "tags": [],
+    "class_list": [
+      "post-17899",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-uncategorized"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Mengamankan AI Agent yang Memiliki Akses Sistem: Panduan Praktis - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Mengamankan AI Agent yang Memiliki Akses Sistem: Panduan Praktis - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Bayangkan ini: sebuah agen pemrosesan faktur, yang memiliki akses luas ke sistem keuangan perusahaan, berhasil dimanipulasi melalui prompt injection. Instruksi berbahaya yang tersembunyi dalam data yang dibacanya membuat agen tersebut mulai memproses pembayaran palsu—semua terjadi di bawah akun layanan bersama tanpa jejak audit yang jelas . Ini bukan skenario fiksi ilmiah. Ini adalah konsekuensi nyata dari menerapkan model keamanan yang dirancang untuk manusia ke agen AI yang otonom. Kehadiran AI agent yang dapat mengakses sistem internal, API, dan data sensitif mengubah lanskap keamanan secara fundamental. Artikel ini akan membahas secara praktis bagaimana mengamankan AI agent dengan pendekatan yang terstruktur, mulai dari identitas...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-30T11:53:33+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_6hwcbo6hwcbo6hwc-1024x559.png\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"559\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Ezril Fahrul Rizal\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Ezril Fahrul Rizal\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/\",\"url\":\"https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/\",\"name\":\"Mengamankan AI Agent yang Memiliki Akses Sistem: Panduan Praktis - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_6hwcbo6hwcbo6hwc.png\",\"datePublished\":\"2026-07-30T11:53:33+00:00\",\"dateModified\":\"2026-07-30T11:53:33+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_6hwcbo6hwcbo6hwc.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_6hwcbo6hwcbo6hwc.png\",\"width\":1408,\"height\":768},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Mengamankan AI Agent yang Memiliki Akses Sistem: Panduan Praktis\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d\",\"name\":\"Ezril Fahrul Rizal\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g\",\"caption\":\"Ezril Fahrul Rizal\"},\"url\":\"https://buletinsiber.com/author/ezril-fahrul-rizal/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Mengamankan AI Agent yang Memiliki Akses Sistem: Panduan Praktis - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Mengamankan AI Agent yang Memiliki Akses Sistem: Panduan Praktis - buletinsiber.com",
+      "og_description": "Bayangkan ini: sebuah agen pemrosesan faktur, yang memiliki akses luas ke sistem keuangan perusahaan, berhasil dimanipulasi melalui prompt injection. Instruksi berbahaya yang tersembunyi dalam data yang dibacanya membuat agen tersebut mulai memproses pembayaran palsu—semua terjadi di bawah akun layanan bersama tanpa jejak audit yang jelas . Ini bukan skenario fiksi ilmiah. Ini adalah konsekuensi nyata dari menerapkan model keamanan yang dirancang untuk manusia ke agen AI yang otonom. Kehadiran AI agent yang dapat mengakses sistem internal, API, dan data sensitif mengubah lanskap keamanan secara fundamental. Artikel ini akan membahas secara praktis bagaimana mengamankan AI agent dengan pendekatan yang terstruktur, mulai dari identitas...",
+      "og_url": "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-30T11:53:33+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 559,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_6hwcbo6hwcbo6hwc-1024x559.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Ezril Fahrul Rizal",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Ezril Fahrul Rizal",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/",
+            "url": "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/",
+            "name": "Mengamankan AI Agent yang Memiliki Akses Sistem: Panduan Praktis - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_6hwcbo6hwcbo6hwc.png",
+            "datePublished": "2026-07-30T11:53:33+00:00",
+            "dateModified": "2026-07-30T11:53:33+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_6hwcbo6hwcbo6hwc.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_6hwcbo6hwcbo6hwc.png",
+            "width": 1408,
+            "height": 768
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/mengamankan-ai-agent-yang-memiliki-akses-sistem-panduan-praktis/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Mengamankan AI Agent yang Memiliki Akses Sistem: Panduan Praktis"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d",
+            "name": "Ezril Fahrul Rizal",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g",
+              "caption": "Ezril Fahrul Rizal"
+            },
+            "url": "https://buletinsiber.com/author/ezril-fahrul-rizal/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17899",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/23"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=17899"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17899/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 17903,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17899/revisions/17903"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/17902"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=17899"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=17899"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=17899"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

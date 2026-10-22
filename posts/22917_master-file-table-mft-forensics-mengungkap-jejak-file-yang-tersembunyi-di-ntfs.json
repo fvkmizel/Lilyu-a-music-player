@@ -1,0 +1,337 @@
+{
+  "id": 22917,
+  "title": "Master File Table (MFT) Forensics: Mengungkap Jejak File yang Tersembunyi di NTFS",
+  "slug": "master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs",
+  "url": "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/",
+  "date": "2026-08-24T00:58:19",
+  "date_gmt": "2026-08-24T00:58:19",
+  "modified": "2026-08-24T00:58:19",
+  "modified_gmt": "2026-08-24T00:58:19",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    51,
+    1075,
+    3955,
+    3974,
+    905,
+    3973
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg",
+  "excerpt": "Pengantar Master File Table (MFT) Forensics adalah teknik digital forensics yang digunakan untuk menganalisis metadata file pada sistem file NTFS. MFT menjadi sumber informasi penting karena setiap file pada volume NTFS memiliki setidaknya satu entri MFT. Informasi tersebut dapat mencakup ukuran file, timestamp, permission, dan data lain yang berkaitan dengan file (dikutip dari: Microsoft Learn – Master File Table). Dalam investigasi keamanan, data tersebut dapat membantu investigator memahami aktivitas file dan menyusun kronologi sebuah insiden. Apa Itu Master File Table? Master File Table atau MFT merupakan struktur utama dalam sistem file NTFS. MFT berisi record yang digunakan Windows untuk mengelola…",
+  "content_html": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"85\" data-end=\"97\">Pengantar</h2>\n<p data-start=\"99\" data-end=\"524\"><strong data-start=\"99\" data-end=\"136\">Master File Table (MFT) Forensics</strong> adalah teknik digital forensics yang digunakan untuk menganalisis metadata file pada sistem file <strong data-start=\"234\" data-end=\"242\">NTFS</strong>. MFT menjadi sumber informasi penting karena setiap file pada volume NTFS memiliki setidaknya satu entri MFT. Informasi tersebut dapat mencakup ukuran file, timestamp, permission, dan data lain yang berkaitan dengan file <strong data-start=\"464\" data-end=\"521\">(dikutip dari: <span class=\"contents\" data-content-reference-start=\"481\" data-content-reference-end=\"535\"><span class=\"\" data-state=\"closed\"><a class=\"decorated-link\" href=\"https://learn.microsoft.com/en-us/windows/win32/fileio/master-file-table?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\">Microsoft Learn – Master File Table</a></span></span>)</strong>.</p>\n<p data-start=\"526\" data-end=\"658\">Dalam investigasi keamanan, data tersebut dapat membantu investigator memahami aktivitas file dan menyusun kronologi sebuah insiden.</p>\n<hr data-start=\"660\" data-end=\"663\" />\n<h2 data-section-id=\"yleyx2\" data-start=\"665\" data-end=\"694\">Apa Itu Master File Table?</h2>\n<p data-start=\"696\" data-end=\"871\"><strong data-start=\"696\" data-end=\"726\">Master File Table atau MFT</strong> merupakan struktur utama dalam sistem file NTFS. MFT berisi record yang digunakan Windows untuk mengelola dan menemukan file pada sebuah volume.</p>\n<p data-start=\"873\" data-end=\"1184\">Setiap record dapat memiliki berbagai atribut. Contohnya adalah informasi nama file, atribut standar, dan data file. Struktur MFT juga memiliki file khusus seperti <code data-start=\"1037\" data-end=\"1043\">$MFT</code>, <code data-start=\"1045\" data-end=\"1054\">$Bitmap</code>, dan <code data-start=\"1060\" data-end=\"1070\">$BadClus</code> yang digunakan oleh NTFS untuk mengelola sistem file <strong data-start=\"1124\" data-end=\"1181\">(dikutip dari: <span class=\"contents\" data-content-reference-start=\"1158\" data-content-reference-end=\"1228\"><span class=\"\" data-state=\"closed\"><a class=\"decorated-link\" href=\"https://learn.microsoft.com/en-us/windows/win32/devnotes/master-file-table?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\">Microsoft Learn – Master File Table Developer Notes</a></span></span>)</strong>.</p>\n<blockquote>\n<p data-start=\"873\" data-end=\"1184\">baca juga : <a href=\"https://buletinsiber.com/fuzz-testing-fuzzing-teknik-pengujian-otomatis-untuk-menemukan-bug-dan-celah-keamanan/\">Fuzz Testing (Fuzzing): Teknik Pengujian Otomatis untuk Menemukan Bug dan Celah Keamanan</a></p>\n</blockquote>\n<hr data-start=\"1186\" data-end=\"1189\" />\n<h2 data-section-id=\"1vumjj2\" data-start=\"1191\" data-end=\"1238\">Mengapa MFT Penting dalam Digital Forensics?</h2>\n<p data-start=\"1240\" data-end=\"1315\">MFT dapat memberikan gambaran mengenai aktivitas file pada sebuah komputer.</p>\n<p data-start=\"1317\" data-end=\"1366\">Beberapa informasi yang dapat diperiksa meliputi:</p>\n<ul data-start=\"1368\" data-end=\"1522\">\n<li data-section-id=\"feho83\" data-start=\"1368\" data-end=\"1380\">Nama file.</li>\n<li data-section-id=\"ixjsza\" data-start=\"1381\" data-end=\"1395\">Ukuran file.</li>\n<li data-section-id=\"1awe814\" data-start=\"1396\" data-end=\"1408\">Timestamp.</li>\n<li data-section-id=\"wb8qnh\" data-start=\"1409\" data-end=\"1424\">Atribut file.</li>\n<li data-section-id=\"10p6qwv\" data-start=\"1425\" data-end=\"1441\">Status record.</li>\n<li data-section-id=\"14js0mn\" data-start=\"1442\" data-end=\"1466\">Informasi lokasi data.</li>\n<li data-section-id=\"xyy36p\" data-start=\"1467\" data-end=\"1522\">Record yang berkaitan dengan file yang telah dihapus.</li>\n</ul>\n<p data-start=\"1524\" data-end=\"1624\">Data tersebut dapat membantu investigator mencari file mencurigakan dan menyusun timeline aktivitas.</p>\n<p data-start=\"1626\" data-end=\"1918\">Namun, informasi MFT sebaiknya tidak langsung dianggap sebagai bukti tunggal. NIST menjelaskan bahwa hasil analisis artefak digital dapat memengaruhi interpretasi investigasi sehingga proses <strong data-start=\"1817\" data-end=\"1839\">cross-verification</strong> penting dilakukan <strong data-start=\"1858\" data-end=\"1915\">(dikutip dari: <span class=\"contents\" data-content-reference-start=\"1925\" data-content-reference-end=\"2034\"><span class=\"\" data-state=\"closed\"><a class=\"decorated-link\" href=\"https://www.nist.gov/publications/provenience-based-cross-verification-digital-forensic-artifacts-applied-ntfs?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\">NIST – Provenience-Based Cross-Verification of Digital Forensic Artifacts Applied to NTFS</a></span></span>)</strong>. </p>\n<hr data-start=\"1920\" data-end=\"1923\" />\n<h2 data-section-id=\"180r92s\" data-start=\"1925\" data-end=\"1953\">MFT dan File yang Dihapus</h2>\n<p data-start=\"1955\" data-end=\"2047\">Salah satu aspek menarik dalam MFT forensics adalah pemeriksaan <strong data-start=\"2019\" data-end=\"2046\">file yang telah dihapus</strong>.</p>\n<p data-start=\"2049\" data-end=\"2378\">Ketika sebuah file dihapus dari volume NTFS, record MFT yang berkaitan dapat ditandai sebagai <strong data-start=\"2143\" data-end=\"2151\">free</strong> dan kemudian digunakan kembali. Namun, ukuran MFT tidak langsung berkurang karena ruang yang telah dialokasikan untuk record tersebut tetap berada dalam struktur MFT <strong data-start=\"2318\" data-end=\"2375\">(dikutip dari: <span class=\"contents\" data-content-reference-start=\"2457\" data-content-reference-end=\"2511\"><span class=\"\" data-state=\"closed\"><a class=\"decorated-link\" href=\"https://learn.microsoft.com/id-id/windows/win32/fileio/master-file-table?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\">Microsoft Learn – Master File Table</a></span></span>)</strong>.</p>\n<p data-start=\"2380\" data-end=\"2459\">Kondisi ini dapat memberikan petunjuk bahwa sebuah file pernah ada pada sistem.</p>\n<p data-start=\"2461\" data-end=\"2635\">Meski begitu, keberadaan record tidak menjamin seluruh isi file masih dapat dipulihkan. Record tersebut bisa saja sudah digunakan kembali atau sebagian datanya telah berubah.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"817\" height=\"544\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 817px) 100vw, 817px\" /></p>\n<hr data-start=\"2637\" data-end=\"2640\" />\n<h2 data-section-id=\"1otfskw\" data-start=\"2642\" data-end=\"2684\">Informasi Apa yang Dicari Investigator?</h2>\n<p data-start=\"2686\" data-end=\"2774\">Dalam pemeriksaan MFT, investigator biasanya mencari pola yang berhubungan dengan kasus.</p>\n<h3 data-section-id=\"nx0qa1\" data-start=\"2776\" data-end=\"2797\">File Mencurigakan</h3>\n<p data-start=\"2799\" data-end=\"2903\">File dengan nama aneh, ekstensi tidak sesuai, atau lokasi yang tidak biasa dapat diperiksa lebih lanjut.</p>\n<h3 data-section-id=\"1omuotk\" data-start=\"2905\" data-end=\"2918\">Timestamp</h3>\n<p data-start=\"2920\" data-end=\"2987\">Waktu pembuatan dan perubahan file dapat membantu membuat timeline.</p>\n<h3 data-section-id=\"6rgcn0\" data-start=\"2989\" data-end=\"3006\">File Terhapus</h3>\n<p data-start=\"3008\" data-end=\"3117\">Record yang berstatus tidak aktif dapat memberikan petunjuk mengenai file yang sebelumnya berada pada sistem.</p>\n<h3 data-section-id=\"v0u8gt\" data-start=\"3119\" data-end=\"3151\">Aktivitas dalam Jumlah Besar</h3>\n<p data-start=\"3153\" data-end=\"3259\">Banyak file yang berubah dalam waktu singkat dapat menjadi indikator aktivitas otomatis atau mencurigakan.</p>\n<p data-start=\"3261\" data-end=\"3373\">Contohnya, perubahan file secara massal dapat menjadi salah satu petunjuk ketika menyelidiki insiden ransomware.</p>\n<blockquote>\n<p data-start=\"3261\" data-end=\"3373\">baca juga : <a href=\"https://buletinsiber.com/osint-di-era-digital-antara-investigasi-intelligence-dan-tantangan-pembuktian-hukum/\">OSINT di Era Digital: Antara Investigasi, Intelligence, dan Tantangan Pembuktian Hukum</a></p>\n</blockquote>\n<hr data-start=\"3375\" data-end=\"3378\" />\n<h2 data-section-id=\"u1tmuw\" data-start=\"3380\" data-end=\"3414\">Bagaimana Proses MFT Forensics?</h2>\n<p data-start=\"3416\" data-end=\"3482\">Analisis dapat dilakukan secara bertahap agar bukti tetap terjaga.</p>\n<h3 data-section-id=\"rabuts\" data-start=\"3484\" data-end=\"3513\">1. Membuat Forensic Image</h3>\n<p data-start=\"3515\" data-end=\"3667\">Investigator sebaiknya bekerja menggunakan salinan forensik dari media penyimpanan. Cara ini membantu mengurangi risiko perubahan terhadap sumber bukti.</p>\n<h3 data-section-id=\"10fzoxx\" data-start=\"3669\" data-end=\"3696\">2. Mengekstrak Data MFT</h3>\n<p data-start=\"3698\" data-end=\"3755\">MFT kemudian diekstrak dari volume NTFS untuk dianalisis.</p>\n<h3 data-section-id=\"hb24b8\" data-start=\"3757\" data-end=\"3780\">3. Memeriksa Record</h3>\n<p data-start=\"3782\" data-end=\"3869\">Setiap record dapat diperiksa berdasarkan nama file, timestamp, atribut, dan statusnya.</p>\n<h3 data-section-id=\"6m4jze\" data-start=\"3871\" data-end=\"3893\">4. Mencari Anomali</h3>\n<p data-start=\"3895\" data-end=\"3966\">Investigator mencari file atau aktivitas yang berkaitan dengan insiden.</p>\n<h3 data-section-id=\"1fu5tme\" data-start=\"3968\" data-end=\"4008\">5. Membandingkan dengan Artefak Lain</h3>\n<p data-start=\"4010\" data-end=\"4141\">Temuan MFT sebaiknya dibandingkan dengan sumber lain seperti Windows Event Logs, Registry, USN Journal, dan artefak sistem lainnya.</p>\n<p data-start=\"4143\" data-end=\"4212\">Pendekatan tersebut membantu menghasilkan timeline yang lebih akurat.</p>\n<hr data-start=\"4214\" data-end=\"4217\" />\n<h2 data-section-id=\"oerl3b\" data-start=\"4219\" data-end=\"4248\">Keterbatasan MFT Forensics</h2>\n<p data-start=\"4250\" data-end=\"4287\">MFT bukan sumber bukti yang sempurna.</p>\n<p data-start=\"4289\" data-end=\"4437\">Record dapat digunakan kembali setelah file dihapus. Selain itu, metadata tidak selalu memberikan gambaran lengkap mengenai isi atau aktivitas file.</p>\n<p data-start=\"4439\" data-end=\"4585\">Timestamp juga perlu ditafsirkan dengan hati-hati. Perubahan konfigurasi sistem atau aktivitas tertentu dapat memengaruhi cara timestamp dipahami.</p>\n<p data-start=\"4587\" data-end=\"4683\">Karena itu, investigator perlu menghubungkan MFT dengan artefak lain sebelum membuat kesimpulan.</p>\n<blockquote>\n<p data-start=\"4587\" data-end=\"4683\">baca juga : <a href=\"https://buletinsiber.com/server-name-indication-sni-encryption-mengenal-ech-dan-cara-melindungi-privasi-tls/\">Server Name Indication (SNI) Encryption: Mengenal ECH dan Cara Melindungi Privasi TLS</a></p>\n</blockquote>\n<hr data-start=\"5056\" data-end=\"5059\" />\n<h2 data-section-id=\"1806px6\" data-start=\"5061\" data-end=\"5074\">Kesimpulan</h2>\n<p data-start=\"5076\" data-end=\"5207\"><strong data-start=\"5076\" data-end=\"5113\">Master File Table (MFT) Forensics</strong> merupakan teknik penting untuk menganalisis aktivitas file pada sistem Windows berbasis NTFS.</p>\n<p data-start=\"5209\" data-end=\"5415\">MFT dapat memberikan informasi mengenai nama file, ukuran, timestamp, atribut, dan status record. Bahkan, record yang berkaitan dengan file terhapus dapat memberikan petunjuk selama belum digunakan kembali.</p>\n<p data-start=\"5417\" data-end=\"5612\">Namun, MFT sebaiknya tidak dianalisis sendirian. <strong data-start=\"5466\" data-end=\"5548\">Korelasi dengan USN Journal, Windows Event Logs, Registry, dan artefak lainnya</strong> dapat membantu investigator membangun timeline yang lebih kuat.</p>\n<p data-start=\"5614\" data-end=\"5771\">Dengan memahami struktur dan keterbatasan MFT, investigator dapat menemukan jejak file yang berguna dalam proses <strong data-start=\"5727\" data-end=\"5770\">digital forensics dan incident response</strong>.</p>\n",
+  "content_text": "Pengantar\nMaster File Table (MFT) Forensics  adalah teknik digital forensics yang digunakan untuk menganalisis metadata file pada sistem file  NTFS . MFT menjadi sumber informasi penting karena setiap file pada volume NTFS memiliki setidaknya satu entri MFT. Informasi tersebut dapat mencakup ukuran file, timestamp, permission, dan data lain yang berkaitan dengan file  (dikutip dari:    Microsoft Learn – Master File Table   ) .\nDalam investigasi keamanan, data tersebut dapat membantu investigator memahami aktivitas file dan menyusun kronologi sebuah insiden.\nApa Itu Master File Table?\nMaster File Table atau MFT  merupakan struktur utama dalam sistem file NTFS. MFT berisi record yang digunakan Windows untuk mengelola dan menemukan file pada sebuah volume.\nSetiap record dapat memiliki berbagai atribut. Contohnya adalah informasi nama file, atribut standar, dan data file. Struktur MFT juga memiliki file khusus seperti  $MFT ,  $Bitmap , dan  $BadClus  yang digunakan oleh NTFS untuk mengelola sistem file  (dikutip dari:    Microsoft Learn – Master File Table Developer Notes   ) .\nbaca juga :  Fuzz Testing (Fuzzing): Teknik Pengujian Otomatis untuk Menemukan Bug dan Celah Keamanan\nMengapa MFT Penting dalam Digital Forensics?\nMFT dapat memberikan gambaran mengenai aktivitas file pada sebuah komputer.\nBeberapa informasi yang dapat diperiksa meliputi:\nNama file.\nUkuran file.\nTimestamp.\nAtribut file.\nStatus record.\nInformasi lokasi data.\nRecord yang berkaitan dengan file yang telah dihapus.\nData tersebut dapat membantu investigator mencari file mencurigakan dan menyusun timeline aktivitas.\nNamun, informasi MFT sebaiknya tidak langsung dianggap sebagai bukti tunggal. NIST menjelaskan bahwa hasil analisis artefak digital dapat memengaruhi interpretasi investigasi sehingga proses  cross-verification  penting dilakukan  (dikutip dari:    NIST – Provenience-Based Cross-Verification of Digital Forensic Artifacts Applied to NTFS   ) . \nMFT dan File yang Dihapus\nSalah satu aspek menarik dalam MFT forensics adalah pemeriksaan  file yang telah dihapus .\nKetika sebuah file dihapus dari volume NTFS, record MFT yang berkaitan dapat ditandai sebagai  free  dan kemudian digunakan kembali. Namun, ukuran MFT tidak langsung berkurang karena ruang yang telah dialokasikan untuk record tersebut tetap berada dalam struktur MFT  (dikutip dari:    Microsoft Learn – Master File Table   ) .\nKondisi ini dapat memberikan petunjuk bahwa sebuah file pernah ada pada sistem.\nMeski begitu, keberadaan record tidak menjamin seluruh isi file masih dapat dipulihkan. Record tersebut bisa saja sudah digunakan kembali atau sebagian datanya telah berubah.\nInformasi Apa yang Dicari Investigator?\nDalam pemeriksaan MFT, investigator biasanya mencari pola yang berhubungan dengan kasus.\nFile Mencurigakan\nFile dengan nama aneh, ekstensi tidak sesuai, atau lokasi yang tidak biasa dapat diperiksa lebih lanjut.\nTimestamp\nWaktu pembuatan dan perubahan file dapat membantu membuat timeline.\nFile Terhapus\nRecord yang berstatus tidak aktif dapat memberikan petunjuk mengenai file yang sebelumnya berada pada sistem.\nAktivitas dalam Jumlah Besar\nBanyak file yang berubah dalam waktu singkat dapat menjadi indikator aktivitas otomatis atau mencurigakan.\nContohnya, perubahan file secara massal dapat menjadi salah satu petunjuk ketika menyelidiki insiden ransomware.\nbaca juga :  OSINT di Era Digital: Antara Investigasi, Intelligence, dan Tantangan Pembuktian Hukum\nBagaimana Proses MFT Forensics?\nAnalisis dapat dilakukan secara bertahap agar bukti tetap terjaga.\n1. Membuat Forensic Image\nInvestigator sebaiknya bekerja menggunakan salinan forensik dari media penyimpanan. Cara ini membantu mengurangi risiko perubahan terhadap sumber bukti.\n2. Mengekstrak Data MFT\nMFT kemudian diekstrak dari volume NTFS untuk dianalisis.\n3. Memeriksa Record\nSetiap record dapat diperiksa berdasarkan nama file, timestamp, atribut, dan statusnya.\n4. Mencari Anomali\nInvestigator mencari file atau aktivitas yang berkaitan dengan insiden.\n5. Membandingkan dengan Artefak Lain\nTemuan MFT sebaiknya dibandingkan dengan sumber lain seperti Windows Event Logs, Registry, USN Journal, dan artefak sistem lainnya.\nPendekatan tersebut membantu menghasilkan timeline yang lebih akurat.\nKeterbatasan MFT Forensics\nMFT bukan sumber bukti yang sempurna.\nRecord dapat digunakan kembali setelah file dihapus. Selain itu, metadata tidak selalu memberikan gambaran lengkap mengenai isi atau aktivitas file.\nTimestamp juga perlu ditafsirkan dengan hati-hati. Perubahan konfigurasi sistem atau aktivitas tertentu dapat memengaruhi cara timestamp dipahami.\nKarena itu, investigator perlu menghubungkan MFT dengan artefak lain sebelum membuat kesimpulan.\nbaca juga :  Server Name Indication (SNI) Encryption: Mengenal ECH dan Cara Melindungi Privasi TLS\nKesimpulan\nMaster File Table (MFT) Forensics  merupakan teknik penting untuk menganalisis aktivitas file pada sistem Windows berbasis NTFS.\nMFT dapat memberikan informasi mengenai nama file, ukuran, timestamp, atribut, dan status record. Bahkan, record yang berkaitan dengan file terhapus dapat memberikan petunjuk selama belum digunakan kembali.\nNamun, MFT sebaiknya tidak dianalisis sendirian.  Korelasi dengan USN Journal, Windows Event Logs, Registry, dan artefak lainnya  dapat membantu investigator membangun timeline yang lebih kuat.\nDengan memahami struktur dan keterbatasan MFT, investigator dapat menemukan jejak file yang berguna dalam proses  digital forensics dan incident response .",
+  "raw": {
+    "id": 22917,
+    "date": "2026-08-24T00:58:19",
+    "date_gmt": "2026-08-24T00:58:19",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=22917"
+    },
+    "modified": "2026-08-24T00:58:19",
+    "modified_gmt": "2026-08-24T00:58:19",
+    "slug": "master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/",
+    "title": {
+      "rendered": "Master File Table (MFT) Forensics: Mengungkap Jejak File yang Tersembunyi di NTFS"
+    },
+    "content": {
+      "rendered": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"85\" data-end=\"97\">Pengantar</h2>\n<p data-start=\"99\" data-end=\"524\"><strong data-start=\"99\" data-end=\"136\">Master File Table (MFT) Forensics</strong> adalah teknik digital forensics yang digunakan untuk menganalisis metadata file pada sistem file <strong data-start=\"234\" data-end=\"242\">NTFS</strong>. MFT menjadi sumber informasi penting karena setiap file pada volume NTFS memiliki setidaknya satu entri MFT. Informasi tersebut dapat mencakup ukuran file, timestamp, permission, dan data lain yang berkaitan dengan file <strong data-start=\"464\" data-end=\"521\">(dikutip dari: <span class=\"contents\" data-content-reference-start=\"481\" data-content-reference-end=\"535\"><span class=\"\" data-state=\"closed\"><a class=\"decorated-link\" href=\"https://learn.microsoft.com/en-us/windows/win32/fileio/master-file-table?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\">Microsoft Learn – Master File Table</a></span></span>)</strong>.</p>\n<p data-start=\"526\" data-end=\"658\">Dalam investigasi keamanan, data tersebut dapat membantu investigator memahami aktivitas file dan menyusun kronologi sebuah insiden.</p>\n<hr data-start=\"660\" data-end=\"663\" />\n<h2 data-section-id=\"yleyx2\" data-start=\"665\" data-end=\"694\">Apa Itu Master File Table?</h2>\n<p data-start=\"696\" data-end=\"871\"><strong data-start=\"696\" data-end=\"726\">Master File Table atau MFT</strong> merupakan struktur utama dalam sistem file NTFS. MFT berisi record yang digunakan Windows untuk mengelola dan menemukan file pada sebuah volume.</p>\n<p data-start=\"873\" data-end=\"1184\">Setiap record dapat memiliki berbagai atribut. Contohnya adalah informasi nama file, atribut standar, dan data file. Struktur MFT juga memiliki file khusus seperti <code data-start=\"1037\" data-end=\"1043\">$MFT</code>, <code data-start=\"1045\" data-end=\"1054\">$Bitmap</code>, dan <code data-start=\"1060\" data-end=\"1070\">$BadClus</code> yang digunakan oleh NTFS untuk mengelola sistem file <strong data-start=\"1124\" data-end=\"1181\">(dikutip dari: <span class=\"contents\" data-content-reference-start=\"1158\" data-content-reference-end=\"1228\"><span class=\"\" data-state=\"closed\"><a class=\"decorated-link\" href=\"https://learn.microsoft.com/en-us/windows/win32/devnotes/master-file-table?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\">Microsoft Learn – Master File Table Developer Notes</a></span></span>)</strong>.</p>\n<blockquote>\n<p data-start=\"873\" data-end=\"1184\">baca juga : <a href=\"https://buletinsiber.com/fuzz-testing-fuzzing-teknik-pengujian-otomatis-untuk-menemukan-bug-dan-celah-keamanan/\">Fuzz Testing (Fuzzing): Teknik Pengujian Otomatis untuk Menemukan Bug dan Celah Keamanan</a></p>\n</blockquote>\n<hr data-start=\"1186\" data-end=\"1189\" />\n<h2 data-section-id=\"1vumjj2\" data-start=\"1191\" data-end=\"1238\">Mengapa MFT Penting dalam Digital Forensics?</h2>\n<p data-start=\"1240\" data-end=\"1315\">MFT dapat memberikan gambaran mengenai aktivitas file pada sebuah komputer.</p>\n<p data-start=\"1317\" data-end=\"1366\">Beberapa informasi yang dapat diperiksa meliputi:</p>\n<ul data-start=\"1368\" data-end=\"1522\">\n<li data-section-id=\"feho83\" data-start=\"1368\" data-end=\"1380\">Nama file.</li>\n<li data-section-id=\"ixjsza\" data-start=\"1381\" data-end=\"1395\">Ukuran file.</li>\n<li data-section-id=\"1awe814\" data-start=\"1396\" data-end=\"1408\">Timestamp.</li>\n<li data-section-id=\"wb8qnh\" data-start=\"1409\" data-end=\"1424\">Atribut file.</li>\n<li data-section-id=\"10p6qwv\" data-start=\"1425\" data-end=\"1441\">Status record.</li>\n<li data-section-id=\"14js0mn\" data-start=\"1442\" data-end=\"1466\">Informasi lokasi data.</li>\n<li data-section-id=\"xyy36p\" data-start=\"1467\" data-end=\"1522\">Record yang berkaitan dengan file yang telah dihapus.</li>\n</ul>\n<p data-start=\"1524\" data-end=\"1624\">Data tersebut dapat membantu investigator mencari file mencurigakan dan menyusun timeline aktivitas.</p>\n<p data-start=\"1626\" data-end=\"1918\">Namun, informasi MFT sebaiknya tidak langsung dianggap sebagai bukti tunggal. NIST menjelaskan bahwa hasil analisis artefak digital dapat memengaruhi interpretasi investigasi sehingga proses <strong data-start=\"1817\" data-end=\"1839\">cross-verification</strong> penting dilakukan <strong data-start=\"1858\" data-end=\"1915\">(dikutip dari: <span class=\"contents\" data-content-reference-start=\"1925\" data-content-reference-end=\"2034\"><span class=\"\" data-state=\"closed\"><a class=\"decorated-link\" href=\"https://www.nist.gov/publications/provenience-based-cross-verification-digital-forensic-artifacts-applied-ntfs?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\">NIST – Provenience-Based Cross-Verification of Digital Forensic Artifacts Applied to NTFS</a></span></span>)</strong>. </p>\n<hr data-start=\"1920\" data-end=\"1923\" />\n<h2 data-section-id=\"180r92s\" data-start=\"1925\" data-end=\"1953\">MFT dan File yang Dihapus</h2>\n<p data-start=\"1955\" data-end=\"2047\">Salah satu aspek menarik dalam MFT forensics adalah pemeriksaan <strong data-start=\"2019\" data-end=\"2046\">file yang telah dihapus</strong>.</p>\n<p data-start=\"2049\" data-end=\"2378\">Ketika sebuah file dihapus dari volume NTFS, record MFT yang berkaitan dapat ditandai sebagai <strong data-start=\"2143\" data-end=\"2151\">free</strong> dan kemudian digunakan kembali. Namun, ukuran MFT tidak langsung berkurang karena ruang yang telah dialokasikan untuk record tersebut tetap berada dalam struktur MFT <strong data-start=\"2318\" data-end=\"2375\">(dikutip dari: <span class=\"contents\" data-content-reference-start=\"2457\" data-content-reference-end=\"2511\"><span class=\"\" data-state=\"closed\"><a class=\"decorated-link\" href=\"https://learn.microsoft.com/id-id/windows/win32/fileio/master-file-table?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\">Microsoft Learn – Master File Table</a></span></span>)</strong>.</p>\n<p data-start=\"2380\" data-end=\"2459\">Kondisi ini dapat memberikan petunjuk bahwa sebuah file pernah ada pada sistem.</p>\n<p data-start=\"2461\" data-end=\"2635\">Meski begitu, keberadaan record tidak menjamin seluruh isi file masih dapat dipulihkan. Record tersebut bisa saja sudah digunakan kembali atau sebagian datanya telah berubah.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"817\" height=\"544\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 817px) 100vw, 817px\" /></p>\n<hr data-start=\"2637\" data-end=\"2640\" />\n<h2 data-section-id=\"1otfskw\" data-start=\"2642\" data-end=\"2684\">Informasi Apa yang Dicari Investigator?</h2>\n<p data-start=\"2686\" data-end=\"2774\">Dalam pemeriksaan MFT, investigator biasanya mencari pola yang berhubungan dengan kasus.</p>\n<h3 data-section-id=\"nx0qa1\" data-start=\"2776\" data-end=\"2797\">File Mencurigakan</h3>\n<p data-start=\"2799\" data-end=\"2903\">File dengan nama aneh, ekstensi tidak sesuai, atau lokasi yang tidak biasa dapat diperiksa lebih lanjut.</p>\n<h3 data-section-id=\"1omuotk\" data-start=\"2905\" data-end=\"2918\">Timestamp</h3>\n<p data-start=\"2920\" data-end=\"2987\">Waktu pembuatan dan perubahan file dapat membantu membuat timeline.</p>\n<h3 data-section-id=\"6rgcn0\" data-start=\"2989\" data-end=\"3006\">File Terhapus</h3>\n<p data-start=\"3008\" data-end=\"3117\">Record yang berstatus tidak aktif dapat memberikan petunjuk mengenai file yang sebelumnya berada pada sistem.</p>\n<h3 data-section-id=\"v0u8gt\" data-start=\"3119\" data-end=\"3151\">Aktivitas dalam Jumlah Besar</h3>\n<p data-start=\"3153\" data-end=\"3259\">Banyak file yang berubah dalam waktu singkat dapat menjadi indikator aktivitas otomatis atau mencurigakan.</p>\n<p data-start=\"3261\" data-end=\"3373\">Contohnya, perubahan file secara massal dapat menjadi salah satu petunjuk ketika menyelidiki insiden ransomware.</p>\n<blockquote>\n<p data-start=\"3261\" data-end=\"3373\">baca juga : <a href=\"https://buletinsiber.com/osint-di-era-digital-antara-investigasi-intelligence-dan-tantangan-pembuktian-hukum/\">OSINT di Era Digital: Antara Investigasi, Intelligence, dan Tantangan Pembuktian Hukum</a></p>\n</blockquote>\n<hr data-start=\"3375\" data-end=\"3378\" />\n<h2 data-section-id=\"u1tmuw\" data-start=\"3380\" data-end=\"3414\">Bagaimana Proses MFT Forensics?</h2>\n<p data-start=\"3416\" data-end=\"3482\">Analisis dapat dilakukan secara bertahap agar bukti tetap terjaga.</p>\n<h3 data-section-id=\"rabuts\" data-start=\"3484\" data-end=\"3513\">1. Membuat Forensic Image</h3>\n<p data-start=\"3515\" data-end=\"3667\">Investigator sebaiknya bekerja menggunakan salinan forensik dari media penyimpanan. Cara ini membantu mengurangi risiko perubahan terhadap sumber bukti.</p>\n<h3 data-section-id=\"10fzoxx\" data-start=\"3669\" data-end=\"3696\">2. Mengekstrak Data MFT</h3>\n<p data-start=\"3698\" data-end=\"3755\">MFT kemudian diekstrak dari volume NTFS untuk dianalisis.</p>\n<h3 data-section-id=\"hb24b8\" data-start=\"3757\" data-end=\"3780\">3. Memeriksa Record</h3>\n<p data-start=\"3782\" data-end=\"3869\">Setiap record dapat diperiksa berdasarkan nama file, timestamp, atribut, dan statusnya.</p>\n<h3 data-section-id=\"6m4jze\" data-start=\"3871\" data-end=\"3893\">4. Mencari Anomali</h3>\n<p data-start=\"3895\" data-end=\"3966\">Investigator mencari file atau aktivitas yang berkaitan dengan insiden.</p>\n<h3 data-section-id=\"1fu5tme\" data-start=\"3968\" data-end=\"4008\">5. Membandingkan dengan Artefak Lain</h3>\n<p data-start=\"4010\" data-end=\"4141\">Temuan MFT sebaiknya dibandingkan dengan sumber lain seperti Windows Event Logs, Registry, USN Journal, dan artefak sistem lainnya.</p>\n<p data-start=\"4143\" data-end=\"4212\">Pendekatan tersebut membantu menghasilkan timeline yang lebih akurat.</p>\n<hr data-start=\"4214\" data-end=\"4217\" />\n<h2 data-section-id=\"oerl3b\" data-start=\"4219\" data-end=\"4248\">Keterbatasan MFT Forensics</h2>\n<p data-start=\"4250\" data-end=\"4287\">MFT bukan sumber bukti yang sempurna.</p>\n<p data-start=\"4289\" data-end=\"4437\">Record dapat digunakan kembali setelah file dihapus. Selain itu, metadata tidak selalu memberikan gambaran lengkap mengenai isi atau aktivitas file.</p>\n<p data-start=\"4439\" data-end=\"4585\">Timestamp juga perlu ditafsirkan dengan hati-hati. Perubahan konfigurasi sistem atau aktivitas tertentu dapat memengaruhi cara timestamp dipahami.</p>\n<p data-start=\"4587\" data-end=\"4683\">Karena itu, investigator perlu menghubungkan MFT dengan artefak lain sebelum membuat kesimpulan.</p>\n<blockquote>\n<p data-start=\"4587\" data-end=\"4683\">baca juga : <a href=\"https://buletinsiber.com/server-name-indication-sni-encryption-mengenal-ech-dan-cara-melindungi-privasi-tls/\">Server Name Indication (SNI) Encryption: Mengenal ECH dan Cara Melindungi Privasi TLS</a></p>\n</blockquote>\n<hr data-start=\"5056\" data-end=\"5059\" />\n<h2 data-section-id=\"1806px6\" data-start=\"5061\" data-end=\"5074\">Kesimpulan</h2>\n<p data-start=\"5076\" data-end=\"5207\"><strong data-start=\"5076\" data-end=\"5113\">Master File Table (MFT) Forensics</strong> merupakan teknik penting untuk menganalisis aktivitas file pada sistem Windows berbasis NTFS.</p>\n<p data-start=\"5209\" data-end=\"5415\">MFT dapat memberikan informasi mengenai nama file, ukuran, timestamp, atribut, dan status record. Bahkan, record yang berkaitan dengan file terhapus dapat memberikan petunjuk selama belum digunakan kembali.</p>\n<p data-start=\"5417\" data-end=\"5612\">Namun, MFT sebaiknya tidak dianalisis sendirian. <strong data-start=\"5466\" data-end=\"5548\">Korelasi dengan USN Journal, Windows Event Logs, Registry, dan artefak lainnya</strong> dapat membantu investigator membangun timeline yang lebih kuat.</p>\n<p data-start=\"5614\" data-end=\"5771\">Dengan memahami struktur dan keterbatasan MFT, investigator dapat menemukan jejak file yang berguna dalam proses <strong data-start=\"5727\" data-end=\"5770\">digital forensics dan incident response</strong>.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Master File Table (MFT) Forensics adalah teknik digital forensics yang digunakan untuk menganalisis metadata file pada sistem file NTFS. MFT menjadi sumber informasi penting karena setiap file pada volume NTFS memiliki setidaknya satu entri MFT. Informasi tersebut dapat mencakup ukuran file, timestamp, permission, dan data lain yang berkaitan dengan file (dikutip dari: Microsoft Learn – Master File Table). Dalam investigasi keamanan, data tersebut dapat membantu investigator memahami aktivitas file dan menyusun kronologi sebuah insiden. Apa Itu Master File Table? Master File Table atau MFT merupakan struktur utama dalam sistem file NTFS. MFT berisi record yang digunakan Windows untuk mengelola&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 4011,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Master File Table (MFT) Forensics",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      51,
+      1075,
+      3955,
+      3974,
+      905,
+      3973
+    ],
+    "class_list": [
+      "post-22917",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-data",
+      "tag-file",
+      "tag-forensics",
+      "tag-forensik",
+      "tag-metadata",
+      "tag-mft"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Master File Table (MFT) Forensics: Mengungkap Jejak File yang Tersembunyi di NTFS - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Master File Table (MFT) Forensics: Mengungkap Jejak File yang Tersembunyi di NTFS - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Master File Table (MFT) Forensics adalah teknik digital forensics yang digunakan untuk menganalisis metadata file pada sistem file NTFS. MFT menjadi sumber informasi penting karena setiap file pada volume NTFS memiliki setidaknya satu entri MFT. Informasi tersebut dapat mencakup ukuran file, timestamp, permission, dan data lain yang berkaitan dengan file (dikutip dari: Microsoft Learn – Master File Table). Dalam investigasi keamanan, data tersebut dapat membantu investigator memahami aktivitas file dan menyusun kronologi sebuah insiden. Apa Itu Master File Table? Master File Table atau MFT merupakan struktur utama dalam sistem file NTFS. MFT berisi record yang digunakan Windows untuk mengelola...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-08-24T00:58:19+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2000\" />\n\t<meta property=\"og:image:height\" content=\"1125\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/\",\"url\":\"https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/\",\"name\":\"Master File Table (MFT) Forensics: Mengungkap Jejak File yang Tersembunyi di NTFS - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg\",\"datePublished\":\"2026-08-24T00:58:19+00:00\",\"dateModified\":\"2026-08-24T00:58:19+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg\",\"width\":2000,\"height\":1125},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Master File Table (MFT) Forensics: Mengungkap Jejak File yang Tersembunyi di NTFS\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Master File Table (MFT) Forensics: Mengungkap Jejak File yang Tersembunyi di NTFS - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Master File Table (MFT) Forensics: Mengungkap Jejak File yang Tersembunyi di NTFS - buletinsiber.com",
+      "og_description": "Pengantar Master File Table (MFT) Forensics adalah teknik digital forensics yang digunakan untuk menganalisis metadata file pada sistem file NTFS. MFT menjadi sumber informasi penting karena setiap file pada volume NTFS memiliki setidaknya satu entri MFT. Informasi tersebut dapat mencakup ukuran file, timestamp, permission, dan data lain yang berkaitan dengan file (dikutip dari: Microsoft Learn – Master File Table). Dalam investigasi keamanan, data tersebut dapat membantu investigator memahami aktivitas file dan menyusun kronologi sebuah insiden. Apa Itu Master File Table? Master File Table atau MFT merupakan struktur utama dalam sistem file NTFS. MFT berisi record yang digunakan Windows untuk mengelola...",
+      "og_url": "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-08-24T00:58:19+00:00",
+      "og_image": [
+        {
+          "width": 2000,
+          "height": 1125,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/",
+            "url": "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/",
+            "name": "Master File Table (MFT) Forensics: Mengungkap Jejak File yang Tersembunyi di NTFS - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg",
+            "datePublished": "2026-08-24T00:58:19+00:00",
+            "dateModified": "2026-08-24T00:58:19+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg",
+            "width": 2000,
+            "height": 1125
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/master-file-table-mft-forensics-mengungkap-jejak-file-yang-tersembunyi-di-ntfs/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Master File Table (MFT) Forensics: Mengungkap Jejak File yang Tersembunyi di NTFS"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22917",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=22917"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22917/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 22918,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22917/revisions/22918"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4011"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=22917"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=22917"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=22917"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

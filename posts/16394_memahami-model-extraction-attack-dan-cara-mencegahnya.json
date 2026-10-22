@@ -1,0 +1,308 @@
+{
+  "id": 16394,
+  "title": "Memahami Model Extraction Attack dan Cara Mencegahnya",
+  "slug": "memahami-model-extraction-attack-dan-cara-mencegahnya",
+  "url": "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/",
+  "date": "2026-07-29T14:17:15",
+  "date_gmt": "2026-07-29T14:17:15",
+  "modified": "2026-07-29T14:17:15",
+  "modified_gmt": "2026-07-29T14:17:15",
+  "author": {
+    "id": 23,
+    "name": "Ezril Fahrul Rizal"
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Uncategorized"
+    }
+  ],
+  "tags": [],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_cbtnemcbtnemcbtn.png",
+  "excerpt": "Pendahuluan Model yang Anda bangun dengan susah payah—menghabiskan biaya komputasi besar dan data berharga—bisa saja “dicuri” oleh pihak lain tanpa izin. Inilah yang disebut Model Extraction Attack (MEA), atau serangan ekstraksi model. National Institute of Standards and Technology (NIST) mendefinisikannya sebagai serangan privasi yang mengekstrak detail arsitektur dan/atau parameter model . Serangan ini menjadi ancaman serius di era Machine-Learning-as-a-Service (MLaaS), di mana model-model canggih dari perusahaan seperti OpenAI dan Google diakses publik melalui API berbayar . Dengan memanfaatkan akses query ini, penyerang dapat mereplikasi fungsi model target dan mencuri kekayaan intelektual yang bernilai besar. Bagaimana Model Extraction Attack Bekerja? Secara konseptual, serangan ekstraksi…",
+  "content_html": "<h2><span class=\"\">Pendahuluan</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Model yang Anda bangun dengan susah payah—menghabiskan biaya komputasi besar dan data berharga—bisa saja &#8220;dicuri&#8221; oleh pihak lain tanpa izin. Inilah yang disebut </span><strong><span class=\"\">Model Extraction Attack (MEA)</span></strong><span class=\"\">, atau serangan ekstraksi model. National Institute of Standards and Technology (NIST) mendefinisikannya sebagai serangan privasi yang mengekstrak detail arsitektur dan/atau parameter model </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Serangan ini menjadi ancaman serius di era Machine-Learning-as-a-Service (MLaaS), di mana model-model canggih dari perusahaan seperti OpenAI dan Google diakses publik melalui API berbayar </span><span class=\"\">. Dengan memanfaatkan akses query ini, penyerang dapat mereplikasi fungsi model target dan mencuri kekayaan intelektual yang bernilai besar.</span></p>\n<h2><span class=\"\">Bagaimana Model Extraction Attack Bekerja?</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Secara konseptual, serangan ekstraksi model mengikuti alur tiga tahap </span><span class=\"\">:</span></p>\n<ol start=\"1\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pembangkit Query</span></strong><span class=\"\"> (</span><em><span class=\"\">Query Generation</span></em><span class=\"\">): Penyerang merancang masukan (prompt) yang efektif untuk menguji kemampuan model target.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pengumpulan Respons</span></strong><span class=\"\"> (</span><em><span class=\"\">Response Collection</span></em><span class=\"\">): Query dikirim ke model target melalui API, dan hasilnya dikumpulkan sebagai pasangan input-output.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pelatihan Model Tiruan</span></strong><span class=\"\"> (</span><em><span class=\"\">Surrogate Model Training</span></em><span class=\"\">): Pasangan data ini digunakan untuk melatih model tiruan yang meniru perilaku model asli.</span></p>\n</li>\n</ol>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Serangan ini memanfaatkan fakta bahwa meskipun arsitektur dan parameter model disembunyikan, pola input-output dapat diamati dan ditiru.</span></p>\n<h3><span class=\"\">Jenis-jenis Serangan Ekstraksi</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Berdasarkan survei komprehensif terhadap Large Language Models (LLM), serangan ekstraksi dikategorikan menjadi tiga jenis utama </span><span class=\"\">:</span></p>\n<div class=\"ds-scroll-area ds-scroll-area--show-on-focus-within ds-scroll-area--enabled _1210dd7 c03cafe9\">\n<div class=\"ds-scroll-area__gutters\">\n<div class=\"ds-scroll-area__horizontal-gutter\"></div>\n<div class=\"ds-scroll-area__vertical-gutter\"></div>\n</div>\n<table>\n<thead>\n<tr>\n<th><span class=\"\">Jenis Serangan</span></th>\n<th><span class=\"\">Fokus Serangan</span></th>\n<th><span class=\"\">Contoh Teknik</span></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong><span class=\"\">Ekstraksi Fungsionalitas</span></strong></td>\n<td><span class=\"\">Meniru kemampuan dan perilaku model</span></td>\n<td><span class=\"\">API-based knowledge distillation, query sistematis</span></td>\n</tr>\n<tr>\n<td><strong><span class=\"\">Ekstraksi Data Pelatihan</span></strong></td>\n<td><span class=\"\">Mengekstrak informasi sensitif dari data latih</span></td>\n<td><span class=\"\">Training data extraction, parameter recovery</span></td>\n</tr>\n<tr>\n<td><strong><span class=\"\">Serangan yang Menargetkan Prompt</span></strong></td>\n<td><span class=\"\">Mencuri atau merekayasa balik prompt</span></td>\n<td><span class=\"\">Prompt stealing, prompt manipulation</span></td>\n</tr>\n</tbody>\n</table>\n</div>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Yang mengkhawatirkan, penelitian terbaru menunjukkan bahwa model tiruan dapat mencapai performa yang setara—bahkan melampaui—model asli dengan biaya yang jauh lebih rendah </span><span class=\"\">. Bahkan ada dugaan bahwa beberapa pengembang AI menggunakan teknik ini untuk membangun model kompetitif </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Dampak dan Ancaman</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">MEA bukan sekadar pelanggaran hak cipta. Dampaknya meliputi:</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Kerugian Ekonomi</span></strong><span class=\"\">: Model yang dibangun dengan investasi besar kehilangan nilai komersialnya karena dapat direplikasi dengan murah </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Serangan Turunan</span></strong><span class=\"\">: Model hasil curian dapat digunakan sebagai </span><em><span class=\"\">proxy</span></em><span class=\"\"> untuk melancarkan serangan lanjutan, seperti </span><em><span class=\"\">model inversion attack</span></em><span class=\"\"> yang membocorkan data pribadi </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Kehilangan Keunggulan Kompetitif</span></strong><span class=\"\">: Keunikan dan kemampuan model yang menjadi pembeda di pasar dapat ditiru pesaing.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">Cara Mencegah Model Extraction Attack</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Para peneliti telah mengembangkan berbagai strategi pertahanan yang dapat dikelompokkan menjadi tiga lapisan utama </span><span class=\"\">:</span></p>\n<h3><span class=\"\">1. Perlindungan Arsitektur dan Pelatihan</span></h3>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Watermarking</span></strong><span class=\"\">: Menanamkan &#8220;tanda air&#8221; digital ke dalam model sehingga kepemilikan dapat diverifikasi. Riset terbaru mengembangkan Class-Feature Watermark (CFW) yang tetap bertahan bahkan setelah model diekstraksi, dengan tingkat keberhasilan watermark ≥70,15% </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Obfuskasi</span></strong><span class=\"\"> (Pengaburan): Memisahkan komponen model dan menyimpannya secara terpisah. Metode seperti O2Splitter menggunakan Trusted Execution Environment (TEE) untuk melindungi bagian kritis model </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Desain Arsitektur yang Robust</span></strong><span class=\"\">: Membangun model dengan ketahanan inheren terhadap upaya ekstraksi </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h3><span class=\"\">2. Perlindungan pada Waktu Inferensi</span></h3>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Sanitasi Output</span></strong><span class=\"\">: Memodifikasi keluaran model agar tidak terlalu informatif bagi penyerang, misalnya dengan menambahkan </span><em><span class=\"\">noise</span></em><span class=\"\"> atau memberikan respons yang menyesatkan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Query Unlearning</span></strong><span class=\"\">: Teknik seperti QUEEN mengukur sensitivitas setiap query dan memberikan perturbasi pada output untuk query yang mencurigakan, sehingga model tiruan tidak dapat belajar dengan efektif </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Deteksi Query Malicious</span></strong><span class=\"\">: Memantau pola query yang tidak wajar dan memblokir akses jika terdeteksi aktivitas mencurigakan </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h3><span class=\"\">3. Strategi Defensif Proaktif</span></h3>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">HoneypotNet</span></strong><span class=\"\">: Pendekatan &#8220;serangan sebagai pertahanan&#8221; (</span><em><span class=\"\">attack as defense</span></em><span class=\"\">) yang memodifikasi output model menjadi beracun (</span><em><span class=\"\">poisonous</span></em><span class=\"\">). Jika penyerang menggunakan output ini untuk melatih model tiruan, model mereka akan terkontaminasi </span><em><span class=\"\">backdoor</span></em><span class=\"\"> yang mengganggu fungsionalitas sekaligus memudahkan verifikasi kepemilikan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pembuatan Data Virtual</span></strong><span class=\"\">: Menggunakan Variational Autoencoder (VAE) untuk menghasilkan data tambahan yang memperkuat pertahanan tanpa memerlukan data nyata yang sulit didapat </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">Tantangan dan Kompromi</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Menerapkan pertahanan bukan tanpa konsekuensi. Terdapat </span><strong><span class=\"\">trade-off</span></strong><span class=\"\"> antara keamanan, kegunaan, dan kinerja model </span><span class=\"\">:</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Pertahanan yang terlalu agresif dapat menurunkan akurasi model untuk pengguna sah.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Metode seperti watermarking harus menyeimbangkan ketahanan terhadap serangan dengan kemampuan untuk tetap bertahan setelah ekstraksi.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Sanitasi output atau </span><em><span class=\"\">query unlearning</span></em><span class=\"\"> memerlukan overhead komputasi yang dapat mempengaruhi latensi respons.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">Kesimpulan</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Model Extraction Attack adalah ancaman nyata bagi setiap organisasi yang mengandalkan AI sebagai aset strategis. Dengan memahami mekanisme serangan—dari pembangkitan query hingga pelatihan model tiruan—kita dapat merancang pertahanan berlapis yang efektif.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Tidak ada solusi tunggal yang sempurna. Kombinasi pendekatan—watermarking untuk verifikasi kepemilikan, deteksi anomali pada query, dan teknik </span><em><span class=\"\">output perturbation</span></em><span class=\"\">—memberikan perlindungan yang lebih komprehensif. Yang terpenting, strategi pertahanan harus terus berkembang seiring dengan inovasi teknik serangan yang semakin canggih</span></p>\n",
+  "content_text": "Pendahuluan\nModel yang Anda bangun dengan susah payah—menghabiskan biaya komputasi besar dan data berharga—bisa saja “dicuri” oleh pihak lain tanpa izin. Inilah yang disebut    Model Extraction Attack (MEA)   , atau serangan ekstraksi model. National Institute of Standards and Technology (NIST) mendefinisikannya sebagai serangan privasi yang mengekstrak detail arsitektur dan/atau parameter model   .\nSerangan ini menjadi ancaman serius di era Machine-Learning-as-a-Service (MLaaS), di mana model-model canggih dari perusahaan seperti OpenAI dan Google diakses publik melalui API berbayar   . Dengan memanfaatkan akses query ini, penyerang dapat mereplikasi fungsi model target dan mencuri kekayaan intelektual yang bernilai besar.\nBagaimana Model Extraction Attack Bekerja?\nSecara konseptual, serangan ekstraksi model mengikuti alur tiga tahap   :\nPembangkit Query    (   Query Generation   ): Penyerang merancang masukan (prompt) yang efektif untuk menguji kemampuan model target.\nPengumpulan Respons    (   Response Collection   ): Query dikirim ke model target melalui API, dan hasilnya dikumpulkan sebagai pasangan input-output.\nPelatihan Model Tiruan    (   Surrogate Model Training   ): Pasangan data ini digunakan untuk melatih model tiruan yang meniru perilaku model asli.\nSerangan ini memanfaatkan fakta bahwa meskipun arsitektur dan parameter model disembunyikan, pola input-output dapat diamati dan ditiru.\nJenis-jenis Serangan Ekstraksi\nBerdasarkan survei komprehensif terhadap Large Language Models (LLM), serangan ekstraksi dikategorikan menjadi tiga jenis utama   :\nJenis Serangan\nFokus Serangan\nContoh Teknik\nEkstraksi Fungsionalitas\nMeniru kemampuan dan perilaku model\nAPI-based knowledge distillation, query sistematis\nEkstraksi Data Pelatihan\nMengekstrak informasi sensitif dari data latih\nTraining data extraction, parameter recovery\nSerangan yang Menargetkan Prompt\nMencuri atau merekayasa balik prompt\nPrompt stealing, prompt manipulation\nYang mengkhawatirkan, penelitian terbaru menunjukkan bahwa model tiruan dapat mencapai performa yang setara—bahkan melampaui—model asli dengan biaya yang jauh lebih rendah   . Bahkan ada dugaan bahwa beberapa pengembang AI menggunakan teknik ini untuk membangun model kompetitif   .\nDampak dan Ancaman\nMEA bukan sekadar pelanggaran hak cipta. Dampaknya meliputi:\nKerugian Ekonomi   : Model yang dibangun dengan investasi besar kehilangan nilai komersialnya karena dapat direplikasi dengan murah   .\nSerangan Turunan   : Model hasil curian dapat digunakan sebagai    proxy    untuk melancarkan serangan lanjutan, seperti    model inversion attack    yang membocorkan data pribadi   .\nKehilangan Keunggulan Kompetitif   : Keunikan dan kemampuan model yang menjadi pembeda di pasar dapat ditiru pesaing.\nCara Mencegah Model Extraction Attack\nPara peneliti telah mengembangkan berbagai strategi pertahanan yang dapat dikelompokkan menjadi tiga lapisan utama   :\n1. Perlindungan Arsitektur dan Pelatihan\nWatermarking   : Menanamkan “tanda air” digital ke dalam model sehingga kepemilikan dapat diverifikasi. Riset terbaru mengembangkan Class-Feature Watermark (CFW) yang tetap bertahan bahkan setelah model diekstraksi, dengan tingkat keberhasilan watermark ≥70,15%   .\nObfuskasi    (Pengaburan): Memisahkan komponen model dan menyimpannya secara terpisah. Metode seperti O2Splitter menggunakan Trusted Execution Environment (TEE) untuk melindungi bagian kritis model   .\nDesain Arsitektur yang Robust   : Membangun model dengan ketahanan inheren terhadap upaya ekstraksi   .\n2. Perlindungan pada Waktu Inferensi\nSanitasi Output   : Memodifikasi keluaran model agar tidak terlalu informatif bagi penyerang, misalnya dengan menambahkan    noise    atau memberikan respons yang menyesatkan   .\nQuery Unlearning   : Teknik seperti QUEEN mengukur sensitivitas setiap query dan memberikan perturbasi pada output untuk query yang mencurigakan, sehingga model tiruan tidak dapat belajar dengan efektif   .\nDeteksi Query Malicious   : Memantau pola query yang tidak wajar dan memblokir akses jika terdeteksi aktivitas mencurigakan   .\n3. Strategi Defensif Proaktif\nHoneypotNet   : Pendekatan “serangan sebagai pertahanan” (   attack as defense   ) yang memodifikasi output model menjadi beracun (   poisonous   ). Jika penyerang menggunakan output ini untuk melatih model tiruan, model mereka akan terkontaminasi    backdoor    yang mengganggu fungsionalitas sekaligus memudahkan verifikasi kepemilikan   .\nPembuatan Data Virtual   : Menggunakan Variational Autoencoder (VAE) untuk menghasilkan data tambahan yang memperkuat pertahanan tanpa memerlukan data nyata yang sulit didapat   .\nTantangan dan Kompromi\nMenerapkan pertahanan bukan tanpa konsekuensi. Terdapat    trade-off    antara keamanan, kegunaan, dan kinerja model   :\nPertahanan yang terlalu agresif dapat menurunkan akurasi model untuk pengguna sah.\nMetode seperti watermarking harus menyeimbangkan ketahanan terhadap serangan dengan kemampuan untuk tetap bertahan setelah ekstraksi.\nSanitasi output atau    query unlearning    memerlukan overhead komputasi yang dapat mempengaruhi latensi respons.\nKesimpulan\nModel Extraction Attack adalah ancaman nyata bagi setiap organisasi yang mengandalkan AI sebagai aset strategis. Dengan memahami mekanisme serangan—dari pembangkitan query hingga pelatihan model tiruan—kita dapat merancang pertahanan berlapis yang efektif.\nTidak ada solusi tunggal yang sempurna. Kombinasi pendekatan—watermarking untuk verifikasi kepemilikan, deteksi anomali pada query, dan teknik    output perturbation   —memberikan perlindungan yang lebih komprehensif. Yang terpenting, strategi pertahanan harus terus berkembang seiring dengan inovasi teknik serangan yang semakin canggih",
+  "raw": {
+    "id": 16394,
+    "date": "2026-07-29T14:17:15",
+    "date_gmt": "2026-07-29T14:17:15",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=16394"
+    },
+    "modified": "2026-07-29T14:17:15",
+    "modified_gmt": "2026-07-29T14:17:15",
+    "slug": "memahami-model-extraction-attack-dan-cara-mencegahnya",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/",
+    "title": {
+      "rendered": "Memahami Model Extraction Attack dan Cara Mencegahnya"
+    },
+    "content": {
+      "rendered": "<h2><span class=\"\">Pendahuluan</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Model yang Anda bangun dengan susah payah—menghabiskan biaya komputasi besar dan data berharga—bisa saja &#8220;dicuri&#8221; oleh pihak lain tanpa izin. Inilah yang disebut </span><strong><span class=\"\">Model Extraction Attack (MEA)</span></strong><span class=\"\">, atau serangan ekstraksi model. National Institute of Standards and Technology (NIST) mendefinisikannya sebagai serangan privasi yang mengekstrak detail arsitektur dan/atau parameter model </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Serangan ini menjadi ancaman serius di era Machine-Learning-as-a-Service (MLaaS), di mana model-model canggih dari perusahaan seperti OpenAI dan Google diakses publik melalui API berbayar </span><span class=\"\">. Dengan memanfaatkan akses query ini, penyerang dapat mereplikasi fungsi model target dan mencuri kekayaan intelektual yang bernilai besar.</span></p>\n<h2><span class=\"\">Bagaimana Model Extraction Attack Bekerja?</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Secara konseptual, serangan ekstraksi model mengikuti alur tiga tahap </span><span class=\"\">:</span></p>\n<ol start=\"1\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pembangkit Query</span></strong><span class=\"\"> (</span><em><span class=\"\">Query Generation</span></em><span class=\"\">): Penyerang merancang masukan (prompt) yang efektif untuk menguji kemampuan model target.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pengumpulan Respons</span></strong><span class=\"\"> (</span><em><span class=\"\">Response Collection</span></em><span class=\"\">): Query dikirim ke model target melalui API, dan hasilnya dikumpulkan sebagai pasangan input-output.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pelatihan Model Tiruan</span></strong><span class=\"\"> (</span><em><span class=\"\">Surrogate Model Training</span></em><span class=\"\">): Pasangan data ini digunakan untuk melatih model tiruan yang meniru perilaku model asli.</span></p>\n</li>\n</ol>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Serangan ini memanfaatkan fakta bahwa meskipun arsitektur dan parameter model disembunyikan, pola input-output dapat diamati dan ditiru.</span></p>\n<h3><span class=\"\">Jenis-jenis Serangan Ekstraksi</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Berdasarkan survei komprehensif terhadap Large Language Models (LLM), serangan ekstraksi dikategorikan menjadi tiga jenis utama </span><span class=\"\">:</span></p>\n<div class=\"ds-scroll-area ds-scroll-area--show-on-focus-within ds-scroll-area--enabled _1210dd7 c03cafe9\">\n<div class=\"ds-scroll-area__gutters\">\n<div class=\"ds-scroll-area__horizontal-gutter\"></div>\n<div class=\"ds-scroll-area__vertical-gutter\"></div>\n</div>\n<table>\n<thead>\n<tr>\n<th><span class=\"\">Jenis Serangan</span></th>\n<th><span class=\"\">Fokus Serangan</span></th>\n<th><span class=\"\">Contoh Teknik</span></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong><span class=\"\">Ekstraksi Fungsionalitas</span></strong></td>\n<td><span class=\"\">Meniru kemampuan dan perilaku model</span></td>\n<td><span class=\"\">API-based knowledge distillation, query sistematis</span></td>\n</tr>\n<tr>\n<td><strong><span class=\"\">Ekstraksi Data Pelatihan</span></strong></td>\n<td><span class=\"\">Mengekstrak informasi sensitif dari data latih</span></td>\n<td><span class=\"\">Training data extraction, parameter recovery</span></td>\n</tr>\n<tr>\n<td><strong><span class=\"\">Serangan yang Menargetkan Prompt</span></strong></td>\n<td><span class=\"\">Mencuri atau merekayasa balik prompt</span></td>\n<td><span class=\"\">Prompt stealing, prompt manipulation</span></td>\n</tr>\n</tbody>\n</table>\n</div>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Yang mengkhawatirkan, penelitian terbaru menunjukkan bahwa model tiruan dapat mencapai performa yang setara—bahkan melampaui—model asli dengan biaya yang jauh lebih rendah </span><span class=\"\">. Bahkan ada dugaan bahwa beberapa pengembang AI menggunakan teknik ini untuk membangun model kompetitif </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Dampak dan Ancaman</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">MEA bukan sekadar pelanggaran hak cipta. Dampaknya meliputi:</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Kerugian Ekonomi</span></strong><span class=\"\">: Model yang dibangun dengan investasi besar kehilangan nilai komersialnya karena dapat direplikasi dengan murah </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Serangan Turunan</span></strong><span class=\"\">: Model hasil curian dapat digunakan sebagai </span><em><span class=\"\">proxy</span></em><span class=\"\"> untuk melancarkan serangan lanjutan, seperti </span><em><span class=\"\">model inversion attack</span></em><span class=\"\"> yang membocorkan data pribadi </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Kehilangan Keunggulan Kompetitif</span></strong><span class=\"\">: Keunikan dan kemampuan model yang menjadi pembeda di pasar dapat ditiru pesaing.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">Cara Mencegah Model Extraction Attack</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Para peneliti telah mengembangkan berbagai strategi pertahanan yang dapat dikelompokkan menjadi tiga lapisan utama </span><span class=\"\">:</span></p>\n<h3><span class=\"\">1. Perlindungan Arsitektur dan Pelatihan</span></h3>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Watermarking</span></strong><span class=\"\">: Menanamkan &#8220;tanda air&#8221; digital ke dalam model sehingga kepemilikan dapat diverifikasi. Riset terbaru mengembangkan Class-Feature Watermark (CFW) yang tetap bertahan bahkan setelah model diekstraksi, dengan tingkat keberhasilan watermark ≥70,15% </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Obfuskasi</span></strong><span class=\"\"> (Pengaburan): Memisahkan komponen model dan menyimpannya secara terpisah. Metode seperti O2Splitter menggunakan Trusted Execution Environment (TEE) untuk melindungi bagian kritis model </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Desain Arsitektur yang Robust</span></strong><span class=\"\">: Membangun model dengan ketahanan inheren terhadap upaya ekstraksi </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h3><span class=\"\">2. Perlindungan pada Waktu Inferensi</span></h3>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Sanitasi Output</span></strong><span class=\"\">: Memodifikasi keluaran model agar tidak terlalu informatif bagi penyerang, misalnya dengan menambahkan </span><em><span class=\"\">noise</span></em><span class=\"\"> atau memberikan respons yang menyesatkan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Query Unlearning</span></strong><span class=\"\">: Teknik seperti QUEEN mengukur sensitivitas setiap query dan memberikan perturbasi pada output untuk query yang mencurigakan, sehingga model tiruan tidak dapat belajar dengan efektif </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Deteksi Query Malicious</span></strong><span class=\"\">: Memantau pola query yang tidak wajar dan memblokir akses jika terdeteksi aktivitas mencurigakan </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h3><span class=\"\">3. Strategi Defensif Proaktif</span></h3>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">HoneypotNet</span></strong><span class=\"\">: Pendekatan &#8220;serangan sebagai pertahanan&#8221; (</span><em><span class=\"\">attack as defense</span></em><span class=\"\">) yang memodifikasi output model menjadi beracun (</span><em><span class=\"\">poisonous</span></em><span class=\"\">). Jika penyerang menggunakan output ini untuk melatih model tiruan, model mereka akan terkontaminasi </span><em><span class=\"\">backdoor</span></em><span class=\"\"> yang mengganggu fungsionalitas sekaligus memudahkan verifikasi kepemilikan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pembuatan Data Virtual</span></strong><span class=\"\">: Menggunakan Variational Autoencoder (VAE) untuk menghasilkan data tambahan yang memperkuat pertahanan tanpa memerlukan data nyata yang sulit didapat </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">Tantangan dan Kompromi</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Menerapkan pertahanan bukan tanpa konsekuensi. Terdapat </span><strong><span class=\"\">trade-off</span></strong><span class=\"\"> antara keamanan, kegunaan, dan kinerja model </span><span class=\"\">:</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Pertahanan yang terlalu agresif dapat menurunkan akurasi model untuk pengguna sah.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Metode seperti watermarking harus menyeimbangkan ketahanan terhadap serangan dengan kemampuan untuk tetap bertahan setelah ekstraksi.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Sanitasi output atau </span><em><span class=\"\">query unlearning</span></em><span class=\"\"> memerlukan overhead komputasi yang dapat mempengaruhi latensi respons.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">Kesimpulan</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Model Extraction Attack adalah ancaman nyata bagi setiap organisasi yang mengandalkan AI sebagai aset strategis. Dengan memahami mekanisme serangan—dari pembangkitan query hingga pelatihan model tiruan—kita dapat merancang pertahanan berlapis yang efektif.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Tidak ada solusi tunggal yang sempurna. Kombinasi pendekatan—watermarking untuk verifikasi kepemilikan, deteksi anomali pada query, dan teknik </span><em><span class=\"\">output perturbation</span></em><span class=\"\">—memberikan perlindungan yang lebih komprehensif. Yang terpenting, strategi pertahanan harus terus berkembang seiring dengan inovasi teknik serangan yang semakin canggih</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Model yang Anda bangun dengan susah payah—menghabiskan biaya komputasi besar dan data berharga—bisa saja &#8220;dicuri&#8221; oleh pihak lain tanpa izin. Inilah yang disebut Model Extraction Attack (MEA), atau serangan ekstraksi model. National Institute of Standards and Technology (NIST) mendefinisikannya sebagai serangan privasi yang mengekstrak detail arsitektur dan/atau parameter model . Serangan ini menjadi ancaman serius di era Machine-Learning-as-a-Service (MLaaS), di mana model-model canggih dari perusahaan seperti OpenAI dan Google diakses publik melalui API berbayar . Dengan memanfaatkan akses query ini, penyerang dapat mereplikasi fungsi model target dan mencuri kekayaan intelektual yang bernilai besar. Bagaimana Model Extraction Attack Bekerja? Secara konseptual, serangan ekstraksi&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 23,
+    "featured_media": 16399,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1
+    ],
+    "tags": [],
+    "class_list": [
+      "post-16394",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-uncategorized"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Memahami Model Extraction Attack dan Cara Mencegahnya - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Memahami Model Extraction Attack dan Cara Mencegahnya - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Model yang Anda bangun dengan susah payah—menghabiskan biaya komputasi besar dan data berharga—bisa saja &#8220;dicuri&#8221; oleh pihak lain tanpa izin. Inilah yang disebut Model Extraction Attack (MEA), atau serangan ekstraksi model. National Institute of Standards and Technology (NIST) mendefinisikannya sebagai serangan privasi yang mengekstrak detail arsitektur dan/atau parameter model . Serangan ini menjadi ancaman serius di era Machine-Learning-as-a-Service (MLaaS), di mana model-model canggih dari perusahaan seperti OpenAI dan Google diakses publik melalui API berbayar . Dengan memanfaatkan akses query ini, penyerang dapat mereplikasi fungsi model target dan mencuri kekayaan intelektual yang bernilai besar. Bagaimana Model Extraction Attack Bekerja? Secara konseptual, serangan ekstraksi...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-29T14:17:15+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_cbtnemcbtnemcbtn.png\" />\n\t<meta property=\"og:image:width\" content=\"1408\" />\n\t<meta property=\"og:image:height\" content=\"768\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Ezril Fahrul Rizal\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Ezril Fahrul Rizal\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/\",\"url\":\"https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/\",\"name\":\"Memahami Model Extraction Attack dan Cara Mencegahnya - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_cbtnemcbtnemcbtn.png\",\"datePublished\":\"2026-07-29T14:17:15+00:00\",\"dateModified\":\"2026-07-29T14:17:15+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_cbtnemcbtnemcbtn.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_cbtnemcbtnemcbtn.png\",\"width\":1408,\"height\":768},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Memahami Model Extraction Attack dan Cara Mencegahnya\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d\",\"name\":\"Ezril Fahrul Rizal\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g\",\"caption\":\"Ezril Fahrul Rizal\"},\"url\":\"https://buletinsiber.com/author/ezril-fahrul-rizal/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Memahami Model Extraction Attack dan Cara Mencegahnya - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Memahami Model Extraction Attack dan Cara Mencegahnya - buletinsiber.com",
+      "og_description": "Pendahuluan Model yang Anda bangun dengan susah payah—menghabiskan biaya komputasi besar dan data berharga—bisa saja &#8220;dicuri&#8221; oleh pihak lain tanpa izin. Inilah yang disebut Model Extraction Attack (MEA), atau serangan ekstraksi model. National Institute of Standards and Technology (NIST) mendefinisikannya sebagai serangan privasi yang mengekstrak detail arsitektur dan/atau parameter model . Serangan ini menjadi ancaman serius di era Machine-Learning-as-a-Service (MLaaS), di mana model-model canggih dari perusahaan seperti OpenAI dan Google diakses publik melalui API berbayar . Dengan memanfaatkan akses query ini, penyerang dapat mereplikasi fungsi model target dan mencuri kekayaan intelektual yang bernilai besar. Bagaimana Model Extraction Attack Bekerja? Secara konseptual, serangan ekstraksi...",
+      "og_url": "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-29T14:17:15+00:00",
+      "og_image": [
+        {
+          "width": 1408,
+          "height": 768,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_cbtnemcbtnemcbtn.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Ezril Fahrul Rizal",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Ezril Fahrul Rizal",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/",
+            "url": "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/",
+            "name": "Memahami Model Extraction Attack dan Cara Mencegahnya - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_cbtnemcbtnemcbtn.png",
+            "datePublished": "2026-07-29T14:17:15+00:00",
+            "dateModified": "2026-07-29T14:17:15+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_cbtnemcbtnemcbtn.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_cbtnemcbtnemcbtn.png",
+            "width": 1408,
+            "height": 768
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/memahami-model-extraction-attack-dan-cara-mencegahnya/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Memahami Model Extraction Attack dan Cara Mencegahnya"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d",
+            "name": "Ezril Fahrul Rizal",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g",
+              "caption": "Ezril Fahrul Rizal"
+            },
+            "url": "https://buletinsiber.com/author/ezril-fahrul-rizal/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/16394",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/23"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=16394"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/16394/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 16403,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/16394/revisions/16403"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/16399"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=16394"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=16394"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=16394"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

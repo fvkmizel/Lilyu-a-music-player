@@ -1,0 +1,323 @@
+{
+  "id": 23164,
+  "title": "PHP2Shell: Cara Melindungi Server PHP dari Ancaman Remote Code Execution",
+  "slug": "php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution",
+  "url": "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/",
+  "date": "2026-10-21T20:59:15",
+  "date_gmt": "2026-10-21T13:59:15",
+  "modified": "2026-10-21T20:59:15",
+  "modified_gmt": "2026-10-21T13:59:15",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Uncategorized"
+    }
+  ],
+  "tags": [
+    4020
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+  "excerpt": "Pengantar Meta description: Pelajari ancaman PHP2Shell, risiko Remote Code Execution, dan langkah praktis untuk melindungi server PHP melalui patch, pembatasan akses, serta pemantauan keamanan. Mengenal PHP2Shell, Ancaman Serius bagi Server PHP PHP2Shell menjadi perhatian dunia keamanan siber setelah ditemukannya dua kerentanan kritis pada PHP yang berpotensi memungkinkan penyerang menjalankan perintah pada server dari jarak jauh. Kedua kerentanan tersebut dilaporkan memiliki skor CVSS 9,2 dari 10, yang menunjukkan tingkat keparahan tinggi. PHP merupakan bahasa pemrograman yang banyak digunakan untuk membangun website dan aplikasi web. Platform seperti WordPress, Drupal, dan berbagai aplikasi berbasis PHP bergantung pada runtime PHP agar dapat berjalan. Jika…",
+  "content_html": "<h1>Pengantar</h1>\n<p><strong>Meta description:</strong> Pelajari ancaman PHP2Shell, risiko Remote Code Execution, dan langkah praktis untuk melindungi server PHP melalui patch, pembatasan akses, serta pemantauan keamanan.</p>\n<h2>Mengenal PHP2Shell, Ancaman Serius bagi Server PHP</h2>\n<p>PHP2Shell menjadi perhatian dunia keamanan siber setelah ditemukannya dua kerentanan kritis pada PHP yang berpotensi memungkinkan penyerang menjalankan perintah pada server dari jarak jauh. Kedua kerentanan tersebut dilaporkan memiliki skor CVSS 9,2 dari 10, yang menunjukkan tingkat keparahan tinggi.</p>\n<p>PHP merupakan bahasa pemrograman yang banyak digunakan untuk membangun website dan aplikasi web. Platform seperti WordPress, Drupal, dan berbagai aplikasi berbasis PHP bergantung pada runtime PHP agar dapat berjalan.</p>\n<p>Jika kerentanan pada runtime ini berhasil dieksploitasi, dampaknya dapat meluas ke aplikasi yang berjalan di atasnya. Penyerang berpotensi memperoleh akses ke data sensitif, mengubah file website, atau menjalankan perintah dengan hak akses proses PHP yang berhasil dikompromikan.</p>\n<p>Dua kerentanan yang dikaitkan dengan PHP2Shell dilaporkan menggunakan identitas CVE-2026-109618 dan CVE-2026-109619. Informasi mengenai versi terdampak dan status perbaikannya harus diperiksa melalui pengumuman resmi PHP serta vendor sistem operasi yang digunakan.</p>\n<h2>Apa Itu Remote Code Execution?</h2>\n<p>Remote Code Execution atau RCE adalah jenis kerentanan yang memungkinkan penyerang menjalankan kode atau perintah pada sistem dari jarak jauh.</p>\n<p>Bayangkan sebuah server website seperti komputer yang melayani pengunjung selama 24 jam. Dalam kondisi normal, server hanya menjalankan instruksi yang memang diperlukan oleh aplikasi.</p>\n<p>Namun, ketika terdapat kerentanan RCE, penyerang mungkin dapat membuat server menjalankan instruksi yang tidak seharusnya diizinkan.</p>\n<p>Dampaknya bergantung pada konfigurasi server dan hak akses proses yang berhasil dieksploitasi. Beberapa risiko yang dapat muncul antara lain:</p>\n<ul>\n<li>Pencurian data atau kredensial yang dapat diakses proses aplikasi.</li>\n<li>Perubahan halaman website tanpa izin.</li>\n<li>Pemasangan malware atau web shell.</li>\n<li>Penyalahgunaan server untuk menyerang sistem lain.</li>\n<li>Gangguan layanan yang menyebabkan website tidak dapat diakses.</li>\n</ul>\n<p>Karena itu, RCE pada komponen yang digunakan banyak aplikasi harus ditangani dengan cepat.</p>\n<h2>Mengapa Menonaktifkan Session Upload Progress Tidak Cukup?</h2>\n<p>Setelah informasi PHP2Shell beredar, sejumlah pihak menyarankan administrator untuk menonaktifkan konfigurasi <code>session.upload_progress.enabled</code> pada PHP.</p>\n<p>Fitur Session Upload Progress digunakan untuk mencatat kemajuan proses pengunggahan file. Informasi tersebut dapat digunakan aplikasi untuk menampilkan persentase atau status upload kepada pengguna.</p>\n<p>Namun, perubahan konfigurasi ini tidak boleh dianggap sebagai solusi menyeluruh untuk PHP2Shell.</p>\n<p>Dalam laporan The Hacker News pada 21 Oktober 2026, GMO Flatt Security memperbarui rekomendasinya dan menyatakan bahwa pengaturan tersebut saja tidak cukup untuk mengatasi kerentanan. Perwakilan proyek PHP juga menegaskan pentingnya memperbarui PHP ke versi yang telah diperbaiki.</p>\n<p>Selain itu, pada saat laporan tersebut diterbitkan, akar masalah dan detail teknis lengkap belum dikonfirmasi secara resmi oleh tim PHP.</p>\n<p>Artinya, administrator tidak boleh berasumsi bahwa satu perubahan konfigurasi sudah membuat server aman. Menonaktifkan fitur yang tidak diperlukan dapat menjadi bagian dari pengurangan risiko, tetapi tidak menggantikan pembaruan keamanan resmi.</p>\n<h2>Langkah Melindungi Server Sebelum Patch Diterapkan</h2>\n<p>Jika server belum dapat diperbarui, ada beberapa langkah yang dapat dilakukan untuk mengurangi risiko.</p>\n<h3>1. Inventarisasi Seluruh Instalasi PHP</h3>\n<p>Mulailah dengan mendata seluruh server dan aplikasi yang menggunakan PHP. Jangan hanya memeriksa website utama.</p>\n<p>Periksa juga aplikasi internal, container Docker, server staging, panel hosting, serta perangkat lunak pihak ketiga yang menyertakan runtime PHP.</p>\n<p>Catat versi PHP, sistem operasi, metode eksekusi PHP, dan sumber paket yang digunakan. Informasi ini membantu menentukan pembaruan yang tepat.</p>\n<p>Perlu diingat bahwa hasil perintah <code>php -v</code> hanya menunjukkan versi PHP CLI. Versi yang melayani website melalui PHP-FPM atau modul Apache dapat berbeda.</p>\n<h3>2. Batasi Akses ke Aplikasi yang Berisiko</h3>\n<p>Jika patch belum tersedia atau belum dapat diterapkan, pertimbangkan untuk membatasi akses publik ke aplikasi yang berisiko.</p>\n<p>Pilihan yang dapat digunakan antara lain:</p>\n<ul>\n<li>Membatasi akses melalui VPN.</li>\n<li>Mengizinkan akses hanya dari alamat IP tertentu.</li>\n<li>Menempatkan aplikasi di belakang kontrol akses yang sesuai.</li>\n<li>Mengisolasi sementara aplikasi dari jaringan publik jika risiko tidak dapat dikendalikan.</li>\n</ul>\n<p>Keputusan ini perlu mempertimbangkan kebutuhan operasional dan dampak terhadap pengguna. Jika aplikasi tidak dapat diamankan sementara, penghentian akses publik mungkin menjadi pilihan yang lebih aman.</p>\n<h3>3. Siapkan Pembaruan PHP</h3>\n<p>Jangan menunggu sampai serangan berhasil terjadi untuk menyiapkan proses pembaruan.</p>\n<p>Administrator sebaiknya memeriksa pengumuman keamanan resmi PHP, paket yang disediakan distribusi Linux, serta informasi dari penyedia hosting.</p>\n<p>Pastikan juga tersedia prosedur untuk melakukan backup, pengujian aplikasi, persetujuan perubahan darurat, dan pemulihan jika terjadi masalah setelah pembaruan.</p>\n<p>Pembaruan harus diterapkan pada runtime yang benar-benar melayani permintaan web, bukan hanya pada aplikasi seperti WordPress atau Laravel.</p>\n<h3>4. Batasi Hak Akses Proses PHP</h3>\n<p>Proses PHP sebaiknya tidak berjalan dengan hak administrator atau root jika tidak diperlukan.</p>\n<p>Gunakan prinsip least privilege, yaitu memberikan hak akses minimum yang diperlukan agar aplikasi dapat beroperasi.</p>\n<p>Batasi pula akses proses PHP terhadap file konfigurasi, kredensial, direktori sensitif, dan layanan internal yang tidak dibutuhkan. Langkah ini dapat mengurangi dampak jika suatu aplikasi berhasil dikompromikan.</p>\n<h3>5. Gunakan WAF sebagai Lapisan Tambahan</h3>\n<p>Web Application Firewall atau WAF dapat membantu memfilter permintaan web yang mencurigakan sebelum mencapai aplikasi.</p>\n<p>Penyedia layanan keamanan tertentu telah mengumumkan aturan darurat untuk mengurangi risiko eksploitasi PHP2Shell. Namun, aturan tersebut harus dipandang sebagai perlindungan sementara.</p>\n<p>Aturan WAF dapat memiliki keterbatasan, termasuk kemungkinan permintaan berbahaya tidak terdeteksi atau permintaan normal ikut terblokir. Karena itu, pengujian perlu dilakukan sebelum aturan diterapkan secara luas.</p>\n<p>WAF bukan pengganti patch PHP.</p>\n<h2>Cara Memantau Aktivitas Mencurigakan</h2>\n<p>Selain mengurangi paparan, administrator perlu memantau aktivitas server untuk mengetahui kemungkinan percobaan eksploitasi atau kompromi.</p>\n<p>Beberapa indikator yang patut diperiksa adalah:</p>\n<ul>\n<li>Proses PHP-FPM, PHP-CGI, atau Apache yang tiba-tiba menjalankan shell atau program yang tidak biasa.</li>\n<li>Lonjakan permintaan HTTP yang tidak wajar, khususnya pada endpoint yang tidak seharusnya menerima unggahan file.</li>\n<li>Perubahan file website yang tidak sesuai dengan aktivitas deployment.</li>\n<li>Munculnya file, akun, atau tugas terjadwal yang tidak dikenal.</li>\n<li>Error atau crash pada proses PHP yang berkaitan dengan permintaan mencurigakan.</li>\n</ul>\n<p>Simpan log web server dan sistem operasi secara aman agar dapat digunakan dalam investigasi.</p>\n<p>Jika ditemukan indikasi kompromi, jangan hanya menghapus file yang terlihat mencurigakan. Isolasi sistem sesuai prosedur penanganan insiden, pertahankan bukti, identifikasi kemungkinan akses yang telah diperoleh penyerang, dan lakukan pemulihan dari sumber yang tepercaya.</p>\n<p>Tidak adanya indikator yang terlihat juga tidak menjamin bahwa server belum pernah dikompromikan.</p>\n<h2>Apa yang Harus Dilakukan Ketika Patch Resmi Tersedia?</h2>\n<p>Pembaruan keamanan merupakan langkah terpenting untuk menangani kerentanan yang telah diperbaiki oleh vendor.</p>\n<p>Ketika rilis keamanan tersedia, lakukan langkah berikut:</p>\n<ol>\n<li>Periksa advisory resmi untuk mengetahui versi yang terdampak dan versi yang telah diperbaiki.</li>\n<li>Pastikan paket pembaruan sesuai dengan cabang PHP dan distribusi Linux yang digunakan.</li>\n<li>Prioritaskan server yang dapat diakses langsung dari internet.</li>\n<li>Perbarui runtime PHP yang melayani permintaan web.</li>\n<li>Mulai ulang atau muat ulang layanan jika diperlukan oleh proses pembaruan.</li>\n<li>Verifikasi versi dan status patch melalui informasi vendor.</li>\n<li>Uji fungsi website, terutama fitur unggah file dan aplikasi yang bergantung pada PHP.</li>\n<li>Periksa log setelah pembaruan dan lanjutkan investigasi jika ada indikasi kompromi.</li>\n</ol>\n<p>Untuk PHP yang sudah berakhir masa dukungannya, administrator perlu mempertimbangkan migrasi ke cabang yang masih didukung atau solusi keamanan dari vendor yang menyediakan pembaruan tambahan.</p>\n<p>Jangan menganggap suatu server telah aman hanya karena nomor versinya terlihat lebih baru. Distribusi Linux tertentu dapat memberikan perbaikan melalui backport, sehingga status paket dan advisory vendor perlu diperiksa.</p>\n<h2>Checklist Keamanan PHP2Shell</h2>\n<p>Administrator dapat menggunakan daftar berikut untuk memastikan langkah penanganan telah dilakukan.</p>\n<ul>\n<li>[ ] Seluruh instalasi PHP telah diinventarisasi.</li>\n<li>[ ] Versi runtime dan sumber paket telah diperiksa.</li>\n<li>[ ] Aplikasi yang berisiko telah dibatasi atau diisolasi bila diperlukan.</li>\n<li>[ ] Pembaruan keamanan resmi telah disiapkan.</li>\n<li>[ ] PHP yang melayani permintaan web telah diperbarui ke paket yang sesuai.</li>\n<li>[ ] WAF dan kontrol akses digunakan sebagai lapisan tambahan bila diperlukan.</li>\n<li>[ ] Log dan proses server telah diperiksa.</li>\n<li>[ ] Indikasi kompromi telah ditindaklanjuti.</li>\n<li>[ ] Aplikasi telah diuji setelah pembaruan.</li>\n<li>[ ] Status keamanan dan tindakan lanjutan telah didokumentasikan.</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>PHP2Shell menunjukkan bahwa kerentanan pada runtime dapat menimbulkan risiko besar bagi website dan aplikasi yang bergantung pada PHP.</p>\n<p>Mengubah satu konfigurasi PHP saja tidak cukup untuk menjamin keamanan. Administrator perlu menggabungkan inventarisasi aset, pembatasan akses, pengurangan hak akses proses, pemantauan log, dan penerapan pembaruan keamanan resmi.</p>\n<p>Jika patch belum dapat diterapkan, kurangi paparan server dan pertimbangkan isolasi sementara sesuai tingkat risiko. Setelah pembaruan tersedia, verifikasi bahwa runtime yang melayani website benar-benar telah diperbaiki.</p>\n<p><strong>Prinsip terpentingnya adalah jangan mengandalkan workaround sebagai pengganti patch resmi.</strong> Pemantauan advisory vendor dan kesiapan merespons insiden menjadi bagian penting dalam menjaga keamanan server PHP.</p>\n<h3>Referensi</h3>\n<ul>\n<li>The Hacker News — <a href=\"https://thehackernews.com/2026/10/php2shell-what-actually-protects-you.html\">PHP2Shell: What Actually Protects You Before the 14:00 UTC PHP RCE Patch, and What Doesn&#8217;t</a></li>\n<li>PHP — <a href=\"https://www.php.net/\">Website dan pengumuman keamanan resmi</a></li>\n<li>Tenable — <a href=\"https://www.tenable.com/blog/php2shell-cve-2026-109618-cve-2026-109619-frequently-asked-questions-about-critical-php-remote\">PHP2Shell: CVE-2026-109618 dan CVE-2026-109619 FAQ</a></li>\n</ul>\n",
+  "content_text": "Pengantar\nMeta description:  Pelajari ancaman PHP2Shell, risiko Remote Code Execution, dan langkah praktis untuk melindungi server PHP melalui patch, pembatasan akses, serta pemantauan keamanan.\nMengenal PHP2Shell, Ancaman Serius bagi Server PHP\nPHP2Shell menjadi perhatian dunia keamanan siber setelah ditemukannya dua kerentanan kritis pada PHP yang berpotensi memungkinkan penyerang menjalankan perintah pada server dari jarak jauh. Kedua kerentanan tersebut dilaporkan memiliki skor CVSS 9,2 dari 10, yang menunjukkan tingkat keparahan tinggi.\nPHP merupakan bahasa pemrograman yang banyak digunakan untuk membangun website dan aplikasi web. Platform seperti WordPress, Drupal, dan berbagai aplikasi berbasis PHP bergantung pada runtime PHP agar dapat berjalan.\nJika kerentanan pada runtime ini berhasil dieksploitasi, dampaknya dapat meluas ke aplikasi yang berjalan di atasnya. Penyerang berpotensi memperoleh akses ke data sensitif, mengubah file website, atau menjalankan perintah dengan hak akses proses PHP yang berhasil dikompromikan.\nDua kerentanan yang dikaitkan dengan PHP2Shell dilaporkan menggunakan identitas CVE-2026-109618 dan CVE-2026-109619. Informasi mengenai versi terdampak dan status perbaikannya harus diperiksa melalui pengumuman resmi PHP serta vendor sistem operasi yang digunakan.\nApa Itu Remote Code Execution?\nRemote Code Execution atau RCE adalah jenis kerentanan yang memungkinkan penyerang menjalankan kode atau perintah pada sistem dari jarak jauh.\nBayangkan sebuah server website seperti komputer yang melayani pengunjung selama 24 jam. Dalam kondisi normal, server hanya menjalankan instruksi yang memang diperlukan oleh aplikasi.\nNamun, ketika terdapat kerentanan RCE, penyerang mungkin dapat membuat server menjalankan instruksi yang tidak seharusnya diizinkan.\nDampaknya bergantung pada konfigurasi server dan hak akses proses yang berhasil dieksploitasi. Beberapa risiko yang dapat muncul antara lain:\nPencurian data atau kredensial yang dapat diakses proses aplikasi.\nPerubahan halaman website tanpa izin.\nPemasangan malware atau web shell.\nPenyalahgunaan server untuk menyerang sistem lain.\nGangguan layanan yang menyebabkan website tidak dapat diakses.\nKarena itu, RCE pada komponen yang digunakan banyak aplikasi harus ditangani dengan cepat.\nMengapa Menonaktifkan Session Upload Progress Tidak Cukup?\nSetelah informasi PHP2Shell beredar, sejumlah pihak menyarankan administrator untuk menonaktifkan konfigurasi  session.upload_progress.enabled  pada PHP.\nFitur Session Upload Progress digunakan untuk mencatat kemajuan proses pengunggahan file. Informasi tersebut dapat digunakan aplikasi untuk menampilkan persentase atau status upload kepada pengguna.\nNamun, perubahan konfigurasi ini tidak boleh dianggap sebagai solusi menyeluruh untuk PHP2Shell.\nDalam laporan The Hacker News pada 21 Oktober 2026, GMO Flatt Security memperbarui rekomendasinya dan menyatakan bahwa pengaturan tersebut saja tidak cukup untuk mengatasi kerentanan. Perwakilan proyek PHP juga menegaskan pentingnya memperbarui PHP ke versi yang telah diperbaiki.\nSelain itu, pada saat laporan tersebut diterbitkan, akar masalah dan detail teknis lengkap belum dikonfirmasi secara resmi oleh tim PHP.\nArtinya, administrator tidak boleh berasumsi bahwa satu perubahan konfigurasi sudah membuat server aman. Menonaktifkan fitur yang tidak diperlukan dapat menjadi bagian dari pengurangan risiko, tetapi tidak menggantikan pembaruan keamanan resmi.\nLangkah Melindungi Server Sebelum Patch Diterapkan\nJika server belum dapat diperbarui, ada beberapa langkah yang dapat dilakukan untuk mengurangi risiko.\n1. Inventarisasi Seluruh Instalasi PHP\nMulailah dengan mendata seluruh server dan aplikasi yang menggunakan PHP. Jangan hanya memeriksa website utama.\nPeriksa juga aplikasi internal, container Docker, server staging, panel hosting, serta perangkat lunak pihak ketiga yang menyertakan runtime PHP.\nCatat versi PHP, sistem operasi, metode eksekusi PHP, dan sumber paket yang digunakan. Informasi ini membantu menentukan pembaruan yang tepat.\nPerlu diingat bahwa hasil perintah  php -v  hanya menunjukkan versi PHP CLI. Versi yang melayani website melalui PHP-FPM atau modul Apache dapat berbeda.\n2. Batasi Akses ke Aplikasi yang Berisiko\nJika patch belum tersedia atau belum dapat diterapkan, pertimbangkan untuk membatasi akses publik ke aplikasi yang berisiko.\nPilihan yang dapat digunakan antara lain:\nMembatasi akses melalui VPN.\nMengizinkan akses hanya dari alamat IP tertentu.\nMenempatkan aplikasi di belakang kontrol akses yang sesuai.\nMengisolasi sementara aplikasi dari jaringan publik jika risiko tidak dapat dikendalikan.\nKeputusan ini perlu mempertimbangkan kebutuhan operasional dan dampak terhadap pengguna. Jika aplikasi tidak dapat diamankan sementara, penghentian akses publik mungkin menjadi pilihan yang lebih aman.\n3. Siapkan Pembaruan PHP\nJangan menunggu sampai serangan berhasil terjadi untuk menyiapkan proses pembaruan.\nAdministrator sebaiknya memeriksa pengumuman keamanan resmi PHP, paket yang disediakan distribusi Linux, serta informasi dari penyedia hosting.\nPastikan juga tersedia prosedur untuk melakukan backup, pengujian aplikasi, persetujuan perubahan darurat, dan pemulihan jika terjadi masalah setelah pembaruan.\nPembaruan harus diterapkan pada runtime yang benar-benar melayani permintaan web, bukan hanya pada aplikasi seperti WordPress atau Laravel.\n4. Batasi Hak Akses Proses PHP\nProses PHP sebaiknya tidak berjalan dengan hak administrator atau root jika tidak diperlukan.\nGunakan prinsip least privilege, yaitu memberikan hak akses minimum yang diperlukan agar aplikasi dapat beroperasi.\nBatasi pula akses proses PHP terhadap file konfigurasi, kredensial, direktori sensitif, dan layanan internal yang tidak dibutuhkan. Langkah ini dapat mengurangi dampak jika suatu aplikasi berhasil dikompromikan.\n5. Gunakan WAF sebagai Lapisan Tambahan\nWeb Application Firewall atau WAF dapat membantu memfilter permintaan web yang mencurigakan sebelum mencapai aplikasi.\nPenyedia layanan keamanan tertentu telah mengumumkan aturan darurat untuk mengurangi risiko eksploitasi PHP2Shell. Namun, aturan tersebut harus dipandang sebagai perlindungan sementara.\nAturan WAF dapat memiliki keterbatasan, termasuk kemungkinan permintaan berbahaya tidak terdeteksi atau permintaan normal ikut terblokir. Karena itu, pengujian perlu dilakukan sebelum aturan diterapkan secara luas.\nWAF bukan pengganti patch PHP.\nCara Memantau Aktivitas Mencurigakan\nSelain mengurangi paparan, administrator perlu memantau aktivitas server untuk mengetahui kemungkinan percobaan eksploitasi atau kompromi.\nBeberapa indikator yang patut diperiksa adalah:\nProses PHP-FPM, PHP-CGI, atau Apache yang tiba-tiba menjalankan shell atau program yang tidak biasa.\nLonjakan permintaan HTTP yang tidak wajar, khususnya pada endpoint yang tidak seharusnya menerima unggahan file.\nPerubahan file website yang tidak sesuai dengan aktivitas deployment.\nMunculnya file, akun, atau tugas terjadwal yang tidak dikenal.\nError atau crash pada proses PHP yang berkaitan dengan permintaan mencurigakan.\nSimpan log web server dan sistem operasi secara aman agar dapat digunakan dalam investigasi.\nJika ditemukan indikasi kompromi, jangan hanya menghapus file yang terlihat mencurigakan. Isolasi sistem sesuai prosedur penanganan insiden, pertahankan bukti, identifikasi kemungkinan akses yang telah diperoleh penyerang, dan lakukan pemulihan dari sumber yang tepercaya.\nTidak adanya indikator yang terlihat juga tidak menjamin bahwa server belum pernah dikompromikan.\nApa yang Harus Dilakukan Ketika Patch Resmi Tersedia?\nPembaruan keamanan merupakan langkah terpenting untuk menangani kerentanan yang telah diperbaiki oleh vendor.\nKetika rilis keamanan tersedia, lakukan langkah berikut:\nPeriksa advisory resmi untuk mengetahui versi yang terdampak dan versi yang telah diperbaiki.\nPastikan paket pembaruan sesuai dengan cabang PHP dan distribusi Linux yang digunakan.\nPrioritaskan server yang dapat diakses langsung dari internet.\nPerbarui runtime PHP yang melayani permintaan web.\nMulai ulang atau muat ulang layanan jika diperlukan oleh proses pembaruan.\nVerifikasi versi dan status patch melalui informasi vendor.\nUji fungsi website, terutama fitur unggah file dan aplikasi yang bergantung pada PHP.\nPeriksa log setelah pembaruan dan lanjutkan investigasi jika ada indikasi kompromi.\nUntuk PHP yang sudah berakhir masa dukungannya, administrator perlu mempertimbangkan migrasi ke cabang yang masih didukung atau solusi keamanan dari vendor yang menyediakan pembaruan tambahan.\nJangan menganggap suatu server telah aman hanya karena nomor versinya terlihat lebih baru. Distribusi Linux tertentu dapat memberikan perbaikan melalui backport, sehingga status paket dan advisory vendor perlu diperiksa.\nChecklist Keamanan PHP2Shell\nAdministrator dapat menggunakan daftar berikut untuk memastikan langkah penanganan telah dilakukan.\n[ ] Seluruh instalasi PHP telah diinventarisasi.\n[ ] Versi runtime dan sumber paket telah diperiksa.\n[ ] Aplikasi yang berisiko telah dibatasi atau diisolasi bila diperlukan.\n[ ] Pembaruan keamanan resmi telah disiapkan.\n[ ] PHP yang melayani permintaan web telah diperbarui ke paket yang sesuai.\n[ ] WAF dan kontrol akses digunakan sebagai lapisan tambahan bila diperlukan.\n[ ] Log dan proses server telah diperiksa.\n[ ] Indikasi kompromi telah ditindaklanjuti.\n[ ] Aplikasi telah diuji setelah pembaruan.\n[ ] Status keamanan dan tindakan lanjutan telah didokumentasikan.\nKesimpulan\nPHP2Shell menunjukkan bahwa kerentanan pada runtime dapat menimbulkan risiko besar bagi website dan aplikasi yang bergantung pada PHP.\nMengubah satu konfigurasi PHP saja tidak cukup untuk menjamin keamanan. Administrator perlu menggabungkan inventarisasi aset, pembatasan akses, pengurangan hak akses proses, pemantauan log, dan penerapan pembaruan keamanan resmi.\nJika patch belum dapat diterapkan, kurangi paparan server dan pertimbangkan isolasi sementara sesuai tingkat risiko. Setelah pembaruan tersedia, verifikasi bahwa runtime yang melayani website benar-benar telah diperbaiki.\nPrinsip terpentingnya adalah jangan mengandalkan workaround sebagai pengganti patch resmi.  Pemantauan advisory vendor dan kesiapan merespons insiden menjadi bagian penting dalam menjaga keamanan server PHP.\nReferensi\nThe Hacker News —  PHP2Shell: What Actually Protects You Before the 14:00 UTC PHP RCE Patch, and What Doesn’t\nPHP —  Website dan pengumuman keamanan resmi\nTenable —  PHP2Shell: CVE-2026-109618 dan CVE-2026-109619 FAQ",
+  "raw": {
+    "id": 23164,
+    "date": "2026-10-21T20:59:15",
+    "date_gmt": "2026-10-21T13:59:15",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=23164"
+    },
+    "modified": "2026-10-21T20:59:15",
+    "modified_gmt": "2026-10-21T13:59:15",
+    "slug": "php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/",
+    "title": {
+      "rendered": "PHP2Shell: Cara Melindungi Server PHP dari Ancaman Remote Code Execution"
+    },
+    "content": {
+      "rendered": "<h1>Pengantar</h1>\n<p><strong>Meta description:</strong> Pelajari ancaman PHP2Shell, risiko Remote Code Execution, dan langkah praktis untuk melindungi server PHP melalui patch, pembatasan akses, serta pemantauan keamanan.</p>\n<h2>Mengenal PHP2Shell, Ancaman Serius bagi Server PHP</h2>\n<p>PHP2Shell menjadi perhatian dunia keamanan siber setelah ditemukannya dua kerentanan kritis pada PHP yang berpotensi memungkinkan penyerang menjalankan perintah pada server dari jarak jauh. Kedua kerentanan tersebut dilaporkan memiliki skor CVSS 9,2 dari 10, yang menunjukkan tingkat keparahan tinggi.</p>\n<p>PHP merupakan bahasa pemrograman yang banyak digunakan untuk membangun website dan aplikasi web. Platform seperti WordPress, Drupal, dan berbagai aplikasi berbasis PHP bergantung pada runtime PHP agar dapat berjalan.</p>\n<p>Jika kerentanan pada runtime ini berhasil dieksploitasi, dampaknya dapat meluas ke aplikasi yang berjalan di atasnya. Penyerang berpotensi memperoleh akses ke data sensitif, mengubah file website, atau menjalankan perintah dengan hak akses proses PHP yang berhasil dikompromikan.</p>\n<p>Dua kerentanan yang dikaitkan dengan PHP2Shell dilaporkan menggunakan identitas CVE-2026-109618 dan CVE-2026-109619. Informasi mengenai versi terdampak dan status perbaikannya harus diperiksa melalui pengumuman resmi PHP serta vendor sistem operasi yang digunakan.</p>\n<h2>Apa Itu Remote Code Execution?</h2>\n<p>Remote Code Execution atau RCE adalah jenis kerentanan yang memungkinkan penyerang menjalankan kode atau perintah pada sistem dari jarak jauh.</p>\n<p>Bayangkan sebuah server website seperti komputer yang melayani pengunjung selama 24 jam. Dalam kondisi normal, server hanya menjalankan instruksi yang memang diperlukan oleh aplikasi.</p>\n<p>Namun, ketika terdapat kerentanan RCE, penyerang mungkin dapat membuat server menjalankan instruksi yang tidak seharusnya diizinkan.</p>\n<p>Dampaknya bergantung pada konfigurasi server dan hak akses proses yang berhasil dieksploitasi. Beberapa risiko yang dapat muncul antara lain:</p>\n<ul>\n<li>Pencurian data atau kredensial yang dapat diakses proses aplikasi.</li>\n<li>Perubahan halaman website tanpa izin.</li>\n<li>Pemasangan malware atau web shell.</li>\n<li>Penyalahgunaan server untuk menyerang sistem lain.</li>\n<li>Gangguan layanan yang menyebabkan website tidak dapat diakses.</li>\n</ul>\n<p>Karena itu, RCE pada komponen yang digunakan banyak aplikasi harus ditangani dengan cepat.</p>\n<h2>Mengapa Menonaktifkan Session Upload Progress Tidak Cukup?</h2>\n<p>Setelah informasi PHP2Shell beredar, sejumlah pihak menyarankan administrator untuk menonaktifkan konfigurasi <code>session.upload_progress.enabled</code> pada PHP.</p>\n<p>Fitur Session Upload Progress digunakan untuk mencatat kemajuan proses pengunggahan file. Informasi tersebut dapat digunakan aplikasi untuk menampilkan persentase atau status upload kepada pengguna.</p>\n<p>Namun, perubahan konfigurasi ini tidak boleh dianggap sebagai solusi menyeluruh untuk PHP2Shell.</p>\n<p>Dalam laporan The Hacker News pada 21 Oktober 2026, GMO Flatt Security memperbarui rekomendasinya dan menyatakan bahwa pengaturan tersebut saja tidak cukup untuk mengatasi kerentanan. Perwakilan proyek PHP juga menegaskan pentingnya memperbarui PHP ke versi yang telah diperbaiki.</p>\n<p>Selain itu, pada saat laporan tersebut diterbitkan, akar masalah dan detail teknis lengkap belum dikonfirmasi secara resmi oleh tim PHP.</p>\n<p>Artinya, administrator tidak boleh berasumsi bahwa satu perubahan konfigurasi sudah membuat server aman. Menonaktifkan fitur yang tidak diperlukan dapat menjadi bagian dari pengurangan risiko, tetapi tidak menggantikan pembaruan keamanan resmi.</p>\n<h2>Langkah Melindungi Server Sebelum Patch Diterapkan</h2>\n<p>Jika server belum dapat diperbarui, ada beberapa langkah yang dapat dilakukan untuk mengurangi risiko.</p>\n<h3>1. Inventarisasi Seluruh Instalasi PHP</h3>\n<p>Mulailah dengan mendata seluruh server dan aplikasi yang menggunakan PHP. Jangan hanya memeriksa website utama.</p>\n<p>Periksa juga aplikasi internal, container Docker, server staging, panel hosting, serta perangkat lunak pihak ketiga yang menyertakan runtime PHP.</p>\n<p>Catat versi PHP, sistem operasi, metode eksekusi PHP, dan sumber paket yang digunakan. Informasi ini membantu menentukan pembaruan yang tepat.</p>\n<p>Perlu diingat bahwa hasil perintah <code>php -v</code> hanya menunjukkan versi PHP CLI. Versi yang melayani website melalui PHP-FPM atau modul Apache dapat berbeda.</p>\n<h3>2. Batasi Akses ke Aplikasi yang Berisiko</h3>\n<p>Jika patch belum tersedia atau belum dapat diterapkan, pertimbangkan untuk membatasi akses publik ke aplikasi yang berisiko.</p>\n<p>Pilihan yang dapat digunakan antara lain:</p>\n<ul>\n<li>Membatasi akses melalui VPN.</li>\n<li>Mengizinkan akses hanya dari alamat IP tertentu.</li>\n<li>Menempatkan aplikasi di belakang kontrol akses yang sesuai.</li>\n<li>Mengisolasi sementara aplikasi dari jaringan publik jika risiko tidak dapat dikendalikan.</li>\n</ul>\n<p>Keputusan ini perlu mempertimbangkan kebutuhan operasional dan dampak terhadap pengguna. Jika aplikasi tidak dapat diamankan sementara, penghentian akses publik mungkin menjadi pilihan yang lebih aman.</p>\n<h3>3. Siapkan Pembaruan PHP</h3>\n<p>Jangan menunggu sampai serangan berhasil terjadi untuk menyiapkan proses pembaruan.</p>\n<p>Administrator sebaiknya memeriksa pengumuman keamanan resmi PHP, paket yang disediakan distribusi Linux, serta informasi dari penyedia hosting.</p>\n<p>Pastikan juga tersedia prosedur untuk melakukan backup, pengujian aplikasi, persetujuan perubahan darurat, dan pemulihan jika terjadi masalah setelah pembaruan.</p>\n<p>Pembaruan harus diterapkan pada runtime yang benar-benar melayani permintaan web, bukan hanya pada aplikasi seperti WordPress atau Laravel.</p>\n<h3>4. Batasi Hak Akses Proses PHP</h3>\n<p>Proses PHP sebaiknya tidak berjalan dengan hak administrator atau root jika tidak diperlukan.</p>\n<p>Gunakan prinsip least privilege, yaitu memberikan hak akses minimum yang diperlukan agar aplikasi dapat beroperasi.</p>\n<p>Batasi pula akses proses PHP terhadap file konfigurasi, kredensial, direktori sensitif, dan layanan internal yang tidak dibutuhkan. Langkah ini dapat mengurangi dampak jika suatu aplikasi berhasil dikompromikan.</p>\n<h3>5. Gunakan WAF sebagai Lapisan Tambahan</h3>\n<p>Web Application Firewall atau WAF dapat membantu memfilter permintaan web yang mencurigakan sebelum mencapai aplikasi.</p>\n<p>Penyedia layanan keamanan tertentu telah mengumumkan aturan darurat untuk mengurangi risiko eksploitasi PHP2Shell. Namun, aturan tersebut harus dipandang sebagai perlindungan sementara.</p>\n<p>Aturan WAF dapat memiliki keterbatasan, termasuk kemungkinan permintaan berbahaya tidak terdeteksi atau permintaan normal ikut terblokir. Karena itu, pengujian perlu dilakukan sebelum aturan diterapkan secara luas.</p>\n<p>WAF bukan pengganti patch PHP.</p>\n<h2>Cara Memantau Aktivitas Mencurigakan</h2>\n<p>Selain mengurangi paparan, administrator perlu memantau aktivitas server untuk mengetahui kemungkinan percobaan eksploitasi atau kompromi.</p>\n<p>Beberapa indikator yang patut diperiksa adalah:</p>\n<ul>\n<li>Proses PHP-FPM, PHP-CGI, atau Apache yang tiba-tiba menjalankan shell atau program yang tidak biasa.</li>\n<li>Lonjakan permintaan HTTP yang tidak wajar, khususnya pada endpoint yang tidak seharusnya menerima unggahan file.</li>\n<li>Perubahan file website yang tidak sesuai dengan aktivitas deployment.</li>\n<li>Munculnya file, akun, atau tugas terjadwal yang tidak dikenal.</li>\n<li>Error atau crash pada proses PHP yang berkaitan dengan permintaan mencurigakan.</li>\n</ul>\n<p>Simpan log web server dan sistem operasi secara aman agar dapat digunakan dalam investigasi.</p>\n<p>Jika ditemukan indikasi kompromi, jangan hanya menghapus file yang terlihat mencurigakan. Isolasi sistem sesuai prosedur penanganan insiden, pertahankan bukti, identifikasi kemungkinan akses yang telah diperoleh penyerang, dan lakukan pemulihan dari sumber yang tepercaya.</p>\n<p>Tidak adanya indikator yang terlihat juga tidak menjamin bahwa server belum pernah dikompromikan.</p>\n<h2>Apa yang Harus Dilakukan Ketika Patch Resmi Tersedia?</h2>\n<p>Pembaruan keamanan merupakan langkah terpenting untuk menangani kerentanan yang telah diperbaiki oleh vendor.</p>\n<p>Ketika rilis keamanan tersedia, lakukan langkah berikut:</p>\n<ol>\n<li>Periksa advisory resmi untuk mengetahui versi yang terdampak dan versi yang telah diperbaiki.</li>\n<li>Pastikan paket pembaruan sesuai dengan cabang PHP dan distribusi Linux yang digunakan.</li>\n<li>Prioritaskan server yang dapat diakses langsung dari internet.</li>\n<li>Perbarui runtime PHP yang melayani permintaan web.</li>\n<li>Mulai ulang atau muat ulang layanan jika diperlukan oleh proses pembaruan.</li>\n<li>Verifikasi versi dan status patch melalui informasi vendor.</li>\n<li>Uji fungsi website, terutama fitur unggah file dan aplikasi yang bergantung pada PHP.</li>\n<li>Periksa log setelah pembaruan dan lanjutkan investigasi jika ada indikasi kompromi.</li>\n</ol>\n<p>Untuk PHP yang sudah berakhir masa dukungannya, administrator perlu mempertimbangkan migrasi ke cabang yang masih didukung atau solusi keamanan dari vendor yang menyediakan pembaruan tambahan.</p>\n<p>Jangan menganggap suatu server telah aman hanya karena nomor versinya terlihat lebih baru. Distribusi Linux tertentu dapat memberikan perbaikan melalui backport, sehingga status paket dan advisory vendor perlu diperiksa.</p>\n<h2>Checklist Keamanan PHP2Shell</h2>\n<p>Administrator dapat menggunakan daftar berikut untuk memastikan langkah penanganan telah dilakukan.</p>\n<ul>\n<li>[ ] Seluruh instalasi PHP telah diinventarisasi.</li>\n<li>[ ] Versi runtime dan sumber paket telah diperiksa.</li>\n<li>[ ] Aplikasi yang berisiko telah dibatasi atau diisolasi bila diperlukan.</li>\n<li>[ ] Pembaruan keamanan resmi telah disiapkan.</li>\n<li>[ ] PHP yang melayani permintaan web telah diperbarui ke paket yang sesuai.</li>\n<li>[ ] WAF dan kontrol akses digunakan sebagai lapisan tambahan bila diperlukan.</li>\n<li>[ ] Log dan proses server telah diperiksa.</li>\n<li>[ ] Indikasi kompromi telah ditindaklanjuti.</li>\n<li>[ ] Aplikasi telah diuji setelah pembaruan.</li>\n<li>[ ] Status keamanan dan tindakan lanjutan telah didokumentasikan.</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>PHP2Shell menunjukkan bahwa kerentanan pada runtime dapat menimbulkan risiko besar bagi website dan aplikasi yang bergantung pada PHP.</p>\n<p>Mengubah satu konfigurasi PHP saja tidak cukup untuk menjamin keamanan. Administrator perlu menggabungkan inventarisasi aset, pembatasan akses, pengurangan hak akses proses, pemantauan log, dan penerapan pembaruan keamanan resmi.</p>\n<p>Jika patch belum dapat diterapkan, kurangi paparan server dan pertimbangkan isolasi sementara sesuai tingkat risiko. Setelah pembaruan tersedia, verifikasi bahwa runtime yang melayani website benar-benar telah diperbaiki.</p>\n<p><strong>Prinsip terpentingnya adalah jangan mengandalkan workaround sebagai pengganti patch resmi.</strong> Pemantauan advisory vendor dan kesiapan merespons insiden menjadi bagian penting dalam menjaga keamanan server PHP.</p>\n<h3>Referensi</h3>\n<ul>\n<li>The Hacker News — <a href=\"https://thehackernews.com/2026/10/php2shell-what-actually-protects-you.html\">PHP2Shell: What Actually Protects You Before the 14:00 UTC PHP RCE Patch, and What Doesn&#8217;t</a></li>\n<li>PHP — <a href=\"https://www.php.net/\">Website dan pengumuman keamanan resmi</a></li>\n<li>Tenable — <a href=\"https://www.tenable.com/blog/php2shell-cve-2026-109618-cve-2026-109619-frequently-asked-questions-about-critical-php-remote\">PHP2Shell: CVE-2026-109618 dan CVE-2026-109619 FAQ</a></li>\n</ul>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Meta description: Pelajari ancaman PHP2Shell, risiko Remote Code Execution, dan langkah praktis untuk melindungi server PHP melalui patch, pembatasan akses, serta pemantauan keamanan. Mengenal PHP2Shell, Ancaman Serius bagi Server PHP PHP2Shell menjadi perhatian dunia keamanan siber setelah ditemukannya dua kerentanan kritis pada PHP yang berpotensi memungkinkan penyerang menjalankan perintah pada server dari jarak jauh. Kedua kerentanan tersebut dilaporkan memiliki skor CVSS 9,2 dari 10, yang menunjukkan tingkat keparahan tinggi. PHP merupakan bahasa pemrograman yang banyak digunakan untuk membangun website dan aplikasi web. Platform seperti WordPress, Drupal, dan berbagai aplikasi berbasis PHP bergantung pada runtime PHP agar dapat berjalan. Jika&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 1982,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1
+    ],
+    "tags": [
+      4020
+    ],
+    "class_list": [
+      "post-23164",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-uncategorized",
+      "tag-php2shell"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>PHP2Shell: Cara Melindungi Server PHP dari Ancaman Remote Code Execution - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"PHP2Shell: Cara Melindungi Server PHP dari Ancaman Remote Code Execution - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Meta description: Pelajari ancaman PHP2Shell, risiko Remote Code Execution, dan langkah praktis untuk melindungi server PHP melalui patch, pembatasan akses, serta pemantauan keamanan. Mengenal PHP2Shell, Ancaman Serius bagi Server PHP PHP2Shell menjadi perhatian dunia keamanan siber setelah ditemukannya dua kerentanan kritis pada PHP yang berpotensi memungkinkan penyerang menjalankan perintah pada server dari jarak jauh. Kedua kerentanan tersebut dilaporkan memiliki skor CVSS 9,2 dari 10, yang menunjukkan tingkat keparahan tinggi. PHP merupakan bahasa pemrograman yang banyak digunakan untuk membangun website dan aplikasi web. Platform seperti WordPress, Drupal, dan berbagai aplikasi berbasis PHP bergantung pada runtime PHP agar dapat berjalan. Jika...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-10-21T13:59:15+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\" />\n\t<meta property=\"og:image:width\" content=\"509\" />\n\t<meta property=\"og:image:height\" content=\"339\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"6 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/\",\"url\":\"https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/\",\"name\":\"PHP2Shell: Cara Melindungi Server PHP dari Ancaman Remote Code Execution - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\",\"datePublished\":\"2026-10-21T13:59:15+00:00\",\"dateModified\":\"2026-10-21T13:59:15+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\",\"width\":509,\"height\":339,\"caption\":\"Digital work of Computer Hacker or Programmer\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"PHP2Shell: Cara Melindungi Server PHP dari Ancaman Remote Code Execution\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "PHP2Shell: Cara Melindungi Server PHP dari Ancaman Remote Code Execution - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "PHP2Shell: Cara Melindungi Server PHP dari Ancaman Remote Code Execution - buletinsiber.com",
+      "og_description": "Pengantar Meta description: Pelajari ancaman PHP2Shell, risiko Remote Code Execution, dan langkah praktis untuk melindungi server PHP melalui patch, pembatasan akses, serta pemantauan keamanan. Mengenal PHP2Shell, Ancaman Serius bagi Server PHP PHP2Shell menjadi perhatian dunia keamanan siber setelah ditemukannya dua kerentanan kritis pada PHP yang berpotensi memungkinkan penyerang menjalankan perintah pada server dari jarak jauh. Kedua kerentanan tersebut dilaporkan memiliki skor CVSS 9,2 dari 10, yang menunjukkan tingkat keparahan tinggi. PHP merupakan bahasa pemrograman yang banyak digunakan untuk membangun website dan aplikasi web. Platform seperti WordPress, Drupal, dan berbagai aplikasi berbasis PHP bergantung pada runtime PHP agar dapat berjalan. Jika...",
+      "og_url": "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-10-21T13:59:15+00:00",
+      "og_image": [
+        {
+          "width": 509,
+          "height": 339,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "6 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/",
+            "url": "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/",
+            "name": "PHP2Shell: Cara Melindungi Server PHP dari Ancaman Remote Code Execution - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+            "datePublished": "2026-10-21T13:59:15+00:00",
+            "dateModified": "2026-10-21T13:59:15+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+            "width": 509,
+            "height": 339,
+            "caption": "Digital work of Computer Hacker or Programmer"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/php2shell-cara-melindungi-server-php-dari-ancaman-remote-code-execution/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "PHP2Shell: Cara Melindungi Server PHP dari Ancaman Remote Code Execution"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23164",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=23164"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23164/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 23165,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23164/revisions/23165"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/1982"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=23164"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=23164"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=23164"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

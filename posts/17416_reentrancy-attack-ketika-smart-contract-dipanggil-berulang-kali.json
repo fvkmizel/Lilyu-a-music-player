@@ -1,0 +1,351 @@
+{
+  "id": 17416,
+  "title": "Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali",
+  "slug": "reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali",
+  "url": "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/",
+  "date": "2026-07-30T07:16:46",
+  "date_gmt": "2026-07-30T07:16:46",
+  "modified": "2026-07-30T07:16:46",
+  "modified_gmt": "2026-07-30T07:16:46",
+  "author": {
+    "id": 14,
+    "name": "Yoga adi pranata"
+  },
+  "categories": [
+    {
+      "id": 2,
+      "name": "Business"
+    },
+    {
+      "id": 2237,
+      "name": "Cybersecurity"
+    },
+    {
+      "id": 1450,
+      "name": "Keamanan Siber"
+    },
+    {
+      "id": 6,
+      "name": "Tech"
+    },
+    {
+      "id": 2434,
+      "name": "Teknologi"
+    },
+    {
+      "id": 7,
+      "name": "Trends"
+    }
+  ],
+  "tags": [
+    1454,
+    1449,
+    2906
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/DALL·E-2024-06-19-11.15.02-An-illustration-representing-a-reentrancy-attack-in-smart-contracts.-Simplify-the-image-by-focusing-on-a-smart-contract-with-a-recursive-function-call.jpg",
+  "excerpt": "Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali Pendahuluan Di antara berbagai jenis kerentanan smart contract, reentrancy attack menempati posisi khusus dalam sejarah blockchain — bukan hanya karena dampaknya yang besar, tetapi juga karena salah satu insidennya menjadi salah satu momen paling menentukan dalam sejarah Ethereum. Kerentanan ini terjadi ketika sebuah smart contract dapat “dipanggil kembali” secara berulang sebelum proses sebelumnya selesai diperbarui, membuka celah eksploitasi yang serius. Artikel ini membahas apa itu reentrancy attack, bagaimana mekanismenya, studi kasus bersejarah yang melibatkannya, hingga cara mencegahnya. Apa Itu Reentrancy Attack? Reentrancy attack adalah jenis serangan yang mengeksploitasi urutan eksekusi pada smart…",
+  "content_html": "<h1>Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali</h1>\n<h2>Pendahuluan</h2>\n<p>Di antara berbagai jenis kerentanan smart contract, <strong>reentrancy attack</strong> menempati posisi khusus dalam sejarah blockchain — bukan hanya karena dampaknya yang besar, tetapi juga karena salah satu insidennya menjadi salah satu momen paling menentukan dalam sejarah Ethereum. Kerentanan ini terjadi ketika sebuah smart contract dapat &#8220;dipanggil kembali&#8221; secara berulang sebelum proses sebelumnya selesai diperbarui, membuka celah eksploitasi yang serius. Artikel ini membahas apa itu reentrancy attack, bagaimana mekanismenya, studi kasus bersejarah yang melibatkannya, hingga cara mencegahnya.</p>\n<h2>Apa Itu Reentrancy Attack?</h2>\n<p>Reentrancy attack adalah jenis serangan yang mengeksploitasi urutan eksekusi pada smart contract, di mana sebuah kontrak memanggil kontrak eksternal (misalnya untuk mengirim dana) sebelum kontrak tersebut selesai memperbarui status internalnya sendiri. Akibatnya, kontrak eksternal yang dipanggil dapat &#8220;memanggil balik&#8221; fungsi yang sama secara berulang sebelum status awal diperbarui, memungkinkan penarikan dana berkali-kali lebih banyak dari yang seharusnya.</p>\n<h2>Bagaimana Reentrancy Attack Bisa Terjadi</h2>\n<h3>Pola &#8220;Check-Effects-Interactions&#8221; yang Terbalik</h3>\n<p>Praktik pemrograman yang aman umumnya mengikuti urutan: pertama memeriksa kondisi (check), kemudian memperbarui status internal (effects), dan baru setelah itu berinteraksi dengan kontrak eksternal (interactions). Reentrancy attack terjadi ketika urutan ini terbalik — kontrak berinteraksi dengan pihak eksternal terlebih dahulu sebelum memperbarui statusnya sendiri, sehingga membuka celah bagi pemanggilan berulang sebelum status diperbarui.</p>\n<h3>Peran Fungsi Fallback/Receive pada Kontrak Eksternal</h3>\n<p>Pada Ethereum dan blockchain sejenis, sebuah kontrak dapat memiliki fungsi khusus (fallback atau receive) yang otomatis terpanggil ketika menerima transfer dana. Pelaku reentrancy attack memanfaatkan fungsi ini untuk secara otomatis memanggil kembali fungsi penarikan dana pada kontrak korban, sebelum kontrak korban sempat memperbarui saldo internalnya.</p>\n<h2>Jenis-Jenis Reentrancy</h2>\n<h3>Single-Function Reentrancy</h3>\n<p>Bentuk paling sederhana, di mana fungsi yang sama dipanggil berulang kali secara langsung sebelum statusnya diperbarui.</p>\n<h3>Cross-Function Reentrancy</h3>\n<p>Terjadi ketika pemanggilan berulang tidak menargetkan fungsi yang sama persis, melainkan fungsi lain dalam kontrak yang sama yang turut memanfaatkan status yang belum diperbarui.</p>\n<h3>Cross-Contract Reentrancy</h3>\n<p>Eksploitasi yang melibatkan interaksi antara beberapa smart contract berbeda, di mana status yang belum diperbarui pada satu kontrak dieksploitasi melalui kontrak lain yang saling terhubung.</p>\n<h3>Read-Only Reentrancy</h3>\n<p>Bentuk yang lebih baru dan lebih halus, di mana pelaku tidak secara langsung mencuri dana dari kontrak yang rentan, melainkan mengeksploitasi kontrak lain yang membaca data (state) dari kontrak tersebut selagi berada dalam kondisi sementara yang belum konsisten.</p>\n<h2>Studi Kasus Bersejarah: The DAO Hack</h2>\n<p>Salah satu insiden reentrancy attack paling terkenal dalam sejarah blockchain terjadi pada 2016, ketika &#8220;The DAO&#8221; — salah satu proyek crowdfunding terdesentralisasi terbesar pada masanya di jaringan Ethereum — mengalami eksploitasi reentrancy yang menyebabkan penarikan dana dalam jumlah sangat besar. Insiden ini berdampak begitu signifikan hingga akhirnya mendorong komunitas Ethereum melakukan hard fork, memisahkan jaringan menjadi Ethereum (ETH) yang kita kenal sekarang dan Ethereum Classic (ETC) yang mempertahankan riwayat transaksi asli tanpa pembalikan. Kasus ini menjadi pengingat abadi akan pentingnya keamanan smart contract sejak masa-masa awal ekosistem blockchain.</p>\n<h2>Mengapa Reentrancy Masih Relevan Meski Sudah Lama Dikenal</h2>\n<p>Meski telah dikenal luas sejak insiden The DAO, reentrancy attack masih terus muncul dalam berbagai bentuk baru — seperti cross-contract dan read-only reentrancy — seiring semakin kompleksnya interaksi antar-protokol dalam ekosistem DeFi modern. Kompleksitas composability, di mana satu protokol sering berinteraksi dengan banyak protokol lain, menciptakan permukaan serangan yang lebih luas dan sulit diprediksi sepenuhnya, bahkan oleh pengembang yang telah memahami risiko reentrancy klasik.</p>\n<h2>Dampak Reentrancy Attack bagi Protokol dan Ekosistem DeFi</h2>\n<ul>\n<li><strong>Kerugian finansial langsung</strong> yang bisa sangat besar, tergantung pada jumlah dana yang dikelola kontrak yang rentan</li>\n<li><strong>Kerusakan kepercayaan jangka panjang</strong>, terutama jika insiden terjadi pada protokol besar dengan reputasi yang telah lama dibangun</li>\n<li><strong>Dampak sistemik</strong>, terutama pada kasus cross-contract reentrancy yang dapat memengaruhi beberapa protokol terhubung sekaligus</li>\n<li><strong>Preseden historis</strong>, seperti insiden The DAO, yang bahkan dapat memengaruhi arah pengembangan jaringan blockchain secara keseluruhan</li>\n</ul>\n<h2>Cara Mencegah Reentrancy Attack</h2>\n<h3>Pola Checks-Effects-Interactions</h3>\n<p>Menerapkan urutan penulisan kode yang benar — memeriksa kondisi terlebih dahulu, memperbarui status internal, baru kemudian berinteraksi dengan kontrak eksternal — sebagai prinsip dasar dalam mencegah reentrancy.</p>\n<h3>Reentrancy Guard/Mutex</h3>\n<p>Menerapkan mekanisme penguncian (lock) pada fungsi tertentu, yang mencegah fungsi tersebut dipanggil kembali sebelum eksekusi sebelumnya benar-benar selesai, sehingga menutup celah pemanggilan berulang.</p>\n<h3>Penggunaan Library Teruji</h3>\n<p>Memanfaatkan library keamanan yang telah teruji secara luas oleh komunitas pengembang, yang umumnya telah menyediakan implementasi standar untuk mencegah reentrancy, alih-alih membangun mekanisme keamanan kustom dari awal.</p>\n<h3>Audit dan Pengujian Menyeluruh</h3>\n<p>Melibatkan audit keamanan independen yang secara khusus memeriksa potensi celah reentrancy, termasuk bentuk-bentuk yang lebih kompleks seperti cross-contract dan read-only reentrancy, sebelum protokol diluncurkan ke publik.</p>\n<h2>Kesimpulan</h2>\n<p>Reentrancy attack menjadi salah satu pelajaran paling penting dalam sejarah keamanan smart contract, menunjukkan bagaimana kesalahan sederhana dalam urutan eksekusi kode dapat berujung pada kerugian finansial yang sangat besar, bahkan memengaruhi arah pengembangan seluruh jaringan blockchain seperti yang terjadi pada kasus The DAO. Meski telah dikenal luas selama bertahun-tahun, kerentanan ini terus berevolusi dalam bentuk-bentuk baru seiring kompleksitas ekosistem DeFi yang terus berkembang, menjadikannya pengingat penting bahwa keamanan smart contract harus selalu menjadi prioritas utama, bukan sekadar formalitas, dalam setiap tahap pengembangan protokol DeFi.</p>\n",
+  "content_text": "Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali\nPendahuluan\nDi antara berbagai jenis kerentanan smart contract,  reentrancy attack  menempati posisi khusus dalam sejarah blockchain — bukan hanya karena dampaknya yang besar, tetapi juga karena salah satu insidennya menjadi salah satu momen paling menentukan dalam sejarah Ethereum. Kerentanan ini terjadi ketika sebuah smart contract dapat “dipanggil kembali” secara berulang sebelum proses sebelumnya selesai diperbarui, membuka celah eksploitasi yang serius. Artikel ini membahas apa itu reentrancy attack, bagaimana mekanismenya, studi kasus bersejarah yang melibatkannya, hingga cara mencegahnya.\nApa Itu Reentrancy Attack?\nReentrancy attack adalah jenis serangan yang mengeksploitasi urutan eksekusi pada smart contract, di mana sebuah kontrak memanggil kontrak eksternal (misalnya untuk mengirim dana) sebelum kontrak tersebut selesai memperbarui status internalnya sendiri. Akibatnya, kontrak eksternal yang dipanggil dapat “memanggil balik” fungsi yang sama secara berulang sebelum status awal diperbarui, memungkinkan penarikan dana berkali-kali lebih banyak dari yang seharusnya.\nBagaimana Reentrancy Attack Bisa Terjadi\nPola “Check-Effects-Interactions” yang Terbalik\nPraktik pemrograman yang aman umumnya mengikuti urutan: pertama memeriksa kondisi (check), kemudian memperbarui status internal (effects), dan baru setelah itu berinteraksi dengan kontrak eksternal (interactions). Reentrancy attack terjadi ketika urutan ini terbalik — kontrak berinteraksi dengan pihak eksternal terlebih dahulu sebelum memperbarui statusnya sendiri, sehingga membuka celah bagi pemanggilan berulang sebelum status diperbarui.\nPeran Fungsi Fallback/Receive pada Kontrak Eksternal\nPada Ethereum dan blockchain sejenis, sebuah kontrak dapat memiliki fungsi khusus (fallback atau receive) yang otomatis terpanggil ketika menerima transfer dana. Pelaku reentrancy attack memanfaatkan fungsi ini untuk secara otomatis memanggil kembali fungsi penarikan dana pada kontrak korban, sebelum kontrak korban sempat memperbarui saldo internalnya.\nJenis-Jenis Reentrancy\nSingle-Function Reentrancy\nBentuk paling sederhana, di mana fungsi yang sama dipanggil berulang kali secara langsung sebelum statusnya diperbarui.\nCross-Function Reentrancy\nTerjadi ketika pemanggilan berulang tidak menargetkan fungsi yang sama persis, melainkan fungsi lain dalam kontrak yang sama yang turut memanfaatkan status yang belum diperbarui.\nCross-Contract Reentrancy\nEksploitasi yang melibatkan interaksi antara beberapa smart contract berbeda, di mana status yang belum diperbarui pada satu kontrak dieksploitasi melalui kontrak lain yang saling terhubung.\nRead-Only Reentrancy\nBentuk yang lebih baru dan lebih halus, di mana pelaku tidak secara langsung mencuri dana dari kontrak yang rentan, melainkan mengeksploitasi kontrak lain yang membaca data (state) dari kontrak tersebut selagi berada dalam kondisi sementara yang belum konsisten.\nStudi Kasus Bersejarah: The DAO Hack\nSalah satu insiden reentrancy attack paling terkenal dalam sejarah blockchain terjadi pada 2016, ketika “The DAO” — salah satu proyek crowdfunding terdesentralisasi terbesar pada masanya di jaringan Ethereum — mengalami eksploitasi reentrancy yang menyebabkan penarikan dana dalam jumlah sangat besar. Insiden ini berdampak begitu signifikan hingga akhirnya mendorong komunitas Ethereum melakukan hard fork, memisahkan jaringan menjadi Ethereum (ETH) yang kita kenal sekarang dan Ethereum Classic (ETC) yang mempertahankan riwayat transaksi asli tanpa pembalikan. Kasus ini menjadi pengingat abadi akan pentingnya keamanan smart contract sejak masa-masa awal ekosistem blockchain.\nMengapa Reentrancy Masih Relevan Meski Sudah Lama Dikenal\nMeski telah dikenal luas sejak insiden The DAO, reentrancy attack masih terus muncul dalam berbagai bentuk baru — seperti cross-contract dan read-only reentrancy — seiring semakin kompleksnya interaksi antar-protokol dalam ekosistem DeFi modern. Kompleksitas composability, di mana satu protokol sering berinteraksi dengan banyak protokol lain, menciptakan permukaan serangan yang lebih luas dan sulit diprediksi sepenuhnya, bahkan oleh pengembang yang telah memahami risiko reentrancy klasik.\nDampak Reentrancy Attack bagi Protokol dan Ekosistem DeFi\nKerugian finansial langsung  yang bisa sangat besar, tergantung pada jumlah dana yang dikelola kontrak yang rentan\nKerusakan kepercayaan jangka panjang , terutama jika insiden terjadi pada protokol besar dengan reputasi yang telah lama dibangun\nDampak sistemik , terutama pada kasus cross-contract reentrancy yang dapat memengaruhi beberapa protokol terhubung sekaligus\nPreseden historis , seperti insiden The DAO, yang bahkan dapat memengaruhi arah pengembangan jaringan blockchain secara keseluruhan\nCara Mencegah Reentrancy Attack\nPola Checks-Effects-Interactions\nMenerapkan urutan penulisan kode yang benar — memeriksa kondisi terlebih dahulu, memperbarui status internal, baru kemudian berinteraksi dengan kontrak eksternal — sebagai prinsip dasar dalam mencegah reentrancy.\nReentrancy Guard/Mutex\nMenerapkan mekanisme penguncian (lock) pada fungsi tertentu, yang mencegah fungsi tersebut dipanggil kembali sebelum eksekusi sebelumnya benar-benar selesai, sehingga menutup celah pemanggilan berulang.\nPenggunaan Library Teruji\nMemanfaatkan library keamanan yang telah teruji secara luas oleh komunitas pengembang, yang umumnya telah menyediakan implementasi standar untuk mencegah reentrancy, alih-alih membangun mekanisme keamanan kustom dari awal.\nAudit dan Pengujian Menyeluruh\nMelibatkan audit keamanan independen yang secara khusus memeriksa potensi celah reentrancy, termasuk bentuk-bentuk yang lebih kompleks seperti cross-contract dan read-only reentrancy, sebelum protokol diluncurkan ke publik.\nKesimpulan\nReentrancy attack menjadi salah satu pelajaran paling penting dalam sejarah keamanan smart contract, menunjukkan bagaimana kesalahan sederhana dalam urutan eksekusi kode dapat berujung pada kerugian finansial yang sangat besar, bahkan memengaruhi arah pengembangan seluruh jaringan blockchain seperti yang terjadi pada kasus The DAO. Meski telah dikenal luas selama bertahun-tahun, kerentanan ini terus berevolusi dalam bentuk-bentuk baru seiring kompleksitas ekosistem DeFi yang terus berkembang, menjadikannya pengingat penting bahwa keamanan smart contract harus selalu menjadi prioritas utama, bukan sekadar formalitas, dalam setiap tahap pengembangan protokol DeFi.",
+  "raw": {
+    "id": 17416,
+    "date": "2026-07-30T07:16:46",
+    "date_gmt": "2026-07-30T07:16:46",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=17416"
+    },
+    "modified": "2026-07-30T07:16:46",
+    "modified_gmt": "2026-07-30T07:16:46",
+    "slug": "reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/",
+    "title": {
+      "rendered": "Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali"
+    },
+    "content": {
+      "rendered": "<h1>Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali</h1>\n<h2>Pendahuluan</h2>\n<p>Di antara berbagai jenis kerentanan smart contract, <strong>reentrancy attack</strong> menempati posisi khusus dalam sejarah blockchain — bukan hanya karena dampaknya yang besar, tetapi juga karena salah satu insidennya menjadi salah satu momen paling menentukan dalam sejarah Ethereum. Kerentanan ini terjadi ketika sebuah smart contract dapat &#8220;dipanggil kembali&#8221; secara berulang sebelum proses sebelumnya selesai diperbarui, membuka celah eksploitasi yang serius. Artikel ini membahas apa itu reentrancy attack, bagaimana mekanismenya, studi kasus bersejarah yang melibatkannya, hingga cara mencegahnya.</p>\n<h2>Apa Itu Reentrancy Attack?</h2>\n<p>Reentrancy attack adalah jenis serangan yang mengeksploitasi urutan eksekusi pada smart contract, di mana sebuah kontrak memanggil kontrak eksternal (misalnya untuk mengirim dana) sebelum kontrak tersebut selesai memperbarui status internalnya sendiri. Akibatnya, kontrak eksternal yang dipanggil dapat &#8220;memanggil balik&#8221; fungsi yang sama secara berulang sebelum status awal diperbarui, memungkinkan penarikan dana berkali-kali lebih banyak dari yang seharusnya.</p>\n<h2>Bagaimana Reentrancy Attack Bisa Terjadi</h2>\n<h3>Pola &#8220;Check-Effects-Interactions&#8221; yang Terbalik</h3>\n<p>Praktik pemrograman yang aman umumnya mengikuti urutan: pertama memeriksa kondisi (check), kemudian memperbarui status internal (effects), dan baru setelah itu berinteraksi dengan kontrak eksternal (interactions). Reentrancy attack terjadi ketika urutan ini terbalik — kontrak berinteraksi dengan pihak eksternal terlebih dahulu sebelum memperbarui statusnya sendiri, sehingga membuka celah bagi pemanggilan berulang sebelum status diperbarui.</p>\n<h3>Peran Fungsi Fallback/Receive pada Kontrak Eksternal</h3>\n<p>Pada Ethereum dan blockchain sejenis, sebuah kontrak dapat memiliki fungsi khusus (fallback atau receive) yang otomatis terpanggil ketika menerima transfer dana. Pelaku reentrancy attack memanfaatkan fungsi ini untuk secara otomatis memanggil kembali fungsi penarikan dana pada kontrak korban, sebelum kontrak korban sempat memperbarui saldo internalnya.</p>\n<h2>Jenis-Jenis Reentrancy</h2>\n<h3>Single-Function Reentrancy</h3>\n<p>Bentuk paling sederhana, di mana fungsi yang sama dipanggil berulang kali secara langsung sebelum statusnya diperbarui.</p>\n<h3>Cross-Function Reentrancy</h3>\n<p>Terjadi ketika pemanggilan berulang tidak menargetkan fungsi yang sama persis, melainkan fungsi lain dalam kontrak yang sama yang turut memanfaatkan status yang belum diperbarui.</p>\n<h3>Cross-Contract Reentrancy</h3>\n<p>Eksploitasi yang melibatkan interaksi antara beberapa smart contract berbeda, di mana status yang belum diperbarui pada satu kontrak dieksploitasi melalui kontrak lain yang saling terhubung.</p>\n<h3>Read-Only Reentrancy</h3>\n<p>Bentuk yang lebih baru dan lebih halus, di mana pelaku tidak secara langsung mencuri dana dari kontrak yang rentan, melainkan mengeksploitasi kontrak lain yang membaca data (state) dari kontrak tersebut selagi berada dalam kondisi sementara yang belum konsisten.</p>\n<h2>Studi Kasus Bersejarah: The DAO Hack</h2>\n<p>Salah satu insiden reentrancy attack paling terkenal dalam sejarah blockchain terjadi pada 2016, ketika &#8220;The DAO&#8221; — salah satu proyek crowdfunding terdesentralisasi terbesar pada masanya di jaringan Ethereum — mengalami eksploitasi reentrancy yang menyebabkan penarikan dana dalam jumlah sangat besar. Insiden ini berdampak begitu signifikan hingga akhirnya mendorong komunitas Ethereum melakukan hard fork, memisahkan jaringan menjadi Ethereum (ETH) yang kita kenal sekarang dan Ethereum Classic (ETC) yang mempertahankan riwayat transaksi asli tanpa pembalikan. Kasus ini menjadi pengingat abadi akan pentingnya keamanan smart contract sejak masa-masa awal ekosistem blockchain.</p>\n<h2>Mengapa Reentrancy Masih Relevan Meski Sudah Lama Dikenal</h2>\n<p>Meski telah dikenal luas sejak insiden The DAO, reentrancy attack masih terus muncul dalam berbagai bentuk baru — seperti cross-contract dan read-only reentrancy — seiring semakin kompleksnya interaksi antar-protokol dalam ekosistem DeFi modern. Kompleksitas composability, di mana satu protokol sering berinteraksi dengan banyak protokol lain, menciptakan permukaan serangan yang lebih luas dan sulit diprediksi sepenuhnya, bahkan oleh pengembang yang telah memahami risiko reentrancy klasik.</p>\n<h2>Dampak Reentrancy Attack bagi Protokol dan Ekosistem DeFi</h2>\n<ul>\n<li><strong>Kerugian finansial langsung</strong> yang bisa sangat besar, tergantung pada jumlah dana yang dikelola kontrak yang rentan</li>\n<li><strong>Kerusakan kepercayaan jangka panjang</strong>, terutama jika insiden terjadi pada protokol besar dengan reputasi yang telah lama dibangun</li>\n<li><strong>Dampak sistemik</strong>, terutama pada kasus cross-contract reentrancy yang dapat memengaruhi beberapa protokol terhubung sekaligus</li>\n<li><strong>Preseden historis</strong>, seperti insiden The DAO, yang bahkan dapat memengaruhi arah pengembangan jaringan blockchain secara keseluruhan</li>\n</ul>\n<h2>Cara Mencegah Reentrancy Attack</h2>\n<h3>Pola Checks-Effects-Interactions</h3>\n<p>Menerapkan urutan penulisan kode yang benar — memeriksa kondisi terlebih dahulu, memperbarui status internal, baru kemudian berinteraksi dengan kontrak eksternal — sebagai prinsip dasar dalam mencegah reentrancy.</p>\n<h3>Reentrancy Guard/Mutex</h3>\n<p>Menerapkan mekanisme penguncian (lock) pada fungsi tertentu, yang mencegah fungsi tersebut dipanggil kembali sebelum eksekusi sebelumnya benar-benar selesai, sehingga menutup celah pemanggilan berulang.</p>\n<h3>Penggunaan Library Teruji</h3>\n<p>Memanfaatkan library keamanan yang telah teruji secara luas oleh komunitas pengembang, yang umumnya telah menyediakan implementasi standar untuk mencegah reentrancy, alih-alih membangun mekanisme keamanan kustom dari awal.</p>\n<h3>Audit dan Pengujian Menyeluruh</h3>\n<p>Melibatkan audit keamanan independen yang secara khusus memeriksa potensi celah reentrancy, termasuk bentuk-bentuk yang lebih kompleks seperti cross-contract dan read-only reentrancy, sebelum protokol diluncurkan ke publik.</p>\n<h2>Kesimpulan</h2>\n<p>Reentrancy attack menjadi salah satu pelajaran paling penting dalam sejarah keamanan smart contract, menunjukkan bagaimana kesalahan sederhana dalam urutan eksekusi kode dapat berujung pada kerugian finansial yang sangat besar, bahkan memengaruhi arah pengembangan seluruh jaringan blockchain seperti yang terjadi pada kasus The DAO. Meski telah dikenal luas selama bertahun-tahun, kerentanan ini terus berevolusi dalam bentuk-bentuk baru seiring kompleksitas ekosistem DeFi yang terus berkembang, menjadikannya pengingat penting bahwa keamanan smart contract harus selalu menjadi prioritas utama, bukan sekadar formalitas, dalam setiap tahap pengembangan protokol DeFi.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali Pendahuluan Di antara berbagai jenis kerentanan smart contract, reentrancy attack menempati posisi khusus dalam sejarah blockchain — bukan hanya karena dampaknya yang besar, tetapi juga karena salah satu insidennya menjadi salah satu momen paling menentukan dalam sejarah Ethereum. Kerentanan ini terjadi ketika sebuah smart contract dapat &#8220;dipanggil kembali&#8221; secara berulang sebelum proses sebelumnya selesai diperbarui, membuka celah eksploitasi yang serius. Artikel ini membahas apa itu reentrancy attack, bagaimana mekanismenya, studi kasus bersejarah yang melibatkannya, hingga cara mencegahnya. Apa Itu Reentrancy Attack? Reentrancy attack adalah jenis serangan yang mengeksploitasi urutan eksekusi pada smart&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 14,
+    "featured_media": 17420,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "Reentrancy attack adalah jenis eksploitasi keamanan di mana penyerang memanggil fungsi kontrak pintar secara berulang sebelum transaksi pertama selesai. Celah ini terjadi ketika smart contract mengirimkan dana ke kontrak eksternal sebelum memperbarui status atau saldo internalnya. Akibatnya, kontrak target terus mengirimkan dana karena mengira saldo penyerang masih mencukupi.",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      2,
+      2237,
+      1450,
+      6,
+      2434,
+      7
+    ],
+    "tags": [
+      1454,
+      1449,
+      2906
+    ],
+    "class_list": [
+      "post-17416",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-business",
+      "category-cybersecurity",
+      "category-keamanan-siber",
+      "category-tech",
+      "category-teknologi",
+      "category-trends",
+      "tag-apa-itu-defi",
+      "tag-defi",
+      "tag-reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali - buletinsiber.com</title>\n<meta name=\"description\" content=\"Reentrancy attack adalah jenis eksploitasi keamanan di mana penyerang memanggil fungsi kontrak pintar secara berulang sebelum transaksi pertama selesai. Celah ini terjadi ketika smart contract mengirimkan dana ke kontrak eksternal sebelum memperbarui status atau saldo internalnya. Akibatnya, kontrak target terus mengirimkan dana karena mengira saldo penyerang masih mencukupi.\" />\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Reentrancy attack adalah jenis eksploitasi keamanan di mana penyerang memanggil fungsi kontrak pintar secara berulang sebelum transaksi pertama selesai. Celah ini terjadi ketika smart contract mengirimkan dana ke kontrak eksternal sebelum memperbarui status atau saldo internalnya. Akibatnya, kontrak target terus mengirimkan dana karena mengira saldo penyerang masih mencukupi.\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-30T07:16:46+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/DALL·E-2024-06-19-11.15.02-An-illustration-representing-a-reentrancy-attack-in-smart-contracts.-Simplify-the-image-by-focusing-on-a-smart-contract-with-a-recursive-function-call.jpg\" />\n\t<meta property=\"og:image:width\" content=\"720\" />\n\t<meta property=\"og:image:height\" content=\"411\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Yoga adi pranata\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Yoga adi pranata\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/\",\"url\":\"https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/\",\"name\":\"Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/DALL·E-2024-06-19-11.15.02-An-illustration-representing-a-reentrancy-attack-in-smart-contracts.-Simplify-the-image-by-focusing-on-a-smart-contract-with-a-recursive-function-call.jpg\",\"datePublished\":\"2026-07-30T07:16:46+00:00\",\"dateModified\":\"2026-07-30T07:16:46+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/097cbb6082741df772ee25725f2034e8\"},\"description\":\"Reentrancy attack adalah jenis eksploitasi keamanan di mana penyerang memanggil fungsi kontrak pintar secara berulang sebelum transaksi pertama selesai. Celah ini terjadi ketika smart contract mengirimkan dana ke kontrak eksternal sebelum memperbarui status atau saldo internalnya. Akibatnya, kontrak target terus mengirimkan dana karena mengira saldo penyerang masih mencukupi.\",\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/DALL·E-2024-06-19-11.15.02-An-illustration-representing-a-reentrancy-attack-in-smart-contracts.-Simplify-the-image-by-focusing-on-a-smart-contract-with-a-recursive-function-call.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/DALL·E-2024-06-19-11.15.02-An-illustration-representing-a-reentrancy-attack-in-smart-contracts.-Simplify-the-image-by-focusing-on-a-smart-contract-with-a-recursive-function-call.jpg\",\"width\":720,\"height\":411},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/097cbb6082741df772ee25725f2034e8\",\"name\":\"Yoga adi pranata\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/b01f53bb07918e0123dd73aa32e984a56e20b30cf7fb6069a9b4681786035fc4?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/b01f53bb07918e0123dd73aa32e984a56e20b30cf7fb6069a9b4681786035fc4?s=96&d=mm&r=g\",\"caption\":\"Yoga adi pranata\"},\"url\":\"https://buletinsiber.com/author/yoga-adi-pranata/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali - buletinsiber.com",
+      "description": "Reentrancy attack adalah jenis eksploitasi keamanan di mana penyerang memanggil fungsi kontrak pintar secara berulang sebelum transaksi pertama selesai. Celah ini terjadi ketika smart contract mengirimkan dana ke kontrak eksternal sebelum memperbarui status atau saldo internalnya. Akibatnya, kontrak target terus mengirimkan dana karena mengira saldo penyerang masih mencukupi.",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali - buletinsiber.com",
+      "og_description": "Reentrancy attack adalah jenis eksploitasi keamanan di mana penyerang memanggil fungsi kontrak pintar secara berulang sebelum transaksi pertama selesai. Celah ini terjadi ketika smart contract mengirimkan dana ke kontrak eksternal sebelum memperbarui status atau saldo internalnya. Akibatnya, kontrak target terus mengirimkan dana karena mengira saldo penyerang masih mencukupi.",
+      "og_url": "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-30T07:16:46+00:00",
+      "og_image": [
+        {
+          "width": 720,
+          "height": 411,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/DALL·E-2024-06-19-11.15.02-An-illustration-representing-a-reentrancy-attack-in-smart-contracts.-Simplify-the-image-by-focusing-on-a-smart-contract-with-a-recursive-function-call.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Yoga adi pranata",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Yoga adi pranata",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/",
+            "url": "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/",
+            "name": "Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/DALL·E-2024-06-19-11.15.02-An-illustration-representing-a-reentrancy-attack-in-smart-contracts.-Simplify-the-image-by-focusing-on-a-smart-contract-with-a-recursive-function-call.jpg",
+            "datePublished": "2026-07-30T07:16:46+00:00",
+            "dateModified": "2026-07-30T07:16:46+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/097cbb6082741df772ee25725f2034e8"
+            },
+            "description": "Reentrancy attack adalah jenis eksploitasi keamanan di mana penyerang memanggil fungsi kontrak pintar secara berulang sebelum transaksi pertama selesai. Celah ini terjadi ketika smart contract mengirimkan dana ke kontrak eksternal sebelum memperbarui status atau saldo internalnya. Akibatnya, kontrak target terus mengirimkan dana karena mengira saldo penyerang masih mencukupi.",
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/DALL·E-2024-06-19-11.15.02-An-illustration-representing-a-reentrancy-attack-in-smart-contracts.-Simplify-the-image-by-focusing-on-a-smart-contract-with-a-recursive-function-call.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/DALL·E-2024-06-19-11.15.02-An-illustration-representing-a-reentrancy-attack-in-smart-contracts.-Simplify-the-image-by-focusing-on-a-smart-contract-with-a-recursive-function-call.jpg",
+            "width": 720,
+            "height": 411
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/reentrancy-attack-ketika-smart-contract-dipanggil-berulang-kali/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Reentrancy Attack: Ketika Smart Contract Dipanggil Berulang Kali"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/097cbb6082741df772ee25725f2034e8",
+            "name": "Yoga adi pranata",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/b01f53bb07918e0123dd73aa32e984a56e20b30cf7fb6069a9b4681786035fc4?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/b01f53bb07918e0123dd73aa32e984a56e20b30cf7fb6069a9b4681786035fc4?s=96&d=mm&r=g",
+              "caption": "Yoga adi pranata"
+            },
+            "url": "https://buletinsiber.com/author/yoga-adi-pranata/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17416",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/14"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=17416"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17416/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 17421,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17416/revisions/17421"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/17420"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=17416"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=17416"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=17416"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

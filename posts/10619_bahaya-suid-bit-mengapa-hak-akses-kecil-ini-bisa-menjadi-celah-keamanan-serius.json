@@ -1,0 +1,328 @@
+{
+  "id": 10619,
+  "title": "Bahaya SUID Bit: Mengapa Hak Akses Kecil Ini Bisa Menjadi Celah Keamanan Serius?",
+  "slug": "bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius",
+  "url": "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/",
+  "date": "2026-07-14T00:31:19",
+  "date_gmt": "2026-07-14T00:31:19",
+  "modified": "2026-07-14T00:31:19",
+  "modified_gmt": "2026-07-14T00:31:19",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    185,
+    682,
+    988
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762-1.jpeg",
+  "excerpt": "Pengantar Sistem operasi Linux dan Unix dikenal memiliki mekanisme pengelolaan hak akses yang kuat. Salah satu fitur penting dalam sistem tersebut adalah SUID Bit (Set User ID Bit), yaitu izin khusus yang memungkinkan sebuah program dijalankan dengan hak akses pemilik file, bukan hak akses pengguna yang menjalankannya. Fitur ini memiliki banyak manfaat untuk menjalankan fungsi-fungsi sistem tertentu. Namun, jika dikonfigurasi secara tidak tepat atau diterapkan pada program yang rentan, SUID Bit dapat menjadi salah satu celah keamanan yang sering dimanfaatkan oleh penyerang untuk meningkatkan hak akses (Privilege Escalation). Artikel ini membahas cara kerja SUID Bit, manfaatnya, risiko keamanannya, serta praktik…",
+  "content_html": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"84\" data-end=\"96\">Pengantar</h2>\n<p data-start=\"98\" data-end=\"412\">Sistem operasi Linux dan Unix dikenal memiliki mekanisme pengelolaan hak akses yang kuat. Salah satu fitur penting dalam sistem tersebut adalah <strong data-start=\"242\" data-end=\"272\">SUID Bit (Set User ID Bit)</strong>, yaitu izin khusus yang memungkinkan sebuah program dijalankan dengan hak akses pemilik file, bukan hak akses pengguna yang menjalankannya.</p>\n<p data-start=\"414\" data-end=\"727\">Fitur ini memiliki banyak manfaat untuk menjalankan fungsi-fungsi sistem tertentu. Namun, jika dikonfigurasi secara tidak tepat atau diterapkan pada program yang rentan, SUID Bit dapat menjadi salah satu celah keamanan yang sering dimanfaatkan oleh penyerang untuk meningkatkan hak akses (<em data-start=\"703\" data-end=\"725\">Privilege Escalation</em>).</p>\n<p data-start=\"729\" data-end=\"874\">Artikel ini membahas cara kerja SUID Bit, manfaatnya, risiko keamanannya, serta praktik terbaik agar fitur ini tidak menjadi ancaman bagi sistem.</p>\n<hr data-start=\"876\" data-end=\"879\" />\n<h2 data-section-id=\"1tw3shi\" data-start=\"881\" data-end=\"901\">Apa Itu SUID Bit?</h2>\n<p data-start=\"903\" data-end=\"1116\"><strong data-start=\"903\" data-end=\"925\">SUID (Set User ID)</strong> adalah izin khusus pada sistem operasi Linux dan Unix yang membuat sebuah file executable dijalankan menggunakan <strong data-start=\"1039\" data-end=\"1056\">User ID (UID)</strong> milik pemilik file, bukan UID pengguna yang menjalankannya.</p>\n<p data-start=\"1118\" data-end=\"1313\">Sebagai contoh, jika sebuah program dimiliki oleh pengguna <strong data-start=\"1177\" data-end=\"1185\">root</strong> dan memiliki SUID Bit aktif, maka program tersebut akan berjalan dengan hak akses root meskipun dijalankan oleh pengguna biasa.</p>\n<p data-start=\"1315\" data-end=\"1642\">Menurut dokumentasi <strong data-start=\"1335\" data-end=\"1352\">GNU Coreutils</strong>, SUID merupakan salah satu mode izin khusus yang memungkinkan program dijalankan menggunakan identitas pemilik file untuk menjalankan fungsi-fungsi tertentu yang memerlukan hak akses lebih tinggi <em data-start=\"1549\" data-end=\"1641\">(dikutip dari <a class=\"decorated-link\" href=\"https://www.gnu.org/software/coreutils/manual/html_node/Mode-Structure.html\" target=\"_new\" rel=\"noopener\" data-start=\"1564\" data-end=\"1639\">https://www.gnu.org/software/coreutils/manual/html_node/Mode-Structure.html</a>)</em>.</p>\n<hr data-start=\"1644\" data-end=\"1647\" />\n<h2 data-section-id=\"1gimow7\" data-start=\"1649\" data-end=\"1682\">Bagaimana Cara Kerja SUID Bit?</h2>\n<p data-start=\"1684\" data-end=\"1704\">Pada kondisi normal:</p>\n<ul data-start=\"1706\" data-end=\"1776\">\n<li data-section-id=\"1rh3rwv\" data-start=\"1706\" data-end=\"1776\">Program dijalankan menggunakan hak akses pengguna yang sedang login.</li>\n</ul>\n<p data-start=\"1778\" data-end=\"1810\">Sedangkan ketika SUID Bit aktif:</p>\n<ul data-start=\"1812\" data-end=\"1868\">\n<li data-section-id=\"kj7ihr\" data-start=\"1812\" data-end=\"1868\">Program dijalankan menggunakan hak akses pemilik file.</li>\n</ul>\n<p data-start=\"1870\" data-end=\"1888\">Sebagai ilustrasi:</p>\n<ol data-start=\"1890\" data-end=\"2097\">\n<li data-section-id=\"hxmmjf\" data-start=\"1890\" data-end=\"1935\">Pengguna biasa menjalankan sebuah program.</li>\n<li data-section-id=\"1hmugj6\" data-start=\"1936\" data-end=\"1966\">Sistem memeriksa izin file.</li>\n<li data-section-id=\"1rikin9\" data-start=\"1967\" data-end=\"2023\">Jika SUID aktif, sistem menggunakan UID pemilik file.</li>\n<li data-section-id=\"1fdm1mf\" data-start=\"2024\" data-end=\"2097\">Program memperoleh hak akses sesuai pemiliknya selama proses berjalan.</li>\n</ol>\n<p data-start=\"2099\" data-end=\"2182\">Setelah program selesai dieksekusi, hak akses tersebut akan kembali seperti semula.</p>\n<blockquote>\n<p data-start=\"2099\" data-end=\"2182\">baca juga : <a href=\"https://buletinsiber.com/mtu-maximum-transmission-unit-mengapa-ukuran-paket-data-mempengaruhi-kecepatan-jaringan/\">MTU (Maximum Transmission Unit): Mengapa Ukuran Paket Data Mempengaruhi Kecepatan Jaringan?</a></p>\n</blockquote>\n<hr data-start=\"2184\" data-end=\"2187\" />\n<h2 data-section-id=\"1niw3tj\" data-start=\"2189\" data-end=\"2216\">Mengapa SUID Dibutuhkan?</h2>\n<p data-start=\"2218\" data-end=\"2265\">Tidak semua penggunaan SUID bersifat berbahaya.</p>\n<p data-start=\"2267\" data-end=\"2352\">Beberapa utilitas sistem memang memerlukannya agar dapat menjalankan fungsi tertentu.</p>\n<p data-start=\"2354\" data-end=\"2364\">Contohnya:</p>\n<ul data-start=\"2366\" data-end=\"2540\">\n<li data-section-id=\"13m9hdi\" data-start=\"2366\" data-end=\"2397\">Mengubah kata sandi pengguna.</li>\n<li data-section-id=\"g95z7u\" data-start=\"2398\" data-end=\"2436\">Mengakses informasi sistem tertentu.</li>\n<li data-section-id=\"1ebh2v6\" data-start=\"2437\" data-end=\"2480\">Menjalankan fungsi administrasi terbatas.</li>\n<li data-section-id=\"oghxvv\" data-start=\"2481\" data-end=\"2540\">Mengelola sumber daya yang hanya dapat diakses oleh root.</li>\n</ul>\n<p data-start=\"2542\" data-end=\"2629\">Tanpa SUID, beberapa utilitas bawaan sistem tidak dapat berfungsi sebagaimana mestinya.</p>\n<hr data-start=\"2631\" data-end=\"2634\" />\n<h2 data-section-id=\"rpw994\" data-start=\"2636\" data-end=\"2666\">Mengapa SUID Bit Berbahaya?</h2>\n<p data-start=\"2668\" data-end=\"2748\">Masalah muncul ketika program yang memiliki SUID mengandung kerentanan keamanan.</p>\n<p data-start=\"2750\" data-end=\"2898\">Karena program berjalan dengan hak akses pemilik file, penyerang dapat memanfaatkan kelemahan tersebut untuk memperoleh hak akses yang lebih tinggi.</p>\n<p data-start=\"2900\" data-end=\"2987\">Inilah alasan mengapa SUID sering menjadi target dalam proses <strong data-start=\"2962\" data-end=\"2986\">Privilege Escalation</strong>.</p>\n<hr data-start=\"2989\" data-end=\"2992\" />\n<h2 data-section-id=\"1ss8tpy\" data-start=\"2994\" data-end=\"3021\">Risiko Keamanan SUID Bit</h2>\n<p data-start=\"3023\" data-end=\"3074\">Beberapa risiko yang dapat ditimbulkan antara lain:</p>\n<h3 data-section-id=\"i3punw\" data-start=\"3076\" data-end=\"3100\">Privilege Escalation</h3>\n<p data-start=\"3102\" data-end=\"3216\">Jika program SUID memiliki celah keamanan, penyerang dapat memperoleh hak akses root atau hak akses pengguna lain.</p>\n<hr data-start=\"3218\" data-end=\"3221\" />\n<h3 data-section-id=\"9i0hv7\" data-start=\"3223\" data-end=\"3256\">Penyalahgunaan Program Sistem</h3>\n<p data-start=\"3258\" data-end=\"3359\">Program yang dirancang kurang aman dapat digunakan untuk menjalankan perintah di luar fungsi aslinya.</p>\n<p data-start=\"3258\" data-end=\"3359\"><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"928\" height=\"618\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 928px) 100vw, 928px\" /></p>\n<hr data-start=\"3361\" data-end=\"3364\" />\n<h3 data-section-id=\"10qjob2\" data-start=\"3366\" data-end=\"3391\">Kesalahan Konfigurasi</h3>\n<p data-start=\"3393\" data-end=\"3503\">Administrator terkadang secara tidak sengaja memberikan SUID pada program yang sebenarnya tidak memerlukannya.</p>\n<p data-start=\"3505\" data-end=\"3566\">Kesalahan sederhana ini dapat membuka peluang bagi penyerang.</p>\n<hr data-start=\"3568\" data-end=\"3571\" />\n<h3 data-section-id=\"kds6i3\" data-start=\"3573\" data-end=\"3607\">Meningkatkan Dampak Kerentanan</h3>\n<p data-start=\"3609\" data-end=\"3715\">Bug yang pada awalnya hanya berdampak kecil dapat berubah menjadi kerentanan kritis apabila terdapat SUID.</p>\n<blockquote>\n<p data-start=\"3609\" data-end=\"3715\">baca juga : <a href=\"https://buletinsiber.com/virtual-memory-paging-cara-sistem-operasi-mengelola-memori-agar-tetap-efisien/\">Virtual Memory &amp; Paging: Cara Sistem Operasi Mengelola Memori Agar Tetap Efisien</a></p>\n</blockquote>\n<hr data-start=\"3717\" data-end=\"3720\" />\n<h2 data-section-id=\"27zqa\" data-start=\"3722\" data-end=\"3761\">Contoh Program yang Menggunakan SUID</h2>\n<p data-start=\"3763\" data-end=\"3833\">Beberapa utilitas sistem memang menggunakan SUID secara sah, misalnya:</p>\n<ul data-start=\"3835\" data-end=\"3978\">\n<li data-section-id=\"1e4m843\" data-start=\"3835\" data-end=\"3880\">Program untuk mengubah kata sandi pengguna.</li>\n<li data-section-id=\"1a3h3u1\" data-start=\"3881\" data-end=\"3913\">Beberapa utilitas autentikasi.</li>\n<li data-section-id=\"1t11eod\" data-start=\"3914\" data-end=\"3978\">Program yang memerlukan akses sementara ke sumber daya sistem.</li>\n</ul>\n<p data-start=\"3980\" data-end=\"4090\">Program-program tersebut umumnya telah dirancang dengan mekanisme keamanan tambahan untuk meminimalkan risiko.</p>\n<hr data-start=\"4092\" data-end=\"4095\" />\n<h2 data-section-id=\"1y2lb3a\" data-start=\"4097\" data-end=\"4124\">Cara Menemukan File SUID</h2>\n<p data-start=\"4126\" data-end=\"4221\">Administrator sistem sebaiknya melakukan audit terhadap file yang memiliki SUID secara berkala.</p>\n<p data-start=\"4223\" data-end=\"4240\">Tujuannya adalah:</p>\n<ul data-start=\"4242\" data-end=\"4398\">\n<li data-section-id=\"19p7h5t\" data-start=\"4242\" data-end=\"4302\">Mengidentifikasi file yang tidak semestinya memiliki SUID.</li>\n<li data-section-id=\"1m1q7td\" data-start=\"4303\" data-end=\"4356\">Mendeteksi perubahan konfigurasi yang mencurigakan.</li>\n<li data-section-id=\"1ho0e9q\" data-start=\"4357\" data-end=\"4398\">Mengurangi risiko privilege escalation.</li>\n</ul>\n<p data-start=\"4400\" data-end=\"4476\">Audit rutin merupakan salah satu praktik dasar dalam hardening sistem Linux.</p>\n<hr data-start=\"4478\" data-end=\"4481\" />\n<h2 data-section-id=\"1m5tb8i\" data-start=\"4483\" data-end=\"4517\">Cara Mengurangi Risiko SUID Bit</h2>\n<h3 data-section-id=\"117prsf\" data-start=\"4519\" data-end=\"4555\">Terapkan Prinsip Least Privilege</h3>\n<p data-start=\"4557\" data-end=\"4593\">Berikan hak akses seminimal mungkin.</p>\n<p data-start=\"4595\" data-end=\"4671\">Program yang tidak membutuhkan SUID sebaiknya tidak diberikan izin tersebut.</p>\n<hr data-start=\"4673\" data-end=\"4676\" />\n<h3 data-section-id=\"p1pgur\" data-start=\"4678\" data-end=\"4712\">Audit File SUID Secara Berkala</h3>\n<p data-start=\"4714\" data-end=\"4833\">Lakukan pemeriksaan terhadap seluruh executable yang memiliki SUID untuk memastikan tidak ada perubahan yang tidak sah.</p>\n<hr data-start=\"4835\" data-end=\"4838\" />\n<h3 data-section-id=\"3l2kk9\" data-start=\"4840\" data-end=\"4859\">Perbarui Sistem</h3>\n<p data-start=\"4861\" data-end=\"4921\">Banyak eksploitasi SUID memanfaatkan bug pada aplikasi lama.</p>\n<p data-start=\"4923\" data-end=\"5012\">Memperbarui sistem operasi dan utilitas secara rutin membantu mengurangi risiko tersebut.</p>\n<hr data-start=\"5014\" data-end=\"5017\" />\n<h3 data-section-id=\"6q82zr\" data-start=\"5019\" data-end=\"5055\">Hapus SUID yang Tidak Diperlukan</h3>\n<p data-start=\"5057\" data-end=\"5153\">Jika suatu aplikasi tidak lagi memerlukan SUID, administrator sebaiknya menghapus izin tersebut.</p>\n<p data-start=\"5155\" data-end=\"5219\">Pendekatan ini mengurangi permukaan serangan (<em data-start=\"5201\" data-end=\"5217\">attack surface</em>).</p>\n<hr data-start=\"5221\" data-end=\"5224\" />\n<h3 data-section-id=\"1rs1t8e\" data-start=\"5226\" data-end=\"5262\">Gunakan Solusi Keamanan Tambahan</h3>\n<p data-start=\"5264\" data-end=\"5282\">Teknologi seperti:</p>\n<ul data-start=\"5284\" data-end=\"5337\">\n<li data-section-id=\"1b2rleg\" data-start=\"5284\" data-end=\"5293\">SELinux</li>\n<li data-section-id=\"1feicx6\" data-start=\"5294\" data-end=\"5304\">AppArmor</li>\n<li data-section-id=\"12761n6\" data-start=\"5305\" data-end=\"5337\">Mandatory Access Control (MAC)</li>\n</ul>\n<p data-start=\"5339\" data-end=\"5405\">dapat membatasi dampak apabila program SUID mengalami eksploitasi.</p>\n<hr data-start=\"5407\" data-end=\"5410\" />\n<h2 data-section-id=\"zuymu\" data-start=\"5412\" data-end=\"5451\">Perbedaan SUID, SGID, dan Sticky Bit</h2>\n<p data-start=\"5453\" data-end=\"5505\">Ketiga izin khusus ini memiliki fungsi yang berbeda.</p>\n<div class=\"TyagGW_tableContainer\">\n<div class=\"group TyagGW_tableWrapper flex flex-col-reverse w-fit\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"5507\" data-end=\"5754\">\n<thead data-start=\"5507\" data-end=\"5525\">\n<tr data-start=\"5507\" data-end=\"5525\">\n<th class=\"last:pe-10\" data-start=\"5507\" data-end=\"5515\" data-col-size=\"sm\">Fitur</th>\n<th class=\"last:pe-10\" data-start=\"5515\" data-end=\"5525\" data-col-size=\"md\">Fungsi</th>\n</tr>\n</thead>\n<tbody data-start=\"5546\" data-end=\"5754\">\n<tr data-start=\"5546\" data-end=\"5606\">\n<td data-start=\"5546\" data-end=\"5557\" data-col-size=\"sm\"><strong data-start=\"5548\" data-end=\"5556\">SUID</strong></td>\n<td data-start=\"5557\" data-end=\"5606\" data-col-size=\"md\">Program berjalan menggunakan UID pemilik file</td>\n</tr>\n<tr data-start=\"5607\" data-end=\"5672\">\n<td data-start=\"5607\" data-end=\"5618\" data-col-size=\"sm\"><strong data-start=\"5609\" data-end=\"5617\">SGID</strong></td>\n<td data-start=\"5618\" data-end=\"5672\" data-col-size=\"md\">Program berjalan menggunakan Group ID pemilik file</td>\n</tr>\n<tr data-start=\"5673\" data-end=\"5754\">\n<td data-start=\"5673\" data-end=\"5690\" data-col-size=\"sm\"><strong data-start=\"5675\" data-end=\"5689\">Sticky Bit</strong></td>\n<td data-start=\"5690\" data-end=\"5754\" data-col-size=\"md\">Mencegah pengguna lain menghapus file pada direktori bersama</td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>\n<p data-start=\"5756\" data-end=\"5843\">Memahami perbedaan ketiganya membantu administrator menerapkan izin akses secara tepat.</p>\n<hr data-start=\"5845\" data-end=\"5848\" />\n<h2 data-section-id=\"53m119\" data-start=\"5850\" data-end=\"5900\">Pentingnya Audit Hak Akses dalam Keamanan Linux</h2>\n<p data-start=\"5902\" data-end=\"6199\">SUID Bit bukanlah kerentanan, melainkan fitur bawaan sistem operasi. Risiko muncul ketika fitur ini diterapkan pada program yang tidak tepat atau ketika program tersebut memiliki kelemahan keamanan. Oleh karena itu, pengelolaan hak akses menjadi bagian penting dari strategi keamanan sistem Linux.</p>\n<p data-start=\"6201\" data-end=\"6485\">Administrator disarankan untuk melakukan audit izin file secara berkala, membatasi jumlah program yang menggunakan SUID, serta menerapkan prinsip <em data-start=\"6347\" data-end=\"6364\">least privilege</em>. Pendekatan ini dapat mengurangi peluang terjadinya privilege escalation dan menjaga keamanan sistem secara keseluruhan.</p>\n<p data-start=\"6487\" data-end=\"6730\">Menurut <strong data-start=\"6495\" data-end=\"6504\">OWASP</strong>, kesalahan konfigurasi dan pemberian hak akses yang berlebihan merupakan salah satu faktor yang sering menyebabkan meningkatnya risiko keamanan pada aplikasi dan sistem <em data-start=\"6674\" data-end=\"6729\">(dikutip dari <a class=\"decorated-link\" href=\"https://owasp.org/www-project-top-ten/\" target=\"_new\" rel=\"noopener\" data-start=\"6689\" data-end=\"6727\">https://owasp.org/www-project-top-ten/</a>)</em>.</p>\n<blockquote>\n<p data-start=\"6487\" data-end=\"6730\">baca juga : <a href=\"https://buletinsiber.com/membongkar-mcp-cara-kerja-protokol-baru-yang-menghubungkan-ai-dengan-data-anda/\">Membongkar MCP: Cara Kerja Protokol Baru yang Menghubungkan AI dengan Data Anda</a></p>\n</blockquote>\n<hr data-start=\"6732\" data-end=\"6735\" />\n<h2 data-section-id=\"1806px6\" data-start=\"6737\" data-end=\"6750\">Kesimpulan</h2>\n<p data-start=\"6752\" data-end=\"7059\">SUID Bit merupakan fitur penting dalam Linux dan Unix yang memungkinkan sebuah program dijalankan menggunakan hak akses pemilik file. Fitur ini diperlukan untuk berbagai utilitas sistem, tetapi juga dapat menjadi celah keamanan jika diterapkan pada program yang rentan atau dikonfigurasi secara tidak tepat.</p>\n<p data-start=\"7061\" data-end=\"7309\">Melalui audit berkala, penerapan prinsip <em data-start=\"7102\" data-end=\"7119\">least privilege</em>, pembaruan sistem, dan penggunaan mekanisme keamanan tambahan seperti SELinux atau AppArmor, organisasi dapat memanfaatkan SUID Bit secara aman sekaligus meminimalkan risiko penyalahgunaan.</p>\n",
+  "content_text": "Pengantar\nSistem operasi Linux dan Unix dikenal memiliki mekanisme pengelolaan hak akses yang kuat. Salah satu fitur penting dalam sistem tersebut adalah  SUID Bit (Set User ID Bit) , yaitu izin khusus yang memungkinkan sebuah program dijalankan dengan hak akses pemilik file, bukan hak akses pengguna yang menjalankannya.\nFitur ini memiliki banyak manfaat untuk menjalankan fungsi-fungsi sistem tertentu. Namun, jika dikonfigurasi secara tidak tepat atau diterapkan pada program yang rentan, SUID Bit dapat menjadi salah satu celah keamanan yang sering dimanfaatkan oleh penyerang untuk meningkatkan hak akses ( Privilege Escalation ).\nArtikel ini membahas cara kerja SUID Bit, manfaatnya, risiko keamanannya, serta praktik terbaik agar fitur ini tidak menjadi ancaman bagi sistem.\nApa Itu SUID Bit?\nSUID (Set User ID)  adalah izin khusus pada sistem operasi Linux dan Unix yang membuat sebuah file executable dijalankan menggunakan  User ID (UID)  milik pemilik file, bukan UID pengguna yang menjalankannya.\nSebagai contoh, jika sebuah program dimiliki oleh pengguna  root  dan memiliki SUID Bit aktif, maka program tersebut akan berjalan dengan hak akses root meskipun dijalankan oleh pengguna biasa.\nMenurut dokumentasi  GNU Coreutils , SUID merupakan salah satu mode izin khusus yang memungkinkan program dijalankan menggunakan identitas pemilik file untuk menjalankan fungsi-fungsi tertentu yang memerlukan hak akses lebih tinggi  (dikutip dari  https://www.gnu.org/software/coreutils/manual/html_node/Mode-Structure.html ) .\nBagaimana Cara Kerja SUID Bit?\nPada kondisi normal:\nProgram dijalankan menggunakan hak akses pengguna yang sedang login.\nSedangkan ketika SUID Bit aktif:\nProgram dijalankan menggunakan hak akses pemilik file.\nSebagai ilustrasi:\nPengguna biasa menjalankan sebuah program.\nSistem memeriksa izin file.\nJika SUID aktif, sistem menggunakan UID pemilik file.\nProgram memperoleh hak akses sesuai pemiliknya selama proses berjalan.\nSetelah program selesai dieksekusi, hak akses tersebut akan kembali seperti semula.\nbaca juga :  MTU (Maximum Transmission Unit): Mengapa Ukuran Paket Data Mempengaruhi Kecepatan Jaringan?\nMengapa SUID Dibutuhkan?\nTidak semua penggunaan SUID bersifat berbahaya.\nBeberapa utilitas sistem memang memerlukannya agar dapat menjalankan fungsi tertentu.\nContohnya:\nMengubah kata sandi pengguna.\nMengakses informasi sistem tertentu.\nMenjalankan fungsi administrasi terbatas.\nMengelola sumber daya yang hanya dapat diakses oleh root.\nTanpa SUID, beberapa utilitas bawaan sistem tidak dapat berfungsi sebagaimana mestinya.\nMengapa SUID Bit Berbahaya?\nMasalah muncul ketika program yang memiliki SUID mengandung kerentanan keamanan.\nKarena program berjalan dengan hak akses pemilik file, penyerang dapat memanfaatkan kelemahan tersebut untuk memperoleh hak akses yang lebih tinggi.\nInilah alasan mengapa SUID sering menjadi target dalam proses  Privilege Escalation .\nRisiko Keamanan SUID Bit\nBeberapa risiko yang dapat ditimbulkan antara lain:\nPrivilege Escalation\nJika program SUID memiliki celah keamanan, penyerang dapat memperoleh hak akses root atau hak akses pengguna lain.\nPenyalahgunaan Program Sistem\nProgram yang dirancang kurang aman dapat digunakan untuk menjalankan perintah di luar fungsi aslinya.\nKesalahan Konfigurasi\nAdministrator terkadang secara tidak sengaja memberikan SUID pada program yang sebenarnya tidak memerlukannya.\nKesalahan sederhana ini dapat membuka peluang bagi penyerang.\nMeningkatkan Dampak Kerentanan\nBug yang pada awalnya hanya berdampak kecil dapat berubah menjadi kerentanan kritis apabila terdapat SUID.\nbaca juga :  Virtual Memory & Paging: Cara Sistem Operasi Mengelola Memori Agar Tetap Efisien\nContoh Program yang Menggunakan SUID\nBeberapa utilitas sistem memang menggunakan SUID secara sah, misalnya:\nProgram untuk mengubah kata sandi pengguna.\nBeberapa utilitas autentikasi.\nProgram yang memerlukan akses sementara ke sumber daya sistem.\nProgram-program tersebut umumnya telah dirancang dengan mekanisme keamanan tambahan untuk meminimalkan risiko.\nCara Menemukan File SUID\nAdministrator sistem sebaiknya melakukan audit terhadap file yang memiliki SUID secara berkala.\nTujuannya adalah:\nMengidentifikasi file yang tidak semestinya memiliki SUID.\nMendeteksi perubahan konfigurasi yang mencurigakan.\nMengurangi risiko privilege escalation.\nAudit rutin merupakan salah satu praktik dasar dalam hardening sistem Linux.\nCara Mengurangi Risiko SUID Bit\nTerapkan Prinsip Least Privilege\nBerikan hak akses seminimal mungkin.\nProgram yang tidak membutuhkan SUID sebaiknya tidak diberikan izin tersebut.\nAudit File SUID Secara Berkala\nLakukan pemeriksaan terhadap seluruh executable yang memiliki SUID untuk memastikan tidak ada perubahan yang tidak sah.\nPerbarui Sistem\nBanyak eksploitasi SUID memanfaatkan bug pada aplikasi lama.\nMemperbarui sistem operasi dan utilitas secara rutin membantu mengurangi risiko tersebut.\nHapus SUID yang Tidak Diperlukan\nJika suatu aplikasi tidak lagi memerlukan SUID, administrator sebaiknya menghapus izin tersebut.\nPendekatan ini mengurangi permukaan serangan ( attack surface ).\nGunakan Solusi Keamanan Tambahan\nTeknologi seperti:\nSELinux\nAppArmor\nMandatory Access Control (MAC)\ndapat membatasi dampak apabila program SUID mengalami eksploitasi.\nPerbedaan SUID, SGID, dan Sticky Bit\nKetiga izin khusus ini memiliki fungsi yang berbeda.\nFitur\nFungsi\nSUID\nProgram berjalan menggunakan UID pemilik file\nSGID\nProgram berjalan menggunakan Group ID pemilik file\nSticky Bit\nMencegah pengguna lain menghapus file pada direktori bersama\nMemahami perbedaan ketiganya membantu administrator menerapkan izin akses secara tepat.\nPentingnya Audit Hak Akses dalam Keamanan Linux\nSUID Bit bukanlah kerentanan, melainkan fitur bawaan sistem operasi. Risiko muncul ketika fitur ini diterapkan pada program yang tidak tepat atau ketika program tersebut memiliki kelemahan keamanan. Oleh karena itu, pengelolaan hak akses menjadi bagian penting dari strategi keamanan sistem Linux.\nAdministrator disarankan untuk melakukan audit izin file secara berkala, membatasi jumlah program yang menggunakan SUID, serta menerapkan prinsip  least privilege . Pendekatan ini dapat mengurangi peluang terjadinya privilege escalation dan menjaga keamanan sistem secara keseluruhan.\nMenurut  OWASP , kesalahan konfigurasi dan pemberian hak akses yang berlebihan merupakan salah satu faktor yang sering menyebabkan meningkatnya risiko keamanan pada aplikasi dan sistem  (dikutip dari  https://owasp.org/www-project-top-ten/ ) .\nbaca juga :  Membongkar MCP: Cara Kerja Protokol Baru yang Menghubungkan AI dengan Data Anda\nKesimpulan\nSUID Bit merupakan fitur penting dalam Linux dan Unix yang memungkinkan sebuah program dijalankan menggunakan hak akses pemilik file. Fitur ini diperlukan untuk berbagai utilitas sistem, tetapi juga dapat menjadi celah keamanan jika diterapkan pada program yang rentan atau dikonfigurasi secara tidak tepat.\nMelalui audit berkala, penerapan prinsip  least privilege , pembaruan sistem, dan penggunaan mekanisme keamanan tambahan seperti SELinux atau AppArmor, organisasi dapat memanfaatkan SUID Bit secara aman sekaligus meminimalkan risiko penyalahgunaan.",
+  "raw": {
+    "id": 10619,
+    "date": "2026-07-14T00:31:19",
+    "date_gmt": "2026-07-14T00:31:19",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=10619"
+    },
+    "modified": "2026-07-14T00:31:19",
+    "modified_gmt": "2026-07-14T00:31:19",
+    "slug": "bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/",
+    "title": {
+      "rendered": "Bahaya SUID Bit: Mengapa Hak Akses Kecil Ini Bisa Menjadi Celah Keamanan Serius?"
+    },
+    "content": {
+      "rendered": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"84\" data-end=\"96\">Pengantar</h2>\n<p data-start=\"98\" data-end=\"412\">Sistem operasi Linux dan Unix dikenal memiliki mekanisme pengelolaan hak akses yang kuat. Salah satu fitur penting dalam sistem tersebut adalah <strong data-start=\"242\" data-end=\"272\">SUID Bit (Set User ID Bit)</strong>, yaitu izin khusus yang memungkinkan sebuah program dijalankan dengan hak akses pemilik file, bukan hak akses pengguna yang menjalankannya.</p>\n<p data-start=\"414\" data-end=\"727\">Fitur ini memiliki banyak manfaat untuk menjalankan fungsi-fungsi sistem tertentu. Namun, jika dikonfigurasi secara tidak tepat atau diterapkan pada program yang rentan, SUID Bit dapat menjadi salah satu celah keamanan yang sering dimanfaatkan oleh penyerang untuk meningkatkan hak akses (<em data-start=\"703\" data-end=\"725\">Privilege Escalation</em>).</p>\n<p data-start=\"729\" data-end=\"874\">Artikel ini membahas cara kerja SUID Bit, manfaatnya, risiko keamanannya, serta praktik terbaik agar fitur ini tidak menjadi ancaman bagi sistem.</p>\n<hr data-start=\"876\" data-end=\"879\" />\n<h2 data-section-id=\"1tw3shi\" data-start=\"881\" data-end=\"901\">Apa Itu SUID Bit?</h2>\n<p data-start=\"903\" data-end=\"1116\"><strong data-start=\"903\" data-end=\"925\">SUID (Set User ID)</strong> adalah izin khusus pada sistem operasi Linux dan Unix yang membuat sebuah file executable dijalankan menggunakan <strong data-start=\"1039\" data-end=\"1056\">User ID (UID)</strong> milik pemilik file, bukan UID pengguna yang menjalankannya.</p>\n<p data-start=\"1118\" data-end=\"1313\">Sebagai contoh, jika sebuah program dimiliki oleh pengguna <strong data-start=\"1177\" data-end=\"1185\">root</strong> dan memiliki SUID Bit aktif, maka program tersebut akan berjalan dengan hak akses root meskipun dijalankan oleh pengguna biasa.</p>\n<p data-start=\"1315\" data-end=\"1642\">Menurut dokumentasi <strong data-start=\"1335\" data-end=\"1352\">GNU Coreutils</strong>, SUID merupakan salah satu mode izin khusus yang memungkinkan program dijalankan menggunakan identitas pemilik file untuk menjalankan fungsi-fungsi tertentu yang memerlukan hak akses lebih tinggi <em data-start=\"1549\" data-end=\"1641\">(dikutip dari <a class=\"decorated-link\" href=\"https://www.gnu.org/software/coreutils/manual/html_node/Mode-Structure.html\" target=\"_new\" rel=\"noopener\" data-start=\"1564\" data-end=\"1639\">https://www.gnu.org/software/coreutils/manual/html_node/Mode-Structure.html</a>)</em>.</p>\n<hr data-start=\"1644\" data-end=\"1647\" />\n<h2 data-section-id=\"1gimow7\" data-start=\"1649\" data-end=\"1682\">Bagaimana Cara Kerja SUID Bit?</h2>\n<p data-start=\"1684\" data-end=\"1704\">Pada kondisi normal:</p>\n<ul data-start=\"1706\" data-end=\"1776\">\n<li data-section-id=\"1rh3rwv\" data-start=\"1706\" data-end=\"1776\">Program dijalankan menggunakan hak akses pengguna yang sedang login.</li>\n</ul>\n<p data-start=\"1778\" data-end=\"1810\">Sedangkan ketika SUID Bit aktif:</p>\n<ul data-start=\"1812\" data-end=\"1868\">\n<li data-section-id=\"kj7ihr\" data-start=\"1812\" data-end=\"1868\">Program dijalankan menggunakan hak akses pemilik file.</li>\n</ul>\n<p data-start=\"1870\" data-end=\"1888\">Sebagai ilustrasi:</p>\n<ol data-start=\"1890\" data-end=\"2097\">\n<li data-section-id=\"hxmmjf\" data-start=\"1890\" data-end=\"1935\">Pengguna biasa menjalankan sebuah program.</li>\n<li data-section-id=\"1hmugj6\" data-start=\"1936\" data-end=\"1966\">Sistem memeriksa izin file.</li>\n<li data-section-id=\"1rikin9\" data-start=\"1967\" data-end=\"2023\">Jika SUID aktif, sistem menggunakan UID pemilik file.</li>\n<li data-section-id=\"1fdm1mf\" data-start=\"2024\" data-end=\"2097\">Program memperoleh hak akses sesuai pemiliknya selama proses berjalan.</li>\n</ol>\n<p data-start=\"2099\" data-end=\"2182\">Setelah program selesai dieksekusi, hak akses tersebut akan kembali seperti semula.</p>\n<blockquote>\n<p data-start=\"2099\" data-end=\"2182\">baca juga : <a href=\"https://buletinsiber.com/mtu-maximum-transmission-unit-mengapa-ukuran-paket-data-mempengaruhi-kecepatan-jaringan/\">MTU (Maximum Transmission Unit): Mengapa Ukuran Paket Data Mempengaruhi Kecepatan Jaringan?</a></p>\n</blockquote>\n<hr data-start=\"2184\" data-end=\"2187\" />\n<h2 data-section-id=\"1niw3tj\" data-start=\"2189\" data-end=\"2216\">Mengapa SUID Dibutuhkan?</h2>\n<p data-start=\"2218\" data-end=\"2265\">Tidak semua penggunaan SUID bersifat berbahaya.</p>\n<p data-start=\"2267\" data-end=\"2352\">Beberapa utilitas sistem memang memerlukannya agar dapat menjalankan fungsi tertentu.</p>\n<p data-start=\"2354\" data-end=\"2364\">Contohnya:</p>\n<ul data-start=\"2366\" data-end=\"2540\">\n<li data-section-id=\"13m9hdi\" data-start=\"2366\" data-end=\"2397\">Mengubah kata sandi pengguna.</li>\n<li data-section-id=\"g95z7u\" data-start=\"2398\" data-end=\"2436\">Mengakses informasi sistem tertentu.</li>\n<li data-section-id=\"1ebh2v6\" data-start=\"2437\" data-end=\"2480\">Menjalankan fungsi administrasi terbatas.</li>\n<li data-section-id=\"oghxvv\" data-start=\"2481\" data-end=\"2540\">Mengelola sumber daya yang hanya dapat diakses oleh root.</li>\n</ul>\n<p data-start=\"2542\" data-end=\"2629\">Tanpa SUID, beberapa utilitas bawaan sistem tidak dapat berfungsi sebagaimana mestinya.</p>\n<hr data-start=\"2631\" data-end=\"2634\" />\n<h2 data-section-id=\"rpw994\" data-start=\"2636\" data-end=\"2666\">Mengapa SUID Bit Berbahaya?</h2>\n<p data-start=\"2668\" data-end=\"2748\">Masalah muncul ketika program yang memiliki SUID mengandung kerentanan keamanan.</p>\n<p data-start=\"2750\" data-end=\"2898\">Karena program berjalan dengan hak akses pemilik file, penyerang dapat memanfaatkan kelemahan tersebut untuk memperoleh hak akses yang lebih tinggi.</p>\n<p data-start=\"2900\" data-end=\"2987\">Inilah alasan mengapa SUID sering menjadi target dalam proses <strong data-start=\"2962\" data-end=\"2986\">Privilege Escalation</strong>.</p>\n<hr data-start=\"2989\" data-end=\"2992\" />\n<h2 data-section-id=\"1ss8tpy\" data-start=\"2994\" data-end=\"3021\">Risiko Keamanan SUID Bit</h2>\n<p data-start=\"3023\" data-end=\"3074\">Beberapa risiko yang dapat ditimbulkan antara lain:</p>\n<h3 data-section-id=\"i3punw\" data-start=\"3076\" data-end=\"3100\">Privilege Escalation</h3>\n<p data-start=\"3102\" data-end=\"3216\">Jika program SUID memiliki celah keamanan, penyerang dapat memperoleh hak akses root atau hak akses pengguna lain.</p>\n<hr data-start=\"3218\" data-end=\"3221\" />\n<h3 data-section-id=\"9i0hv7\" data-start=\"3223\" data-end=\"3256\">Penyalahgunaan Program Sistem</h3>\n<p data-start=\"3258\" data-end=\"3359\">Program yang dirancang kurang aman dapat digunakan untuk menjalankan perintah di luar fungsi aslinya.</p>\n<p data-start=\"3258\" data-end=\"3359\"><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"928\" height=\"618\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 928px) 100vw, 928px\" /></p>\n<hr data-start=\"3361\" data-end=\"3364\" />\n<h3 data-section-id=\"10qjob2\" data-start=\"3366\" data-end=\"3391\">Kesalahan Konfigurasi</h3>\n<p data-start=\"3393\" data-end=\"3503\">Administrator terkadang secara tidak sengaja memberikan SUID pada program yang sebenarnya tidak memerlukannya.</p>\n<p data-start=\"3505\" data-end=\"3566\">Kesalahan sederhana ini dapat membuka peluang bagi penyerang.</p>\n<hr data-start=\"3568\" data-end=\"3571\" />\n<h3 data-section-id=\"kds6i3\" data-start=\"3573\" data-end=\"3607\">Meningkatkan Dampak Kerentanan</h3>\n<p data-start=\"3609\" data-end=\"3715\">Bug yang pada awalnya hanya berdampak kecil dapat berubah menjadi kerentanan kritis apabila terdapat SUID.</p>\n<blockquote>\n<p data-start=\"3609\" data-end=\"3715\">baca juga : <a href=\"https://buletinsiber.com/virtual-memory-paging-cara-sistem-operasi-mengelola-memori-agar-tetap-efisien/\">Virtual Memory &amp; Paging: Cara Sistem Operasi Mengelola Memori Agar Tetap Efisien</a></p>\n</blockquote>\n<hr data-start=\"3717\" data-end=\"3720\" />\n<h2 data-section-id=\"27zqa\" data-start=\"3722\" data-end=\"3761\">Contoh Program yang Menggunakan SUID</h2>\n<p data-start=\"3763\" data-end=\"3833\">Beberapa utilitas sistem memang menggunakan SUID secara sah, misalnya:</p>\n<ul data-start=\"3835\" data-end=\"3978\">\n<li data-section-id=\"1e4m843\" data-start=\"3835\" data-end=\"3880\">Program untuk mengubah kata sandi pengguna.</li>\n<li data-section-id=\"1a3h3u1\" data-start=\"3881\" data-end=\"3913\">Beberapa utilitas autentikasi.</li>\n<li data-section-id=\"1t11eod\" data-start=\"3914\" data-end=\"3978\">Program yang memerlukan akses sementara ke sumber daya sistem.</li>\n</ul>\n<p data-start=\"3980\" data-end=\"4090\">Program-program tersebut umumnya telah dirancang dengan mekanisme keamanan tambahan untuk meminimalkan risiko.</p>\n<hr data-start=\"4092\" data-end=\"4095\" />\n<h2 data-section-id=\"1y2lb3a\" data-start=\"4097\" data-end=\"4124\">Cara Menemukan File SUID</h2>\n<p data-start=\"4126\" data-end=\"4221\">Administrator sistem sebaiknya melakukan audit terhadap file yang memiliki SUID secara berkala.</p>\n<p data-start=\"4223\" data-end=\"4240\">Tujuannya adalah:</p>\n<ul data-start=\"4242\" data-end=\"4398\">\n<li data-section-id=\"19p7h5t\" data-start=\"4242\" data-end=\"4302\">Mengidentifikasi file yang tidak semestinya memiliki SUID.</li>\n<li data-section-id=\"1m1q7td\" data-start=\"4303\" data-end=\"4356\">Mendeteksi perubahan konfigurasi yang mencurigakan.</li>\n<li data-section-id=\"1ho0e9q\" data-start=\"4357\" data-end=\"4398\">Mengurangi risiko privilege escalation.</li>\n</ul>\n<p data-start=\"4400\" data-end=\"4476\">Audit rutin merupakan salah satu praktik dasar dalam hardening sistem Linux.</p>\n<hr data-start=\"4478\" data-end=\"4481\" />\n<h2 data-section-id=\"1m5tb8i\" data-start=\"4483\" data-end=\"4517\">Cara Mengurangi Risiko SUID Bit</h2>\n<h3 data-section-id=\"117prsf\" data-start=\"4519\" data-end=\"4555\">Terapkan Prinsip Least Privilege</h3>\n<p data-start=\"4557\" data-end=\"4593\">Berikan hak akses seminimal mungkin.</p>\n<p data-start=\"4595\" data-end=\"4671\">Program yang tidak membutuhkan SUID sebaiknya tidak diberikan izin tersebut.</p>\n<hr data-start=\"4673\" data-end=\"4676\" />\n<h3 data-section-id=\"p1pgur\" data-start=\"4678\" data-end=\"4712\">Audit File SUID Secara Berkala</h3>\n<p data-start=\"4714\" data-end=\"4833\">Lakukan pemeriksaan terhadap seluruh executable yang memiliki SUID untuk memastikan tidak ada perubahan yang tidak sah.</p>\n<hr data-start=\"4835\" data-end=\"4838\" />\n<h3 data-section-id=\"3l2kk9\" data-start=\"4840\" data-end=\"4859\">Perbarui Sistem</h3>\n<p data-start=\"4861\" data-end=\"4921\">Banyak eksploitasi SUID memanfaatkan bug pada aplikasi lama.</p>\n<p data-start=\"4923\" data-end=\"5012\">Memperbarui sistem operasi dan utilitas secara rutin membantu mengurangi risiko tersebut.</p>\n<hr data-start=\"5014\" data-end=\"5017\" />\n<h3 data-section-id=\"6q82zr\" data-start=\"5019\" data-end=\"5055\">Hapus SUID yang Tidak Diperlukan</h3>\n<p data-start=\"5057\" data-end=\"5153\">Jika suatu aplikasi tidak lagi memerlukan SUID, administrator sebaiknya menghapus izin tersebut.</p>\n<p data-start=\"5155\" data-end=\"5219\">Pendekatan ini mengurangi permukaan serangan (<em data-start=\"5201\" data-end=\"5217\">attack surface</em>).</p>\n<hr data-start=\"5221\" data-end=\"5224\" />\n<h3 data-section-id=\"1rs1t8e\" data-start=\"5226\" data-end=\"5262\">Gunakan Solusi Keamanan Tambahan</h3>\n<p data-start=\"5264\" data-end=\"5282\">Teknologi seperti:</p>\n<ul data-start=\"5284\" data-end=\"5337\">\n<li data-section-id=\"1b2rleg\" data-start=\"5284\" data-end=\"5293\">SELinux</li>\n<li data-section-id=\"1feicx6\" data-start=\"5294\" data-end=\"5304\">AppArmor</li>\n<li data-section-id=\"12761n6\" data-start=\"5305\" data-end=\"5337\">Mandatory Access Control (MAC)</li>\n</ul>\n<p data-start=\"5339\" data-end=\"5405\">dapat membatasi dampak apabila program SUID mengalami eksploitasi.</p>\n<hr data-start=\"5407\" data-end=\"5410\" />\n<h2 data-section-id=\"zuymu\" data-start=\"5412\" data-end=\"5451\">Perbedaan SUID, SGID, dan Sticky Bit</h2>\n<p data-start=\"5453\" data-end=\"5505\">Ketiga izin khusus ini memiliki fungsi yang berbeda.</p>\n<div class=\"TyagGW_tableContainer\">\n<div class=\"group TyagGW_tableWrapper flex flex-col-reverse w-fit\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"5507\" data-end=\"5754\">\n<thead data-start=\"5507\" data-end=\"5525\">\n<tr data-start=\"5507\" data-end=\"5525\">\n<th class=\"last:pe-10\" data-start=\"5507\" data-end=\"5515\" data-col-size=\"sm\">Fitur</th>\n<th class=\"last:pe-10\" data-start=\"5515\" data-end=\"5525\" data-col-size=\"md\">Fungsi</th>\n</tr>\n</thead>\n<tbody data-start=\"5546\" data-end=\"5754\">\n<tr data-start=\"5546\" data-end=\"5606\">\n<td data-start=\"5546\" data-end=\"5557\" data-col-size=\"sm\"><strong data-start=\"5548\" data-end=\"5556\">SUID</strong></td>\n<td data-start=\"5557\" data-end=\"5606\" data-col-size=\"md\">Program berjalan menggunakan UID pemilik file</td>\n</tr>\n<tr data-start=\"5607\" data-end=\"5672\">\n<td data-start=\"5607\" data-end=\"5618\" data-col-size=\"sm\"><strong data-start=\"5609\" data-end=\"5617\">SGID</strong></td>\n<td data-start=\"5618\" data-end=\"5672\" data-col-size=\"md\">Program berjalan menggunakan Group ID pemilik file</td>\n</tr>\n<tr data-start=\"5673\" data-end=\"5754\">\n<td data-start=\"5673\" data-end=\"5690\" data-col-size=\"sm\"><strong data-start=\"5675\" data-end=\"5689\">Sticky Bit</strong></td>\n<td data-start=\"5690\" data-end=\"5754\" data-col-size=\"md\">Mencegah pengguna lain menghapus file pada direktori bersama</td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>\n<p data-start=\"5756\" data-end=\"5843\">Memahami perbedaan ketiganya membantu administrator menerapkan izin akses secara tepat.</p>\n<hr data-start=\"5845\" data-end=\"5848\" />\n<h2 data-section-id=\"53m119\" data-start=\"5850\" data-end=\"5900\">Pentingnya Audit Hak Akses dalam Keamanan Linux</h2>\n<p data-start=\"5902\" data-end=\"6199\">SUID Bit bukanlah kerentanan, melainkan fitur bawaan sistem operasi. Risiko muncul ketika fitur ini diterapkan pada program yang tidak tepat atau ketika program tersebut memiliki kelemahan keamanan. Oleh karena itu, pengelolaan hak akses menjadi bagian penting dari strategi keamanan sistem Linux.</p>\n<p data-start=\"6201\" data-end=\"6485\">Administrator disarankan untuk melakukan audit izin file secara berkala, membatasi jumlah program yang menggunakan SUID, serta menerapkan prinsip <em data-start=\"6347\" data-end=\"6364\">least privilege</em>. Pendekatan ini dapat mengurangi peluang terjadinya privilege escalation dan menjaga keamanan sistem secara keseluruhan.</p>\n<p data-start=\"6487\" data-end=\"6730\">Menurut <strong data-start=\"6495\" data-end=\"6504\">OWASP</strong>, kesalahan konfigurasi dan pemberian hak akses yang berlebihan merupakan salah satu faktor yang sering menyebabkan meningkatnya risiko keamanan pada aplikasi dan sistem <em data-start=\"6674\" data-end=\"6729\">(dikutip dari <a class=\"decorated-link\" href=\"https://owasp.org/www-project-top-ten/\" target=\"_new\" rel=\"noopener\" data-start=\"6689\" data-end=\"6727\">https://owasp.org/www-project-top-ten/</a>)</em>.</p>\n<blockquote>\n<p data-start=\"6487\" data-end=\"6730\">baca juga : <a href=\"https://buletinsiber.com/membongkar-mcp-cara-kerja-protokol-baru-yang-menghubungkan-ai-dengan-data-anda/\">Membongkar MCP: Cara Kerja Protokol Baru yang Menghubungkan AI dengan Data Anda</a></p>\n</blockquote>\n<hr data-start=\"6732\" data-end=\"6735\" />\n<h2 data-section-id=\"1806px6\" data-start=\"6737\" data-end=\"6750\">Kesimpulan</h2>\n<p data-start=\"6752\" data-end=\"7059\">SUID Bit merupakan fitur penting dalam Linux dan Unix yang memungkinkan sebuah program dijalankan menggunakan hak akses pemilik file. Fitur ini diperlukan untuk berbagai utilitas sistem, tetapi juga dapat menjadi celah keamanan jika diterapkan pada program yang rentan atau dikonfigurasi secara tidak tepat.</p>\n<p data-start=\"7061\" data-end=\"7309\">Melalui audit berkala, penerapan prinsip <em data-start=\"7102\" data-end=\"7119\">least privilege</em>, pembaruan sistem, dan penggunaan mekanisme keamanan tambahan seperti SELinux atau AppArmor, organisasi dapat memanfaatkan SUID Bit secara aman sekaligus meminimalkan risiko penyalahgunaan.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Sistem operasi Linux dan Unix dikenal memiliki mekanisme pengelolaan hak akses yang kuat. Salah satu fitur penting dalam sistem tersebut adalah SUID Bit (Set User ID Bit), yaitu izin khusus yang memungkinkan sebuah program dijalankan dengan hak akses pemilik file, bukan hak akses pengguna yang menjalankannya. Fitur ini memiliki banyak manfaat untuk menjalankan fungsi-fungsi sistem tertentu. Namun, jika dikonfigurasi secara tidak tepat atau diterapkan pada program yang rentan, SUID Bit dapat menjadi salah satu celah keamanan yang sering dimanfaatkan oleh penyerang untuk meningkatkan hak akses (Privilege Escalation). Artikel ini membahas cara kerja SUID Bit, manfaatnya, risiko keamanannya, serta praktik&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 5408,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Bahaya SUID Bit",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      185,
+      682,
+      988
+    ],
+    "class_list": [
+      "post-10619",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-cybersecurity",
+      "tag-keamanan",
+      "tag-suid"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Bahaya SUID Bit: Mengapa Hak Akses Kecil Ini Bisa Menjadi Celah Keamanan Serius? - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Bahaya SUID Bit: Mengapa Hak Akses Kecil Ini Bisa Menjadi Celah Keamanan Serius? - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Sistem operasi Linux dan Unix dikenal memiliki mekanisme pengelolaan hak akses yang kuat. Salah satu fitur penting dalam sistem tersebut adalah SUID Bit (Set User ID Bit), yaitu izin khusus yang memungkinkan sebuah program dijalankan dengan hak akses pemilik file, bukan hak akses pengguna yang menjalankannya. Fitur ini memiliki banyak manfaat untuk menjalankan fungsi-fungsi sistem tertentu. Namun, jika dikonfigurasi secara tidak tepat atau diterapkan pada program yang rentan, SUID Bit dapat menjadi salah satu celah keamanan yang sering dimanfaatkan oleh penyerang untuk meningkatkan hak akses (Privilege Escalation). Artikel ini membahas cara kerja SUID Bit, manfaatnya, risiko keamanannya, serta praktik...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-07-14T00:31:19+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762-1.jpeg\" />\n\t<meta property=\"og:image:width\" content=\"1079\" />\n\t<meta property=\"og:image:height\" content=\"720\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/\",\"url\":\"https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/\",\"name\":\"Bahaya SUID Bit: Mengapa Hak Akses Kecil Ini Bisa Menjadi Celah Keamanan Serius? - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762-1.jpeg\",\"datePublished\":\"2026-07-14T00:31:19+00:00\",\"dateModified\":\"2026-07-14T00:31:19+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762-1.jpeg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762-1.jpeg\",\"width\":1079,\"height\":720},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Bahaya SUID Bit: Mengapa Hak Akses Kecil Ini Bisa Menjadi Celah Keamanan Serius?\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Bahaya SUID Bit: Mengapa Hak Akses Kecil Ini Bisa Menjadi Celah Keamanan Serius? - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Bahaya SUID Bit: Mengapa Hak Akses Kecil Ini Bisa Menjadi Celah Keamanan Serius? - buletinsiber.com",
+      "og_description": "Pengantar Sistem operasi Linux dan Unix dikenal memiliki mekanisme pengelolaan hak akses yang kuat. Salah satu fitur penting dalam sistem tersebut adalah SUID Bit (Set User ID Bit), yaitu izin khusus yang memungkinkan sebuah program dijalankan dengan hak akses pemilik file, bukan hak akses pengguna yang menjalankannya. Fitur ini memiliki banyak manfaat untuk menjalankan fungsi-fungsi sistem tertentu. Namun, jika dikonfigurasi secara tidak tepat atau diterapkan pada program yang rentan, SUID Bit dapat menjadi salah satu celah keamanan yang sering dimanfaatkan oleh penyerang untuk meningkatkan hak akses (Privilege Escalation). Artikel ini membahas cara kerja SUID Bit, manfaatnya, risiko keamanannya, serta praktik...",
+      "og_url": "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-07-14T00:31:19+00:00",
+      "og_image": [
+        {
+          "width": 1079,
+          "height": 720,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762-1.jpeg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/",
+            "url": "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/",
+            "name": "Bahaya SUID Bit: Mengapa Hak Akses Kecil Ini Bisa Menjadi Celah Keamanan Serius? - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762-1.jpeg",
+            "datePublished": "2026-07-14T00:31:19+00:00",
+            "dateModified": "2026-07-14T00:31:19+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762-1.jpeg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762-1.jpeg",
+            "width": 1079,
+            "height": 720
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/bahaya-suid-bit-mengapa-hak-akses-kecil-ini-bisa-menjadi-celah-keamanan-serius/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Bahaya SUID Bit: Mengapa Hak Akses Kecil Ini Bisa Menjadi Celah Keamanan Serius?"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10619",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=10619"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10619/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 10620,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10619/revisions/10620"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/5408"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=10619"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=10619"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=10619"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

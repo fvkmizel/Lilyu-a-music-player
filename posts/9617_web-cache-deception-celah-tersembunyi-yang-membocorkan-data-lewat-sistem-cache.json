@@ -1,0 +1,330 @@
+{
+  "id": 9617,
+  "title": "Web Cache Deception: Celah Tersembunyi yang Membocorkan Data Lewat Sistem Cache",
+  "slug": "web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache",
+  "url": "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/",
+  "date": "2026-02-24T01:30:39",
+  "date_gmt": "2026-02-24T01:30:39",
+  "modified": "2026-07-06T20:57:30",
+  "modified_gmt": "2026-07-06T20:57:30",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    185,
+    444
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg",
+  "excerpt": "Pengantar Sistem cache pada web server dan Content Delivery Network (CDN) dirancang untuk meningkatkan performa dengan menyimpan salinan respons tertentu agar dapat diakses lebih cepat. Mekanisme ini sangat membantu dalam mengurangi beban server dan mempercepat waktu muat halaman. Namun, konfigurasi cache yang tidak tepat dapat membuka celah keamanan serius yang dikenal sebagai Web Cache Deception. Serangan ini memungkinkan data sensitif pengguna tersimpan di cache publik dan kemudian diakses oleh pihak yang tidak berwenang. Karena serangan ini memanfaatkan kesalahan logika antara aplikasi dan sistem cache, banyak organisasi tidak menyadari bahwa data pribadi bisa terekspos melalui URL yang tampak biasa. Apa Itu…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"192\" data-end=\"204\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"205\" data-end=\"476\"><span style=\"color: #000000;\">Sistem cache pada web server dan Content Delivery Network (CDN) dirancang untuk meningkatkan performa dengan menyimpan salinan respons tertentu agar dapat diakses lebih cepat. Mekanisme ini sangat membantu dalam mengurangi beban server dan mempercepat waktu muat halaman.</span></p>\n<p style=\"text-align: justify;\" data-start=\"478\" data-end=\"730\"><span style=\"color: #000000;\">Namun, konfigurasi cache yang tidak tepat dapat membuka celah keamanan serius yang dikenal sebagai <strong data-start=\"577\" data-end=\"600\">Web Cache Deception</strong>. Serangan ini memungkinkan data sensitif pengguna tersimpan di cache publik dan kemudian diakses oleh pihak yang tidak berwenang.</span></p>\n<p style=\"text-align: justify;\" data-start=\"732\" data-end=\"914\"><span style=\"color: #000000;\">Karena serangan ini memanfaatkan kesalahan logika antara aplikasi dan sistem cache, banyak organisasi tidak menyadari bahwa data pribadi bisa terekspos melalui URL yang tampak biasa.</span></p>\n<hr data-start=\"916\" data-end=\"919\" />\n<h3 style=\"text-align: justify;\" data-start=\"921\" data-end=\"952\"><span style=\"color: #000000;\">Apa Itu Web Cache Deception?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"953\" data-end=\"1115\"><span style=\"color: #000000;\">Web Cache Deception adalah teknik serangan yang mengeksploitasi perbedaan cara aplikasi web dan sistem cache (seperti CDN atau reverse proxy) dalam menangani URL.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1117\" data-end=\"1324\"><span style=\"color: #000000;\">Secara sederhana, aplikasi mungkin menganggap sebuah URL sebagai halaman dinamis yang berisi data privat, sementara sistem cache menganggapnya sebagai file statis yang dapat disimpan dan dibagikan ke publik.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1326\" data-end=\"1573\"><span style=\"color: #000000;\">Menurut PortSwigger, Web Cache Deception terjadi ketika server menyajikan konten sensitif dalam respons yang secara tidak sengaja dapat di-cache oleh mekanisme caching publik (dikutip dari <a href=\"https://portswigger.net/web-security/web-cache-deception\">PortSwigger</a>).</span></p>\n<blockquote>\n<p data-start=\"1326\" data-end=\"1573\">baca juga : <a href=\"https://buletinsiber.com/homograph-attack-ancaman-unicode-yang-menyamarkan-domain-berbahaya/\">Homograph Attack: Ancaman Unicode yang Menyamarkan Domain Berbahaya</a></p>\n</blockquote>\n<hr data-start=\"1795\" data-end=\"1798\" />\n<h3 style=\"text-align: justify;\" data-start=\"1800\" data-end=\"1844\"><span style=\"color: #000000;\">Bagaimana Cara Kerja Web Cache Deception?</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1846\" data-end=\"1886\"><span style=\"color: #000000;\">1. Penyerang Membuat URL Manipulatif</span></h4>\n<p style=\"text-align: justify;\" data-start=\"1887\" data-end=\"1986\"><span style=\"color: #000000;\">Penyerang menambahkan path atau ekstensi tertentu pada URL halaman yang sebenarnya bersifat privat.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1988\" data-end=\"2006\"><span style=\"color: #000000;\">Contoh ilustratif:</span></p>\n<div class=\"w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border corner-superellipse/1.1 border-token-border-light bg-token-bg-elevated-secondary rounded-3xl\">\n<div class=\"corner-superellipse/1.1 rounded-3xl bg-token-bg-elevated-secondary\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼs ͼ16\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">https://example.com/profile.php/nonexistent.css</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<h4 style=\"text-align: justify;\" data-start=\"2064\" data-end=\"2108\"><span style=\"color: #000000;\">2. Aplikasi Tetap Mengirim Data Sensitif</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2109\" data-end=\"2226\"><span style=\"color: #000000;\">Aplikasi mengabaikan bagian tambahan pada URL dan tetap menampilkan halaman profil pengguna yang berisi data pribadi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2228\" data-end=\"2281\"><span style=\"color: #000000;\">3. Sistem Cache Menganggapnya Sebagai File Statis</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2282\" data-end=\"2389\"><span style=\"color: #000000;\">Karena URL tampak seperti file statis (misalnya berekstensi <code data-start=\"2342\" data-end=\"2348\">.css</code> atau <code data-start=\"2354\" data-end=\"2360\">.jpg</code>), sistem cache menyimpannya.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2391\" data-end=\"2424\"><span style=\"color: #000000;\">4. Data Tersedia untuk Publik</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2425\" data-end=\"2553\"><span style=\"color: #000000;\">Jika pengguna lain mengakses URL yang sama, mereka bisa mendapatkan salinan halaman yang berisi informasi sensitif milik korban.</span></p>\n<hr data-start=\"2555\" data-end=\"2558\" />\n<h3 style=\"text-align: justify;\" data-start=\"2560\" data-end=\"2601\"><span style=\"color: #000000;\">Mengapa Web Cache Deception Berbahaya?</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2603\" data-end=\"2629\"><span style=\"color: #000000;\">Kebocoran Data Pribadi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2630\" data-end=\"2700\"><span style=\"color: #000000;\">Informasi seperti nama, email, alamat, atau data akun dapat terekspos.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2702\" data-end=\"2733\"><span style=\"color: #000000;\">Dampak pada Banyak Pengguna</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2734\" data-end=\"2809\"><span style=\"color: #000000;\">Jika sistem cache bersifat publik atau shared cache, dampaknya bisa meluas.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2811\" data-end=\"2830\"><span style=\"color: #000000;\">Sulit Dideteksi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2831\" data-end=\"2967\"><span style=\"color: #000000;\">Serangan ini tidak memerlukan eksploitasi kompleks seperti injection, sehingga sering tidak terdeteksi oleh sistem keamanan tradisional.</span></p>\n<hr data-start=\"2969\" data-end=\"2972\" />\n<h3 style=\"text-align: justify;\" data-start=\"2974\" data-end=\"3021\"><span style=\"color: #000000;\">Faktor yang Memungkinkan Terjadinya Serangan</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3023\" data-end=\"3053\"><span style=\"color: #000000;\">Perbedaan Interpretasi URL</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3054\" data-end=\"3109\"><span style=\"color: #000000;\">Aplikasi dan cache memproses URL dengan logika berbeda.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3111\" data-end=\"3153\"><span style=\"color: #000000;\">Konfigurasi Cache yang Terlalu Longgar</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3154\" data-end=\"3245\"><span style=\"color: #000000;\">Sistem cache yang menyimpan respons tanpa memeriksa header autentikasi meningkatkan risiko.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3247\" data-end=\"3281\"><span style=\"color: #000000;\">Kurangnya Kontrol Cache Header</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3282\" data-end=\"3381\"><span style=\"color: #000000;\">Header seperti <code data-start=\"3297\" data-end=\"3312\">Cache-Control</code> dan <code data-start=\"3317\" data-end=\"3325\">Pragma</code> tidak dikonfigurasi dengan benar untuk konten sensitif.</span></p>\n<blockquote>\n<p data-start=\"3282\" data-end=\"3381\">baca juga : <a href=\"https://buletinsiber.com/dhcp-starvation-serangan-sunyi-yang-melumpuhkan-jaringan-dari-dalam/\">DHCP Starvation: Serangan Sunyi yang Melumpuhkan Jaringan dari Dalam</a></p>\n</blockquote>\n<hr data-start=\"3383\" data-end=\"3386\" />\n<h3 style=\"text-align: justify;\" data-start=\"3388\" data-end=\"3424\"><span style=\"color: #000000;\">Cara Mencegah Web Cache Deception</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3426\" data-end=\"3469\"><span style=\"color: #000000;\">Gunakan Header Cache-Control yang Tepat</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3470\" data-end=\"3500\"><span style=\"color: #000000;\">Untuk halaman privat, gunakan:</span></p>\n<div class=\"w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border corner-superellipse/1.1 border-token-border-light bg-token-bg-elevated-secondary rounded-3xl\">\n<div class=\"corner-superellipse/1.1 rounded-3xl bg-token-bg-elevated-secondary\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼs ͼ16\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">Cache-Control: no-store, no-cache, private</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<h4 style=\"text-align: justify;\" data-start=\"3553\" data-end=\"3585\"><span style=\"color: #000000;\">Validasi dan Normalisasi URL</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3586\" data-end=\"3667\"><span style=\"color: #000000;\">Pastikan aplikasi tidak mengabaikan bagian path tambahan yang dapat dimanipulasi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3669\" data-end=\"3703\"><span style=\"color: #000000;\">Konfigurasi Cache dengan Ketat</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3704\" data-end=\"3802\"><span style=\"color: #000000;\">CDN dan reverse proxy harus dikonfigurasi agar tidak menyimpan konten yang memerlukan autentikasi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3804\" data-end=\"3842\"><span style=\"color: #000000;\">Lakukan Pengujian Keamanan Berkala</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3843\" data-end=\"3936\"><span style=\"color: #000000;\">Uji aplikasi terhadap potensi manipulasi URL yang dapat menyebabkan caching tidak semestinya.</span></p>\n<hr data-start=\"3938\" data-end=\"3941\" />\n<h3 style=\"text-align: justify;\" data-start=\"3943\" data-end=\"3979\"><span style=\"color: #000000;\">Mengapa Organisasi Harus Waspada?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3980\" data-end=\"4236\"><span style=\"color: #000000;\">Banyak organisasi menggunakan CDN untuk meningkatkan performa, tetapi tidak semua memahami interaksi kompleks antara cache dan aplikasi. Tanpa konfigurasi yang tepat, sistem yang dirancang untuk mempercepat akses justru dapat menjadi sumber kebocoran data.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4238\" data-end=\"4333\"><span style=\"color: #000000;\">Web Cache Deception membuktikan bahwa optimasi performa dan keamanan harus berjalan beriringan.</span></p>\n<blockquote>\n<p data-start=\"4238\" data-end=\"4333\">baca juga : <a href=\"https://buletinsiber.com/image-based-malware-ancaman-tersembunyi-di-balik-file-gambar-yang-tampak-aman/\">Image-Based Malware: Ancaman Tersembunyi di Balik File Gambar yang Tampak Aman</a></p>\n</blockquote>\n<hr data-start=\"4335\" data-end=\"4338\" />\n<h2 style=\"text-align: justify;\" data-start=\"4340\" data-end=\"4353\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"4354\" data-end=\"4604\"><span style=\"color: #000000;\">Web Cache Deception adalah kerentanan yang muncul akibat perbedaan cara aplikasi dan sistem cache dalam memproses URL. Dengan memanipulasi struktur URL, penyerang dapat membuat konten sensitif tersimpan dalam cache publik dan diakses oleh pihak lain.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4606\" data-end=\"4893\"><span style=\"color: #000000;\">Untuk mencegah risiko ini, organisasi perlu mengatur header cache dengan benar, mengonfigurasi sistem cache secara ketat, serta melakukan pengujian keamanan secara berkala. Dalam keamanan web modern, kesalahan kecil dalam konfigurasi cache dapat berujung pada kebocoran data yang serius.</span></p>\n",
+  "content_text": "Pengantar\nSistem cache pada web server dan Content Delivery Network (CDN) dirancang untuk meningkatkan performa dengan menyimpan salinan respons tertentu agar dapat diakses lebih cepat. Mekanisme ini sangat membantu dalam mengurangi beban server dan mempercepat waktu muat halaman.\nNamun, konfigurasi cache yang tidak tepat dapat membuka celah keamanan serius yang dikenal sebagai  Web Cache Deception . Serangan ini memungkinkan data sensitif pengguna tersimpan di cache publik dan kemudian diakses oleh pihak yang tidak berwenang.\nKarena serangan ini memanfaatkan kesalahan logika antara aplikasi dan sistem cache, banyak organisasi tidak menyadari bahwa data pribadi bisa terekspos melalui URL yang tampak biasa.\nApa Itu Web Cache Deception?\nWeb Cache Deception adalah teknik serangan yang mengeksploitasi perbedaan cara aplikasi web dan sistem cache (seperti CDN atau reverse proxy) dalam menangani URL.\nSecara sederhana, aplikasi mungkin menganggap sebuah URL sebagai halaman dinamis yang berisi data privat, sementara sistem cache menganggapnya sebagai file statis yang dapat disimpan dan dibagikan ke publik.\nMenurut PortSwigger, Web Cache Deception terjadi ketika server menyajikan konten sensitif dalam respons yang secara tidak sengaja dapat di-cache oleh mekanisme caching publik (dikutip dari  PortSwigger ).\nbaca juga :  Homograph Attack: Ancaman Unicode yang Menyamarkan Domain Berbahaya\nBagaimana Cara Kerja Web Cache Deception?\n1. Penyerang Membuat URL Manipulatif\nPenyerang menambahkan path atau ekstensi tertentu pada URL halaman yang sebenarnya bersifat privat.\nContoh ilustratif:\nhttps://example.com/profile.php/nonexistent.css\n2. Aplikasi Tetap Mengirim Data Sensitif\nAplikasi mengabaikan bagian tambahan pada URL dan tetap menampilkan halaman profil pengguna yang berisi data pribadi.\n3. Sistem Cache Menganggapnya Sebagai File Statis\nKarena URL tampak seperti file statis (misalnya berekstensi  .css  atau  .jpg ), sistem cache menyimpannya.\n4. Data Tersedia untuk Publik\nJika pengguna lain mengakses URL yang sama, mereka bisa mendapatkan salinan halaman yang berisi informasi sensitif milik korban.\nMengapa Web Cache Deception Berbahaya?\nKebocoran Data Pribadi\nInformasi seperti nama, email, alamat, atau data akun dapat terekspos.\nDampak pada Banyak Pengguna\nJika sistem cache bersifat publik atau shared cache, dampaknya bisa meluas.\nSulit Dideteksi\nSerangan ini tidak memerlukan eksploitasi kompleks seperti injection, sehingga sering tidak terdeteksi oleh sistem keamanan tradisional.\nFaktor yang Memungkinkan Terjadinya Serangan\nPerbedaan Interpretasi URL\nAplikasi dan cache memproses URL dengan logika berbeda.\nKonfigurasi Cache yang Terlalu Longgar\nSistem cache yang menyimpan respons tanpa memeriksa header autentikasi meningkatkan risiko.\nKurangnya Kontrol Cache Header\nHeader seperti  Cache-Control  dan  Pragma  tidak dikonfigurasi dengan benar untuk konten sensitif.\nbaca juga :  DHCP Starvation: Serangan Sunyi yang Melumpuhkan Jaringan dari Dalam\nCara Mencegah Web Cache Deception\nGunakan Header Cache-Control yang Tepat\nUntuk halaman privat, gunakan:\nCache-Control: no-store, no-cache, private\nValidasi dan Normalisasi URL\nPastikan aplikasi tidak mengabaikan bagian path tambahan yang dapat dimanipulasi.\nKonfigurasi Cache dengan Ketat\nCDN dan reverse proxy harus dikonfigurasi agar tidak menyimpan konten yang memerlukan autentikasi.\nLakukan Pengujian Keamanan Berkala\nUji aplikasi terhadap potensi manipulasi URL yang dapat menyebabkan caching tidak semestinya.\nMengapa Organisasi Harus Waspada?\nBanyak organisasi menggunakan CDN untuk meningkatkan performa, tetapi tidak semua memahami interaksi kompleks antara cache dan aplikasi. Tanpa konfigurasi yang tepat, sistem yang dirancang untuk mempercepat akses justru dapat menjadi sumber kebocoran data.\nWeb Cache Deception membuktikan bahwa optimasi performa dan keamanan harus berjalan beriringan.\nbaca juga :  Image-Based Malware: Ancaman Tersembunyi di Balik File Gambar yang Tampak Aman\nKesimpulan\nWeb Cache Deception adalah kerentanan yang muncul akibat perbedaan cara aplikasi dan sistem cache dalam memproses URL. Dengan memanipulasi struktur URL, penyerang dapat membuat konten sensitif tersimpan dalam cache publik dan diakses oleh pihak lain.\nUntuk mencegah risiko ini, organisasi perlu mengatur header cache dengan benar, mengonfigurasi sistem cache secara ketat, serta melakukan pengujian keamanan secara berkala. Dalam keamanan web modern, kesalahan kecil dalam konfigurasi cache dapat berujung pada kebocoran data yang serius.",
+  "raw": {
+    "id": 9617,
+    "date": "2026-02-24T01:30:39",
+    "date_gmt": "2026-02-24T01:30:39",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9617"
+    },
+    "modified": "2026-07-06T20:57:30",
+    "modified_gmt": "2026-07-06T20:57:30",
+    "slug": "web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/",
+    "title": {
+      "rendered": "Web Cache Deception: Celah Tersembunyi yang Membocorkan Data Lewat Sistem Cache"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"192\" data-end=\"204\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"205\" data-end=\"476\"><span style=\"color: #000000;\">Sistem cache pada web server dan Content Delivery Network (CDN) dirancang untuk meningkatkan performa dengan menyimpan salinan respons tertentu agar dapat diakses lebih cepat. Mekanisme ini sangat membantu dalam mengurangi beban server dan mempercepat waktu muat halaman.</span></p>\n<p style=\"text-align: justify;\" data-start=\"478\" data-end=\"730\"><span style=\"color: #000000;\">Namun, konfigurasi cache yang tidak tepat dapat membuka celah keamanan serius yang dikenal sebagai <strong data-start=\"577\" data-end=\"600\">Web Cache Deception</strong>. Serangan ini memungkinkan data sensitif pengguna tersimpan di cache publik dan kemudian diakses oleh pihak yang tidak berwenang.</span></p>\n<p style=\"text-align: justify;\" data-start=\"732\" data-end=\"914\"><span style=\"color: #000000;\">Karena serangan ini memanfaatkan kesalahan logika antara aplikasi dan sistem cache, banyak organisasi tidak menyadari bahwa data pribadi bisa terekspos melalui URL yang tampak biasa.</span></p>\n<hr data-start=\"916\" data-end=\"919\" />\n<h3 style=\"text-align: justify;\" data-start=\"921\" data-end=\"952\"><span style=\"color: #000000;\">Apa Itu Web Cache Deception?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"953\" data-end=\"1115\"><span style=\"color: #000000;\">Web Cache Deception adalah teknik serangan yang mengeksploitasi perbedaan cara aplikasi web dan sistem cache (seperti CDN atau reverse proxy) dalam menangani URL.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1117\" data-end=\"1324\"><span style=\"color: #000000;\">Secara sederhana, aplikasi mungkin menganggap sebuah URL sebagai halaman dinamis yang berisi data privat, sementara sistem cache menganggapnya sebagai file statis yang dapat disimpan dan dibagikan ke publik.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1326\" data-end=\"1573\"><span style=\"color: #000000;\">Menurut PortSwigger, Web Cache Deception terjadi ketika server menyajikan konten sensitif dalam respons yang secara tidak sengaja dapat di-cache oleh mekanisme caching publik (dikutip dari <a href=\"https://portswigger.net/web-security/web-cache-deception\">PortSwigger</a>).</span></p>\n<blockquote>\n<p data-start=\"1326\" data-end=\"1573\">baca juga : <a href=\"https://buletinsiber.com/homograph-attack-ancaman-unicode-yang-menyamarkan-domain-berbahaya/\">Homograph Attack: Ancaman Unicode yang Menyamarkan Domain Berbahaya</a></p>\n</blockquote>\n<hr data-start=\"1795\" data-end=\"1798\" />\n<h3 style=\"text-align: justify;\" data-start=\"1800\" data-end=\"1844\"><span style=\"color: #000000;\">Bagaimana Cara Kerja Web Cache Deception?</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1846\" data-end=\"1886\"><span style=\"color: #000000;\">1. Penyerang Membuat URL Manipulatif</span></h4>\n<p style=\"text-align: justify;\" data-start=\"1887\" data-end=\"1986\"><span style=\"color: #000000;\">Penyerang menambahkan path atau ekstensi tertentu pada URL halaman yang sebenarnya bersifat privat.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1988\" data-end=\"2006\"><span style=\"color: #000000;\">Contoh ilustratif:</span></p>\n<div class=\"w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border corner-superellipse/1.1 border-token-border-light bg-token-bg-elevated-secondary rounded-3xl\">\n<div class=\"corner-superellipse/1.1 rounded-3xl bg-token-bg-elevated-secondary\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼs ͼ16\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">https://example.com/profile.php/nonexistent.css</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<h4 style=\"text-align: justify;\" data-start=\"2064\" data-end=\"2108\"><span style=\"color: #000000;\">2. Aplikasi Tetap Mengirim Data Sensitif</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2109\" data-end=\"2226\"><span style=\"color: #000000;\">Aplikasi mengabaikan bagian tambahan pada URL dan tetap menampilkan halaman profil pengguna yang berisi data pribadi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2228\" data-end=\"2281\"><span style=\"color: #000000;\">3. Sistem Cache Menganggapnya Sebagai File Statis</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2282\" data-end=\"2389\"><span style=\"color: #000000;\">Karena URL tampak seperti file statis (misalnya berekstensi <code data-start=\"2342\" data-end=\"2348\">.css</code> atau <code data-start=\"2354\" data-end=\"2360\">.jpg</code>), sistem cache menyimpannya.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2391\" data-end=\"2424\"><span style=\"color: #000000;\">4. Data Tersedia untuk Publik</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2425\" data-end=\"2553\"><span style=\"color: #000000;\">Jika pengguna lain mengakses URL yang sama, mereka bisa mendapatkan salinan halaman yang berisi informasi sensitif milik korban.</span></p>\n<hr data-start=\"2555\" data-end=\"2558\" />\n<h3 style=\"text-align: justify;\" data-start=\"2560\" data-end=\"2601\"><span style=\"color: #000000;\">Mengapa Web Cache Deception Berbahaya?</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2603\" data-end=\"2629\"><span style=\"color: #000000;\">Kebocoran Data Pribadi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2630\" data-end=\"2700\"><span style=\"color: #000000;\">Informasi seperti nama, email, alamat, atau data akun dapat terekspos.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2702\" data-end=\"2733\"><span style=\"color: #000000;\">Dampak pada Banyak Pengguna</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2734\" data-end=\"2809\"><span style=\"color: #000000;\">Jika sistem cache bersifat publik atau shared cache, dampaknya bisa meluas.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2811\" data-end=\"2830\"><span style=\"color: #000000;\">Sulit Dideteksi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2831\" data-end=\"2967\"><span style=\"color: #000000;\">Serangan ini tidak memerlukan eksploitasi kompleks seperti injection, sehingga sering tidak terdeteksi oleh sistem keamanan tradisional.</span></p>\n<hr data-start=\"2969\" data-end=\"2972\" />\n<h3 style=\"text-align: justify;\" data-start=\"2974\" data-end=\"3021\"><span style=\"color: #000000;\">Faktor yang Memungkinkan Terjadinya Serangan</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3023\" data-end=\"3053\"><span style=\"color: #000000;\">Perbedaan Interpretasi URL</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3054\" data-end=\"3109\"><span style=\"color: #000000;\">Aplikasi dan cache memproses URL dengan logika berbeda.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3111\" data-end=\"3153\"><span style=\"color: #000000;\">Konfigurasi Cache yang Terlalu Longgar</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3154\" data-end=\"3245\"><span style=\"color: #000000;\">Sistem cache yang menyimpan respons tanpa memeriksa header autentikasi meningkatkan risiko.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3247\" data-end=\"3281\"><span style=\"color: #000000;\">Kurangnya Kontrol Cache Header</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3282\" data-end=\"3381\"><span style=\"color: #000000;\">Header seperti <code data-start=\"3297\" data-end=\"3312\">Cache-Control</code> dan <code data-start=\"3317\" data-end=\"3325\">Pragma</code> tidak dikonfigurasi dengan benar untuk konten sensitif.</span></p>\n<blockquote>\n<p data-start=\"3282\" data-end=\"3381\">baca juga : <a href=\"https://buletinsiber.com/dhcp-starvation-serangan-sunyi-yang-melumpuhkan-jaringan-dari-dalam/\">DHCP Starvation: Serangan Sunyi yang Melumpuhkan Jaringan dari Dalam</a></p>\n</blockquote>\n<hr data-start=\"3383\" data-end=\"3386\" />\n<h3 style=\"text-align: justify;\" data-start=\"3388\" data-end=\"3424\"><span style=\"color: #000000;\">Cara Mencegah Web Cache Deception</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3426\" data-end=\"3469\"><span style=\"color: #000000;\">Gunakan Header Cache-Control yang Tepat</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3470\" data-end=\"3500\"><span style=\"color: #000000;\">Untuk halaman privat, gunakan:</span></p>\n<div class=\"w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border corner-superellipse/1.1 border-token-border-light bg-token-bg-elevated-secondary rounded-3xl\">\n<div class=\"corner-superellipse/1.1 rounded-3xl bg-token-bg-elevated-secondary\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼs ͼ16\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">Cache-Control: no-store, no-cache, private</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<h4 style=\"text-align: justify;\" data-start=\"3553\" data-end=\"3585\"><span style=\"color: #000000;\">Validasi dan Normalisasi URL</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3586\" data-end=\"3667\"><span style=\"color: #000000;\">Pastikan aplikasi tidak mengabaikan bagian path tambahan yang dapat dimanipulasi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3669\" data-end=\"3703\"><span style=\"color: #000000;\">Konfigurasi Cache dengan Ketat</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3704\" data-end=\"3802\"><span style=\"color: #000000;\">CDN dan reverse proxy harus dikonfigurasi agar tidak menyimpan konten yang memerlukan autentikasi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3804\" data-end=\"3842\"><span style=\"color: #000000;\">Lakukan Pengujian Keamanan Berkala</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3843\" data-end=\"3936\"><span style=\"color: #000000;\">Uji aplikasi terhadap potensi manipulasi URL yang dapat menyebabkan caching tidak semestinya.</span></p>\n<hr data-start=\"3938\" data-end=\"3941\" />\n<h3 style=\"text-align: justify;\" data-start=\"3943\" data-end=\"3979\"><span style=\"color: #000000;\">Mengapa Organisasi Harus Waspada?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3980\" data-end=\"4236\"><span style=\"color: #000000;\">Banyak organisasi menggunakan CDN untuk meningkatkan performa, tetapi tidak semua memahami interaksi kompleks antara cache dan aplikasi. Tanpa konfigurasi yang tepat, sistem yang dirancang untuk mempercepat akses justru dapat menjadi sumber kebocoran data.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4238\" data-end=\"4333\"><span style=\"color: #000000;\">Web Cache Deception membuktikan bahwa optimasi performa dan keamanan harus berjalan beriringan.</span></p>\n<blockquote>\n<p data-start=\"4238\" data-end=\"4333\">baca juga : <a href=\"https://buletinsiber.com/image-based-malware-ancaman-tersembunyi-di-balik-file-gambar-yang-tampak-aman/\">Image-Based Malware: Ancaman Tersembunyi di Balik File Gambar yang Tampak Aman</a></p>\n</blockquote>\n<hr data-start=\"4335\" data-end=\"4338\" />\n<h2 style=\"text-align: justify;\" data-start=\"4340\" data-end=\"4353\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"4354\" data-end=\"4604\"><span style=\"color: #000000;\">Web Cache Deception adalah kerentanan yang muncul akibat perbedaan cara aplikasi dan sistem cache dalam memproses URL. Dengan memanipulasi struktur URL, penyerang dapat membuat konten sensitif tersimpan dalam cache publik dan diakses oleh pihak lain.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4606\" data-end=\"4893\"><span style=\"color: #000000;\">Untuk mencegah risiko ini, organisasi perlu mengatur header cache dengan benar, mengonfigurasi sistem cache secara ketat, serta melakukan pengujian keamanan secara berkala. Dalam keamanan web modern, kesalahan kecil dalam konfigurasi cache dapat berujung pada kebocoran data yang serius.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Sistem cache pada web server dan Content Delivery Network (CDN) dirancang untuk meningkatkan performa dengan menyimpan salinan respons tertentu agar dapat diakses lebih cepat. Mekanisme ini sangat membantu dalam mengurangi beban server dan mempercepat waktu muat halaman. Namun, konfigurasi cache yang tidak tepat dapat membuka celah keamanan serius yang dikenal sebagai Web Cache Deception. Serangan ini memungkinkan data sensitif pengguna tersimpan di cache publik dan kemudian diakses oleh pihak yang tidak berwenang. Karena serangan ini memanfaatkan kesalahan logika antara aplikasi dan sistem cache, banyak organisasi tidak menyadari bahwa data pribadi bisa terekspos melalui URL yang tampak biasa. Apa Itu&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8930,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Web Cache Deception",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      185,
+      444
+    ],
+    "class_list": [
+      "post-9617",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-cybersecurity",
+      "tag-web"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Web Cache Deception: Celah Tersembunyi yang Membocorkan Data Lewat Sistem Cache - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Web Cache Deception: Celah Tersembunyi yang Membocorkan Data Lewat Sistem Cache - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Sistem cache pada web server dan Content Delivery Network (CDN) dirancang untuk meningkatkan performa dengan menyimpan salinan respons tertentu agar dapat diakses lebih cepat. Mekanisme ini sangat membantu dalam mengurangi beban server dan mempercepat waktu muat halaman. Namun, konfigurasi cache yang tidak tepat dapat membuka celah keamanan serius yang dikenal sebagai Web Cache Deception. Serangan ini memungkinkan data sensitif pengguna tersimpan di cache publik dan kemudian diakses oleh pihak yang tidak berwenang. Karena serangan ini memanfaatkan kesalahan logika antara aplikasi dan sistem cache, banyak organisasi tidak menyadari bahwa data pribadi bisa terekspos melalui URL yang tampak biasa. Apa Itu...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-02-24T01:30:39+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:57:30+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2560\" />\n\t<meta property=\"og:image:height\" content=\"1350\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/\",\"url\":\"https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/\",\"name\":\"Web Cache Deception: Celah Tersembunyi yang Membocorkan Data Lewat Sistem Cache - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg\",\"datePublished\":\"2026-02-24T01:30:39+00:00\",\"dateModified\":\"2026-07-06T20:57:30+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg\",\"width\":2560,\"height\":1350,\"caption\":\"Masked worker in photovoltaics factory commits corporate espionage, stealing proprietary technology using USB stick. Man exploits insider access to copy trade secrets from solar panel plant, camera B\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Web Cache Deception: Celah Tersembunyi yang Membocorkan Data Lewat Sistem Cache\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Web Cache Deception: Celah Tersembunyi yang Membocorkan Data Lewat Sistem Cache - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Web Cache Deception: Celah Tersembunyi yang Membocorkan Data Lewat Sistem Cache - buletinsiber.com",
+      "og_description": "Pengantar Sistem cache pada web server dan Content Delivery Network (CDN) dirancang untuk meningkatkan performa dengan menyimpan salinan respons tertentu agar dapat diakses lebih cepat. Mekanisme ini sangat membantu dalam mengurangi beban server dan mempercepat waktu muat halaman. Namun, konfigurasi cache yang tidak tepat dapat membuka celah keamanan serius yang dikenal sebagai Web Cache Deception. Serangan ini memungkinkan data sensitif pengguna tersimpan di cache publik dan kemudian diakses oleh pihak yang tidak berwenang. Karena serangan ini memanfaatkan kesalahan logika antara aplikasi dan sistem cache, banyak organisasi tidak menyadari bahwa data pribadi bisa terekspos melalui URL yang tampak biasa. Apa Itu...",
+      "og_url": "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-02-24T01:30:39+00:00",
+      "article_modified_time": "2026-07-06T20:57:30+00:00",
+      "og_image": [
+        {
+          "width": 2560,
+          "height": 1350,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/",
+            "url": "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/",
+            "name": "Web Cache Deception: Celah Tersembunyi yang Membocorkan Data Lewat Sistem Cache - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg",
+            "datePublished": "2026-02-24T01:30:39+00:00",
+            "dateModified": "2026-07-06T20:57:30+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg",
+            "width": 2560,
+            "height": 1350,
+            "caption": "Masked worker in photovoltaics factory commits corporate espionage, stealing proprietary technology using USB stick. Man exploits insider access to copy trade secrets from solar panel plant, camera B"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/web-cache-deception-celah-tersembunyi-yang-membocorkan-data-lewat-sistem-cache/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Web Cache Deception: Celah Tersembunyi yang Membocorkan Data Lewat Sistem Cache"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9617",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9617"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9617/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9618,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9617/revisions/9618"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8930"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9617"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9617"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9617"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

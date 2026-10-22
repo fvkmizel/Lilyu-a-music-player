@@ -1,0 +1,314 @@
+{
+  "id": 3261,
+  "title": "Pengaruh Kelemahan Protokol HTTP terhadap Session Hijacking",
+  "slug": "pengaruh-kelemahan-protokol-http-terhadap-session-hijacking",
+  "url": "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/",
+  "date": "2025-07-06T07:32:01",
+  "date_gmt": "2025-07-06T07:32:01",
+  "modified": "2026-06-30T19:02:24",
+  "modified_gmt": "2026-06-30T19:02:24",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/1544882033.webp",
+  "excerpt": "I. Pendahuluan Di zaman serba digital seperti sekarang, hampir semua orang menggunakan internet untuk berbagai keperluan—mulai dari mengakses media sosial, berbelanja online, sampai transaksi perbankan. Namun, tidak semua orang menyadari bahwa aktivitas online mereka bisa saja dipantau atau bahkan disalahgunakan. Salah satu ancaman yang cukup berbahaya tapi sering diabaikan adalah session hijacking, yaitu pencurian sesi pengguna saat sedang terhubung ke suatu situs. Protokol HTTP yang selama ini digunakan sebagai jembatan komunikasi antara browser dan server, ternyata memiliki kelemahan yang bisa dimanfaatkan oleh penyerang. Artikel ini akan menjelaskan bagaimana kelemahan dalam protokol HTTP dapat membuka celah bagi serangan session hijacking. A….",
+  "content_html": "<h3><strong>I. Pendahuluan</strong></h3>\n<p style=\"text-align: left;\">Di zaman serba digital seperti sekarang, hampir semua orang menggunakan internet untuk berbagai keperluan—mulai dari mengakses media sosial, berbelanja online, sampai transaksi perbankan. Namun, tidak semua orang menyadari bahwa aktivitas online mereka bisa saja dipantau atau bahkan disalahgunakan. Salah satu ancaman yang cukup berbahaya tapi sering diabaikan adalah <strong>session hijacking</strong>, yaitu pencurian sesi pengguna saat sedang terhubung ke suatu situs.</p>\n<p style=\"text-align: left;\">Protokol HTTP yang selama ini digunakan sebagai jembatan komunikasi antara browser dan server, ternyata memiliki kelemahan yang bisa dimanfaatkan oleh penyerang. Artikel ini akan menjelaskan bagaimana kelemahan dalam protokol HTTP dapat membuka celah bagi serangan session hijacking.</p>\n<h3>A. Apa Itu HTTP</h3>\n<p>HTTP (HyperText Transfer Protocol) adalah protokol yang mengatur cara komunikasi antara pengguna (browser) dan server. Misalnya, ketika kita membuka sebuah situs, HTTP bertugas mengirim permintaan dari browser ke server, lalu menampilkan informasi yang diminta ke layar kita.</p>\n<p>Namun, HTTP memiliki kelemahan besar—yaitu <strong>tidak mengenkripsi data</strong>. Semua informasi yang dikirim melalui HTTP bisa dilihat oleh siapa pun yang berada dalam jaringan yang sama, termasuk data penting seperti username, password, atau session ID.</p>\n<h4>B. Apa Itu Session Hijacking</h4>\n<p>Saat kita login ke suatu situs, sistem biasanya akan menyimpan sesi login kita agar tidak perlu login ulang setiap kali berpindah halaman. Proses ini disebut <strong>session</strong> dan biasanya disimpan dalam bentuk session ID di cookie.</p>\n<p><strong>Session hijacking</strong> adalah tindakan mencuri session ID orang lain, sehingga si penyerang bisa masuk ke akun korban tanpa perlu login. Ini seperti mencuri kunci rumah orang—tanpa diketahui, pelaku bisa masuk dan mengakses semua isi rumah tersebut.</p>\n<h3><strong>III. Kelemahan HTTP yang Dimanfaatkan Penyerang</strong></h3>\n<p>HTTP yang tidak aman memungkinkan penyerang untuk menyadap lalu lintas data, terutama di jaringan Wi-Fi publik. Saat pengguna membuka situs dengan HTTP biasa dan login, data yang dikirim tidak terenkripsi. Penyerang dapat:</p>\n<ul>\n<li><strong>Menyadap session ID</strong></li>\n<li><strong>Mengambil cookie pengguna</strong></li>\n<li><strong>Mengakses akun korban tanpa login ulang</strong></li>\n</ul>\n<p>Kondisi ini sangat berbahaya karena pengguna merasa sudah aman, padahal datanya bisa diambil dengan mudah oleh orang yang tidak bertanggung jawab.</p>\n<h3><strong>IV. Studi Kasus dan Contoh Sederhana</strong></h3>\n<p>Beberapa tahun lalu, banyak situs besar seperti Facebook atau Twitter masih bisa diakses lewat HTTP. Saat itu, banyak orang kehilangan akun karena penyerang mengambil session ID mereka dari jaringan Wi-Fi publik. Aplikasi seperti <strong>Firesheep</strong>, sebuah plugin Firefox, bahkan bisa secara otomatis menangkap session ID dari pengguna lain yang terhubung ke jaringan yang sama.</p>\n<p>Contoh sederhananya: bayangkan kamu sedang nongkrong di kafe dan membuka media sosial lewat HTTP. Orang di meja sebelah bisa menggunakan software tertentu untuk mengambil session ID kamu, lalu membuka akunmu dari laptopnya—tanpa perlu tahu password!</p>\n<h3><strong>V. Cara Mencegah Session Hijacking</strong></h3>\n<p>Untuk mencegah serangan session hijacking, ada beberapa langkah yang bisa dilakukan:</p>\n<ol>\n<li><strong>Gunakan HTTPS</strong><br />\nHTTPS adalah versi aman dari HTTP yang mengenkripsi data, sehingga data yang dikirim lebih terlindungi. Situs-situs besar sekarang hampir semuanya sudah menggunakan HTTPS.</li>\n<li><strong>Cookie Aman</strong><br />\nWebsite sebaiknya mengatur cookie agar tidak mudah diakses sembarangan, misalnya dengan menambahkan atribut <code>Secure</code> dan <code>HttpOnly</code>.</li>\n<li><strong>Session ID Sering Diganti</strong><br />\nSession ID sebaiknya diganti secara berkala, terutama setelah login, agar lebih sulit ditebak oleh penyerang.</li>\n<li><strong>Hindari Wi-Fi Publik Tanpa VPN</strong><br />\nJangan login ke akun penting saat terhubung ke Wi-Fi umum, kecuali kamu menggunakan <strong>VPN</strong> yang bisa melindungi koneksi.</li>\n<li><strong>Gunakan Autentikasi Dua Faktor (2FA)</strong><br />\nWalau penyerang mendapatkan session ID, jika situs menggunakan 2FA, mereka tetap tidak bisa masuk tanpa kode verifikasi tambahan.</li>\n</ol>\n<h3><strong>VI. Kesimpulan</strong></h3>\n<p>Protokol HTTP memang masih digunakan, tapi sayangnya memiliki celah keamanan yang cukup besar. Session hijacking menjadi salah satu risiko yang muncul karena HTTP tidak mengenkripsi data. Penyerang bisa mencuri session ID dan menyamar sebagai pengguna asli tanpa perlu tahu password.</p>\n<p>Solusi utamanya adalah beralih ke protokol <strong>HTTPS</strong>, serta melakukan pengamanan sesi pengguna melalui pengaturan cookie yang baik dan penggunaan autentikasi dua faktor. Dengan lebih memahami risiko ini, kita bisa menjaga keamanan data pribadi dan menghindari menjadi korban serangan di dunia maya.</p>\n<p>&nbsp;</p>\n<p>NAMA         : SAFARUDDIN</p>\n<p>NIM            : 23156201035</p>\n<p>JURUSAN : SISTEM KOMPUTER</p>\n",
+  "content_text": "I. Pendahuluan\nDi zaman serba digital seperti sekarang, hampir semua orang menggunakan internet untuk berbagai keperluan—mulai dari mengakses media sosial, berbelanja online, sampai transaksi perbankan. Namun, tidak semua orang menyadari bahwa aktivitas online mereka bisa saja dipantau atau bahkan disalahgunakan. Salah satu ancaman yang cukup berbahaya tapi sering diabaikan adalah  session hijacking , yaitu pencurian sesi pengguna saat sedang terhubung ke suatu situs.\nProtokol HTTP yang selama ini digunakan sebagai jembatan komunikasi antara browser dan server, ternyata memiliki kelemahan yang bisa dimanfaatkan oleh penyerang. Artikel ini akan menjelaskan bagaimana kelemahan dalam protokol HTTP dapat membuka celah bagi serangan session hijacking.\nA. Apa Itu HTTP\nHTTP (HyperText Transfer Protocol) adalah protokol yang mengatur cara komunikasi antara pengguna (browser) dan server. Misalnya, ketika kita membuka sebuah situs, HTTP bertugas mengirim permintaan dari browser ke server, lalu menampilkan informasi yang diminta ke layar kita.\nNamun, HTTP memiliki kelemahan besar—yaitu  tidak mengenkripsi data . Semua informasi yang dikirim melalui HTTP bisa dilihat oleh siapa pun yang berada dalam jaringan yang sama, termasuk data penting seperti username, password, atau session ID.\nB. Apa Itu Session Hijacking\nSaat kita login ke suatu situs, sistem biasanya akan menyimpan sesi login kita agar tidak perlu login ulang setiap kali berpindah halaman. Proses ini disebut  session  dan biasanya disimpan dalam bentuk session ID di cookie.\nSession hijacking  adalah tindakan mencuri session ID orang lain, sehingga si penyerang bisa masuk ke akun korban tanpa perlu login. Ini seperti mencuri kunci rumah orang—tanpa diketahui, pelaku bisa masuk dan mengakses semua isi rumah tersebut.\nIII. Kelemahan HTTP yang Dimanfaatkan Penyerang\nHTTP yang tidak aman memungkinkan penyerang untuk menyadap lalu lintas data, terutama di jaringan Wi-Fi publik. Saat pengguna membuka situs dengan HTTP biasa dan login, data yang dikirim tidak terenkripsi. Penyerang dapat:\nMenyadap session ID\nMengambil cookie pengguna\nMengakses akun korban tanpa login ulang\nKondisi ini sangat berbahaya karena pengguna merasa sudah aman, padahal datanya bisa diambil dengan mudah oleh orang yang tidak bertanggung jawab.\nIV. Studi Kasus dan Contoh Sederhana\nBeberapa tahun lalu, banyak situs besar seperti Facebook atau Twitter masih bisa diakses lewat HTTP. Saat itu, banyak orang kehilangan akun karena penyerang mengambil session ID mereka dari jaringan Wi-Fi publik. Aplikasi seperti  Firesheep , sebuah plugin Firefox, bahkan bisa secara otomatis menangkap session ID dari pengguna lain yang terhubung ke jaringan yang sama.\nContoh sederhananya: bayangkan kamu sedang nongkrong di kafe dan membuka media sosial lewat HTTP. Orang di meja sebelah bisa menggunakan software tertentu untuk mengambil session ID kamu, lalu membuka akunmu dari laptopnya—tanpa perlu tahu password!\nV. Cara Mencegah Session Hijacking\nUntuk mencegah serangan session hijacking, ada beberapa langkah yang bisa dilakukan:\nGunakan HTTPS\nHTTPS adalah versi aman dari HTTP yang mengenkripsi data, sehingga data yang dikirim lebih terlindungi. Situs-situs besar sekarang hampir semuanya sudah menggunakan HTTPS.\nCookie Aman\nWebsite sebaiknya mengatur cookie agar tidak mudah diakses sembarangan, misalnya dengan menambahkan atribut  Secure  dan  HttpOnly .\nSession ID Sering Diganti\nSession ID sebaiknya diganti secara berkala, terutama setelah login, agar lebih sulit ditebak oleh penyerang.\nHindari Wi-Fi Publik Tanpa VPN\nJangan login ke akun penting saat terhubung ke Wi-Fi umum, kecuali kamu menggunakan  VPN  yang bisa melindungi koneksi.\nGunakan Autentikasi Dua Faktor (2FA)\nWalau penyerang mendapatkan session ID, jika situs menggunakan 2FA, mereka tetap tidak bisa masuk tanpa kode verifikasi tambahan.\nVI. Kesimpulan\nProtokol HTTP memang masih digunakan, tapi sayangnya memiliki celah keamanan yang cukup besar. Session hijacking menjadi salah satu risiko yang muncul karena HTTP tidak mengenkripsi data. Penyerang bisa mencuri session ID dan menyamar sebagai pengguna asli tanpa perlu tahu password.\nSolusi utamanya adalah beralih ke protokol  HTTPS , serta melakukan pengamanan sesi pengguna melalui pengaturan cookie yang baik dan penggunaan autentikasi dua faktor. Dengan lebih memahami risiko ini, kita bisa menjaga keamanan data pribadi dan menghindari menjadi korban serangan di dunia maya.\nNAMA         : SAFARUDDIN\nNIM            : 23156201035\nJURUSAN : SISTEM KOMPUTER",
+  "raw": {
+    "id": 3261,
+    "date": "2025-07-06T07:32:01",
+    "date_gmt": "2025-07-06T07:32:01",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=3261"
+    },
+    "modified": "2026-06-30T19:02:24",
+    "modified_gmt": "2026-06-30T19:02:24",
+    "slug": "pengaruh-kelemahan-protokol-http-terhadap-session-hijacking",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/",
+    "title": {
+      "rendered": "Pengaruh Kelemahan Protokol HTTP terhadap Session Hijacking"
+    },
+    "content": {
+      "rendered": "<h3><strong>I. Pendahuluan</strong></h3>\n<p style=\"text-align: left;\">Di zaman serba digital seperti sekarang, hampir semua orang menggunakan internet untuk berbagai keperluan—mulai dari mengakses media sosial, berbelanja online, sampai transaksi perbankan. Namun, tidak semua orang menyadari bahwa aktivitas online mereka bisa saja dipantau atau bahkan disalahgunakan. Salah satu ancaman yang cukup berbahaya tapi sering diabaikan adalah <strong>session hijacking</strong>, yaitu pencurian sesi pengguna saat sedang terhubung ke suatu situs.</p>\n<p style=\"text-align: left;\">Protokol HTTP yang selama ini digunakan sebagai jembatan komunikasi antara browser dan server, ternyata memiliki kelemahan yang bisa dimanfaatkan oleh penyerang. Artikel ini akan menjelaskan bagaimana kelemahan dalam protokol HTTP dapat membuka celah bagi serangan session hijacking.</p>\n<h3>A. Apa Itu HTTP</h3>\n<p>HTTP (HyperText Transfer Protocol) adalah protokol yang mengatur cara komunikasi antara pengguna (browser) dan server. Misalnya, ketika kita membuka sebuah situs, HTTP bertugas mengirim permintaan dari browser ke server, lalu menampilkan informasi yang diminta ke layar kita.</p>\n<p>Namun, HTTP memiliki kelemahan besar—yaitu <strong>tidak mengenkripsi data</strong>. Semua informasi yang dikirim melalui HTTP bisa dilihat oleh siapa pun yang berada dalam jaringan yang sama, termasuk data penting seperti username, password, atau session ID.</p>\n<h4>B. Apa Itu Session Hijacking</h4>\n<p>Saat kita login ke suatu situs, sistem biasanya akan menyimpan sesi login kita agar tidak perlu login ulang setiap kali berpindah halaman. Proses ini disebut <strong>session</strong> dan biasanya disimpan dalam bentuk session ID di cookie.</p>\n<p><strong>Session hijacking</strong> adalah tindakan mencuri session ID orang lain, sehingga si penyerang bisa masuk ke akun korban tanpa perlu login. Ini seperti mencuri kunci rumah orang—tanpa diketahui, pelaku bisa masuk dan mengakses semua isi rumah tersebut.</p>\n<h3><strong>III. Kelemahan HTTP yang Dimanfaatkan Penyerang</strong></h3>\n<p>HTTP yang tidak aman memungkinkan penyerang untuk menyadap lalu lintas data, terutama di jaringan Wi-Fi publik. Saat pengguna membuka situs dengan HTTP biasa dan login, data yang dikirim tidak terenkripsi. Penyerang dapat:</p>\n<ul>\n<li><strong>Menyadap session ID</strong></li>\n<li><strong>Mengambil cookie pengguna</strong></li>\n<li><strong>Mengakses akun korban tanpa login ulang</strong></li>\n</ul>\n<p>Kondisi ini sangat berbahaya karena pengguna merasa sudah aman, padahal datanya bisa diambil dengan mudah oleh orang yang tidak bertanggung jawab.</p>\n<h3><strong>IV. Studi Kasus dan Contoh Sederhana</strong></h3>\n<p>Beberapa tahun lalu, banyak situs besar seperti Facebook atau Twitter masih bisa diakses lewat HTTP. Saat itu, banyak orang kehilangan akun karena penyerang mengambil session ID mereka dari jaringan Wi-Fi publik. Aplikasi seperti <strong>Firesheep</strong>, sebuah plugin Firefox, bahkan bisa secara otomatis menangkap session ID dari pengguna lain yang terhubung ke jaringan yang sama.</p>\n<p>Contoh sederhananya: bayangkan kamu sedang nongkrong di kafe dan membuka media sosial lewat HTTP. Orang di meja sebelah bisa menggunakan software tertentu untuk mengambil session ID kamu, lalu membuka akunmu dari laptopnya—tanpa perlu tahu password!</p>\n<h3><strong>V. Cara Mencegah Session Hijacking</strong></h3>\n<p>Untuk mencegah serangan session hijacking, ada beberapa langkah yang bisa dilakukan:</p>\n<ol>\n<li><strong>Gunakan HTTPS</strong><br />\nHTTPS adalah versi aman dari HTTP yang mengenkripsi data, sehingga data yang dikirim lebih terlindungi. Situs-situs besar sekarang hampir semuanya sudah menggunakan HTTPS.</li>\n<li><strong>Cookie Aman</strong><br />\nWebsite sebaiknya mengatur cookie agar tidak mudah diakses sembarangan, misalnya dengan menambahkan atribut <code>Secure</code> dan <code>HttpOnly</code>.</li>\n<li><strong>Session ID Sering Diganti</strong><br />\nSession ID sebaiknya diganti secara berkala, terutama setelah login, agar lebih sulit ditebak oleh penyerang.</li>\n<li><strong>Hindari Wi-Fi Publik Tanpa VPN</strong><br />\nJangan login ke akun penting saat terhubung ke Wi-Fi umum, kecuali kamu menggunakan <strong>VPN</strong> yang bisa melindungi koneksi.</li>\n<li><strong>Gunakan Autentikasi Dua Faktor (2FA)</strong><br />\nWalau penyerang mendapatkan session ID, jika situs menggunakan 2FA, mereka tetap tidak bisa masuk tanpa kode verifikasi tambahan.</li>\n</ol>\n<h3><strong>VI. Kesimpulan</strong></h3>\n<p>Protokol HTTP memang masih digunakan, tapi sayangnya memiliki celah keamanan yang cukup besar. Session hijacking menjadi salah satu risiko yang muncul karena HTTP tidak mengenkripsi data. Penyerang bisa mencuri session ID dan menyamar sebagai pengguna asli tanpa perlu tahu password.</p>\n<p>Solusi utamanya adalah beralih ke protokol <strong>HTTPS</strong>, serta melakukan pengamanan sesi pengguna melalui pengaturan cookie yang baik dan penggunaan autentikasi dua faktor. Dengan lebih memahami risiko ini, kita bisa menjaga keamanan data pribadi dan menghindari menjadi korban serangan di dunia maya.</p>\n<p>&nbsp;</p>\n<p>NAMA         : SAFARUDDIN</p>\n<p>NIM            : 23156201035</p>\n<p>JURUSAN : SISTEM KOMPUTER</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>I. Pendahuluan Di zaman serba digital seperti sekarang, hampir semua orang menggunakan internet untuk berbagai keperluan—mulai dari mengakses media sosial, berbelanja online, sampai transaksi perbankan. Namun, tidak semua orang menyadari bahwa aktivitas online mereka bisa saja dipantau atau bahkan disalahgunakan. Salah satu ancaman yang cukup berbahaya tapi sering diabaikan adalah session hijacking, yaitu pencurian sesi pengguna saat sedang terhubung ke suatu situs. Protokol HTTP yang selama ini digunakan sebagai jembatan komunikasi antara browser dan server, ternyata memiliki kelemahan yang bisa dimanfaatkan oleh penyerang. Artikel ini akan menjelaskan bagaimana kelemahan dalam protokol HTTP dapat membuka celah bagi serangan session hijacking. A&#8230;.</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 5004,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385
+    ],
+    "class_list": [
+      "post-3261",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Pengaruh Kelemahan Protokol HTTP terhadap Session Hijacking - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Pengaruh Kelemahan Protokol HTTP terhadap Session Hijacking - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"I. Pendahuluan Di zaman serba digital seperti sekarang, hampir semua orang menggunakan internet untuk berbagai keperluan—mulai dari mengakses media sosial, berbelanja online, sampai transaksi perbankan. Namun, tidak semua orang menyadari bahwa aktivitas online mereka bisa saja dipantau atau bahkan disalahgunakan. Salah satu ancaman yang cukup berbahaya tapi sering diabaikan adalah session hijacking, yaitu pencurian sesi pengguna saat sedang terhubung ke suatu situs. Protokol HTTP yang selama ini digunakan sebagai jembatan komunikasi antara browser dan server, ternyata memiliki kelemahan yang bisa dimanfaatkan oleh penyerang. Artikel ini akan menjelaskan bagaimana kelemahan dalam protokol HTTP dapat membuka celah bagi serangan session hijacking. A....\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-06T07:32:01+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T19:02:24+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/1544882033.webp\" />\n\t<meta property=\"og:image:width\" content=\"720\" />\n\t<meta property=\"og:image:height\" content=\"380\" />\n\t<meta property=\"og:image:type\" content=\"image/webp\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/\",\"url\":\"https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/\",\"name\":\"Pengaruh Kelemahan Protokol HTTP terhadap Session Hijacking - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1544882033.webp\",\"datePublished\":\"2025-07-06T07:32:01+00:00\",\"dateModified\":\"2026-06-30T19:02:24+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1544882033.webp\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1544882033.webp\",\"width\":720,\"height\":380},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Pengaruh Kelemahan Protokol HTTP terhadap Session Hijacking\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Pengaruh Kelemahan Protokol HTTP terhadap Session Hijacking - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Pengaruh Kelemahan Protokol HTTP terhadap Session Hijacking - buletinsiber.com",
+      "og_description": "I. Pendahuluan Di zaman serba digital seperti sekarang, hampir semua orang menggunakan internet untuk berbagai keperluan—mulai dari mengakses media sosial, berbelanja online, sampai transaksi perbankan. Namun, tidak semua orang menyadari bahwa aktivitas online mereka bisa saja dipantau atau bahkan disalahgunakan. Salah satu ancaman yang cukup berbahaya tapi sering diabaikan adalah session hijacking, yaitu pencurian sesi pengguna saat sedang terhubung ke suatu situs. Protokol HTTP yang selama ini digunakan sebagai jembatan komunikasi antara browser dan server, ternyata memiliki kelemahan yang bisa dimanfaatkan oleh penyerang. Artikel ini akan menjelaskan bagaimana kelemahan dalam protokol HTTP dapat membuka celah bagi serangan session hijacking. A....",
+      "og_url": "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-06T07:32:01+00:00",
+      "article_modified_time": "2026-06-30T19:02:24+00:00",
+      "og_image": [
+        {
+          "width": 720,
+          "height": 380,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1544882033.webp",
+          "type": "image/webp"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/",
+            "url": "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/",
+            "name": "Pengaruh Kelemahan Protokol HTTP terhadap Session Hijacking - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1544882033.webp",
+            "datePublished": "2025-07-06T07:32:01+00:00",
+            "dateModified": "2026-06-30T19:02:24+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1544882033.webp",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1544882033.webp",
+            "width": 720,
+            "height": 380
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/pengaruh-kelemahan-protokol-http-terhadap-session-hijacking/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Pengaruh Kelemahan Protokol HTTP terhadap Session Hijacking"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3261",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=3261"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 3,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3261/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 6105,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3261/revisions/6105"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/5004"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=3261"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=3261"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=3261"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

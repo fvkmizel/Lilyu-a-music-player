@@ -1,0 +1,283 @@
+{
+  "id": 3327,
+  "title": "Deteksi Session Hijacking Berbasis Intrusion Detection System (IDS)",
+  "slug": "deteksi-session-hijacking-berbasis-intrusion-detection-system-ids",
+  "url": "https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/",
+  "date": "2025-07-06T09:46:48",
+  "date_gmt": "2025-07-06T09:46:48",
+  "modified": "2026-06-30T19:02:45",
+  "modified_gmt": "2026-06-30T19:02:45",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385
+  ],
+  "featured_image": "",
+  "excerpt": "I. Pendahuluan Dalam dunia digital, pengguna yang masuk (login) ke sebuah aplikasi akan membentuk sesi (session) yang menjadi pengenal identitas selama ia berinteraksi dengan sistem. Sesi ini sangat penting karena menyimpan informasi otentikasi pengguna. Namun, sesi juga bisa menjadi target serangan, terutama session hijacking, yaitu pembajakan sesi pengguna oleh pihak tidak bertanggung jawab. Untuk mengatasi masalah ini, kita memerlukan alat yang mampu mendeteksi aktivitas mencurigakan secara real-time, salah satunya adalah Intrusion Detection System (IDS). Artikel ini akan menjelaskan bagaimana IDS dapat digunakan untuk mendeteksi session hijacking dan menjaga keamanan pengguna.  II. Apa Itu Session Hijacking? Session hijacking adalah teknik di…",
+  "content_html": "<h3> I. <strong>Pendahuluan</strong></h3>\n<p>Dalam dunia digital, pengguna yang masuk (login) ke sebuah aplikasi akan membentuk sesi (session) yang menjadi pengenal identitas selama ia berinteraksi dengan sistem. Sesi ini sangat penting karena menyimpan informasi otentikasi pengguna. Namun, sesi juga bisa menjadi <strong>target serangan</strong>, terutama <strong>session hijacking</strong>, yaitu pembajakan sesi pengguna oleh pihak tidak bertanggung jawab.</p>\n<p>Untuk mengatasi masalah ini, kita memerlukan alat yang mampu <strong>mendeteksi aktivitas mencurigakan secara real-time</strong>, salah satunya adalah <strong>Intrusion Detection System (IDS)</strong>. Artikel ini akan menjelaskan bagaimana IDS dapat digunakan untuk mendeteksi session hijacking dan menjaga keamanan pengguna.</p>\n<h3> II. <strong>Apa Itu Session Hijacking?</strong></h3>\n<p><strong>Session hijacking</strong> adalah teknik di mana penyerang mencuri session ID pengguna yang masih aktif, kemudian menggunakannya untuk mengakses sistem seolah-olah ia adalah pengguna yang sah.</p>\n<p><strong>Contoh sederhananya:</strong><br />\nJika seseorang login ke situs tanpa enkripsi (HTTP), session ID-nya bisa ditangkap oleh penyerang yang berada di jaringan yang sama (misalnya di Wi-Fi publik). Setelah mendapatkan ID itu, penyerang bisa masuk ke akun korban tanpa harus tahu password-nya.</p>\n<h3> III. <strong>Apa Itu Intrusion Detection System (IDS)?</strong></h3>\n<p>IDS adalah sistem yang dirancang untuk <strong>mendeteksi serangan atau aktivitas mencurigakan</strong> dalam jaringan atau sistem komputer. Ada dua jenis utama IDS:</p>\n<ol>\n<li><strong>Network-based IDS (NIDS)</strong>: memantau lalu lintas data dalam jaringan</li>\n<li><strong>Host-based IDS (HIDS)</strong>: memantau aktivitas dalam sistem komputer atau server</li>\n</ol>\n<p>IDS bekerja dengan cara <strong>menganalisis pola lalu lintas</strong>, membandingkannya dengan basis data serangan yang dikenal, atau mendeteksi anomali yang tidak biasa.</p>\n<h3> IV. <strong>Bagaimana IDS Mendeteksi Session Hijacking?</strong></h3>\n<p>IDS dapat digunakan untuk mendeteksi session hijacking melalui beberapa pendekatan:</p>\n<h4> 1. <strong>Pendeteksian Pola Serangan yang Dikenal (Signature-based Detection)</strong></h4>\n<p>IDS mengenali signature dari serangan session hijacking, seperti:</p>\n<ul>\n<li>Pengiriman ulang session ID dari IP berbeda</li>\n<li>Permintaan HTTP tidak biasa setelah login</li>\n<li>Penggunaan session ID dari user-agent berbeda</li>\n</ul>\n<h4> 2. <strong>Pendeteksian Anomali (Anomaly-based Detection)</strong></h4>\n<p>IDS membandingkan aktivitas saat ini dengan perilaku normal pengguna. Misalnya:</p>\n<ul>\n<li>User A biasanya login dari Jakarta, tapi tiba-tiba ada aktivitas dari luar negeri</li>\n<li>Perubahan mendadak dalam kecepatan akses, lokasi, atau perangkat</li>\n</ul>\n<p>Jika pola tidak sesuai, IDS akan mengirimkan <strong>peringatan (alert)</strong>.</p>\n<h3> V. <strong>Contoh Tools IDS untuk Deteksi Session Hijacking</strong></h3>\n<p>Beberapa IDS populer yang bisa digunakan antara lain:</p>\n<table>\n<thead>\n<tr>\n<th>Nama IDS</th>\n<th>Jenis</th>\n<th>Kelebihan Utama</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>Snort</strong></td>\n<td>Network</td>\n<td>Open source, banyak signature tersedia</td>\n</tr>\n<tr>\n<td><strong>Suricata</strong></td>\n<td>Network</td>\n<td>Mendukung multi-threading, real-time alert</td>\n</tr>\n<tr>\n<td><strong>OSSEC</strong></td>\n<td>Host</td>\n<td>Fokus pada deteksi di sisi server</td>\n</tr>\n<tr>\n<td><strong>Zeek (Bro)</strong></td>\n<td>Network</td>\n<td>Mampu menganalisis protokol dan sesi kompleks</td>\n</tr>\n</tbody>\n</table>\n<p>Tool-tool ini dapat dikonfigurasi untuk memantau dan mencatat anomali terkait sesi, seperti pencurian cookie, perubahan IP saat sesi aktif, dan login ganda dari lokasi berbeda.</p>\n<h3> VI. <strong>Langkah Implementasi Deteksi Session Hijacking dengan IDS</strong></h3>\n<ol>\n<li><strong>Pasang IDS</strong> di server atau gateway jaringan</li>\n<li><strong>Konfigurasi rule</strong> untuk mendeteksi aktivitas mencurigakan (misalnya penggunaan ulang session ID)</li>\n<li><strong>Aktifkan logging dan notifikasi real-time</strong></li>\n<li><strong>Tinjau alert yang masuk</strong> dan lakukan investigasi manual jika diperlukan</li>\n<li><strong>Integrasikan dengan firewall</strong> untuk memblokir penyerang secara otomatis</li>\n</ol>\n<h3> VII. <strong>Manfaat Penggunaan IDS dalam Deteksi Session Hijacking</strong></h3>\n<ul>\n<li>Mendeteksi <strong>serangan lebih cepat</strong> sebelum menyebabkan kerugian</li>\n<li>Mengurangi risiko <strong>akses ilegal</strong> terhadap data pengguna</li>\n<li>Membantu tim keamanan dalam <strong>melacak dan menganalisis</strong> pola serangan</li>\n<li>Dapat digunakan sebagai bukti audit dan investigasi</li>\n</ul>\n<h3> VIII. <strong>Keterbatasan IDS</strong></h3>\n<ul>\n<li>IDS hanya <strong>mendeteksi</strong>, tidak mencegah</li>\n<li>Membutuhkan konfigurasi dan pembaruan rule secara berkala</li>\n<li>Bisa menghasilkan <strong>false positive</strong> jika tidak diatur dengan baik</li>\n<li>Kurang efektif jika penyerang menggunakan teknik yang belum dikenal (zero-day)</li>\n</ul>\n<h3> IX. <strong>Kesimpulan</strong></h3>\n<p><strong>Session hijacking</strong> adalah ancaman yang nyata dalam sistem web, terutama jika pengguna atau pengelola sistem tidak waspada. Dengan menggunakan <strong>Intrusion Detection System (IDS)</strong>, kita bisa <strong>mendeteksi pola serangan dan aktivitas mencurigakan</strong> sejak awal.</p>\n<p>Walau IDS bukan alat pencegah, namun ia menjadi <strong>mata dan telinga sistem</strong>, yang selalu waspada terhadap tanda-tanda bahaya. Dengan pemantauan yang baik, pengelola sistem bisa mengambil tindakan lebih cepat untuk <strong>mengamankan sesi dan melindungi data pengguna</strong></p>\n<p>&nbsp;</p>\n<p>NAMA : SAFARUDDIN</p>\n<p>NIM : 23156201035</p>\n<p>JURUSAN : SISTEM KOMPUTER</p>\n",
+  "content_text": "I.  Pendahuluan\nDalam dunia digital, pengguna yang masuk (login) ke sebuah aplikasi akan membentuk sesi (session) yang menjadi pengenal identitas selama ia berinteraksi dengan sistem. Sesi ini sangat penting karena menyimpan informasi otentikasi pengguna. Namun, sesi juga bisa menjadi  target serangan , terutama  session hijacking , yaitu pembajakan sesi pengguna oleh pihak tidak bertanggung jawab.\nUntuk mengatasi masalah ini, kita memerlukan alat yang mampu  mendeteksi aktivitas mencurigakan secara real-time , salah satunya adalah  Intrusion Detection System (IDS) . Artikel ini akan menjelaskan bagaimana IDS dapat digunakan untuk mendeteksi session hijacking dan menjaga keamanan pengguna.\nII.  Apa Itu Session Hijacking?\nSession hijacking  adalah teknik di mana penyerang mencuri session ID pengguna yang masih aktif, kemudian menggunakannya untuk mengakses sistem seolah-olah ia adalah pengguna yang sah.\nContoh sederhananya:\nJika seseorang login ke situs tanpa enkripsi (HTTP), session ID-nya bisa ditangkap oleh penyerang yang berada di jaringan yang sama (misalnya di Wi-Fi publik). Setelah mendapatkan ID itu, penyerang bisa masuk ke akun korban tanpa harus tahu password-nya.\nIII.  Apa Itu Intrusion Detection System (IDS)?\nIDS adalah sistem yang dirancang untuk  mendeteksi serangan atau aktivitas mencurigakan  dalam jaringan atau sistem komputer. Ada dua jenis utama IDS:\nNetwork-based IDS (NIDS) : memantau lalu lintas data dalam jaringan\nHost-based IDS (HIDS) : memantau aktivitas dalam sistem komputer atau server\nIDS bekerja dengan cara  menganalisis pola lalu lintas , membandingkannya dengan basis data serangan yang dikenal, atau mendeteksi anomali yang tidak biasa.\nIV.  Bagaimana IDS Mendeteksi Session Hijacking?\nIDS dapat digunakan untuk mendeteksi session hijacking melalui beberapa pendekatan:\n1.  Pendeteksian Pola Serangan yang Dikenal (Signature-based Detection)\nIDS mengenali signature dari serangan session hijacking, seperti:\nPengiriman ulang session ID dari IP berbeda\nPermintaan HTTP tidak biasa setelah login\nPenggunaan session ID dari user-agent berbeda\n2.  Pendeteksian Anomali (Anomaly-based Detection)\nIDS membandingkan aktivitas saat ini dengan perilaku normal pengguna. Misalnya:\nUser A biasanya login dari Jakarta, tapi tiba-tiba ada aktivitas dari luar negeri\nPerubahan mendadak dalam kecepatan akses, lokasi, atau perangkat\nJika pola tidak sesuai, IDS akan mengirimkan  peringatan (alert) .\nV.  Contoh Tools IDS untuk Deteksi Session Hijacking\nBeberapa IDS populer yang bisa digunakan antara lain:\nNama IDS\nJenis\nKelebihan Utama\nSnort\nNetwork\nOpen source, banyak signature tersedia\nSuricata\nNetwork\nMendukung multi-threading, real-time alert\nOSSEC\nHost\nFokus pada deteksi di sisi server\nZeek (Bro)\nNetwork\nMampu menganalisis protokol dan sesi kompleks\nTool-tool ini dapat dikonfigurasi untuk memantau dan mencatat anomali terkait sesi, seperti pencurian cookie, perubahan IP saat sesi aktif, dan login ganda dari lokasi berbeda.\nVI.  Langkah Implementasi Deteksi Session Hijacking dengan IDS\nPasang IDS  di server atau gateway jaringan\nKonfigurasi rule  untuk mendeteksi aktivitas mencurigakan (misalnya penggunaan ulang session ID)\nAktifkan logging dan notifikasi real-time\nTinjau alert yang masuk  dan lakukan investigasi manual jika diperlukan\nIntegrasikan dengan firewall  untuk memblokir penyerang secara otomatis\nVII.  Manfaat Penggunaan IDS dalam Deteksi Session Hijacking\nMendeteksi  serangan lebih cepat  sebelum menyebabkan kerugian\nMengurangi risiko  akses ilegal  terhadap data pengguna\nMembantu tim keamanan dalam  melacak dan menganalisis  pola serangan\nDapat digunakan sebagai bukti audit dan investigasi\nVIII.  Keterbatasan IDS\nIDS hanya  mendeteksi , tidak mencegah\nMembutuhkan konfigurasi dan pembaruan rule secara berkala\nBisa menghasilkan  false positive  jika tidak diatur dengan baik\nKurang efektif jika penyerang menggunakan teknik yang belum dikenal (zero-day)\nIX.  Kesimpulan\nSession hijacking  adalah ancaman yang nyata dalam sistem web, terutama jika pengguna atau pengelola sistem tidak waspada. Dengan menggunakan  Intrusion Detection System (IDS) , kita bisa  mendeteksi pola serangan dan aktivitas mencurigakan  sejak awal.\nWalau IDS bukan alat pencegah, namun ia menjadi  mata dan telinga sistem , yang selalu waspada terhadap tanda-tanda bahaya. Dengan pemantauan yang baik, pengelola sistem bisa mengambil tindakan lebih cepat untuk  mengamankan sesi dan melindungi data pengguna\nNAMA : SAFARUDDIN\nNIM : 23156201035\nJURUSAN : SISTEM KOMPUTER",
+  "raw": {
+    "id": 3327,
+    "date": "2025-07-06T09:46:48",
+    "date_gmt": "2025-07-06T09:46:48",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=3327"
+    },
+    "modified": "2026-06-30T19:02:45",
+    "modified_gmt": "2026-06-30T19:02:45",
+    "slug": "deteksi-session-hijacking-berbasis-intrusion-detection-system-ids",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/",
+    "title": {
+      "rendered": "Deteksi Session Hijacking Berbasis Intrusion Detection System (IDS)"
+    },
+    "content": {
+      "rendered": "<h3> I. <strong>Pendahuluan</strong></h3>\n<p>Dalam dunia digital, pengguna yang masuk (login) ke sebuah aplikasi akan membentuk sesi (session) yang menjadi pengenal identitas selama ia berinteraksi dengan sistem. Sesi ini sangat penting karena menyimpan informasi otentikasi pengguna. Namun, sesi juga bisa menjadi <strong>target serangan</strong>, terutama <strong>session hijacking</strong>, yaitu pembajakan sesi pengguna oleh pihak tidak bertanggung jawab.</p>\n<p>Untuk mengatasi masalah ini, kita memerlukan alat yang mampu <strong>mendeteksi aktivitas mencurigakan secara real-time</strong>, salah satunya adalah <strong>Intrusion Detection System (IDS)</strong>. Artikel ini akan menjelaskan bagaimana IDS dapat digunakan untuk mendeteksi session hijacking dan menjaga keamanan pengguna.</p>\n<h3> II. <strong>Apa Itu Session Hijacking?</strong></h3>\n<p><strong>Session hijacking</strong> adalah teknik di mana penyerang mencuri session ID pengguna yang masih aktif, kemudian menggunakannya untuk mengakses sistem seolah-olah ia adalah pengguna yang sah.</p>\n<p><strong>Contoh sederhananya:</strong><br />\nJika seseorang login ke situs tanpa enkripsi (HTTP), session ID-nya bisa ditangkap oleh penyerang yang berada di jaringan yang sama (misalnya di Wi-Fi publik). Setelah mendapatkan ID itu, penyerang bisa masuk ke akun korban tanpa harus tahu password-nya.</p>\n<h3> III. <strong>Apa Itu Intrusion Detection System (IDS)?</strong></h3>\n<p>IDS adalah sistem yang dirancang untuk <strong>mendeteksi serangan atau aktivitas mencurigakan</strong> dalam jaringan atau sistem komputer. Ada dua jenis utama IDS:</p>\n<ol>\n<li><strong>Network-based IDS (NIDS)</strong>: memantau lalu lintas data dalam jaringan</li>\n<li><strong>Host-based IDS (HIDS)</strong>: memantau aktivitas dalam sistem komputer atau server</li>\n</ol>\n<p>IDS bekerja dengan cara <strong>menganalisis pola lalu lintas</strong>, membandingkannya dengan basis data serangan yang dikenal, atau mendeteksi anomali yang tidak biasa.</p>\n<h3> IV. <strong>Bagaimana IDS Mendeteksi Session Hijacking?</strong></h3>\n<p>IDS dapat digunakan untuk mendeteksi session hijacking melalui beberapa pendekatan:</p>\n<h4> 1. <strong>Pendeteksian Pola Serangan yang Dikenal (Signature-based Detection)</strong></h4>\n<p>IDS mengenali signature dari serangan session hijacking, seperti:</p>\n<ul>\n<li>Pengiriman ulang session ID dari IP berbeda</li>\n<li>Permintaan HTTP tidak biasa setelah login</li>\n<li>Penggunaan session ID dari user-agent berbeda</li>\n</ul>\n<h4> 2. <strong>Pendeteksian Anomali (Anomaly-based Detection)</strong></h4>\n<p>IDS membandingkan aktivitas saat ini dengan perilaku normal pengguna. Misalnya:</p>\n<ul>\n<li>User A biasanya login dari Jakarta, tapi tiba-tiba ada aktivitas dari luar negeri</li>\n<li>Perubahan mendadak dalam kecepatan akses, lokasi, atau perangkat</li>\n</ul>\n<p>Jika pola tidak sesuai, IDS akan mengirimkan <strong>peringatan (alert)</strong>.</p>\n<h3> V. <strong>Contoh Tools IDS untuk Deteksi Session Hijacking</strong></h3>\n<p>Beberapa IDS populer yang bisa digunakan antara lain:</p>\n<table>\n<thead>\n<tr>\n<th>Nama IDS</th>\n<th>Jenis</th>\n<th>Kelebihan Utama</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>Snort</strong></td>\n<td>Network</td>\n<td>Open source, banyak signature tersedia</td>\n</tr>\n<tr>\n<td><strong>Suricata</strong></td>\n<td>Network</td>\n<td>Mendukung multi-threading, real-time alert</td>\n</tr>\n<tr>\n<td><strong>OSSEC</strong></td>\n<td>Host</td>\n<td>Fokus pada deteksi di sisi server</td>\n</tr>\n<tr>\n<td><strong>Zeek (Bro)</strong></td>\n<td>Network</td>\n<td>Mampu menganalisis protokol dan sesi kompleks</td>\n</tr>\n</tbody>\n</table>\n<p>Tool-tool ini dapat dikonfigurasi untuk memantau dan mencatat anomali terkait sesi, seperti pencurian cookie, perubahan IP saat sesi aktif, dan login ganda dari lokasi berbeda.</p>\n<h3> VI. <strong>Langkah Implementasi Deteksi Session Hijacking dengan IDS</strong></h3>\n<ol>\n<li><strong>Pasang IDS</strong> di server atau gateway jaringan</li>\n<li><strong>Konfigurasi rule</strong> untuk mendeteksi aktivitas mencurigakan (misalnya penggunaan ulang session ID)</li>\n<li><strong>Aktifkan logging dan notifikasi real-time</strong></li>\n<li><strong>Tinjau alert yang masuk</strong> dan lakukan investigasi manual jika diperlukan</li>\n<li><strong>Integrasikan dengan firewall</strong> untuk memblokir penyerang secara otomatis</li>\n</ol>\n<h3> VII. <strong>Manfaat Penggunaan IDS dalam Deteksi Session Hijacking</strong></h3>\n<ul>\n<li>Mendeteksi <strong>serangan lebih cepat</strong> sebelum menyebabkan kerugian</li>\n<li>Mengurangi risiko <strong>akses ilegal</strong> terhadap data pengguna</li>\n<li>Membantu tim keamanan dalam <strong>melacak dan menganalisis</strong> pola serangan</li>\n<li>Dapat digunakan sebagai bukti audit dan investigasi</li>\n</ul>\n<h3> VIII. <strong>Keterbatasan IDS</strong></h3>\n<ul>\n<li>IDS hanya <strong>mendeteksi</strong>, tidak mencegah</li>\n<li>Membutuhkan konfigurasi dan pembaruan rule secara berkala</li>\n<li>Bisa menghasilkan <strong>false positive</strong> jika tidak diatur dengan baik</li>\n<li>Kurang efektif jika penyerang menggunakan teknik yang belum dikenal (zero-day)</li>\n</ul>\n<h3> IX. <strong>Kesimpulan</strong></h3>\n<p><strong>Session hijacking</strong> adalah ancaman yang nyata dalam sistem web, terutama jika pengguna atau pengelola sistem tidak waspada. Dengan menggunakan <strong>Intrusion Detection System (IDS)</strong>, kita bisa <strong>mendeteksi pola serangan dan aktivitas mencurigakan</strong> sejak awal.</p>\n<p>Walau IDS bukan alat pencegah, namun ia menjadi <strong>mata dan telinga sistem</strong>, yang selalu waspada terhadap tanda-tanda bahaya. Dengan pemantauan yang baik, pengelola sistem bisa mengambil tindakan lebih cepat untuk <strong>mengamankan sesi dan melindungi data pengguna</strong></p>\n<p>&nbsp;</p>\n<p>NAMA : SAFARUDDIN</p>\n<p>NIM : 23156201035</p>\n<p>JURUSAN : SISTEM KOMPUTER</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p> I. Pendahuluan Dalam dunia digital, pengguna yang masuk (login) ke sebuah aplikasi akan membentuk sesi (session) yang menjadi pengenal identitas selama ia berinteraksi dengan sistem. Sesi ini sangat penting karena menyimpan informasi otentikasi pengguna. Namun, sesi juga bisa menjadi target serangan, terutama session hijacking, yaitu pembajakan sesi pengguna oleh pihak tidak bertanggung jawab. Untuk mengatasi masalah ini, kita memerlukan alat yang mampu mendeteksi aktivitas mencurigakan secara real-time, salah satunya adalah Intrusion Detection System (IDS). Artikel ini akan menjelaskan bagaimana IDS dapat digunakan untuk mendeteksi session hijacking dan menjaga keamanan pengguna.  II. Apa Itu Session Hijacking? Session hijacking adalah teknik di&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 0,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385
+    ],
+    "class_list": [
+      "post-3327",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Deteksi Session Hijacking Berbasis Intrusion Detection System (IDS) - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Deteksi Session Hijacking Berbasis Intrusion Detection System (IDS) - buletinsiber.com\" />\n<meta property=\"og:description\" content=\" I. Pendahuluan Dalam dunia digital, pengguna yang masuk (login) ke sebuah aplikasi akan membentuk sesi (session) yang menjadi pengenal identitas selama ia berinteraksi dengan sistem. Sesi ini sangat penting karena menyimpan informasi otentikasi pengguna. Namun, sesi juga bisa menjadi target serangan, terutama session hijacking, yaitu pembajakan sesi pengguna oleh pihak tidak bertanggung jawab. Untuk mengatasi masalah ini, kita memerlukan alat yang mampu mendeteksi aktivitas mencurigakan secara real-time, salah satunya adalah Intrusion Detection System (IDS). Artikel ini akan menjelaskan bagaimana IDS dapat digunakan untuk mendeteksi session hijacking dan menjaga keamanan pengguna.  II. Apa Itu Session Hijacking? Session hijacking adalah teknik di...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-06T09:46:48+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T19:02:45+00:00\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/\",\"url\":\"https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/\",\"name\":\"Deteksi Session Hijacking Berbasis Intrusion Detection System (IDS) - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"datePublished\":\"2025-07-06T09:46:48+00:00\",\"dateModified\":\"2026-06-30T19:02:45+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Deteksi Session Hijacking Berbasis Intrusion Detection System (IDS)\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Deteksi Session Hijacking Berbasis Intrusion Detection System (IDS) - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Deteksi Session Hijacking Berbasis Intrusion Detection System (IDS) - buletinsiber.com",
+      "og_description": " I. Pendahuluan Dalam dunia digital, pengguna yang masuk (login) ke sebuah aplikasi akan membentuk sesi (session) yang menjadi pengenal identitas selama ia berinteraksi dengan sistem. Sesi ini sangat penting karena menyimpan informasi otentikasi pengguna. Namun, sesi juga bisa menjadi target serangan, terutama session hijacking, yaitu pembajakan sesi pengguna oleh pihak tidak bertanggung jawab. Untuk mengatasi masalah ini, kita memerlukan alat yang mampu mendeteksi aktivitas mencurigakan secara real-time, salah satunya adalah Intrusion Detection System (IDS). Artikel ini akan menjelaskan bagaimana IDS dapat digunakan untuk mendeteksi session hijacking dan menjaga keamanan pengguna.  II. Apa Itu Session Hijacking? Session hijacking adalah teknik di...",
+      "og_url": "https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-06T09:46:48+00:00",
+      "article_modified_time": "2026-06-30T19:02:45+00:00",
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/",
+            "url": "https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/",
+            "name": "Deteksi Session Hijacking Berbasis Intrusion Detection System (IDS) - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "datePublished": "2025-07-06T09:46:48+00:00",
+            "dateModified": "2026-06-30T19:02:45+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/deteksi-session-hijacking-berbasis-intrusion-detection-system-ids/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Deteksi Session Hijacking Berbasis Intrusion Detection System (IDS)"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3327",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=3327"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 3,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3327/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 6081,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3327/revisions/6081"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=3327"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=3327"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=3327"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

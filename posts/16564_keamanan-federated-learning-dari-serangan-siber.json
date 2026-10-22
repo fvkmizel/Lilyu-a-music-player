@@ -1,0 +1,308 @@
+{
+  "id": 16564,
+  "title": "Keamanan Federated Learning dari Serangan Siber",
+  "slug": "keamanan-federated-learning-dari-serangan-siber",
+  "url": "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/",
+  "date": "2026-07-29T15:22:26",
+  "date_gmt": "2026-07-29T15:22:26",
+  "modified": "2026-07-29T15:22:26",
+  "modified_gmt": "2026-07-29T15:22:26",
+  "author": {
+    "id": 23,
+    "name": "Ezril Fahrul Rizal"
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Uncategorized"
+    }
+  ],
+  "tags": [],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_pjdq4xpjdq4xpjdq-1024x559.png",
+  "excerpt": "Federated Learning (FL) hadir sebagai paradigma revolusioner dalam machine learning yang memungkinkan pelatihan model kolaboratif tanpa harus mengumpulkan data mentah ke server pusat. Pendekatan ini menjadi solusi penting di tengah meningkatnya kesadaran akan privasi data dan regulasi ketat seperti GDPR di Eropa serta CCPA di Amerika Serikat . Namun, arsitektur terdistribusi FL justru membuka celah keamanan baru yang kompleks. Artikel ini akan mengupas tuntas berbagai ancaman siber terhadap FL serta strategi pertahanan yang dikembangkan para peneliti untuk mengamankan sistem ini. Memahami Federated Learning dan Kerentanannya Federated Learning memungkinkan banyak klien (seperti perangkat seluler, rumah sakit, atau institusi keuangan) melatih model secara…",
+  "content_html": "<p class=\"ds-markdown-paragraph\"><span class=\"\">Federated Learning (FL) hadir sebagai paradigma revolusioner dalam machine learning yang memungkinkan pelatihan model kolaboratif tanpa harus mengumpulkan data mentah ke server pusat. Pendekatan ini menjadi solusi penting di tengah meningkatnya kesadaran akan privasi data dan regulasi ketat seperti GDPR di Eropa serta CCPA di Amerika Serikat </span><span class=\"\">. Namun, arsitektur terdistribusi FL justru membuka celah keamanan baru yang kompleks.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Artikel ini akan mengupas tuntas berbagai ancaman siber terhadap FL serta strategi pertahanan yang dikembangkan para peneliti untuk mengamankan sistem ini.</span></p>\n<h2><span class=\"\">Memahami Federated Learning dan Kerentanannya</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Federated Learning memungkinkan banyak klien (seperti perangkat seluler, rumah sakit, atau institusi keuangan) melatih model secara lokal menggunakan data mereka masing-masing. Setelah pelatihan lokal selesai, yang dibagikan ke server pusat hanyalah </span><em><span class=\"\">update</span></em><span class=\"\"> parameter model—bukan data mentahnya. Server kemudian mengagregasi pembaruan ini untuk menyempurnakan model global </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Namun, paradigma ini mengandung ironi keamanan:</span></strong><span class=\"\"> meskipun dirancang untuk melindungi privasi data, proses berbagi </span><em><span class=\"\">gradient</span></em><span class=\"\"> atau bobot model justru dapat dieksploitasi. Penelitian terbaru menunjukkan bahwa penyerang dapat mengekstrak informasi sensitif dari model global, termasuk data pelatihan pribadi. Bahkan, serangan ekstraksi data antar-klien dapat memulihkan hingga 56,6% informasi identitas pribadi yang unik dari klien korban </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Vektor Ancaman Utama dalam Federated Learning</span></h2>\n<h3><span class=\"\">1. Serangan Poisoning (Racun)</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Ini adalah ancaman paling serius dalam FL. Penyerang menyusup sebagai klien jahat dan mengirimkan </span><em><span class=\"\">update</span></em><span class=\"\"> model yang telah dimanipulasi untuk merusak model global. Serangan </span><em><span class=\"\">poisoning</span></em><span class=\"\"> dibagi menjadi dua jenis utama:</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Poisoning Data:</span></strong><span class=\"\"> Penyerang memanipulasi data pelatihan lokal sebelum pelatihan, misalnya dengan mengubah label (serangan </span><em><span class=\"\">label flipping</span></em><span class=\"\">) atau menyisipkan pola tertentu. Serangan </span><em><span class=\"\">backdoor</span></em><span class=\"\"> (Trojan) termasuk dalam kategori ini, di mana penyerang menyisipkan </span><em><span class=\"\">trigger</span></em><span class=\"\"> spesifik yang menyebabkan model salah mengklasifikasikan input yang mengandung pola tersebut </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Poisoning Model:</span></strong><span class=\"\"> Penyerang secara langsung memanipulasi pembaruan model lokal sebelum dikirim ke server, tanpa harus merusak data pelatihan </span><span class=\"\">.</span></p>\n<h3><span class=\"\">2. Serangan Sybil</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Dalam serangan ini, satu entitas jahat menciptakan banyak identitas palsu (klien Sybil) untuk memperkuat pengaruh mereka dalam proses agregasi. Klien Sybil dapat berkoordinasi dan berkolusi untuk melancarkan serangan </span><em><span class=\"\">poisoning</span></em><span class=\"\"> yang lebih canggih dan sulit dideteksi </span><span class=\"\">.</span></p>\n<h3><span class=\"\">3. Serangan Inferensi dan Ekstraksi Data</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Meskipun FL tidak membagikan data mentah, </span><em><span class=\"\">gradient</span></em><span class=\"\"> yang dikirimkan ternyata kaya akan informasi. Serangan </span><em><span class=\"\">gradient inversion</span></em><span class=\"\"> dapat merekonstruksi data pelatihan asli dari </span><em><span class=\"\">gradient</span></em><span class=\"\"> yang dibagikan. Serangan </span><em><span class=\"\">membership inference</span></em><span class=\"\"> dapat menentukan apakah suatu data spesifik digunakan dalam pelatihan. Bahkan, pada pelatihan Large Language Models (LLM) dengan FL, penyerang dapat mengekstrak informasi identitas pribadi lintas klien </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Tantangan Kompleks: Ketika Non-IID Memperparah Ancaman</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Kompleksitas keamanan FL meningkat secara signifikan dalam skenario data </span><strong><span class=\"\">non-IID (non-independent and identically distributed)</span></strong><span class=\"\">. Dalam dunia nyata, data di setiap klien seringkali tidak terdistribusi secara identik—misalnya, pengguna seluler memiliki preferensi yang berbeda, atau rumah sakit merawat pasien dengan demografi yang beragam. Kondisi ini mempersulit mekanisme deteksi anomali karena </span><em><span class=\"\">update</span></em><span class=\"\"> yang sah sekalipun dapat terlihat &#8220;menyimpang&#8221; </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Penyerang cerdas memanfaatkan kondisi ini. Sebuah kerangka serangan </span><em><span class=\"\">backdoor</span></em><span class=\"\"> canggih bernama ATBA (</span><em><span class=\"\">Anti-Traceable Backdoor Attack</span></em><span class=\"\">) dirancang khusus untuk menyalahkan klien yang tidak bersalah atas serangan </span><em><span class=\"\">poisoning</span></em><span class=\"\"> dengan memanfaatkan distribusi label yang timpang antar klien </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Strategi Pertahanan yang Berkembang</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Berbagai mekanisme pertahanan dikembangkan untuk melawan ancaman-ancaman di atas, yang secara garis besar dibagi menjadi tiga pendekatan utama:</span></p>\n<h3><span class=\"\">1. Deteksi Anomali dan Agregasi Robust</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Strategi ini berfokus pada bagaimana server menangani pembaruan model. Beberapa metode yang dikembangkan antara lain:</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Metrik Kesamaan:</span></strong><span class=\"\"> Pendekatan berbasis </span><em><span class=\"\">cosine similarity</span></em><span class=\"\"> digunakan untuk mengukur kedekatan antar pembaruan klien. Klien yang perilaku pembaruannya menyimpang secara signifikan dari &#8220;centroid&#8221; klien yang dianggap bersih akan ditandai dan dikecualikan dari agregasi </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Algoritma Agregasi Robust:</span></strong><span class=\"\"> Metode seperti </span><em><span class=\"\">Trimmed-Mean</span></em><span class=\"\"> (membuang pembaruan terbesar dan terkecil) atau </span><em><span class=\"\">Krum</span></em><span class=\"\"> (memilih pembaruan dengan jarak kuadrat terkecil) dirancang untuk mengurangi dampak </span><em><span class=\"\">outlier</span></em><span class=\"\"> dari penyerang </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Deteksi Perilaku Sybil:</span></strong><span class=\"\"> Penelitian terbaru beralih dari sekadar analisis model ke analisis perilaku, seperti mendeteksi koordinasi antar klien melalui pola kesamaan historis. Pendekatan ini terbukti efektif menekan </span><em><span class=\"\">Attack Success Ratio</span></em><span class=\"\"> dari di atas 40% menjadi di bawah 1% pada serangan </span><em><span class=\"\">label flipping</span></em><span class=\"\"> yang terkoordinasi </span><span class=\"\">.</span></p>\n<h3><span class=\"\">2. Mekanisme Privasi dan Enkripsi</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Untuk memitigasi serangan inferensi, teknik-teknik berikut diterapkan:</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Differential Privacy:</span></strong><span class=\"\"> Penambahan &#8220;noise&#8221; matematis pada pembaruan model sebelum dibagikan. Meskipun mengurangi akurasi, langkah ini melindungi privasi dengan membuat mustahil untuk mengidentifikasi kontribusi data spesifik individu </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Enkripsi Homomorfik:</span></strong><span class=\"\"> Memungkinkan server melakukan agregasi pada data yang terenkripsi tanpa perlu mendekripsinya terlebih dahulu, sehingga server tidak pernah memiliki akses ke pembaruan model yang &#8220;mentah&#8221;. Ini adalah pertahanan yang sangat kuat namun mahal secara komputasi </span><span class=\"\">.</span></p>\n<h3><span class=\"\">3. Arsitektur dan Sinkronisasi Adaptif</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Pendekatan ini mengubah cara FL dijalankan untuk meningkatkan keamanan:</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Distributed Federated Learning (DFL):</span></strong><span class=\"\"> Menghilangkan ketergantungan pada server pusat tunggal. Dengan jaringan yang terdesentralisasi, DFL menawarkan ketahanan terhadap kegagalan node dan strategi pertahanan yang lebih efektif, karena tidak ada satu titik yang menjadi target utama serangan </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Agregasi Hierarkis:</span></strong><span class=\"\"> Dalam arsitektur edge-fog-cloud, agregasi dilakukan di beberapa tingkatan. Ini memungkinkan deteksi anomali lebih awal di lapisan edge sebelum data mencapai server pusat, serta mengurangi beban komunikasi </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Studi Kasus: Penerapan di Dunia Nyata</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Keamanan FL bukan hanya konsep teoretis. Dalam jaringan </span><strong><span class=\"\">Software-Defined Networking (SDN)</span></strong><span class=\"\"> yang sangat rentan karena arsitektur terpusatnya, sebuah kerangka keamanan hibrid menggabungkan XGBoost untuk deteksi akurat, LightGBM untuk respons adaptif real-time, dan FL untuk berbagi intelijen ancaman antar-organisasi tanpa mengorbankan privasi. Sistem ini mencapai tingkat deteksi 96,3%, mengungguli sistem tradisional sebesar 7,8% </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Dalam sistem deteksi intrusi berbasis IoT, pendekatan </span><em><span class=\"\">personalized federated learning</span></em><span class=\"\"> (pFL-IDS) dikembangkan untuk menangani data yang heterogen sekaligus melawan serangan </span><em><span class=\"\">poisoning</span></em><span class=\"\">. Dengan menyesuaikan model untuk setiap distribusi data lokal dan menggunakan mekanisme deteksi berbasis kesamaan, sistem ini mampu mengidentifikasi klien jahat tanpa mengorbankan kinerja </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Tantangan Masa Depan dan Penelitian Terbuka</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Meskipun ada kemajuan, pertahanan FL masih menghadapi tantangan besar. Sifat adaptif dari penyerang membuat banyak mekanisme pertahanan statis menjadi usang. Serangan </span><em><span class=\"\">backdoor</span></em><span class=\"\"> yang anti-telusur semakin canggih, di mana penyerang dapat memanipulasi perilaku mereka agar menyalahkan klien yang tidak bersalah </span><span class=\"\">. Selain itu, hanya 56% organisasi yang menggunakan AI untuk aplikasi khusus, dan 98% organisasi yang menggunakan layanan AI berbasis cloud belum mengaktifkan mekanisme enkripsi yang tepat, menunjukkan bahwa adopsi praktik keamanan yang baik masih sangat rendah </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Jalan ke depan menuntut pendekatan </span><strong><span class=\"\">pertahanan berlapis</span></strong><span class=\"\"> yang menggabungkan deteksi anomali, enkripsi, dan agregasi adaptif. Pengembangan standar tolok ukur yang terstandarisasi untuk menguji keamanan FL juga sangat krusial agar penelitian dapat dibandingkan dan direproduksi secara anda</span></p>\n",
+  "content_text": "Federated Learning (FL) hadir sebagai paradigma revolusioner dalam machine learning yang memungkinkan pelatihan model kolaboratif tanpa harus mengumpulkan data mentah ke server pusat. Pendekatan ini menjadi solusi penting di tengah meningkatnya kesadaran akan privasi data dan regulasi ketat seperti GDPR di Eropa serta CCPA di Amerika Serikat   . Namun, arsitektur terdistribusi FL justru membuka celah keamanan baru yang kompleks.\nArtikel ini akan mengupas tuntas berbagai ancaman siber terhadap FL serta strategi pertahanan yang dikembangkan para peneliti untuk mengamankan sistem ini.\nMemahami Federated Learning dan Kerentanannya\nFederated Learning memungkinkan banyak klien (seperti perangkat seluler, rumah sakit, atau institusi keuangan) melatih model secara lokal menggunakan data mereka masing-masing. Setelah pelatihan lokal selesai, yang dibagikan ke server pusat hanyalah    update    parameter model—bukan data mentahnya. Server kemudian mengagregasi pembaruan ini untuk menyempurnakan model global   .\nNamun, paradigma ini mengandung ironi keamanan:    meskipun dirancang untuk melindungi privasi data, proses berbagi    gradient    atau bobot model justru dapat dieksploitasi. Penelitian terbaru menunjukkan bahwa penyerang dapat mengekstrak informasi sensitif dari model global, termasuk data pelatihan pribadi. Bahkan, serangan ekstraksi data antar-klien dapat memulihkan hingga 56,6% informasi identitas pribadi yang unik dari klien korban   .\nVektor Ancaman Utama dalam Federated Learning\n1. Serangan Poisoning (Racun)\nIni adalah ancaman paling serius dalam FL. Penyerang menyusup sebagai klien jahat dan mengirimkan    update    model yang telah dimanipulasi untuk merusak model global. Serangan    poisoning    dibagi menjadi dua jenis utama:\nPoisoning Data:    Penyerang memanipulasi data pelatihan lokal sebelum pelatihan, misalnya dengan mengubah label (serangan    label flipping   ) atau menyisipkan pola tertentu. Serangan    backdoor    (Trojan) termasuk dalam kategori ini, di mana penyerang menyisipkan    trigger    spesifik yang menyebabkan model salah mengklasifikasikan input yang mengandung pola tersebut   .\nPoisoning Model:    Penyerang secara langsung memanipulasi pembaruan model lokal sebelum dikirim ke server, tanpa harus merusak data pelatihan   .\n2. Serangan Sybil\nDalam serangan ini, satu entitas jahat menciptakan banyak identitas palsu (klien Sybil) untuk memperkuat pengaruh mereka dalam proses agregasi. Klien Sybil dapat berkoordinasi dan berkolusi untuk melancarkan serangan    poisoning    yang lebih canggih dan sulit dideteksi   .\n3. Serangan Inferensi dan Ekstraksi Data\nMeskipun FL tidak membagikan data mentah,    gradient    yang dikirimkan ternyata kaya akan informasi. Serangan    gradient inversion    dapat merekonstruksi data pelatihan asli dari    gradient    yang dibagikan. Serangan    membership inference    dapat menentukan apakah suatu data spesifik digunakan dalam pelatihan. Bahkan, pada pelatihan Large Language Models (LLM) dengan FL, penyerang dapat mengekstrak informasi identitas pribadi lintas klien   .\nTantangan Kompleks: Ketika Non-IID Memperparah Ancaman\nKompleksitas keamanan FL meningkat secara signifikan dalam skenario data    non-IID (non-independent and identically distributed)   . Dalam dunia nyata, data di setiap klien seringkali tidak terdistribusi secara identik—misalnya, pengguna seluler memiliki preferensi yang berbeda, atau rumah sakit merawat pasien dengan demografi yang beragam. Kondisi ini mempersulit mekanisme deteksi anomali karena    update    yang sah sekalipun dapat terlihat “menyimpang”   .\nPenyerang cerdas memanfaatkan kondisi ini. Sebuah kerangka serangan    backdoor    canggih bernama ATBA (   Anti-Traceable Backdoor Attack   ) dirancang khusus untuk menyalahkan klien yang tidak bersalah atas serangan    poisoning    dengan memanfaatkan distribusi label yang timpang antar klien   .\nStrategi Pertahanan yang Berkembang\nBerbagai mekanisme pertahanan dikembangkan untuk melawan ancaman-ancaman di atas, yang secara garis besar dibagi menjadi tiga pendekatan utama:\n1. Deteksi Anomali dan Agregasi Robust\nStrategi ini berfokus pada bagaimana server menangani pembaruan model. Beberapa metode yang dikembangkan antara lain:\nMetrik Kesamaan:    Pendekatan berbasis    cosine similarity    digunakan untuk mengukur kedekatan antar pembaruan klien. Klien yang perilaku pembaruannya menyimpang secara signifikan dari “centroid” klien yang dianggap bersih akan ditandai dan dikecualikan dari agregasi   .\nAlgoritma Agregasi Robust:    Metode seperti    Trimmed-Mean    (membuang pembaruan terbesar dan terkecil) atau    Krum    (memilih pembaruan dengan jarak kuadrat terkecil) dirancang untuk mengurangi dampak    outlier    dari penyerang   .\nDeteksi Perilaku Sybil:    Penelitian terbaru beralih dari sekadar analisis model ke analisis perilaku, seperti mendeteksi koordinasi antar klien melalui pola kesamaan historis. Pendekatan ini terbukti efektif menekan    Attack Success Ratio    dari di atas 40% menjadi di bawah 1% pada serangan    label flipping    yang terkoordinasi   .\n2. Mekanisme Privasi dan Enkripsi\nUntuk memitigasi serangan inferensi, teknik-teknik berikut diterapkan:\nDifferential Privacy:    Penambahan “noise” matematis pada pembaruan model sebelum dibagikan. Meskipun mengurangi akurasi, langkah ini melindungi privasi dengan membuat mustahil untuk mengidentifikasi kontribusi data spesifik individu   .\nEnkripsi Homomorfik:    Memungkinkan server melakukan agregasi pada data yang terenkripsi tanpa perlu mendekripsinya terlebih dahulu, sehingga server tidak pernah memiliki akses ke pembaruan model yang “mentah”. Ini adalah pertahanan yang sangat kuat namun mahal secara komputasi   .\n3. Arsitektur dan Sinkronisasi Adaptif\nPendekatan ini mengubah cara FL dijalankan untuk meningkatkan keamanan:\nDistributed Federated Learning (DFL):    Menghilangkan ketergantungan pada server pusat tunggal. Dengan jaringan yang terdesentralisasi, DFL menawarkan ketahanan terhadap kegagalan node dan strategi pertahanan yang lebih efektif, karena tidak ada satu titik yang menjadi target utama serangan   .\nAgregasi Hierarkis:    Dalam arsitektur edge-fog-cloud, agregasi dilakukan di beberapa tingkatan. Ini memungkinkan deteksi anomali lebih awal di lapisan edge sebelum data mencapai server pusat, serta mengurangi beban komunikasi   .\nStudi Kasus: Penerapan di Dunia Nyata\nKeamanan FL bukan hanya konsep teoretis. Dalam jaringan    Software-Defined Networking (SDN)    yang sangat rentan karena arsitektur terpusatnya, sebuah kerangka keamanan hibrid menggabungkan XGBoost untuk deteksi akurat, LightGBM untuk respons adaptif real-time, dan FL untuk berbagi intelijen ancaman antar-organisasi tanpa mengorbankan privasi. Sistem ini mencapai tingkat deteksi 96,3%, mengungguli sistem tradisional sebesar 7,8%   .\nDalam sistem deteksi intrusi berbasis IoT, pendekatan    personalized federated learning    (pFL-IDS) dikembangkan untuk menangani data yang heterogen sekaligus melawan serangan    poisoning   . Dengan menyesuaikan model untuk setiap distribusi data lokal dan menggunakan mekanisme deteksi berbasis kesamaan, sistem ini mampu mengidentifikasi klien jahat tanpa mengorbankan kinerja   .\nTantangan Masa Depan dan Penelitian Terbuka\nMeskipun ada kemajuan, pertahanan FL masih menghadapi tantangan besar. Sifat adaptif dari penyerang membuat banyak mekanisme pertahanan statis menjadi usang. Serangan    backdoor    yang anti-telusur semakin canggih, di mana penyerang dapat memanipulasi perilaku mereka agar menyalahkan klien yang tidak bersalah   . Selain itu, hanya 56% organisasi yang menggunakan AI untuk aplikasi khusus, dan 98% organisasi yang menggunakan layanan AI berbasis cloud belum mengaktifkan mekanisme enkripsi yang tepat, menunjukkan bahwa adopsi praktik keamanan yang baik masih sangat rendah   .\nJalan ke depan menuntut pendekatan    pertahanan berlapis    yang menggabungkan deteksi anomali, enkripsi, dan agregasi adaptif. Pengembangan standar tolok ukur yang terstandarisasi untuk menguji keamanan FL juga sangat krusial agar penelitian dapat dibandingkan dan direproduksi secara anda",
+  "raw": {
+    "id": 16564,
+    "date": "2026-07-29T15:22:26",
+    "date_gmt": "2026-07-29T15:22:26",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=16564"
+    },
+    "modified": "2026-07-29T15:22:26",
+    "modified_gmt": "2026-07-29T15:22:26",
+    "slug": "keamanan-federated-learning-dari-serangan-siber",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/",
+    "title": {
+      "rendered": "Keamanan Federated Learning dari Serangan Siber"
+    },
+    "content": {
+      "rendered": "<p class=\"ds-markdown-paragraph\"><span class=\"\">Federated Learning (FL) hadir sebagai paradigma revolusioner dalam machine learning yang memungkinkan pelatihan model kolaboratif tanpa harus mengumpulkan data mentah ke server pusat. Pendekatan ini menjadi solusi penting di tengah meningkatnya kesadaran akan privasi data dan regulasi ketat seperti GDPR di Eropa serta CCPA di Amerika Serikat </span><span class=\"\">. Namun, arsitektur terdistribusi FL justru membuka celah keamanan baru yang kompleks.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Artikel ini akan mengupas tuntas berbagai ancaman siber terhadap FL serta strategi pertahanan yang dikembangkan para peneliti untuk mengamankan sistem ini.</span></p>\n<h2><span class=\"\">Memahami Federated Learning dan Kerentanannya</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Federated Learning memungkinkan banyak klien (seperti perangkat seluler, rumah sakit, atau institusi keuangan) melatih model secara lokal menggunakan data mereka masing-masing. Setelah pelatihan lokal selesai, yang dibagikan ke server pusat hanyalah </span><em><span class=\"\">update</span></em><span class=\"\"> parameter model—bukan data mentahnya. Server kemudian mengagregasi pembaruan ini untuk menyempurnakan model global </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Namun, paradigma ini mengandung ironi keamanan:</span></strong><span class=\"\"> meskipun dirancang untuk melindungi privasi data, proses berbagi </span><em><span class=\"\">gradient</span></em><span class=\"\"> atau bobot model justru dapat dieksploitasi. Penelitian terbaru menunjukkan bahwa penyerang dapat mengekstrak informasi sensitif dari model global, termasuk data pelatihan pribadi. Bahkan, serangan ekstraksi data antar-klien dapat memulihkan hingga 56,6% informasi identitas pribadi yang unik dari klien korban </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Vektor Ancaman Utama dalam Federated Learning</span></h2>\n<h3><span class=\"\">1. Serangan Poisoning (Racun)</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Ini adalah ancaman paling serius dalam FL. Penyerang menyusup sebagai klien jahat dan mengirimkan </span><em><span class=\"\">update</span></em><span class=\"\"> model yang telah dimanipulasi untuk merusak model global. Serangan </span><em><span class=\"\">poisoning</span></em><span class=\"\"> dibagi menjadi dua jenis utama:</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Poisoning Data:</span></strong><span class=\"\"> Penyerang memanipulasi data pelatihan lokal sebelum pelatihan, misalnya dengan mengubah label (serangan </span><em><span class=\"\">label flipping</span></em><span class=\"\">) atau menyisipkan pola tertentu. Serangan </span><em><span class=\"\">backdoor</span></em><span class=\"\"> (Trojan) termasuk dalam kategori ini, di mana penyerang menyisipkan </span><em><span class=\"\">trigger</span></em><span class=\"\"> spesifik yang menyebabkan model salah mengklasifikasikan input yang mengandung pola tersebut </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Poisoning Model:</span></strong><span class=\"\"> Penyerang secara langsung memanipulasi pembaruan model lokal sebelum dikirim ke server, tanpa harus merusak data pelatihan </span><span class=\"\">.</span></p>\n<h3><span class=\"\">2. Serangan Sybil</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Dalam serangan ini, satu entitas jahat menciptakan banyak identitas palsu (klien Sybil) untuk memperkuat pengaruh mereka dalam proses agregasi. Klien Sybil dapat berkoordinasi dan berkolusi untuk melancarkan serangan </span><em><span class=\"\">poisoning</span></em><span class=\"\"> yang lebih canggih dan sulit dideteksi </span><span class=\"\">.</span></p>\n<h3><span class=\"\">3. Serangan Inferensi dan Ekstraksi Data</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Meskipun FL tidak membagikan data mentah, </span><em><span class=\"\">gradient</span></em><span class=\"\"> yang dikirimkan ternyata kaya akan informasi. Serangan </span><em><span class=\"\">gradient inversion</span></em><span class=\"\"> dapat merekonstruksi data pelatihan asli dari </span><em><span class=\"\">gradient</span></em><span class=\"\"> yang dibagikan. Serangan </span><em><span class=\"\">membership inference</span></em><span class=\"\"> dapat menentukan apakah suatu data spesifik digunakan dalam pelatihan. Bahkan, pada pelatihan Large Language Models (LLM) dengan FL, penyerang dapat mengekstrak informasi identitas pribadi lintas klien </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Tantangan Kompleks: Ketika Non-IID Memperparah Ancaman</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Kompleksitas keamanan FL meningkat secara signifikan dalam skenario data </span><strong><span class=\"\">non-IID (non-independent and identically distributed)</span></strong><span class=\"\">. Dalam dunia nyata, data di setiap klien seringkali tidak terdistribusi secara identik—misalnya, pengguna seluler memiliki preferensi yang berbeda, atau rumah sakit merawat pasien dengan demografi yang beragam. Kondisi ini mempersulit mekanisme deteksi anomali karena </span><em><span class=\"\">update</span></em><span class=\"\"> yang sah sekalipun dapat terlihat &#8220;menyimpang&#8221; </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Penyerang cerdas memanfaatkan kondisi ini. Sebuah kerangka serangan </span><em><span class=\"\">backdoor</span></em><span class=\"\"> canggih bernama ATBA (</span><em><span class=\"\">Anti-Traceable Backdoor Attack</span></em><span class=\"\">) dirancang khusus untuk menyalahkan klien yang tidak bersalah atas serangan </span><em><span class=\"\">poisoning</span></em><span class=\"\"> dengan memanfaatkan distribusi label yang timpang antar klien </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Strategi Pertahanan yang Berkembang</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Berbagai mekanisme pertahanan dikembangkan untuk melawan ancaman-ancaman di atas, yang secara garis besar dibagi menjadi tiga pendekatan utama:</span></p>\n<h3><span class=\"\">1. Deteksi Anomali dan Agregasi Robust</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Strategi ini berfokus pada bagaimana server menangani pembaruan model. Beberapa metode yang dikembangkan antara lain:</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Metrik Kesamaan:</span></strong><span class=\"\"> Pendekatan berbasis </span><em><span class=\"\">cosine similarity</span></em><span class=\"\"> digunakan untuk mengukur kedekatan antar pembaruan klien. Klien yang perilaku pembaruannya menyimpang secara signifikan dari &#8220;centroid&#8221; klien yang dianggap bersih akan ditandai dan dikecualikan dari agregasi </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Algoritma Agregasi Robust:</span></strong><span class=\"\"> Metode seperti </span><em><span class=\"\">Trimmed-Mean</span></em><span class=\"\"> (membuang pembaruan terbesar dan terkecil) atau </span><em><span class=\"\">Krum</span></em><span class=\"\"> (memilih pembaruan dengan jarak kuadrat terkecil) dirancang untuk mengurangi dampak </span><em><span class=\"\">outlier</span></em><span class=\"\"> dari penyerang </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Deteksi Perilaku Sybil:</span></strong><span class=\"\"> Penelitian terbaru beralih dari sekadar analisis model ke analisis perilaku, seperti mendeteksi koordinasi antar klien melalui pola kesamaan historis. Pendekatan ini terbukti efektif menekan </span><em><span class=\"\">Attack Success Ratio</span></em><span class=\"\"> dari di atas 40% menjadi di bawah 1% pada serangan </span><em><span class=\"\">label flipping</span></em><span class=\"\"> yang terkoordinasi </span><span class=\"\">.</span></p>\n<h3><span class=\"\">2. Mekanisme Privasi dan Enkripsi</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Untuk memitigasi serangan inferensi, teknik-teknik berikut diterapkan:</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Differential Privacy:</span></strong><span class=\"\"> Penambahan &#8220;noise&#8221; matematis pada pembaruan model sebelum dibagikan. Meskipun mengurangi akurasi, langkah ini melindungi privasi dengan membuat mustahil untuk mengidentifikasi kontribusi data spesifik individu </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Enkripsi Homomorfik:</span></strong><span class=\"\"> Memungkinkan server melakukan agregasi pada data yang terenkripsi tanpa perlu mendekripsinya terlebih dahulu, sehingga server tidak pernah memiliki akses ke pembaruan model yang &#8220;mentah&#8221;. Ini adalah pertahanan yang sangat kuat namun mahal secara komputasi </span><span class=\"\">.</span></p>\n<h3><span class=\"\">3. Arsitektur dan Sinkronisasi Adaptif</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Pendekatan ini mengubah cara FL dijalankan untuk meningkatkan keamanan:</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Distributed Federated Learning (DFL):</span></strong><span class=\"\"> Menghilangkan ketergantungan pada server pusat tunggal. Dengan jaringan yang terdesentralisasi, DFL menawarkan ketahanan terhadap kegagalan node dan strategi pertahanan yang lebih efektif, karena tidak ada satu titik yang menjadi target utama serangan </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Agregasi Hierarkis:</span></strong><span class=\"\"> Dalam arsitektur edge-fog-cloud, agregasi dilakukan di beberapa tingkatan. Ini memungkinkan deteksi anomali lebih awal di lapisan edge sebelum data mencapai server pusat, serta mengurangi beban komunikasi </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Studi Kasus: Penerapan di Dunia Nyata</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Keamanan FL bukan hanya konsep teoretis. Dalam jaringan </span><strong><span class=\"\">Software-Defined Networking (SDN)</span></strong><span class=\"\"> yang sangat rentan karena arsitektur terpusatnya, sebuah kerangka keamanan hibrid menggabungkan XGBoost untuk deteksi akurat, LightGBM untuk respons adaptif real-time, dan FL untuk berbagi intelijen ancaman antar-organisasi tanpa mengorbankan privasi. Sistem ini mencapai tingkat deteksi 96,3%, mengungguli sistem tradisional sebesar 7,8% </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Dalam sistem deteksi intrusi berbasis IoT, pendekatan </span><em><span class=\"\">personalized federated learning</span></em><span class=\"\"> (pFL-IDS) dikembangkan untuk menangani data yang heterogen sekaligus melawan serangan </span><em><span class=\"\">poisoning</span></em><span class=\"\">. Dengan menyesuaikan model untuk setiap distribusi data lokal dan menggunakan mekanisme deteksi berbasis kesamaan, sistem ini mampu mengidentifikasi klien jahat tanpa mengorbankan kinerja </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Tantangan Masa Depan dan Penelitian Terbuka</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Meskipun ada kemajuan, pertahanan FL masih menghadapi tantangan besar. Sifat adaptif dari penyerang membuat banyak mekanisme pertahanan statis menjadi usang. Serangan </span><em><span class=\"\">backdoor</span></em><span class=\"\"> yang anti-telusur semakin canggih, di mana penyerang dapat memanipulasi perilaku mereka agar menyalahkan klien yang tidak bersalah </span><span class=\"\">. Selain itu, hanya 56% organisasi yang menggunakan AI untuk aplikasi khusus, dan 98% organisasi yang menggunakan layanan AI berbasis cloud belum mengaktifkan mekanisme enkripsi yang tepat, menunjukkan bahwa adopsi praktik keamanan yang baik masih sangat rendah </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Jalan ke depan menuntut pendekatan </span><strong><span class=\"\">pertahanan berlapis</span></strong><span class=\"\"> yang menggabungkan deteksi anomali, enkripsi, dan agregasi adaptif. Pengembangan standar tolok ukur yang terstandarisasi untuk menguji keamanan FL juga sangat krusial agar penelitian dapat dibandingkan dan direproduksi secara anda</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Federated Learning (FL) hadir sebagai paradigma revolusioner dalam machine learning yang memungkinkan pelatihan model kolaboratif tanpa harus mengumpulkan data mentah ke server pusat. Pendekatan ini menjadi solusi penting di tengah meningkatnya kesadaran akan privasi data dan regulasi ketat seperti GDPR di Eropa serta CCPA di Amerika Serikat . Namun, arsitektur terdistribusi FL justru membuka celah keamanan baru yang kompleks. Artikel ini akan mengupas tuntas berbagai ancaman siber terhadap FL serta strategi pertahanan yang dikembangkan para peneliti untuk mengamankan sistem ini. Memahami Federated Learning dan Kerentanannya Federated Learning memungkinkan banyak klien (seperti perangkat seluler, rumah sakit, atau institusi keuangan) melatih model secara&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 23,
+    "featured_media": 16569,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1
+    ],
+    "tags": [],
+    "class_list": [
+      "post-16564",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-uncategorized"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Keamanan Federated Learning dari Serangan Siber - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Keamanan Federated Learning dari Serangan Siber - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Federated Learning (FL) hadir sebagai paradigma revolusioner dalam machine learning yang memungkinkan pelatihan model kolaboratif tanpa harus mengumpulkan data mentah ke server pusat. Pendekatan ini menjadi solusi penting di tengah meningkatnya kesadaran akan privasi data dan regulasi ketat seperti GDPR di Eropa serta CCPA di Amerika Serikat . Namun, arsitektur terdistribusi FL justru membuka celah keamanan baru yang kompleks. Artikel ini akan mengupas tuntas berbagai ancaman siber terhadap FL serta strategi pertahanan yang dikembangkan para peneliti untuk mengamankan sistem ini. Memahami Federated Learning dan Kerentanannya Federated Learning memungkinkan banyak klien (seperti perangkat seluler, rumah sakit, atau institusi keuangan) melatih model secara...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-29T15:22:26+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_pjdq4xpjdq4xpjdq-1024x559.png\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"559\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Ezril Fahrul Rizal\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Ezril Fahrul Rizal\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/\",\"url\":\"https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/\",\"name\":\"Keamanan Federated Learning dari Serangan Siber - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_pjdq4xpjdq4xpjdq.png\",\"datePublished\":\"2026-07-29T15:22:26+00:00\",\"dateModified\":\"2026-07-29T15:22:26+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_pjdq4xpjdq4xpjdq.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_pjdq4xpjdq4xpjdq.png\",\"width\":1408,\"height\":768},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Keamanan Federated Learning dari Serangan Siber\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d\",\"name\":\"Ezril Fahrul Rizal\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g\",\"caption\":\"Ezril Fahrul Rizal\"},\"url\":\"https://buletinsiber.com/author/ezril-fahrul-rizal/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Keamanan Federated Learning dari Serangan Siber - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Keamanan Federated Learning dari Serangan Siber - buletinsiber.com",
+      "og_description": "Federated Learning (FL) hadir sebagai paradigma revolusioner dalam machine learning yang memungkinkan pelatihan model kolaboratif tanpa harus mengumpulkan data mentah ke server pusat. Pendekatan ini menjadi solusi penting di tengah meningkatnya kesadaran akan privasi data dan regulasi ketat seperti GDPR di Eropa serta CCPA di Amerika Serikat . Namun, arsitektur terdistribusi FL justru membuka celah keamanan baru yang kompleks. Artikel ini akan mengupas tuntas berbagai ancaman siber terhadap FL serta strategi pertahanan yang dikembangkan para peneliti untuk mengamankan sistem ini. Memahami Federated Learning dan Kerentanannya Federated Learning memungkinkan banyak klien (seperti perangkat seluler, rumah sakit, atau institusi keuangan) melatih model secara...",
+      "og_url": "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-29T15:22:26+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 559,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_pjdq4xpjdq4xpjdq-1024x559.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Ezril Fahrul Rizal",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Ezril Fahrul Rizal",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/",
+            "url": "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/",
+            "name": "Keamanan Federated Learning dari Serangan Siber - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_pjdq4xpjdq4xpjdq.png",
+            "datePublished": "2026-07-29T15:22:26+00:00",
+            "dateModified": "2026-07-29T15:22:26+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_pjdq4xpjdq4xpjdq.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_pjdq4xpjdq4xpjdq.png",
+            "width": 1408,
+            "height": 768
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/keamanan-federated-learning-dari-serangan-siber/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Keamanan Federated Learning dari Serangan Siber"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d",
+            "name": "Ezril Fahrul Rizal",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g",
+              "caption": "Ezril Fahrul Rizal"
+            },
+            "url": "https://buletinsiber.com/author/ezril-fahrul-rizal/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/16564",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/23"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=16564"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/16564/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 16570,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/16564/revisions/16570"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/16569"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=16564"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=16564"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=16564"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

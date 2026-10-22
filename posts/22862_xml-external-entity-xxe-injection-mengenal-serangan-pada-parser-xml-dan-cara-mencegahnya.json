@@ -1,0 +1,328 @@
+{
+  "id": 22862,
+  "title": "XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya",
+  "slug": "xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya",
+  "url": "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/",
+  "date": "2026-08-17T00:11:49",
+  "date_gmt": "2026-08-17T00:11:49",
+  "modified": "2026-08-17T00:11:49",
+  "modified_gmt": "2026-08-17T00:11:49",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    932,
+    682,
+    3962
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg",
+  "excerpt": "Pengantar XML masih digunakan dalam berbagai aplikasi, API, konfigurasi, integrasi enterprise, hingga layanan berbasis SOAP. Namun, cara aplikasi memproses XML dapat menimbulkan risiko keamanan jika parser dikonfigurasi secara tidak tepat. Salah satu kerentanan yang perlu diperhatikan adalah XML External Entity (XXE) Injection. Serangan ini terjadi ketika aplikasi memproses input XML dari sumber yang tidak terpercaya dan parser masih mengizinkan pemrosesan external entity. XXE dapat menyebabkan berbagai dampak, seperti pembacaan file lokal, Server-Side Request Forgery (SSRF), pemindaian jaringan internal, hingga denial-of-service. OWASP menjelaskan bahwa XXE muncul ketika XML yang tidak terpercaya diproses oleh parser yang masih mengizinkan external entity (dikutip dari:…",
+  "content_html": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"95\" data-end=\"107\">Pengantar</h2>\n<p data-start=\"109\" data-end=\"338\">XML masih digunakan dalam berbagai aplikasi, API, konfigurasi, integrasi enterprise, hingga layanan berbasis SOAP. Namun, cara aplikasi memproses XML dapat menimbulkan risiko keamanan jika parser dikonfigurasi secara tidak tepat.</p>\n<p data-start=\"340\" data-end=\"581\">Salah satu kerentanan yang perlu diperhatikan adalah <strong data-start=\"393\" data-end=\"432\">XML External Entity (XXE) Injection</strong>. Serangan ini terjadi ketika aplikasi memproses input XML dari sumber yang tidak terpercaya dan parser masih mengizinkan pemrosesan external entity.</p>\n<p data-start=\"583\" data-end=\"987\">XXE dapat menyebabkan berbagai dampak, seperti pembacaan file lokal, Server-Side Request Forgery (SSRF), pemindaian jaringan internal, hingga denial-of-service. OWASP menjelaskan bahwa XXE muncul ketika XML yang tidak terpercaya diproses oleh parser yang masih mengizinkan external entity <strong data-start=\"872\" data-end=\"986\">(dikutip dari: <a class=\"decorated-link\" href=\"https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"889\" data-end=\"983\">https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html</a>)</strong>.</p>\n<blockquote>\n<p data-start=\"583\" data-end=\"987\">baca juga : <a href=\"https://buletinsiber.com/graphql-security-mengenal-celah-serangan-dan-cara-mengamankan-api-modern/\">GraphQL Security: Mengenal Celah Serangan dan Cara Mengamankan API Modern</a></p>\n</blockquote>\n<hr data-start=\"989\" data-end=\"992\" />\n<h2 data-section-id=\"186hmc9\" data-start=\"994\" data-end=\"1031\">Apa Itu XML External Entity (XXE)?</h2>\n<p data-start=\"1033\" data-end=\"1168\">XML External Entity atau XXE adalah kerentanan yang memanfaatkan fitur <strong data-start=\"1104\" data-end=\"1138\">DTD (Document Type Definition)</strong> dan external entity pada XML.</p>\n<p data-start=\"1170\" data-end=\"1430\">Dalam kondisi tertentu, XML memungkinkan sebuah entity mengambil referensi dari resource eksternal. Jika parser tidak dikonfigurasi dengan aman, attacker dapat memanipulasi XML sehingga aplikasi mencoba mengakses resource yang seharusnya tidak dapat dijangkau.</p>\n<p data-start=\"1432\" data-end=\"1457\">Alur sederhananya adalah:</p>\n<p data-start=\"1459\" data-end=\"1521\">User Input → XML Parser → External Entity → Resource Eksternal</p>\n<p data-start=\"1523\" data-end=\"1669\">Masalah utama bukan terletak pada XML itu sendiri, tetapi pada <strong data-start=\"1586\" data-end=\"1668\">konfigurasi parser dan cara aplikasi memproses input XML yang tidak terpercaya</strong>.</p>\n<hr data-start=\"1671\" data-end=\"1674\" />\n<h2 data-section-id=\"rl3gt1\" data-start=\"1676\" data-end=\"1707\">Bagaimana XXE Dapat Terjadi?</h2>\n<h3 data-section-id=\"mq5kmx\" data-start=\"1709\" data-end=\"1739\">Parser XML yang Tidak Aman</h3>\n<p data-start=\"1741\" data-end=\"1838\">Ketika aplikasi menerima XML dari pengguna, data tersebut biasanya akan diteruskan ke XML parser.</p>\n<p data-start=\"1840\" data-end=\"1870\">Jika parser masih mengizinkan:</p>\n<ul data-start=\"1872\" data-end=\"1954\">\n<li data-section-id=\"1j41o0i\" data-start=\"1872\" data-end=\"1878\">DTD.</li>\n<li data-section-id=\"11iajeo\" data-start=\"1879\" data-end=\"1897\">External entity.</li>\n<li data-section-id=\"1ihu0dr\" data-start=\"1898\" data-end=\"1913\">External DTD.</li>\n<li data-section-id=\"4h84oh\" data-start=\"1914\" data-end=\"1934\">External resource.</li>\n<li data-section-id=\"azwhpg\" data-start=\"1935\" data-end=\"1954\">Entity expansion.</li>\n</ul>\n<p data-start=\"1956\" data-end=\"2043\">maka input berbahaya dapat menyebabkan parser melakukan tindakan yang tidak diinginkan.</p>\n<p data-start=\"2045\" data-end=\"2307\">PortSwigger menjelaskan bahwa XXE dapat memungkinkan aplikasi membaca file pada filesystem server atau melakukan koneksi ke sistem lain yang dapat dijangkau oleh server <strong data-start=\"2214\" data-end=\"2306\">(dikutip dari: <a class=\"decorated-link\" href=\"https://portswigger.net/kb/issues/00100400_xml-external-entity-injection?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"2231\" data-end=\"2303\">https://portswigger.net/kb/issues/00100400_xml-external-entity-injection</a>)</strong>.</p>\n<hr data-start=\"2309\" data-end=\"2312\" />\n<h2 data-section-id=\"tyvyc1\" data-start=\"2314\" data-end=\"2336\">Dampak Serangan XXE</h2>\n<h3 data-section-id=\"1cf0s69\" data-start=\"2338\" data-end=\"2360\">Membaca File Lokal</h3>\n<p data-start=\"2362\" data-end=\"2458\">Salah satu risiko XXE adalah aplikasi dapat dipaksa mencoba membaca file dari filesystem server.</p>\n<p data-start=\"2460\" data-end=\"2567\">Jika file tersebut kemudian muncul dalam response atau error aplikasi, informasi sensitif berpotensi bocor.</p>\n<p data-start=\"2569\" data-end=\"2624\">Contoh informasi yang dapat menjadi target antara lain:</p>\n<ul data-start=\"2626\" data-end=\"2747\">\n<li data-section-id=\"xoa95q\" data-start=\"2626\" data-end=\"2645\">File konfigurasi.</li>\n<li data-section-id=\"1f9joo9\" data-start=\"2646\" data-end=\"2668\">Credential aplikasi.</li>\n<li data-section-id=\"10irb4z\" data-start=\"2669\" data-end=\"2697\">Environment configuration.</li>\n<li data-section-id=\"1fr79zp\" data-start=\"2698\" data-end=\"2723\">Data internal aplikasi.</li>\n<li data-section-id=\"jwe9l4\" data-start=\"2724\" data-end=\"2747\">File sistem tertentu.</li>\n</ul>\n<p data-start=\"2749\" data-end=\"2822\">Karena itu, XXE dapat berubah menjadi masalah <strong data-start=\"2795\" data-end=\"2821\">information disclosure</strong>.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"824\" height=\"549\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 824px) 100vw, 824px\" /></p>\n<hr data-start=\"2824\" data-end=\"2827\" />\n<h3 data-section-id=\"1fhra0z\" data-start=\"2829\" data-end=\"2867\">Server-Side Request Forgery (SSRF)</h3>\n<p data-start=\"2869\" data-end=\"2920\">XXE juga dapat digunakan sebagai jalur menuju SSRF.</p>\n<p data-start=\"2922\" data-end=\"3052\">Dalam kondisi tertentu, attacker dapat menyebabkan server melakukan request ke resource yang dapat dijangkau dari jaringan server.</p>\n<p data-start=\"3054\" data-end=\"3223\">Hal ini menjadi berbahaya pada lingkungan cloud atau jaringan internal karena server mungkin memiliki akses ke service yang tidak tersedia secara langsung dari internet.</p>\n<p data-start=\"3225\" data-end=\"3457\">OWASP mencantumkan SSRF, port scanning, dan akses terhadap resource internal sebagai beberapa kemungkinan dampak XXE <strong data-start=\"3342\" data-end=\"3456\">(dikutip dari: <a class=\"decorated-link\" href=\"https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"3359\" data-end=\"3453\">https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html</a>)</strong>.</p>\n<hr data-start=\"3459\" data-end=\"3462\" />\n<h3 data-section-id=\"nta2d5\" data-start=\"3464\" data-end=\"3485\">Denial-of-Service</h3>\n<p data-start=\"3487\" data-end=\"3553\">XXE juga dapat berkaitan dengan serangan terhadap resource parser.</p>\n<p data-start=\"3555\" data-end=\"3675\">Entity expansion yang dilakukan secara berlebihan dapat menyebabkan penggunaan CPU atau memory meningkat secara drastis.</p>\n<p data-start=\"3677\" data-end=\"3833\">Salah satu bentuk serangan yang dikenal adalah <strong data-start=\"3724\" data-end=\"3742\">Billion Laughs</strong>, yaitu penyalahgunaan entity expansion secara rekursif untuk menghabiskan resource sistem.</p>\n<p data-start=\"3835\" data-end=\"3946\">Karena itu, pembatasan entity expansion dan penggunaan secure processing juga penting dalam konfigurasi parser.</p>\n<blockquote>\n<p data-start=\"3835\" data-end=\"3946\">baca juga : <a href=\"https://buletinsiber.com/attribute-based-access-control-abac-cara-kerja-dan-perannya-dalam-keamanan-akses-modern/\">Attribute-Based Access Control (ABAC): Cara Kerja dan Perannya dalam Keamanan Akses Modern</a></p>\n</blockquote>\n<hr data-start=\"3948\" data-end=\"3951\" />\n<h2 data-section-id=\"10os0ua\" data-start=\"3953\" data-end=\"3984\">Mengapa XXE Sering Terlewat?</h2>\n<p data-start=\"3986\" data-end=\"4099\">Salah satu alasan XXE cukup berbahaya adalah karena kerentanannya tidak selalu terlihat pada kode aplikasi utama.</p>\n<p data-start=\"4101\" data-end=\"4137\">Aplikasi mungkin terlihat sederhana:</p>\n<p data-start=\"4139\" data-end=\"4176\">User → Upload XML → Parser → Database</p>\n<p data-start=\"4178\" data-end=\"4272\">Namun, parser XML yang digunakan dapat berasal dari library pihak ketiga atau dependency lain.</p>\n<p data-start=\"4274\" data-end=\"4549\">OWASP merekomendasikan agar developer memahami konfigurasi parser yang digunakan dan tidak mengandalkan konfigurasi default tanpa melakukan verifikasi keamanan <strong data-start=\"4434\" data-end=\"4548\">(dikutip dari: <a class=\"decorated-link\" href=\"https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"4451\" data-end=\"4545\">https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html</a>)</strong>.</p>\n<hr data-start=\"4551\" data-end=\"4554\" />\n<h2 data-section-id=\"18zs6vc\" data-start=\"4556\" data-end=\"4586\">Cara Mencegah XXE Injection</h2>\n<h3 data-section-id=\"8at7fp\" data-start=\"4588\" data-end=\"4627\">Nonaktifkan DTD dan External Entity</h3>\n<p data-start=\"4629\" data-end=\"4750\">Langkah paling penting adalah menonaktifkan pemrosesan DTD dan external entity jika aplikasi memang tidak membutuhkannya.</p>\n<p data-start=\"4752\" data-end=\"5000\">OWASP menyebutkan bahwa cara paling aman untuk mencegah XXE adalah menonaktifkan DTD atau external entity sepenuhnya pada XML parser <strong data-start=\"4885\" data-end=\"4999\">(dikutip dari: <a class=\"decorated-link\" href=\"https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"4902\" data-end=\"4996\">https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html</a>)</strong>.</p>\n<hr data-start=\"5002\" data-end=\"5005\" />\n<h3 data-section-id=\"1bhmrg3\" data-start=\"5007\" data-end=\"5039\">Gunakan XML Parser yang Aman</h3>\n<p data-start=\"5041\" data-end=\"5114\">Pastikan library XML yang digunakan masih mendapatkan pembaruan keamanan.</p>\n<p data-start=\"5116\" data-end=\"5146\">Developer sebaiknya memeriksa:</p>\n<ul data-start=\"5148\" data-end=\"5338\">\n<li data-section-id=\"k1rol6\" data-start=\"5148\" data-end=\"5163\">Versi parser.</li>\n<li data-section-id=\"jbl0uj\" data-start=\"5164\" data-end=\"5197\">Default security configuration.</li>\n<li data-section-id=\"1y00ua2\" data-start=\"5198\" data-end=\"5245\">Dukungan untuk menonaktifkan external entity.</li>\n<li data-section-id=\"jufheb\" data-start=\"5246\" data-end=\"5275\">Dukungan secure processing.</li>\n<li data-section-id=\"1gjpm1t\" data-start=\"5276\" data-end=\"5301\">Batas entity expansion.</li>\n<li data-section-id=\"1eiotqz\" data-start=\"5302\" data-end=\"5338\">Kemampuan membatasi akses network.</li>\n</ul>\n<p data-start=\"5340\" data-end=\"5415\">Jangan menganggap semua XML parser memiliki konfigurasi keamanan yang sama.</p>\n<hr data-start=\"5417\" data-end=\"5420\" />\n<h3 data-section-id=\"109y3r8\" data-start=\"5422\" data-end=\"5444\">Validasi Input XML</h3>\n<p data-start=\"5446\" data-end=\"5532\">Input XML tetap harus divalidasi berdasarkan struktur yang memang dibutuhkan aplikasi.</p>\n<p data-start=\"5534\" data-end=\"5621\">Validasi dapat membantu memastikan bahwa data sesuai dengan schema dan aturan aplikasi.</p>\n<p data-start=\"5623\" data-end=\"5758\">Namun, validasi input <strong data-start=\"5645\" data-end=\"5714\">tidak boleh dianggap sebagai satu-satunya pertahanan terhadap XXE</strong>. Konfigurasi parser tetap harus diperbaiki.</p>\n<hr data-start=\"5760\" data-end=\"5763\" />\n<h3 data-section-id=\"1ac8n2z\" data-start=\"5765\" data-end=\"5789\">Batasi Akses Network</h3>\n<p data-start=\"5791\" data-end=\"5880\">Aplikasi yang memproses XML sebaiknya tidak memiliki akses network yang tidak diperlukan.</p>\n<p data-start=\"5882\" data-end=\"6005\">Jika parser berhasil dipengaruhi untuk melakukan request eksternal, pembatasan network dapat membantu mengurangi dampaknya.</p>\n<p data-start=\"6007\" data-end=\"6087\">Pendekatan ini sangat berguna sebagai lapisan pertahanan tambahan terhadap SSRF.</p>\n<hr data-start=\"6089\" data-end=\"6092\" />\n<h2 data-section-id=\"11ofme7\" data-start=\"6094\" data-end=\"6123\">Checklist Perlindungan XXE</h2>\n<p data-start=\"6125\" data-end=\"6201\">Sebelum aplikasi menggunakan XML di production, lakukan pemeriksaan berikut:</p>\n<ol data-start=\"6203\" data-end=\"6619\">\n<li data-section-id=\"57omkh\" data-start=\"6203\" data-end=\"6255\">Pastikan DTD dinonaktifkan jika tidak diperlukan.</li>\n<li data-section-id=\"cnzf19\" data-start=\"6256\" data-end=\"6298\">Pastikan external entity dinonaktifkan.</li>\n<li data-section-id=\"1ggi0yt\" data-start=\"6299\" data-end=\"6327\">Nonaktifkan external DTD.</li>\n<li data-section-id=\"1w0966s\" data-start=\"6328\" data-end=\"6372\">Gunakan XML parser yang telah diperbarui.</li>\n<li data-section-id=\"1s61ajt\" data-start=\"6373\" data-end=\"6417\">Aktifkan secure processing jika tersedia.</li>\n<li data-section-id=\"aptdgd\" data-start=\"6418\" data-end=\"6445\">Batasi entity expansion.</li>\n<li data-section-id=\"6i297i\" data-start=\"6446\" data-end=\"6471\">Validasi struktur XML.</li>\n<li data-section-id=\"1k3dup0\" data-start=\"6472\" data-end=\"6505\">Batasi akses network aplikasi.</li>\n<li data-section-id=\"f7g9q8\" data-start=\"6506\" data-end=\"6556\">Jangan mengandalkan konfigurasi default parser.</li>\n<li data-section-id=\"15sk7yk\" data-start=\"6557\" data-end=\"6619\">Lakukan security testing terhadap fitur yang menerima XML.</li>\n</ol>\n<hr data-start=\"6621\" data-end=\"6624\" />\n<h2 data-section-id=\"1d8n2y7\" data-start=\"6626\" data-end=\"6653\">XXE pada Aplikasi Modern</h2>\n<p data-start=\"6655\" data-end=\"6770\">Walaupun banyak aplikasi modern menggunakan JSON sebagai format pertukaran data, XML belum sepenuhnya ditinggalkan.</p>\n<p data-start=\"6772\" data-end=\"6803\">XML masih dapat ditemukan pada:</p>\n<ul data-start=\"6805\" data-end=\"6975\">\n<li data-section-id=\"1skoe45\" data-start=\"6805\" data-end=\"6825\">SOAP Web Services.</li>\n<li data-section-id=\"1of3i2i\" data-start=\"6826\" data-end=\"6852\">Enterprise applications.</li>\n<li data-section-id=\"jscweq\" data-start=\"6853\" data-end=\"6878\">File import dan export.</li>\n<li data-section-id=\"1ez0kn9\" data-start=\"6879\" data-end=\"6914\">Sistem integrasi antarperusahaan.</li>\n<li data-section-id=\"1nva6gs\" data-start=\"6915\" data-end=\"6938\">Konfigurasi aplikasi.</li>\n<li data-section-id=\"1yvdmbs\" data-start=\"6939\" data-end=\"6958\">Dokumen tertentu.</li>\n<li data-section-id=\"1kpcs3q\" data-start=\"6959\" data-end=\"6975\">Sistem legacy.</li>\n</ul>\n<p data-start=\"6977\" data-end=\"7107\">Karena itu, developer dan security engineer tetap perlu memahami XXE, terutama ketika aplikasi menerima XML dari sumber eksternal.</p>\n<blockquote>\n<p data-start=\"6977\" data-end=\"7107\">baca juga : <a href=\"https://buletinsiber.com/use-after-free-uaf-memahami-celah-memory-corruption-yang-berbahaya/\">Use-After-Free (UAF): Memahami Celah Memory Corruption yang Berbahaya</a></p>\n</blockquote>\n<hr data-start=\"7109\" data-end=\"7112\" />\n<h2 data-section-id=\"1806px6\" data-start=\"7114\" data-end=\"7127\">Kesimpulan</h2>\n<p data-start=\"7129\" data-end=\"7309\"><strong data-start=\"7129\" data-end=\"7168\">XML External Entity (XXE) Injection</strong> merupakan kerentanan yang terjadi ketika aplikasi memproses XML yang tidak terpercaya menggunakan parser dengan konfigurasi yang tidak aman.</p>\n<p data-start=\"7311\" data-end=\"7442\">Dampaknya dapat berupa <strong data-start=\"7334\" data-end=\"7441\">information disclosure, SSRF, akses terhadap resource internal, port scanning, hingga denial-of-service</strong>.</p>\n<p data-start=\"7444\" data-end=\"7630\">Pertahanan utama terhadap XXE adalah menonaktifkan DTD dan external entity, menggunakan parser yang aman dan diperbarui, melakukan validasi input, serta membatasi akses network aplikasi.</p>\n<p data-start=\"7632\" data-end=\"7807\">Dengan konfigurasi parser yang tepat, penggunaan XML dapat tetap dilakukan tanpa memberikan peluang yang tidak perlu bagi attacker untuk mengeksploitasi fitur external entity.</p>\n",
+  "content_text": "Pengantar\nXML masih digunakan dalam berbagai aplikasi, API, konfigurasi, integrasi enterprise, hingga layanan berbasis SOAP. Namun, cara aplikasi memproses XML dapat menimbulkan risiko keamanan jika parser dikonfigurasi secara tidak tepat.\nSalah satu kerentanan yang perlu diperhatikan adalah  XML External Entity (XXE) Injection . Serangan ini terjadi ketika aplikasi memproses input XML dari sumber yang tidak terpercaya dan parser masih mengizinkan pemrosesan external entity.\nXXE dapat menyebabkan berbagai dampak, seperti pembacaan file lokal, Server-Side Request Forgery (SSRF), pemindaian jaringan internal, hingga denial-of-service. OWASP menjelaskan bahwa XXE muncul ketika XML yang tidak terpercaya diproses oleh parser yang masih mengizinkan external entity  (dikutip dari:  https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html ) .\nbaca juga :  GraphQL Security: Mengenal Celah Serangan dan Cara Mengamankan API Modern\nApa Itu XML External Entity (XXE)?\nXML External Entity atau XXE adalah kerentanan yang memanfaatkan fitur  DTD (Document Type Definition)  dan external entity pada XML.\nDalam kondisi tertentu, XML memungkinkan sebuah entity mengambil referensi dari resource eksternal. Jika parser tidak dikonfigurasi dengan aman, attacker dapat memanipulasi XML sehingga aplikasi mencoba mengakses resource yang seharusnya tidak dapat dijangkau.\nAlur sederhananya adalah:\nUser Input → XML Parser → External Entity → Resource Eksternal\nMasalah utama bukan terletak pada XML itu sendiri, tetapi pada  konfigurasi parser dan cara aplikasi memproses input XML yang tidak terpercaya .\nBagaimana XXE Dapat Terjadi?\nParser XML yang Tidak Aman\nKetika aplikasi menerima XML dari pengguna, data tersebut biasanya akan diteruskan ke XML parser.\nJika parser masih mengizinkan:\nDTD.\nExternal entity.\nExternal DTD.\nExternal resource.\nEntity expansion.\nmaka input berbahaya dapat menyebabkan parser melakukan tindakan yang tidak diinginkan.\nPortSwigger menjelaskan bahwa XXE dapat memungkinkan aplikasi membaca file pada filesystem server atau melakukan koneksi ke sistem lain yang dapat dijangkau oleh server  (dikutip dari:  https://portswigger.net/kb/issues/00100400_xml-external-entity-injection ) .\nDampak Serangan XXE\nMembaca File Lokal\nSalah satu risiko XXE adalah aplikasi dapat dipaksa mencoba membaca file dari filesystem server.\nJika file tersebut kemudian muncul dalam response atau error aplikasi, informasi sensitif berpotensi bocor.\nContoh informasi yang dapat menjadi target antara lain:\nFile konfigurasi.\nCredential aplikasi.\nEnvironment configuration.\nData internal aplikasi.\nFile sistem tertentu.\nKarena itu, XXE dapat berubah menjadi masalah  information disclosure .\nServer-Side Request Forgery (SSRF)\nXXE juga dapat digunakan sebagai jalur menuju SSRF.\nDalam kondisi tertentu, attacker dapat menyebabkan server melakukan request ke resource yang dapat dijangkau dari jaringan server.\nHal ini menjadi berbahaya pada lingkungan cloud atau jaringan internal karena server mungkin memiliki akses ke service yang tidak tersedia secara langsung dari internet.\nOWASP mencantumkan SSRF, port scanning, dan akses terhadap resource internal sebagai beberapa kemungkinan dampak XXE  (dikutip dari:  https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html ) .\nDenial-of-Service\nXXE juga dapat berkaitan dengan serangan terhadap resource parser.\nEntity expansion yang dilakukan secara berlebihan dapat menyebabkan penggunaan CPU atau memory meningkat secara drastis.\nSalah satu bentuk serangan yang dikenal adalah  Billion Laughs , yaitu penyalahgunaan entity expansion secara rekursif untuk menghabiskan resource sistem.\nKarena itu, pembatasan entity expansion dan penggunaan secure processing juga penting dalam konfigurasi parser.\nbaca juga :  Attribute-Based Access Control (ABAC): Cara Kerja dan Perannya dalam Keamanan Akses Modern\nMengapa XXE Sering Terlewat?\nSalah satu alasan XXE cukup berbahaya adalah karena kerentanannya tidak selalu terlihat pada kode aplikasi utama.\nAplikasi mungkin terlihat sederhana:\nUser → Upload XML → Parser → Database\nNamun, parser XML yang digunakan dapat berasal dari library pihak ketiga atau dependency lain.\nOWASP merekomendasikan agar developer memahami konfigurasi parser yang digunakan dan tidak mengandalkan konfigurasi default tanpa melakukan verifikasi keamanan  (dikutip dari:  https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html ) .\nCara Mencegah XXE Injection\nNonaktifkan DTD dan External Entity\nLangkah paling penting adalah menonaktifkan pemrosesan DTD dan external entity jika aplikasi memang tidak membutuhkannya.\nOWASP menyebutkan bahwa cara paling aman untuk mencegah XXE adalah menonaktifkan DTD atau external entity sepenuhnya pada XML parser  (dikutip dari:  https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html ) .\nGunakan XML Parser yang Aman\nPastikan library XML yang digunakan masih mendapatkan pembaruan keamanan.\nDeveloper sebaiknya memeriksa:\nVersi parser.\nDefault security configuration.\nDukungan untuk menonaktifkan external entity.\nDukungan secure processing.\nBatas entity expansion.\nKemampuan membatasi akses network.\nJangan menganggap semua XML parser memiliki konfigurasi keamanan yang sama.\nValidasi Input XML\nInput XML tetap harus divalidasi berdasarkan struktur yang memang dibutuhkan aplikasi.\nValidasi dapat membantu memastikan bahwa data sesuai dengan schema dan aturan aplikasi.\nNamun, validasi input  tidak boleh dianggap sebagai satu-satunya pertahanan terhadap XXE . Konfigurasi parser tetap harus diperbaiki.\nBatasi Akses Network\nAplikasi yang memproses XML sebaiknya tidak memiliki akses network yang tidak diperlukan.\nJika parser berhasil dipengaruhi untuk melakukan request eksternal, pembatasan network dapat membantu mengurangi dampaknya.\nPendekatan ini sangat berguna sebagai lapisan pertahanan tambahan terhadap SSRF.\nChecklist Perlindungan XXE\nSebelum aplikasi menggunakan XML di production, lakukan pemeriksaan berikut:\nPastikan DTD dinonaktifkan jika tidak diperlukan.\nPastikan external entity dinonaktifkan.\nNonaktifkan external DTD.\nGunakan XML parser yang telah diperbarui.\nAktifkan secure processing jika tersedia.\nBatasi entity expansion.\nValidasi struktur XML.\nBatasi akses network aplikasi.\nJangan mengandalkan konfigurasi default parser.\nLakukan security testing terhadap fitur yang menerima XML.\nXXE pada Aplikasi Modern\nWalaupun banyak aplikasi modern menggunakan JSON sebagai format pertukaran data, XML belum sepenuhnya ditinggalkan.\nXML masih dapat ditemukan pada:\nSOAP Web Services.\nEnterprise applications.\nFile import dan export.\nSistem integrasi antarperusahaan.\nKonfigurasi aplikasi.\nDokumen tertentu.\nSistem legacy.\nKarena itu, developer dan security engineer tetap perlu memahami XXE, terutama ketika aplikasi menerima XML dari sumber eksternal.\nbaca juga :  Use-After-Free (UAF): Memahami Celah Memory Corruption yang Berbahaya\nKesimpulan\nXML External Entity (XXE) Injection  merupakan kerentanan yang terjadi ketika aplikasi memproses XML yang tidak terpercaya menggunakan parser dengan konfigurasi yang tidak aman.\nDampaknya dapat berupa  information disclosure, SSRF, akses terhadap resource internal, port scanning, hingga denial-of-service .\nPertahanan utama terhadap XXE adalah menonaktifkan DTD dan external entity, menggunakan parser yang aman dan diperbarui, melakukan validasi input, serta membatasi akses network aplikasi.\nDengan konfigurasi parser yang tepat, penggunaan XML dapat tetap dilakukan tanpa memberikan peluang yang tidak perlu bagi attacker untuk mengeksploitasi fitur external entity.",
+  "raw": {
+    "id": 22862,
+    "date": "2026-08-17T00:11:49",
+    "date_gmt": "2026-08-17T00:11:49",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=22862"
+    },
+    "modified": "2026-08-17T00:11:49",
+    "modified_gmt": "2026-08-17T00:11:49",
+    "slug": "xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/",
+    "title": {
+      "rendered": "XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya"
+    },
+    "content": {
+      "rendered": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"95\" data-end=\"107\">Pengantar</h2>\n<p data-start=\"109\" data-end=\"338\">XML masih digunakan dalam berbagai aplikasi, API, konfigurasi, integrasi enterprise, hingga layanan berbasis SOAP. Namun, cara aplikasi memproses XML dapat menimbulkan risiko keamanan jika parser dikonfigurasi secara tidak tepat.</p>\n<p data-start=\"340\" data-end=\"581\">Salah satu kerentanan yang perlu diperhatikan adalah <strong data-start=\"393\" data-end=\"432\">XML External Entity (XXE) Injection</strong>. Serangan ini terjadi ketika aplikasi memproses input XML dari sumber yang tidak terpercaya dan parser masih mengizinkan pemrosesan external entity.</p>\n<p data-start=\"583\" data-end=\"987\">XXE dapat menyebabkan berbagai dampak, seperti pembacaan file lokal, Server-Side Request Forgery (SSRF), pemindaian jaringan internal, hingga denial-of-service. OWASP menjelaskan bahwa XXE muncul ketika XML yang tidak terpercaya diproses oleh parser yang masih mengizinkan external entity <strong data-start=\"872\" data-end=\"986\">(dikutip dari: <a class=\"decorated-link\" href=\"https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"889\" data-end=\"983\">https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html</a>)</strong>.</p>\n<blockquote>\n<p data-start=\"583\" data-end=\"987\">baca juga : <a href=\"https://buletinsiber.com/graphql-security-mengenal-celah-serangan-dan-cara-mengamankan-api-modern/\">GraphQL Security: Mengenal Celah Serangan dan Cara Mengamankan API Modern</a></p>\n</blockquote>\n<hr data-start=\"989\" data-end=\"992\" />\n<h2 data-section-id=\"186hmc9\" data-start=\"994\" data-end=\"1031\">Apa Itu XML External Entity (XXE)?</h2>\n<p data-start=\"1033\" data-end=\"1168\">XML External Entity atau XXE adalah kerentanan yang memanfaatkan fitur <strong data-start=\"1104\" data-end=\"1138\">DTD (Document Type Definition)</strong> dan external entity pada XML.</p>\n<p data-start=\"1170\" data-end=\"1430\">Dalam kondisi tertentu, XML memungkinkan sebuah entity mengambil referensi dari resource eksternal. Jika parser tidak dikonfigurasi dengan aman, attacker dapat memanipulasi XML sehingga aplikasi mencoba mengakses resource yang seharusnya tidak dapat dijangkau.</p>\n<p data-start=\"1432\" data-end=\"1457\">Alur sederhananya adalah:</p>\n<p data-start=\"1459\" data-end=\"1521\">User Input → XML Parser → External Entity → Resource Eksternal</p>\n<p data-start=\"1523\" data-end=\"1669\">Masalah utama bukan terletak pada XML itu sendiri, tetapi pada <strong data-start=\"1586\" data-end=\"1668\">konfigurasi parser dan cara aplikasi memproses input XML yang tidak terpercaya</strong>.</p>\n<hr data-start=\"1671\" data-end=\"1674\" />\n<h2 data-section-id=\"rl3gt1\" data-start=\"1676\" data-end=\"1707\">Bagaimana XXE Dapat Terjadi?</h2>\n<h3 data-section-id=\"mq5kmx\" data-start=\"1709\" data-end=\"1739\">Parser XML yang Tidak Aman</h3>\n<p data-start=\"1741\" data-end=\"1838\">Ketika aplikasi menerima XML dari pengguna, data tersebut biasanya akan diteruskan ke XML parser.</p>\n<p data-start=\"1840\" data-end=\"1870\">Jika parser masih mengizinkan:</p>\n<ul data-start=\"1872\" data-end=\"1954\">\n<li data-section-id=\"1j41o0i\" data-start=\"1872\" data-end=\"1878\">DTD.</li>\n<li data-section-id=\"11iajeo\" data-start=\"1879\" data-end=\"1897\">External entity.</li>\n<li data-section-id=\"1ihu0dr\" data-start=\"1898\" data-end=\"1913\">External DTD.</li>\n<li data-section-id=\"4h84oh\" data-start=\"1914\" data-end=\"1934\">External resource.</li>\n<li data-section-id=\"azwhpg\" data-start=\"1935\" data-end=\"1954\">Entity expansion.</li>\n</ul>\n<p data-start=\"1956\" data-end=\"2043\">maka input berbahaya dapat menyebabkan parser melakukan tindakan yang tidak diinginkan.</p>\n<p data-start=\"2045\" data-end=\"2307\">PortSwigger menjelaskan bahwa XXE dapat memungkinkan aplikasi membaca file pada filesystem server atau melakukan koneksi ke sistem lain yang dapat dijangkau oleh server <strong data-start=\"2214\" data-end=\"2306\">(dikutip dari: <a class=\"decorated-link\" href=\"https://portswigger.net/kb/issues/00100400_xml-external-entity-injection?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"2231\" data-end=\"2303\">https://portswigger.net/kb/issues/00100400_xml-external-entity-injection</a>)</strong>.</p>\n<hr data-start=\"2309\" data-end=\"2312\" />\n<h2 data-section-id=\"tyvyc1\" data-start=\"2314\" data-end=\"2336\">Dampak Serangan XXE</h2>\n<h3 data-section-id=\"1cf0s69\" data-start=\"2338\" data-end=\"2360\">Membaca File Lokal</h3>\n<p data-start=\"2362\" data-end=\"2458\">Salah satu risiko XXE adalah aplikasi dapat dipaksa mencoba membaca file dari filesystem server.</p>\n<p data-start=\"2460\" data-end=\"2567\">Jika file tersebut kemudian muncul dalam response atau error aplikasi, informasi sensitif berpotensi bocor.</p>\n<p data-start=\"2569\" data-end=\"2624\">Contoh informasi yang dapat menjadi target antara lain:</p>\n<ul data-start=\"2626\" data-end=\"2747\">\n<li data-section-id=\"xoa95q\" data-start=\"2626\" data-end=\"2645\">File konfigurasi.</li>\n<li data-section-id=\"1f9joo9\" data-start=\"2646\" data-end=\"2668\">Credential aplikasi.</li>\n<li data-section-id=\"10irb4z\" data-start=\"2669\" data-end=\"2697\">Environment configuration.</li>\n<li data-section-id=\"1fr79zp\" data-start=\"2698\" data-end=\"2723\">Data internal aplikasi.</li>\n<li data-section-id=\"jwe9l4\" data-start=\"2724\" data-end=\"2747\">File sistem tertentu.</li>\n</ul>\n<p data-start=\"2749\" data-end=\"2822\">Karena itu, XXE dapat berubah menjadi masalah <strong data-start=\"2795\" data-end=\"2821\">information disclosure</strong>.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"824\" height=\"549\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 824px) 100vw, 824px\" /></p>\n<hr data-start=\"2824\" data-end=\"2827\" />\n<h3 data-section-id=\"1fhra0z\" data-start=\"2829\" data-end=\"2867\">Server-Side Request Forgery (SSRF)</h3>\n<p data-start=\"2869\" data-end=\"2920\">XXE juga dapat digunakan sebagai jalur menuju SSRF.</p>\n<p data-start=\"2922\" data-end=\"3052\">Dalam kondisi tertentu, attacker dapat menyebabkan server melakukan request ke resource yang dapat dijangkau dari jaringan server.</p>\n<p data-start=\"3054\" data-end=\"3223\">Hal ini menjadi berbahaya pada lingkungan cloud atau jaringan internal karena server mungkin memiliki akses ke service yang tidak tersedia secara langsung dari internet.</p>\n<p data-start=\"3225\" data-end=\"3457\">OWASP mencantumkan SSRF, port scanning, dan akses terhadap resource internal sebagai beberapa kemungkinan dampak XXE <strong data-start=\"3342\" data-end=\"3456\">(dikutip dari: <a class=\"decorated-link\" href=\"https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"3359\" data-end=\"3453\">https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html</a>)</strong>.</p>\n<hr data-start=\"3459\" data-end=\"3462\" />\n<h3 data-section-id=\"nta2d5\" data-start=\"3464\" data-end=\"3485\">Denial-of-Service</h3>\n<p data-start=\"3487\" data-end=\"3553\">XXE juga dapat berkaitan dengan serangan terhadap resource parser.</p>\n<p data-start=\"3555\" data-end=\"3675\">Entity expansion yang dilakukan secara berlebihan dapat menyebabkan penggunaan CPU atau memory meningkat secara drastis.</p>\n<p data-start=\"3677\" data-end=\"3833\">Salah satu bentuk serangan yang dikenal adalah <strong data-start=\"3724\" data-end=\"3742\">Billion Laughs</strong>, yaitu penyalahgunaan entity expansion secara rekursif untuk menghabiskan resource sistem.</p>\n<p data-start=\"3835\" data-end=\"3946\">Karena itu, pembatasan entity expansion dan penggunaan secure processing juga penting dalam konfigurasi parser.</p>\n<blockquote>\n<p data-start=\"3835\" data-end=\"3946\">baca juga : <a href=\"https://buletinsiber.com/attribute-based-access-control-abac-cara-kerja-dan-perannya-dalam-keamanan-akses-modern/\">Attribute-Based Access Control (ABAC): Cara Kerja dan Perannya dalam Keamanan Akses Modern</a></p>\n</blockquote>\n<hr data-start=\"3948\" data-end=\"3951\" />\n<h2 data-section-id=\"10os0ua\" data-start=\"3953\" data-end=\"3984\">Mengapa XXE Sering Terlewat?</h2>\n<p data-start=\"3986\" data-end=\"4099\">Salah satu alasan XXE cukup berbahaya adalah karena kerentanannya tidak selalu terlihat pada kode aplikasi utama.</p>\n<p data-start=\"4101\" data-end=\"4137\">Aplikasi mungkin terlihat sederhana:</p>\n<p data-start=\"4139\" data-end=\"4176\">User → Upload XML → Parser → Database</p>\n<p data-start=\"4178\" data-end=\"4272\">Namun, parser XML yang digunakan dapat berasal dari library pihak ketiga atau dependency lain.</p>\n<p data-start=\"4274\" data-end=\"4549\">OWASP merekomendasikan agar developer memahami konfigurasi parser yang digunakan dan tidak mengandalkan konfigurasi default tanpa melakukan verifikasi keamanan <strong data-start=\"4434\" data-end=\"4548\">(dikutip dari: <a class=\"decorated-link\" href=\"https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"4451\" data-end=\"4545\">https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html</a>)</strong>.</p>\n<hr data-start=\"4551\" data-end=\"4554\" />\n<h2 data-section-id=\"18zs6vc\" data-start=\"4556\" data-end=\"4586\">Cara Mencegah XXE Injection</h2>\n<h3 data-section-id=\"8at7fp\" data-start=\"4588\" data-end=\"4627\">Nonaktifkan DTD dan External Entity</h3>\n<p data-start=\"4629\" data-end=\"4750\">Langkah paling penting adalah menonaktifkan pemrosesan DTD dan external entity jika aplikasi memang tidak membutuhkannya.</p>\n<p data-start=\"4752\" data-end=\"5000\">OWASP menyebutkan bahwa cara paling aman untuk mencegah XXE adalah menonaktifkan DTD atau external entity sepenuhnya pada XML parser <strong data-start=\"4885\" data-end=\"4999\">(dikutip dari: <a class=\"decorated-link\" href=\"https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"4902\" data-end=\"4996\">https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html</a>)</strong>.</p>\n<hr data-start=\"5002\" data-end=\"5005\" />\n<h3 data-section-id=\"1bhmrg3\" data-start=\"5007\" data-end=\"5039\">Gunakan XML Parser yang Aman</h3>\n<p data-start=\"5041\" data-end=\"5114\">Pastikan library XML yang digunakan masih mendapatkan pembaruan keamanan.</p>\n<p data-start=\"5116\" data-end=\"5146\">Developer sebaiknya memeriksa:</p>\n<ul data-start=\"5148\" data-end=\"5338\">\n<li data-section-id=\"k1rol6\" data-start=\"5148\" data-end=\"5163\">Versi parser.</li>\n<li data-section-id=\"jbl0uj\" data-start=\"5164\" data-end=\"5197\">Default security configuration.</li>\n<li data-section-id=\"1y00ua2\" data-start=\"5198\" data-end=\"5245\">Dukungan untuk menonaktifkan external entity.</li>\n<li data-section-id=\"jufheb\" data-start=\"5246\" data-end=\"5275\">Dukungan secure processing.</li>\n<li data-section-id=\"1gjpm1t\" data-start=\"5276\" data-end=\"5301\">Batas entity expansion.</li>\n<li data-section-id=\"1eiotqz\" data-start=\"5302\" data-end=\"5338\">Kemampuan membatasi akses network.</li>\n</ul>\n<p data-start=\"5340\" data-end=\"5415\">Jangan menganggap semua XML parser memiliki konfigurasi keamanan yang sama.</p>\n<hr data-start=\"5417\" data-end=\"5420\" />\n<h3 data-section-id=\"109y3r8\" data-start=\"5422\" data-end=\"5444\">Validasi Input XML</h3>\n<p data-start=\"5446\" data-end=\"5532\">Input XML tetap harus divalidasi berdasarkan struktur yang memang dibutuhkan aplikasi.</p>\n<p data-start=\"5534\" data-end=\"5621\">Validasi dapat membantu memastikan bahwa data sesuai dengan schema dan aturan aplikasi.</p>\n<p data-start=\"5623\" data-end=\"5758\">Namun, validasi input <strong data-start=\"5645\" data-end=\"5714\">tidak boleh dianggap sebagai satu-satunya pertahanan terhadap XXE</strong>. Konfigurasi parser tetap harus diperbaiki.</p>\n<hr data-start=\"5760\" data-end=\"5763\" />\n<h3 data-section-id=\"1ac8n2z\" data-start=\"5765\" data-end=\"5789\">Batasi Akses Network</h3>\n<p data-start=\"5791\" data-end=\"5880\">Aplikasi yang memproses XML sebaiknya tidak memiliki akses network yang tidak diperlukan.</p>\n<p data-start=\"5882\" data-end=\"6005\">Jika parser berhasil dipengaruhi untuk melakukan request eksternal, pembatasan network dapat membantu mengurangi dampaknya.</p>\n<p data-start=\"6007\" data-end=\"6087\">Pendekatan ini sangat berguna sebagai lapisan pertahanan tambahan terhadap SSRF.</p>\n<hr data-start=\"6089\" data-end=\"6092\" />\n<h2 data-section-id=\"11ofme7\" data-start=\"6094\" data-end=\"6123\">Checklist Perlindungan XXE</h2>\n<p data-start=\"6125\" data-end=\"6201\">Sebelum aplikasi menggunakan XML di production, lakukan pemeriksaan berikut:</p>\n<ol data-start=\"6203\" data-end=\"6619\">\n<li data-section-id=\"57omkh\" data-start=\"6203\" data-end=\"6255\">Pastikan DTD dinonaktifkan jika tidak diperlukan.</li>\n<li data-section-id=\"cnzf19\" data-start=\"6256\" data-end=\"6298\">Pastikan external entity dinonaktifkan.</li>\n<li data-section-id=\"1ggi0yt\" data-start=\"6299\" data-end=\"6327\">Nonaktifkan external DTD.</li>\n<li data-section-id=\"1w0966s\" data-start=\"6328\" data-end=\"6372\">Gunakan XML parser yang telah diperbarui.</li>\n<li data-section-id=\"1s61ajt\" data-start=\"6373\" data-end=\"6417\">Aktifkan secure processing jika tersedia.</li>\n<li data-section-id=\"aptdgd\" data-start=\"6418\" data-end=\"6445\">Batasi entity expansion.</li>\n<li data-section-id=\"6i297i\" data-start=\"6446\" data-end=\"6471\">Validasi struktur XML.</li>\n<li data-section-id=\"1k3dup0\" data-start=\"6472\" data-end=\"6505\">Batasi akses network aplikasi.</li>\n<li data-section-id=\"f7g9q8\" data-start=\"6506\" data-end=\"6556\">Jangan mengandalkan konfigurasi default parser.</li>\n<li data-section-id=\"15sk7yk\" data-start=\"6557\" data-end=\"6619\">Lakukan security testing terhadap fitur yang menerima XML.</li>\n</ol>\n<hr data-start=\"6621\" data-end=\"6624\" />\n<h2 data-section-id=\"1d8n2y7\" data-start=\"6626\" data-end=\"6653\">XXE pada Aplikasi Modern</h2>\n<p data-start=\"6655\" data-end=\"6770\">Walaupun banyak aplikasi modern menggunakan JSON sebagai format pertukaran data, XML belum sepenuhnya ditinggalkan.</p>\n<p data-start=\"6772\" data-end=\"6803\">XML masih dapat ditemukan pada:</p>\n<ul data-start=\"6805\" data-end=\"6975\">\n<li data-section-id=\"1skoe45\" data-start=\"6805\" data-end=\"6825\">SOAP Web Services.</li>\n<li data-section-id=\"1of3i2i\" data-start=\"6826\" data-end=\"6852\">Enterprise applications.</li>\n<li data-section-id=\"jscweq\" data-start=\"6853\" data-end=\"6878\">File import dan export.</li>\n<li data-section-id=\"1ez0kn9\" data-start=\"6879\" data-end=\"6914\">Sistem integrasi antarperusahaan.</li>\n<li data-section-id=\"1nva6gs\" data-start=\"6915\" data-end=\"6938\">Konfigurasi aplikasi.</li>\n<li data-section-id=\"1yvdmbs\" data-start=\"6939\" data-end=\"6958\">Dokumen tertentu.</li>\n<li data-section-id=\"1kpcs3q\" data-start=\"6959\" data-end=\"6975\">Sistem legacy.</li>\n</ul>\n<p data-start=\"6977\" data-end=\"7107\">Karena itu, developer dan security engineer tetap perlu memahami XXE, terutama ketika aplikasi menerima XML dari sumber eksternal.</p>\n<blockquote>\n<p data-start=\"6977\" data-end=\"7107\">baca juga : <a href=\"https://buletinsiber.com/use-after-free-uaf-memahami-celah-memory-corruption-yang-berbahaya/\">Use-After-Free (UAF): Memahami Celah Memory Corruption yang Berbahaya</a></p>\n</blockquote>\n<hr data-start=\"7109\" data-end=\"7112\" />\n<h2 data-section-id=\"1806px6\" data-start=\"7114\" data-end=\"7127\">Kesimpulan</h2>\n<p data-start=\"7129\" data-end=\"7309\"><strong data-start=\"7129\" data-end=\"7168\">XML External Entity (XXE) Injection</strong> merupakan kerentanan yang terjadi ketika aplikasi memproses XML yang tidak terpercaya menggunakan parser dengan konfigurasi yang tidak aman.</p>\n<p data-start=\"7311\" data-end=\"7442\">Dampaknya dapat berupa <strong data-start=\"7334\" data-end=\"7441\">information disclosure, SSRF, akses terhadap resource internal, port scanning, hingga denial-of-service</strong>.</p>\n<p data-start=\"7444\" data-end=\"7630\">Pertahanan utama terhadap XXE adalah menonaktifkan DTD dan external entity, menggunakan parser yang aman dan diperbarui, melakukan validasi input, serta membatasi akses network aplikasi.</p>\n<p data-start=\"7632\" data-end=\"7807\">Dengan konfigurasi parser yang tepat, penggunaan XML dapat tetap dilakukan tanpa memberikan peluang yang tidak perlu bagi attacker untuk mengeksploitasi fitur external entity.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar XML masih digunakan dalam berbagai aplikasi, API, konfigurasi, integrasi enterprise, hingga layanan berbasis SOAP. Namun, cara aplikasi memproses XML dapat menimbulkan risiko keamanan jika parser dikonfigurasi secara tidak tepat. Salah satu kerentanan yang perlu diperhatikan adalah XML External Entity (XXE) Injection. Serangan ini terjadi ketika aplikasi memproses input XML dari sumber yang tidak terpercaya dan parser masih mengizinkan pemrosesan external entity. XXE dapat menyebabkan berbagai dampak, seperti pembacaan file lokal, Server-Side Request Forgery (SSRF), pemindaian jaringan internal, hingga denial-of-service. OWASP menjelaskan bahwa XXE muncul ketika XML yang tidak terpercaya diproses oleh parser yang masih mengizinkan external entity (dikutip dari:&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 22863,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "XML External Entity (XXE) Injection",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      932,
+      682,
+      3962
+    ],
+    "class_list": [
+      "post-22862",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-injection",
+      "tag-keamanan",
+      "tag-xml"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar XML masih digunakan dalam berbagai aplikasi, API, konfigurasi, integrasi enterprise, hingga layanan berbasis SOAP. Namun, cara aplikasi memproses XML dapat menimbulkan risiko keamanan jika parser dikonfigurasi secara tidak tepat. Salah satu kerentanan yang perlu diperhatikan adalah XML External Entity (XXE) Injection. Serangan ini terjadi ketika aplikasi memproses input XML dari sumber yang tidak terpercaya dan parser masih mengizinkan pemrosesan external entity. XXE dapat menyebabkan berbagai dampak, seperti pembacaan file lokal, Server-Side Request Forgery (SSRF), pemindaian jaringan internal, hingga denial-of-service. OWASP menjelaskan bahwa XXE muncul ketika XML yang tidak terpercaya diproses oleh parser yang masih mengizinkan external entity (dikutip dari:...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-08-17T00:11:49+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg\" />\n\t<meta property=\"og:image:width\" content=\"540\" />\n\t<meta property=\"og:image:height\" content=\"304\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/\",\"url\":\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/\",\"name\":\"XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg\",\"datePublished\":\"2026-08-17T00:11:49+00:00\",\"dateModified\":\"2026-08-17T00:11:49+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg\",\"width\":540,\"height\":304},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya - buletinsiber.com",
+      "og_description": "Pengantar XML masih digunakan dalam berbagai aplikasi, API, konfigurasi, integrasi enterprise, hingga layanan berbasis SOAP. Namun, cara aplikasi memproses XML dapat menimbulkan risiko keamanan jika parser dikonfigurasi secara tidak tepat. Salah satu kerentanan yang perlu diperhatikan adalah XML External Entity (XXE) Injection. Serangan ini terjadi ketika aplikasi memproses input XML dari sumber yang tidak terpercaya dan parser masih mengizinkan pemrosesan external entity. XXE dapat menyebabkan berbagai dampak, seperti pembacaan file lokal, Server-Side Request Forgery (SSRF), pemindaian jaringan internal, hingga denial-of-service. OWASP menjelaskan bahwa XXE muncul ketika XML yang tidak terpercaya diproses oleh parser yang masih mengizinkan external entity (dikutip dari:...",
+      "og_url": "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-08-17T00:11:49+00:00",
+      "og_image": [
+        {
+          "width": 540,
+          "height": 304,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/",
+            "url": "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/",
+            "name": "XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg",
+            "datePublished": "2026-08-17T00:11:49+00:00",
+            "dateModified": "2026-08-17T00:11:49+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg",
+            "width": 540,
+            "height": 304
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22862",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=22862"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22862/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 22870,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22862/revisions/22870"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/22863"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=22862"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=22862"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=22862"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "id": 14495,
+  "title": "Gradient Leakage dan Kebocoran Data Pelatihan",
+  "slug": "gradient-leakage-dan-kebocoran-data-pelatihan",
+  "url": "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/",
+  "date": "2026-07-29T00:02:38",
+  "date_gmt": "2026-07-29T00:02:38",
+  "modified": "2026-07-29T00:02:38",
+  "modified_gmt": "2026-07-29T00:02:38",
+  "author": {
+    "id": 36,
+    "name": "Rizwar Tazqir"
+  },
+  "categories": [
+    {
+      "id": 1919,
+      "name": "AI"
+    },
+    {
+      "id": 1450,
+      "name": "Keamanan Siber"
+    }
+  ],
+  "tags": [
+    2199,
+    378
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/277e78c0-57f5-4002-8ef5-086e9a1c1b8e.jpg",
+  "excerpt": "Pendahuluan Di artikel sebelumnya, kita sudah bahas federated learning — cara melatih AI tanpa harus mengirim data mentah ke satu tempat pusat. Yang dikirim biasanya cuma “hasil belajar” dalam bentuk yang disebut gradient. Nah, ternyata gradient ini juga bisa jadi celah kebocoran data, lewat sesuatu yang disebut gradient leakage. Yuk kita bahas dengan bahasa sederhana. Apa Itu Gradient dalam Proses Training? Bayangkan proses melatih AI seperti seseorang belajar memanah. Setiap kali meleset, dia mencatat seberapa jauh dan ke arah mana panahnya melenceng, lalu menyesuaikan arah bidikan berikutnya berdasarkan catatan tersebut. Gradient itu ibarat “catatan penyesuaian” ini — informasi tentang seberapa…",
+  "content_html": "<h2>Pendahuluan</h2>\n<p>Di artikel sebelumnya, kita sudah bahas federated learning — cara melatih AI tanpa harus mengirim data mentah ke satu tempat pusat. Yang dikirim biasanya cuma &#8220;hasil belajar&#8221; dalam bentuk yang disebut <strong>gradient</strong>. Nah, ternyata gradient ini juga bisa jadi celah kebocoran data, lewat sesuatu yang disebut <strong>gradient leakage</strong>. Yuk kita bahas dengan bahasa sederhana.</p>\n<h2>Apa Itu Gradient dalam Proses Training?</h2>\n<p>Bayangkan proses melatih AI seperti seseorang belajar memanah. Setiap kali meleset, dia mencatat seberapa jauh dan ke arah mana panahnya melenceng, lalu menyesuaikan arah bidikan berikutnya berdasarkan catatan tersebut.</p>\n<p>Gradient itu ibarat &#8220;catatan penyesuaian&#8221; ini — informasi tentang seberapa besar dan ke arah mana model AI perlu berubah supaya jadi lebih akurat, berdasarkan data yang baru saja dipelajarinya. Gradient inilah yang biasanya dikirim antar-komputer dalam proses pelatihan terdistribusi atau federated learning, karena dianggap lebih &#8220;aman&#8221; dibanding mengirim data mentah secara langsung.</p>\n<h2>Bagaimana Gradient Bisa Membocorkan Data Asli?</h2>\n<p>Ternyata, meski gradient bukan data mentah, dalam kondisi tertentu gradient ini masih bisa &#8220;dibalik&#8221; untuk menebak seperti apa data asli yang dipakai untuk menghasilkannya. Ini agak mirip dengan mencoba menebak isi asli sebuah pesan hanya dari catatan koreksi yang diberikan seorang guru — meski bukan pesan aslinya, catatan tersebut kadang memberi cukup petunjuk untuk menebak apa isi pesan itu sebenarnya.</p>\n<p>Beberapa penelitian keamanan bahkan sudah menunjukkan bahwa dari gradient yang dikirim dalam proses pelatihan, penyerang bisa merekonstruksi ulang gambar atau teks yang mendekati data asli yang dipakai untuk melatih model tersebut, terutama kalau gradient itu dikirim tanpa perlindungan tambahan.</p>\n<h2>Dampaknya</h2>\n<p>Kalau gradient leakage berhasil dieksploitasi, tujuan awal federated learning untuk menjaga privasi data jadi kurang efektif, karena penyerang tetap bisa menebak informasi sensitif dari data asli, meski data tersebut tidak pernah benar-benar dikirim secara langsung. Ini terutama berbahaya untuk data yang sangat sensitif, seperti data kesehatan pasien atau dokumen pribadi.</p>\n<h2>Cara Mencegahnya</h2>\n<p>Beberapa langkah yang bisa membantu mengurangi risiko gradient leakage:</p>\n<ul>\n<li>Menambahkan teknik *differential privacy*, yaitu menyisipkan sedikit &#8220;gangguan acak&#8221; pada gradient sebelum dikirim, sehingga lebih sulit dipakai untuk menebak data asli.</li>\n<li>Menggabungkan gradient dari banyak peserta sekaligus sebelum benar-benar diproses lebih lanjut, sehingga informasi dari satu peserta tunggal jadi lebih sulit dipisahkan dan ditebak.</li>\n<li>Membatasi jumlah dan detail informasi gradient yang dikirim, misalnya dengan hanya mengirim sebagian kecil informasi yang benar-benar diperlukan.</li>\n<li>Menggunakan teknik enkripsi khusus yang memungkinkan proses penggabungan gradient dilakukan tanpa perlu membuka informasi asli di baliknya.</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>Gradient leakage adalah pengingat bahwa meski data mentah tidak pernah dikirim secara langsung, informasi &#8220;hasil belajar&#8221; seperti gradient tetap bisa jadi celah kebocoran data kalau tidak dilindungi dengan baik. Karena federated learning sering dipakai justru untuk menjaga privasi data sensitif, memastikan gradient yang dikirim juga aman dari upaya rekonstruksi data asli menjadi langkah penting yang tidak boleh diabaikan.</p>\n",
+  "content_text": "Pendahuluan\nDi artikel sebelumnya, kita sudah bahas federated learning — cara melatih AI tanpa harus mengirim data mentah ke satu tempat pusat. Yang dikirim biasanya cuma “hasil belajar” dalam bentuk yang disebut  gradient . Nah, ternyata gradient ini juga bisa jadi celah kebocoran data, lewat sesuatu yang disebut  gradient leakage . Yuk kita bahas dengan bahasa sederhana.\nApa Itu Gradient dalam Proses Training?\nBayangkan proses melatih AI seperti seseorang belajar memanah. Setiap kali meleset, dia mencatat seberapa jauh dan ke arah mana panahnya melenceng, lalu menyesuaikan arah bidikan berikutnya berdasarkan catatan tersebut.\nGradient itu ibarat “catatan penyesuaian” ini — informasi tentang seberapa besar dan ke arah mana model AI perlu berubah supaya jadi lebih akurat, berdasarkan data yang baru saja dipelajarinya. Gradient inilah yang biasanya dikirim antar-komputer dalam proses pelatihan terdistribusi atau federated learning, karena dianggap lebih “aman” dibanding mengirim data mentah secara langsung.\nBagaimana Gradient Bisa Membocorkan Data Asli?\nTernyata, meski gradient bukan data mentah, dalam kondisi tertentu gradient ini masih bisa “dibalik” untuk menebak seperti apa data asli yang dipakai untuk menghasilkannya. Ini agak mirip dengan mencoba menebak isi asli sebuah pesan hanya dari catatan koreksi yang diberikan seorang guru — meski bukan pesan aslinya, catatan tersebut kadang memberi cukup petunjuk untuk menebak apa isi pesan itu sebenarnya.\nBeberapa penelitian keamanan bahkan sudah menunjukkan bahwa dari gradient yang dikirim dalam proses pelatihan, penyerang bisa merekonstruksi ulang gambar atau teks yang mendekati data asli yang dipakai untuk melatih model tersebut, terutama kalau gradient itu dikirim tanpa perlindungan tambahan.\nDampaknya\nKalau gradient leakage berhasil dieksploitasi, tujuan awal federated learning untuk menjaga privasi data jadi kurang efektif, karena penyerang tetap bisa menebak informasi sensitif dari data asli, meski data tersebut tidak pernah benar-benar dikirim secara langsung. Ini terutama berbahaya untuk data yang sangat sensitif, seperti data kesehatan pasien atau dokumen pribadi.\nCara Mencegahnya\nBeberapa langkah yang bisa membantu mengurangi risiko gradient leakage:\nMenambahkan teknik *differential privacy*, yaitu menyisipkan sedikit “gangguan acak” pada gradient sebelum dikirim, sehingga lebih sulit dipakai untuk menebak data asli.\nMenggabungkan gradient dari banyak peserta sekaligus sebelum benar-benar diproses lebih lanjut, sehingga informasi dari satu peserta tunggal jadi lebih sulit dipisahkan dan ditebak.\nMembatasi jumlah dan detail informasi gradient yang dikirim, misalnya dengan hanya mengirim sebagian kecil informasi yang benar-benar diperlukan.\nMenggunakan teknik enkripsi khusus yang memungkinkan proses penggabungan gradient dilakukan tanpa perlu membuka informasi asli di baliknya.\nKesimpulan\nGradient leakage adalah pengingat bahwa meski data mentah tidak pernah dikirim secara langsung, informasi “hasil belajar” seperti gradient tetap bisa jadi celah kebocoran data kalau tidak dilindungi dengan baik. Karena federated learning sering dipakai justru untuk menjaga privasi data sensitif, memastikan gradient yang dikirim juga aman dari upaya rekonstruksi data asli menjadi langkah penting yang tidak boleh diabaikan.",
+  "raw": {
+    "id": 14495,
+    "date": "2026-07-29T00:02:38",
+    "date_gmt": "2026-07-29T00:02:38",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=14495"
+    },
+    "modified": "2026-07-29T00:02:38",
+    "modified_gmt": "2026-07-29T00:02:38",
+    "slug": "gradient-leakage-dan-kebocoran-data-pelatihan",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/",
+    "title": {
+      "rendered": "Gradient Leakage dan Kebocoran Data Pelatihan"
+    },
+    "content": {
+      "rendered": "<h2>Pendahuluan</h2>\n<p>Di artikel sebelumnya, kita sudah bahas federated learning — cara melatih AI tanpa harus mengirim data mentah ke satu tempat pusat. Yang dikirim biasanya cuma &#8220;hasil belajar&#8221; dalam bentuk yang disebut <strong>gradient</strong>. Nah, ternyata gradient ini juga bisa jadi celah kebocoran data, lewat sesuatu yang disebut <strong>gradient leakage</strong>. Yuk kita bahas dengan bahasa sederhana.</p>\n<h2>Apa Itu Gradient dalam Proses Training?</h2>\n<p>Bayangkan proses melatih AI seperti seseorang belajar memanah. Setiap kali meleset, dia mencatat seberapa jauh dan ke arah mana panahnya melenceng, lalu menyesuaikan arah bidikan berikutnya berdasarkan catatan tersebut.</p>\n<p>Gradient itu ibarat &#8220;catatan penyesuaian&#8221; ini — informasi tentang seberapa besar dan ke arah mana model AI perlu berubah supaya jadi lebih akurat, berdasarkan data yang baru saja dipelajarinya. Gradient inilah yang biasanya dikirim antar-komputer dalam proses pelatihan terdistribusi atau federated learning, karena dianggap lebih &#8220;aman&#8221; dibanding mengirim data mentah secara langsung.</p>\n<h2>Bagaimana Gradient Bisa Membocorkan Data Asli?</h2>\n<p>Ternyata, meski gradient bukan data mentah, dalam kondisi tertentu gradient ini masih bisa &#8220;dibalik&#8221; untuk menebak seperti apa data asli yang dipakai untuk menghasilkannya. Ini agak mirip dengan mencoba menebak isi asli sebuah pesan hanya dari catatan koreksi yang diberikan seorang guru — meski bukan pesan aslinya, catatan tersebut kadang memberi cukup petunjuk untuk menebak apa isi pesan itu sebenarnya.</p>\n<p>Beberapa penelitian keamanan bahkan sudah menunjukkan bahwa dari gradient yang dikirim dalam proses pelatihan, penyerang bisa merekonstruksi ulang gambar atau teks yang mendekati data asli yang dipakai untuk melatih model tersebut, terutama kalau gradient itu dikirim tanpa perlindungan tambahan.</p>\n<h2>Dampaknya</h2>\n<p>Kalau gradient leakage berhasil dieksploitasi, tujuan awal federated learning untuk menjaga privasi data jadi kurang efektif, karena penyerang tetap bisa menebak informasi sensitif dari data asli, meski data tersebut tidak pernah benar-benar dikirim secara langsung. Ini terutama berbahaya untuk data yang sangat sensitif, seperti data kesehatan pasien atau dokumen pribadi.</p>\n<h2>Cara Mencegahnya</h2>\n<p>Beberapa langkah yang bisa membantu mengurangi risiko gradient leakage:</p>\n<ul>\n<li>Menambahkan teknik *differential privacy*, yaitu menyisipkan sedikit &#8220;gangguan acak&#8221; pada gradient sebelum dikirim, sehingga lebih sulit dipakai untuk menebak data asli.</li>\n<li>Menggabungkan gradient dari banyak peserta sekaligus sebelum benar-benar diproses lebih lanjut, sehingga informasi dari satu peserta tunggal jadi lebih sulit dipisahkan dan ditebak.</li>\n<li>Membatasi jumlah dan detail informasi gradient yang dikirim, misalnya dengan hanya mengirim sebagian kecil informasi yang benar-benar diperlukan.</li>\n<li>Menggunakan teknik enkripsi khusus yang memungkinkan proses penggabungan gradient dilakukan tanpa perlu membuka informasi asli di baliknya.</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>Gradient leakage adalah pengingat bahwa meski data mentah tidak pernah dikirim secara langsung, informasi &#8220;hasil belajar&#8221; seperti gradient tetap bisa jadi celah kebocoran data kalau tidak dilindungi dengan baik. Karena federated learning sering dipakai justru untuk menjaga privasi data sensitif, memastikan gradient yang dikirim juga aman dari upaya rekonstruksi data asli menjadi langkah penting yang tidak boleh diabaikan.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Di artikel sebelumnya, kita sudah bahas federated learning — cara melatih AI tanpa harus mengirim data mentah ke satu tempat pusat. Yang dikirim biasanya cuma &#8220;hasil belajar&#8221; dalam bentuk yang disebut gradient. Nah, ternyata gradient ini juga bisa jadi celah kebocoran data, lewat sesuatu yang disebut gradient leakage. Yuk kita bahas dengan bahasa sederhana. Apa Itu Gradient dalam Proses Training? Bayangkan proses melatih AI seperti seseorang belajar memanah. Setiap kali meleset, dia mencatat seberapa jauh dan ke arah mana panahnya melenceng, lalu menyesuaikan arah bidikan berikutnya berdasarkan catatan tersebut. Gradient itu ibarat &#8220;catatan penyesuaian&#8221; ini — informasi tentang seberapa&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 36,
+    "featured_media": 14497,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1919,
+      1450
+    ],
+    "tags": [
+      2199,
+      378
+    ],
+    "class_list": [
+      "post-14495",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-ai",
+      "category-keamanan-siber",
+      "tag-ai-security",
+      "tag-keamanan-siber"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Gradient Leakage dan Kebocoran Data Pelatihan - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Gradient Leakage dan Kebocoran Data Pelatihan - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Di artikel sebelumnya, kita sudah bahas federated learning — cara melatih AI tanpa harus mengirim data mentah ke satu tempat pusat. Yang dikirim biasanya cuma &#8220;hasil belajar&#8221; dalam bentuk yang disebut gradient. Nah, ternyata gradient ini juga bisa jadi celah kebocoran data, lewat sesuatu yang disebut gradient leakage. Yuk kita bahas dengan bahasa sederhana. Apa Itu Gradient dalam Proses Training? Bayangkan proses melatih AI seperti seseorang belajar memanah. Setiap kali meleset, dia mencatat seberapa jauh dan ke arah mana panahnya melenceng, lalu menyesuaikan arah bidikan berikutnya berdasarkan catatan tersebut. Gradient itu ibarat &#8220;catatan penyesuaian&#8221; ini — informasi tentang seberapa...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-29T00:02:38+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/277e78c0-57f5-4002-8ef5-086e9a1c1b8e.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"559\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Rizwar Tazqir\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Rizwar Tazqir\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/\",\"url\":\"https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/\",\"name\":\"Gradient Leakage dan Kebocoran Data Pelatihan - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/277e78c0-57f5-4002-8ef5-086e9a1c1b8e.jpg\",\"datePublished\":\"2026-07-29T00:02:38+00:00\",\"dateModified\":\"2026-07-29T00:02:38+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/239290c59289357cb37fb6d633b6b8fa\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/277e78c0-57f5-4002-8ef5-086e9a1c1b8e.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/277e78c0-57f5-4002-8ef5-086e9a1c1b8e.jpg\",\"width\":1024,\"height\":559},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Gradient Leakage dan Kebocoran Data Pelatihan\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/239290c59289357cb37fb6d633b6b8fa\",\"name\":\"Rizwar Tazqir\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/e3dd02a8f778eac3d4e2bdeb8f091c0496fcd4e8e8fa7a135d471fd826fb65b2?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/e3dd02a8f778eac3d4e2bdeb8f091c0496fcd4e8e8fa7a135d471fd826fb65b2?s=96&d=mm&r=g\",\"caption\":\"Rizwar Tazqir\"},\"url\":\"https://buletinsiber.com/author/rizwar-tazqir/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Gradient Leakage dan Kebocoran Data Pelatihan - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Gradient Leakage dan Kebocoran Data Pelatihan - buletinsiber.com",
+      "og_description": "Pendahuluan Di artikel sebelumnya, kita sudah bahas federated learning — cara melatih AI tanpa harus mengirim data mentah ke satu tempat pusat. Yang dikirim biasanya cuma &#8220;hasil belajar&#8221; dalam bentuk yang disebut gradient. Nah, ternyata gradient ini juga bisa jadi celah kebocoran data, lewat sesuatu yang disebut gradient leakage. Yuk kita bahas dengan bahasa sederhana. Apa Itu Gradient dalam Proses Training? Bayangkan proses melatih AI seperti seseorang belajar memanah. Setiap kali meleset, dia mencatat seberapa jauh dan ke arah mana panahnya melenceng, lalu menyesuaikan arah bidikan berikutnya berdasarkan catatan tersebut. Gradient itu ibarat &#8220;catatan penyesuaian&#8221; ini — informasi tentang seberapa...",
+      "og_url": "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-29T00:02:38+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 559,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/277e78c0-57f5-4002-8ef5-086e9a1c1b8e.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Rizwar Tazqir",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Rizwar Tazqir",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/",
+            "url": "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/",
+            "name": "Gradient Leakage dan Kebocoran Data Pelatihan - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/277e78c0-57f5-4002-8ef5-086e9a1c1b8e.jpg",
+            "datePublished": "2026-07-29T00:02:38+00:00",
+            "dateModified": "2026-07-29T00:02:38+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/239290c59289357cb37fb6d633b6b8fa"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/277e78c0-57f5-4002-8ef5-086e9a1c1b8e.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/277e78c0-57f5-4002-8ef5-086e9a1c1b8e.jpg",
+            "width": 1024,
+            "height": 559
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/gradient-leakage-dan-kebocoran-data-pelatihan/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Gradient Leakage dan Kebocoran Data Pelatihan"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/239290c59289357cb37fb6d633b6b8fa",
+            "name": "Rizwar Tazqir",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/e3dd02a8f778eac3d4e2bdeb8f091c0496fcd4e8e8fa7a135d471fd826fb65b2?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/e3dd02a8f778eac3d4e2bdeb8f091c0496fcd4e8e8fa7a135d471fd826fb65b2?s=96&d=mm&r=g",
+              "caption": "Rizwar Tazqir"
+            },
+            "url": "https://buletinsiber.com/author/rizwar-tazqir/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14495",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/36"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=14495"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14495/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 14498,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14495/revisions/14498"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/14497"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=14495"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=14495"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=14495"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,332 @@
+{
+  "id": 10048,
+  "title": "Linux Kernel Zero-Day “Copy Fail” Mengancam Sistem Linux Sejak 2017",
+  "slug": "linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017",
+  "url": "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/",
+  "date": "2026-04-30T13:09:04",
+  "date_gmt": "2026-04-30T13:09:04",
+  "modified": "2026-06-30T18:26:14",
+  "modified_gmt": "2026-06-30T18:26:14",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    1267,
+    373,
+    929
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/04/Linux-Kernel-0-Day-Copy-Fail-1024x576-1.png",
+  "excerpt": "Pendahuluan Dunia cybersecurity kembali dikejutkan dengan munculnya kerentanan baru pada Linux Kernel yang dikenal dengan nama “Copy Fail”. Kerentanan ini termasuk kategori zero-day vulnerability, yaitu celah keamanan yang dapat dieksploitasi sebelum banyak pengguna menyadari keberadaannya atau sebelum patch tersedia secara luas. Yang membuat kasus ini menarik adalah kerentanan tersebut ternyata sudah ada sejak tahun 2017 dan berpotensi memengaruhi banyak distribusi Linux populer seperti Ubuntu, Debian, Fedora, hingga CentOS. Para peneliti keamanan menyebut bahwa eksploitasi “Copy Fail” relatif lebih mudah dibandingkan beberapa eksploit Linux terkenal sebelumnya. Bahkan, seorang pengguna biasa dapat memperoleh akses root apabila sistem belum diperbarui. Apa Itu Zero-Day…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"71\" data-end=\"85\">Pendahuluan</h2>\n<p style=\"text-align: justify;\" data-start=\"87\" data-end=\"414\">Dunia cybersecurity kembali dikejutkan dengan munculnya kerentanan baru pada Linux Kernel yang dikenal dengan nama <strong data-start=\"202\" data-end=\"217\">“Copy Fail”</strong>. Kerentanan ini termasuk kategori <strong data-start=\"252\" data-end=\"278\">zero-day vulnerability</strong>, yaitu celah keamanan yang dapat dieksploitasi sebelum banyak pengguna menyadari keberadaannya atau sebelum patch tersedia secara luas.</p>\n<p style=\"text-align: justify;\" data-start=\"416\" data-end=\"615\">Yang membuat kasus ini menarik adalah kerentanan tersebut ternyata sudah ada sejak tahun 2017 dan berpotensi memengaruhi banyak distribusi Linux populer seperti Ubuntu, Debian, Fedora, hingga CentOS.</p>\n<p style=\"text-align: justify;\" data-start=\"617\" data-end=\"848\">Para peneliti keamanan menyebut bahwa eksploitasi “Copy Fail” relatif lebih mudah dibandingkan beberapa eksploit Linux terkenal sebelumnya. Bahkan, seorang pengguna biasa dapat memperoleh akses root apabila sistem belum diperbarui.</p>\n<h2 style=\"text-align: justify;\" data-start=\"855\" data-end=\"887\">Apa Itu Zero-Day “Copy Fail”?</h2>\n<p style=\"text-align: justify;\" data-start=\"889\" data-end=\"1163\">Zero-day vulnerability adalah celah keamanan yang belum diketahui atau belum diperbaiki saat mulai dimanfaatkan oleh penyerang. Dalam kasus ini, kerentanan tersebut diberi nama <strong data-start=\"1066\" data-end=\"1081\">“Copy Fail”</strong> karena berhubungan dengan kesalahan proses penyalinan data di dalam Linux Kernel.</p>\n<p style=\"text-align: justify;\" data-start=\"1165\" data-end=\"1459\">Kerentanan ini ditemukan oleh peneliti keamanan dari Theori dan tim Xint Code Research. Mereka menemukan adanya bug logika di dalam subsistem kernel Linux yang dapat dimanfaatkan untuk melakukan <strong data-start=\"1360\" data-end=\"1384\">privilege escalation</strong>, yaitu meningkatkan hak akses pengguna biasa menjadi administrator (root).</p>\n<p style=\"text-align: justify;\" data-start=\"1461\" data-end=\"1613\">Penelitian ini juga menarik perhatian karena melibatkan pendekatan analisis berbasis AI untuk membantu memahami perilaku kernel dan potensi eksploitasi.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1620\" data-end=\"1656\">Bagaimana Kerentanan Ini Bekerja?</h2>\n<h3 style=\"text-align: justify;\" data-start=\"1658\" data-end=\"1683\">Bug pada Linux Kernel</h3>\n<p style=\"text-align: justify;\" data-start=\"1685\" data-end=\"1918\">“Copy Fail” bukanlah race condition seperti beberapa exploit Linux sebelumnya. Kerentanan ini berasal dari kesalahan logika pada mekanisme tertentu di Linux Kernel, khususnya pada bagian yang berkaitan dengan cryptographic interface.</p>\n<p style=\"text-align: justify;\" data-start=\"1920\" data-end=\"2036\">Bug tersebut memungkinkan penyerang melakukan manipulasi memori kernel melalui kombinasi beberapa system call Linux.</p>\n<h3 style=\"text-align: justify;\" data-start=\"2043\" data-end=\"2070\">Komponen yang Terdampak</h3>\n<p style=\"text-align: justify;\" data-start=\"2072\" data-end=\"2125\">Beberapa komponen yang disebut terdampak antara lain:</p>\n<ul style=\"text-align: justify;\" data-start=\"2127\" data-end=\"2198\">\n<li data-start=\"2127\" data-end=\"2152\">AF_ALG socket interface</li>\n<li data-start=\"2153\" data-end=\"2172\">Fungsi <code data-start=\"2162\" data-end=\"2172\">splice()</code></li>\n<li data-start=\"2173\" data-end=\"2198\">Page cache kernel Linux</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2200\" data-end=\"2307\">Melalui kombinasi komponen tersebut, penyerang dapat melakukan overwrite memori tertentu secara terkontrol.</p>\n<h3 style=\"text-align: justify;\" data-start=\"2314\" data-end=\"2336\">Dampak Eksploitasi</h3>\n<p style=\"text-align: justify;\" data-start=\"2338\" data-end=\"2383\">Jika berhasil dieksploitasi, penyerang dapat:</p>\n<ul style=\"text-align: justify;\" data-start=\"2385\" data-end=\"2530\">\n<li data-start=\"2385\" data-end=\"2409\">Mendapatkan akses root</li>\n<li data-start=\"2410\" data-end=\"2439\">Mengambil alih server Linux</li>\n<li data-start=\"2440\" data-end=\"2471\">Menanam malware atau backdoor</li>\n<li data-start=\"2472\" data-end=\"2505\">Melakukan persistence di sistem</li>\n<li data-start=\"2506\" data-end=\"2530\">Menjalankan ransomware</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2532\" data-end=\"2646\">Karena exploit ini cukup stabil, ancamannya menjadi lebih serius terutama untuk server yang terhubung ke internet.</p>\n<h2 style=\"text-align: justify;\" data-start=\"2653\" data-end=\"2693\">Mengapa “Copy Fail” Sangat Berbahaya?</h2>\n<h3 style=\"text-align: justify;\" data-start=\"2695\" data-end=\"2722\">Eksploitasi Lebih Mudah</h3>\n<p style=\"text-align: justify;\" data-start=\"2724\" data-end=\"2830\">Berbeda dengan beberapa exploit Linux sebelumnya, “Copy Fail” tidak membutuhkan teknik yang terlalu rumit.</p>\n<p style=\"text-align: justify;\" data-start=\"2832\" data-end=\"2854\">Penyerang tidak perlu:</p>\n<ul style=\"text-align: justify;\" data-start=\"2856\" data-end=\"2958\">\n<li data-start=\"2856\" data-end=\"2885\">memenangkan race condition,</li>\n<li data-start=\"2886\" data-end=\"2922\">mengetahui offset kernel tertentu,</li>\n<li data-start=\"2923\" data-end=\"2958\">atau melakukan modifikasi kernel.</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2960\" data-end=\"3054\">Hal ini membuat exploit lebih mudah dijalankan bahkan oleh attacker dengan kemampuan menengah.</p>\n<h3 style=\"text-align: justify;\" data-start=\"3061\" data-end=\"3109\">Banyak Distribusi Linux Berpotensi Terdampak</h3>\n<p style=\"text-align: justify;\" data-start=\"3111\" data-end=\"3207\">Karena bug sudah ada sejak 2017, banyak distribusi Linux berpotensi terkena dampaknya, termasuk:</p>\n<ul style=\"text-align: justify;\" data-start=\"3209\" data-end=\"3284\">\n<li data-start=\"3209\" data-end=\"3217\">Ubuntu</li>\n<li data-start=\"3218\" data-end=\"3226\">Debian</li>\n<li data-start=\"3227\" data-end=\"3235\">Fedora</li>\n<li data-start=\"3236\" data-end=\"3244\">CentOS</li>\n<li data-start=\"3245\" data-end=\"3257\">Arch Linux</li>\n<li data-start=\"3258\" data-end=\"3284\">Distribusi Linux lainnya</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3286\" data-end=\"3357\">Sistem server lama yang jarang diperbarui memiliki risiko lebih tinggi.</p>\n<h2 style=\"text-align: justify;\" data-start=\"3364\" data-end=\"3411\">Perbandingan dengan Exploit Linux Sebelumnya</h2>\n<h3 style=\"text-align: justify;\" data-start=\"3413\" data-end=\"3426\">Dirty COW</h3>\n<p style=\"text-align: justify;\" data-start=\"3428\" data-end=\"3588\">Dirty COW adalah exploit terkenal yang memanfaatkan race condition pada memory subsystem Linux. Exploit ini sempat menjadi ancaman besar di banyak server Linux.</p>\n<h3 style=\"text-align: justify;\" data-start=\"3595\" data-end=\"3609\">Dirty Pipe</h3>\n<p style=\"text-align: justify;\" data-start=\"3611\" data-end=\"3743\">Dirty Pipe muncul beberapa tahun setelah Dirty COW dan memungkinkan penyerang memodifikasi file read-only melalui pipe buffer Linux.</p>\n<h3 style=\"text-align: justify;\" data-start=\"3750\" data-end=\"3783\">Apa Bedanya dengan Copy Fail?</h3>\n<p style=\"text-align: justify;\" data-start=\"3785\" data-end=\"3852\">“Copy Fail” dianggap lebih berbahaya dalam beberapa kondisi karena:</p>\n<ul style=\"text-align: justify;\" data-start=\"3854\" data-end=\"3988\">\n<li data-start=\"3854\" data-end=\"3877\">exploit lebih stabil,</li>\n<li data-start=\"3878\" data-end=\"3914\">proses overwrite lebih terkontrol,</li>\n<li data-start=\"3915\" data-end=\"3955\">tidak bergantung pada timing tertentu,</li>\n<li data-start=\"3956\" data-end=\"3988\">dan lebih mudah diotomatisasi.</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3990\" data-end=\"4062\">Artinya, exploit dapat lebih mudah dimasukkan ke dalam malware otomatis.</p>\n<h2 style=\"text-align: justify;\" data-start=\"4069\" data-end=\"4107\">Dampak terhadap Dunia Cybersecurity</h2>\n<p style=\"text-align: justify;\" data-start=\"4109\" data-end=\"4177\">Kerentanan ini menjadi perhatian serius bagi banyak pihak, terutama:</p>\n<h3 style=\"text-align: justify;\" data-start=\"4179\" data-end=\"4203\">Administrator Server</h3>\n<p style=\"text-align: justify;\" data-start=\"4205\" data-end=\"4276\">Server Linux yang tidak diperbarui dapat menjadi target utama attacker.</p>\n<h3 style=\"text-align: justify;\" data-start=\"4283\" data-end=\"4306\">Infrastruktur Cloud</h3>\n<p style=\"text-align: justify;\" data-start=\"4308\" data-end=\"4388\">Karena banyak layanan cloud menggunakan Linux, exploit ini berpotensi menyerang:</p>\n<ul style=\"text-align: justify;\" data-start=\"4390\" data-end=\"4451\">\n<li data-start=\"4390\" data-end=\"4402\">container,</li>\n<li data-start=\"4403\" data-end=\"4409\">VPS,</li>\n<li data-start=\"4410\" data-end=\"4423\">Kubernetes,</li>\n<li data-start=\"4424\" data-end=\"4451\">hingga server production.</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"4458\" data-end=\"4484\">Malware dan Ransomware</h3>\n<p style=\"text-align: justify;\" data-start=\"4486\" data-end=\"4543\">Kelompok cybercrime dapat memanfaatkan exploit ini untuk:</p>\n<ul style=\"text-align: justify;\" data-start=\"4545\" data-end=\"4665\">\n<li data-start=\"4545\" data-end=\"4570\">mendapatkan akses root,</li>\n<li data-start=\"4571\" data-end=\"4603\">menonaktifkan keamanan sistem,</li>\n<li data-start=\"4604\" data-end=\"4631\">mengenkripsi data server,</li>\n<li data-start=\"4632\" data-end=\"4665\">atau mencuri informasi penting.</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"4672\" data-end=\"4703\">Cara Mitigasi dan Pencegahan</h2>\n<h3 style=\"text-align: justify;\" data-start=\"4705\" data-end=\"4735\">Segera Update Kernel Linux</h3>\n<p style=\"text-align: justify;\" data-start=\"4737\" data-end=\"4843\">Langkah paling penting adalah melakukan update kernel ke versi terbaru yang sudah memiliki patch keamanan.</p>\n<p style=\"text-align: justify;\" data-start=\"4845\" data-end=\"4939\">Administrator disarankan segera memeriksa advisory resmi dari distribusi Linux yang digunakan.</p>\n<h3 style=\"text-align: justify;\" data-start=\"4946\" data-end=\"4974\">Nonaktifkan Modul Rentan</h3>\n<p style=\"text-align: justify;\" data-start=\"4976\" data-end=\"5133\">Beberapa peneliti menyarankan mitigasi sementara dengan membatasi atau menonaktifkan modul tertentu yang berkaitan dengan AF_ALG jika memang tidak digunakan.</p>\n<h3 style=\"text-align: justify;\" data-start=\"5140\" data-end=\"5177\">Monitoring Aktivitas Mencurigakan</h3>\n<p style=\"text-align: justify;\" data-start=\"5179\" data-end=\"5207\">Lakukan pemantauan terhadap:</p>\n<ul style=\"text-align: justify;\" data-start=\"5209\" data-end=\"5325\">\n<li data-start=\"5209\" data-end=\"5232\">privilege escalation,</li>\n<li data-start=\"5233\" data-end=\"5261\">aktivitas kernel abnormal,</li>\n<li data-start=\"5262\" data-end=\"5284\">proses mencurigakan,</li>\n<li data-start=\"5285\" data-end=\"5325\">dan perubahan sistem yang tidak biasa.</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"5332\" data-end=\"5352\">Hardening Sistem</h3>\n<p style=\"text-align: justify;\" data-start=\"5354\" data-end=\"5394\">Tambahkan perlindungan tambahan seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"5396\" data-end=\"5459\">\n<li data-start=\"5396\" data-end=\"5405\">SELinux</li>\n<li data-start=\"5406\" data-end=\"5416\">AppArmor</li>\n<li data-start=\"5417\" data-end=\"5441\">Least privilege access</li>\n<li data-start=\"5442\" data-end=\"5459\">Kernel lockdown</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"5461\" data-end=\"5543\">Langkah ini dapat membantu memperkecil dampak apabila exploit berhasil dijalankan.</p>\n<h2 style=\"text-align: justify;\" data-start=\"5550\" data-end=\"5590\">Peran AI dalam Penemuan Vulnerability</h2>\n<p style=\"text-align: justify;\" data-start=\"5592\" data-end=\"5681\">Kasus “Copy Fail” juga menunjukkan bagaimana AI mulai berperan dalam dunia cybersecurity.</p>\n<p style=\"text-align: justify;\" data-start=\"5683\" data-end=\"5716\">AI dapat membantu peneliti untuk:</p>\n<ul style=\"text-align: justify;\" data-start=\"5718\" data-end=\"5838\">\n<li data-start=\"5718\" data-end=\"5745\">menganalisis source code,</li>\n<li data-start=\"5746\" data-end=\"5767\">menemukan pola bug,</li>\n<li data-start=\"5768\" data-end=\"5795\">memahami perilaku kernel,</li>\n<li data-start=\"5796\" data-end=\"5838\">hingga membantu proses exploit research.</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"5840\" data-end=\"5949\">Di sisi lain, teknologi ini juga dapat dimanfaatkan oleh attacker untuk mempercepat pencarian celah keamanan.</p>\n<p style=\"text-align: justify;\" data-start=\"5951\" data-end=\"6030\">Karena itu, perkembangan AI di bidang cybersecurity menjadi pedang bermata dua.</p>\n<h2 style=\"text-align: justify;\" data-start=\"6037\" data-end=\"6050\">Kesimpulan</h2>\n<p style=\"text-align: justify;\" data-start=\"6052\" data-end=\"6288\">“Copy Fail” menjadi salah satu kerentanan Linux yang cukup mengkhawatirkan dalam beberapa tahun terakhir. Celah ini memungkinkan penyerang memperoleh akses root dengan metode yang relatif lebih mudah dibanding exploit kernel sebelumnya.</p>\n<p style=\"text-align: justify;\" data-start=\"6290\" data-end=\"6406\">Karena bug telah ada sejak 2017, banyak sistem Linux lama berpotensi terdampak jika belum melakukan update keamanan.</p>\n<p style=\"text-align: justify;\" data-start=\"6408\" data-end=\"6486\">Bagi administrator server dan pengguna Linux, langkah terbaik saat ini adalah:</p>\n<ul style=\"text-align: justify;\" data-start=\"6488\" data-end=\"6595\">\n<li data-start=\"6488\" data-end=\"6516\">segera memperbarui kernel,</li>\n<li data-start=\"6517\" data-end=\"6547\">melakukan monitoring sistem,</li>\n<li data-start=\"6548\" data-end=\"6595\">serta menerapkan hardening keamanan tambahan.</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"6597\" data-end=\"6748\" data-is-last-node=\"\" data-is-only-node=\"\">Di era modern seperti sekarang, patch management dan keamanan sistem bukan lagi pilihan, tetapi kebutuhan utama untuk melindungi infrastruktur digital.</p>\n",
+  "content_text": "Pendahuluan\nDunia cybersecurity kembali dikejutkan dengan munculnya kerentanan baru pada Linux Kernel yang dikenal dengan nama  “Copy Fail” . Kerentanan ini termasuk kategori  zero-day vulnerability , yaitu celah keamanan yang dapat dieksploitasi sebelum banyak pengguna menyadari keberadaannya atau sebelum patch tersedia secara luas.\nYang membuat kasus ini menarik adalah kerentanan tersebut ternyata sudah ada sejak tahun 2017 dan berpotensi memengaruhi banyak distribusi Linux populer seperti Ubuntu, Debian, Fedora, hingga CentOS.\nPara peneliti keamanan menyebut bahwa eksploitasi “Copy Fail” relatif lebih mudah dibandingkan beberapa eksploit Linux terkenal sebelumnya. Bahkan, seorang pengguna biasa dapat memperoleh akses root apabila sistem belum diperbarui.\nApa Itu Zero-Day “Copy Fail”?\nZero-day vulnerability adalah celah keamanan yang belum diketahui atau belum diperbaiki saat mulai dimanfaatkan oleh penyerang. Dalam kasus ini, kerentanan tersebut diberi nama  “Copy Fail”  karena berhubungan dengan kesalahan proses penyalinan data di dalam Linux Kernel.\nKerentanan ini ditemukan oleh peneliti keamanan dari Theori dan tim Xint Code Research. Mereka menemukan adanya bug logika di dalam subsistem kernel Linux yang dapat dimanfaatkan untuk melakukan  privilege escalation , yaitu meningkatkan hak akses pengguna biasa menjadi administrator (root).\nPenelitian ini juga menarik perhatian karena melibatkan pendekatan analisis berbasis AI untuk membantu memahami perilaku kernel dan potensi eksploitasi.\nBagaimana Kerentanan Ini Bekerja?\nBug pada Linux Kernel\n“Copy Fail” bukanlah race condition seperti beberapa exploit Linux sebelumnya. Kerentanan ini berasal dari kesalahan logika pada mekanisme tertentu di Linux Kernel, khususnya pada bagian yang berkaitan dengan cryptographic interface.\nBug tersebut memungkinkan penyerang melakukan manipulasi memori kernel melalui kombinasi beberapa system call Linux.\nKomponen yang Terdampak\nBeberapa komponen yang disebut terdampak antara lain:\nAF_ALG socket interface\nFungsi  splice()\nPage cache kernel Linux\nMelalui kombinasi komponen tersebut, penyerang dapat melakukan overwrite memori tertentu secara terkontrol.\nDampak Eksploitasi\nJika berhasil dieksploitasi, penyerang dapat:\nMendapatkan akses root\nMengambil alih server Linux\nMenanam malware atau backdoor\nMelakukan persistence di sistem\nMenjalankan ransomware\nKarena exploit ini cukup stabil, ancamannya menjadi lebih serius terutama untuk server yang terhubung ke internet.\nMengapa “Copy Fail” Sangat Berbahaya?\nEksploitasi Lebih Mudah\nBerbeda dengan beberapa exploit Linux sebelumnya, “Copy Fail” tidak membutuhkan teknik yang terlalu rumit.\nPenyerang tidak perlu:\nmemenangkan race condition,\nmengetahui offset kernel tertentu,\natau melakukan modifikasi kernel.\nHal ini membuat exploit lebih mudah dijalankan bahkan oleh attacker dengan kemampuan menengah.\nBanyak Distribusi Linux Berpotensi Terdampak\nKarena bug sudah ada sejak 2017, banyak distribusi Linux berpotensi terkena dampaknya, termasuk:\nUbuntu\nDebian\nFedora\nCentOS\nArch Linux\nDistribusi Linux lainnya\nSistem server lama yang jarang diperbarui memiliki risiko lebih tinggi.\nPerbandingan dengan Exploit Linux Sebelumnya\nDirty COW\nDirty COW adalah exploit terkenal yang memanfaatkan race condition pada memory subsystem Linux. Exploit ini sempat menjadi ancaman besar di banyak server Linux.\nDirty Pipe\nDirty Pipe muncul beberapa tahun setelah Dirty COW dan memungkinkan penyerang memodifikasi file read-only melalui pipe buffer Linux.\nApa Bedanya dengan Copy Fail?\n“Copy Fail” dianggap lebih berbahaya dalam beberapa kondisi karena:\nexploit lebih stabil,\nproses overwrite lebih terkontrol,\ntidak bergantung pada timing tertentu,\ndan lebih mudah diotomatisasi.\nArtinya, exploit dapat lebih mudah dimasukkan ke dalam malware otomatis.\nDampak terhadap Dunia Cybersecurity\nKerentanan ini menjadi perhatian serius bagi banyak pihak, terutama:\nAdministrator Server\nServer Linux yang tidak diperbarui dapat menjadi target utama attacker.\nInfrastruktur Cloud\nKarena banyak layanan cloud menggunakan Linux, exploit ini berpotensi menyerang:\ncontainer,\nVPS,\nKubernetes,\nhingga server production.\nMalware dan Ransomware\nKelompok cybercrime dapat memanfaatkan exploit ini untuk:\nmendapatkan akses root,\nmenonaktifkan keamanan sistem,\nmengenkripsi data server,\natau mencuri informasi penting.\nCara Mitigasi dan Pencegahan\nSegera Update Kernel Linux\nLangkah paling penting adalah melakukan update kernel ke versi terbaru yang sudah memiliki patch keamanan.\nAdministrator disarankan segera memeriksa advisory resmi dari distribusi Linux yang digunakan.\nNonaktifkan Modul Rentan\nBeberapa peneliti menyarankan mitigasi sementara dengan membatasi atau menonaktifkan modul tertentu yang berkaitan dengan AF_ALG jika memang tidak digunakan.\nMonitoring Aktivitas Mencurigakan\nLakukan pemantauan terhadap:\nprivilege escalation,\naktivitas kernel abnormal,\nproses mencurigakan,\ndan perubahan sistem yang tidak biasa.\nHardening Sistem\nTambahkan perlindungan tambahan seperti:\nSELinux\nAppArmor\nLeast privilege access\nKernel lockdown\nLangkah ini dapat membantu memperkecil dampak apabila exploit berhasil dijalankan.\nPeran AI dalam Penemuan Vulnerability\nKasus “Copy Fail” juga menunjukkan bagaimana AI mulai berperan dalam dunia cybersecurity.\nAI dapat membantu peneliti untuk:\nmenganalisis source code,\nmenemukan pola bug,\nmemahami perilaku kernel,\nhingga membantu proses exploit research.\nDi sisi lain, teknologi ini juga dapat dimanfaatkan oleh attacker untuk mempercepat pencarian celah keamanan.\nKarena itu, perkembangan AI di bidang cybersecurity menjadi pedang bermata dua.\nKesimpulan\n“Copy Fail” menjadi salah satu kerentanan Linux yang cukup mengkhawatirkan dalam beberapa tahun terakhir. Celah ini memungkinkan penyerang memperoleh akses root dengan metode yang relatif lebih mudah dibanding exploit kernel sebelumnya.\nKarena bug telah ada sejak 2017, banyak sistem Linux lama berpotensi terdampak jika belum melakukan update keamanan.\nBagi administrator server dan pengguna Linux, langkah terbaik saat ini adalah:\nsegera memperbarui kernel,\nmelakukan monitoring sistem,\nserta menerapkan hardening keamanan tambahan.\nDi era modern seperti sekarang, patch management dan keamanan sistem bukan lagi pilihan, tetapi kebutuhan utama untuk melindungi infrastruktur digital.",
+  "raw": {
+    "id": 10048,
+    "date": "2026-04-30T13:09:04",
+    "date_gmt": "2026-04-30T13:09:04",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=10048"
+    },
+    "modified": "2026-06-30T18:26:14",
+    "modified_gmt": "2026-06-30T18:26:14",
+    "slug": "linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/",
+    "title": {
+      "rendered": "Linux Kernel Zero-Day “Copy Fail” Mengancam Sistem Linux Sejak 2017"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"71\" data-end=\"85\">Pendahuluan</h2>\n<p style=\"text-align: justify;\" data-start=\"87\" data-end=\"414\">Dunia cybersecurity kembali dikejutkan dengan munculnya kerentanan baru pada Linux Kernel yang dikenal dengan nama <strong data-start=\"202\" data-end=\"217\">“Copy Fail”</strong>. Kerentanan ini termasuk kategori <strong data-start=\"252\" data-end=\"278\">zero-day vulnerability</strong>, yaitu celah keamanan yang dapat dieksploitasi sebelum banyak pengguna menyadari keberadaannya atau sebelum patch tersedia secara luas.</p>\n<p style=\"text-align: justify;\" data-start=\"416\" data-end=\"615\">Yang membuat kasus ini menarik adalah kerentanan tersebut ternyata sudah ada sejak tahun 2017 dan berpotensi memengaruhi banyak distribusi Linux populer seperti Ubuntu, Debian, Fedora, hingga CentOS.</p>\n<p style=\"text-align: justify;\" data-start=\"617\" data-end=\"848\">Para peneliti keamanan menyebut bahwa eksploitasi “Copy Fail” relatif lebih mudah dibandingkan beberapa eksploit Linux terkenal sebelumnya. Bahkan, seorang pengguna biasa dapat memperoleh akses root apabila sistem belum diperbarui.</p>\n<h2 style=\"text-align: justify;\" data-start=\"855\" data-end=\"887\">Apa Itu Zero-Day “Copy Fail”?</h2>\n<p style=\"text-align: justify;\" data-start=\"889\" data-end=\"1163\">Zero-day vulnerability adalah celah keamanan yang belum diketahui atau belum diperbaiki saat mulai dimanfaatkan oleh penyerang. Dalam kasus ini, kerentanan tersebut diberi nama <strong data-start=\"1066\" data-end=\"1081\">“Copy Fail”</strong> karena berhubungan dengan kesalahan proses penyalinan data di dalam Linux Kernel.</p>\n<p style=\"text-align: justify;\" data-start=\"1165\" data-end=\"1459\">Kerentanan ini ditemukan oleh peneliti keamanan dari Theori dan tim Xint Code Research. Mereka menemukan adanya bug logika di dalam subsistem kernel Linux yang dapat dimanfaatkan untuk melakukan <strong data-start=\"1360\" data-end=\"1384\">privilege escalation</strong>, yaitu meningkatkan hak akses pengguna biasa menjadi administrator (root).</p>\n<p style=\"text-align: justify;\" data-start=\"1461\" data-end=\"1613\">Penelitian ini juga menarik perhatian karena melibatkan pendekatan analisis berbasis AI untuk membantu memahami perilaku kernel dan potensi eksploitasi.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1620\" data-end=\"1656\">Bagaimana Kerentanan Ini Bekerja?</h2>\n<h3 style=\"text-align: justify;\" data-start=\"1658\" data-end=\"1683\">Bug pada Linux Kernel</h3>\n<p style=\"text-align: justify;\" data-start=\"1685\" data-end=\"1918\">“Copy Fail” bukanlah race condition seperti beberapa exploit Linux sebelumnya. Kerentanan ini berasal dari kesalahan logika pada mekanisme tertentu di Linux Kernel, khususnya pada bagian yang berkaitan dengan cryptographic interface.</p>\n<p style=\"text-align: justify;\" data-start=\"1920\" data-end=\"2036\">Bug tersebut memungkinkan penyerang melakukan manipulasi memori kernel melalui kombinasi beberapa system call Linux.</p>\n<h3 style=\"text-align: justify;\" data-start=\"2043\" data-end=\"2070\">Komponen yang Terdampak</h3>\n<p style=\"text-align: justify;\" data-start=\"2072\" data-end=\"2125\">Beberapa komponen yang disebut terdampak antara lain:</p>\n<ul style=\"text-align: justify;\" data-start=\"2127\" data-end=\"2198\">\n<li data-start=\"2127\" data-end=\"2152\">AF_ALG socket interface</li>\n<li data-start=\"2153\" data-end=\"2172\">Fungsi <code data-start=\"2162\" data-end=\"2172\">splice()</code></li>\n<li data-start=\"2173\" data-end=\"2198\">Page cache kernel Linux</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2200\" data-end=\"2307\">Melalui kombinasi komponen tersebut, penyerang dapat melakukan overwrite memori tertentu secara terkontrol.</p>\n<h3 style=\"text-align: justify;\" data-start=\"2314\" data-end=\"2336\">Dampak Eksploitasi</h3>\n<p style=\"text-align: justify;\" data-start=\"2338\" data-end=\"2383\">Jika berhasil dieksploitasi, penyerang dapat:</p>\n<ul style=\"text-align: justify;\" data-start=\"2385\" data-end=\"2530\">\n<li data-start=\"2385\" data-end=\"2409\">Mendapatkan akses root</li>\n<li data-start=\"2410\" data-end=\"2439\">Mengambil alih server Linux</li>\n<li data-start=\"2440\" data-end=\"2471\">Menanam malware atau backdoor</li>\n<li data-start=\"2472\" data-end=\"2505\">Melakukan persistence di sistem</li>\n<li data-start=\"2506\" data-end=\"2530\">Menjalankan ransomware</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2532\" data-end=\"2646\">Karena exploit ini cukup stabil, ancamannya menjadi lebih serius terutama untuk server yang terhubung ke internet.</p>\n<h2 style=\"text-align: justify;\" data-start=\"2653\" data-end=\"2693\">Mengapa “Copy Fail” Sangat Berbahaya?</h2>\n<h3 style=\"text-align: justify;\" data-start=\"2695\" data-end=\"2722\">Eksploitasi Lebih Mudah</h3>\n<p style=\"text-align: justify;\" data-start=\"2724\" data-end=\"2830\">Berbeda dengan beberapa exploit Linux sebelumnya, “Copy Fail” tidak membutuhkan teknik yang terlalu rumit.</p>\n<p style=\"text-align: justify;\" data-start=\"2832\" data-end=\"2854\">Penyerang tidak perlu:</p>\n<ul style=\"text-align: justify;\" data-start=\"2856\" data-end=\"2958\">\n<li data-start=\"2856\" data-end=\"2885\">memenangkan race condition,</li>\n<li data-start=\"2886\" data-end=\"2922\">mengetahui offset kernel tertentu,</li>\n<li data-start=\"2923\" data-end=\"2958\">atau melakukan modifikasi kernel.</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2960\" data-end=\"3054\">Hal ini membuat exploit lebih mudah dijalankan bahkan oleh attacker dengan kemampuan menengah.</p>\n<h3 style=\"text-align: justify;\" data-start=\"3061\" data-end=\"3109\">Banyak Distribusi Linux Berpotensi Terdampak</h3>\n<p style=\"text-align: justify;\" data-start=\"3111\" data-end=\"3207\">Karena bug sudah ada sejak 2017, banyak distribusi Linux berpotensi terkena dampaknya, termasuk:</p>\n<ul style=\"text-align: justify;\" data-start=\"3209\" data-end=\"3284\">\n<li data-start=\"3209\" data-end=\"3217\">Ubuntu</li>\n<li data-start=\"3218\" data-end=\"3226\">Debian</li>\n<li data-start=\"3227\" data-end=\"3235\">Fedora</li>\n<li data-start=\"3236\" data-end=\"3244\">CentOS</li>\n<li data-start=\"3245\" data-end=\"3257\">Arch Linux</li>\n<li data-start=\"3258\" data-end=\"3284\">Distribusi Linux lainnya</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3286\" data-end=\"3357\">Sistem server lama yang jarang diperbarui memiliki risiko lebih tinggi.</p>\n<h2 style=\"text-align: justify;\" data-start=\"3364\" data-end=\"3411\">Perbandingan dengan Exploit Linux Sebelumnya</h2>\n<h3 style=\"text-align: justify;\" data-start=\"3413\" data-end=\"3426\">Dirty COW</h3>\n<p style=\"text-align: justify;\" data-start=\"3428\" data-end=\"3588\">Dirty COW adalah exploit terkenal yang memanfaatkan race condition pada memory subsystem Linux. Exploit ini sempat menjadi ancaman besar di banyak server Linux.</p>\n<h3 style=\"text-align: justify;\" data-start=\"3595\" data-end=\"3609\">Dirty Pipe</h3>\n<p style=\"text-align: justify;\" data-start=\"3611\" data-end=\"3743\">Dirty Pipe muncul beberapa tahun setelah Dirty COW dan memungkinkan penyerang memodifikasi file read-only melalui pipe buffer Linux.</p>\n<h3 style=\"text-align: justify;\" data-start=\"3750\" data-end=\"3783\">Apa Bedanya dengan Copy Fail?</h3>\n<p style=\"text-align: justify;\" data-start=\"3785\" data-end=\"3852\">“Copy Fail” dianggap lebih berbahaya dalam beberapa kondisi karena:</p>\n<ul style=\"text-align: justify;\" data-start=\"3854\" data-end=\"3988\">\n<li data-start=\"3854\" data-end=\"3877\">exploit lebih stabil,</li>\n<li data-start=\"3878\" data-end=\"3914\">proses overwrite lebih terkontrol,</li>\n<li data-start=\"3915\" data-end=\"3955\">tidak bergantung pada timing tertentu,</li>\n<li data-start=\"3956\" data-end=\"3988\">dan lebih mudah diotomatisasi.</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3990\" data-end=\"4062\">Artinya, exploit dapat lebih mudah dimasukkan ke dalam malware otomatis.</p>\n<h2 style=\"text-align: justify;\" data-start=\"4069\" data-end=\"4107\">Dampak terhadap Dunia Cybersecurity</h2>\n<p style=\"text-align: justify;\" data-start=\"4109\" data-end=\"4177\">Kerentanan ini menjadi perhatian serius bagi banyak pihak, terutama:</p>\n<h3 style=\"text-align: justify;\" data-start=\"4179\" data-end=\"4203\">Administrator Server</h3>\n<p style=\"text-align: justify;\" data-start=\"4205\" data-end=\"4276\">Server Linux yang tidak diperbarui dapat menjadi target utama attacker.</p>\n<h3 style=\"text-align: justify;\" data-start=\"4283\" data-end=\"4306\">Infrastruktur Cloud</h3>\n<p style=\"text-align: justify;\" data-start=\"4308\" data-end=\"4388\">Karena banyak layanan cloud menggunakan Linux, exploit ini berpotensi menyerang:</p>\n<ul style=\"text-align: justify;\" data-start=\"4390\" data-end=\"4451\">\n<li data-start=\"4390\" data-end=\"4402\">container,</li>\n<li data-start=\"4403\" data-end=\"4409\">VPS,</li>\n<li data-start=\"4410\" data-end=\"4423\">Kubernetes,</li>\n<li data-start=\"4424\" data-end=\"4451\">hingga server production.</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"4458\" data-end=\"4484\">Malware dan Ransomware</h3>\n<p style=\"text-align: justify;\" data-start=\"4486\" data-end=\"4543\">Kelompok cybercrime dapat memanfaatkan exploit ini untuk:</p>\n<ul style=\"text-align: justify;\" data-start=\"4545\" data-end=\"4665\">\n<li data-start=\"4545\" data-end=\"4570\">mendapatkan akses root,</li>\n<li data-start=\"4571\" data-end=\"4603\">menonaktifkan keamanan sistem,</li>\n<li data-start=\"4604\" data-end=\"4631\">mengenkripsi data server,</li>\n<li data-start=\"4632\" data-end=\"4665\">atau mencuri informasi penting.</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"4672\" data-end=\"4703\">Cara Mitigasi dan Pencegahan</h2>\n<h3 style=\"text-align: justify;\" data-start=\"4705\" data-end=\"4735\">Segera Update Kernel Linux</h3>\n<p style=\"text-align: justify;\" data-start=\"4737\" data-end=\"4843\">Langkah paling penting adalah melakukan update kernel ke versi terbaru yang sudah memiliki patch keamanan.</p>\n<p style=\"text-align: justify;\" data-start=\"4845\" data-end=\"4939\">Administrator disarankan segera memeriksa advisory resmi dari distribusi Linux yang digunakan.</p>\n<h3 style=\"text-align: justify;\" data-start=\"4946\" data-end=\"4974\">Nonaktifkan Modul Rentan</h3>\n<p style=\"text-align: justify;\" data-start=\"4976\" data-end=\"5133\">Beberapa peneliti menyarankan mitigasi sementara dengan membatasi atau menonaktifkan modul tertentu yang berkaitan dengan AF_ALG jika memang tidak digunakan.</p>\n<h3 style=\"text-align: justify;\" data-start=\"5140\" data-end=\"5177\">Monitoring Aktivitas Mencurigakan</h3>\n<p style=\"text-align: justify;\" data-start=\"5179\" data-end=\"5207\">Lakukan pemantauan terhadap:</p>\n<ul style=\"text-align: justify;\" data-start=\"5209\" data-end=\"5325\">\n<li data-start=\"5209\" data-end=\"5232\">privilege escalation,</li>\n<li data-start=\"5233\" data-end=\"5261\">aktivitas kernel abnormal,</li>\n<li data-start=\"5262\" data-end=\"5284\">proses mencurigakan,</li>\n<li data-start=\"5285\" data-end=\"5325\">dan perubahan sistem yang tidak biasa.</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"5332\" data-end=\"5352\">Hardening Sistem</h3>\n<p style=\"text-align: justify;\" data-start=\"5354\" data-end=\"5394\">Tambahkan perlindungan tambahan seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"5396\" data-end=\"5459\">\n<li data-start=\"5396\" data-end=\"5405\">SELinux</li>\n<li data-start=\"5406\" data-end=\"5416\">AppArmor</li>\n<li data-start=\"5417\" data-end=\"5441\">Least privilege access</li>\n<li data-start=\"5442\" data-end=\"5459\">Kernel lockdown</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"5461\" data-end=\"5543\">Langkah ini dapat membantu memperkecil dampak apabila exploit berhasil dijalankan.</p>\n<h2 style=\"text-align: justify;\" data-start=\"5550\" data-end=\"5590\">Peran AI dalam Penemuan Vulnerability</h2>\n<p style=\"text-align: justify;\" data-start=\"5592\" data-end=\"5681\">Kasus “Copy Fail” juga menunjukkan bagaimana AI mulai berperan dalam dunia cybersecurity.</p>\n<p style=\"text-align: justify;\" data-start=\"5683\" data-end=\"5716\">AI dapat membantu peneliti untuk:</p>\n<ul style=\"text-align: justify;\" data-start=\"5718\" data-end=\"5838\">\n<li data-start=\"5718\" data-end=\"5745\">menganalisis source code,</li>\n<li data-start=\"5746\" data-end=\"5767\">menemukan pola bug,</li>\n<li data-start=\"5768\" data-end=\"5795\">memahami perilaku kernel,</li>\n<li data-start=\"5796\" data-end=\"5838\">hingga membantu proses exploit research.</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"5840\" data-end=\"5949\">Di sisi lain, teknologi ini juga dapat dimanfaatkan oleh attacker untuk mempercepat pencarian celah keamanan.</p>\n<p style=\"text-align: justify;\" data-start=\"5951\" data-end=\"6030\">Karena itu, perkembangan AI di bidang cybersecurity menjadi pedang bermata dua.</p>\n<h2 style=\"text-align: justify;\" data-start=\"6037\" data-end=\"6050\">Kesimpulan</h2>\n<p style=\"text-align: justify;\" data-start=\"6052\" data-end=\"6288\">“Copy Fail” menjadi salah satu kerentanan Linux yang cukup mengkhawatirkan dalam beberapa tahun terakhir. Celah ini memungkinkan penyerang memperoleh akses root dengan metode yang relatif lebih mudah dibanding exploit kernel sebelumnya.</p>\n<p style=\"text-align: justify;\" data-start=\"6290\" data-end=\"6406\">Karena bug telah ada sejak 2017, banyak sistem Linux lama berpotensi terdampak jika belum melakukan update keamanan.</p>\n<p style=\"text-align: justify;\" data-start=\"6408\" data-end=\"6486\">Bagi administrator server dan pengguna Linux, langkah terbaik saat ini adalah:</p>\n<ul style=\"text-align: justify;\" data-start=\"6488\" data-end=\"6595\">\n<li data-start=\"6488\" data-end=\"6516\">segera memperbarui kernel,</li>\n<li data-start=\"6517\" data-end=\"6547\">melakukan monitoring sistem,</li>\n<li data-start=\"6548\" data-end=\"6595\">serta menerapkan hardening keamanan tambahan.</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"6597\" data-end=\"6748\" data-is-last-node=\"\" data-is-only-node=\"\">Di era modern seperti sekarang, patch management dan keamanan sistem bukan lagi pilihan, tetapi kebutuhan utama untuk melindungi infrastruktur digital.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Dunia cybersecurity kembali dikejutkan dengan munculnya kerentanan baru pada Linux Kernel yang dikenal dengan nama “Copy Fail”. Kerentanan ini termasuk kategori zero-day vulnerability, yaitu celah keamanan yang dapat dieksploitasi sebelum banyak pengguna menyadari keberadaannya atau sebelum patch tersedia secara luas. Yang membuat kasus ini menarik adalah kerentanan tersebut ternyata sudah ada sejak tahun 2017 dan berpotensi memengaruhi banyak distribusi Linux populer seperti Ubuntu, Debian, Fedora, hingga CentOS. Para peneliti keamanan menyebut bahwa eksploitasi “Copy Fail” relatif lebih mudah dibandingkan beberapa eksploit Linux terkenal sebelumnya. Bahkan, seorang pengguna biasa dapat memperoleh akses root apabila sistem belum diperbarui. Apa Itu Zero-Day&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 10049,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Zero-Day “Copy Fail”",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      1267,
+      373,
+      929
+    ],
+    "class_list": [
+      "post-10048",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-copy-fail",
+      "tag-zero-day-attack",
+      "tag-zero-day-exploit"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Linux Kernel Zero-Day “Copy Fail” Mengancam Sistem Linux Sejak 2017 - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Linux Kernel Zero-Day “Copy Fail” Mengancam Sistem Linux Sejak 2017 - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Dunia cybersecurity kembali dikejutkan dengan munculnya kerentanan baru pada Linux Kernel yang dikenal dengan nama “Copy Fail”. Kerentanan ini termasuk kategori zero-day vulnerability, yaitu celah keamanan yang dapat dieksploitasi sebelum banyak pengguna menyadari keberadaannya atau sebelum patch tersedia secara luas. Yang membuat kasus ini menarik adalah kerentanan tersebut ternyata sudah ada sejak tahun 2017 dan berpotensi memengaruhi banyak distribusi Linux populer seperti Ubuntu, Debian, Fedora, hingga CentOS. Para peneliti keamanan menyebut bahwa eksploitasi “Copy Fail” relatif lebih mudah dibandingkan beberapa eksploit Linux terkenal sebelumnya. Bahkan, seorang pengguna biasa dapat memperoleh akses root apabila sistem belum diperbarui. Apa Itu Zero-Day...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-04-30T13:09:04+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T18:26:14+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/04/Linux-Kernel-0-Day-Copy-Fail-1024x576-1.png\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"576\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/\",\"url\":\"https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/\",\"name\":\"Linux Kernel Zero-Day “Copy Fail” Mengancam Sistem Linux Sejak 2017 - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/04/Linux-Kernel-0-Day-Copy-Fail-1024x576-1.png\",\"datePublished\":\"2026-04-30T13:09:04+00:00\",\"dateModified\":\"2026-06-30T18:26:14+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/04/Linux-Kernel-0-Day-Copy-Fail-1024x576-1.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/04/Linux-Kernel-0-Day-Copy-Fail-1024x576-1.png\",\"width\":1024,\"height\":576},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Linux Kernel Zero-Day “Copy Fail” Mengancam Sistem Linux Sejak 2017\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Linux Kernel Zero-Day “Copy Fail” Mengancam Sistem Linux Sejak 2017 - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Linux Kernel Zero-Day “Copy Fail” Mengancam Sistem Linux Sejak 2017 - buletinsiber.com",
+      "og_description": "Pendahuluan Dunia cybersecurity kembali dikejutkan dengan munculnya kerentanan baru pada Linux Kernel yang dikenal dengan nama “Copy Fail”. Kerentanan ini termasuk kategori zero-day vulnerability, yaitu celah keamanan yang dapat dieksploitasi sebelum banyak pengguna menyadari keberadaannya atau sebelum patch tersedia secara luas. Yang membuat kasus ini menarik adalah kerentanan tersebut ternyata sudah ada sejak tahun 2017 dan berpotensi memengaruhi banyak distribusi Linux populer seperti Ubuntu, Debian, Fedora, hingga CentOS. Para peneliti keamanan menyebut bahwa eksploitasi “Copy Fail” relatif lebih mudah dibandingkan beberapa eksploit Linux terkenal sebelumnya. Bahkan, seorang pengguna biasa dapat memperoleh akses root apabila sistem belum diperbarui. Apa Itu Zero-Day...",
+      "og_url": "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-04-30T13:09:04+00:00",
+      "article_modified_time": "2026-06-30T18:26:14+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 576,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/04/Linux-Kernel-0-Day-Copy-Fail-1024x576-1.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/",
+            "url": "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/",
+            "name": "Linux Kernel Zero-Day “Copy Fail” Mengancam Sistem Linux Sejak 2017 - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/04/Linux-Kernel-0-Day-Copy-Fail-1024x576-1.png",
+            "datePublished": "2026-04-30T13:09:04+00:00",
+            "dateModified": "2026-06-30T18:26:14+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/04/Linux-Kernel-0-Day-Copy-Fail-1024x576-1.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/04/Linux-Kernel-0-Day-Copy-Fail-1024x576-1.png",
+            "width": 1024,
+            "height": 576
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/linux-kernel-zero-day-copy-fail-mengancam-sistem-linux-sejak-2017/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Linux Kernel Zero-Day “Copy Fail” Mengancam Sistem Linux Sejak 2017"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10048",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=10048"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10048/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 10050,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10048/revisions/10050"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/10049"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=10048"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=10048"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=10048"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

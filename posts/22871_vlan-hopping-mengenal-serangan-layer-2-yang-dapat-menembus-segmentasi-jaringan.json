@@ -1,0 +1,328 @@
+{
+  "id": 22871,
+  "title": "VLAN Hopping: Mengenal Serangan Layer 2 yang Dapat Menembus Segmentasi Jaringan",
+  "slug": "vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan",
+  "url": "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/",
+  "date": "2026-08-17T00:20:36",
+  "date_gmt": "2026-08-17T00:20:36",
+  "modified": "2026-08-17T00:20:36",
+  "modified_gmt": "2026-08-17T00:20:36",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    115,
+    682,
+    1008
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/08/How-MLOps-Improves-Machine-Learning-Deployment.jpg",
+  "excerpt": "Pengantar Virtual Local Area Network atau VLAN digunakan untuk memisahkan perangkat dalam jaringan secara logis. Dengan VLAN, administrator dapat memisahkan jaringan berdasarkan fungsi, departemen, maupun tingkat keamanan. Namun, VLAN bukanlah batas keamanan yang sempurna. Salah satu ancaman pada jaringan Layer 2 adalah VLAN Hopping, yaitu teknik yang memungkinkan traffic dari satu VLAN mencapai VLAN lain tanpa melalui jalur komunikasi yang seharusnya. Cisco menjelaskan bahwa VLAN hopping dapat terjadi melalui beberapa teknik, termasuk switch spoofing dan double tagging, yang memanfaatkan karakteristik trunking serta VLAN tagging pada jaringan Ethernet (dikutip dari: https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/EttF/EttFDIG.pdf). Apa Itu VLAN Hopping? VLAN Hopping adalah serangan jaringan yang…",
+  "content_html": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"83\" data-end=\"95\">Pengantar</h2>\n<p data-start=\"97\" data-end=\"313\">Virtual Local Area Network atau <strong data-start=\"129\" data-end=\"137\">VLAN</strong> digunakan untuk memisahkan perangkat dalam jaringan secara logis. Dengan VLAN, administrator dapat memisahkan jaringan berdasarkan fungsi, departemen, maupun tingkat keamanan.</p>\n<p data-start=\"315\" data-end=\"552\">Namun, VLAN bukanlah batas keamanan yang sempurna. Salah satu ancaman pada jaringan Layer 2 adalah <strong data-start=\"414\" data-end=\"430\">VLAN Hopping</strong>, yaitu teknik yang memungkinkan traffic dari satu VLAN mencapai VLAN lain tanpa melalui jalur komunikasi yang seharusnya.</p>\n<p data-start=\"554\" data-end=\"861\">Cisco menjelaskan bahwa VLAN hopping dapat terjadi melalui beberapa teknik, termasuk <strong data-start=\"639\" data-end=\"658\">switch spoofing</strong> dan <strong data-start=\"663\" data-end=\"681\">double tagging</strong>, yang memanfaatkan karakteristik trunking serta VLAN tagging pada jaringan Ethernet <strong data-start=\"766\" data-end=\"860\">(dikutip dari: <a class=\"decorated-link\" href=\"https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/EttF/EttFDIG.pdf\" target=\"_new\" rel=\"noopener\" data-start=\"783\" data-end=\"857\">https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/EttF/EttFDIG.pdf</a>)</strong>.</p>\n<hr data-start=\"863\" data-end=\"866\" />\n<h2 data-section-id=\"14z6btc\" data-start=\"868\" data-end=\"892\">Apa Itu VLAN Hopping?</h2>\n<p data-start=\"894\" data-end=\"1047\">VLAN Hopping adalah serangan jaringan yang berusaha melewati batas segmentasi VLAN sehingga perangkat pada satu VLAN dapat mengirim traffic ke VLAN lain.</p>\n<p data-start=\"1049\" data-end=\"1066\">Secara sederhana:</p>\n<p data-start=\"1068\" data-end=\"1116\">Client VLAN 10 → VLAN Hopping → VLAN 20 → Target</p>\n<p data-start=\"1118\" data-end=\"1237\">Dalam kondisi normal, perangkat pada VLAN 10 seharusnya tidak dapat berkomunikasi langsung dengan VLAN 20 pada Layer 2.</p>\n<p data-start=\"1239\" data-end=\"1366\">Jika segmentasi VLAN berhasil dilewati, attacker dapat memperoleh akses ke resource yang seharusnya berada di jaringan berbeda.</p>\n<blockquote>\n<p data-start=\"1239\" data-end=\"1366\">baca juga : <a href=\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/\">XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya</a></p>\n</blockquote>\n<hr data-start=\"1368\" data-end=\"1371\" />\n<h2 data-section-id=\"1h191lu\" data-start=\"1373\" data-end=\"1407\">Bagaimana VLAN Hopping Terjadi?</h2>\n<p data-start=\"1409\" data-end=\"1489\">Secara umum, terdapat dua metode yang sering dibahas dalam konteks VLAN hopping.</p>\n<h3 data-section-id=\"1r5y5w1\" data-start=\"1491\" data-end=\"1510\">Switch Spoofing</h3>\n<p data-start=\"1512\" data-end=\"1661\">Switch spoofing terjadi ketika perangkat attacker mencoba membuat switch menganggap dirinya sebagai perangkat jaringan yang mampu melakukan trunking.</p>\n<p data-start=\"1663\" data-end=\"1832\">Jika port yang terhubung ke perangkat pengguna masih memungkinkan negosiasi trunk secara tidak aman, attacker berpotensi mendapatkan akses ke traffic dari beberapa VLAN.</p>\n<p data-start=\"1834\" data-end=\"2119\">Cisco menjelaskan bahwa port yang menggunakan DTP dan dikonfigurasi secara tidak tepat dapat menjadi risiko karena perangkat yang mengirimkan paket DTP palsu dapat memicu terbentuknya trunk</p>\n<p data-start=\"2121\" data-end=\"2280\">Karena trunk membawa traffic dari beberapa VLAN, kondisi tersebut dapat memperluas akses yang seharusnya hanya dimiliki oleh perangkat jaringan yang dipercaya.</p>\n<hr data-start=\"2282\" data-end=\"2285\" />\n<h3 data-section-id=\"e2cwbq\" data-start=\"2287\" data-end=\"2305\">Double Tagging</h3>\n<p data-start=\"2307\" data-end=\"2348\">Metode lainnya adalah <strong data-start=\"2329\" data-end=\"2347\">double tagging</strong>.</p>\n<p data-start=\"2350\" data-end=\"2415\">Pada teknik ini, frame dapat dibuat memiliki dua VLAN tag 802.1Q.</p>\n<p data-start=\"2417\" data-end=\"2435\">Secara konseptual:</p>\n<p data-start=\"2437\" data-end=\"2475\">Outer VLAN Tag + Inner VLAN Tag + Data</p>\n<p data-start=\"2477\" data-end=\"2620\">Switch pertama dapat memproses atau menghapus tag bagian luar dalam kondisi tertentu. Tag kedua kemudian dapat diproses oleh switch berikutnya.</p>\n<p data-start=\"2622\" data-end=\"2674\">Akibatnya, frame dapat diarahkan menuju VLAN target.</p>\n<p data-start=\"2676\" data-end=\"2925\">Cisco menjelaskan bahwa serangan double-encapsulated 802.1Q dapat memanfaatkan cara switch memproses tag dan native VLAN pada trunk <strong data-start=\"2808\" data-end=\"2924\">(dikutip dari: <a class=\"decorated-link\" href=\"https://www.cisco.com/c/dam/en_us/about/ac123/ac114/downloads/packet/packet/jan03/pdfs/jan03.pdf\" target=\"_new\" rel=\"noopener\" data-start=\"2825\" data-end=\"2921\">https://www.cisco.com/c/dam/en_us/about/ac123/ac114/downloads/packet/packet/jan03/pdfs/jan03.pdf</a>)</strong>.</p>\n<hr data-start=\"2927\" data-end=\"2930\" />\n<h2 data-section-id=\"10vva2m\" data-start=\"2932\" data-end=\"2966\">Mengapa VLAN Hopping Berbahaya?</h2>\n<h3 data-section-id=\"1f2cyiq\" data-start=\"2968\" data-end=\"3000\">Melewati Segmentasi Jaringan</h3>\n<p data-start=\"3002\" data-end=\"3111\">VLAN biasanya digunakan untuk memisahkan jaringan pengguna, server, guest, management, dan perangkat lainnya.</p>\n<p data-start=\"3113\" data-end=\"3245\">Jika segmentasi tersebut berhasil dilewati, attacker dapat mencoba mengakses resource yang seharusnya tidak tersedia dari VLAN asal.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"591\" height=\"394\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 591px) 100vw, 591px\" /></p>\n<h3 data-section-id=\"fycbg6\" data-start=\"3247\" data-end=\"3280\">Memperluas Permukaan Serangan</h3>\n<p data-start=\"3282\" data-end=\"3429\">Akses ke VLAN lain dapat memberikan kesempatan bagi attacker untuk menemukan service, perangkat, atau sistem yang sebelumnya tidak dapat dijangkau.</p>\n<h3 data-section-id=\"1ey1s0l\" data-start=\"3431\" data-end=\"3474\">Mengganggu Prinsip Network Segmentation</h3>\n<p data-start=\"3476\" data-end=\"3549\">Segmentasi merupakan salah satu komponen penting dalam keamanan jaringan.</p>\n<p data-start=\"3551\" data-end=\"3673\">Karena itu, VLAN hopping dapat mengurangi efektivitas segmentasi apabila konfigurasi Layer 2 tidak dilakukan dengan benar.</p>\n<hr data-start=\"3675\" data-end=\"3678\" />\n<h2 data-section-id=\"5l0cug\" data-start=\"3680\" data-end=\"3709\">Cara Mencegah VLAN Hopping</h2>\n<h3 data-section-id=\"bl4uti\" data-start=\"3711\" data-end=\"3754\">Nonaktifkan Trunking pada Port Pengguna</h3>\n<p data-start=\"3756\" data-end=\"3867\">Port yang digunakan oleh komputer, printer, kamera, atau perangkat pengguna umumnya tidak membutuhkan trunking.</p>\n<p data-start=\"3869\" data-end=\"4003\">Gunakan konfigurasi access port secara eksplisit sehingga perangkat pengguna tidak dapat melakukan negosiasi trunk secara sembarangan.</p>\n<blockquote>\n<p data-start=\"3869\" data-end=\"4003\">baca juga : <a href=\"https://buletinsiber.com/graphql-security-mengenal-celah-serangan-dan-cara-mengamankan-api-modern/\">GraphQL Security: Mengenal Celah Serangan dan Cara Mengamankan API Modern</a></p>\n</blockquote>\n<hr data-start=\"4005\" data-end=\"4008\" />\n<h3 data-section-id=\"12p5ltd\" data-start=\"4010\" data-end=\"4051\">Nonaktifkan DTP Jika Tidak Dibutuhkan</h3>\n<p data-start=\"4053\" data-end=\"4136\">Dynamic Trunking Protocol dapat membantu perangkat Cisco melakukan negosiasi trunk.</p>\n<p data-start=\"4138\" data-end=\"4276\">Namun, pada port yang seharusnya hanya digunakan untuk perangkat pengguna, fitur tersebut sebaiknya tidak dibiarkan aktif tanpa kebutuhan.</p>\n<p data-start=\"4278\" data-end=\"4299\">Prinsipnya sederhana:</p>\n<p data-start=\"4301\" data-end=\"4327\"><strong data-start=\"4301\" data-end=\"4327\">Port pengguna → Access</strong></p>\n<p data-start=\"4329\" data-end=\"4358\"><strong data-start=\"4329\" data-end=\"4358\">Port antar-switch → Trunk</strong></p>\n<hr data-start=\"4360\" data-end=\"4363\" />\n<h3 data-section-id=\"otj6tk\" data-start=\"4365\" data-end=\"4395\">Gunakan Native VLAN Khusus</h3>\n<p data-start=\"4397\" data-end=\"4468\">Native VLAN pada trunk sebaiknya tidak digunakan sebagai VLAN pengguna.</p>\n<p data-start=\"4470\" data-end=\"4746\">Cisco merekomendasikan penggunaan VLAN yang tidak digunakan oleh end-user sebagai native VLAN untuk mengurangi risiko double-tagging</p>\n<p data-start=\"4748\" data-end=\"4758\">Contohnya:</p>\n<p data-start=\"4760\" data-end=\"4782\">Native VLAN → VLAN 999</p>\n<p data-start=\"4784\" data-end=\"4815\">VLAN 999 tidak digunakan untuk:</p>\n<ul data-start=\"4817\" data-end=\"4879\">\n<li data-section-id=\"17cjck7\" data-start=\"4817\" data-end=\"4824\">User.</li>\n<li data-section-id=\"1v4coxv\" data-start=\"4825\" data-end=\"4834\">Server.</li>\n<li data-section-id=\"12gvmnp\" data-start=\"4835\" data-end=\"4848\">Management.</li>\n<li data-section-id=\"1xrpeja\" data-start=\"4849\" data-end=\"4857\">Guest.</li>\n<li data-section-id=\"4kt9ru\" data-start=\"4858\" data-end=\"4879\">Perangkat produksi.</li>\n</ul>\n<hr data-start=\"4881\" data-end=\"4884\" />\n<h3 data-section-id=\"145qgpp\" data-start=\"4886\" data-end=\"4926\">Hindari Penggunaan VLAN 1 untuk User</h3>\n<p data-start=\"4928\" data-end=\"5000\">VLAN 1 merupakan default VLAN yang dikenal luas pada perangkat jaringan.</p>\n<p data-start=\"5002\" data-end=\"5334\">Cisco menyarankan agar VLAN 1 tidak digunakan sebagai VLAN data atau voice pada konfigurasi tertentu karena dapat meningkatkan risiko keamanan dan kesalahan konfigurasi <strong data-start=\"5171\" data-end=\"5333\">(dikutip dari: <a class=\"decorated-link\" href=\"https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3850/software/release/16-1/best_practices_guide/BP_Cat3850/BP_access_interface.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"5188\" data-end=\"5330\">https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3850/software/release/16-1/best_practices_guide/BP_Cat3850/BP_access_interface.html</a>)</strong>.</p>\n<hr data-start=\"5336\" data-end=\"5339\" />\n<h3 data-section-id=\"v24nch\" data-start=\"5341\" data-end=\"5382\">Batasi VLAN yang Diizinkan pada Trunk</h3>\n<p data-start=\"5384\" data-end=\"5429\">Tidak semua VLAN harus melewati setiap trunk.</p>\n<p data-start=\"5431\" data-end=\"5523\">Jika sebuah trunk hanya membutuhkan VLAN 10 dan VLAN 20, VLAN lainnya tidak perlu diizinkan.</p>\n<p data-start=\"5525\" data-end=\"5535\">Konsepnya:</p>\n<p data-start=\"5537\" data-end=\"5558\">Trunk A → VLAN 10, 20</p>\n<p data-start=\"5560\" data-end=\"5566\">Bukan:</p>\n<p data-start=\"5568\" data-end=\"5589\">Trunk A → VLAN 1-4094</p>\n<p data-start=\"5591\" data-end=\"5722\">Pembatasan VLAN pada trunk membantu mengurangi traffic yang tidak diperlukan dan memperkecil kemungkinan penyalahgunaan segmentasi.</p>\n<hr data-start=\"5724\" data-end=\"5727\" />\n<h2 data-section-id=\"1k643km\" data-start=\"5729\" data-end=\"5755\">Checklist Keamanan VLAN</h2>\n<p data-start=\"5757\" data-end=\"5852\">Sebelum jaringan digunakan dalam production, administrator dapat melakukan pemeriksaan berikut:</p>\n<ol data-start=\"5854\" data-end=\"6386\">\n<li data-section-id=\"14s17ug\" data-start=\"5854\" data-end=\"5905\">Port pengguna dikonfigurasi sebagai access port.</li>\n<li data-section-id=\"18a0dle\" data-start=\"5906\" data-end=\"5968\">Trunk hanya digunakan pada port yang memang membutuhkannya.</li>\n<li data-section-id=\"xbo8lc\" data-start=\"5969\" data-end=\"6031\">DTP dinonaktifkan pada port pengguna jika tidak diperlukan.</li>\n<li data-section-id=\"1ofv6ng\" data-start=\"6032\" data-end=\"6097\">Native VLAN menggunakan VLAN khusus yang tidak digunakan user.</li>\n<li data-section-id=\"6n6s99\" data-start=\"6098\" data-end=\"6142\">VLAN 1 tidak digunakan sebagai VLAN user.</li>\n<li data-section-id=\"zkv4nd\" data-start=\"6143\" data-end=\"6186\">VLAN yang diizinkan pada trunk dibatasi.</li>\n<li data-section-id=\"1srjcyy\" data-start=\"6187\" data-end=\"6230\">Port yang tidak digunakan dinonaktifkan.</li>\n<li data-section-id=\"enusy6\" data-start=\"6231\" data-end=\"6276\">Port security diterapkan sesuai kebutuhan.</li>\n<li data-section-id=\"1cke02t\" data-start=\"6277\" data-end=\"6322\">Konfigurasi switch diaudit secara berkala.</li>\n<li data-section-id=\"mz9h2c\" data-start=\"6323\" data-end=\"6386\">Traffic Layer 2 dipantau untuk aktivitas yang tidak normal.</li>\n</ol>\n<hr data-start=\"6388\" data-end=\"6391\" />\n<h2 data-section-id=\"1bar3z0\" data-start=\"6393\" data-end=\"6433\">VLAN Hopping dan Network Segmentation</h2>\n<p data-start=\"6435\" data-end=\"6505\">VLAN sebaiknya tidak dianggap sebagai satu-satunya mekanisme keamanan.</p>\n<p data-start=\"6507\" data-end=\"6614\">Untuk jaringan yang membutuhkan tingkat keamanan lebih tinggi, segmentasi VLAN dapat dikombinasikan dengan:</p>\n<ul data-start=\"6616\" data-end=\"6759\">\n<li data-section-id=\"cirl8o\" data-start=\"6616\" data-end=\"6627\">Firewall.</li>\n<li data-section-id=\"82j2so\" data-start=\"6628\" data-end=\"6656\">Access Control List (ACL).</li>\n<li data-section-id=\"1r0w0d2\" data-start=\"6657\" data-end=\"6688\">Network Access Control (NAC).</li>\n<li data-section-id=\"17ruih5\" data-start=\"6689\" data-end=\"6705\">Port security.</li>\n<li data-section-id=\"btikga\" data-start=\"6706\" data-end=\"6719\">Monitoring.</li>\n<li data-section-id=\"1tul7el\" data-start=\"6720\" data-end=\"6730\">IDS/IPS.</li>\n<li data-section-id=\"1o2glyi\" data-start=\"6731\" data-end=\"6759\">Zero Trust Network Access.</li>\n</ul>\n<p data-start=\"6761\" data-end=\"6887\">Dengan pendekatan berlapis, keberhasilan satu serangan pada Layer 2 tidak otomatis memberikan akses penuh ke seluruh jaringan.</p>\n<blockquote>\n<p data-start=\"6761\" data-end=\"6887\">baca juga : <a href=\"https://buletinsiber.com/attribute-based-access-control-abac-cara-kerja-dan-perannya-dalam-keamanan-akses-modern/\">Attribute-Based Access Control (ABAC): Cara Kerja dan Perannya dalam Keamanan Akses Modern</a></p>\n</blockquote>\n<hr data-start=\"6889\" data-end=\"6892\" />\n<h2 data-section-id=\"1806px6\" data-start=\"6894\" data-end=\"6907\">Kesimpulan</h2>\n<p data-start=\"6909\" data-end=\"7083\"><strong data-start=\"6909\" data-end=\"6925\">VLAN Hopping</strong> merupakan serangan pada Layer 2 yang berusaha melewati batas segmentasi VLAN. Dua teknik yang umum dibahas adalah <strong data-start=\"7040\" data-end=\"7059\">switch spoofing</strong> dan <strong data-start=\"7064\" data-end=\"7082\">double tagging</strong>.</p>\n<p data-start=\"7085\" data-end=\"7360\">Risiko tersebut dapat dikurangi dengan konfigurasi switch yang tepat. Beberapa langkah penting meliputi menonaktifkan trunking pada port pengguna, membatasi DTP, menggunakan native VLAN khusus, membatasi VLAN pada trunk, dan menghindari penggunaan VLAN 1 untuk jaringan user.</p>\n<p data-start=\"7362\" data-end=\"7604\">VLAN memang sangat berguna untuk segmentasi jaringan, tetapi keamanan tidak boleh berhenti pada konfigurasi VLAN. Kombinasikan segmentasi dengan ACL, firewall, monitoring, dan kontrol akses lainnya agar pertahanan jaringan menjadi lebih kuat.</p>\n",
+  "content_text": "Pengantar\nVirtual Local Area Network atau  VLAN  digunakan untuk memisahkan perangkat dalam jaringan secara logis. Dengan VLAN, administrator dapat memisahkan jaringan berdasarkan fungsi, departemen, maupun tingkat keamanan.\nNamun, VLAN bukanlah batas keamanan yang sempurna. Salah satu ancaman pada jaringan Layer 2 adalah  VLAN Hopping , yaitu teknik yang memungkinkan traffic dari satu VLAN mencapai VLAN lain tanpa melalui jalur komunikasi yang seharusnya.\nCisco menjelaskan bahwa VLAN hopping dapat terjadi melalui beberapa teknik, termasuk  switch spoofing  dan  double tagging , yang memanfaatkan karakteristik trunking serta VLAN tagging pada jaringan Ethernet  (dikutip dari:  https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/EttF/EttFDIG.pdf ) .\nApa Itu VLAN Hopping?\nVLAN Hopping adalah serangan jaringan yang berusaha melewati batas segmentasi VLAN sehingga perangkat pada satu VLAN dapat mengirim traffic ke VLAN lain.\nSecara sederhana:\nClient VLAN 10 → VLAN Hopping → VLAN 20 → Target\nDalam kondisi normal, perangkat pada VLAN 10 seharusnya tidak dapat berkomunikasi langsung dengan VLAN 20 pada Layer 2.\nJika segmentasi VLAN berhasil dilewati, attacker dapat memperoleh akses ke resource yang seharusnya berada di jaringan berbeda.\nbaca juga :  XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya\nBagaimana VLAN Hopping Terjadi?\nSecara umum, terdapat dua metode yang sering dibahas dalam konteks VLAN hopping.\nSwitch Spoofing\nSwitch spoofing terjadi ketika perangkat attacker mencoba membuat switch menganggap dirinya sebagai perangkat jaringan yang mampu melakukan trunking.\nJika port yang terhubung ke perangkat pengguna masih memungkinkan negosiasi trunk secara tidak aman, attacker berpotensi mendapatkan akses ke traffic dari beberapa VLAN.\nCisco menjelaskan bahwa port yang menggunakan DTP dan dikonfigurasi secara tidak tepat dapat menjadi risiko karena perangkat yang mengirimkan paket DTP palsu dapat memicu terbentuknya trunk\nKarena trunk membawa traffic dari beberapa VLAN, kondisi tersebut dapat memperluas akses yang seharusnya hanya dimiliki oleh perangkat jaringan yang dipercaya.\nDouble Tagging\nMetode lainnya adalah  double tagging .\nPada teknik ini, frame dapat dibuat memiliki dua VLAN tag 802.1Q.\nSecara konseptual:\nOuter VLAN Tag + Inner VLAN Tag + Data\nSwitch pertama dapat memproses atau menghapus tag bagian luar dalam kondisi tertentu. Tag kedua kemudian dapat diproses oleh switch berikutnya.\nAkibatnya, frame dapat diarahkan menuju VLAN target.\nCisco menjelaskan bahwa serangan double-encapsulated 802.1Q dapat memanfaatkan cara switch memproses tag dan native VLAN pada trunk  (dikutip dari:  https://www.cisco.com/c/dam/en_us/about/ac123/ac114/downloads/packet/packet/jan03/pdfs/jan03.pdf ) .\nMengapa VLAN Hopping Berbahaya?\nMelewati Segmentasi Jaringan\nVLAN biasanya digunakan untuk memisahkan jaringan pengguna, server, guest, management, dan perangkat lainnya.\nJika segmentasi tersebut berhasil dilewati, attacker dapat mencoba mengakses resource yang seharusnya tidak tersedia dari VLAN asal.\nMemperluas Permukaan Serangan\nAkses ke VLAN lain dapat memberikan kesempatan bagi attacker untuk menemukan service, perangkat, atau sistem yang sebelumnya tidak dapat dijangkau.\nMengganggu Prinsip Network Segmentation\nSegmentasi merupakan salah satu komponen penting dalam keamanan jaringan.\nKarena itu, VLAN hopping dapat mengurangi efektivitas segmentasi apabila konfigurasi Layer 2 tidak dilakukan dengan benar.\nCara Mencegah VLAN Hopping\nNonaktifkan Trunking pada Port Pengguna\nPort yang digunakan oleh komputer, printer, kamera, atau perangkat pengguna umumnya tidak membutuhkan trunking.\nGunakan konfigurasi access port secara eksplisit sehingga perangkat pengguna tidak dapat melakukan negosiasi trunk secara sembarangan.\nbaca juga :  GraphQL Security: Mengenal Celah Serangan dan Cara Mengamankan API Modern\nNonaktifkan DTP Jika Tidak Dibutuhkan\nDynamic Trunking Protocol dapat membantu perangkat Cisco melakukan negosiasi trunk.\nNamun, pada port yang seharusnya hanya digunakan untuk perangkat pengguna, fitur tersebut sebaiknya tidak dibiarkan aktif tanpa kebutuhan.\nPrinsipnya sederhana:\nPort pengguna → Access\nPort antar-switch → Trunk\nGunakan Native VLAN Khusus\nNative VLAN pada trunk sebaiknya tidak digunakan sebagai VLAN pengguna.\nCisco merekomendasikan penggunaan VLAN yang tidak digunakan oleh end-user sebagai native VLAN untuk mengurangi risiko double-tagging\nContohnya:\nNative VLAN → VLAN 999\nVLAN 999 tidak digunakan untuk:\nUser.\nServer.\nManagement.\nGuest.\nPerangkat produksi.\nHindari Penggunaan VLAN 1 untuk User\nVLAN 1 merupakan default VLAN yang dikenal luas pada perangkat jaringan.\nCisco menyarankan agar VLAN 1 tidak digunakan sebagai VLAN data atau voice pada konfigurasi tertentu karena dapat meningkatkan risiko keamanan dan kesalahan konfigurasi  (dikutip dari:  https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3850/software/release/16-1/best_practices_guide/BP_Cat3850/BP_access_interface.html ) .\nBatasi VLAN yang Diizinkan pada Trunk\nTidak semua VLAN harus melewati setiap trunk.\nJika sebuah trunk hanya membutuhkan VLAN 10 dan VLAN 20, VLAN lainnya tidak perlu diizinkan.\nKonsepnya:\nTrunk A → VLAN 10, 20\nBukan:\nTrunk A → VLAN 1-4094\nPembatasan VLAN pada trunk membantu mengurangi traffic yang tidak diperlukan dan memperkecil kemungkinan penyalahgunaan segmentasi.\nChecklist Keamanan VLAN\nSebelum jaringan digunakan dalam production, administrator dapat melakukan pemeriksaan berikut:\nPort pengguna dikonfigurasi sebagai access port.\nTrunk hanya digunakan pada port yang memang membutuhkannya.\nDTP dinonaktifkan pada port pengguna jika tidak diperlukan.\nNative VLAN menggunakan VLAN khusus yang tidak digunakan user.\nVLAN 1 tidak digunakan sebagai VLAN user.\nVLAN yang diizinkan pada trunk dibatasi.\nPort yang tidak digunakan dinonaktifkan.\nPort security diterapkan sesuai kebutuhan.\nKonfigurasi switch diaudit secara berkala.\nTraffic Layer 2 dipantau untuk aktivitas yang tidak normal.\nVLAN Hopping dan Network Segmentation\nVLAN sebaiknya tidak dianggap sebagai satu-satunya mekanisme keamanan.\nUntuk jaringan yang membutuhkan tingkat keamanan lebih tinggi, segmentasi VLAN dapat dikombinasikan dengan:\nFirewall.\nAccess Control List (ACL).\nNetwork Access Control (NAC).\nPort security.\nMonitoring.\nIDS/IPS.\nZero Trust Network Access.\nDengan pendekatan berlapis, keberhasilan satu serangan pada Layer 2 tidak otomatis memberikan akses penuh ke seluruh jaringan.\nbaca juga :  Attribute-Based Access Control (ABAC): Cara Kerja dan Perannya dalam Keamanan Akses Modern\nKesimpulan\nVLAN Hopping  merupakan serangan pada Layer 2 yang berusaha melewati batas segmentasi VLAN. Dua teknik yang umum dibahas adalah  switch spoofing  dan  double tagging .\nRisiko tersebut dapat dikurangi dengan konfigurasi switch yang tepat. Beberapa langkah penting meliputi menonaktifkan trunking pada port pengguna, membatasi DTP, menggunakan native VLAN khusus, membatasi VLAN pada trunk, dan menghindari penggunaan VLAN 1 untuk jaringan user.\nVLAN memang sangat berguna untuk segmentasi jaringan, tetapi keamanan tidak boleh berhenti pada konfigurasi VLAN. Kombinasikan segmentasi dengan ACL, firewall, monitoring, dan kontrol akses lainnya agar pertahanan jaringan menjadi lebih kuat.",
+  "raw": {
+    "id": 22871,
+    "date": "2026-08-17T00:20:36",
+    "date_gmt": "2026-08-17T00:20:36",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=22871"
+    },
+    "modified": "2026-08-17T00:20:36",
+    "modified_gmt": "2026-08-17T00:20:36",
+    "slug": "vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/",
+    "title": {
+      "rendered": "VLAN Hopping: Mengenal Serangan Layer 2 yang Dapat Menembus Segmentasi Jaringan"
+    },
+    "content": {
+      "rendered": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"83\" data-end=\"95\">Pengantar</h2>\n<p data-start=\"97\" data-end=\"313\">Virtual Local Area Network atau <strong data-start=\"129\" data-end=\"137\">VLAN</strong> digunakan untuk memisahkan perangkat dalam jaringan secara logis. Dengan VLAN, administrator dapat memisahkan jaringan berdasarkan fungsi, departemen, maupun tingkat keamanan.</p>\n<p data-start=\"315\" data-end=\"552\">Namun, VLAN bukanlah batas keamanan yang sempurna. Salah satu ancaman pada jaringan Layer 2 adalah <strong data-start=\"414\" data-end=\"430\">VLAN Hopping</strong>, yaitu teknik yang memungkinkan traffic dari satu VLAN mencapai VLAN lain tanpa melalui jalur komunikasi yang seharusnya.</p>\n<p data-start=\"554\" data-end=\"861\">Cisco menjelaskan bahwa VLAN hopping dapat terjadi melalui beberapa teknik, termasuk <strong data-start=\"639\" data-end=\"658\">switch spoofing</strong> dan <strong data-start=\"663\" data-end=\"681\">double tagging</strong>, yang memanfaatkan karakteristik trunking serta VLAN tagging pada jaringan Ethernet <strong data-start=\"766\" data-end=\"860\">(dikutip dari: <a class=\"decorated-link\" href=\"https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/EttF/EttFDIG.pdf\" target=\"_new\" rel=\"noopener\" data-start=\"783\" data-end=\"857\">https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/EttF/EttFDIG.pdf</a>)</strong>.</p>\n<hr data-start=\"863\" data-end=\"866\" />\n<h2 data-section-id=\"14z6btc\" data-start=\"868\" data-end=\"892\">Apa Itu VLAN Hopping?</h2>\n<p data-start=\"894\" data-end=\"1047\">VLAN Hopping adalah serangan jaringan yang berusaha melewati batas segmentasi VLAN sehingga perangkat pada satu VLAN dapat mengirim traffic ke VLAN lain.</p>\n<p data-start=\"1049\" data-end=\"1066\">Secara sederhana:</p>\n<p data-start=\"1068\" data-end=\"1116\">Client VLAN 10 → VLAN Hopping → VLAN 20 → Target</p>\n<p data-start=\"1118\" data-end=\"1237\">Dalam kondisi normal, perangkat pada VLAN 10 seharusnya tidak dapat berkomunikasi langsung dengan VLAN 20 pada Layer 2.</p>\n<p data-start=\"1239\" data-end=\"1366\">Jika segmentasi VLAN berhasil dilewati, attacker dapat memperoleh akses ke resource yang seharusnya berada di jaringan berbeda.</p>\n<blockquote>\n<p data-start=\"1239\" data-end=\"1366\">baca juga : <a href=\"https://buletinsiber.com/xml-external-entity-xxe-injection-mengenal-serangan-pada-parser-xml-dan-cara-mencegahnya/\">XML External Entity (XXE) Injection: Mengenal Serangan pada Parser XML dan Cara Mencegahnya</a></p>\n</blockquote>\n<hr data-start=\"1368\" data-end=\"1371\" />\n<h2 data-section-id=\"1h191lu\" data-start=\"1373\" data-end=\"1407\">Bagaimana VLAN Hopping Terjadi?</h2>\n<p data-start=\"1409\" data-end=\"1489\">Secara umum, terdapat dua metode yang sering dibahas dalam konteks VLAN hopping.</p>\n<h3 data-section-id=\"1r5y5w1\" data-start=\"1491\" data-end=\"1510\">Switch Spoofing</h3>\n<p data-start=\"1512\" data-end=\"1661\">Switch spoofing terjadi ketika perangkat attacker mencoba membuat switch menganggap dirinya sebagai perangkat jaringan yang mampu melakukan trunking.</p>\n<p data-start=\"1663\" data-end=\"1832\">Jika port yang terhubung ke perangkat pengguna masih memungkinkan negosiasi trunk secara tidak aman, attacker berpotensi mendapatkan akses ke traffic dari beberapa VLAN.</p>\n<p data-start=\"1834\" data-end=\"2119\">Cisco menjelaskan bahwa port yang menggunakan DTP dan dikonfigurasi secara tidak tepat dapat menjadi risiko karena perangkat yang mengirimkan paket DTP palsu dapat memicu terbentuknya trunk</p>\n<p data-start=\"2121\" data-end=\"2280\">Karena trunk membawa traffic dari beberapa VLAN, kondisi tersebut dapat memperluas akses yang seharusnya hanya dimiliki oleh perangkat jaringan yang dipercaya.</p>\n<hr data-start=\"2282\" data-end=\"2285\" />\n<h3 data-section-id=\"e2cwbq\" data-start=\"2287\" data-end=\"2305\">Double Tagging</h3>\n<p data-start=\"2307\" data-end=\"2348\">Metode lainnya adalah <strong data-start=\"2329\" data-end=\"2347\">double tagging</strong>.</p>\n<p data-start=\"2350\" data-end=\"2415\">Pada teknik ini, frame dapat dibuat memiliki dua VLAN tag 802.1Q.</p>\n<p data-start=\"2417\" data-end=\"2435\">Secara konseptual:</p>\n<p data-start=\"2437\" data-end=\"2475\">Outer VLAN Tag + Inner VLAN Tag + Data</p>\n<p data-start=\"2477\" data-end=\"2620\">Switch pertama dapat memproses atau menghapus tag bagian luar dalam kondisi tertentu. Tag kedua kemudian dapat diproses oleh switch berikutnya.</p>\n<p data-start=\"2622\" data-end=\"2674\">Akibatnya, frame dapat diarahkan menuju VLAN target.</p>\n<p data-start=\"2676\" data-end=\"2925\">Cisco menjelaskan bahwa serangan double-encapsulated 802.1Q dapat memanfaatkan cara switch memproses tag dan native VLAN pada trunk <strong data-start=\"2808\" data-end=\"2924\">(dikutip dari: <a class=\"decorated-link\" href=\"https://www.cisco.com/c/dam/en_us/about/ac123/ac114/downloads/packet/packet/jan03/pdfs/jan03.pdf\" target=\"_new\" rel=\"noopener\" data-start=\"2825\" data-end=\"2921\">https://www.cisco.com/c/dam/en_us/about/ac123/ac114/downloads/packet/packet/jan03/pdfs/jan03.pdf</a>)</strong>.</p>\n<hr data-start=\"2927\" data-end=\"2930\" />\n<h2 data-section-id=\"10vva2m\" data-start=\"2932\" data-end=\"2966\">Mengapa VLAN Hopping Berbahaya?</h2>\n<h3 data-section-id=\"1f2cyiq\" data-start=\"2968\" data-end=\"3000\">Melewati Segmentasi Jaringan</h3>\n<p data-start=\"3002\" data-end=\"3111\">VLAN biasanya digunakan untuk memisahkan jaringan pengguna, server, guest, management, dan perangkat lainnya.</p>\n<p data-start=\"3113\" data-end=\"3245\">Jika segmentasi tersebut berhasil dilewati, attacker dapat mencoba mengakses resource yang seharusnya tidak tersedia dari VLAN asal.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"591\" height=\"394\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 591px) 100vw, 591px\" /></p>\n<h3 data-section-id=\"fycbg6\" data-start=\"3247\" data-end=\"3280\">Memperluas Permukaan Serangan</h3>\n<p data-start=\"3282\" data-end=\"3429\">Akses ke VLAN lain dapat memberikan kesempatan bagi attacker untuk menemukan service, perangkat, atau sistem yang sebelumnya tidak dapat dijangkau.</p>\n<h3 data-section-id=\"1ey1s0l\" data-start=\"3431\" data-end=\"3474\">Mengganggu Prinsip Network Segmentation</h3>\n<p data-start=\"3476\" data-end=\"3549\">Segmentasi merupakan salah satu komponen penting dalam keamanan jaringan.</p>\n<p data-start=\"3551\" data-end=\"3673\">Karena itu, VLAN hopping dapat mengurangi efektivitas segmentasi apabila konfigurasi Layer 2 tidak dilakukan dengan benar.</p>\n<hr data-start=\"3675\" data-end=\"3678\" />\n<h2 data-section-id=\"5l0cug\" data-start=\"3680\" data-end=\"3709\">Cara Mencegah VLAN Hopping</h2>\n<h3 data-section-id=\"bl4uti\" data-start=\"3711\" data-end=\"3754\">Nonaktifkan Trunking pada Port Pengguna</h3>\n<p data-start=\"3756\" data-end=\"3867\">Port yang digunakan oleh komputer, printer, kamera, atau perangkat pengguna umumnya tidak membutuhkan trunking.</p>\n<p data-start=\"3869\" data-end=\"4003\">Gunakan konfigurasi access port secara eksplisit sehingga perangkat pengguna tidak dapat melakukan negosiasi trunk secara sembarangan.</p>\n<blockquote>\n<p data-start=\"3869\" data-end=\"4003\">baca juga : <a href=\"https://buletinsiber.com/graphql-security-mengenal-celah-serangan-dan-cara-mengamankan-api-modern/\">GraphQL Security: Mengenal Celah Serangan dan Cara Mengamankan API Modern</a></p>\n</blockquote>\n<hr data-start=\"4005\" data-end=\"4008\" />\n<h3 data-section-id=\"12p5ltd\" data-start=\"4010\" data-end=\"4051\">Nonaktifkan DTP Jika Tidak Dibutuhkan</h3>\n<p data-start=\"4053\" data-end=\"4136\">Dynamic Trunking Protocol dapat membantu perangkat Cisco melakukan negosiasi trunk.</p>\n<p data-start=\"4138\" data-end=\"4276\">Namun, pada port yang seharusnya hanya digunakan untuk perangkat pengguna, fitur tersebut sebaiknya tidak dibiarkan aktif tanpa kebutuhan.</p>\n<p data-start=\"4278\" data-end=\"4299\">Prinsipnya sederhana:</p>\n<p data-start=\"4301\" data-end=\"4327\"><strong data-start=\"4301\" data-end=\"4327\">Port pengguna → Access</strong></p>\n<p data-start=\"4329\" data-end=\"4358\"><strong data-start=\"4329\" data-end=\"4358\">Port antar-switch → Trunk</strong></p>\n<hr data-start=\"4360\" data-end=\"4363\" />\n<h3 data-section-id=\"otj6tk\" data-start=\"4365\" data-end=\"4395\">Gunakan Native VLAN Khusus</h3>\n<p data-start=\"4397\" data-end=\"4468\">Native VLAN pada trunk sebaiknya tidak digunakan sebagai VLAN pengguna.</p>\n<p data-start=\"4470\" data-end=\"4746\">Cisco merekomendasikan penggunaan VLAN yang tidak digunakan oleh end-user sebagai native VLAN untuk mengurangi risiko double-tagging</p>\n<p data-start=\"4748\" data-end=\"4758\">Contohnya:</p>\n<p data-start=\"4760\" data-end=\"4782\">Native VLAN → VLAN 999</p>\n<p data-start=\"4784\" data-end=\"4815\">VLAN 999 tidak digunakan untuk:</p>\n<ul data-start=\"4817\" data-end=\"4879\">\n<li data-section-id=\"17cjck7\" data-start=\"4817\" data-end=\"4824\">User.</li>\n<li data-section-id=\"1v4coxv\" data-start=\"4825\" data-end=\"4834\">Server.</li>\n<li data-section-id=\"12gvmnp\" data-start=\"4835\" data-end=\"4848\">Management.</li>\n<li data-section-id=\"1xrpeja\" data-start=\"4849\" data-end=\"4857\">Guest.</li>\n<li data-section-id=\"4kt9ru\" data-start=\"4858\" data-end=\"4879\">Perangkat produksi.</li>\n</ul>\n<hr data-start=\"4881\" data-end=\"4884\" />\n<h3 data-section-id=\"145qgpp\" data-start=\"4886\" data-end=\"4926\">Hindari Penggunaan VLAN 1 untuk User</h3>\n<p data-start=\"4928\" data-end=\"5000\">VLAN 1 merupakan default VLAN yang dikenal luas pada perangkat jaringan.</p>\n<p data-start=\"5002\" data-end=\"5334\">Cisco menyarankan agar VLAN 1 tidak digunakan sebagai VLAN data atau voice pada konfigurasi tertentu karena dapat meningkatkan risiko keamanan dan kesalahan konfigurasi <strong data-start=\"5171\" data-end=\"5333\">(dikutip dari: <a class=\"decorated-link\" href=\"https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3850/software/release/16-1/best_practices_guide/BP_Cat3850/BP_access_interface.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"5188\" data-end=\"5330\">https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3850/software/release/16-1/best_practices_guide/BP_Cat3850/BP_access_interface.html</a>)</strong>.</p>\n<hr data-start=\"5336\" data-end=\"5339\" />\n<h3 data-section-id=\"v24nch\" data-start=\"5341\" data-end=\"5382\">Batasi VLAN yang Diizinkan pada Trunk</h3>\n<p data-start=\"5384\" data-end=\"5429\">Tidak semua VLAN harus melewati setiap trunk.</p>\n<p data-start=\"5431\" data-end=\"5523\">Jika sebuah trunk hanya membutuhkan VLAN 10 dan VLAN 20, VLAN lainnya tidak perlu diizinkan.</p>\n<p data-start=\"5525\" data-end=\"5535\">Konsepnya:</p>\n<p data-start=\"5537\" data-end=\"5558\">Trunk A → VLAN 10, 20</p>\n<p data-start=\"5560\" data-end=\"5566\">Bukan:</p>\n<p data-start=\"5568\" data-end=\"5589\">Trunk A → VLAN 1-4094</p>\n<p data-start=\"5591\" data-end=\"5722\">Pembatasan VLAN pada trunk membantu mengurangi traffic yang tidak diperlukan dan memperkecil kemungkinan penyalahgunaan segmentasi.</p>\n<hr data-start=\"5724\" data-end=\"5727\" />\n<h2 data-section-id=\"1k643km\" data-start=\"5729\" data-end=\"5755\">Checklist Keamanan VLAN</h2>\n<p data-start=\"5757\" data-end=\"5852\">Sebelum jaringan digunakan dalam production, administrator dapat melakukan pemeriksaan berikut:</p>\n<ol data-start=\"5854\" data-end=\"6386\">\n<li data-section-id=\"14s17ug\" data-start=\"5854\" data-end=\"5905\">Port pengguna dikonfigurasi sebagai access port.</li>\n<li data-section-id=\"18a0dle\" data-start=\"5906\" data-end=\"5968\">Trunk hanya digunakan pada port yang memang membutuhkannya.</li>\n<li data-section-id=\"xbo8lc\" data-start=\"5969\" data-end=\"6031\">DTP dinonaktifkan pada port pengguna jika tidak diperlukan.</li>\n<li data-section-id=\"1ofv6ng\" data-start=\"6032\" data-end=\"6097\">Native VLAN menggunakan VLAN khusus yang tidak digunakan user.</li>\n<li data-section-id=\"6n6s99\" data-start=\"6098\" data-end=\"6142\">VLAN 1 tidak digunakan sebagai VLAN user.</li>\n<li data-section-id=\"zkv4nd\" data-start=\"6143\" data-end=\"6186\">VLAN yang diizinkan pada trunk dibatasi.</li>\n<li data-section-id=\"1srjcyy\" data-start=\"6187\" data-end=\"6230\">Port yang tidak digunakan dinonaktifkan.</li>\n<li data-section-id=\"enusy6\" data-start=\"6231\" data-end=\"6276\">Port security diterapkan sesuai kebutuhan.</li>\n<li data-section-id=\"1cke02t\" data-start=\"6277\" data-end=\"6322\">Konfigurasi switch diaudit secara berkala.</li>\n<li data-section-id=\"mz9h2c\" data-start=\"6323\" data-end=\"6386\">Traffic Layer 2 dipantau untuk aktivitas yang tidak normal.</li>\n</ol>\n<hr data-start=\"6388\" data-end=\"6391\" />\n<h2 data-section-id=\"1bar3z0\" data-start=\"6393\" data-end=\"6433\">VLAN Hopping dan Network Segmentation</h2>\n<p data-start=\"6435\" data-end=\"6505\">VLAN sebaiknya tidak dianggap sebagai satu-satunya mekanisme keamanan.</p>\n<p data-start=\"6507\" data-end=\"6614\">Untuk jaringan yang membutuhkan tingkat keamanan lebih tinggi, segmentasi VLAN dapat dikombinasikan dengan:</p>\n<ul data-start=\"6616\" data-end=\"6759\">\n<li data-section-id=\"cirl8o\" data-start=\"6616\" data-end=\"6627\">Firewall.</li>\n<li data-section-id=\"82j2so\" data-start=\"6628\" data-end=\"6656\">Access Control List (ACL).</li>\n<li data-section-id=\"1r0w0d2\" data-start=\"6657\" data-end=\"6688\">Network Access Control (NAC).</li>\n<li data-section-id=\"17ruih5\" data-start=\"6689\" data-end=\"6705\">Port security.</li>\n<li data-section-id=\"btikga\" data-start=\"6706\" data-end=\"6719\">Monitoring.</li>\n<li data-section-id=\"1tul7el\" data-start=\"6720\" data-end=\"6730\">IDS/IPS.</li>\n<li data-section-id=\"1o2glyi\" data-start=\"6731\" data-end=\"6759\">Zero Trust Network Access.</li>\n</ul>\n<p data-start=\"6761\" data-end=\"6887\">Dengan pendekatan berlapis, keberhasilan satu serangan pada Layer 2 tidak otomatis memberikan akses penuh ke seluruh jaringan.</p>\n<blockquote>\n<p data-start=\"6761\" data-end=\"6887\">baca juga : <a href=\"https://buletinsiber.com/attribute-based-access-control-abac-cara-kerja-dan-perannya-dalam-keamanan-akses-modern/\">Attribute-Based Access Control (ABAC): Cara Kerja dan Perannya dalam Keamanan Akses Modern</a></p>\n</blockquote>\n<hr data-start=\"6889\" data-end=\"6892\" />\n<h2 data-section-id=\"1806px6\" data-start=\"6894\" data-end=\"6907\">Kesimpulan</h2>\n<p data-start=\"6909\" data-end=\"7083\"><strong data-start=\"6909\" data-end=\"6925\">VLAN Hopping</strong> merupakan serangan pada Layer 2 yang berusaha melewati batas segmentasi VLAN. Dua teknik yang umum dibahas adalah <strong data-start=\"7040\" data-end=\"7059\">switch spoofing</strong> dan <strong data-start=\"7064\" data-end=\"7082\">double tagging</strong>.</p>\n<p data-start=\"7085\" data-end=\"7360\">Risiko tersebut dapat dikurangi dengan konfigurasi switch yang tepat. Beberapa langkah penting meliputi menonaktifkan trunking pada port pengguna, membatasi DTP, menggunakan native VLAN khusus, membatasi VLAN pada trunk, dan menghindari penggunaan VLAN 1 untuk jaringan user.</p>\n<p data-start=\"7362\" data-end=\"7604\">VLAN memang sangat berguna untuk segmentasi jaringan, tetapi keamanan tidak boleh berhenti pada konfigurasi VLAN. Kombinasikan segmentasi dengan ACL, firewall, monitoring, dan kontrol akses lainnya agar pertahanan jaringan menjadi lebih kuat.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Virtual Local Area Network atau VLAN digunakan untuk memisahkan perangkat dalam jaringan secara logis. Dengan VLAN, administrator dapat memisahkan jaringan berdasarkan fungsi, departemen, maupun tingkat keamanan. Namun, VLAN bukanlah batas keamanan yang sempurna. Salah satu ancaman pada jaringan Layer 2 adalah VLAN Hopping, yaitu teknik yang memungkinkan traffic dari satu VLAN mencapai VLAN lain tanpa melalui jalur komunikasi yang seharusnya. Cisco menjelaskan bahwa VLAN hopping dapat terjadi melalui beberapa teknik, termasuk switch spoofing dan double tagging, yang memanfaatkan karakteristik trunking serta VLAN tagging pada jaringan Ethernet (dikutip dari: https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/EttF/EttFDIG.pdf). Apa Itu VLAN Hopping? VLAN Hopping adalah serangan jaringan yang&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 22865,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "VLAN Hopping",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      115,
+      682,
+      1008
+    ],
+    "class_list": [
+      "post-22871",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-jaringan",
+      "tag-keamanan",
+      "tag-vlan"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>VLAN Hopping: Mengenal Serangan Layer 2 yang Dapat Menembus Segmentasi Jaringan - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"VLAN Hopping: Mengenal Serangan Layer 2 yang Dapat Menembus Segmentasi Jaringan - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Virtual Local Area Network atau VLAN digunakan untuk memisahkan perangkat dalam jaringan secara logis. Dengan VLAN, administrator dapat memisahkan jaringan berdasarkan fungsi, departemen, maupun tingkat keamanan. Namun, VLAN bukanlah batas keamanan yang sempurna. Salah satu ancaman pada jaringan Layer 2 adalah VLAN Hopping, yaitu teknik yang memungkinkan traffic dari satu VLAN mencapai VLAN lain tanpa melalui jalur komunikasi yang seharusnya. Cisco menjelaskan bahwa VLAN hopping dapat terjadi melalui beberapa teknik, termasuk switch spoofing dan double tagging, yang memanfaatkan karakteristik trunking serta VLAN tagging pada jaringan Ethernet (dikutip dari: https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/EttF/EttFDIG.pdf). Apa Itu VLAN Hopping? VLAN Hopping adalah serangan jaringan yang...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-08-17T00:20:36+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/08/How-MLOps-Improves-Machine-Learning-Deployment.jpg\" />\n\t<meta property=\"og:image:width\" content=\"735\" />\n\t<meta property=\"og:image:height\" content=\"410\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/\",\"url\":\"https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/\",\"name\":\"VLAN Hopping: Mengenal Serangan Layer 2 yang Dapat Menembus Segmentasi Jaringan - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/08/How-MLOps-Improves-Machine-Learning-Deployment.jpg\",\"datePublished\":\"2026-08-17T00:20:36+00:00\",\"dateModified\":\"2026-08-17T00:20:36+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/08/How-MLOps-Improves-Machine-Learning-Deployment.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/08/How-MLOps-Improves-Machine-Learning-Deployment.jpg\",\"width\":735,\"height\":410},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"VLAN Hopping: Mengenal Serangan Layer 2 yang Dapat Menembus Segmentasi Jaringan\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "VLAN Hopping: Mengenal Serangan Layer 2 yang Dapat Menembus Segmentasi Jaringan - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "VLAN Hopping: Mengenal Serangan Layer 2 yang Dapat Menembus Segmentasi Jaringan - buletinsiber.com",
+      "og_description": "Pengantar Virtual Local Area Network atau VLAN digunakan untuk memisahkan perangkat dalam jaringan secara logis. Dengan VLAN, administrator dapat memisahkan jaringan berdasarkan fungsi, departemen, maupun tingkat keamanan. Namun, VLAN bukanlah batas keamanan yang sempurna. Salah satu ancaman pada jaringan Layer 2 adalah VLAN Hopping, yaitu teknik yang memungkinkan traffic dari satu VLAN mencapai VLAN lain tanpa melalui jalur komunikasi yang seharusnya. Cisco menjelaskan bahwa VLAN hopping dapat terjadi melalui beberapa teknik, termasuk switch spoofing dan double tagging, yang memanfaatkan karakteristik trunking serta VLAN tagging pada jaringan Ethernet (dikutip dari: https://www.cisco.com/c/en/us/td/docs/solutions/Verticals/EttF/EttFDIG.pdf). Apa Itu VLAN Hopping? VLAN Hopping adalah serangan jaringan yang...",
+      "og_url": "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-08-17T00:20:36+00:00",
+      "og_image": [
+        {
+          "width": 735,
+          "height": 410,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/08/How-MLOps-Improves-Machine-Learning-Deployment.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/",
+            "url": "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/",
+            "name": "VLAN Hopping: Mengenal Serangan Layer 2 yang Dapat Menembus Segmentasi Jaringan - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/08/How-MLOps-Improves-Machine-Learning-Deployment.jpg",
+            "datePublished": "2026-08-17T00:20:36+00:00",
+            "dateModified": "2026-08-17T00:20:36+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/08/How-MLOps-Improves-Machine-Learning-Deployment.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/08/How-MLOps-Improves-Machine-Learning-Deployment.jpg",
+            "width": 735,
+            "height": 410
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/vlan-hopping-mengenal-serangan-layer-2-yang-dapat-menembus-segmentasi-jaringan/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "VLAN Hopping: Mengenal Serangan Layer 2 yang Dapat Menembus Segmentasi Jaringan"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22871",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=22871"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22871/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 22872,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22871/revisions/22872"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/22865"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=22871"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=22871"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=22871"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

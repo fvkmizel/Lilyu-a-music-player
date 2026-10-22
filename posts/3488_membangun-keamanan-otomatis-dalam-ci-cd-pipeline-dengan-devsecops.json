@@ -1,0 +1,313 @@
+{
+  "id": 3488,
+  "title": "Membangun Keamanan Otomatis dalam CI/CD Pipeline dengan DevSecOps",
+  "slug": "membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops",
+  "url": "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/",
+  "date": "2025-07-06T14:53:53",
+  "date_gmt": "2025-07-06T14:53:53",
+  "modified": "2025-07-06T14:53:53",
+  "modified_gmt": "2025-07-06T14:53:53",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    384
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/quantum-cryptography-advanced-file-protection-260nw-2307333723.webp",
+  "excerpt": "I. Pendahuluan Dalam dunia pengembangan perangkat lunak modern, kecepatan adalah segalanya. Banyak tim developer menggunakan proses CI/CD (Continuous Integration / Continuous Deployment) untuk merilis aplikasi dengan cepat dan sering. Tapi sayangnya, keamanan sering terlupakan dalam proses ini. Akibatnya, celah keamanan bisa ikut masuk ke sistem dan berpotensi dimanfaatkan oleh penyerang. Di sinilah DevSecOps hadir untuk membantu. Tujuannya adalah menggabungkan keamanan ke dalam setiap tahap otomatisasi, termasuk pipeline CI/CD. II. Apa Itu DevSecOps dan CI/CD? DevSecOps adalah gabungan dari Development (pengembangan), Security (keamanan), dan Operations (operasi). DevSecOps membuat keamanan jadi tanggung jawab semua tim, bukan hanya bagian IT security. CI/CD…",
+  "content_html": "<p>&nbsp;</p>\n<h3><strong>I. Pendahuluan</strong></h3>\n<p>Dalam dunia pengembangan perangkat lunak modern, kecepatan adalah segalanya. Banyak tim developer menggunakan proses <strong>CI/CD</strong> (Continuous Integration / Continuous Deployment) untuk merilis aplikasi dengan cepat dan sering. Tapi sayangnya, <strong>keamanan sering terlupakan</strong> dalam proses ini.</p>\n<p>Akibatnya, celah keamanan bisa ikut masuk ke sistem dan berpotensi dimanfaatkan oleh penyerang. Di sinilah <strong>DevSecOps</strong> hadir untuk membantu. Tujuannya adalah <strong>menggabungkan keamanan ke dalam setiap tahap otomatisasi</strong>, termasuk pipeline CI/CD.</p>\n<h3><strong>II. Apa Itu DevSecOps dan CI/CD?</strong></h3>\n<ul>\n<li><strong>DevSecOps</strong> adalah gabungan dari <strong>Development (pengembangan)</strong>, <strong>Security (keamanan)</strong>, dan <strong>Operations (operasi)</strong>.<br />\nDevSecOps membuat keamanan jadi tanggung jawab semua tim, bukan hanya bagian IT security.</li>\n<li><strong>CI/CD</strong> adalah proses otomatis untuk membangun, menguji, dan mengirimkan aplikasi.<br />\nDengan CI/CD, pengembang bisa langsung melihat hasil kerja mereka tanpa perlu proses manual.</li>\n</ul>\n<p>Gabungan antara DevSecOps dan CI/CD memungkinkan kita <strong>membuat aplikasi yang cepat sekaligus aman</strong>.</p>\n<h3><strong>III. Masalah Keamanan di CI/CD Tradisional</strong></h3>\n<p>Beberapa masalah yang sering muncul ketika keamanan tidak diperhatikan dalam CI/CD:</p>\n<ul>\n<li>Keamanan hanya dilakukan manual, tidak otomatis</li>\n<li>Kode yang mengandung celah keamanan bisa langsung masuk ke production</li>\n<li>Tim pengembang tidak tahu apakah kode mereka aman atau tidak</li>\n<li>Tidak ada sistem yang otomatis mendeteksi dan mencegah masalah sebelum rilis</li>\n</ul>\n<h3><strong>IV. Strategi DevSecOps untuk Keamanan Otomatis</strong></h3>\n<p>Berikut ini strategi untuk membangun keamanan otomatis di dalam CI/CD:</p>\n<ol>\n<li><strong>Shift Left Security</strong><br />\nKeamanan dilakukan sejak awal, saat menulis kode, bukan setelah aplikasi selesai.</li>\n<li><strong>Otomatisasi Tes Keamanan</strong><br />\nAlat-alat keamanan diintegrasikan ke dalam pipeline. Jadi, setiap kali kode baru dikirim, sistem langsung mengecek keamanannya.</li>\n<li><strong>Security Gates</strong><br />\nPipeline akan <strong>menghentikan proses deployment secara otomatis</strong> jika ditemukan masalah serius.</li>\n<li><strong>Monitoring Berkelanjutan</strong><br />\nSetelah aplikasi berjalan, sistem tetap memantau apakah ada aktivitas mencurigakan atau celah keamanan baru.</li>\n</ol>\n<h3><strong>V. Alat (Tools) untuk Keamanan Otomatis</strong></h3>\n<p>Beberapa alat populer yang sering digunakan dalam DevSecOps:</p>\n<ul>\n<li><strong>SAST (Static Application Security Testing)</strong><br />\nMendeteksi celah dalam kode sumber. Contoh: <strong>SonarQube</strong>, <strong>CodeQL</strong></li>\n<li><strong>DAST (Dynamic Application Security Testing)</strong><br />\nMengetes aplikasi saat sedang berjalan. Contoh: <strong>OWASP ZAP</strong></li>\n<li><strong>SCA (Software Composition Analysis)</strong><br />\nMengecek apakah ada celah dari pustaka pihak ketiga yang digunakan. Contoh: <strong>Snyk</strong>, <strong>Trivy</strong></li>\n<li><strong>Infrastructure as Code (IaC) Scanner</strong><br />\nMengecek keamanan dari konfigurasi server dan cloud. Contoh: <strong>Checkov</strong>, <strong>tfsec</strong></li>\n</ul>\n<p>CI/CD Tools seperti <strong>GitHub Actions</strong>, <strong>GitLab CI</strong>, <strong>Jenkins</strong>, dan <strong>CircleCI</strong> mendukung integrasi semua alat ini secara otomatis.</p>\n<h3><strong>VI. Contoh Implementasi Sederhana</strong></h3>\n<p>Misalnya kamu menggunakan GitHub Actions. Kamu bisa menambahkan langkah otomatis seperti:</p>\n<pre><code class=\"language-yaml\">jobs:\r\n  security:\r\n    runs-on: ubuntu-latest\r\n    steps:\r\n      - uses: actions/checkout@v2\r\n      - name: Jalankan Snyk untuk cek dependensi\r\n        uses: snyk/actions@master\r\n        with:\r\n          args: test\r\n</code></pre>\n<p>Dengan konfigurasi seperti ini, setiap kali ada kode baru, sistem akan <strong>langsung memeriksa apakah ada celah keamanan</strong> dalam dependensi proyek.</p>\n<h3><strong>VII. Manfaat Keamanan Otomatis</strong></h3>\n<p>Mengapa ini penting? Karena:</p>\n<ul>\n<li><strong>Lebih cepat</strong> menemukan masalah keamanan</li>\n<li><strong>Tidak mengganggu kecepatan rilis</strong></li>\n<li><strong>Mengurangi kerja manual</strong> dari tim keamanan</li>\n<li><strong>Membuat aplikasi lebih terpercaya</strong> dan lebih siap diaudit</li>\n<li><strong>Menghindari serangan</strong> siber sebelum terjadi</li>\n</ul>\n<h3><strong>VIII. Tantangan dan Cara Mengatasinya</strong></h3>\n<p>Beberapa tantangan yang mungkin kamu hadapi:</p>\n<ul>\n<li>Perlu <strong>penyesuaian budaya kerja</strong> agar tim peduli terhadap keamanan</li>\n<li>Integrasi alat mungkin <strong>rumit di awal</strong></li>\n<li>Bisa muncul <strong>false positive</strong>, yaitu alat mendeteksi celah yang sebenarnya bukan masalah besar</li>\n</ul>\n<p>Solusinya:</p>\n<ul>\n<li><strong>Latih tim</strong> agar memahami alat yang digunakan</li>\n<li><strong>Pilih alat yang tepat</strong> untuk proyekmu</li>\n<li><strong>Lakukan evaluasi rutin</strong> terhadap pipeline</li>\n</ul>\n<h3><strong>IX. Kesimpulan</strong></h3>\n<p>DevSecOps membantu kita menjaga keamanan tanpa memperlambat proses pengembangan. Dengan <strong>keamanan otomatis dalam CI/CD</strong>, kita bisa mendeteksi masalah sejak awal dan mencegahnya sebelum membahayakan aplikasi.</p>\n<p>Mulailah dari langkah kecil: pilih satu alat keamanan dan integrasikan ke pipeline proyekmu. Dari sana, kamu bisa membangun sistem yang <strong>cepat, aman, dan terpercaya</strong>.</p>\n<p>Nama : Idil Ade Putra</p>\n<p>Nim : 23156201024</p>\n<p>Prodi : Sistem Komputer</p>\n<p>&nbsp;</p>\n",
+  "content_text": "I. Pendahuluan\nDalam dunia pengembangan perangkat lunak modern, kecepatan adalah segalanya. Banyak tim developer menggunakan proses  CI/CD  (Continuous Integration / Continuous Deployment) untuk merilis aplikasi dengan cepat dan sering. Tapi sayangnya,  keamanan sering terlupakan  dalam proses ini.\nAkibatnya, celah keamanan bisa ikut masuk ke sistem dan berpotensi dimanfaatkan oleh penyerang. Di sinilah  DevSecOps  hadir untuk membantu. Tujuannya adalah  menggabungkan keamanan ke dalam setiap tahap otomatisasi , termasuk pipeline CI/CD.\nII. Apa Itu DevSecOps dan CI/CD?\nDevSecOps  adalah gabungan dari  Development (pengembangan) ,  Security (keamanan) , dan  Operations (operasi) .\nDevSecOps membuat keamanan jadi tanggung jawab semua tim, bukan hanya bagian IT security.\nCI/CD  adalah proses otomatis untuk membangun, menguji, dan mengirimkan aplikasi.\nDengan CI/CD, pengembang bisa langsung melihat hasil kerja mereka tanpa perlu proses manual.\nGabungan antara DevSecOps dan CI/CD memungkinkan kita  membuat aplikasi yang cepat sekaligus aman .\nIII. Masalah Keamanan di CI/CD Tradisional\nBeberapa masalah yang sering muncul ketika keamanan tidak diperhatikan dalam CI/CD:\nKeamanan hanya dilakukan manual, tidak otomatis\nKode yang mengandung celah keamanan bisa langsung masuk ke production\nTim pengembang tidak tahu apakah kode mereka aman atau tidak\nTidak ada sistem yang otomatis mendeteksi dan mencegah masalah sebelum rilis\nIV. Strategi DevSecOps untuk Keamanan Otomatis\nBerikut ini strategi untuk membangun keamanan otomatis di dalam CI/CD:\nShift Left Security\nKeamanan dilakukan sejak awal, saat menulis kode, bukan setelah aplikasi selesai.\nOtomatisasi Tes Keamanan\nAlat-alat keamanan diintegrasikan ke dalam pipeline. Jadi, setiap kali kode baru dikirim, sistem langsung mengecek keamanannya.\nSecurity Gates\nPipeline akan  menghentikan proses deployment secara otomatis  jika ditemukan masalah serius.\nMonitoring Berkelanjutan\nSetelah aplikasi berjalan, sistem tetap memantau apakah ada aktivitas mencurigakan atau celah keamanan baru.\nV. Alat (Tools) untuk Keamanan Otomatis\nBeberapa alat populer yang sering digunakan dalam DevSecOps:\nSAST (Static Application Security Testing)\nMendeteksi celah dalam kode sumber. Contoh:  SonarQube ,  CodeQL\nDAST (Dynamic Application Security Testing)\nMengetes aplikasi saat sedang berjalan. Contoh:  OWASP ZAP\nSCA (Software Composition Analysis)\nMengecek apakah ada celah dari pustaka pihak ketiga yang digunakan. Contoh:  Snyk ,  Trivy\nInfrastructure as Code (IaC) Scanner\nMengecek keamanan dari konfigurasi server dan cloud. Contoh:  Checkov ,  tfsec\nCI/CD Tools seperti  GitHub Actions ,  GitLab CI ,  Jenkins , dan  CircleCI  mendukung integrasi semua alat ini secara otomatis.\nVI. Contoh Implementasi Sederhana\nMisalnya kamu menggunakan GitHub Actions. Kamu bisa menambahkan langkah otomatis seperti:\njobs:\nsecurity:\nruns-on: ubuntu-latest\nsteps:\n- uses: actions/checkout@v2\n- name: Jalankan Snyk untuk cek dependensi\nuses: snyk/actions@master\nwith:\nargs: test\nDengan konfigurasi seperti ini, setiap kali ada kode baru, sistem akan  langsung memeriksa apakah ada celah keamanan  dalam dependensi proyek.\nVII. Manfaat Keamanan Otomatis\nMengapa ini penting? Karena:\nLebih cepat  menemukan masalah keamanan\nTidak mengganggu kecepatan rilis\nMengurangi kerja manual  dari tim keamanan\nMembuat aplikasi lebih terpercaya  dan lebih siap diaudit\nMenghindari serangan  siber sebelum terjadi\nVIII. Tantangan dan Cara Mengatasinya\nBeberapa tantangan yang mungkin kamu hadapi:\nPerlu  penyesuaian budaya kerja  agar tim peduli terhadap keamanan\nIntegrasi alat mungkin  rumit di awal\nBisa muncul  false positive , yaitu alat mendeteksi celah yang sebenarnya bukan masalah besar\nSolusinya:\nLatih tim  agar memahami alat yang digunakan\nPilih alat yang tepat  untuk proyekmu\nLakukan evaluasi rutin  terhadap pipeline\nIX. Kesimpulan\nDevSecOps membantu kita menjaga keamanan tanpa memperlambat proses pengembangan. Dengan  keamanan otomatis dalam CI/CD , kita bisa mendeteksi masalah sejak awal dan mencegahnya sebelum membahayakan aplikasi.\nMulailah dari langkah kecil: pilih satu alat keamanan dan integrasikan ke pipeline proyekmu. Dari sana, kamu bisa membangun sistem yang  cepat, aman, dan terpercaya .\nNama : Idil Ade Putra\nNim : 23156201024\nProdi : Sistem Komputer",
+  "raw": {
+    "id": 3488,
+    "date": "2025-07-06T14:53:53",
+    "date_gmt": "2025-07-06T14:53:53",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=3488"
+    },
+    "modified": "2025-07-06T14:53:53",
+    "modified_gmt": "2025-07-06T14:53:53",
+    "slug": "membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/",
+    "title": {
+      "rendered": "Membangun Keamanan Otomatis dalam CI/CD Pipeline dengan DevSecOps"
+    },
+    "content": {
+      "rendered": "<p>&nbsp;</p>\n<h3><strong>I. Pendahuluan</strong></h3>\n<p>Dalam dunia pengembangan perangkat lunak modern, kecepatan adalah segalanya. Banyak tim developer menggunakan proses <strong>CI/CD</strong> (Continuous Integration / Continuous Deployment) untuk merilis aplikasi dengan cepat dan sering. Tapi sayangnya, <strong>keamanan sering terlupakan</strong> dalam proses ini.</p>\n<p>Akibatnya, celah keamanan bisa ikut masuk ke sistem dan berpotensi dimanfaatkan oleh penyerang. Di sinilah <strong>DevSecOps</strong> hadir untuk membantu. Tujuannya adalah <strong>menggabungkan keamanan ke dalam setiap tahap otomatisasi</strong>, termasuk pipeline CI/CD.</p>\n<h3><strong>II. Apa Itu DevSecOps dan CI/CD?</strong></h3>\n<ul>\n<li><strong>DevSecOps</strong> adalah gabungan dari <strong>Development (pengembangan)</strong>, <strong>Security (keamanan)</strong>, dan <strong>Operations (operasi)</strong>.<br />\nDevSecOps membuat keamanan jadi tanggung jawab semua tim, bukan hanya bagian IT security.</li>\n<li><strong>CI/CD</strong> adalah proses otomatis untuk membangun, menguji, dan mengirimkan aplikasi.<br />\nDengan CI/CD, pengembang bisa langsung melihat hasil kerja mereka tanpa perlu proses manual.</li>\n</ul>\n<p>Gabungan antara DevSecOps dan CI/CD memungkinkan kita <strong>membuat aplikasi yang cepat sekaligus aman</strong>.</p>\n<h3><strong>III. Masalah Keamanan di CI/CD Tradisional</strong></h3>\n<p>Beberapa masalah yang sering muncul ketika keamanan tidak diperhatikan dalam CI/CD:</p>\n<ul>\n<li>Keamanan hanya dilakukan manual, tidak otomatis</li>\n<li>Kode yang mengandung celah keamanan bisa langsung masuk ke production</li>\n<li>Tim pengembang tidak tahu apakah kode mereka aman atau tidak</li>\n<li>Tidak ada sistem yang otomatis mendeteksi dan mencegah masalah sebelum rilis</li>\n</ul>\n<h3><strong>IV. Strategi DevSecOps untuk Keamanan Otomatis</strong></h3>\n<p>Berikut ini strategi untuk membangun keamanan otomatis di dalam CI/CD:</p>\n<ol>\n<li><strong>Shift Left Security</strong><br />\nKeamanan dilakukan sejak awal, saat menulis kode, bukan setelah aplikasi selesai.</li>\n<li><strong>Otomatisasi Tes Keamanan</strong><br />\nAlat-alat keamanan diintegrasikan ke dalam pipeline. Jadi, setiap kali kode baru dikirim, sistem langsung mengecek keamanannya.</li>\n<li><strong>Security Gates</strong><br />\nPipeline akan <strong>menghentikan proses deployment secara otomatis</strong> jika ditemukan masalah serius.</li>\n<li><strong>Monitoring Berkelanjutan</strong><br />\nSetelah aplikasi berjalan, sistem tetap memantau apakah ada aktivitas mencurigakan atau celah keamanan baru.</li>\n</ol>\n<h3><strong>V. Alat (Tools) untuk Keamanan Otomatis</strong></h3>\n<p>Beberapa alat populer yang sering digunakan dalam DevSecOps:</p>\n<ul>\n<li><strong>SAST (Static Application Security Testing)</strong><br />\nMendeteksi celah dalam kode sumber. Contoh: <strong>SonarQube</strong>, <strong>CodeQL</strong></li>\n<li><strong>DAST (Dynamic Application Security Testing)</strong><br />\nMengetes aplikasi saat sedang berjalan. Contoh: <strong>OWASP ZAP</strong></li>\n<li><strong>SCA (Software Composition Analysis)</strong><br />\nMengecek apakah ada celah dari pustaka pihak ketiga yang digunakan. Contoh: <strong>Snyk</strong>, <strong>Trivy</strong></li>\n<li><strong>Infrastructure as Code (IaC) Scanner</strong><br />\nMengecek keamanan dari konfigurasi server dan cloud. Contoh: <strong>Checkov</strong>, <strong>tfsec</strong></li>\n</ul>\n<p>CI/CD Tools seperti <strong>GitHub Actions</strong>, <strong>GitLab CI</strong>, <strong>Jenkins</strong>, dan <strong>CircleCI</strong> mendukung integrasi semua alat ini secara otomatis.</p>\n<h3><strong>VI. Contoh Implementasi Sederhana</strong></h3>\n<p>Misalnya kamu menggunakan GitHub Actions. Kamu bisa menambahkan langkah otomatis seperti:</p>\n<pre><code class=\"language-yaml\">jobs:\r\n  security:\r\n    runs-on: ubuntu-latest\r\n    steps:\r\n      - uses: actions/checkout@v2\r\n      - name: Jalankan Snyk untuk cek dependensi\r\n        uses: snyk/actions@master\r\n        with:\r\n          args: test\r\n</code></pre>\n<p>Dengan konfigurasi seperti ini, setiap kali ada kode baru, sistem akan <strong>langsung memeriksa apakah ada celah keamanan</strong> dalam dependensi proyek.</p>\n<h3><strong>VII. Manfaat Keamanan Otomatis</strong></h3>\n<p>Mengapa ini penting? Karena:</p>\n<ul>\n<li><strong>Lebih cepat</strong> menemukan masalah keamanan</li>\n<li><strong>Tidak mengganggu kecepatan rilis</strong></li>\n<li><strong>Mengurangi kerja manual</strong> dari tim keamanan</li>\n<li><strong>Membuat aplikasi lebih terpercaya</strong> dan lebih siap diaudit</li>\n<li><strong>Menghindari serangan</strong> siber sebelum terjadi</li>\n</ul>\n<h3><strong>VIII. Tantangan dan Cara Mengatasinya</strong></h3>\n<p>Beberapa tantangan yang mungkin kamu hadapi:</p>\n<ul>\n<li>Perlu <strong>penyesuaian budaya kerja</strong> agar tim peduli terhadap keamanan</li>\n<li>Integrasi alat mungkin <strong>rumit di awal</strong></li>\n<li>Bisa muncul <strong>false positive</strong>, yaitu alat mendeteksi celah yang sebenarnya bukan masalah besar</li>\n</ul>\n<p>Solusinya:</p>\n<ul>\n<li><strong>Latih tim</strong> agar memahami alat yang digunakan</li>\n<li><strong>Pilih alat yang tepat</strong> untuk proyekmu</li>\n<li><strong>Lakukan evaluasi rutin</strong> terhadap pipeline</li>\n</ul>\n<h3><strong>IX. Kesimpulan</strong></h3>\n<p>DevSecOps membantu kita menjaga keamanan tanpa memperlambat proses pengembangan. Dengan <strong>keamanan otomatis dalam CI/CD</strong>, kita bisa mendeteksi masalah sejak awal dan mencegahnya sebelum membahayakan aplikasi.</p>\n<p>Mulailah dari langkah kecil: pilih satu alat keamanan dan integrasikan ke pipeline proyekmu. Dari sana, kamu bisa membangun sistem yang <strong>cepat, aman, dan terpercaya</strong>.</p>\n<p>Nama : Idil Ade Putra</p>\n<p>Nim : 23156201024</p>\n<p>Prodi : Sistem Komputer</p>\n<p>&nbsp;</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>&nbsp; I. Pendahuluan Dalam dunia pengembangan perangkat lunak modern, kecepatan adalah segalanya. Banyak tim developer menggunakan proses CI/CD (Continuous Integration / Continuous Deployment) untuk merilis aplikasi dengan cepat dan sering. Tapi sayangnya, keamanan sering terlupakan dalam proses ini. Akibatnya, celah keamanan bisa ikut masuk ke sistem dan berpotensi dimanfaatkan oleh penyerang. Di sinilah DevSecOps hadir untuk membantu. Tujuannya adalah menggabungkan keamanan ke dalam setiap tahap otomatisasi, termasuk pipeline CI/CD. II. Apa Itu DevSecOps dan CI/CD? DevSecOps adalah gabungan dari Development (pengembangan), Security (keamanan), dan Operations (operasi). DevSecOps membuat keamanan jadi tanggung jawab semua tim, bukan hanya bagian IT security. CI/CD&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 3063,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      384
+    ],
+    "class_list": [
+      "post-3488",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-devsecops"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Membangun Keamanan Otomatis dalam CI/CD Pipeline dengan DevSecOps - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Membangun Keamanan Otomatis dalam CI/CD Pipeline dengan DevSecOps - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"&nbsp; I. Pendahuluan Dalam dunia pengembangan perangkat lunak modern, kecepatan adalah segalanya. Banyak tim developer menggunakan proses CI/CD (Continuous Integration / Continuous Deployment) untuk merilis aplikasi dengan cepat dan sering. Tapi sayangnya, keamanan sering terlupakan dalam proses ini. Akibatnya, celah keamanan bisa ikut masuk ke sistem dan berpotensi dimanfaatkan oleh penyerang. Di sinilah DevSecOps hadir untuk membantu. Tujuannya adalah menggabungkan keamanan ke dalam setiap tahap otomatisasi, termasuk pipeline CI/CD. II. Apa Itu DevSecOps dan CI/CD? DevSecOps adalah gabungan dari Development (pengembangan), Security (keamanan), dan Operations (operasi). DevSecOps membuat keamanan jadi tanggung jawab semua tim, bukan hanya bagian IT security. CI/CD...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-06T14:53:53+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/quantum-cryptography-advanced-file-protection-260nw-2307333723.webp\" />\n\t<meta property=\"og:image:width\" content=\"497\" />\n\t<meta property=\"og:image:height\" content=\"280\" />\n\t<meta property=\"og:image:type\" content=\"image/webp\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/\",\"url\":\"https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/\",\"name\":\"Membangun Keamanan Otomatis dalam CI/CD Pipeline dengan DevSecOps - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/quantum-cryptography-advanced-file-protection-260nw-2307333723.webp\",\"datePublished\":\"2025-07-06T14:53:53+00:00\",\"dateModified\":\"2025-07-06T14:53:53+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/quantum-cryptography-advanced-file-protection-260nw-2307333723.webp\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/quantum-cryptography-advanced-file-protection-260nw-2307333723.webp\",\"width\":497,\"height\":280},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Membangun Keamanan Otomatis dalam CI/CD Pipeline dengan DevSecOps\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Membangun Keamanan Otomatis dalam CI/CD Pipeline dengan DevSecOps - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Membangun Keamanan Otomatis dalam CI/CD Pipeline dengan DevSecOps - buletinsiber.com",
+      "og_description": "&nbsp; I. Pendahuluan Dalam dunia pengembangan perangkat lunak modern, kecepatan adalah segalanya. Banyak tim developer menggunakan proses CI/CD (Continuous Integration / Continuous Deployment) untuk merilis aplikasi dengan cepat dan sering. Tapi sayangnya, keamanan sering terlupakan dalam proses ini. Akibatnya, celah keamanan bisa ikut masuk ke sistem dan berpotensi dimanfaatkan oleh penyerang. Di sinilah DevSecOps hadir untuk membantu. Tujuannya adalah menggabungkan keamanan ke dalam setiap tahap otomatisasi, termasuk pipeline CI/CD. II. Apa Itu DevSecOps dan CI/CD? DevSecOps adalah gabungan dari Development (pengembangan), Security (keamanan), dan Operations (operasi). DevSecOps membuat keamanan jadi tanggung jawab semua tim, bukan hanya bagian IT security. CI/CD...",
+      "og_url": "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-06T14:53:53+00:00",
+      "og_image": [
+        {
+          "width": 497,
+          "height": 280,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/quantum-cryptography-advanced-file-protection-260nw-2307333723.webp",
+          "type": "image/webp"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/",
+            "url": "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/",
+            "name": "Membangun Keamanan Otomatis dalam CI/CD Pipeline dengan DevSecOps - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/quantum-cryptography-advanced-file-protection-260nw-2307333723.webp",
+            "datePublished": "2025-07-06T14:53:53+00:00",
+            "dateModified": "2025-07-06T14:53:53+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/quantum-cryptography-advanced-file-protection-260nw-2307333723.webp",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/quantum-cryptography-advanced-file-protection-260nw-2307333723.webp",
+            "width": 497,
+            "height": 280
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/membangun-keamanan-otomatis-dalam-ci-cd-pipeline-dengan-devsecops/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Membangun Keamanan Otomatis dalam CI/CD Pipeline dengan DevSecOps"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3488",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=3488"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3488/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 3489,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3488/revisions/3489"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/3063"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=3488"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=3488"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=3488"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

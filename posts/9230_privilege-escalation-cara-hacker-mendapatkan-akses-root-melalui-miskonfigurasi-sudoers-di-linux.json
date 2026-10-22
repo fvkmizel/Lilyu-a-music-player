@@ -1,0 +1,335 @@
+{
+  "id": 9230,
+  "title": "Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux",
+  "slug": "privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux",
+  "url": "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/",
+  "date": "2026-01-13T00:45:05",
+  "date_gmt": "2026-01-13T00:45:05",
+  "modified": "2026-07-06T21:31:48",
+  "modified_gmt": "2026-07-06T21:31:48",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    185,
+    98,
+    780,
+    975
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/11/39.jpeg",
+  "excerpt": "Pengantar Pada sistem Linux, konsep least privilege menjadi fondasi utama keamanan. User biasa tidak seharusnya memiliki akses penuh ke sistem. Namun dalam praktiknya, kesalahan konfigurasi sering kali membuka celah serius yang dapat dimanfaatkan penyerang untuk melakukan privilege escalation—khususnya melalui file sudoers. Miskonfigurasi sudoers memungkinkan user non-root menjalankan perintah tertentu dengan hak istimewa tinggi. Jika celah ini dieksploitasi, penyerang dapat meningkatkan hak aksesnya hingga menjadi root, mengambil alih sistem sepenuhnya. Artikel ini membedah bagaimana skenario tersebut terjadi dan bagaimana cara mencegahnya. Apa Itu Privilege Escalation? Privilege escalation adalah teknik di mana penyerang menaikkan level hak aksesnya dari user biasa menjadi user…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"375\" data-end=\"391\"><span style=\"color: #000000;\"><strong data-start=\"378\" data-end=\"391\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"393\" data-end=\"718\"><span style=\"color: #000000;\">Pada sistem Linux, konsep <em data-start=\"419\" data-end=\"436\">least privilege</em> menjadi fondasi utama keamanan. User biasa tidak seharusnya memiliki akses penuh ke sistem. Namun dalam praktiknya, kesalahan konfigurasi sering kali membuka celah serius yang dapat dimanfaatkan penyerang untuk melakukan <strong data-start=\"658\" data-end=\"682\">privilege escalation</strong>—khususnya melalui file <strong data-start=\"706\" data-end=\"717\">sudoers</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"720\" data-end=\"1047\"><span style=\"color: #000000;\">Miskonfigurasi sudoers memungkinkan user non-root menjalankan perintah tertentu dengan hak istimewa tinggi. Jika celah ini dieksploitasi, penyerang dapat meningkatkan hak aksesnya hingga menjadi <strong data-start=\"915\" data-end=\"923\">root</strong>, mengambil alih sistem sepenuhnya. Artikel ini membedah bagaimana skenario tersebut terjadi dan bagaimana cara mencegahnya.</span></p>\n<hr data-start=\"1049\" data-end=\"1052\" />\n<h3 style=\"text-align: justify;\" data-start=\"1054\" data-end=\"1090\"><span style=\"color: #000000;\"><strong data-start=\"1057\" data-end=\"1090\">Apa Itu Privilege Escalation?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"1097\" data-end=\"1279\"><span style=\"color: #000000;\">Privilege escalation adalah teknik di mana penyerang menaikkan level hak aksesnya dari user biasa menjadi user dengan privilese lebih tinggi, seperti <em data-start=\"1251\" data-end=\"1257\">root</em> atau <em data-start=\"1263\" data-end=\"1278\">administrator</em>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1281\" data-end=\"1345\"><span style=\"color: #000000;\">Dalam konteks Linux, privilege escalation sering terjadi akibat:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1346\" data-end=\"1474\">\n<li data-start=\"1346\" data-end=\"1369\">\n<p data-start=\"1348\" data-end=\"1369\"><span style=\"color: #000000;\">Miskonfigurasi sistem</span></p>\n</li>\n<li data-start=\"1370\" data-end=\"1406\">\n<p data-start=\"1372\" data-end=\"1406\"><span style=\"color: #000000;\">Binary dengan permission berbahaya</span></p>\n</li>\n<li data-start=\"1407\" data-end=\"1437\">\n<p data-start=\"1409\" data-end=\"1437\"><span style=\"color: #000000;\">Kesalahan pengaturan sudoers</span></p>\n</li>\n<li data-start=\"1438\" data-end=\"1474\">\n<p data-start=\"1440\" data-end=\"1474\"><span style=\"color: #000000;\">Vulnerability kernel atau aplikasi</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/the-cap-theorem-bagaimana-memilih-database-yang-tepat-tanpa-mengorbankan-integritas-data-saat-terjadi-network-partition/\">The CAP Theorem: Bagaimana Memilih Database yang Tepat Tanpa Mengorbankan Integritas Data saat Terjadi Network Partition</a></p></blockquote>\n<hr data-start=\"1476\" data-end=\"1479\" />\n<h3 style=\"text-align: justify;\" data-start=\"1481\" data-end=\"1525\"><span style=\"color: #000000;\"><strong data-start=\"1484\" data-end=\"1525\">Peran File Sudoers dalam Sistem Linux</strong></span></h3>\n<h4><span style=\"color: #000000;\"><strong data-start=\"1536\" data-end=\"1565\">Apa Itu Sudo dan Sudoers?</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1567\" data-end=\"1706\"><span style=\"color: #000000;\"><code data-start=\"1567\" data-end=\"1573\">sodu</code> memungkinkan user menjalankan perintah sebagai user lain (biasanya root). Aturan penggunaan sudo diatur dalam file /etc/sudoers.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1567\" data-end=\"1706\"><span style=\"color: #000000;\">Menurut dokumentasi resmi Linux, sudoers menentukan siapa boleh menjalankan perintah apa, sebagai user apa, dan dari mana </span><span style=\"color: #000000;\"><em data-start=\"1836\" data-end=\"1905\">(dikutip dari <a href=\"https://man7.org/linux/man-pages/man5/sudoers.5.html\">man7.org </a>).</em></span></p>\n<hr data-start=\"1907\" data-end=\"1910\" />\n<h4 style=\"text-align: justify;\" data-start=\"1912\" data-end=\"1940\"><span style=\"color: #000000;\"><strong data-start=\"1916\" data-end=\"1940\">Contoh Entri Sudoers</strong></span></h4>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\" style=\"text-align: justify;\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre! language-text\">user1 ALL=(ALL) NOPASSWD: /usr/bin/vim<br />\n</code></span></div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"1994\" data-end=\"2094\"><span style=\"color: #000000;\">Sekilas tampak aman, tetapi konfigurasi seperti ini bisa berbahaya jika tidak dipahami dengan benar.</span></p>\n<hr data-start=\"2096\" data-end=\"2099\" />\n<h3 style=\"text-align: justify;\" data-start=\"2101\" data-end=\"2155\"><span style=\"color: #000000;\"><strong data-start=\"2104\" data-end=\"2155\">Bagaimana Miskonfigurasi Sudoers Dieksploitasi?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2162\" data-end=\"2192\"><span style=\"color: #000000;\"><strong data-start=\"2166\" data-end=\"2192\">NOPASSWD dan Bahayanya</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2194\" data-end=\"2369\"><span style=\"color: #000000;\">Opsi <code data-start=\"2199\" data-end=\"2209\">NOPASSWD</code> memungkinkan user menjalankan perintah tanpa memasukkan password. Jika diberikan ke binary yang bisa menjalankan shell, ini menjadi jalur langsung menuju root.</span></p>\n<hr data-start=\"2371\" data-end=\"2374\" />\n<h4 style=\"text-align: justify;\" data-start=\"2376\" data-end=\"2421\"><span style=\"color: #000000;\"><strong data-start=\"2380\" data-end=\"2421\">Binary “Aman” yang Ternyata Berbahaya</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2423\" data-end=\"2447\"><span style=\"color: #000000;\">Beberapa binary seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2448\" data-end=\"2492\">\n<li data-start=\"2448\" data-end=\"2455\">\n<p data-start=\"2450\" data-end=\"2455\"><span style=\"color: #000000;\"><code data-start=\"2450\" data-end=\"2455\">vim</code></span></p>\n</li>\n<li data-start=\"2456\" data-end=\"2464\">\n<p data-start=\"2458\" data-end=\"2464\"><span style=\"color: #000000;\"><code data-start=\"2458\" data-end=\"2464\">less</code></span></p>\n</li>\n<li data-start=\"2465\" data-end=\"2472\">\n<p data-start=\"2467\" data-end=\"2472\"><span style=\"color: #000000;\"><code data-start=\"2467\" data-end=\"2472\">awk</code></span></p>\n</li>\n<li data-start=\"2473\" data-end=\"2481\">\n<p data-start=\"2475\" data-end=\"2481\"><span style=\"color: #000000;\"><code data-start=\"2475\" data-end=\"2481\">find</code></span></p>\n</li>\n<li data-start=\"2482\" data-end=\"2492\">\n<p data-start=\"2484\" data-end=\"2492\"><span style=\"color: #000000;\"><code data-start=\"2484\" data-end=\"2492\">python</code></span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2494\" data-end=\"2546\"><span style=\"color: #000000;\">dapat menjalankan perintah shell dari dalam program.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2548\" data-end=\"2702\"><span style=\"color: #000000;\">GTFOBins mendokumentasikan secara lengkap bagaimana binary legal dapat digunakan untuk privilege escalation </span><span style=\"color: #000000;\"><em data-start=\"2658\" data-end=\"2702\">(dikutip dari <a href=\"https://gtfobins.github.io/\">GTFOBins</a>).</em></span></p>\n<hr data-start=\"2704\" data-end=\"2707\" />\n<h4 style=\"text-align: justify;\" data-start=\"2709\" data-end=\"2744\"><span style=\"color: #000000;\"><strong data-start=\"2713\" data-end=\"2744\">Contoh Skenario Eksploitasi</strong></span></h4>\n<ol style=\"text-align: justify;\" data-start=\"2746\" data-end=\"2914\">\n<li data-start=\"2746\" data-end=\"2802\">\n<p data-start=\"2749\" data-end=\"2772\"><span style=\"color: #000000;\">User biasa menjalankan:</span></p>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre! language-bash\"><span class=\"hljs-built_in\">sudo</span> vim<br />\n</code></span></div>\n</div>\n</li>\n<li data-start=\"2803\" data-end=\"2875\">\n<p data-start=\"2806\" data-end=\"2842\"><span style=\"color: #000000;\">Di dalam vim, penyerang menjalankan:</span></p>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre! language-vim\">:! /bin/bash<br />\n</code></span></div>\n</div>\n</li>\n<li data-start=\"2876\" data-end=\"2914\">\n<p data-start=\"2879\" data-end=\"2914\"><span style=\"color: #000000;\">Shell terbuka dengan hak akses root</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2916\" data-end=\"3003\"><span style=\"color: #000000;\">Tanpa exploit kernel, tanpa malware—hanya memanfaatkan konfigurasi sudoers yang keliru.</span></p>\n<blockquote>\n<p data-start=\"2916\" data-end=\"3003\">baca juga : <a href=\"https://buletinsiber.com/blind-sql-injection-serangan-senyap-yang-mengungkap-celah-keamanan-database/\">Blind SQL Injection: Serangan Senyap yang Mengungkap Celah Keamanan Database</a></p>\n</blockquote>\n<hr data-start=\"3005\" data-end=\"3008\" />\n<h3 style=\"text-align: justify;\" data-start=\"3010\" data-end=\"3058\"><span style=\"color: #000000;\"><strong data-start=\"3013\" data-end=\"3058\">Dampak Keamanan dari Privilege Escalation</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3065\" data-end=\"3101\"><span style=\"color: #000000;\"><strong data-start=\"3069\" data-end=\"3101\">Pengambilalihan Sistem Penuh</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3103\" data-end=\"3127\"><span style=\"color: #000000;\">Akses root memungkinkan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3128\" data-end=\"3220\">\n<li data-start=\"3128\" data-end=\"3157\">\n<p data-start=\"3130\" data-end=\"3157\"><span style=\"color: #000000;\">Mengubah konfigurasi sistem</span></p>\n</li>\n<li data-start=\"3158\" data-end=\"3173\">\n<p data-start=\"3160\" data-end=\"3173\"><span style=\"color: #000000;\">Menghapus log</span></p>\n</li>\n<li data-start=\"3174\" data-end=\"3192\">\n<p data-start=\"3176\" data-end=\"3192\"><span style=\"color: #000000;\">Menanam backdoor</span></p>\n</li>\n<li data-start=\"3193\" data-end=\"3220\">\n<p data-start=\"3195\" data-end=\"3220\"><span style=\"color: #000000;\">Mengontrol seluruh server</span></p>\n</li>\n</ul>\n<hr data-start=\"3222\" data-end=\"3225\" />\n<h4 style=\"text-align: justify;\" data-start=\"3227\" data-end=\"3265\"><span style=\"color: #000000;\"><strong data-start=\"3231\" data-end=\"3265\">Persistensi &amp; Lateral Movement</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3267\" data-end=\"3309\"><span style=\"color: #000000;\">Setelah mendapatkan root, penyerang dapat:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3310\" data-end=\"3393\">\n<li data-start=\"3310\" data-end=\"3333\">\n<p data-start=\"3312\" data-end=\"3333\"><span style=\"color: #000000;\">Menambahkan user baru</span></p>\n</li>\n<li data-start=\"3334\" data-end=\"3355\">\n<p data-start=\"3336\" data-end=\"3355\"><span style=\"color: #000000;\">Mengubah SSH config</span></p>\n</li>\n<li data-start=\"3356\" data-end=\"3393\">\n<p data-start=\"3358\" data-end=\"3393\"><span style=\"color: #000000;\">Menyebar ke sistem lain di jaringan</span></p>\n</li>\n</ul>\n<hr data-start=\"3395\" data-end=\"3398\" />\n<h3 style=\"text-align: justify;\" data-start=\"3400\" data-end=\"3458\"><span style=\"color: #000000;\"><strong data-start=\"3403\" data-end=\"3458\">Cara Mendeteksi dan Mencegah Miskonfigurasi Sudoers</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3465\" data-end=\"3493\"><span style=\"color: #000000;\"><strong data-start=\"3469\" data-end=\"3493\">Audit Hak Akses Sudo</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3495\" data-end=\"3503\"><span style=\"color: #000000;\">Gunakan:</span></p>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\" style=\"text-align: justify;\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre! language-bash\"><span class=\"hljs-built_in\">sudo</span> -l<br />\n</code></span></div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"3524\" data-end=\"3594\"><span style=\"color: #000000;\">untuk melihat perintah apa saja yang bisa dijalankan user dengan sudo.</span></p>\n<hr data-start=\"3596\" data-end=\"3599\" />\n<h4 style=\"text-align: justify;\" data-start=\"3601\" data-end=\"3653\"><span style=\"color: #000000;\"><strong data-start=\"3605\" data-end=\"3653\">Hindari Memberikan Sudo ke Binary Interaktif</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3655\" data-end=\"3684\"><span style=\"color: #000000;\">Jangan berikan akses sudo ke:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3685\" data-end=\"3767\">\n<li data-start=\"3685\" data-end=\"3698\">\n<p data-start=\"3687\" data-end=\"3698\"><span style=\"color: #000000;\">Editor teks</span></p>\n</li>\n<li data-start=\"3699\" data-end=\"3731\">\n<p data-start=\"3701\" data-end=\"3731\"><span style=\"color: #000000;\">Interpreter bahasa pemrograman</span></p>\n</li>\n<li data-start=\"3732\" data-end=\"3767\">\n<p data-start=\"3734\" data-end=\"3767\"><span style=\"color: #000000;\">Tools yang mendukung shell escape</span></p>\n</li>\n</ul>\n<hr data-start=\"3769\" data-end=\"3772\" />\n<h4 style=\"text-align: justify;\" data-start=\"3774\" data-end=\"3813\"><span style=\"color: #000000;\"><strong data-start=\"3778\" data-end=\"3813\">Gunakan Prinsip Least Privilege</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3815\" data-end=\"3823\"><span style=\"color: #000000;\">Berikan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3824\" data-end=\"3915\">\n<li data-start=\"3824\" data-end=\"3843\">\n<p data-start=\"3826\" data-end=\"3843\"><span style=\"color: #000000;\">Perintah spesifik</span></p>\n</li>\n<li data-start=\"3844\" data-end=\"3862\">\n<p data-start=\"3846\" data-end=\"3862\"><span style=\"color: #000000;\">Argumen spesifik</span></p>\n</li>\n<li data-start=\"3863\" data-end=\"3915\">\n<p data-start=\"3865\" data-end=\"3915\"><span style=\"color: #000000;\">Tanpa <code data-start=\"3871\" data-end=\"3881\">NOPASSWD</code> jika tidak benar-benar diperlukan</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/\">Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern</a></p></blockquote>\n<hr data-start=\"3917\" data-end=\"3920\" />\n<h2 style=\"text-align: justify;\" data-start=\"3922\" data-end=\"3939\"><span style=\"color: #000000;\"><strong data-start=\"3925\" data-end=\"3939\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"3941\" data-end=\"4186\"><span style=\"color: #000000;\">Privilege escalation melalui miskonfigurasi sudoers adalah salah satu teknik paling sering digunakan dalam kompromi sistem Linux. Masalah ini bukan berasal dari bug kompleks, melainkan dari kesalahan konfigurasi manusia yang terlihat sepele.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4188\" data-end=\"4404\"><span style=\"color: #000000;\">Dengan memahami cara kerja sudoers, mengenali binary berisiko, serta melakukan audit rutin, administrator dapat menutup jalur eksploitasi yang sering dimanfaatkan hacker untuk mendapatkan akses root secara diam-diam.</span></p>\n",
+  "content_text": "Pengantar\nPada sistem Linux, konsep  least privilege  menjadi fondasi utama keamanan. User biasa tidak seharusnya memiliki akses penuh ke sistem. Namun dalam praktiknya, kesalahan konfigurasi sering kali membuka celah serius yang dapat dimanfaatkan penyerang untuk melakukan  privilege escalation —khususnya melalui file  sudoers .\nMiskonfigurasi sudoers memungkinkan user non-root menjalankan perintah tertentu dengan hak istimewa tinggi. Jika celah ini dieksploitasi, penyerang dapat meningkatkan hak aksesnya hingga menjadi  root , mengambil alih sistem sepenuhnya. Artikel ini membedah bagaimana skenario tersebut terjadi dan bagaimana cara mencegahnya.\nApa Itu Privilege Escalation?\nPrivilege escalation adalah teknik di mana penyerang menaikkan level hak aksesnya dari user biasa menjadi user dengan privilese lebih tinggi, seperti  root  atau  administrator .\nDalam konteks Linux, privilege escalation sering terjadi akibat:\nMiskonfigurasi sistem\nBinary dengan permission berbahaya\nKesalahan pengaturan sudoers\nVulnerability kernel atau aplikasi\nbaca juga :  The CAP Theorem: Bagaimana Memilih Database yang Tepat Tanpa Mengorbankan Integritas Data saat Terjadi Network Partition\nPeran File Sudoers dalam Sistem Linux\nApa Itu Sudo dan Sudoers?\nsodu  memungkinkan user menjalankan perintah sebagai user lain (biasanya root). Aturan penggunaan sudo diatur dalam file /etc/sudoers.\nMenurut dokumentasi resmi Linux, sudoers menentukan siapa boleh menjalankan perintah apa, sebagai user apa, dan dari mana    (dikutip dari  man7.org  ).\nContoh Entri Sudoers\nuser1 ALL=(ALL) NOPASSWD: /usr/bin/vim\nSekilas tampak aman, tetapi konfigurasi seperti ini bisa berbahaya jika tidak dipahami dengan benar.\nBagaimana Miskonfigurasi Sudoers Dieksploitasi?\nNOPASSWD dan Bahayanya\nOpsi  NOPASSWD  memungkinkan user menjalankan perintah tanpa memasukkan password. Jika diberikan ke binary yang bisa menjalankan shell, ini menjadi jalur langsung menuju root.\nBinary “Aman” yang Ternyata Berbahaya\nBeberapa binary seperti:\nvim\nless\nawk\nfind\npython\ndapat menjalankan perintah shell dari dalam program.\nGTFOBins mendokumentasikan secara lengkap bagaimana binary legal dapat digunakan untuk privilege escalation    (dikutip dari  GTFOBins ).\nContoh Skenario Eksploitasi\nUser biasa menjalankan:\nsudo  vim\nDi dalam vim, penyerang menjalankan:\n:! /bin/bash\nShell terbuka dengan hak akses root\nTanpa exploit kernel, tanpa malware—hanya memanfaatkan konfigurasi sudoers yang keliru.\nbaca juga :  Blind SQL Injection: Serangan Senyap yang Mengungkap Celah Keamanan Database\nDampak Keamanan dari Privilege Escalation\nPengambilalihan Sistem Penuh\nAkses root memungkinkan:\nMengubah konfigurasi sistem\nMenghapus log\nMenanam backdoor\nMengontrol seluruh server\nPersistensi & Lateral Movement\nSetelah mendapatkan root, penyerang dapat:\nMenambahkan user baru\nMengubah SSH config\nMenyebar ke sistem lain di jaringan\nCara Mendeteksi dan Mencegah Miskonfigurasi Sudoers\nAudit Hak Akses Sudo\nGunakan:\nsudo  -l\nuntuk melihat perintah apa saja yang bisa dijalankan user dengan sudo.\nHindari Memberikan Sudo ke Binary Interaktif\nJangan berikan akses sudo ke:\nEditor teks\nInterpreter bahasa pemrograman\nTools yang mendukung shell escape\nGunakan Prinsip Least Privilege\nBerikan:\nPerintah spesifik\nArgumen spesifik\nTanpa  NOPASSWD  jika tidak benar-benar diperlukan\nbaca juga :  Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern\nKesimpulan\nPrivilege escalation melalui miskonfigurasi sudoers adalah salah satu teknik paling sering digunakan dalam kompromi sistem Linux. Masalah ini bukan berasal dari bug kompleks, melainkan dari kesalahan konfigurasi manusia yang terlihat sepele.\nDengan memahami cara kerja sudoers, mengenali binary berisiko, serta melakukan audit rutin, administrator dapat menutup jalur eksploitasi yang sering dimanfaatkan hacker untuk mendapatkan akses root secara diam-diam.",
+  "raw": {
+    "id": 9230,
+    "date": "2026-01-13T00:45:05",
+    "date_gmt": "2026-01-13T00:45:05",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9230"
+    },
+    "modified": "2026-07-06T21:31:48",
+    "modified_gmt": "2026-07-06T21:31:48",
+    "slug": "privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/",
+    "title": {
+      "rendered": "Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"375\" data-end=\"391\"><span style=\"color: #000000;\"><strong data-start=\"378\" data-end=\"391\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"393\" data-end=\"718\"><span style=\"color: #000000;\">Pada sistem Linux, konsep <em data-start=\"419\" data-end=\"436\">least privilege</em> menjadi fondasi utama keamanan. User biasa tidak seharusnya memiliki akses penuh ke sistem. Namun dalam praktiknya, kesalahan konfigurasi sering kali membuka celah serius yang dapat dimanfaatkan penyerang untuk melakukan <strong data-start=\"658\" data-end=\"682\">privilege escalation</strong>—khususnya melalui file <strong data-start=\"706\" data-end=\"717\">sudoers</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"720\" data-end=\"1047\"><span style=\"color: #000000;\">Miskonfigurasi sudoers memungkinkan user non-root menjalankan perintah tertentu dengan hak istimewa tinggi. Jika celah ini dieksploitasi, penyerang dapat meningkatkan hak aksesnya hingga menjadi <strong data-start=\"915\" data-end=\"923\">root</strong>, mengambil alih sistem sepenuhnya. Artikel ini membedah bagaimana skenario tersebut terjadi dan bagaimana cara mencegahnya.</span></p>\n<hr data-start=\"1049\" data-end=\"1052\" />\n<h3 style=\"text-align: justify;\" data-start=\"1054\" data-end=\"1090\"><span style=\"color: #000000;\"><strong data-start=\"1057\" data-end=\"1090\">Apa Itu Privilege Escalation?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"1097\" data-end=\"1279\"><span style=\"color: #000000;\">Privilege escalation adalah teknik di mana penyerang menaikkan level hak aksesnya dari user biasa menjadi user dengan privilese lebih tinggi, seperti <em data-start=\"1251\" data-end=\"1257\">root</em> atau <em data-start=\"1263\" data-end=\"1278\">administrator</em>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1281\" data-end=\"1345\"><span style=\"color: #000000;\">Dalam konteks Linux, privilege escalation sering terjadi akibat:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1346\" data-end=\"1474\">\n<li data-start=\"1346\" data-end=\"1369\">\n<p data-start=\"1348\" data-end=\"1369\"><span style=\"color: #000000;\">Miskonfigurasi sistem</span></p>\n</li>\n<li data-start=\"1370\" data-end=\"1406\">\n<p data-start=\"1372\" data-end=\"1406\"><span style=\"color: #000000;\">Binary dengan permission berbahaya</span></p>\n</li>\n<li data-start=\"1407\" data-end=\"1437\">\n<p data-start=\"1409\" data-end=\"1437\"><span style=\"color: #000000;\">Kesalahan pengaturan sudoers</span></p>\n</li>\n<li data-start=\"1438\" data-end=\"1474\">\n<p data-start=\"1440\" data-end=\"1474\"><span style=\"color: #000000;\">Vulnerability kernel atau aplikasi</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/the-cap-theorem-bagaimana-memilih-database-yang-tepat-tanpa-mengorbankan-integritas-data-saat-terjadi-network-partition/\">The CAP Theorem: Bagaimana Memilih Database yang Tepat Tanpa Mengorbankan Integritas Data saat Terjadi Network Partition</a></p></blockquote>\n<hr data-start=\"1476\" data-end=\"1479\" />\n<h3 style=\"text-align: justify;\" data-start=\"1481\" data-end=\"1525\"><span style=\"color: #000000;\"><strong data-start=\"1484\" data-end=\"1525\">Peran File Sudoers dalam Sistem Linux</strong></span></h3>\n<h4><span style=\"color: #000000;\"><strong data-start=\"1536\" data-end=\"1565\">Apa Itu Sudo dan Sudoers?</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1567\" data-end=\"1706\"><span style=\"color: #000000;\"><code data-start=\"1567\" data-end=\"1573\">sodu</code> memungkinkan user menjalankan perintah sebagai user lain (biasanya root). Aturan penggunaan sudo diatur dalam file /etc/sudoers.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1567\" data-end=\"1706\"><span style=\"color: #000000;\">Menurut dokumentasi resmi Linux, sudoers menentukan siapa boleh menjalankan perintah apa, sebagai user apa, dan dari mana </span><span style=\"color: #000000;\"><em data-start=\"1836\" data-end=\"1905\">(dikutip dari <a href=\"https://man7.org/linux/man-pages/man5/sudoers.5.html\">man7.org </a>).</em></span></p>\n<hr data-start=\"1907\" data-end=\"1910\" />\n<h4 style=\"text-align: justify;\" data-start=\"1912\" data-end=\"1940\"><span style=\"color: #000000;\"><strong data-start=\"1916\" data-end=\"1940\">Contoh Entri Sudoers</strong></span></h4>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\" style=\"text-align: justify;\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre! language-text\">user1 ALL=(ALL) NOPASSWD: /usr/bin/vim<br />\n</code></span></div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"1994\" data-end=\"2094\"><span style=\"color: #000000;\">Sekilas tampak aman, tetapi konfigurasi seperti ini bisa berbahaya jika tidak dipahami dengan benar.</span></p>\n<hr data-start=\"2096\" data-end=\"2099\" />\n<h3 style=\"text-align: justify;\" data-start=\"2101\" data-end=\"2155\"><span style=\"color: #000000;\"><strong data-start=\"2104\" data-end=\"2155\">Bagaimana Miskonfigurasi Sudoers Dieksploitasi?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2162\" data-end=\"2192\"><span style=\"color: #000000;\"><strong data-start=\"2166\" data-end=\"2192\">NOPASSWD dan Bahayanya</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2194\" data-end=\"2369\"><span style=\"color: #000000;\">Opsi <code data-start=\"2199\" data-end=\"2209\">NOPASSWD</code> memungkinkan user menjalankan perintah tanpa memasukkan password. Jika diberikan ke binary yang bisa menjalankan shell, ini menjadi jalur langsung menuju root.</span></p>\n<hr data-start=\"2371\" data-end=\"2374\" />\n<h4 style=\"text-align: justify;\" data-start=\"2376\" data-end=\"2421\"><span style=\"color: #000000;\"><strong data-start=\"2380\" data-end=\"2421\">Binary “Aman” yang Ternyata Berbahaya</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2423\" data-end=\"2447\"><span style=\"color: #000000;\">Beberapa binary seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2448\" data-end=\"2492\">\n<li data-start=\"2448\" data-end=\"2455\">\n<p data-start=\"2450\" data-end=\"2455\"><span style=\"color: #000000;\"><code data-start=\"2450\" data-end=\"2455\">vim</code></span></p>\n</li>\n<li data-start=\"2456\" data-end=\"2464\">\n<p data-start=\"2458\" data-end=\"2464\"><span style=\"color: #000000;\"><code data-start=\"2458\" data-end=\"2464\">less</code></span></p>\n</li>\n<li data-start=\"2465\" data-end=\"2472\">\n<p data-start=\"2467\" data-end=\"2472\"><span style=\"color: #000000;\"><code data-start=\"2467\" data-end=\"2472\">awk</code></span></p>\n</li>\n<li data-start=\"2473\" data-end=\"2481\">\n<p data-start=\"2475\" data-end=\"2481\"><span style=\"color: #000000;\"><code data-start=\"2475\" data-end=\"2481\">find</code></span></p>\n</li>\n<li data-start=\"2482\" data-end=\"2492\">\n<p data-start=\"2484\" data-end=\"2492\"><span style=\"color: #000000;\"><code data-start=\"2484\" data-end=\"2492\">python</code></span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2494\" data-end=\"2546\"><span style=\"color: #000000;\">dapat menjalankan perintah shell dari dalam program.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2548\" data-end=\"2702\"><span style=\"color: #000000;\">GTFOBins mendokumentasikan secara lengkap bagaimana binary legal dapat digunakan untuk privilege escalation </span><span style=\"color: #000000;\"><em data-start=\"2658\" data-end=\"2702\">(dikutip dari <a href=\"https://gtfobins.github.io/\">GTFOBins</a>).</em></span></p>\n<hr data-start=\"2704\" data-end=\"2707\" />\n<h4 style=\"text-align: justify;\" data-start=\"2709\" data-end=\"2744\"><span style=\"color: #000000;\"><strong data-start=\"2713\" data-end=\"2744\">Contoh Skenario Eksploitasi</strong></span></h4>\n<ol style=\"text-align: justify;\" data-start=\"2746\" data-end=\"2914\">\n<li data-start=\"2746\" data-end=\"2802\">\n<p data-start=\"2749\" data-end=\"2772\"><span style=\"color: #000000;\">User biasa menjalankan:</span></p>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre! language-bash\"><span class=\"hljs-built_in\">sudo</span> vim<br />\n</code></span></div>\n</div>\n</li>\n<li data-start=\"2803\" data-end=\"2875\">\n<p data-start=\"2806\" data-end=\"2842\"><span style=\"color: #000000;\">Di dalam vim, penyerang menjalankan:</span></p>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre! language-vim\">:! /bin/bash<br />\n</code></span></div>\n</div>\n</li>\n<li data-start=\"2876\" data-end=\"2914\">\n<p data-start=\"2879\" data-end=\"2914\"><span style=\"color: #000000;\">Shell terbuka dengan hak akses root</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2916\" data-end=\"3003\"><span style=\"color: #000000;\">Tanpa exploit kernel, tanpa malware—hanya memanfaatkan konfigurasi sudoers yang keliru.</span></p>\n<blockquote>\n<p data-start=\"2916\" data-end=\"3003\">baca juga : <a href=\"https://buletinsiber.com/blind-sql-injection-serangan-senyap-yang-mengungkap-celah-keamanan-database/\">Blind SQL Injection: Serangan Senyap yang Mengungkap Celah Keamanan Database</a></p>\n</blockquote>\n<hr data-start=\"3005\" data-end=\"3008\" />\n<h3 style=\"text-align: justify;\" data-start=\"3010\" data-end=\"3058\"><span style=\"color: #000000;\"><strong data-start=\"3013\" data-end=\"3058\">Dampak Keamanan dari Privilege Escalation</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3065\" data-end=\"3101\"><span style=\"color: #000000;\"><strong data-start=\"3069\" data-end=\"3101\">Pengambilalihan Sistem Penuh</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3103\" data-end=\"3127\"><span style=\"color: #000000;\">Akses root memungkinkan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3128\" data-end=\"3220\">\n<li data-start=\"3128\" data-end=\"3157\">\n<p data-start=\"3130\" data-end=\"3157\"><span style=\"color: #000000;\">Mengubah konfigurasi sistem</span></p>\n</li>\n<li data-start=\"3158\" data-end=\"3173\">\n<p data-start=\"3160\" data-end=\"3173\"><span style=\"color: #000000;\">Menghapus log</span></p>\n</li>\n<li data-start=\"3174\" data-end=\"3192\">\n<p data-start=\"3176\" data-end=\"3192\"><span style=\"color: #000000;\">Menanam backdoor</span></p>\n</li>\n<li data-start=\"3193\" data-end=\"3220\">\n<p data-start=\"3195\" data-end=\"3220\"><span style=\"color: #000000;\">Mengontrol seluruh server</span></p>\n</li>\n</ul>\n<hr data-start=\"3222\" data-end=\"3225\" />\n<h4 style=\"text-align: justify;\" data-start=\"3227\" data-end=\"3265\"><span style=\"color: #000000;\"><strong data-start=\"3231\" data-end=\"3265\">Persistensi &amp; Lateral Movement</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3267\" data-end=\"3309\"><span style=\"color: #000000;\">Setelah mendapatkan root, penyerang dapat:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3310\" data-end=\"3393\">\n<li data-start=\"3310\" data-end=\"3333\">\n<p data-start=\"3312\" data-end=\"3333\"><span style=\"color: #000000;\">Menambahkan user baru</span></p>\n</li>\n<li data-start=\"3334\" data-end=\"3355\">\n<p data-start=\"3336\" data-end=\"3355\"><span style=\"color: #000000;\">Mengubah SSH config</span></p>\n</li>\n<li data-start=\"3356\" data-end=\"3393\">\n<p data-start=\"3358\" data-end=\"3393\"><span style=\"color: #000000;\">Menyebar ke sistem lain di jaringan</span></p>\n</li>\n</ul>\n<hr data-start=\"3395\" data-end=\"3398\" />\n<h3 style=\"text-align: justify;\" data-start=\"3400\" data-end=\"3458\"><span style=\"color: #000000;\"><strong data-start=\"3403\" data-end=\"3458\">Cara Mendeteksi dan Mencegah Miskonfigurasi Sudoers</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3465\" data-end=\"3493\"><span style=\"color: #000000;\"><strong data-start=\"3469\" data-end=\"3493\">Audit Hak Akses Sudo</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3495\" data-end=\"3503\"><span style=\"color: #000000;\">Gunakan:</span></p>\n<div class=\"contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary\" style=\"text-align: justify;\">\n<div class=\"sticky top-[calc(--spacing(9)+var(--header-height))] @w-xl/main:top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><span style=\"color: #000000;\"><code class=\"whitespace-pre! language-bash\"><span class=\"hljs-built_in\">sudo</span> -l<br />\n</code></span></div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"3524\" data-end=\"3594\"><span style=\"color: #000000;\">untuk melihat perintah apa saja yang bisa dijalankan user dengan sudo.</span></p>\n<hr data-start=\"3596\" data-end=\"3599\" />\n<h4 style=\"text-align: justify;\" data-start=\"3601\" data-end=\"3653\"><span style=\"color: #000000;\"><strong data-start=\"3605\" data-end=\"3653\">Hindari Memberikan Sudo ke Binary Interaktif</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3655\" data-end=\"3684\"><span style=\"color: #000000;\">Jangan berikan akses sudo ke:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3685\" data-end=\"3767\">\n<li data-start=\"3685\" data-end=\"3698\">\n<p data-start=\"3687\" data-end=\"3698\"><span style=\"color: #000000;\">Editor teks</span></p>\n</li>\n<li data-start=\"3699\" data-end=\"3731\">\n<p data-start=\"3701\" data-end=\"3731\"><span style=\"color: #000000;\">Interpreter bahasa pemrograman</span></p>\n</li>\n<li data-start=\"3732\" data-end=\"3767\">\n<p data-start=\"3734\" data-end=\"3767\"><span style=\"color: #000000;\">Tools yang mendukung shell escape</span></p>\n</li>\n</ul>\n<hr data-start=\"3769\" data-end=\"3772\" />\n<h4 style=\"text-align: justify;\" data-start=\"3774\" data-end=\"3813\"><span style=\"color: #000000;\"><strong data-start=\"3778\" data-end=\"3813\">Gunakan Prinsip Least Privilege</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3815\" data-end=\"3823\"><span style=\"color: #000000;\">Berikan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3824\" data-end=\"3915\">\n<li data-start=\"3824\" data-end=\"3843\">\n<p data-start=\"3826\" data-end=\"3843\"><span style=\"color: #000000;\">Perintah spesifik</span></p>\n</li>\n<li data-start=\"3844\" data-end=\"3862\">\n<p data-start=\"3846\" data-end=\"3862\"><span style=\"color: #000000;\">Argumen spesifik</span></p>\n</li>\n<li data-start=\"3863\" data-end=\"3915\">\n<p data-start=\"3865\" data-end=\"3915\"><span style=\"color: #000000;\">Tanpa <code data-start=\"3871\" data-end=\"3881\">NOPASSWD</code> jika tidak benar-benar diperlukan</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/\">Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern</a></p></blockquote>\n<hr data-start=\"3917\" data-end=\"3920\" />\n<h2 style=\"text-align: justify;\" data-start=\"3922\" data-end=\"3939\"><span style=\"color: #000000;\"><strong data-start=\"3925\" data-end=\"3939\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"3941\" data-end=\"4186\"><span style=\"color: #000000;\">Privilege escalation melalui miskonfigurasi sudoers adalah salah satu teknik paling sering digunakan dalam kompromi sistem Linux. Masalah ini bukan berasal dari bug kompleks, melainkan dari kesalahan konfigurasi manusia yang terlihat sepele.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4188\" data-end=\"4404\"><span style=\"color: #000000;\">Dengan memahami cara kerja sudoers, mengenali binary berisiko, serta melakukan audit rutin, administrator dapat menutup jalur eksploitasi yang sering dimanfaatkan hacker untuk mendapatkan akses root secara diam-diam.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Pada sistem Linux, konsep least privilege menjadi fondasi utama keamanan. User biasa tidak seharusnya memiliki akses penuh ke sistem. Namun dalam praktiknya, kesalahan konfigurasi sering kali membuka celah serius yang dapat dimanfaatkan penyerang untuk melakukan privilege escalation—khususnya melalui file sudoers. Miskonfigurasi sudoers memungkinkan user non-root menjalankan perintah tertentu dengan hak istimewa tinggi. Jika celah ini dieksploitasi, penyerang dapat meningkatkan hak aksesnya hingga menjadi root, mengambil alih sistem sepenuhnya. Artikel ini membedah bagaimana skenario tersebut terjadi dan bagaimana cara mencegahnya. Apa Itu Privilege Escalation? Privilege escalation adalah teknik di mana penyerang menaikkan level hak aksesnya dari user biasa menjadi user&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8128,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "privilege escalation Linux",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      185,
+      98,
+      780,
+      975
+    ],
+    "class_list": [
+      "post-9230",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-cybersecurity",
+      "tag-linux",
+      "tag-sudo",
+      "tag-sudoers"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Pada sistem Linux, konsep least privilege menjadi fondasi utama keamanan. User biasa tidak seharusnya memiliki akses penuh ke sistem. Namun dalam praktiknya, kesalahan konfigurasi sering kali membuka celah serius yang dapat dimanfaatkan penyerang untuk melakukan privilege escalation—khususnya melalui file sudoers. Miskonfigurasi sudoers memungkinkan user non-root menjalankan perintah tertentu dengan hak istimewa tinggi. Jika celah ini dieksploitasi, penyerang dapat meningkatkan hak aksesnya hingga menjadi root, mengambil alih sistem sepenuhnya. Artikel ini membedah bagaimana skenario tersebut terjadi dan bagaimana cara mencegahnya. Apa Itu Privilege Escalation? Privilege escalation adalah teknik di mana penyerang menaikkan level hak aksesnya dari user biasa menjadi user...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-01-13T00:45:05+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T21:31:48+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/11/39.jpeg\" />\n\t<meta property=\"og:image:width\" content=\"768\" />\n\t<meta property=\"og:image:height\" content=\"512\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/\",\"url\":\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/\",\"name\":\"Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/39.jpeg\",\"datePublished\":\"2026-01-13T00:45:05+00:00\",\"dateModified\":\"2026-07-06T21:31:48+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/11/39.jpeg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/39.jpeg\",\"width\":768,\"height\":512},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux - buletinsiber.com",
+      "og_description": "Pengantar Pada sistem Linux, konsep least privilege menjadi fondasi utama keamanan. User biasa tidak seharusnya memiliki akses penuh ke sistem. Namun dalam praktiknya, kesalahan konfigurasi sering kali membuka celah serius yang dapat dimanfaatkan penyerang untuk melakukan privilege escalation—khususnya melalui file sudoers. Miskonfigurasi sudoers memungkinkan user non-root menjalankan perintah tertentu dengan hak istimewa tinggi. Jika celah ini dieksploitasi, penyerang dapat meningkatkan hak aksesnya hingga menjadi root, mengambil alih sistem sepenuhnya. Artikel ini membedah bagaimana skenario tersebut terjadi dan bagaimana cara mencegahnya. Apa Itu Privilege Escalation? Privilege escalation adalah teknik di mana penyerang menaikkan level hak aksesnya dari user biasa menjadi user...",
+      "og_url": "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-01-13T00:45:05+00:00",
+      "article_modified_time": "2026-07-06T21:31:48+00:00",
+      "og_image": [
+        {
+          "width": 768,
+          "height": 512,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/11/39.jpeg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/",
+            "url": "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/",
+            "name": "Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/39.jpeg",
+            "datePublished": "2026-01-13T00:45:05+00:00",
+            "dateModified": "2026-07-06T21:31:48+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/11/39.jpeg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/39.jpeg",
+            "width": 768,
+            "height": 512
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/privilege-escalation-cara-hacker-mendapatkan-akses-root-melalui-miskonfigurasi-sudoers-di-linux/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Privilege Escalation: Cara Hacker Mendapatkan Akses “Root” Melalui Miskonfigurasi Sudoers di Linux"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9230",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9230"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9230/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9231,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9230/revisions/9231"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8128"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9230"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9230"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9230"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

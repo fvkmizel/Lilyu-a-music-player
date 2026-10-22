@@ -1,0 +1,326 @@
+{
+  "id": 9418,
+  "title": "Membedah Firmware dengan QEMU: Senjata Wajib Peneliti Keamanan",
+  "slug": "membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan",
+  "url": "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/",
+  "date": "2026-02-01T05:44:02",
+  "date_gmt": "2026-02-01T05:44:02",
+  "modified": "2026-07-06T21:10:57",
+  "modified_gmt": "2026-07-06T21:10:57",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    519
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/02/1703166731576.png",
+  "excerpt": "Pendahuluan Perangkat seperti router, modem, IP camera, dan berbagai perangkat IoT sudah menjadi bagian dari kehidupan sehari-hari. Sayangnya, banyak perangkat ini memiliki masalah keamanan. Untuk menemukan celah tersebut, peneliti keamanan perlu menganalisis firmware, yaitu sistem operasi yang berjalan di dalam perangkat. Masalahnya, tidak semua peneliti memiliki perangkat fisik. Di sinilah QEMU menjadi solusi penting, karena memungkinkan firmware dijalankan dan dianalisis tanpa harus memiliki device aslinya. Apa Itu QEMU? QEMU (Quick Emulator) adalah tools open-source yang berfungsi untuk mengemulasikan sistem komputer secara penuh. QEMU bisa meniru berbagai arsitektur CPU, seperti: ARM MIPS x86 PowerPC Berbeda dengan virtual machine biasa yang butuh…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"248\" data-end=\"265\">Pendahuluan</h2>\n<p style=\"text-align: justify;\" data-start=\"266\" data-end=\"582\">Perangkat seperti router, modem, IP camera, dan berbagai perangkat IoT sudah menjadi bagian dari kehidupan sehari-hari. Sayangnya, banyak perangkat ini memiliki masalah keamanan. Untuk menemukan celah tersebut, peneliti keamanan perlu menganalisis <strong data-start=\"514\" data-end=\"526\">firmware</strong>, yaitu sistem operasi yang berjalan di dalam perangkat.</p>\n<p style=\"text-align: justify;\" data-start=\"584\" data-end=\"778\">Masalahnya, tidak semua peneliti memiliki perangkat fisik. Di sinilah <strong data-start=\"654\" data-end=\"662\">QEMU</strong> menjadi solusi penting, karena memungkinkan firmware dijalankan dan dianalisis tanpa harus memiliki device aslinya.</p>\n<h2 style=\"text-align: justify;\" data-start=\"785\" data-end=\"804\">Apa Itu QEMU?</h2>\n<p style=\"text-align: justify;\" data-start=\"805\" data-end=\"976\"><strong data-start=\"805\" data-end=\"830\">QEMU (Quick Emulator)</strong> adalah tools open-source yang berfungsi untuk <strong data-start=\"877\" data-end=\"924\">mengemulasikan sistem komputer secara penuh</strong>. QEMU bisa meniru berbagai arsitektur CPU, seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"977\" data-end=\"1013\">\n<li data-start=\"977\" data-end=\"984\">\n<p data-start=\"979\" data-end=\"984\">ARM</p>\n</li>\n<li data-start=\"985\" data-end=\"993\">\n<p data-start=\"987\" data-end=\"993\">MIPS</p>\n</li>\n<li data-start=\"994\" data-end=\"1001\">\n<p data-start=\"996\" data-end=\"1001\">x86</p>\n</li>\n<li data-start=\"1002\" data-end=\"1013\">\n<p data-start=\"1004\" data-end=\"1013\">PowerPC</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1015\" data-end=\"1214\">Berbeda dengan virtual machine biasa yang butuh CPU sejenis, QEMU mampu menjalankan sistem dengan arsitektur yang berbeda dari mesin host. Inilah alasan QEMU sangat cocok untuk analisis firmware IoT.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1221\" data-end=\"1272\">Mengapa QEMU Penting untuk Peneliti Keamanan?</h2>\n<p style=\"text-align: justify;\" data-start=\"1273\" data-end=\"1343\">QEMU memberikan banyak keuntungan bagi peneliti keamanan, antara lain:</p>\n<ul style=\"text-align: justify;\" data-start=\"1344\" data-end=\"1530\">\n<li data-start=\"1344\" data-end=\"1375\">\n<p data-start=\"1346\" data-end=\"1375\">Tidak perlu perangkat fisik</p>\n</li>\n<li data-start=\"1376\" data-end=\"1415\">\n<p data-start=\"1378\" data-end=\"1415\">Bisa melakukan <strong data-start=\"1393\" data-end=\"1413\">dynamic analysis</strong></p>\n</li>\n<li data-start=\"1416\" data-end=\"1476\">\n<p data-start=\"1418\" data-end=\"1476\">Service firmware (web, telnet, SSH) dapat diuji langsung</p>\n</li>\n<li data-start=\"1477\" data-end=\"1530\">\n<p data-start=\"1479\" data-end=\"1530\">Mempercepat proses riset dan pencarian kerentanan</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1532\" data-end=\"1640\">Banyak riset keamanan dan publikasi CVE yang memanfaatkan QEMU sebagai bagian dari proses analisis firmware.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1647\" data-end=\"1691\">Firmware IoT dan Tantangan Keamanannya</h2>\n<p style=\"text-align: justify;\" data-start=\"1692\" data-end=\"1773\">Firmware IoT umumnya berbasis Linux dan memiliki beberapa service aktif, seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"1774\" data-end=\"1844\">\n<li data-start=\"1774\" data-end=\"1793\">\n<p data-start=\"1776\" data-end=\"1793\">Web admin panel</p>\n</li>\n<li data-start=\"1794\" data-end=\"1813\">\n<p data-start=\"1796\" data-end=\"1813\">Telnet atau SSH</p>\n</li>\n<li data-start=\"1814\" data-end=\"1844\">\n<p data-start=\"1816\" data-end=\"1844\">Service manajemen internal</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1846\" data-end=\"1894\">Beberapa masalah keamanan yang sering ditemukan:</p>\n<ul style=\"text-align: justify;\" data-start=\"1895\" data-end=\"2067\">\n<li data-start=\"1895\" data-end=\"1927\">\n<p data-start=\"1897\" data-end=\"1927\">Username dan password bawaan</p>\n</li>\n<li data-start=\"1928\" data-end=\"1982\">\n<p data-start=\"1930\" data-end=\"1982\">Password yang ditanam langsung di kode (hardcoded)</p>\n</li>\n<li data-start=\"1983\" data-end=\"2010\">\n<p data-start=\"1985\" data-end=\"2010\">Celah command injection</p>\n</li>\n<li data-start=\"2011\" data-end=\"2030\">\n<p data-start=\"2013\" data-end=\"2030\">Buffer overflow</p>\n</li>\n<li data-start=\"2031\" data-end=\"2067\">\n<p data-start=\"2033\" data-end=\"2067\">Mekanisme autentikasi yang lemah</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2069\" data-end=\"2140\">Karena firmware jarang diperbarui, celah ini bisa bertahan sangat lama.</p>\n<h2 style=\"text-align: justify;\" data-start=\"2147\" data-end=\"2193\">Arsitektur Firmware dan Peran Endianness</h2>\n<p style=\"text-align: justify;\" data-start=\"2194\" data-end=\"2365\">Setiap firmware dibuat untuk arsitektur CPU tertentu, seperti <strong data-start=\"2256\" data-end=\"2263\">ARM</strong> atau <strong data-start=\"2269\" data-end=\"2277\">MIPS</strong>. Selain arsitektur, ada juga konsep <strong data-start=\"2314\" data-end=\"2328\">endianness</strong>, yaitu cara data disimpan di memori.</p>\n<p style=\"text-align: justify;\" data-start=\"2367\" data-end=\"2401\">Pada MIPS, dikenal dua tipe utama:</p>\n<ul style=\"text-align: justify;\" data-start=\"2402\" data-end=\"2460\">\n<li data-start=\"2402\" data-end=\"2432\">\n<p data-start=\"2404\" data-end=\"2432\"><strong data-start=\"2404\" data-end=\"2414\">mipsel</strong> (little endian)</p>\n</li>\n<li data-start=\"2433\" data-end=\"2460\">\n<p data-start=\"2435\" data-end=\"2460\"><strong data-start=\"2435\" data-end=\"2445\">mipseb</strong> (big endian)</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2462\" data-end=\"2641\">Jika salah menentukan arsitektur atau endian, firmware tidak akan bisa dijalankan di QEMU. Oleh karena itu, identifikasi arsitektur adalah langkah penting dalam analisis firmware.</p>\n<h2 style=\"text-align: justify;\" data-start=\"2648\" data-end=\"2693\">Alur Membedah Firmware Menggunakan QEMU</h2>\n<p style=\"text-align: justify;\" data-start=\"2694\" data-end=\"2781\">Secara umum, proses analisis firmware dengan QEMU terdiri dari langkah-langkah berikut:</p>\n<ol style=\"text-align: justify;\" data-start=\"2783\" data-end=\"3021\">\n<li data-start=\"2783\" data-end=\"2826\">\n<p data-start=\"2786\" data-end=\"2826\">Mengunduh firmware dari website vendor</p>\n</li>\n<li data-start=\"2827\" data-end=\"2881\">\n<p data-start=\"2830\" data-end=\"2881\">Mengekstrak firmware untuk mendapatkan filesystem</p>\n</li>\n<li data-start=\"2882\" data-end=\"2927\">\n<p data-start=\"2885\" data-end=\"2927\">Mengidentifikasi arsitektur CPU firmware</p>\n</li>\n<li data-start=\"2928\" data-end=\"2970\">\n<p data-start=\"2931\" data-end=\"2970\">Menjalankan firmware menggunakan QEMU</p>\n</li>\n<li data-start=\"2971\" data-end=\"3021\">\n<p data-start=\"2974\" data-end=\"3021\">Menghubungkan service firmware ke sistem host</p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"3023\" data-end=\"3099\">Setelah firmware berjalan, peneliti bisa mulai melakukan pengujian keamanan.</p>\n<h2 style=\"text-align: justify;\" data-start=\"3106\" data-end=\"3153\">Integrasi QEMU dengan Tools Keamanan Lain</h2>\n<p style=\"text-align: justify;\" data-start=\"3154\" data-end=\"3238\">QEMU jarang digunakan sendirian. Biasanya dikombinasikan dengan tools lain, seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"3239\" data-end=\"3463\">\n<li data-start=\"3239\" data-end=\"3279\">\n<p data-start=\"3241\" data-end=\"3279\"><strong data-start=\"3241\" data-end=\"3252\">Binwalk</strong> untuk ekstraksi firmware</p>\n</li>\n<li data-start=\"3280\" data-end=\"3332\">\n<p data-start=\"3282\" data-end=\"3332\"><strong data-start=\"3282\" data-end=\"3295\">Firmadyne</strong> untuk otomatisasi emulasi firmware</p>\n</li>\n<li data-start=\"3333\" data-end=\"3379\">\n<p data-start=\"3335\" data-end=\"3379\"><strong data-start=\"3335\" data-end=\"3355\">Ghidra / IDA Pro</strong> untuk analisis binary</p>\n</li>\n<li data-start=\"3380\" data-end=\"3426\">\n<p data-start=\"3382\" data-end=\"3426\"><strong data-start=\"3382\" data-end=\"3396\">Burp Suite</strong> untuk menguji web interface</p>\n</li>\n<li data-start=\"3427\" data-end=\"3463\">\n<p data-start=\"3429\" data-end=\"3463\"><strong data-start=\"3429\" data-end=\"3437\">Nmap</strong> untuk memetakan service</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3465\" data-end=\"3533\">Kombinasi tools ini membuat analisis firmware menjadi lebih efektif.</p>\n<h2 style=\"text-align: justify;\" data-start=\"3540\" data-end=\"3579\">Contoh Skenario Analisis Keamanan</h2>\n<p style=\"text-align: justify;\" data-start=\"3580\" data-end=\"3738\">Sebagai contoh, peneliti menjalankan firmware router di QEMU hingga web admin panel bisa diakses melalui browser. Dari sini, pengujian bisa dilakukan seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"3739\" data-end=\"3893\">\n<li data-start=\"3739\" data-end=\"3782\">\n<p data-start=\"3741\" data-end=\"3782\">Menguji login dengan kredensial default</p>\n</li>\n<li data-start=\"3783\" data-end=\"3821\">\n<p data-start=\"3785\" data-end=\"3821\">Mengamati request dan response web</p>\n</li>\n<li data-start=\"3822\" data-end=\"3851\">\n<p data-start=\"3824\" data-end=\"3851\">Mencoba input tidak valid</p>\n</li>\n<li data-start=\"3852\" data-end=\"3893\">\n<p data-start=\"3854\" data-end=\"3893\">Menganalisis trafik jaringan firmware</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3895\" data-end=\"3963\">Pendekatan ini sering berhasil menemukan celah keamanan yang serius.</p>\n<h2 style=\"text-align: justify;\" data-start=\"3970\" data-end=\"4007\">Keterbatasan dan Tantangan QEMU</h2>\n<p style=\"text-align: justify;\" data-start=\"4008\" data-end=\"4066\">Meskipun sangat membantu, QEMU juga memiliki keterbatasan:</p>\n<ul style=\"text-align: justify;\" data-start=\"4067\" data-end=\"4244\">\n<li data-start=\"4067\" data-end=\"4104\">\n<p data-start=\"4069\" data-end=\"4104\">Tidak semua firmware bisa di-boot</p>\n</li>\n<li data-start=\"4105\" data-end=\"4150\">\n<p data-start=\"4107\" data-end=\"4150\">Beberapa driver hardware tidak teremulasi</p>\n</li>\n<li data-start=\"4151\" data-end=\"4192\">\n<p data-start=\"4153\" data-end=\"4192\">Konfigurasi jaringan bisa cukup rumit</p>\n</li>\n<li data-start=\"4193\" data-end=\"4244\">\n<p data-start=\"4195\" data-end=\"4244\">Beberapa fitur firmware tidak berjalan sempurna</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4246\" data-end=\"4311\">Namun, untuk keperluan riset keamanan, QEMU tetap sangat berguna.</p>\n<h2 style=\"text-align: justify;\" data-start=\"4318\" data-end=\"4362\">Best Practice dalam Analisis Firmware</h2>\n<p style=\"text-align: justify;\" data-start=\"4363\" data-end=\"4441\">Agar analisis berjalan efektif, beberapa praktik terbaik yang bisa diterapkan:</p>\n<ul style=\"text-align: justify;\" data-start=\"4442\" data-end=\"4611\">\n<li data-start=\"4442\" data-end=\"4491\">\n<p data-start=\"4444\" data-end=\"4491\">Pastikan arsitektur dan endian firmware benar</p>\n</li>\n<li data-start=\"4492\" data-end=\"4533\">\n<p data-start=\"4494\" data-end=\"4533\">Gabungkan analisis statis dan dinamis</p>\n</li>\n<li data-start=\"4534\" data-end=\"4566\">\n<p data-start=\"4536\" data-end=\"4566\">Gunakan logging dan snapshot</p>\n</li>\n<li data-start=\"4567\" data-end=\"4611\">\n<p data-start=\"4569\" data-end=\"4611\">Dokumentasikan setiap langkah dan temuan</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4613\" data-end=\"4688\">Pendekatan yang sistematis akan menghasilkan temuan yang lebih berkualitas.</p>\n<h2 style=\"text-align: justify;\" data-start=\"4695\" data-end=\"4712\">Kesimpulan</h2>\n<p style=\"text-align: justify;\" data-start=\"4713\" data-end=\"4941\"><strong data-start=\"4713\" data-end=\"4765\">QEMU adalah senjata wajib bagi peneliti keamanan</strong> yang ingin membedah firmware perangkat IoT dan router. Dengan QEMU, firmware bisa dijalankan tanpa perangkat fisik, sehingga proses analisis menjadi lebih cepat dan fleksibel.</p>\n<p style=\"text-align: justify;\" data-start=\"4943\" data-end=\"5093\">Di tengah maraknya perangkat IoT yang rentan, kemampuan menganalisis firmware menggunakan QEMU menjadi skill penting dalam dunia cybersecurity modern.</p>\n",
+  "content_text": "Pendahuluan\nPerangkat seperti router, modem, IP camera, dan berbagai perangkat IoT sudah menjadi bagian dari kehidupan sehari-hari. Sayangnya, banyak perangkat ini memiliki masalah keamanan. Untuk menemukan celah tersebut, peneliti keamanan perlu menganalisis  firmware , yaitu sistem operasi yang berjalan di dalam perangkat.\nMasalahnya, tidak semua peneliti memiliki perangkat fisik. Di sinilah  QEMU  menjadi solusi penting, karena memungkinkan firmware dijalankan dan dianalisis tanpa harus memiliki device aslinya.\nApa Itu QEMU?\nQEMU (Quick Emulator)  adalah tools open-source yang berfungsi untuk  mengemulasikan sistem komputer secara penuh . QEMU bisa meniru berbagai arsitektur CPU, seperti:\nARM\nMIPS\nx86\nPowerPC\nBerbeda dengan virtual machine biasa yang butuh CPU sejenis, QEMU mampu menjalankan sistem dengan arsitektur yang berbeda dari mesin host. Inilah alasan QEMU sangat cocok untuk analisis firmware IoT.\nMengapa QEMU Penting untuk Peneliti Keamanan?\nQEMU memberikan banyak keuntungan bagi peneliti keamanan, antara lain:\nTidak perlu perangkat fisik\nBisa melakukan  dynamic analysis\nService firmware (web, telnet, SSH) dapat diuji langsung\nMempercepat proses riset dan pencarian kerentanan\nBanyak riset keamanan dan publikasi CVE yang memanfaatkan QEMU sebagai bagian dari proses analisis firmware.\nFirmware IoT dan Tantangan Keamanannya\nFirmware IoT umumnya berbasis Linux dan memiliki beberapa service aktif, seperti:\nWeb admin panel\nTelnet atau SSH\nService manajemen internal\nBeberapa masalah keamanan yang sering ditemukan:\nUsername dan password bawaan\nPassword yang ditanam langsung di kode (hardcoded)\nCelah command injection\nBuffer overflow\nMekanisme autentikasi yang lemah\nKarena firmware jarang diperbarui, celah ini bisa bertahan sangat lama.\nArsitektur Firmware dan Peran Endianness\nSetiap firmware dibuat untuk arsitektur CPU tertentu, seperti  ARM  atau  MIPS . Selain arsitektur, ada juga konsep  endianness , yaitu cara data disimpan di memori.\nPada MIPS, dikenal dua tipe utama:\nmipsel  (little endian)\nmipseb  (big endian)\nJika salah menentukan arsitektur atau endian, firmware tidak akan bisa dijalankan di QEMU. Oleh karena itu, identifikasi arsitektur adalah langkah penting dalam analisis firmware.\nAlur Membedah Firmware Menggunakan QEMU\nSecara umum, proses analisis firmware dengan QEMU terdiri dari langkah-langkah berikut:\nMengunduh firmware dari website vendor\nMengekstrak firmware untuk mendapatkan filesystem\nMengidentifikasi arsitektur CPU firmware\nMenjalankan firmware menggunakan QEMU\nMenghubungkan service firmware ke sistem host\nSetelah firmware berjalan, peneliti bisa mulai melakukan pengujian keamanan.\nIntegrasi QEMU dengan Tools Keamanan Lain\nQEMU jarang digunakan sendirian. Biasanya dikombinasikan dengan tools lain, seperti:\nBinwalk  untuk ekstraksi firmware\nFirmadyne  untuk otomatisasi emulasi firmware\nGhidra / IDA Pro  untuk analisis binary\nBurp Suite  untuk menguji web interface\nNmap  untuk memetakan service\nKombinasi tools ini membuat analisis firmware menjadi lebih efektif.\nContoh Skenario Analisis Keamanan\nSebagai contoh, peneliti menjalankan firmware router di QEMU hingga web admin panel bisa diakses melalui browser. Dari sini, pengujian bisa dilakukan seperti:\nMenguji login dengan kredensial default\nMengamati request dan response web\nMencoba input tidak valid\nMenganalisis trafik jaringan firmware\nPendekatan ini sering berhasil menemukan celah keamanan yang serius.\nKeterbatasan dan Tantangan QEMU\nMeskipun sangat membantu, QEMU juga memiliki keterbatasan:\nTidak semua firmware bisa di-boot\nBeberapa driver hardware tidak teremulasi\nKonfigurasi jaringan bisa cukup rumit\nBeberapa fitur firmware tidak berjalan sempurna\nNamun, untuk keperluan riset keamanan, QEMU tetap sangat berguna.\nBest Practice dalam Analisis Firmware\nAgar analisis berjalan efektif, beberapa praktik terbaik yang bisa diterapkan:\nPastikan arsitektur dan endian firmware benar\nGabungkan analisis statis dan dinamis\nGunakan logging dan snapshot\nDokumentasikan setiap langkah dan temuan\nPendekatan yang sistematis akan menghasilkan temuan yang lebih berkualitas.\nKesimpulan\nQEMU adalah senjata wajib bagi peneliti keamanan  yang ingin membedah firmware perangkat IoT dan router. Dengan QEMU, firmware bisa dijalankan tanpa perangkat fisik, sehingga proses analisis menjadi lebih cepat dan fleksibel.\nDi tengah maraknya perangkat IoT yang rentan, kemampuan menganalisis firmware menggunakan QEMU menjadi skill penting dalam dunia cybersecurity modern.",
+  "raw": {
+    "id": 9418,
+    "date": "2026-02-01T05:44:02",
+    "date_gmt": "2026-02-01T05:44:02",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9418"
+    },
+    "modified": "2026-07-06T21:10:57",
+    "modified_gmt": "2026-07-06T21:10:57",
+    "slug": "membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/",
+    "title": {
+      "rendered": "Membedah Firmware dengan QEMU: Senjata Wajib Peneliti Keamanan"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"248\" data-end=\"265\">Pendahuluan</h2>\n<p style=\"text-align: justify;\" data-start=\"266\" data-end=\"582\">Perangkat seperti router, modem, IP camera, dan berbagai perangkat IoT sudah menjadi bagian dari kehidupan sehari-hari. Sayangnya, banyak perangkat ini memiliki masalah keamanan. Untuk menemukan celah tersebut, peneliti keamanan perlu menganalisis <strong data-start=\"514\" data-end=\"526\">firmware</strong>, yaitu sistem operasi yang berjalan di dalam perangkat.</p>\n<p style=\"text-align: justify;\" data-start=\"584\" data-end=\"778\">Masalahnya, tidak semua peneliti memiliki perangkat fisik. Di sinilah <strong data-start=\"654\" data-end=\"662\">QEMU</strong> menjadi solusi penting, karena memungkinkan firmware dijalankan dan dianalisis tanpa harus memiliki device aslinya.</p>\n<h2 style=\"text-align: justify;\" data-start=\"785\" data-end=\"804\">Apa Itu QEMU?</h2>\n<p style=\"text-align: justify;\" data-start=\"805\" data-end=\"976\"><strong data-start=\"805\" data-end=\"830\">QEMU (Quick Emulator)</strong> adalah tools open-source yang berfungsi untuk <strong data-start=\"877\" data-end=\"924\">mengemulasikan sistem komputer secara penuh</strong>. QEMU bisa meniru berbagai arsitektur CPU, seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"977\" data-end=\"1013\">\n<li data-start=\"977\" data-end=\"984\">\n<p data-start=\"979\" data-end=\"984\">ARM</p>\n</li>\n<li data-start=\"985\" data-end=\"993\">\n<p data-start=\"987\" data-end=\"993\">MIPS</p>\n</li>\n<li data-start=\"994\" data-end=\"1001\">\n<p data-start=\"996\" data-end=\"1001\">x86</p>\n</li>\n<li data-start=\"1002\" data-end=\"1013\">\n<p data-start=\"1004\" data-end=\"1013\">PowerPC</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1015\" data-end=\"1214\">Berbeda dengan virtual machine biasa yang butuh CPU sejenis, QEMU mampu menjalankan sistem dengan arsitektur yang berbeda dari mesin host. Inilah alasan QEMU sangat cocok untuk analisis firmware IoT.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1221\" data-end=\"1272\">Mengapa QEMU Penting untuk Peneliti Keamanan?</h2>\n<p style=\"text-align: justify;\" data-start=\"1273\" data-end=\"1343\">QEMU memberikan banyak keuntungan bagi peneliti keamanan, antara lain:</p>\n<ul style=\"text-align: justify;\" data-start=\"1344\" data-end=\"1530\">\n<li data-start=\"1344\" data-end=\"1375\">\n<p data-start=\"1346\" data-end=\"1375\">Tidak perlu perangkat fisik</p>\n</li>\n<li data-start=\"1376\" data-end=\"1415\">\n<p data-start=\"1378\" data-end=\"1415\">Bisa melakukan <strong data-start=\"1393\" data-end=\"1413\">dynamic analysis</strong></p>\n</li>\n<li data-start=\"1416\" data-end=\"1476\">\n<p data-start=\"1418\" data-end=\"1476\">Service firmware (web, telnet, SSH) dapat diuji langsung</p>\n</li>\n<li data-start=\"1477\" data-end=\"1530\">\n<p data-start=\"1479\" data-end=\"1530\">Mempercepat proses riset dan pencarian kerentanan</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1532\" data-end=\"1640\">Banyak riset keamanan dan publikasi CVE yang memanfaatkan QEMU sebagai bagian dari proses analisis firmware.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1647\" data-end=\"1691\">Firmware IoT dan Tantangan Keamanannya</h2>\n<p style=\"text-align: justify;\" data-start=\"1692\" data-end=\"1773\">Firmware IoT umumnya berbasis Linux dan memiliki beberapa service aktif, seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"1774\" data-end=\"1844\">\n<li data-start=\"1774\" data-end=\"1793\">\n<p data-start=\"1776\" data-end=\"1793\">Web admin panel</p>\n</li>\n<li data-start=\"1794\" data-end=\"1813\">\n<p data-start=\"1796\" data-end=\"1813\">Telnet atau SSH</p>\n</li>\n<li data-start=\"1814\" data-end=\"1844\">\n<p data-start=\"1816\" data-end=\"1844\">Service manajemen internal</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1846\" data-end=\"1894\">Beberapa masalah keamanan yang sering ditemukan:</p>\n<ul style=\"text-align: justify;\" data-start=\"1895\" data-end=\"2067\">\n<li data-start=\"1895\" data-end=\"1927\">\n<p data-start=\"1897\" data-end=\"1927\">Username dan password bawaan</p>\n</li>\n<li data-start=\"1928\" data-end=\"1982\">\n<p data-start=\"1930\" data-end=\"1982\">Password yang ditanam langsung di kode (hardcoded)</p>\n</li>\n<li data-start=\"1983\" data-end=\"2010\">\n<p data-start=\"1985\" data-end=\"2010\">Celah command injection</p>\n</li>\n<li data-start=\"2011\" data-end=\"2030\">\n<p data-start=\"2013\" data-end=\"2030\">Buffer overflow</p>\n</li>\n<li data-start=\"2031\" data-end=\"2067\">\n<p data-start=\"2033\" data-end=\"2067\">Mekanisme autentikasi yang lemah</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2069\" data-end=\"2140\">Karena firmware jarang diperbarui, celah ini bisa bertahan sangat lama.</p>\n<h2 style=\"text-align: justify;\" data-start=\"2147\" data-end=\"2193\">Arsitektur Firmware dan Peran Endianness</h2>\n<p style=\"text-align: justify;\" data-start=\"2194\" data-end=\"2365\">Setiap firmware dibuat untuk arsitektur CPU tertentu, seperti <strong data-start=\"2256\" data-end=\"2263\">ARM</strong> atau <strong data-start=\"2269\" data-end=\"2277\">MIPS</strong>. Selain arsitektur, ada juga konsep <strong data-start=\"2314\" data-end=\"2328\">endianness</strong>, yaitu cara data disimpan di memori.</p>\n<p style=\"text-align: justify;\" data-start=\"2367\" data-end=\"2401\">Pada MIPS, dikenal dua tipe utama:</p>\n<ul style=\"text-align: justify;\" data-start=\"2402\" data-end=\"2460\">\n<li data-start=\"2402\" data-end=\"2432\">\n<p data-start=\"2404\" data-end=\"2432\"><strong data-start=\"2404\" data-end=\"2414\">mipsel</strong> (little endian)</p>\n</li>\n<li data-start=\"2433\" data-end=\"2460\">\n<p data-start=\"2435\" data-end=\"2460\"><strong data-start=\"2435\" data-end=\"2445\">mipseb</strong> (big endian)</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2462\" data-end=\"2641\">Jika salah menentukan arsitektur atau endian, firmware tidak akan bisa dijalankan di QEMU. Oleh karena itu, identifikasi arsitektur adalah langkah penting dalam analisis firmware.</p>\n<h2 style=\"text-align: justify;\" data-start=\"2648\" data-end=\"2693\">Alur Membedah Firmware Menggunakan QEMU</h2>\n<p style=\"text-align: justify;\" data-start=\"2694\" data-end=\"2781\">Secara umum, proses analisis firmware dengan QEMU terdiri dari langkah-langkah berikut:</p>\n<ol style=\"text-align: justify;\" data-start=\"2783\" data-end=\"3021\">\n<li data-start=\"2783\" data-end=\"2826\">\n<p data-start=\"2786\" data-end=\"2826\">Mengunduh firmware dari website vendor</p>\n</li>\n<li data-start=\"2827\" data-end=\"2881\">\n<p data-start=\"2830\" data-end=\"2881\">Mengekstrak firmware untuk mendapatkan filesystem</p>\n</li>\n<li data-start=\"2882\" data-end=\"2927\">\n<p data-start=\"2885\" data-end=\"2927\">Mengidentifikasi arsitektur CPU firmware</p>\n</li>\n<li data-start=\"2928\" data-end=\"2970\">\n<p data-start=\"2931\" data-end=\"2970\">Menjalankan firmware menggunakan QEMU</p>\n</li>\n<li data-start=\"2971\" data-end=\"3021\">\n<p data-start=\"2974\" data-end=\"3021\">Menghubungkan service firmware ke sistem host</p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"3023\" data-end=\"3099\">Setelah firmware berjalan, peneliti bisa mulai melakukan pengujian keamanan.</p>\n<h2 style=\"text-align: justify;\" data-start=\"3106\" data-end=\"3153\">Integrasi QEMU dengan Tools Keamanan Lain</h2>\n<p style=\"text-align: justify;\" data-start=\"3154\" data-end=\"3238\">QEMU jarang digunakan sendirian. Biasanya dikombinasikan dengan tools lain, seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"3239\" data-end=\"3463\">\n<li data-start=\"3239\" data-end=\"3279\">\n<p data-start=\"3241\" data-end=\"3279\"><strong data-start=\"3241\" data-end=\"3252\">Binwalk</strong> untuk ekstraksi firmware</p>\n</li>\n<li data-start=\"3280\" data-end=\"3332\">\n<p data-start=\"3282\" data-end=\"3332\"><strong data-start=\"3282\" data-end=\"3295\">Firmadyne</strong> untuk otomatisasi emulasi firmware</p>\n</li>\n<li data-start=\"3333\" data-end=\"3379\">\n<p data-start=\"3335\" data-end=\"3379\"><strong data-start=\"3335\" data-end=\"3355\">Ghidra / IDA Pro</strong> untuk analisis binary</p>\n</li>\n<li data-start=\"3380\" data-end=\"3426\">\n<p data-start=\"3382\" data-end=\"3426\"><strong data-start=\"3382\" data-end=\"3396\">Burp Suite</strong> untuk menguji web interface</p>\n</li>\n<li data-start=\"3427\" data-end=\"3463\">\n<p data-start=\"3429\" data-end=\"3463\"><strong data-start=\"3429\" data-end=\"3437\">Nmap</strong> untuk memetakan service</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3465\" data-end=\"3533\">Kombinasi tools ini membuat analisis firmware menjadi lebih efektif.</p>\n<h2 style=\"text-align: justify;\" data-start=\"3540\" data-end=\"3579\">Contoh Skenario Analisis Keamanan</h2>\n<p style=\"text-align: justify;\" data-start=\"3580\" data-end=\"3738\">Sebagai contoh, peneliti menjalankan firmware router di QEMU hingga web admin panel bisa diakses melalui browser. Dari sini, pengujian bisa dilakukan seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"3739\" data-end=\"3893\">\n<li data-start=\"3739\" data-end=\"3782\">\n<p data-start=\"3741\" data-end=\"3782\">Menguji login dengan kredensial default</p>\n</li>\n<li data-start=\"3783\" data-end=\"3821\">\n<p data-start=\"3785\" data-end=\"3821\">Mengamati request dan response web</p>\n</li>\n<li data-start=\"3822\" data-end=\"3851\">\n<p data-start=\"3824\" data-end=\"3851\">Mencoba input tidak valid</p>\n</li>\n<li data-start=\"3852\" data-end=\"3893\">\n<p data-start=\"3854\" data-end=\"3893\">Menganalisis trafik jaringan firmware</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3895\" data-end=\"3963\">Pendekatan ini sering berhasil menemukan celah keamanan yang serius.</p>\n<h2 style=\"text-align: justify;\" data-start=\"3970\" data-end=\"4007\">Keterbatasan dan Tantangan QEMU</h2>\n<p style=\"text-align: justify;\" data-start=\"4008\" data-end=\"4066\">Meskipun sangat membantu, QEMU juga memiliki keterbatasan:</p>\n<ul style=\"text-align: justify;\" data-start=\"4067\" data-end=\"4244\">\n<li data-start=\"4067\" data-end=\"4104\">\n<p data-start=\"4069\" data-end=\"4104\">Tidak semua firmware bisa di-boot</p>\n</li>\n<li data-start=\"4105\" data-end=\"4150\">\n<p data-start=\"4107\" data-end=\"4150\">Beberapa driver hardware tidak teremulasi</p>\n</li>\n<li data-start=\"4151\" data-end=\"4192\">\n<p data-start=\"4153\" data-end=\"4192\">Konfigurasi jaringan bisa cukup rumit</p>\n</li>\n<li data-start=\"4193\" data-end=\"4244\">\n<p data-start=\"4195\" data-end=\"4244\">Beberapa fitur firmware tidak berjalan sempurna</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4246\" data-end=\"4311\">Namun, untuk keperluan riset keamanan, QEMU tetap sangat berguna.</p>\n<h2 style=\"text-align: justify;\" data-start=\"4318\" data-end=\"4362\">Best Practice dalam Analisis Firmware</h2>\n<p style=\"text-align: justify;\" data-start=\"4363\" data-end=\"4441\">Agar analisis berjalan efektif, beberapa praktik terbaik yang bisa diterapkan:</p>\n<ul style=\"text-align: justify;\" data-start=\"4442\" data-end=\"4611\">\n<li data-start=\"4442\" data-end=\"4491\">\n<p data-start=\"4444\" data-end=\"4491\">Pastikan arsitektur dan endian firmware benar</p>\n</li>\n<li data-start=\"4492\" data-end=\"4533\">\n<p data-start=\"4494\" data-end=\"4533\">Gabungkan analisis statis dan dinamis</p>\n</li>\n<li data-start=\"4534\" data-end=\"4566\">\n<p data-start=\"4536\" data-end=\"4566\">Gunakan logging dan snapshot</p>\n</li>\n<li data-start=\"4567\" data-end=\"4611\">\n<p data-start=\"4569\" data-end=\"4611\">Dokumentasikan setiap langkah dan temuan</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4613\" data-end=\"4688\">Pendekatan yang sistematis akan menghasilkan temuan yang lebih berkualitas.</p>\n<h2 style=\"text-align: justify;\" data-start=\"4695\" data-end=\"4712\">Kesimpulan</h2>\n<p style=\"text-align: justify;\" data-start=\"4713\" data-end=\"4941\"><strong data-start=\"4713\" data-end=\"4765\">QEMU adalah senjata wajib bagi peneliti keamanan</strong> yang ingin membedah firmware perangkat IoT dan router. Dengan QEMU, firmware bisa dijalankan tanpa perangkat fisik, sehingga proses analisis menjadi lebih cepat dan fleksibel.</p>\n<p style=\"text-align: justify;\" data-start=\"4943\" data-end=\"5093\">Di tengah maraknya perangkat IoT yang rentan, kemampuan menganalisis firmware menggunakan QEMU menjadi skill penting dalam dunia cybersecurity modern.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Perangkat seperti router, modem, IP camera, dan berbagai perangkat IoT sudah menjadi bagian dari kehidupan sehari-hari. Sayangnya, banyak perangkat ini memiliki masalah keamanan. Untuk menemukan celah tersebut, peneliti keamanan perlu menganalisis firmware, yaitu sistem operasi yang berjalan di dalam perangkat. Masalahnya, tidak semua peneliti memiliki perangkat fisik. Di sinilah QEMU menjadi solusi penting, karena memungkinkan firmware dijalankan dan dianalisis tanpa harus memiliki device aslinya. Apa Itu QEMU? QEMU (Quick Emulator) adalah tools open-source yang berfungsi untuk mengemulasikan sistem komputer secara penuh. QEMU bisa meniru berbagai arsitektur CPU, seperti: ARM MIPS x86 PowerPC Berbeda dengan virtual machine biasa yang butuh&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 9419,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      519
+    ],
+    "class_list": [
+      "post-9418",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-qemu"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Membedah Firmware dengan QEMU: Senjata Wajib Peneliti Keamanan - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Membedah Firmware dengan QEMU: Senjata Wajib Peneliti Keamanan - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Perangkat seperti router, modem, IP camera, dan berbagai perangkat IoT sudah menjadi bagian dari kehidupan sehari-hari. Sayangnya, banyak perangkat ini memiliki masalah keamanan. Untuk menemukan celah tersebut, peneliti keamanan perlu menganalisis firmware, yaitu sistem operasi yang berjalan di dalam perangkat. Masalahnya, tidak semua peneliti memiliki perangkat fisik. Di sinilah QEMU menjadi solusi penting, karena memungkinkan firmware dijalankan dan dianalisis tanpa harus memiliki device aslinya. Apa Itu QEMU? QEMU (Quick Emulator) adalah tools open-source yang berfungsi untuk mengemulasikan sistem komputer secara penuh. QEMU bisa meniru berbagai arsitektur CPU, seperti: ARM MIPS x86 PowerPC Berbeda dengan virtual machine biasa yang butuh...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-02-01T05:44:02+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T21:10:57+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/02/1703166731576.png\" />\n\t<meta property=\"og:image:width\" content=\"760\" />\n\t<meta property=\"og:image:height\" content=\"380\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/\",\"url\":\"https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/\",\"name\":\"Membedah Firmware dengan QEMU: Senjata Wajib Peneliti Keamanan - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/02/1703166731576.png\",\"datePublished\":\"2026-02-01T05:44:02+00:00\",\"dateModified\":\"2026-07-06T21:10:57+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/02/1703166731576.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/02/1703166731576.png\",\"width\":760,\"height\":380},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Membedah Firmware dengan QEMU: Senjata Wajib Peneliti Keamanan\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Membedah Firmware dengan QEMU: Senjata Wajib Peneliti Keamanan - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Membedah Firmware dengan QEMU: Senjata Wajib Peneliti Keamanan - buletinsiber.com",
+      "og_description": "Pendahuluan Perangkat seperti router, modem, IP camera, dan berbagai perangkat IoT sudah menjadi bagian dari kehidupan sehari-hari. Sayangnya, banyak perangkat ini memiliki masalah keamanan. Untuk menemukan celah tersebut, peneliti keamanan perlu menganalisis firmware, yaitu sistem operasi yang berjalan di dalam perangkat. Masalahnya, tidak semua peneliti memiliki perangkat fisik. Di sinilah QEMU menjadi solusi penting, karena memungkinkan firmware dijalankan dan dianalisis tanpa harus memiliki device aslinya. Apa Itu QEMU? QEMU (Quick Emulator) adalah tools open-source yang berfungsi untuk mengemulasikan sistem komputer secara penuh. QEMU bisa meniru berbagai arsitektur CPU, seperti: ARM MIPS x86 PowerPC Berbeda dengan virtual machine biasa yang butuh...",
+      "og_url": "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-02-01T05:44:02+00:00",
+      "article_modified_time": "2026-07-06T21:10:57+00:00",
+      "og_image": [
+        {
+          "width": 760,
+          "height": 380,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/02/1703166731576.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/",
+            "url": "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/",
+            "name": "Membedah Firmware dengan QEMU: Senjata Wajib Peneliti Keamanan - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/02/1703166731576.png",
+            "datePublished": "2026-02-01T05:44:02+00:00",
+            "dateModified": "2026-07-06T21:10:57+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/02/1703166731576.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/02/1703166731576.png",
+            "width": 760,
+            "height": 380
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/membedah-firmware-dengan-qemu-senjata-wajib-peneliti-keamanan/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Membedah Firmware dengan QEMU: Senjata Wajib Peneliti Keamanan"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9418",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9418"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9418/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9420,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9418/revisions/9420"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/9419"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9418"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9418"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9418"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

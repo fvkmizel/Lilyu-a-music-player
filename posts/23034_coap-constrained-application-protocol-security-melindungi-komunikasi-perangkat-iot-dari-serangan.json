@@ -1,0 +1,337 @@
+{
+  "id": 23034,
+  "title": "CoAP (Constrained Application Protocol) Security: Melindungi Komunikasi Perangkat IoT dari Serangan",
+  "slug": "coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan",
+  "url": "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/",
+  "date": "2026-09-11T01:25:59",
+  "date_gmt": "2026-09-11T01:25:59",
+  "modified": "2026-09-11T01:25:59",
+  "modified_gmt": "2026-09-11T01:25:59",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    4001,
+    185,
+    82,
+    682,
+    4002,
+    37
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/IoT-Edge-Computing_-A-Visual-Guide-to-the-Future.jpg",
+  "excerpt": "Pengantar Internet of Things (IoT) menghubungkan berbagai perangkat dengan kemampuan komputasi dan sumber daya yang terbatas. Sensor, smart meter, perangkat monitoring, dan aktuator harus dapat berkomunikasi tanpa menggunakan protokol yang terlalu berat. Salah satu protokol yang dirancang untuk kebutuhan tersebut adalah CoAP (Constrained Application Protocol). Protokol ini dibuat untuk perangkat dan jaringan dengan keterbatasan resource, serta menggunakan pendekatan komunikasi yang ringan. (dikutip dari: IETF RFC 7252 – The Constrained Application Protocol) Namun, efisiensi CoAP juga menghadirkan tantangan keamanan. Jika komunikasi tidak dilindungi dengan baik, attacker dapat mencoba membaca, memodifikasi, memalsukan, atau mengganggu komunikasi antarperangkat. Apa Itu CoAP? Pengertian CoAP Constrained…",
+  "content_html": "<h2>Pengantar</h2>\n<p class=\"isSelectedEnd\">Internet of Things (IoT) menghubungkan berbagai perangkat dengan kemampuan komputasi dan sumber daya yang terbatas. Sensor, smart meter, perangkat monitoring, dan aktuator harus dapat berkomunikasi tanpa menggunakan protokol yang terlalu berat.</p>\n<p class=\"isSelectedEnd\">Salah satu protokol yang dirancang untuk kebutuhan tersebut adalah <strong>CoAP (Constrained Application Protocol)</strong>. Protokol ini dibuat untuk perangkat dan jaringan dengan keterbatasan resource, serta menggunakan pendekatan komunikasi yang ringan. (dikutip dari: <a href=\"https://www.rfc-editor.org/info/rfc7252/?utm_source=chatgpt.com\">IETF RFC 7252 – The Constrained Application Protocol</a>)</p>\n<p class=\"isSelectedEnd\">Namun, efisiensi CoAP juga menghadirkan tantangan keamanan. Jika komunikasi tidak dilindungi dengan baik, attacker dapat mencoba membaca, memodifikasi, memalsukan, atau mengganggu komunikasi antarperangkat.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Itu CoAP?</h2>\n<h3>Pengertian CoAP</h3>\n<p class=\"isSelectedEnd\"><strong>Constrained Application Protocol (CoAP)</strong> adalah protokol transfer web yang dirancang untuk perangkat dengan keterbatasan CPU, memory, daya, dan bandwidth.</p>\n<p class=\"isSelectedEnd\">CoAP memiliki konsep yang mirip dengan HTTP. Protokol ini mendukung metode seperti GET, POST, PUT, dan DELETE sehingga dapat digunakan untuk membangun komunikasi berbasis REST pada perangkat IoT.</p>\n<p class=\"isSelectedEnd\">Perbedaannya terletak pada desain protokol. CoAP menggunakan format pesan biner yang ringkas dan secara tradisional berjalan di atas UDP.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/ai-guardrails-benteng-pengaman-untuk-mencegah-ai-bertindak-di-luar-batas/\">AI Guardrails: Benteng Pengaman untuk Mencegah AI Bertindak di Luar Batas</a></p></blockquote>\n<h3>Mengapa CoAP Digunakan pada IoT?</h3>\n<p class=\"isSelectedEnd\">Perangkat IoT sering bekerja dengan resource terbatas. Karena itu, overhead komunikasi perlu dibuat sekecil mungkin.</p>\n<p class=\"isSelectedEnd\">CoAP menawarkan beberapa karakteristik yang sesuai untuk kondisi tersebut, seperti:</p>\n<ul data-spread=\"false\">\n<li>Header yang ringkas.</li>\n<li>Format pesan biner.</li>\n<li>Dukungan komunikasi asynchronous.</li>\n<li>Dukungan multicast.</li>\n<li>Proxy dan caching sederhana.</li>\n<li>Dukungan untuk jaringan dengan bandwidth terbatas.</li>\n</ul>\n<p class=\"isSelectedEnd\">Dengan karakteristik tersebut, CoAP cocok digunakan untuk sensor dan perangkat embedded yang tidak membutuhkan protokol web seberat HTTP.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa CoAP Membutuhkan Security?</h2>\n<h3>Komunikasi IoT Tidak Selalu Aman</h3>\n<p class=\"isSelectedEnd\">Perangkat IoT dapat ditempatkan di lingkungan yang sulit dikontrol. Sensor bisa berada di area publik, fasilitas industri, rumah, atau lokasi terpencil.</p>\n<p class=\"isSelectedEnd\">Jika komunikasi tidak dilindungi, attacker yang berada pada jalur komunikasi dapat mencoba melakukan penyadapan atau manipulasi data.</p>\n<h3>Risiko Data Dimanipulasi</h3>\n<p class=\"isSelectedEnd\">Bayangkan sebuah sensor mengirimkan nilai temperatur ke server.</p>\n<p class=\"isSelectedEnd\">Jika attacker dapat mengubah nilai tersebut sebelum diterima server, sistem dapat mengambil keputusan berdasarkan data yang salah.</p>\n<p class=\"isSelectedEnd\">Pada lingkungan industri, manipulasi semacam ini dapat memiliki dampak lebih serius karena data sensor dapat digunakan untuk mengendalikan proses fisik.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"774\" height=\"516\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 774px) 100vw, 774px\" /></p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Ancaman Keamanan pada CoAP</h2>\n<h3>Eavesdropping</h3>\n<p class=\"isSelectedEnd\">Tanpa perlindungan kriptografi, data CoAP dapat dibaca oleh pihak yang mampu mengamati lalu lintas jaringan.</p>\n<p class=\"isSelectedEnd\">Informasi yang terekspos dapat berupa data sensor, command, atau informasi lain yang dikirimkan oleh perangkat.</p>\n<h3>Message Modification</h3>\n<p class=\"isSelectedEnd\">Attacker dapat mencoba mengubah isi komunikasi ketika data tidak memiliki perlindungan integritas.</p>\n<p class=\"isSelectedEnd\">Akibatnya, perangkat penerima dapat memproses informasi yang berbeda dari data asli.</p>\n<h3>Spoofing</h3>\n<p class=\"isSelectedEnd\">Attacker juga dapat mencoba menyamar sebagai perangkat atau server yang sah.</p>\n<p class=\"isSelectedEnd\">Jika identitas endpoint tidak diverifikasi dengan baik, perangkat IoT dapat menerima komunikasi dari pihak yang tidak dipercaya.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/kernel-address-space-layout-randomization-kaslr-benteng-pertahanan-kernel-dari-eksploitasi/\">Kernel Address Space Layout Randomization (KASLR): Benteng Pertahanan Kernel dari Eksploitasi</a></p></blockquote>\n<h3>Replay Attack</h3>\n<p class=\"isSelectedEnd\">Pesan yang valid dapat direkam kemudian dikirim kembali pada waktu lain.</p>\n<p class=\"isSelectedEnd\">Pada sistem tertentu, replay dapat menyebabkan perintah lama dijalankan kembali. Karena itu, perlindungan terhadap replay menjadi aspek penting dalam keamanan komunikasi IoT.</p>\n<h3>Denial of Service</h3>\n<p class=\"isSelectedEnd\">CoAP yang menggunakan UDP juga perlu menghadapi risiko serangan berbasis lalu lintas jaringan.</p>\n<p class=\"isSelectedEnd\">Attacker dapat mengirim banyak paket atau request sehingga perangkat dengan resource terbatas mengalami beban berlebihan.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>CoAP Security dengan DTLS</h2>\n<h3>Apa Itu DTLS?</h3>\n<p class=\"isSelectedEnd\"><strong>Datagram Transport Layer Security (DTLS)</strong> adalah protokol keamanan yang dirancang untuk komunikasi berbasis datagram seperti UDP.</p>\n<p class=\"isSelectedEnd\">RFC 7252 mendefinisikan binding antara CoAP dan DTLS untuk memberikan perlindungan komunikasi. Mode tersebut dapat digunakan untuk menyediakan keamanan serta autentikasi antara endpoint. (dikutip dari: <a href=\"https://www.rfc-editor.org/info/rfc7252/?utm_source=chatgpt.com\">IETF RFC 7252 – Securing CoAP</a>)</p>\n<p class=\"isSelectedEnd\">Secara sederhana, DTLS berfungsi sebagai lapisan keamanan di antara CoAP dan transport UDP.</p>\n<h3>Apa yang Dilindungi?</h3>\n<p class=\"isSelectedEnd\">Penggunaan DTLS dapat memberikan beberapa kemampuan keamanan, seperti:</p>\n<ul data-spread=\"false\">\n<li>Kerahasiaan data.</li>\n<li>Integritas pesan.</li>\n<li>Autentikasi endpoint.</li>\n<li>Perlindungan terhadap manipulasi komunikasi.</li>\n</ul>\n<p class=\"isSelectedEnd\">Namun, implementasi keamanan tetap perlu disesuaikan dengan kemampuan perangkat dan kebutuhan sistem.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mode Keamanan pada CoAP</h2>\n<h3>NoSec</h3>\n<p class=\"isSelectedEnd\">Pada mode <strong>NoSec</strong>, CoAP tidak menggunakan perlindungan protokol seperti DTLS.</p>\n<p class=\"isSelectedEnd\">Mode ini paling sederhana, tetapi tidak memberikan perlindungan kriptografi pada komunikasi.</p>\n<p class=\"isSelectedEnd\">Karena itu, penggunaannya perlu dibatasi pada kondisi yang memang tidak membutuhkan perlindungan tambahan atau sudah memiliki mekanisme keamanan lain.</p>\n<h3>Pre-Shared Key</h3>\n<p class=\"isSelectedEnd\"><strong>Pre-Shared Key (PSK)</strong> menggunakan kunci yang sudah diketahui oleh endpoint sebelum komunikasi berlangsung.</p>\n<p class=\"isSelectedEnd\">Pendekatan ini dapat lebih sederhana untuk perangkat terbatas. Namun, distribusi dan penyimpanan key harus dikelola dengan baik.</p>\n<p class=\"isSelectedEnd\">Jika satu key digunakan terlalu banyak perangkat, kompromi satu perangkat dapat meningkatkan risiko terhadap perangkat lain.</p>\n<h3>Raw Public Key</h3>\n<p class=\"isSelectedEnd\">Pada mode ini, perangkat menggunakan pasangan kunci publik dan private key tanpa harus menggunakan sertifikat X.509.</p>\n<p class=\"isSelectedEnd\">Identitas public key dapat diverifikasi melalui mekanisme yang disepakati sebelumnya.</p>\n<h3>Certificate</h3>\n<p class=\"isSelectedEnd\">Perangkat juga dapat menggunakan sertifikat digital untuk autentikasi.</p>\n<p class=\"isSelectedEnd\">Pendekatan ini dapat memberikan model trust yang lebih terstruktur. Namun, pengelolaan sertifikat pada perangkat IoT dalam jumlah besar dapat meningkatkan kompleksitas operasional.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>OSCORE: Alternatif Keamanan End-to-End</h2>\n<h3>Apa Itu OSCORE?</h3>\n<p class=\"isSelectedEnd\"><strong>OSCORE (Object Security for Constrained RESTful Environments)</strong> merupakan mekanisme keamanan pada lapisan aplikasi yang dirancang khusus untuk CoAP.</p>\n<p class=\"isSelectedEnd\">Berbeda dari perlindungan berbasis transport, OSCORE dapat memberikan perlindungan end-to-end pada request dan response meskipun komunikasi melewati intermediary seperti proxy.</p>\n<p class=\"isSelectedEnd\">IETF menjelaskan bahwa OSCORE menggunakan <strong>COSE</strong> untuk memberikan perlindungan pada interaksi CoAP, termasuk encryption, integrity, replay protection, dan binding antara response dengan request. (dikutip dari: <a href=\"https://www.rfc-editor.org/info/rfc8613/?utm_source=chatgpt.com\">IETF RFC 8613 – OSCORE</a>)</p>\n<h3>Mengapa OSCORE Dibutuhkan?</h3>\n<p class=\"isSelectedEnd\">Pada arsitektur IoT, komunikasi tidak selalu berlangsung langsung antara client dan server.</p>\n<p class=\"isSelectedEnd\">Pesan dapat melewati proxy atau gateway. Jika keamanan hanya diterapkan pada satu koneksi, intermediary tertentu mungkin tetap dapat melihat atau memanipulasi data setelah perlindungan tersebut berakhir.</p>\n<p class=\"isSelectedEnd\">OSCORE dirancang untuk mengatasi masalah tersebut dengan memberikan perlindungan pada level objek atau request/response.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>CoAP Security: DTLS vs OSCORE</h2>\n<table>\n<tbody>\n<tr>\n<th>Aspek</th>\n<th>DTLS</th>\n<th>OSCORE</th>\n</tr>\n<tr>\n<td>Lapisan</td>\n<td>Transport</td>\n<td>Application</td>\n</tr>\n<tr>\n<td>Fokus</td>\n<td>Keamanan komunikasi</td>\n<td>Keamanan objek CoAP</td>\n</tr>\n<tr>\n<td>End-to-end melalui proxy</td>\n<td>Terbatas</td>\n<td>Ya</td>\n</tr>\n<tr>\n<td>Cocok untuk constrained device</td>\n<td>Ya</td>\n<td>Ya</td>\n</tr>\n<tr>\n<td>Perlindungan payload</td>\n<td>Ya</td>\n<td>Ya</td>\n</tr>\n<tr>\n<td>Perlindungan melalui intermediary</td>\n<td>Bergantung arsitektur</td>\n<td>Dirancang untuk end-to-end</td>\n</tr>\n</tbody>\n</table>\n<p class=\"isSelectedEnd\">Keduanya tidak selalu harus dianggap sebagai pilihan yang saling menggantikan.</p>\n<p class=\"isSelectedEnd\">OSCORE bahkan dapat digunakan bersama dengan TLS atau DTLS pada bagian tertentu dari jalur komunikasi. Dengan demikian, desain keamanan dapat menggunakan beberapa lapisan sesuai kebutuhan.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Cara Meningkatkan CoAP Security</h2>\n<h3>Gunakan Enkripsi</h3>\n<p class=\"isSelectedEnd\">Hindari mengandalkan komunikasi CoAP tanpa perlindungan jika data memiliki nilai sensitif.</p>\n<p class=\"isSelectedEnd\">DTLS atau OSCORE dapat digunakan sesuai kebutuhan arsitektur.</p>\n<h3>Terapkan Mutual Authentication</h3>\n<p class=\"isSelectedEnd\">Server sebaiknya tidak hanya memverifikasi client. Dalam sistem tertentu, client juga perlu memastikan bahwa server merupakan endpoint yang dipercaya.</p>\n<p class=\"isSelectedEnd\">Dengan demikian, risiko impersonation dapat dikurangi.</p>\n<h3>Lindungi Credential</h3>\n<p class=\"isSelectedEnd\">Pre-shared key, private key, dan credential lainnya harus disimpan dengan aman.</p>\n<p class=\"isSelectedEnd\">Selain itu, hindari penggunaan satu credential yang sama untuk seluruh perangkat.</p>\n<h3>Terapkan Least Privilege</h3>\n<p class=\"isSelectedEnd\">Perangkat sebaiknya hanya memiliki akses terhadap resource yang memang dibutuhkan.</p>\n<p class=\"isSelectedEnd\">Contohnya, sensor temperatur tidak selalu membutuhkan permission untuk mengubah konfigurasi seluruh sistem.</p>\n<h3>Kelola Update Perangkat</h3>\n<p class=\"isSelectedEnd\">Firmware dan library CoAP perlu diperbarui ketika terdapat vulnerability yang relevan.</p>\n<p class=\"isSelectedEnd\">Selain itu, perangkat sebaiknya memiliki mekanisme update yang dapat diverifikasi agar attacker tidak dapat mengganti firmware dengan versi berbahaya.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Hal yang Perlu Diperhatikan pada IoT</h2>\n<h3>Keterbatasan Resource</h3>\n<p class=\"isSelectedEnd\">Keamanan harus mempertimbangkan CPU, memory, bandwidth, dan konsumsi daya.</p>\n<p class=\"isSelectedEnd\">Mekanisme kriptografi yang terlalu berat dapat memengaruhi performa perangkat.</p>\n<h3>Manajemen Key</h3>\n<p class=\"isSelectedEnd\">Key management menjadi salah satu tantangan terbesar dalam IoT.</p>\n<p class=\"isSelectedEnd\">Perangkat dalam jumlah besar membutuhkan proses provisioning, rotation, revocation, dan recovery yang terstruktur.</p>\n<h3>Keamanan Gateway</h3>\n<p class=\"isSelectedEnd\">Gateway sering menjadi penghubung antara banyak perangkat IoT dan jaringan utama.</p>\n<p class=\"isSelectedEnd\">Karena itu, gateway juga harus diamankan. Kompromi terhadap gateway dapat memberikan attacker posisi strategis untuk mengganggu banyak perangkat sekaligus.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Contoh Penerapan CoAP Security</h2>\n<p class=\"isSelectedEnd\">CoAP dapat digunakan pada sistem <strong>monitoring kualitas air berbasis IoT</strong>.</p>\n<p class=\"isSelectedEnd\">Sensor mengirimkan data seperti pH atau turbidity ke server menggunakan CoAP. Data tersebut kemudian diproses oleh aplikasi monitoring.</p>\n<p class=\"isSelectedEnd\">Jika data memiliki risiko manipulasi, komunikasi dapat dilindungi menggunakan DTLS atau OSCORE.</p>\n<p class=\"isSelectedEnd\">Dengan demikian, sistem tidak hanya fokus pada pengiriman data. Integritas, autentikasi, dan kerahasiaan juga menjadi bagian dari desain komunikasi.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/threshold-cryptography-shamirs-secret-sharing-cara-membagi-rahasia-tanpa-satu-titik-kegagalan/\">Threshold Cryptography &amp; Shamir’s Secret Sharing: Cara Membagi Rahasia Tanpa Satu Titik Kegagalan</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Kesimpulan</h2>\n<p class=\"isSelectedEnd\"><strong>CoAP Security</strong> merupakan bagian penting dalam pengembangan sistem IoT yang menggunakan Constrained Application Protocol.</p>\n<p class=\"isSelectedEnd\">CoAP dirancang untuk perangkat dengan resource terbatas. Namun, komunikasi yang ringan tetap membutuhkan perlindungan terhadap penyadapan, manipulasi, spoofing, replay, dan berbagai ancaman lainnya.</p>\n<p class=\"isSelectedEnd\"><strong>DTLS</strong> dapat digunakan untuk mengamankan komunikasi CoAP pada lapisan transport. Sementara itu, <strong>OSCORE</strong> memberikan perlindungan end-to-end pada level aplikasi dan dirancang untuk tetap bekerja pada lingkungan yang menggunakan proxy.</p>\n<p>Dengan memilih mekanisme keamanan yang sesuai, mengelola key dengan baik, menerapkan least privilege, dan memperbarui firmware secara berkala, sistem IoT dapat memiliki perlindungan yang lebih kuat tanpa mengabaikan keterbatasan perangkat.</p>\n",
+  "content_text": "Pengantar\nInternet of Things (IoT) menghubungkan berbagai perangkat dengan kemampuan komputasi dan sumber daya yang terbatas. Sensor, smart meter, perangkat monitoring, dan aktuator harus dapat berkomunikasi tanpa menggunakan protokol yang terlalu berat.\nSalah satu protokol yang dirancang untuk kebutuhan tersebut adalah  CoAP (Constrained Application Protocol) . Protokol ini dibuat untuk perangkat dan jaringan dengan keterbatasan resource, serta menggunakan pendekatan komunikasi yang ringan. (dikutip dari:  IETF RFC 7252 – The Constrained Application Protocol )\nNamun, efisiensi CoAP juga menghadirkan tantangan keamanan. Jika komunikasi tidak dilindungi dengan baik, attacker dapat mencoba membaca, memodifikasi, memalsukan, atau mengganggu komunikasi antarperangkat.\nApa Itu CoAP?\nPengertian CoAP\nConstrained Application Protocol (CoAP)  adalah protokol transfer web yang dirancang untuk perangkat dengan keterbatasan CPU, memory, daya, dan bandwidth.\nCoAP memiliki konsep yang mirip dengan HTTP. Protokol ini mendukung metode seperti GET, POST, PUT, dan DELETE sehingga dapat digunakan untuk membangun komunikasi berbasis REST pada perangkat IoT.\nPerbedaannya terletak pada desain protokol. CoAP menggunakan format pesan biner yang ringkas dan secara tradisional berjalan di atas UDP.\nbaca juga :  AI Guardrails: Benteng Pengaman untuk Mencegah AI Bertindak di Luar Batas\nMengapa CoAP Digunakan pada IoT?\nPerangkat IoT sering bekerja dengan resource terbatas. Karena itu, overhead komunikasi perlu dibuat sekecil mungkin.\nCoAP menawarkan beberapa karakteristik yang sesuai untuk kondisi tersebut, seperti:\nHeader yang ringkas.\nFormat pesan biner.\nDukungan komunikasi asynchronous.\nDukungan multicast.\nProxy dan caching sederhana.\nDukungan untuk jaringan dengan bandwidth terbatas.\nDengan karakteristik tersebut, CoAP cocok digunakan untuk sensor dan perangkat embedded yang tidak membutuhkan protokol web seberat HTTP.\nMengapa CoAP Membutuhkan Security?\nKomunikasi IoT Tidak Selalu Aman\nPerangkat IoT dapat ditempatkan di lingkungan yang sulit dikontrol. Sensor bisa berada di area publik, fasilitas industri, rumah, atau lokasi terpencil.\nJika komunikasi tidak dilindungi, attacker yang berada pada jalur komunikasi dapat mencoba melakukan penyadapan atau manipulasi data.\nRisiko Data Dimanipulasi\nBayangkan sebuah sensor mengirimkan nilai temperatur ke server.\nJika attacker dapat mengubah nilai tersebut sebelum diterima server, sistem dapat mengambil keputusan berdasarkan data yang salah.\nPada lingkungan industri, manipulasi semacam ini dapat memiliki dampak lebih serius karena data sensor dapat digunakan untuk mengendalikan proses fisik.\nAncaman Keamanan pada CoAP\nEavesdropping\nTanpa perlindungan kriptografi, data CoAP dapat dibaca oleh pihak yang mampu mengamati lalu lintas jaringan.\nInformasi yang terekspos dapat berupa data sensor, command, atau informasi lain yang dikirimkan oleh perangkat.\nMessage Modification\nAttacker dapat mencoba mengubah isi komunikasi ketika data tidak memiliki perlindungan integritas.\nAkibatnya, perangkat penerima dapat memproses informasi yang berbeda dari data asli.\nSpoofing\nAttacker juga dapat mencoba menyamar sebagai perangkat atau server yang sah.\nJika identitas endpoint tidak diverifikasi dengan baik, perangkat IoT dapat menerima komunikasi dari pihak yang tidak dipercaya.\nbaca juga :  Kernel Address Space Layout Randomization (KASLR): Benteng Pertahanan Kernel dari Eksploitasi\nReplay Attack\nPesan yang valid dapat direkam kemudian dikirim kembali pada waktu lain.\nPada sistem tertentu, replay dapat menyebabkan perintah lama dijalankan kembali. Karena itu, perlindungan terhadap replay menjadi aspek penting dalam keamanan komunikasi IoT.\nDenial of Service\nCoAP yang menggunakan UDP juga perlu menghadapi risiko serangan berbasis lalu lintas jaringan.\nAttacker dapat mengirim banyak paket atau request sehingga perangkat dengan resource terbatas mengalami beban berlebihan.\nCoAP Security dengan DTLS\nApa Itu DTLS?\nDatagram Transport Layer Security (DTLS)  adalah protokol keamanan yang dirancang untuk komunikasi berbasis datagram seperti UDP.\nRFC 7252 mendefinisikan binding antara CoAP dan DTLS untuk memberikan perlindungan komunikasi. Mode tersebut dapat digunakan untuk menyediakan keamanan serta autentikasi antara endpoint. (dikutip dari:  IETF RFC 7252 – Securing CoAP )\nSecara sederhana, DTLS berfungsi sebagai lapisan keamanan di antara CoAP dan transport UDP.\nApa yang Dilindungi?\nPenggunaan DTLS dapat memberikan beberapa kemampuan keamanan, seperti:\nKerahasiaan data.\nIntegritas pesan.\nAutentikasi endpoint.\nPerlindungan terhadap manipulasi komunikasi.\nNamun, implementasi keamanan tetap perlu disesuaikan dengan kemampuan perangkat dan kebutuhan sistem.\nMode Keamanan pada CoAP\nNoSec\nPada mode  NoSec , CoAP tidak menggunakan perlindungan protokol seperti DTLS.\nMode ini paling sederhana, tetapi tidak memberikan perlindungan kriptografi pada komunikasi.\nKarena itu, penggunaannya perlu dibatasi pada kondisi yang memang tidak membutuhkan perlindungan tambahan atau sudah memiliki mekanisme keamanan lain.\nPre-Shared Key\nPre-Shared Key (PSK)  menggunakan kunci yang sudah diketahui oleh endpoint sebelum komunikasi berlangsung.\nPendekatan ini dapat lebih sederhana untuk perangkat terbatas. Namun, distribusi dan penyimpanan key harus dikelola dengan baik.\nJika satu key digunakan terlalu banyak perangkat, kompromi satu perangkat dapat meningkatkan risiko terhadap perangkat lain.\nRaw Public Key\nPada mode ini, perangkat menggunakan pasangan kunci publik dan private key tanpa harus menggunakan sertifikat X.509.\nIdentitas public key dapat diverifikasi melalui mekanisme yang disepakati sebelumnya.\nCertificate\nPerangkat juga dapat menggunakan sertifikat digital untuk autentikasi.\nPendekatan ini dapat memberikan model trust yang lebih terstruktur. Namun, pengelolaan sertifikat pada perangkat IoT dalam jumlah besar dapat meningkatkan kompleksitas operasional.\nOSCORE: Alternatif Keamanan End-to-End\nApa Itu OSCORE?\nOSCORE (Object Security for Constrained RESTful Environments)  merupakan mekanisme keamanan pada lapisan aplikasi yang dirancang khusus untuk CoAP.\nBerbeda dari perlindungan berbasis transport, OSCORE dapat memberikan perlindungan end-to-end pada request dan response meskipun komunikasi melewati intermediary seperti proxy.\nIETF menjelaskan bahwa OSCORE menggunakan  COSE  untuk memberikan perlindungan pada interaksi CoAP, termasuk encryption, integrity, replay protection, dan binding antara response dengan request. (dikutip dari:  IETF RFC 8613 – OSCORE )\nMengapa OSCORE Dibutuhkan?\nPada arsitektur IoT, komunikasi tidak selalu berlangsung langsung antara client dan server.\nPesan dapat melewati proxy atau gateway. Jika keamanan hanya diterapkan pada satu koneksi, intermediary tertentu mungkin tetap dapat melihat atau memanipulasi data setelah perlindungan tersebut berakhir.\nOSCORE dirancang untuk mengatasi masalah tersebut dengan memberikan perlindungan pada level objek atau request/response.\nCoAP Security: DTLS vs OSCORE\nAspek\nDTLS\nOSCORE\nLapisan\nTransport\nApplication\nFokus\nKeamanan komunikasi\nKeamanan objek CoAP\nEnd-to-end melalui proxy\nTerbatas\nYa\nCocok untuk constrained device\nYa\nYa\nPerlindungan payload\nYa\nYa\nPerlindungan melalui intermediary\nBergantung arsitektur\nDirancang untuk end-to-end\nKeduanya tidak selalu harus dianggap sebagai pilihan yang saling menggantikan.\nOSCORE bahkan dapat digunakan bersama dengan TLS atau DTLS pada bagian tertentu dari jalur komunikasi. Dengan demikian, desain keamanan dapat menggunakan beberapa lapisan sesuai kebutuhan.\nCara Meningkatkan CoAP Security\nGunakan Enkripsi\nHindari mengandalkan komunikasi CoAP tanpa perlindungan jika data memiliki nilai sensitif.\nDTLS atau OSCORE dapat digunakan sesuai kebutuhan arsitektur.\nTerapkan Mutual Authentication\nServer sebaiknya tidak hanya memverifikasi client. Dalam sistem tertentu, client juga perlu memastikan bahwa server merupakan endpoint yang dipercaya.\nDengan demikian, risiko impersonation dapat dikurangi.\nLindungi Credential\nPre-shared key, private key, dan credential lainnya harus disimpan dengan aman.\nSelain itu, hindari penggunaan satu credential yang sama untuk seluruh perangkat.\nTerapkan Least Privilege\nPerangkat sebaiknya hanya memiliki akses terhadap resource yang memang dibutuhkan.\nContohnya, sensor temperatur tidak selalu membutuhkan permission untuk mengubah konfigurasi seluruh sistem.\nKelola Update Perangkat\nFirmware dan library CoAP perlu diperbarui ketika terdapat vulnerability yang relevan.\nSelain itu, perangkat sebaiknya memiliki mekanisme update yang dapat diverifikasi agar attacker tidak dapat mengganti firmware dengan versi berbahaya.\nHal yang Perlu Diperhatikan pada IoT\nKeterbatasan Resource\nKeamanan harus mempertimbangkan CPU, memory, bandwidth, dan konsumsi daya.\nMekanisme kriptografi yang terlalu berat dapat memengaruhi performa perangkat.\nManajemen Key\nKey management menjadi salah satu tantangan terbesar dalam IoT.\nPerangkat dalam jumlah besar membutuhkan proses provisioning, rotation, revocation, dan recovery yang terstruktur.\nKeamanan Gateway\nGateway sering menjadi penghubung antara banyak perangkat IoT dan jaringan utama.\nKarena itu, gateway juga harus diamankan. Kompromi terhadap gateway dapat memberikan attacker posisi strategis untuk mengganggu banyak perangkat sekaligus.\nContoh Penerapan CoAP Security\nCoAP dapat digunakan pada sistem  monitoring kualitas air berbasis IoT .\nSensor mengirimkan data seperti pH atau turbidity ke server menggunakan CoAP. Data tersebut kemudian diproses oleh aplikasi monitoring.\nJika data memiliki risiko manipulasi, komunikasi dapat dilindungi menggunakan DTLS atau OSCORE.\nDengan demikian, sistem tidak hanya fokus pada pengiriman data. Integritas, autentikasi, dan kerahasiaan juga menjadi bagian dari desain komunikasi.\nbaca juga :  Threshold Cryptography & Shamir’s Secret Sharing: Cara Membagi Rahasia Tanpa Satu Titik Kegagalan\nKesimpulan\nCoAP Security  merupakan bagian penting dalam pengembangan sistem IoT yang menggunakan Constrained Application Protocol.\nCoAP dirancang untuk perangkat dengan resource terbatas. Namun, komunikasi yang ringan tetap membutuhkan perlindungan terhadap penyadapan, manipulasi, spoofing, replay, dan berbagai ancaman lainnya.\nDTLS  dapat digunakan untuk mengamankan komunikasi CoAP pada lapisan transport. Sementara itu,  OSCORE  memberikan perlindungan end-to-end pada level aplikasi dan dirancang untuk tetap bekerja pada lingkungan yang menggunakan proxy.\nDengan memilih mekanisme keamanan yang sesuai, mengelola key dengan baik, menerapkan least privilege, dan memperbarui firmware secara berkala, sistem IoT dapat memiliki perlindungan yang lebih kuat tanpa mengabaikan keterbatasan perangkat.",
+  "raw": {
+    "id": 23034,
+    "date": "2026-09-11T01:25:59",
+    "date_gmt": "2026-09-11T01:25:59",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=23034"
+    },
+    "modified": "2026-09-11T01:25:59",
+    "modified_gmt": "2026-09-11T01:25:59",
+    "slug": "coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/",
+    "title": {
+      "rendered": "CoAP (Constrained Application Protocol) Security: Melindungi Komunikasi Perangkat IoT dari Serangan"
+    },
+    "content": {
+      "rendered": "<h2>Pengantar</h2>\n<p class=\"isSelectedEnd\">Internet of Things (IoT) menghubungkan berbagai perangkat dengan kemampuan komputasi dan sumber daya yang terbatas. Sensor, smart meter, perangkat monitoring, dan aktuator harus dapat berkomunikasi tanpa menggunakan protokol yang terlalu berat.</p>\n<p class=\"isSelectedEnd\">Salah satu protokol yang dirancang untuk kebutuhan tersebut adalah <strong>CoAP (Constrained Application Protocol)</strong>. Protokol ini dibuat untuk perangkat dan jaringan dengan keterbatasan resource, serta menggunakan pendekatan komunikasi yang ringan. (dikutip dari: <a href=\"https://www.rfc-editor.org/info/rfc7252/?utm_source=chatgpt.com\">IETF RFC 7252 – The Constrained Application Protocol</a>)</p>\n<p class=\"isSelectedEnd\">Namun, efisiensi CoAP juga menghadirkan tantangan keamanan. Jika komunikasi tidak dilindungi dengan baik, attacker dapat mencoba membaca, memodifikasi, memalsukan, atau mengganggu komunikasi antarperangkat.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Itu CoAP?</h2>\n<h3>Pengertian CoAP</h3>\n<p class=\"isSelectedEnd\"><strong>Constrained Application Protocol (CoAP)</strong> adalah protokol transfer web yang dirancang untuk perangkat dengan keterbatasan CPU, memory, daya, dan bandwidth.</p>\n<p class=\"isSelectedEnd\">CoAP memiliki konsep yang mirip dengan HTTP. Protokol ini mendukung metode seperti GET, POST, PUT, dan DELETE sehingga dapat digunakan untuk membangun komunikasi berbasis REST pada perangkat IoT.</p>\n<p class=\"isSelectedEnd\">Perbedaannya terletak pada desain protokol. CoAP menggunakan format pesan biner yang ringkas dan secara tradisional berjalan di atas UDP.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/ai-guardrails-benteng-pengaman-untuk-mencegah-ai-bertindak-di-luar-batas/\">AI Guardrails: Benteng Pengaman untuk Mencegah AI Bertindak di Luar Batas</a></p></blockquote>\n<h3>Mengapa CoAP Digunakan pada IoT?</h3>\n<p class=\"isSelectedEnd\">Perangkat IoT sering bekerja dengan resource terbatas. Karena itu, overhead komunikasi perlu dibuat sekecil mungkin.</p>\n<p class=\"isSelectedEnd\">CoAP menawarkan beberapa karakteristik yang sesuai untuk kondisi tersebut, seperti:</p>\n<ul data-spread=\"false\">\n<li>Header yang ringkas.</li>\n<li>Format pesan biner.</li>\n<li>Dukungan komunikasi asynchronous.</li>\n<li>Dukungan multicast.</li>\n<li>Proxy dan caching sederhana.</li>\n<li>Dukungan untuk jaringan dengan bandwidth terbatas.</li>\n</ul>\n<p class=\"isSelectedEnd\">Dengan karakteristik tersebut, CoAP cocok digunakan untuk sensor dan perangkat embedded yang tidak membutuhkan protokol web seberat HTTP.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa CoAP Membutuhkan Security?</h2>\n<h3>Komunikasi IoT Tidak Selalu Aman</h3>\n<p class=\"isSelectedEnd\">Perangkat IoT dapat ditempatkan di lingkungan yang sulit dikontrol. Sensor bisa berada di area publik, fasilitas industri, rumah, atau lokasi terpencil.</p>\n<p class=\"isSelectedEnd\">Jika komunikasi tidak dilindungi, attacker yang berada pada jalur komunikasi dapat mencoba melakukan penyadapan atau manipulasi data.</p>\n<h3>Risiko Data Dimanipulasi</h3>\n<p class=\"isSelectedEnd\">Bayangkan sebuah sensor mengirimkan nilai temperatur ke server.</p>\n<p class=\"isSelectedEnd\">Jika attacker dapat mengubah nilai tersebut sebelum diterima server, sistem dapat mengambil keputusan berdasarkan data yang salah.</p>\n<p class=\"isSelectedEnd\">Pada lingkungan industri, manipulasi semacam ini dapat memiliki dampak lebih serius karena data sensor dapat digunakan untuk mengendalikan proses fisik.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"774\" height=\"516\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 774px) 100vw, 774px\" /></p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Ancaman Keamanan pada CoAP</h2>\n<h3>Eavesdropping</h3>\n<p class=\"isSelectedEnd\">Tanpa perlindungan kriptografi, data CoAP dapat dibaca oleh pihak yang mampu mengamati lalu lintas jaringan.</p>\n<p class=\"isSelectedEnd\">Informasi yang terekspos dapat berupa data sensor, command, atau informasi lain yang dikirimkan oleh perangkat.</p>\n<h3>Message Modification</h3>\n<p class=\"isSelectedEnd\">Attacker dapat mencoba mengubah isi komunikasi ketika data tidak memiliki perlindungan integritas.</p>\n<p class=\"isSelectedEnd\">Akibatnya, perangkat penerima dapat memproses informasi yang berbeda dari data asli.</p>\n<h3>Spoofing</h3>\n<p class=\"isSelectedEnd\">Attacker juga dapat mencoba menyamar sebagai perangkat atau server yang sah.</p>\n<p class=\"isSelectedEnd\">Jika identitas endpoint tidak diverifikasi dengan baik, perangkat IoT dapat menerima komunikasi dari pihak yang tidak dipercaya.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/kernel-address-space-layout-randomization-kaslr-benteng-pertahanan-kernel-dari-eksploitasi/\">Kernel Address Space Layout Randomization (KASLR): Benteng Pertahanan Kernel dari Eksploitasi</a></p></blockquote>\n<h3>Replay Attack</h3>\n<p class=\"isSelectedEnd\">Pesan yang valid dapat direkam kemudian dikirim kembali pada waktu lain.</p>\n<p class=\"isSelectedEnd\">Pada sistem tertentu, replay dapat menyebabkan perintah lama dijalankan kembali. Karena itu, perlindungan terhadap replay menjadi aspek penting dalam keamanan komunikasi IoT.</p>\n<h3>Denial of Service</h3>\n<p class=\"isSelectedEnd\">CoAP yang menggunakan UDP juga perlu menghadapi risiko serangan berbasis lalu lintas jaringan.</p>\n<p class=\"isSelectedEnd\">Attacker dapat mengirim banyak paket atau request sehingga perangkat dengan resource terbatas mengalami beban berlebihan.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>CoAP Security dengan DTLS</h2>\n<h3>Apa Itu DTLS?</h3>\n<p class=\"isSelectedEnd\"><strong>Datagram Transport Layer Security (DTLS)</strong> adalah protokol keamanan yang dirancang untuk komunikasi berbasis datagram seperti UDP.</p>\n<p class=\"isSelectedEnd\">RFC 7252 mendefinisikan binding antara CoAP dan DTLS untuk memberikan perlindungan komunikasi. Mode tersebut dapat digunakan untuk menyediakan keamanan serta autentikasi antara endpoint. (dikutip dari: <a href=\"https://www.rfc-editor.org/info/rfc7252/?utm_source=chatgpt.com\">IETF RFC 7252 – Securing CoAP</a>)</p>\n<p class=\"isSelectedEnd\">Secara sederhana, DTLS berfungsi sebagai lapisan keamanan di antara CoAP dan transport UDP.</p>\n<h3>Apa yang Dilindungi?</h3>\n<p class=\"isSelectedEnd\">Penggunaan DTLS dapat memberikan beberapa kemampuan keamanan, seperti:</p>\n<ul data-spread=\"false\">\n<li>Kerahasiaan data.</li>\n<li>Integritas pesan.</li>\n<li>Autentikasi endpoint.</li>\n<li>Perlindungan terhadap manipulasi komunikasi.</li>\n</ul>\n<p class=\"isSelectedEnd\">Namun, implementasi keamanan tetap perlu disesuaikan dengan kemampuan perangkat dan kebutuhan sistem.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mode Keamanan pada CoAP</h2>\n<h3>NoSec</h3>\n<p class=\"isSelectedEnd\">Pada mode <strong>NoSec</strong>, CoAP tidak menggunakan perlindungan protokol seperti DTLS.</p>\n<p class=\"isSelectedEnd\">Mode ini paling sederhana, tetapi tidak memberikan perlindungan kriptografi pada komunikasi.</p>\n<p class=\"isSelectedEnd\">Karena itu, penggunaannya perlu dibatasi pada kondisi yang memang tidak membutuhkan perlindungan tambahan atau sudah memiliki mekanisme keamanan lain.</p>\n<h3>Pre-Shared Key</h3>\n<p class=\"isSelectedEnd\"><strong>Pre-Shared Key (PSK)</strong> menggunakan kunci yang sudah diketahui oleh endpoint sebelum komunikasi berlangsung.</p>\n<p class=\"isSelectedEnd\">Pendekatan ini dapat lebih sederhana untuk perangkat terbatas. Namun, distribusi dan penyimpanan key harus dikelola dengan baik.</p>\n<p class=\"isSelectedEnd\">Jika satu key digunakan terlalu banyak perangkat, kompromi satu perangkat dapat meningkatkan risiko terhadap perangkat lain.</p>\n<h3>Raw Public Key</h3>\n<p class=\"isSelectedEnd\">Pada mode ini, perangkat menggunakan pasangan kunci publik dan private key tanpa harus menggunakan sertifikat X.509.</p>\n<p class=\"isSelectedEnd\">Identitas public key dapat diverifikasi melalui mekanisme yang disepakati sebelumnya.</p>\n<h3>Certificate</h3>\n<p class=\"isSelectedEnd\">Perangkat juga dapat menggunakan sertifikat digital untuk autentikasi.</p>\n<p class=\"isSelectedEnd\">Pendekatan ini dapat memberikan model trust yang lebih terstruktur. Namun, pengelolaan sertifikat pada perangkat IoT dalam jumlah besar dapat meningkatkan kompleksitas operasional.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>OSCORE: Alternatif Keamanan End-to-End</h2>\n<h3>Apa Itu OSCORE?</h3>\n<p class=\"isSelectedEnd\"><strong>OSCORE (Object Security for Constrained RESTful Environments)</strong> merupakan mekanisme keamanan pada lapisan aplikasi yang dirancang khusus untuk CoAP.</p>\n<p class=\"isSelectedEnd\">Berbeda dari perlindungan berbasis transport, OSCORE dapat memberikan perlindungan end-to-end pada request dan response meskipun komunikasi melewati intermediary seperti proxy.</p>\n<p class=\"isSelectedEnd\">IETF menjelaskan bahwa OSCORE menggunakan <strong>COSE</strong> untuk memberikan perlindungan pada interaksi CoAP, termasuk encryption, integrity, replay protection, dan binding antara response dengan request. (dikutip dari: <a href=\"https://www.rfc-editor.org/info/rfc8613/?utm_source=chatgpt.com\">IETF RFC 8613 – OSCORE</a>)</p>\n<h3>Mengapa OSCORE Dibutuhkan?</h3>\n<p class=\"isSelectedEnd\">Pada arsitektur IoT, komunikasi tidak selalu berlangsung langsung antara client dan server.</p>\n<p class=\"isSelectedEnd\">Pesan dapat melewati proxy atau gateway. Jika keamanan hanya diterapkan pada satu koneksi, intermediary tertentu mungkin tetap dapat melihat atau memanipulasi data setelah perlindungan tersebut berakhir.</p>\n<p class=\"isSelectedEnd\">OSCORE dirancang untuk mengatasi masalah tersebut dengan memberikan perlindungan pada level objek atau request/response.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>CoAP Security: DTLS vs OSCORE</h2>\n<table>\n<tbody>\n<tr>\n<th>Aspek</th>\n<th>DTLS</th>\n<th>OSCORE</th>\n</tr>\n<tr>\n<td>Lapisan</td>\n<td>Transport</td>\n<td>Application</td>\n</tr>\n<tr>\n<td>Fokus</td>\n<td>Keamanan komunikasi</td>\n<td>Keamanan objek CoAP</td>\n</tr>\n<tr>\n<td>End-to-end melalui proxy</td>\n<td>Terbatas</td>\n<td>Ya</td>\n</tr>\n<tr>\n<td>Cocok untuk constrained device</td>\n<td>Ya</td>\n<td>Ya</td>\n</tr>\n<tr>\n<td>Perlindungan payload</td>\n<td>Ya</td>\n<td>Ya</td>\n</tr>\n<tr>\n<td>Perlindungan melalui intermediary</td>\n<td>Bergantung arsitektur</td>\n<td>Dirancang untuk end-to-end</td>\n</tr>\n</tbody>\n</table>\n<p class=\"isSelectedEnd\">Keduanya tidak selalu harus dianggap sebagai pilihan yang saling menggantikan.</p>\n<p class=\"isSelectedEnd\">OSCORE bahkan dapat digunakan bersama dengan TLS atau DTLS pada bagian tertentu dari jalur komunikasi. Dengan demikian, desain keamanan dapat menggunakan beberapa lapisan sesuai kebutuhan.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Cara Meningkatkan CoAP Security</h2>\n<h3>Gunakan Enkripsi</h3>\n<p class=\"isSelectedEnd\">Hindari mengandalkan komunikasi CoAP tanpa perlindungan jika data memiliki nilai sensitif.</p>\n<p class=\"isSelectedEnd\">DTLS atau OSCORE dapat digunakan sesuai kebutuhan arsitektur.</p>\n<h3>Terapkan Mutual Authentication</h3>\n<p class=\"isSelectedEnd\">Server sebaiknya tidak hanya memverifikasi client. Dalam sistem tertentu, client juga perlu memastikan bahwa server merupakan endpoint yang dipercaya.</p>\n<p class=\"isSelectedEnd\">Dengan demikian, risiko impersonation dapat dikurangi.</p>\n<h3>Lindungi Credential</h3>\n<p class=\"isSelectedEnd\">Pre-shared key, private key, dan credential lainnya harus disimpan dengan aman.</p>\n<p class=\"isSelectedEnd\">Selain itu, hindari penggunaan satu credential yang sama untuk seluruh perangkat.</p>\n<h3>Terapkan Least Privilege</h3>\n<p class=\"isSelectedEnd\">Perangkat sebaiknya hanya memiliki akses terhadap resource yang memang dibutuhkan.</p>\n<p class=\"isSelectedEnd\">Contohnya, sensor temperatur tidak selalu membutuhkan permission untuk mengubah konfigurasi seluruh sistem.</p>\n<h3>Kelola Update Perangkat</h3>\n<p class=\"isSelectedEnd\">Firmware dan library CoAP perlu diperbarui ketika terdapat vulnerability yang relevan.</p>\n<p class=\"isSelectedEnd\">Selain itu, perangkat sebaiknya memiliki mekanisme update yang dapat diverifikasi agar attacker tidak dapat mengganti firmware dengan versi berbahaya.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Hal yang Perlu Diperhatikan pada IoT</h2>\n<h3>Keterbatasan Resource</h3>\n<p class=\"isSelectedEnd\">Keamanan harus mempertimbangkan CPU, memory, bandwidth, dan konsumsi daya.</p>\n<p class=\"isSelectedEnd\">Mekanisme kriptografi yang terlalu berat dapat memengaruhi performa perangkat.</p>\n<h3>Manajemen Key</h3>\n<p class=\"isSelectedEnd\">Key management menjadi salah satu tantangan terbesar dalam IoT.</p>\n<p class=\"isSelectedEnd\">Perangkat dalam jumlah besar membutuhkan proses provisioning, rotation, revocation, dan recovery yang terstruktur.</p>\n<h3>Keamanan Gateway</h3>\n<p class=\"isSelectedEnd\">Gateway sering menjadi penghubung antara banyak perangkat IoT dan jaringan utama.</p>\n<p class=\"isSelectedEnd\">Karena itu, gateway juga harus diamankan. Kompromi terhadap gateway dapat memberikan attacker posisi strategis untuk mengganggu banyak perangkat sekaligus.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Contoh Penerapan CoAP Security</h2>\n<p class=\"isSelectedEnd\">CoAP dapat digunakan pada sistem <strong>monitoring kualitas air berbasis IoT</strong>.</p>\n<p class=\"isSelectedEnd\">Sensor mengirimkan data seperti pH atau turbidity ke server menggunakan CoAP. Data tersebut kemudian diproses oleh aplikasi monitoring.</p>\n<p class=\"isSelectedEnd\">Jika data memiliki risiko manipulasi, komunikasi dapat dilindungi menggunakan DTLS atau OSCORE.</p>\n<p class=\"isSelectedEnd\">Dengan demikian, sistem tidak hanya fokus pada pengiriman data. Integritas, autentikasi, dan kerahasiaan juga menjadi bagian dari desain komunikasi.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/threshold-cryptography-shamirs-secret-sharing-cara-membagi-rahasia-tanpa-satu-titik-kegagalan/\">Threshold Cryptography &amp; Shamir’s Secret Sharing: Cara Membagi Rahasia Tanpa Satu Titik Kegagalan</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Kesimpulan</h2>\n<p class=\"isSelectedEnd\"><strong>CoAP Security</strong> merupakan bagian penting dalam pengembangan sistem IoT yang menggunakan Constrained Application Protocol.</p>\n<p class=\"isSelectedEnd\">CoAP dirancang untuk perangkat dengan resource terbatas. Namun, komunikasi yang ringan tetap membutuhkan perlindungan terhadap penyadapan, manipulasi, spoofing, replay, dan berbagai ancaman lainnya.</p>\n<p class=\"isSelectedEnd\"><strong>DTLS</strong> dapat digunakan untuk mengamankan komunikasi CoAP pada lapisan transport. Sementara itu, <strong>OSCORE</strong> memberikan perlindungan end-to-end pada level aplikasi dan dirancang untuk tetap bekerja pada lingkungan yang menggunakan proxy.</p>\n<p>Dengan memilih mekanisme keamanan yang sesuai, mengelola key dengan baik, menerapkan least privilege, dan memperbarui firmware secara berkala, sistem IoT dapat memiliki perlindungan yang lebih kuat tanpa mengabaikan keterbatasan perangkat.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Internet of Things (IoT) menghubungkan berbagai perangkat dengan kemampuan komputasi dan sumber daya yang terbatas. Sensor, smart meter, perangkat monitoring, dan aktuator harus dapat berkomunikasi tanpa menggunakan protokol yang terlalu berat. Salah satu protokol yang dirancang untuk kebutuhan tersebut adalah CoAP (Constrained Application Protocol). Protokol ini dibuat untuk perangkat dan jaringan dengan keterbatasan resource, serta menggunakan pendekatan komunikasi yang ringan. (dikutip dari: IETF RFC 7252 – The Constrained Application Protocol) Namun, efisiensi CoAP juga menghadirkan tantangan keamanan. Jika komunikasi tidak dilindungi dengan baik, attacker dapat mencoba membaca, memodifikasi, memalsukan, atau mengganggu komunikasi antarperangkat. Apa Itu CoAP? Pengertian CoAP Constrained&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 10950,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "CoAP Security",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      4001,
+      185,
+      82,
+      682,
+      4002,
+      37
+    ],
+    "class_list": [
+      "post-23034",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-coap",
+      "tag-cybersecurity",
+      "tag-iot",
+      "tag-keamanan",
+      "tag-protocol",
+      "tag-security"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>CoAP (Constrained Application Protocol) Security: Melindungi Komunikasi Perangkat IoT dari Serangan - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"CoAP (Constrained Application Protocol) Security: Melindungi Komunikasi Perangkat IoT dari Serangan - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Internet of Things (IoT) menghubungkan berbagai perangkat dengan kemampuan komputasi dan sumber daya yang terbatas. Sensor, smart meter, perangkat monitoring, dan aktuator harus dapat berkomunikasi tanpa menggunakan protokol yang terlalu berat. Salah satu protokol yang dirancang untuk kebutuhan tersebut adalah CoAP (Constrained Application Protocol). Protokol ini dibuat untuk perangkat dan jaringan dengan keterbatasan resource, serta menggunakan pendekatan komunikasi yang ringan. (dikutip dari: IETF RFC 7252 – The Constrained Application Protocol) Namun, efisiensi CoAP juga menghadirkan tantangan keamanan. Jika komunikasi tidak dilindungi dengan baik, attacker dapat mencoba membaca, memodifikasi, memalsukan, atau mengganggu komunikasi antarperangkat. Apa Itu CoAP? Pengertian CoAP Constrained...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-09-11T01:25:59+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/IoT-Edge-Computing_-A-Visual-Guide-to-the-Future.jpg\" />\n\t<meta property=\"og:image:width\" content=\"736\" />\n\t<meta property=\"og:image:height\" content=\"736\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"7 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/\",\"url\":\"https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/\",\"name\":\"CoAP (Constrained Application Protocol) Security: Melindungi Komunikasi Perangkat IoT dari Serangan - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/IoT-Edge-Computing_-A-Visual-Guide-to-the-Future.jpg\",\"datePublished\":\"2026-09-11T01:25:59+00:00\",\"dateModified\":\"2026-09-11T01:25:59+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/IoT-Edge-Computing_-A-Visual-Guide-to-the-Future.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/IoT-Edge-Computing_-A-Visual-Guide-to-the-Future.jpg\",\"width\":736,\"height\":736},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"CoAP (Constrained Application Protocol) Security: Melindungi Komunikasi Perangkat IoT dari Serangan\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "CoAP (Constrained Application Protocol) Security: Melindungi Komunikasi Perangkat IoT dari Serangan - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "CoAP (Constrained Application Protocol) Security: Melindungi Komunikasi Perangkat IoT dari Serangan - buletinsiber.com",
+      "og_description": "Pengantar Internet of Things (IoT) menghubungkan berbagai perangkat dengan kemampuan komputasi dan sumber daya yang terbatas. Sensor, smart meter, perangkat monitoring, dan aktuator harus dapat berkomunikasi tanpa menggunakan protokol yang terlalu berat. Salah satu protokol yang dirancang untuk kebutuhan tersebut adalah CoAP (Constrained Application Protocol). Protokol ini dibuat untuk perangkat dan jaringan dengan keterbatasan resource, serta menggunakan pendekatan komunikasi yang ringan. (dikutip dari: IETF RFC 7252 – The Constrained Application Protocol) Namun, efisiensi CoAP juga menghadirkan tantangan keamanan. Jika komunikasi tidak dilindungi dengan baik, attacker dapat mencoba membaca, memodifikasi, memalsukan, atau mengganggu komunikasi antarperangkat. Apa Itu CoAP? Pengertian CoAP Constrained...",
+      "og_url": "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-09-11T01:25:59+00:00",
+      "og_image": [
+        {
+          "width": 736,
+          "height": 736,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/IoT-Edge-Computing_-A-Visual-Guide-to-the-Future.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "7 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/",
+            "url": "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/",
+            "name": "CoAP (Constrained Application Protocol) Security: Melindungi Komunikasi Perangkat IoT dari Serangan - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/IoT-Edge-Computing_-A-Visual-Guide-to-the-Future.jpg",
+            "datePublished": "2026-09-11T01:25:59+00:00",
+            "dateModified": "2026-09-11T01:25:59+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/IoT-Edge-Computing_-A-Visual-Guide-to-the-Future.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/IoT-Edge-Computing_-A-Visual-Guide-to-the-Future.jpg",
+            "width": 736,
+            "height": 736
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/coap-constrained-application-protocol-security-melindungi-komunikasi-perangkat-iot-dari-serangan/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "CoAP (Constrained Application Protocol) Security: Melindungi Komunikasi Perangkat IoT dari Serangan"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23034",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=23034"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23034/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 23035,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23034/revisions/23035"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/10950"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=23034"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=23034"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=23034"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

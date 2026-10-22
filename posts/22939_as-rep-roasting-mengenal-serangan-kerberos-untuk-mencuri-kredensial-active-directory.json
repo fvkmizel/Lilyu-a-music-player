@@ -1,0 +1,329 @@
+{
+  "id": 22939,
+  "title": "AS-REP Roasting: Mengenal Serangan Kerberos untuk Mencuri Kredensial Active Directory",
+  "slug": "as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory",
+  "url": "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/",
+  "date": "2026-08-27T00:34:37",
+  "date_gmt": "2026-08-27T00:34:37",
+  "modified": "2026-08-27T00:34:37",
+  "modified_gmt": "2026-08-27T00:34:37",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1118,
+    682,
+    3954
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+  "excerpt": "Pengantar AS-REP Roasting adalah teknik serangan terhadap Kerberos yang menargetkan akun Active Directory dengan fitur Kerberos pre-authentication yang dinonaktifkan. Teknik ini termasuk dalam kategori Credential Access pada MITRE ATT&CK dengan ID T1558.004. Serangan ini menarik karena attacker dapat memperoleh data autentikasi dari Domain Controller untuk kemudian melakukan password cracking secara offline. Dengan demikian, attacker tidak perlu terus berinteraksi dengan sistem target selama proses cracking berlangsung. Apa Itu Kerberos Pre-Authentication? Kerberos pre-authentication merupakan mekanisme yang membantu memastikan bahwa pengguna benar-benar mengetahui password sebelum Domain Controller memberikan respons autentikasi. Dalam kondisi normal, client mengirim AS-REQ yang berisi data pre-authentication. Domain Controller kemudian…",
+  "content_html": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"89\" data-end=\"101\">Pengantar</h2>\n<p data-start=\"103\" data-end=\"409\"><strong data-start=\"103\" data-end=\"122\">AS-REP Roasting</strong> adalah teknik serangan terhadap <strong data-start=\"155\" data-end=\"167\">Kerberos</strong> yang menargetkan akun Active Directory dengan fitur <strong data-start=\"220\" data-end=\"251\">Kerberos pre-authentication</strong> yang dinonaktifkan. Teknik ini termasuk dalam kategori <strong data-start=\"307\" data-end=\"328\">Credential Access</strong> pada MITRE ATT&amp;CK dengan ID <strong data-start=\"357\" data-end=\"370\">T1558.004</strong>.</p>\n<p data-start=\"411\" data-end=\"681\">Serangan ini menarik karena attacker dapat memperoleh data autentikasi dari Domain Controller untuk kemudian melakukan <strong data-start=\"530\" data-end=\"566\">password cracking secara offline</strong>. Dengan demikian, attacker tidak perlu terus berinteraksi dengan sistem target selama proses cracking berlangsung.</p>\n<hr data-start=\"683\" data-end=\"686\" />\n<h2 data-section-id=\"td6bml\" data-start=\"688\" data-end=\"727\">Apa Itu Kerberos Pre-Authentication?</h2>\n<p data-start=\"729\" data-end=\"910\"><strong data-start=\"729\" data-end=\"760\">Kerberos pre-authentication</strong> merupakan mekanisme yang membantu memastikan bahwa pengguna benar-benar mengetahui password sebelum Domain Controller memberikan respons autentikasi.</p>\n<p data-start=\"912\" data-end=\"1150\">Dalam kondisi normal, client mengirim <strong data-start=\"950\" data-end=\"960\">AS-REQ</strong> yang berisi data pre-authentication. Domain Controller kemudian memvalidasi data tersebut sebelum memberikan <strong data-start=\"1070\" data-end=\"1080\">AS-REP</strong> yang berisi informasi untuk mendapatkan Ticket Granting Ticket (TGT).</p>\n<p data-start=\"1152\" data-end=\"1513\">Pre-authentication memberikan perlindungan tambahan terhadap password cracking secara offline. Namun, akun yang dikonfigurasi tanpa pre-authentication dapat memberikan peluang bagi attacker untuk melakukan AS-REP Roasting <strong data-start=\"1374\" data-end=\"1474\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/techniques/T1558/004/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"1391\" data-end=\"1471\">MITRE ATT&amp;CK – AS-REP Roasting</a>)</strong>.</p>\n<blockquote>\n<p data-start=\"1152\" data-end=\"1513\">baca juga : <a href=\"https://buletinsiber.com/lsass-memory-dumping-mengenal-teknik-pencurian-kredensial-windows-dan-cara-mendeteksinya/\">LSASS Memory Dumping: Mengenal Teknik Pencurian Kredensial Windows dan Cara Mendeteksinya</a></p>\n</blockquote>\n<hr data-start=\"1515\" data-end=\"1518\" />\n<h2 data-section-id=\"ppoe2u\" data-start=\"1520\" data-end=\"1557\">Bagaimana AS-REP Roasting Bekerja?</h2>\n<p data-start=\"1559\" data-end=\"1619\">Secara umum, serangan dapat dipahami melalui beberapa tahap.</p>\n<h3 data-section-id=\"8g3wzo\" data-start=\"1621\" data-end=\"1652\">1. Mencari Akun yang Rentan</h3>\n<p data-start=\"1654\" data-end=\"1767\">Attacker mencari akun Active Directory yang memiliki konfigurasi <strong data-start=\"1719\" data-end=\"1766\">&#8220;Do not require Kerberos preauthentication&#8221;</strong>.</p>\n<p data-start=\"1769\" data-end=\"1894\">Akun tersebut dapat memiliki hak akses biasa maupun hak akses khusus. Karena itu, akun biasa sekalipun tetap perlu diperiksa.</p>\n<h3 data-section-id=\"16ezha6\" data-start=\"1896\" data-end=\"1927\">2. Meminta Respons Kerberos</h3>\n<p data-start=\"1929\" data-end=\"2061\">Setelah menemukan akun yang tidak menggunakan pre-authentication, attacker dapat meminta respons autentikasi dari Domain Controller.</p>\n<p data-start=\"2063\" data-end=\"2150\">Respons tersebut dapat mengandung data terenkripsi yang berkaitan dengan password akun.</p>\n<h3 data-section-id=\"at8u3h\" data-start=\"2152\" data-end=\"2187\">3. Data Disimpan untuk Analisis</h3>\n<p data-start=\"2189\" data-end=\"2288\">Data dari respons Kerberos kemudian dapat dianalisis tanpa harus terus mengakses Domain Controller.</p>\n<h3 data-section-id=\"1696n7e\" data-start=\"2290\" data-end=\"2322\">4. Password Cracking Offline</h3>\n<p data-start=\"2324\" data-end=\"2408\">Attacker mencoba menemukan password yang sesuai dengan data tersebut secara offline.</p>\n<p data-start=\"2410\" data-end=\"2517\">Jika password berhasil ditemukan, kredensial dapat digunakan untuk mengakses resource lain sesuai hak akun.</p>\n<p data-start=\"2519\" data-end=\"2823\">MITRE menjelaskan bahwa kredensial yang berhasil diperoleh dapat digunakan untuk <strong data-start=\"2600\" data-end=\"2659\">Persistence, Privilege Escalation, dan Lateral Movement</strong> melalui akun yang valid <strong data-start=\"2684\" data-end=\"2784\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/techniques/T1558/004/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"2701\" data-end=\"2781\">MITRE ATT&amp;CK – AS-REP Roasting</a>)</strong>.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"810\" height=\"540\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 810px) 100vw, 810px\" /></p>\n<hr data-start=\"2825\" data-end=\"2828\" />\n<h2 data-section-id=\"1et7jgv\" data-start=\"2830\" data-end=\"2867\">Mengapa AS-REP Roasting Berbahaya?</h2>\n<h3 data-section-id=\"2wdhqp\" data-start=\"2869\" data-end=\"2915\">Tidak Selalu Membutuhkan Hak Administrator</h3>\n<p data-start=\"2917\" data-end=\"3102\">Salah satu hal yang perlu diperhatikan adalah teknik ini tidak secara khusus menargetkan administrator. Akun domain biasa yang memiliki konfigurasi tidak aman juga dapat menjadi target.</p>\n<h3 data-section-id=\"12z2zc7\" data-start=\"3104\" data-end=\"3146\">Password Dapat Di-crack Secara Offline</h3>\n<p data-start=\"3148\" data-end=\"3269\">Setelah data autentikasi diperoleh, proses cracking dapat dilakukan tanpa terus mengirim permintaan ke Domain Controller.</p>\n<p data-start=\"3271\" data-end=\"3378\">Kondisi tersebut membuat serangan lebih sulit terlihat jika monitoring hanya berfokus pada aktivitas login.</p>\n<h3 data-section-id=\"1ihhowt\" data-start=\"3380\" data-end=\"3419\">Dapat Menjadi Awal Lateral Movement</h3>\n<p data-start=\"3421\" data-end=\"3526\">Jika password berhasil diperoleh, attacker dapat menggunakan akun tersebut untuk mengakses resource lain.</p>\n<p data-start=\"3528\" data-end=\"3616\">Risikonya semakin besar jika akun memiliki akses ke server, aplikasi, atau data penting.</p>\n<hr data-start=\"3618\" data-end=\"3621\" />\n<h2 data-section-id=\"uzfz6r\" data-start=\"3623\" data-end=\"3658\">AS-REP Roasting vs Kerberoasting</h2>\n<p data-start=\"3660\" data-end=\"3753\">Keduanya sama-sama berkaitan dengan Kerberos dan password cracking, tetapi targetnya berbeda.</p>\n<div class=\"group TyagGW_tableContainer\">\n<div class=\"TyagGW_tableWrapper flex flex-col-reverse w-fit\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"3755\" data-end=\"4138\">\n<thead data-start=\"3755\" data-end=\"3798\">\n<tr data-start=\"3755\" data-end=\"3798\">\n<th class=\"last:pe-10\" data-start=\"3755\" data-end=\"3763\" data-col-size=\"sm\">Aspek</th>\n<th class=\"last:pe-10\" data-start=\"3763\" data-end=\"3781\" data-col-size=\"md\">AS-REP Roasting</th>\n<th class=\"last:pe-10\" data-start=\"3781\" data-end=\"3798\" data-col-size=\"md\">Kerberoasting</th>\n</tr>\n</thead>\n<tbody data-start=\"3813\" data-end=\"4138\">\n<tr data-start=\"3813\" data-end=\"3884\">\n<td data-start=\"3813\" data-end=\"3822\" data-col-size=\"sm\">Target</td>\n<td data-start=\"3822\" data-end=\"3854\" data-col-size=\"md\">Akun tanpa pre-authentication</td>\n<td data-start=\"3854\" data-end=\"3884\" data-col-size=\"md\">Service account dengan SPN</td>\n</tr>\n<tr data-start=\"3885\" data-end=\"3928\">\n<td data-start=\"3885\" data-end=\"3892\" data-col-size=\"sm\">Data</td>\n<td data-start=\"3892\" data-end=\"3901\" data-col-size=\"md\">AS-REP</td>\n<td data-start=\"3901\" data-end=\"3928\" data-col-size=\"md\">Kerberos service ticket</td>\n</tr>\n<tr data-start=\"3929\" data-end=\"3996\">\n<td data-start=\"3929\" data-end=\"3937\" data-col-size=\"sm\">Fokus</td>\n<td data-col-size=\"md\" data-start=\"3937\" data-end=\"3970\">Konfigurasi pre-authentication</td>\n<td data-col-size=\"md\" data-start=\"3970\" data-end=\"3996\">Service Principal Name</td>\n</tr>\n<tr data-start=\"3997\" data-end=\"4101\">\n<td data-start=\"3997\" data-end=\"4006\" data-col-size=\"sm\">Tujuan</td>\n<td data-start=\"4006\" data-end=\"4053\" data-col-size=\"md\">Mendapatkan material untuk password cracking</td>\n<td data-start=\"4053\" data-end=\"4101\" data-col-size=\"md\">Mendapatkan material untuk password cracking</td>\n</tr>\n<tr data-start=\"4102\" data-end=\"4138\">\n<td data-start=\"4102\" data-end=\"4113\" data-col-size=\"sm\">MITRE ID</td>\n<td data-start=\"4113\" data-end=\"4125\" data-col-size=\"md\">T1558.004</td>\n<td data-start=\"4125\" data-end=\"4138\" data-col-size=\"md\">T1558.003</td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>\n<p data-start=\"4140\" data-end=\"4336\">Perbedaan utama terletak pada sumber data yang digunakan. AS-REP Roasting memanfaatkan akun yang tidak memerlukan Kerberos pre-authentication, sedangkan Kerberoasting berfokus pada service ticket.</p>\n<blockquote>\n<p data-start=\"4140\" data-end=\"4336\">baca juga : <a href=\"https://buletinsiber.com/format-string-attack-mengenal-celah-berbahaya-pada-fungsi-printf-dan-cara-mencegahnya/\">Format String Attack: Mengenal Celah Berbahaya pada Fungsi printf dan Cara Mencegahnya</a></p>\n</blockquote>\n<hr data-start=\"4338\" data-end=\"4341\" />\n<h2 data-section-id=\"fketio\" data-start=\"4343\" data-end=\"4377\">Cara Mendeteksi AS-REP Roasting</h2>\n<p data-start=\"4379\" data-end=\"4464\">Monitoring <strong data-start=\"4390\" data-end=\"4410\">Active Directory</strong> dapat membantu menemukan aktivitas yang mencurigakan.</p>\n<h3 data-section-id=\"x2h4il\" data-start=\"4466\" data-end=\"4491\">Periksa Event ID 4768</h3>\n<p data-start=\"4493\" data-end=\"4886\">MITRE mencatat bahwa <strong data-start=\"4514\" data-end=\"4531\">Event ID 4768</strong> dapat digunakan untuk mendeteksi pola AS-REQ/AS-REP yang mencurigakan. Salah satu indikator penting adalah <strong data-start=\"4639\" data-end=\"4668\">Pre-Authentication Type 0</strong>, terutama jika terdapat permintaan dalam jumlah tidak biasa <strong data-start=\"4729\" data-end=\"4847\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/detectionstrategies/DET0113/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"4746\" data-end=\"4844\">MITRE ATT&amp;CK – Detection Strategy DET0113</a>)</strong>.</p>\n<h3 data-section-id=\"303joa\" data-start=\"4888\" data-end=\"4917\">Perhatikan Penggunaan RC4</h3>\n<p data-start=\"4919\" data-end=\"5274\">Penggunaan enkripsi <strong data-start=\"4939\" data-end=\"4959\">RC4 (etype 0x17)</strong> pada aktivitas Kerberos juga perlu diperhatikan. MITRE memasukkannya sebagai salah satu indikator yang dapat dikorelasikan ketika mendeteksi AS-REP Roasting <strong data-start=\"5117\" data-end=\"5235\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/detectionstrategies/DET0113/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"5134\" data-end=\"5232\">MITRE ATT&amp;CK – Detection Strategy DET0113</a>)</strong>.</p>\n<h3 data-section-id=\"1y0pbpv\" data-start=\"5276\" data-end=\"5299\">Monitor Enumeration</h3>\n<p data-start=\"5301\" data-end=\"5419\">Aktivitas yang mencoba mengidentifikasi banyak akun dengan pre-authentication yang dinonaktifkan juga patut diperiksa.</p>\n<p data-start=\"5421\" data-end=\"5557\">Korelasi antara enumeration, permintaan Kerberos, dan aktivitas autentikasi berikutnya dapat memberikan hasil deteksi yang lebih akurat.</p>\n<hr data-start=\"5559\" data-end=\"5562\" />\n<h2 data-section-id=\"lzfq6x\" data-start=\"5564\" data-end=\"5596\">Cara Mencegah AS-REP Roasting</h2>\n<h3 data-section-id=\"1831fe4\" data-start=\"5598\" data-end=\"5638\">Aktifkan Kerberos Pre-Authentication</h3>\n<p data-start=\"5640\" data-end=\"5949\">Ini merupakan langkah pencegahan utama. MITRE merekomendasikan agar pre-authentication diaktifkan pada akun jika memang tidak ada kebutuhan khusus untuk menonaktifkannya <strong data-start=\"5810\" data-end=\"5910\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/techniques/T1558/004/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"5827\" data-end=\"5907\">MITRE ATT&amp;CK – AS-REP Roasting</a>)</strong>.</p>\n<h3 data-section-id=\"x1b1o0\" data-start=\"5951\" data-end=\"5989\">Audit Konfigurasi Active Directory</h3>\n<p data-start=\"5991\" data-end=\"6107\">Lakukan pemeriksaan berkala terhadap akun yang memiliki konfigurasi <strong data-start=\"6059\" data-end=\"6106\">&#8220;Do not require Kerberos preauthentication&#8221;</strong>.</p>\n<p data-start=\"6109\" data-end=\"6198\">Akun lama atau akun yang dibuat untuk kebutuhan khusus perlu mendapatkan perhatian lebih.</p>\n<h3 data-section-id=\"1qzzn22\" data-start=\"6200\" data-end=\"6230\">Gunakan Password yang Kuat</h3>\n<p data-start=\"6232\" data-end=\"6325\">Password yang panjang dan sulit ditebak membuat proses password cracking menjadi lebih sulit.</p>\n<p data-start=\"6327\" data-end=\"6497\">Khusus untuk service account, gunakan kredensial yang kuat dan pertimbangkan penggunaan <strong data-start=\"6415\" data-end=\"6456\">Group Managed Service Accounts (gMSA)</strong> jika sesuai dengan kebutuhan lingkungan.</p>\n<h3 data-section-id=\"1ty3xy8\" data-start=\"6499\" data-end=\"6525\">Kurangi Penggunaan RC4</h3>\n<p data-start=\"6527\" data-end=\"6855\">Gunakan algoritma Kerberos yang lebih kuat seperti <strong data-start=\"6578\" data-end=\"6585\">AES</strong> ketika kompatibel dengan lingkungan yang digunakan. MITRE juga merekomendasikan penggunaan AES dibandingkan RC4 jika memungkinkan <strong data-start=\"6716\" data-end=\"6816\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/techniques/T1558/004/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"6733\" data-end=\"6813\">MITRE ATT&amp;CK – AS-REP Roasting</a>)</strong>.</p>\n<hr data-start=\"6857\" data-end=\"6860\" />\n<h2 data-section-id=\"385a97\" data-start=\"6862\" data-end=\"6899\">AS-REP Roasting dalam MITRE ATT&amp;CK</h2>\n<p data-start=\"6901\" data-end=\"7014\">MITRE ATT&amp;CK memasukkan AS-REP Roasting sebagai <strong data-start=\"6949\" data-end=\"7013\">T1558.004 – Steal or Forge Kerberos Tickets: AS-REP Roasting</strong>.</p>\n<p data-start=\"7016\" data-end=\"7218\">Teknik ini berada pada taktik <strong data-start=\"7046\" data-end=\"7067\">Credential Access</strong> dan secara khusus digunakan untuk memperoleh material autentikasi yang dapat diproses melalui password cracking.</p>\n<p data-start=\"7220\" data-end=\"7407\">Pemahaman terhadap teknik ini penting bagi administrator Active Directory maupun security analyst karena kesalahan konfigurasi kecil pada satu akun dapat memberikan peluang bagi attacker.</p>\n<blockquote>\n<p data-start=\"7220\" data-end=\"7407\">baca juga : <a href=\"https://buletinsiber.com/dns-over-quic-doq-teknologi-dns-encrypted-yang-lebih-cepat-dan-privat/\">DNS-over-QUIC (DoQ): Teknologi DNS Encrypted yang Lebih Cepat dan Privat</a></p>\n</blockquote>\n<hr data-start=\"7409\" data-end=\"7412\" />\n<h2 data-section-id=\"1806px6\" data-start=\"7414\" data-end=\"7427\">Kesimpulan</h2>\n<p data-start=\"7429\" data-end=\"7582\"><strong data-start=\"7429\" data-end=\"7448\">AS-REP Roasting</strong> merupakan teknik credential access yang memanfaatkan akun Active Directory dengan <strong data-start=\"7531\" data-end=\"7581\">Kerberos pre-authentication yang dinonaktifkan</strong>.</p>\n<p data-start=\"7584\" data-end=\"7803\">Attacker dapat memperoleh respons AS-REP dan menggunakan data tersebut untuk melakukan <strong data-start=\"7671\" data-end=\"7707\">password cracking secara offline</strong>. Jika password berhasil ditemukan, akun tersebut dapat digunakan untuk mengakses resource lain.</p>\n<p data-start=\"7805\" data-end=\"7998\">Pencegahan utamanya adalah <strong data-start=\"7832\" data-end=\"7997\">mengaktifkan Kerberos pre-authentication, melakukan audit Active Directory, menggunakan password yang kuat, dan mengurangi penggunaan algoritma lemah seperti RC4</strong>.</p>\n<p data-start=\"8000\" data-end=\"8166\">Selain pencegahan, monitoring Event ID 4768 dan pola permintaan Kerberos yang tidak biasa dapat membantu tim keamanan mendeteksi aktivitas AS-REP Roasting lebih awal.</p>\n",
+  "content_text": "Pengantar\nAS-REP Roasting  adalah teknik serangan terhadap  Kerberos  yang menargetkan akun Active Directory dengan fitur  Kerberos pre-authentication  yang dinonaktifkan. Teknik ini termasuk dalam kategori  Credential Access  pada MITRE ATT&CK dengan ID  T1558.004 .\nSerangan ini menarik karena attacker dapat memperoleh data autentikasi dari Domain Controller untuk kemudian melakukan  password cracking secara offline . Dengan demikian, attacker tidak perlu terus berinteraksi dengan sistem target selama proses cracking berlangsung.\nApa Itu Kerberos Pre-Authentication?\nKerberos pre-authentication  merupakan mekanisme yang membantu memastikan bahwa pengguna benar-benar mengetahui password sebelum Domain Controller memberikan respons autentikasi.\nDalam kondisi normal, client mengirim  AS-REQ  yang berisi data pre-authentication. Domain Controller kemudian memvalidasi data tersebut sebelum memberikan  AS-REP  yang berisi informasi untuk mendapatkan Ticket Granting Ticket (TGT).\nPre-authentication memberikan perlindungan tambahan terhadap password cracking secara offline. Namun, akun yang dikonfigurasi tanpa pre-authentication dapat memberikan peluang bagi attacker untuk melakukan AS-REP Roasting  (dikutip dari:  MITRE ATT&CK – AS-REP Roasting ) .\nbaca juga :  LSASS Memory Dumping: Mengenal Teknik Pencurian Kredensial Windows dan Cara Mendeteksinya\nBagaimana AS-REP Roasting Bekerja?\nSecara umum, serangan dapat dipahami melalui beberapa tahap.\n1. Mencari Akun yang Rentan\nAttacker mencari akun Active Directory yang memiliki konfigurasi  “Do not require Kerberos preauthentication” .\nAkun tersebut dapat memiliki hak akses biasa maupun hak akses khusus. Karena itu, akun biasa sekalipun tetap perlu diperiksa.\n2. Meminta Respons Kerberos\nSetelah menemukan akun yang tidak menggunakan pre-authentication, attacker dapat meminta respons autentikasi dari Domain Controller.\nRespons tersebut dapat mengandung data terenkripsi yang berkaitan dengan password akun.\n3. Data Disimpan untuk Analisis\nData dari respons Kerberos kemudian dapat dianalisis tanpa harus terus mengakses Domain Controller.\n4. Password Cracking Offline\nAttacker mencoba menemukan password yang sesuai dengan data tersebut secara offline.\nJika password berhasil ditemukan, kredensial dapat digunakan untuk mengakses resource lain sesuai hak akun.\nMITRE menjelaskan bahwa kredensial yang berhasil diperoleh dapat digunakan untuk  Persistence, Privilege Escalation, dan Lateral Movement  melalui akun yang valid  (dikutip dari:  MITRE ATT&CK – AS-REP Roasting ) .\nMengapa AS-REP Roasting Berbahaya?\nTidak Selalu Membutuhkan Hak Administrator\nSalah satu hal yang perlu diperhatikan adalah teknik ini tidak secara khusus menargetkan administrator. Akun domain biasa yang memiliki konfigurasi tidak aman juga dapat menjadi target.\nPassword Dapat Di-crack Secara Offline\nSetelah data autentikasi diperoleh, proses cracking dapat dilakukan tanpa terus mengirim permintaan ke Domain Controller.\nKondisi tersebut membuat serangan lebih sulit terlihat jika monitoring hanya berfokus pada aktivitas login.\nDapat Menjadi Awal Lateral Movement\nJika password berhasil diperoleh, attacker dapat menggunakan akun tersebut untuk mengakses resource lain.\nRisikonya semakin besar jika akun memiliki akses ke server, aplikasi, atau data penting.\nAS-REP Roasting vs Kerberoasting\nKeduanya sama-sama berkaitan dengan Kerberos dan password cracking, tetapi targetnya berbeda.\nAspek\nAS-REP Roasting\nKerberoasting\nTarget\nAkun tanpa pre-authentication\nService account dengan SPN\nData\nAS-REP\nKerberos service ticket\nFokus\nKonfigurasi pre-authentication\nService Principal Name\nTujuan\nMendapatkan material untuk password cracking\nMendapatkan material untuk password cracking\nMITRE ID\nT1558.004\nT1558.003\nPerbedaan utama terletak pada sumber data yang digunakan. AS-REP Roasting memanfaatkan akun yang tidak memerlukan Kerberos pre-authentication, sedangkan Kerberoasting berfokus pada service ticket.\nbaca juga :  Format String Attack: Mengenal Celah Berbahaya pada Fungsi printf dan Cara Mencegahnya\nCara Mendeteksi AS-REP Roasting\nMonitoring  Active Directory  dapat membantu menemukan aktivitas yang mencurigakan.\nPeriksa Event ID 4768\nMITRE mencatat bahwa  Event ID 4768  dapat digunakan untuk mendeteksi pola AS-REQ/AS-REP yang mencurigakan. Salah satu indikator penting adalah  Pre-Authentication Type 0 , terutama jika terdapat permintaan dalam jumlah tidak biasa  (dikutip dari:  MITRE ATT&CK – Detection Strategy DET0113 ) .\nPerhatikan Penggunaan RC4\nPenggunaan enkripsi  RC4 (etype 0x17)  pada aktivitas Kerberos juga perlu diperhatikan. MITRE memasukkannya sebagai salah satu indikator yang dapat dikorelasikan ketika mendeteksi AS-REP Roasting  (dikutip dari:  MITRE ATT&CK – Detection Strategy DET0113 ) .\nMonitor Enumeration\nAktivitas yang mencoba mengidentifikasi banyak akun dengan pre-authentication yang dinonaktifkan juga patut diperiksa.\nKorelasi antara enumeration, permintaan Kerberos, dan aktivitas autentikasi berikutnya dapat memberikan hasil deteksi yang lebih akurat.\nCara Mencegah AS-REP Roasting\nAktifkan Kerberos Pre-Authentication\nIni merupakan langkah pencegahan utama. MITRE merekomendasikan agar pre-authentication diaktifkan pada akun jika memang tidak ada kebutuhan khusus untuk menonaktifkannya  (dikutip dari:  MITRE ATT&CK – AS-REP Roasting ) .\nAudit Konfigurasi Active Directory\nLakukan pemeriksaan berkala terhadap akun yang memiliki konfigurasi  “Do not require Kerberos preauthentication” .\nAkun lama atau akun yang dibuat untuk kebutuhan khusus perlu mendapatkan perhatian lebih.\nGunakan Password yang Kuat\nPassword yang panjang dan sulit ditebak membuat proses password cracking menjadi lebih sulit.\nKhusus untuk service account, gunakan kredensial yang kuat dan pertimbangkan penggunaan  Group Managed Service Accounts (gMSA)  jika sesuai dengan kebutuhan lingkungan.\nKurangi Penggunaan RC4\nGunakan algoritma Kerberos yang lebih kuat seperti  AES  ketika kompatibel dengan lingkungan yang digunakan. MITRE juga merekomendasikan penggunaan AES dibandingkan RC4 jika memungkinkan  (dikutip dari:  MITRE ATT&CK – AS-REP Roasting ) .\nAS-REP Roasting dalam MITRE ATT&CK\nMITRE ATT&CK memasukkan AS-REP Roasting sebagai  T1558.004 – Steal or Forge Kerberos Tickets: AS-REP Roasting .\nTeknik ini berada pada taktik  Credential Access  dan secara khusus digunakan untuk memperoleh material autentikasi yang dapat diproses melalui password cracking.\nPemahaman terhadap teknik ini penting bagi administrator Active Directory maupun security analyst karena kesalahan konfigurasi kecil pada satu akun dapat memberikan peluang bagi attacker.\nbaca juga :  DNS-over-QUIC (DoQ): Teknologi DNS Encrypted yang Lebih Cepat dan Privat\nKesimpulan\nAS-REP Roasting  merupakan teknik credential access yang memanfaatkan akun Active Directory dengan  Kerberos pre-authentication yang dinonaktifkan .\nAttacker dapat memperoleh respons AS-REP dan menggunakan data tersebut untuk melakukan  password cracking secara offline . Jika password berhasil ditemukan, akun tersebut dapat digunakan untuk mengakses resource lain.\nPencegahan utamanya adalah  mengaktifkan Kerberos pre-authentication, melakukan audit Active Directory, menggunakan password yang kuat, dan mengurangi penggunaan algoritma lemah seperti RC4 .\nSelain pencegahan, monitoring Event ID 4768 dan pola permintaan Kerberos yang tidak biasa dapat membantu tim keamanan mendeteksi aktivitas AS-REP Roasting lebih awal.",
+  "raw": {
+    "id": 22939,
+    "date": "2026-08-27T00:34:37",
+    "date_gmt": "2026-08-27T00:34:37",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=22939"
+    },
+    "modified": "2026-08-27T00:34:37",
+    "modified_gmt": "2026-08-27T00:34:37",
+    "slug": "as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/",
+    "title": {
+      "rendered": "AS-REP Roasting: Mengenal Serangan Kerberos untuk Mencuri Kredensial Active Directory"
+    },
+    "content": {
+      "rendered": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"89\" data-end=\"101\">Pengantar</h2>\n<p data-start=\"103\" data-end=\"409\"><strong data-start=\"103\" data-end=\"122\">AS-REP Roasting</strong> adalah teknik serangan terhadap <strong data-start=\"155\" data-end=\"167\">Kerberos</strong> yang menargetkan akun Active Directory dengan fitur <strong data-start=\"220\" data-end=\"251\">Kerberos pre-authentication</strong> yang dinonaktifkan. Teknik ini termasuk dalam kategori <strong data-start=\"307\" data-end=\"328\">Credential Access</strong> pada MITRE ATT&amp;CK dengan ID <strong data-start=\"357\" data-end=\"370\">T1558.004</strong>.</p>\n<p data-start=\"411\" data-end=\"681\">Serangan ini menarik karena attacker dapat memperoleh data autentikasi dari Domain Controller untuk kemudian melakukan <strong data-start=\"530\" data-end=\"566\">password cracking secara offline</strong>. Dengan demikian, attacker tidak perlu terus berinteraksi dengan sistem target selama proses cracking berlangsung.</p>\n<hr data-start=\"683\" data-end=\"686\" />\n<h2 data-section-id=\"td6bml\" data-start=\"688\" data-end=\"727\">Apa Itu Kerberos Pre-Authentication?</h2>\n<p data-start=\"729\" data-end=\"910\"><strong data-start=\"729\" data-end=\"760\">Kerberos pre-authentication</strong> merupakan mekanisme yang membantu memastikan bahwa pengguna benar-benar mengetahui password sebelum Domain Controller memberikan respons autentikasi.</p>\n<p data-start=\"912\" data-end=\"1150\">Dalam kondisi normal, client mengirim <strong data-start=\"950\" data-end=\"960\">AS-REQ</strong> yang berisi data pre-authentication. Domain Controller kemudian memvalidasi data tersebut sebelum memberikan <strong data-start=\"1070\" data-end=\"1080\">AS-REP</strong> yang berisi informasi untuk mendapatkan Ticket Granting Ticket (TGT).</p>\n<p data-start=\"1152\" data-end=\"1513\">Pre-authentication memberikan perlindungan tambahan terhadap password cracking secara offline. Namun, akun yang dikonfigurasi tanpa pre-authentication dapat memberikan peluang bagi attacker untuk melakukan AS-REP Roasting <strong data-start=\"1374\" data-end=\"1474\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/techniques/T1558/004/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"1391\" data-end=\"1471\">MITRE ATT&amp;CK – AS-REP Roasting</a>)</strong>.</p>\n<blockquote>\n<p data-start=\"1152\" data-end=\"1513\">baca juga : <a href=\"https://buletinsiber.com/lsass-memory-dumping-mengenal-teknik-pencurian-kredensial-windows-dan-cara-mendeteksinya/\">LSASS Memory Dumping: Mengenal Teknik Pencurian Kredensial Windows dan Cara Mendeteksinya</a></p>\n</blockquote>\n<hr data-start=\"1515\" data-end=\"1518\" />\n<h2 data-section-id=\"ppoe2u\" data-start=\"1520\" data-end=\"1557\">Bagaimana AS-REP Roasting Bekerja?</h2>\n<p data-start=\"1559\" data-end=\"1619\">Secara umum, serangan dapat dipahami melalui beberapa tahap.</p>\n<h3 data-section-id=\"8g3wzo\" data-start=\"1621\" data-end=\"1652\">1. Mencari Akun yang Rentan</h3>\n<p data-start=\"1654\" data-end=\"1767\">Attacker mencari akun Active Directory yang memiliki konfigurasi <strong data-start=\"1719\" data-end=\"1766\">&#8220;Do not require Kerberos preauthentication&#8221;</strong>.</p>\n<p data-start=\"1769\" data-end=\"1894\">Akun tersebut dapat memiliki hak akses biasa maupun hak akses khusus. Karena itu, akun biasa sekalipun tetap perlu diperiksa.</p>\n<h3 data-section-id=\"16ezha6\" data-start=\"1896\" data-end=\"1927\">2. Meminta Respons Kerberos</h3>\n<p data-start=\"1929\" data-end=\"2061\">Setelah menemukan akun yang tidak menggunakan pre-authentication, attacker dapat meminta respons autentikasi dari Domain Controller.</p>\n<p data-start=\"2063\" data-end=\"2150\">Respons tersebut dapat mengandung data terenkripsi yang berkaitan dengan password akun.</p>\n<h3 data-section-id=\"at8u3h\" data-start=\"2152\" data-end=\"2187\">3. Data Disimpan untuk Analisis</h3>\n<p data-start=\"2189\" data-end=\"2288\">Data dari respons Kerberos kemudian dapat dianalisis tanpa harus terus mengakses Domain Controller.</p>\n<h3 data-section-id=\"1696n7e\" data-start=\"2290\" data-end=\"2322\">4. Password Cracking Offline</h3>\n<p data-start=\"2324\" data-end=\"2408\">Attacker mencoba menemukan password yang sesuai dengan data tersebut secara offline.</p>\n<p data-start=\"2410\" data-end=\"2517\">Jika password berhasil ditemukan, kredensial dapat digunakan untuk mengakses resource lain sesuai hak akun.</p>\n<p data-start=\"2519\" data-end=\"2823\">MITRE menjelaskan bahwa kredensial yang berhasil diperoleh dapat digunakan untuk <strong data-start=\"2600\" data-end=\"2659\">Persistence, Privilege Escalation, dan Lateral Movement</strong> melalui akun yang valid <strong data-start=\"2684\" data-end=\"2784\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/techniques/T1558/004/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"2701\" data-end=\"2781\">MITRE ATT&amp;CK – AS-REP Roasting</a>)</strong>.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"810\" height=\"540\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 810px) 100vw, 810px\" /></p>\n<hr data-start=\"2825\" data-end=\"2828\" />\n<h2 data-section-id=\"1et7jgv\" data-start=\"2830\" data-end=\"2867\">Mengapa AS-REP Roasting Berbahaya?</h2>\n<h3 data-section-id=\"2wdhqp\" data-start=\"2869\" data-end=\"2915\">Tidak Selalu Membutuhkan Hak Administrator</h3>\n<p data-start=\"2917\" data-end=\"3102\">Salah satu hal yang perlu diperhatikan adalah teknik ini tidak secara khusus menargetkan administrator. Akun domain biasa yang memiliki konfigurasi tidak aman juga dapat menjadi target.</p>\n<h3 data-section-id=\"12z2zc7\" data-start=\"3104\" data-end=\"3146\">Password Dapat Di-crack Secara Offline</h3>\n<p data-start=\"3148\" data-end=\"3269\">Setelah data autentikasi diperoleh, proses cracking dapat dilakukan tanpa terus mengirim permintaan ke Domain Controller.</p>\n<p data-start=\"3271\" data-end=\"3378\">Kondisi tersebut membuat serangan lebih sulit terlihat jika monitoring hanya berfokus pada aktivitas login.</p>\n<h3 data-section-id=\"1ihhowt\" data-start=\"3380\" data-end=\"3419\">Dapat Menjadi Awal Lateral Movement</h3>\n<p data-start=\"3421\" data-end=\"3526\">Jika password berhasil diperoleh, attacker dapat menggunakan akun tersebut untuk mengakses resource lain.</p>\n<p data-start=\"3528\" data-end=\"3616\">Risikonya semakin besar jika akun memiliki akses ke server, aplikasi, atau data penting.</p>\n<hr data-start=\"3618\" data-end=\"3621\" />\n<h2 data-section-id=\"uzfz6r\" data-start=\"3623\" data-end=\"3658\">AS-REP Roasting vs Kerberoasting</h2>\n<p data-start=\"3660\" data-end=\"3753\">Keduanya sama-sama berkaitan dengan Kerberos dan password cracking, tetapi targetnya berbeda.</p>\n<div class=\"group TyagGW_tableContainer\">\n<div class=\"TyagGW_tableWrapper flex flex-col-reverse w-fit\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"3755\" data-end=\"4138\">\n<thead data-start=\"3755\" data-end=\"3798\">\n<tr data-start=\"3755\" data-end=\"3798\">\n<th class=\"last:pe-10\" data-start=\"3755\" data-end=\"3763\" data-col-size=\"sm\">Aspek</th>\n<th class=\"last:pe-10\" data-start=\"3763\" data-end=\"3781\" data-col-size=\"md\">AS-REP Roasting</th>\n<th class=\"last:pe-10\" data-start=\"3781\" data-end=\"3798\" data-col-size=\"md\">Kerberoasting</th>\n</tr>\n</thead>\n<tbody data-start=\"3813\" data-end=\"4138\">\n<tr data-start=\"3813\" data-end=\"3884\">\n<td data-start=\"3813\" data-end=\"3822\" data-col-size=\"sm\">Target</td>\n<td data-start=\"3822\" data-end=\"3854\" data-col-size=\"md\">Akun tanpa pre-authentication</td>\n<td data-start=\"3854\" data-end=\"3884\" data-col-size=\"md\">Service account dengan SPN</td>\n</tr>\n<tr data-start=\"3885\" data-end=\"3928\">\n<td data-start=\"3885\" data-end=\"3892\" data-col-size=\"sm\">Data</td>\n<td data-start=\"3892\" data-end=\"3901\" data-col-size=\"md\">AS-REP</td>\n<td data-start=\"3901\" data-end=\"3928\" data-col-size=\"md\">Kerberos service ticket</td>\n</tr>\n<tr data-start=\"3929\" data-end=\"3996\">\n<td data-start=\"3929\" data-end=\"3937\" data-col-size=\"sm\">Fokus</td>\n<td data-col-size=\"md\" data-start=\"3937\" data-end=\"3970\">Konfigurasi pre-authentication</td>\n<td data-col-size=\"md\" data-start=\"3970\" data-end=\"3996\">Service Principal Name</td>\n</tr>\n<tr data-start=\"3997\" data-end=\"4101\">\n<td data-start=\"3997\" data-end=\"4006\" data-col-size=\"sm\">Tujuan</td>\n<td data-start=\"4006\" data-end=\"4053\" data-col-size=\"md\">Mendapatkan material untuk password cracking</td>\n<td data-start=\"4053\" data-end=\"4101\" data-col-size=\"md\">Mendapatkan material untuk password cracking</td>\n</tr>\n<tr data-start=\"4102\" data-end=\"4138\">\n<td data-start=\"4102\" data-end=\"4113\" data-col-size=\"sm\">MITRE ID</td>\n<td data-start=\"4113\" data-end=\"4125\" data-col-size=\"md\">T1558.004</td>\n<td data-start=\"4125\" data-end=\"4138\" data-col-size=\"md\">T1558.003</td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>\n<p data-start=\"4140\" data-end=\"4336\">Perbedaan utama terletak pada sumber data yang digunakan. AS-REP Roasting memanfaatkan akun yang tidak memerlukan Kerberos pre-authentication, sedangkan Kerberoasting berfokus pada service ticket.</p>\n<blockquote>\n<p data-start=\"4140\" data-end=\"4336\">baca juga : <a href=\"https://buletinsiber.com/format-string-attack-mengenal-celah-berbahaya-pada-fungsi-printf-dan-cara-mencegahnya/\">Format String Attack: Mengenal Celah Berbahaya pada Fungsi printf dan Cara Mencegahnya</a></p>\n</blockquote>\n<hr data-start=\"4338\" data-end=\"4341\" />\n<h2 data-section-id=\"fketio\" data-start=\"4343\" data-end=\"4377\">Cara Mendeteksi AS-REP Roasting</h2>\n<p data-start=\"4379\" data-end=\"4464\">Monitoring <strong data-start=\"4390\" data-end=\"4410\">Active Directory</strong> dapat membantu menemukan aktivitas yang mencurigakan.</p>\n<h3 data-section-id=\"x2h4il\" data-start=\"4466\" data-end=\"4491\">Periksa Event ID 4768</h3>\n<p data-start=\"4493\" data-end=\"4886\">MITRE mencatat bahwa <strong data-start=\"4514\" data-end=\"4531\">Event ID 4768</strong> dapat digunakan untuk mendeteksi pola AS-REQ/AS-REP yang mencurigakan. Salah satu indikator penting adalah <strong data-start=\"4639\" data-end=\"4668\">Pre-Authentication Type 0</strong>, terutama jika terdapat permintaan dalam jumlah tidak biasa <strong data-start=\"4729\" data-end=\"4847\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/detectionstrategies/DET0113/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"4746\" data-end=\"4844\">MITRE ATT&amp;CK – Detection Strategy DET0113</a>)</strong>.</p>\n<h3 data-section-id=\"303joa\" data-start=\"4888\" data-end=\"4917\">Perhatikan Penggunaan RC4</h3>\n<p data-start=\"4919\" data-end=\"5274\">Penggunaan enkripsi <strong data-start=\"4939\" data-end=\"4959\">RC4 (etype 0x17)</strong> pada aktivitas Kerberos juga perlu diperhatikan. MITRE memasukkannya sebagai salah satu indikator yang dapat dikorelasikan ketika mendeteksi AS-REP Roasting <strong data-start=\"5117\" data-end=\"5235\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/detectionstrategies/DET0113/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"5134\" data-end=\"5232\">MITRE ATT&amp;CK – Detection Strategy DET0113</a>)</strong>.</p>\n<h3 data-section-id=\"1y0pbpv\" data-start=\"5276\" data-end=\"5299\">Monitor Enumeration</h3>\n<p data-start=\"5301\" data-end=\"5419\">Aktivitas yang mencoba mengidentifikasi banyak akun dengan pre-authentication yang dinonaktifkan juga patut diperiksa.</p>\n<p data-start=\"5421\" data-end=\"5557\">Korelasi antara enumeration, permintaan Kerberos, dan aktivitas autentikasi berikutnya dapat memberikan hasil deteksi yang lebih akurat.</p>\n<hr data-start=\"5559\" data-end=\"5562\" />\n<h2 data-section-id=\"lzfq6x\" data-start=\"5564\" data-end=\"5596\">Cara Mencegah AS-REP Roasting</h2>\n<h3 data-section-id=\"1831fe4\" data-start=\"5598\" data-end=\"5638\">Aktifkan Kerberos Pre-Authentication</h3>\n<p data-start=\"5640\" data-end=\"5949\">Ini merupakan langkah pencegahan utama. MITRE merekomendasikan agar pre-authentication diaktifkan pada akun jika memang tidak ada kebutuhan khusus untuk menonaktifkannya <strong data-start=\"5810\" data-end=\"5910\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/techniques/T1558/004/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"5827\" data-end=\"5907\">MITRE ATT&amp;CK – AS-REP Roasting</a>)</strong>.</p>\n<h3 data-section-id=\"x1b1o0\" data-start=\"5951\" data-end=\"5989\">Audit Konfigurasi Active Directory</h3>\n<p data-start=\"5991\" data-end=\"6107\">Lakukan pemeriksaan berkala terhadap akun yang memiliki konfigurasi <strong data-start=\"6059\" data-end=\"6106\">&#8220;Do not require Kerberos preauthentication&#8221;</strong>.</p>\n<p data-start=\"6109\" data-end=\"6198\">Akun lama atau akun yang dibuat untuk kebutuhan khusus perlu mendapatkan perhatian lebih.</p>\n<h3 data-section-id=\"1qzzn22\" data-start=\"6200\" data-end=\"6230\">Gunakan Password yang Kuat</h3>\n<p data-start=\"6232\" data-end=\"6325\">Password yang panjang dan sulit ditebak membuat proses password cracking menjadi lebih sulit.</p>\n<p data-start=\"6327\" data-end=\"6497\">Khusus untuk service account, gunakan kredensial yang kuat dan pertimbangkan penggunaan <strong data-start=\"6415\" data-end=\"6456\">Group Managed Service Accounts (gMSA)</strong> jika sesuai dengan kebutuhan lingkungan.</p>\n<h3 data-section-id=\"1ty3xy8\" data-start=\"6499\" data-end=\"6525\">Kurangi Penggunaan RC4</h3>\n<p data-start=\"6527\" data-end=\"6855\">Gunakan algoritma Kerberos yang lebih kuat seperti <strong data-start=\"6578\" data-end=\"6585\">AES</strong> ketika kompatibel dengan lingkungan yang digunakan. MITRE juga merekomendasikan penggunaan AES dibandingkan RC4 jika memungkinkan <strong data-start=\"6716\" data-end=\"6816\">(dikutip dari: <a class=\"decorated-link\" href=\"https://attack.mitre.org/techniques/T1558/004/?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"6733\" data-end=\"6813\">MITRE ATT&amp;CK – AS-REP Roasting</a>)</strong>.</p>\n<hr data-start=\"6857\" data-end=\"6860\" />\n<h2 data-section-id=\"385a97\" data-start=\"6862\" data-end=\"6899\">AS-REP Roasting dalam MITRE ATT&amp;CK</h2>\n<p data-start=\"6901\" data-end=\"7014\">MITRE ATT&amp;CK memasukkan AS-REP Roasting sebagai <strong data-start=\"6949\" data-end=\"7013\">T1558.004 – Steal or Forge Kerberos Tickets: AS-REP Roasting</strong>.</p>\n<p data-start=\"7016\" data-end=\"7218\">Teknik ini berada pada taktik <strong data-start=\"7046\" data-end=\"7067\">Credential Access</strong> dan secara khusus digunakan untuk memperoleh material autentikasi yang dapat diproses melalui password cracking.</p>\n<p data-start=\"7220\" data-end=\"7407\">Pemahaman terhadap teknik ini penting bagi administrator Active Directory maupun security analyst karena kesalahan konfigurasi kecil pada satu akun dapat memberikan peluang bagi attacker.</p>\n<blockquote>\n<p data-start=\"7220\" data-end=\"7407\">baca juga : <a href=\"https://buletinsiber.com/dns-over-quic-doq-teknologi-dns-encrypted-yang-lebih-cepat-dan-privat/\">DNS-over-QUIC (DoQ): Teknologi DNS Encrypted yang Lebih Cepat dan Privat</a></p>\n</blockquote>\n<hr data-start=\"7409\" data-end=\"7412\" />\n<h2 data-section-id=\"1806px6\" data-start=\"7414\" data-end=\"7427\">Kesimpulan</h2>\n<p data-start=\"7429\" data-end=\"7582\"><strong data-start=\"7429\" data-end=\"7448\">AS-REP Roasting</strong> merupakan teknik credential access yang memanfaatkan akun Active Directory dengan <strong data-start=\"7531\" data-end=\"7581\">Kerberos pre-authentication yang dinonaktifkan</strong>.</p>\n<p data-start=\"7584\" data-end=\"7803\">Attacker dapat memperoleh respons AS-REP dan menggunakan data tersebut untuk melakukan <strong data-start=\"7671\" data-end=\"7707\">password cracking secara offline</strong>. Jika password berhasil ditemukan, akun tersebut dapat digunakan untuk mengakses resource lain.</p>\n<p data-start=\"7805\" data-end=\"7998\">Pencegahan utamanya adalah <strong data-start=\"7832\" data-end=\"7997\">mengaktifkan Kerberos pre-authentication, melakukan audit Active Directory, menggunakan password yang kuat, dan mengurangi penggunaan algoritma lemah seperti RC4</strong>.</p>\n<p data-start=\"8000\" data-end=\"8166\">Selain pencegahan, monitoring Event ID 4768 dan pola permintaan Kerberos yang tidak biasa dapat membantu tim keamanan mendeteksi aktivitas AS-REP Roasting lebih awal.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar AS-REP Roasting adalah teknik serangan terhadap Kerberos yang menargetkan akun Active Directory dengan fitur Kerberos pre-authentication yang dinonaktifkan. Teknik ini termasuk dalam kategori Credential Access pada MITRE ATT&amp;CK dengan ID T1558.004. Serangan ini menarik karena attacker dapat memperoleh data autentikasi dari Domain Controller untuk kemudian melakukan password cracking secara offline. Dengan demikian, attacker tidak perlu terus berinteraksi dengan sistem target selama proses cracking berlangsung. Apa Itu Kerberos Pre-Authentication? Kerberos pre-authentication merupakan mekanisme yang membantu memastikan bahwa pengguna benar-benar mengetahui password sebelum Domain Controller memberikan respons autentikasi. Dalam kondisi normal, client mengirim AS-REQ yang berisi data pre-authentication. Domain Controller kemudian&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 1982,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "AS-REP Roasting",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1118,
+      682,
+      3954
+    ],
+    "class_list": [
+      "post-22939",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-directory",
+      "tag-keamanan",
+      "tag-kredensial"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>AS-REP Roasting: Mengenal Serangan Kerberos untuk Mencuri Kredensial Active Directory - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"AS-REP Roasting: Mengenal Serangan Kerberos untuk Mencuri Kredensial Active Directory - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar AS-REP Roasting adalah teknik serangan terhadap Kerberos yang menargetkan akun Active Directory dengan fitur Kerberos pre-authentication yang dinonaktifkan. Teknik ini termasuk dalam kategori Credential Access pada MITRE ATT&amp;CK dengan ID T1558.004. Serangan ini menarik karena attacker dapat memperoleh data autentikasi dari Domain Controller untuk kemudian melakukan password cracking secara offline. Dengan demikian, attacker tidak perlu terus berinteraksi dengan sistem target selama proses cracking berlangsung. Apa Itu Kerberos Pre-Authentication? Kerberos pre-authentication merupakan mekanisme yang membantu memastikan bahwa pengguna benar-benar mengetahui password sebelum Domain Controller memberikan respons autentikasi. Dalam kondisi normal, client mengirim AS-REQ yang berisi data pre-authentication. Domain Controller kemudian...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-08-27T00:34:37+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\" />\n\t<meta property=\"og:image:width\" content=\"509\" />\n\t<meta property=\"og:image:height\" content=\"339\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/\",\"url\":\"https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/\",\"name\":\"AS-REP Roasting: Mengenal Serangan Kerberos untuk Mencuri Kredensial Active Directory - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\",\"datePublished\":\"2026-08-27T00:34:37+00:00\",\"dateModified\":\"2026-08-27T00:34:37+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\",\"width\":509,\"height\":339,\"caption\":\"Digital work of Computer Hacker or Programmer\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"AS-REP Roasting: Mengenal Serangan Kerberos untuk Mencuri Kredensial Active Directory\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "AS-REP Roasting: Mengenal Serangan Kerberos untuk Mencuri Kredensial Active Directory - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "AS-REP Roasting: Mengenal Serangan Kerberos untuk Mencuri Kredensial Active Directory - buletinsiber.com",
+      "og_description": "Pengantar AS-REP Roasting adalah teknik serangan terhadap Kerberos yang menargetkan akun Active Directory dengan fitur Kerberos pre-authentication yang dinonaktifkan. Teknik ini termasuk dalam kategori Credential Access pada MITRE ATT&amp;CK dengan ID T1558.004. Serangan ini menarik karena attacker dapat memperoleh data autentikasi dari Domain Controller untuk kemudian melakukan password cracking secara offline. Dengan demikian, attacker tidak perlu terus berinteraksi dengan sistem target selama proses cracking berlangsung. Apa Itu Kerberos Pre-Authentication? Kerberos pre-authentication merupakan mekanisme yang membantu memastikan bahwa pengguna benar-benar mengetahui password sebelum Domain Controller memberikan respons autentikasi. Dalam kondisi normal, client mengirim AS-REQ yang berisi data pre-authentication. Domain Controller kemudian...",
+      "og_url": "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-08-27T00:34:37+00:00",
+      "og_image": [
+        {
+          "width": 509,
+          "height": 339,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/",
+            "url": "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/",
+            "name": "AS-REP Roasting: Mengenal Serangan Kerberos untuk Mencuri Kredensial Active Directory - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+            "datePublished": "2026-08-27T00:34:37+00:00",
+            "dateModified": "2026-08-27T00:34:37+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+            "width": 509,
+            "height": 339,
+            "caption": "Digital work of Computer Hacker or Programmer"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/as-rep-roasting-mengenal-serangan-kerberos-untuk-mencuri-kredensial-active-directory/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "AS-REP Roasting: Mengenal Serangan Kerberos untuk Mencuri Kredensial Active Directory"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22939",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=22939"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22939/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 22940,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22939/revisions/22940"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/1982"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=22939"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=22939"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=22939"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

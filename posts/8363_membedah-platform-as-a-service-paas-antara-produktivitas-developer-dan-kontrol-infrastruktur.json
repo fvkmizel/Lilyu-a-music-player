@@ -1,0 +1,325 @@
+{
+  "id": 8363,
+  "title": "Membedah Platform as a Service (PaaS): Antara Produktivitas Developer dan Kontrol Infrastruktur",
+  "slug": "membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur",
+  "url": "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/",
+  "date": "2025-12-08T01:19:40",
+  "date_gmt": "2025-12-08T01:19:40",
+  "modified": "2025-12-08T01:19:40",
+  "modified_gmt": "2025-12-08T01:19:40",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    62,
+    588
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/11/41.jpeg",
+  "excerpt": "Pendahuluan Platform as a Service (PaaS) sering diposisikan sebagai jalan tengah antara Infrastructure as a Service (IaaS) dan Software as a Service (SaaS). Bagi engineer dan developer berpengalaman, PaaS bukan sekadar “hosting yang dipermudah”, melainkan abstraksi terkelola yang berdampak langsung pada arsitektur aplikasi, workflow CI/CD, serta strategi scaling. Artikel ini mengulas PaaS dari sudut pandang teknis: apa yang diabstraksikan, trade-off yang muncul, dan kapan PaaS menjadi pilihan tepat (atau justru tidak). Apa yang Sebenarnya Diabstraksikan oleh PaaS? Pada PaaS, penyedia layanan menangani: Provisioning server & OS Runtime (language, framework) Load balancing & basic autoscaling Patch keamanan dasar Logging & monitoring…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"108\" data-end=\"122\"><span style=\"color: #000000;\">Pendahuluan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"123\" data-end=\"480\"><span style=\"color: #000000;\">Platform as a Service (PaaS) sering diposisikan sebagai jalan tengah antara Infrastructure as a Service (IaaS) dan Software as a Service (SaaS). Bagi engineer dan developer berpengalaman, PaaS bukan sekadar “hosting yang dipermudah”, melainkan <strong data-start=\"367\" data-end=\"390\">abstraksi terkelola</strong> yang berdampak langsung pada arsitektur aplikasi, workflow CI/CD, serta strategi scaling.</span></p>\n<p style=\"text-align: justify;\" data-start=\"482\" data-end=\"640\"><span style=\"color: #000000;\">Artikel ini mengulas PaaS dari sudut pandang teknis: apa yang diabstraksikan, trade-off yang muncul, dan kapan PaaS menjadi pilihan tepat (atau justru tidak).</span></p>\n<hr data-start=\"642\" data-end=\"645\" />\n<h2 style=\"text-align: justify;\" data-start=\"647\" data-end=\"695\"><span style=\"color: #000000;\">Apa yang Sebenarnya Diabstraksikan oleh PaaS?</span></h2>\n<p style=\"text-align: justify;\" data-start=\"696\" data-end=\"734\"><span style=\"color: #000000;\">Pada PaaS, penyedia layanan menangani:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"735\" data-end=\"884\">\n<li data-start=\"735\" data-end=\"761\">\n<p data-start=\"737\" data-end=\"761\"><span style=\"color: #000000;\">Provisioning server &amp; OS</span></p>\n</li>\n<li data-start=\"762\" data-end=\"793\">\n<p data-start=\"764\" data-end=\"793\"><span style=\"color: #000000;\">Runtime (language, framework)</span></p>\n</li>\n<li data-start=\"794\" data-end=\"830\">\n<p data-start=\"796\" data-end=\"830\"><span style=\"color: #000000;\">Load balancing &amp; basic autoscaling</span></p>\n</li>\n<li data-start=\"831\" data-end=\"853\">\n<p data-start=\"833\" data-end=\"853\"><span style=\"color: #000000;\">Patch keamanan dasar</span></p>\n</li>\n<li data-start=\"854\" data-end=\"884\">\n<p data-start=\"856\" data-end=\"884\"><span style=\"color: #000000;\">Logging &amp; monitoring default</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"886\" data-end=\"921\"><span style=\"color: #000000;\">Sementara itu, engineer fokus pada:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"922\" data-end=\"1026\">\n<li data-start=\"922\" data-end=\"940\">\n<p data-start=\"924\" data-end=\"940\"><span style=\"color: #000000;\">Application code</span></p>\n</li>\n<li data-start=\"941\" data-end=\"964\">\n<p data-start=\"943\" data-end=\"964\"><span style=\"color: #000000;\">Dependency management</span></p>\n</li>\n<li data-start=\"965\" data-end=\"992\">\n<p data-start=\"967\" data-end=\"992\"><span style=\"color: #000000;\">Konfigurasi runtime-level</span></p>\n</li>\n<li data-start=\"993\" data-end=\"1026\">\n<p data-start=\"995\" data-end=\"1026\"><span style=\"color: #000000;\">Observability di level aplikasi</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1028\" data-end=\"1221\"><span style=\"color: #000000;\">Menurut dokumentasi Google Cloud, PaaS dirancang agar <em data-start=\"1082\" data-end=\"1175\">“developers can deploy code without worrying about the underlying infrastructure lifecycle”</em> (dikutip dari dokumentasi Google App Engine).</span></p>\n<hr data-start=\"1223\" data-end=\"1226\" />\n<h2 style=\"text-align: justify;\" data-start=\"1228\" data-end=\"1269\"><span style=\"color: #000000;\">Arsitektur Aplikasi di Lingkungan PaaS</span></h2>\n<h3 style=\"text-align: justify;\" data-start=\"1271\" data-end=\"1294\"><span style=\"color: #000000;\">Stateless by Design</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1295\" data-end=\"1426\"><span style=\"color: #000000;\">Mayoritas PaaS mengasumsikan <strong data-start=\"1324\" data-end=\"1346\">aplikasi stateless</strong>. State eksternal (session, file, cache) harus dipindahkan ke layanan terkelola:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1427\" data-end=\"1488\">\n<li data-start=\"1427\" data-end=\"1445\">\n<p data-start=\"1429\" data-end=\"1445\"><span style=\"color: #000000;\">Database managed</span></p>\n</li>\n<li data-start=\"1446\" data-end=\"1462\">\n<p data-start=\"1448\" data-end=\"1462\"><span style=\"color: #000000;\">Object storage</span></p>\n</li>\n<li data-start=\"1463\" data-end=\"1488\">\n<p data-start=\"1465\" data-end=\"1488\"><span style=\"color: #000000;\">In-memory cache (Redis)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1490\" data-end=\"1503\"><span style=\"color: #000000;\">Implikasinya:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1504\" data-end=\"1593\">\n<li data-start=\"1504\" data-end=\"1548\">\n<p data-start=\"1506\" data-end=\"1548\"><span style=\"color: #000000;\">Horizontal scaling menjadi lebih sederhana</span></p>\n</li>\n<li data-start=\"1549\" data-end=\"1593\">\n<p data-start=\"1551\" data-end=\"1593\"><span style=\"color: #000000;\">Coupling antar komponen harus diminimalkan</span></p>\n</li>\n</ul>\n<hr data-start=\"1595\" data-end=\"1598\" />\n<h3 style=\"text-align: justify;\" data-start=\"1600\" data-end=\"1623\"><span style=\"color: #000000;\">Opinionated Runtime</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1624\" data-end=\"1684\"><span style=\"color: #000000;\">Berbeda dengan IaaS, PaaS biasanya <strong data-start=\"1659\" data-end=\"1674\">opinionated</strong> terhadap:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1685\" data-end=\"1755\">\n<li data-start=\"1685\" data-end=\"1703\">\n<p data-start=\"1687\" data-end=\"1703\"><span style=\"color: #000000;\">Struktur project</span></p>\n</li>\n<li data-start=\"1704\" data-end=\"1725\">\n<p data-start=\"1706\" data-end=\"1725\"><span style=\"color: #000000;\">Cara build &amp; deploy</span></p>\n</li>\n<li data-start=\"1726\" data-end=\"1755\">\n<p data-start=\"1728\" data-end=\"1755\"><span style=\"color: #000000;\">Versi runtime yang didukung</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1757\" data-end=\"1764\"><span style=\"color: #000000;\">Contoh:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1765\" data-end=\"1870\">\n<li data-start=\"1765\" data-end=\"1788\">\n<p data-start=\"1767\" data-end=\"1788\"><span style=\"color: #000000;\">Buildpack pada Heroku</span></p>\n</li>\n<li data-start=\"1789\" data-end=\"1822\">\n<p data-start=\"1791\" data-end=\"1822\"><span style=\"color: #000000;\">App.yaml pada Google App Engine</span></p>\n</li>\n<li data-start=\"1823\" data-end=\"1870\">\n<p data-start=\"1825\" data-end=\"1870\"><span style=\"color: #000000;\">Platform configuration pada Azure App Service</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1872\" data-end=\"1945\"><span style=\"color: #000000;\">Hal ini mempercepat onboarding, tetapi membatasi fleksibilitas low-level.</span></p>\n<hr data-start=\"1947\" data-end=\"1950\" />\n<h3 style=\"text-align: justify;\" data-start=\"1952\" data-end=\"2000\"><span style=\"color: #000000;\">Deployment Model: Push-to-Deploy hingga CI/CD</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2001\" data-end=\"2050\"><span style=\"color: #000000;\">PaaS umumnya mendukung pola deployment sederhana:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2051\" data-end=\"2132\">\n<li data-start=\"2051\" data-end=\"2078\">\n<p data-start=\"2053\" data-end=\"2078\"><span style=\"color: #000000;\">Git push → build → deploy</span></p>\n</li>\n<li data-start=\"2079\" data-end=\"2107\">\n<p data-start=\"2081\" data-end=\"2107\"><span style=\"color: #000000;\">Container-based deployment</span></p>\n</li>\n<li data-start=\"2108\" data-end=\"2132\">\n<p data-start=\"2110\" data-end=\"2132\"><span style=\"color: #000000;\">Integrasi native CI/CD</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2134\" data-end=\"2182\"><span style=\"color: #000000;\">Bagi tim kecil hingga menengah, ini mempercepat:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2183\" data-end=\"2233\">\n<li data-start=\"2183\" data-end=\"2198\">\n<p data-start=\"2185\" data-end=\"2198\"><span style=\"color: #000000;\">Release cycle</span></p>\n</li>\n<li data-start=\"2199\" data-end=\"2209\">\n<p data-start=\"2201\" data-end=\"2209\"><span style=\"color: #000000;\">Rollback</span></p>\n</li>\n<li data-start=\"2210\" data-end=\"2233\">\n<p data-start=\"2212\" data-end=\"2233\"><span style=\"color: #000000;\">Blue-green deployment</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2235\" data-end=\"2319\"><span style=\"color: #000000;\">Namun, pada sistem kompleks, kontrol pipeline sering kali terasa “terlalu otomatis”.</span></p>\n<hr data-start=\"2321\" data-end=\"2324\" />\n<h3 style=\"text-align: justify;\" data-start=\"2326\" data-end=\"2365\"><span style=\"color: #000000;\">Skalabilitas dan Resource Management</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2366\" data-end=\"2416\"><span style=\"color: #000000;\">PaaS unggul dalam <strong data-start=\"2384\" data-end=\"2415\">autoscaling berbasis metrik</strong>:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2417\" data-end=\"2465\">\n<li data-start=\"2417\" data-end=\"2431\">\n<p data-start=\"2419\" data-end=\"2431\"><span style=\"color: #000000;\">Request rate</span></p>\n</li>\n<li data-start=\"2432\" data-end=\"2446\">\n<p data-start=\"2434\" data-end=\"2446\"><span style=\"color: #000000;\">CPU / memory</span></p>\n</li>\n<li data-start=\"2447\" data-end=\"2465\">\n<p data-start=\"2449\" data-end=\"2465\"><span style=\"color: #000000;\">Response latency</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2467\" data-end=\"2480\"><span style=\"color: #000000;\">Kelebihannya:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2481\" data-end=\"2565\">\n<li data-start=\"2481\" data-end=\"2527\">\n<p data-start=\"2483\" data-end=\"2527\"><span style=\"color: #000000;\">Scaling cepat tanpa capacity planning detail</span></p>\n</li>\n<li data-start=\"2528\" data-end=\"2565\">\n<p data-start=\"2530\" data-end=\"2565\"><span style=\"color: #000000;\">Cocok untuk traffic yang fluktuatif</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2567\" data-end=\"2581\"><span style=\"color: #000000;\">Kekurangannya:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2582\" data-end=\"2681\">\n<li data-start=\"2582\" data-end=\"2622\">\n<p data-start=\"2584\" data-end=\"2622\"><span style=\"color: #000000;\">Resource limit tidak selalu transparan</span></p>\n</li>\n<li data-start=\"2623\" data-end=\"2681\">\n<p data-start=\"2625\" data-end=\"2681\"><span style=\"color: #000000;\">Fine-grained tuning lebih sulit dibanding Kubernetes raw</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2683\" data-end=\"2865\"><span style=\"color: #000000;\">AWS sendiri menyebut Elastic Beanstalk sebagai solusi yang menyeimbangkan kemudahan dan kontrol, tetapi tetap menyarankan EKS untuk kebutuhan kompleks (dikutip dari dokumentasi AWS).</span></p>\n<hr data-start=\"2867\" data-end=\"2870\" />\n<h3 style=\"text-align: justify;\" data-start=\"2872\" data-end=\"2917\"><span style=\"color: #000000;\">Observability di PaaS: Mudah tapi Terbatas</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2918\" data-end=\"2944\"><span style=\"color: #000000;\">PaaS biasanya menyediakan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2945\" data-end=\"3000\">\n<li data-start=\"2945\" data-end=\"2960\">\n<p data-start=\"2947\" data-end=\"2960\"><span style=\"color: #000000;\">Basic metrics</span></p>\n</li>\n<li data-start=\"2961\" data-end=\"2982\">\n<p data-start=\"2963\" data-end=\"2982\"><span style=\"color: #000000;\">Centralized logging</span></p>\n</li>\n<li data-start=\"2983\" data-end=\"3000\">\n<p data-start=\"2985\" data-end=\"3000\"><span style=\"color: #000000;\">Error reporting</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3002\" data-end=\"3028\"><span style=\"color: #000000;\">Namun untuk sistem kritis:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3029\" data-end=\"3150\">\n<li data-start=\"3029\" data-end=\"3061\">\n<p data-start=\"3031\" data-end=\"3061\"><span style=\"color: #000000;\">Custom tracing sering terbatas</span></p>\n</li>\n<li data-start=\"3062\" data-end=\"3109\">\n<p data-start=\"3064\" data-end=\"3109\"><span style=\"color: #000000;\">Integrasi service mesh umumnya tidak tersedia</span></p>\n</li>\n<li data-start=\"3110\" data-end=\"3150\">\n<p data-start=\"3112\" data-end=\"3150\"><span style=\"color: #000000;\">Network-level visibility disembunyikan</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3152\" data-end=\"3250\"><span style=\"color: #000000;\">Artinya, PaaS cocok untuk <em data-start=\"3178\" data-end=\"3211\">application-level observability</em>, bukan <em data-start=\"3219\" data-end=\"3249\">platform-level observability</em>.</span></p>\n<hr data-start=\"3252\" data-end=\"3255\" />\n<h3 style=\"text-align: justify;\" data-start=\"3257\" data-end=\"3310\"><span style=\"color: #000000;\">Aspek Keamanan: Shared Responsibility yang Berbeda</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3311\" data-end=\"3328\"><span style=\"color: #000000;\">Dalam model PaaS:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3329\" data-end=\"3444\">\n<li data-start=\"3329\" data-end=\"3383\">\n<p data-start=\"3331\" data-end=\"3383\"><span style=\"color: #000000;\">Provider bertanggung jawab atas OS, runtime security</span></p>\n</li>\n<li data-start=\"3384\" data-end=\"3444\">\n<p data-start=\"3386\" data-end=\"3444\"><span style=\"color: #000000;\">User bertanggung jawab atas code, data, dan access control</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3446\" data-end=\"3457\"><span style=\"color: #000000;\">Keuntungan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3458\" data-end=\"3532\">\n<li data-start=\"3458\" data-end=\"3498\">\n<p data-start=\"3460\" data-end=\"3498\"><span style=\"color: #000000;\">Attack surface infrastruktur berkurang</span></p>\n</li>\n<li data-start=\"3499\" data-end=\"3532\">\n<p data-start=\"3501\" data-end=\"3532\"><span style=\"color: #000000;\">Patch kritis ditangani otomatis</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3534\" data-end=\"3541\"><span style=\"color: #000000;\">Risiko:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3542\" data-end=\"3658\">\n<li data-start=\"3542\" data-end=\"3599\">\n<p data-start=\"3544\" data-end=\"3599\"><span style=\"color: #000000;\">Dependency vulnerability tetap tanggung jawab developer</span></p>\n</li>\n<li data-start=\"3600\" data-end=\"3658\">\n<p data-start=\"3602\" data-end=\"3658\"><span style=\"color: #000000;\">Vendor lock-in bisa membatasi strategi security tertentu</span></p>\n</li>\n</ul>\n<hr data-start=\"3660\" data-end=\"3663\" />\n<h3 style=\"text-align: justify;\" data-start=\"3665\" data-end=\"3701\"><span style=\"color: #000000;\">Kapan PaaS Menjadi Pilihan Tepat?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3702\" data-end=\"3719\"><span style=\"color: #000000;\">PaaS ideal untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3720\" data-end=\"3833\">\n<li data-start=\"3720\" data-end=\"3734\">\n<p data-start=\"3722\" data-end=\"3734\"><span style=\"color: #000000;\">API services</span></p>\n</li>\n<li data-start=\"3735\" data-end=\"3753\">\n<p data-start=\"3737\" data-end=\"3753\"><span style=\"color: #000000;\">Web applications</span></p>\n</li>\n<li data-start=\"3754\" data-end=\"3777\">\n<p data-start=\"3756\" data-end=\"3777\"><span style=\"color: #000000;\">MVP &amp; rapid iteration</span></p>\n</li>\n<li data-start=\"3778\" data-end=\"3798\">\n<p data-start=\"3780\" data-end=\"3798\"><span style=\"color: #000000;\">Tim kecil–menengah</span></p>\n</li>\n<li data-start=\"3799\" data-end=\"3833\">\n<p data-start=\"3801\" data-end=\"3833\"><span style=\"color: #000000;\">Fokus product-driven development</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3835\" data-end=\"3854\"><span style=\"color: #000000;\">Kurang ideal untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3855\" data-end=\"3970\">\n<li data-start=\"3855\" data-end=\"3883\">\n<p data-start=\"3857\" data-end=\"3883\"><span style=\"color: #000000;\">Sistem low-latency ekstrem</span></p>\n</li>\n<li data-start=\"3884\" data-end=\"3910\">\n<p data-start=\"3886\" data-end=\"3910\"><span style=\"color: #000000;\">Kebutuhan network custom</span></p>\n</li>\n<li data-start=\"3911\" data-end=\"3942\">\n<p data-start=\"3913\" data-end=\"3942\"><span style=\"color: #000000;\">Workload yang sangat stateful</span></p>\n</li>\n<li data-start=\"3943\" data-end=\"3970\">\n<p data-start=\"3945\" data-end=\"3970\"><span style=\"color: #000000;\">Arsitektur platform-scale</span></p>\n</li>\n</ul>\n<hr data-start=\"3972\" data-end=\"3975\" />\n<h3 style=\"text-align: justify;\" data-start=\"3977\" data-end=\"4004\"><span style=\"color: #000000;\">PaaS di Era Cloud-Native</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4005\" data-end=\"4066\"><span style=\"color: #000000;\">Menariknya, PaaS modern mulai mengadopsi konsep cloud-native:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4067\" data-end=\"4149\">\n<li data-start=\"4067\" data-end=\"4093\">\n<p data-start=\"4069\" data-end=\"4093\"><span style=\"color: #000000;\">Container under the hood</span></p>\n</li>\n<li data-start=\"4094\" data-end=\"4126\">\n<p data-start=\"4096\" data-end=\"4126\"><span style=\"color: #000000;\">Managed Kubernetes abstraction</span></p>\n</li>\n<li data-start=\"4127\" data-end=\"4149\">\n<p data-start=\"4129\" data-end=\"4149\"><span style=\"color: #000000;\">Event-driven scaling</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4151\" data-end=\"4345\"><span style=\"color: #000000;\">Batas antara PaaS dan CaaS (Containers as a Service) semakin tipis. Banyak engineer kini menggunakan PaaS sebagai <strong data-start=\"4265\" data-end=\"4296\">entry point ke cloud-native</strong>, sebelum beralih ke kontrol yang lebih granular.</span></p>\n<hr data-start=\"4347\" data-end=\"4350\" />\n<h2 style=\"text-align: justify;\" data-start=\"4352\" data-end=\"4365\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"4366\" data-end=\"4650\"><span style=\"color: #000000;\">PaaS bukan solusi “lebih sederhana”, melainkan <strong data-start=\"4413\" data-end=\"4437\">pilihan arsitektural</strong> dengan trade-off yang jelas. Ia menawarkan produktivitas tinggi dengan mengorbankan sebagian kontrol. Bagi pembaca teknis, memahami PaaS berarti memahami di mana abstraksi membantu—dan di mana ia harus dihindari.</span></p>\n",
+  "content_text": "Pendahuluan\nPlatform as a Service (PaaS) sering diposisikan sebagai jalan tengah antara Infrastructure as a Service (IaaS) dan Software as a Service (SaaS). Bagi engineer dan developer berpengalaman, PaaS bukan sekadar “hosting yang dipermudah”, melainkan  abstraksi terkelola  yang berdampak langsung pada arsitektur aplikasi, workflow CI/CD, serta strategi scaling.\nArtikel ini mengulas PaaS dari sudut pandang teknis: apa yang diabstraksikan, trade-off yang muncul, dan kapan PaaS menjadi pilihan tepat (atau justru tidak).\nApa yang Sebenarnya Diabstraksikan oleh PaaS?\nPada PaaS, penyedia layanan menangani:\nProvisioning server & OS\nRuntime (language, framework)\nLoad balancing & basic autoscaling\nPatch keamanan dasar\nLogging & monitoring default\nSementara itu, engineer fokus pada:\nApplication code\nDependency management\nKonfigurasi runtime-level\nObservability di level aplikasi\nMenurut dokumentasi Google Cloud, PaaS dirancang agar  “developers can deploy code without worrying about the underlying infrastructure lifecycle”  (dikutip dari dokumentasi Google App Engine).\nArsitektur Aplikasi di Lingkungan PaaS\nStateless by Design\nMayoritas PaaS mengasumsikan  aplikasi stateless . State eksternal (session, file, cache) harus dipindahkan ke layanan terkelola:\nDatabase managed\nObject storage\nIn-memory cache (Redis)\nImplikasinya:\nHorizontal scaling menjadi lebih sederhana\nCoupling antar komponen harus diminimalkan\nOpinionated Runtime\nBerbeda dengan IaaS, PaaS biasanya  opinionated  terhadap:\nStruktur project\nCara build & deploy\nVersi runtime yang didukung\nContoh:\nBuildpack pada Heroku\nApp.yaml pada Google App Engine\nPlatform configuration pada Azure App Service\nHal ini mempercepat onboarding, tetapi membatasi fleksibilitas low-level.\nDeployment Model: Push-to-Deploy hingga CI/CD\nPaaS umumnya mendukung pola deployment sederhana:\nGit push → build → deploy\nContainer-based deployment\nIntegrasi native CI/CD\nBagi tim kecil hingga menengah, ini mempercepat:\nRelease cycle\nRollback\nBlue-green deployment\nNamun, pada sistem kompleks, kontrol pipeline sering kali terasa “terlalu otomatis”.\nSkalabilitas dan Resource Management\nPaaS unggul dalam  autoscaling berbasis metrik :\nRequest rate\nCPU / memory\nResponse latency\nKelebihannya:\nScaling cepat tanpa capacity planning detail\nCocok untuk traffic yang fluktuatif\nKekurangannya:\nResource limit tidak selalu transparan\nFine-grained tuning lebih sulit dibanding Kubernetes raw\nAWS sendiri menyebut Elastic Beanstalk sebagai solusi yang menyeimbangkan kemudahan dan kontrol, tetapi tetap menyarankan EKS untuk kebutuhan kompleks (dikutip dari dokumentasi AWS).\nObservability di PaaS: Mudah tapi Terbatas\nPaaS biasanya menyediakan:\nBasic metrics\nCentralized logging\nError reporting\nNamun untuk sistem kritis:\nCustom tracing sering terbatas\nIntegrasi service mesh umumnya tidak tersedia\nNetwork-level visibility disembunyikan\nArtinya, PaaS cocok untuk  application-level observability , bukan  platform-level observability .\nAspek Keamanan: Shared Responsibility yang Berbeda\nDalam model PaaS:\nProvider bertanggung jawab atas OS, runtime security\nUser bertanggung jawab atas code, data, dan access control\nKeuntungan:\nAttack surface infrastruktur berkurang\nPatch kritis ditangani otomatis\nRisiko:\nDependency vulnerability tetap tanggung jawab developer\nVendor lock-in bisa membatasi strategi security tertentu\nKapan PaaS Menjadi Pilihan Tepat?\nPaaS ideal untuk:\nAPI services\nWeb applications\nMVP & rapid iteration\nTim kecil–menengah\nFokus product-driven development\nKurang ideal untuk:\nSistem low-latency ekstrem\nKebutuhan network custom\nWorkload yang sangat stateful\nArsitektur platform-scale\nPaaS di Era Cloud-Native\nMenariknya, PaaS modern mulai mengadopsi konsep cloud-native:\nContainer under the hood\nManaged Kubernetes abstraction\nEvent-driven scaling\nBatas antara PaaS dan CaaS (Containers as a Service) semakin tipis. Banyak engineer kini menggunakan PaaS sebagai  entry point ke cloud-native , sebelum beralih ke kontrol yang lebih granular.\nKesimpulan\nPaaS bukan solusi “lebih sederhana”, melainkan  pilihan arsitektural  dengan trade-off yang jelas. Ia menawarkan produktivitas tinggi dengan mengorbankan sebagian kontrol. Bagi pembaca teknis, memahami PaaS berarti memahami di mana abstraksi membantu—dan di mana ia harus dihindari.",
+  "raw": {
+    "id": 8363,
+    "date": "2025-12-08T01:19:40",
+    "date_gmt": "2025-12-08T01:19:40",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=8363"
+    },
+    "modified": "2025-12-08T01:19:40",
+    "modified_gmt": "2025-12-08T01:19:40",
+    "slug": "membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/",
+    "title": {
+      "rendered": "Membedah Platform as a Service (PaaS): Antara Produktivitas Developer dan Kontrol Infrastruktur"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"108\" data-end=\"122\"><span style=\"color: #000000;\">Pendahuluan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"123\" data-end=\"480\"><span style=\"color: #000000;\">Platform as a Service (PaaS) sering diposisikan sebagai jalan tengah antara Infrastructure as a Service (IaaS) dan Software as a Service (SaaS). Bagi engineer dan developer berpengalaman, PaaS bukan sekadar “hosting yang dipermudah”, melainkan <strong data-start=\"367\" data-end=\"390\">abstraksi terkelola</strong> yang berdampak langsung pada arsitektur aplikasi, workflow CI/CD, serta strategi scaling.</span></p>\n<p style=\"text-align: justify;\" data-start=\"482\" data-end=\"640\"><span style=\"color: #000000;\">Artikel ini mengulas PaaS dari sudut pandang teknis: apa yang diabstraksikan, trade-off yang muncul, dan kapan PaaS menjadi pilihan tepat (atau justru tidak).</span></p>\n<hr data-start=\"642\" data-end=\"645\" />\n<h2 style=\"text-align: justify;\" data-start=\"647\" data-end=\"695\"><span style=\"color: #000000;\">Apa yang Sebenarnya Diabstraksikan oleh PaaS?</span></h2>\n<p style=\"text-align: justify;\" data-start=\"696\" data-end=\"734\"><span style=\"color: #000000;\">Pada PaaS, penyedia layanan menangani:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"735\" data-end=\"884\">\n<li data-start=\"735\" data-end=\"761\">\n<p data-start=\"737\" data-end=\"761\"><span style=\"color: #000000;\">Provisioning server &amp; OS</span></p>\n</li>\n<li data-start=\"762\" data-end=\"793\">\n<p data-start=\"764\" data-end=\"793\"><span style=\"color: #000000;\">Runtime (language, framework)</span></p>\n</li>\n<li data-start=\"794\" data-end=\"830\">\n<p data-start=\"796\" data-end=\"830\"><span style=\"color: #000000;\">Load balancing &amp; basic autoscaling</span></p>\n</li>\n<li data-start=\"831\" data-end=\"853\">\n<p data-start=\"833\" data-end=\"853\"><span style=\"color: #000000;\">Patch keamanan dasar</span></p>\n</li>\n<li data-start=\"854\" data-end=\"884\">\n<p data-start=\"856\" data-end=\"884\"><span style=\"color: #000000;\">Logging &amp; monitoring default</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"886\" data-end=\"921\"><span style=\"color: #000000;\">Sementara itu, engineer fokus pada:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"922\" data-end=\"1026\">\n<li data-start=\"922\" data-end=\"940\">\n<p data-start=\"924\" data-end=\"940\"><span style=\"color: #000000;\">Application code</span></p>\n</li>\n<li data-start=\"941\" data-end=\"964\">\n<p data-start=\"943\" data-end=\"964\"><span style=\"color: #000000;\">Dependency management</span></p>\n</li>\n<li data-start=\"965\" data-end=\"992\">\n<p data-start=\"967\" data-end=\"992\"><span style=\"color: #000000;\">Konfigurasi runtime-level</span></p>\n</li>\n<li data-start=\"993\" data-end=\"1026\">\n<p data-start=\"995\" data-end=\"1026\"><span style=\"color: #000000;\">Observability di level aplikasi</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1028\" data-end=\"1221\"><span style=\"color: #000000;\">Menurut dokumentasi Google Cloud, PaaS dirancang agar <em data-start=\"1082\" data-end=\"1175\">“developers can deploy code without worrying about the underlying infrastructure lifecycle”</em> (dikutip dari dokumentasi Google App Engine).</span></p>\n<hr data-start=\"1223\" data-end=\"1226\" />\n<h2 style=\"text-align: justify;\" data-start=\"1228\" data-end=\"1269\"><span style=\"color: #000000;\">Arsitektur Aplikasi di Lingkungan PaaS</span></h2>\n<h3 style=\"text-align: justify;\" data-start=\"1271\" data-end=\"1294\"><span style=\"color: #000000;\">Stateless by Design</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1295\" data-end=\"1426\"><span style=\"color: #000000;\">Mayoritas PaaS mengasumsikan <strong data-start=\"1324\" data-end=\"1346\">aplikasi stateless</strong>. State eksternal (session, file, cache) harus dipindahkan ke layanan terkelola:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1427\" data-end=\"1488\">\n<li data-start=\"1427\" data-end=\"1445\">\n<p data-start=\"1429\" data-end=\"1445\"><span style=\"color: #000000;\">Database managed</span></p>\n</li>\n<li data-start=\"1446\" data-end=\"1462\">\n<p data-start=\"1448\" data-end=\"1462\"><span style=\"color: #000000;\">Object storage</span></p>\n</li>\n<li data-start=\"1463\" data-end=\"1488\">\n<p data-start=\"1465\" data-end=\"1488\"><span style=\"color: #000000;\">In-memory cache (Redis)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1490\" data-end=\"1503\"><span style=\"color: #000000;\">Implikasinya:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1504\" data-end=\"1593\">\n<li data-start=\"1504\" data-end=\"1548\">\n<p data-start=\"1506\" data-end=\"1548\"><span style=\"color: #000000;\">Horizontal scaling menjadi lebih sederhana</span></p>\n</li>\n<li data-start=\"1549\" data-end=\"1593\">\n<p data-start=\"1551\" data-end=\"1593\"><span style=\"color: #000000;\">Coupling antar komponen harus diminimalkan</span></p>\n</li>\n</ul>\n<hr data-start=\"1595\" data-end=\"1598\" />\n<h3 style=\"text-align: justify;\" data-start=\"1600\" data-end=\"1623\"><span style=\"color: #000000;\">Opinionated Runtime</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1624\" data-end=\"1684\"><span style=\"color: #000000;\">Berbeda dengan IaaS, PaaS biasanya <strong data-start=\"1659\" data-end=\"1674\">opinionated</strong> terhadap:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1685\" data-end=\"1755\">\n<li data-start=\"1685\" data-end=\"1703\">\n<p data-start=\"1687\" data-end=\"1703\"><span style=\"color: #000000;\">Struktur project</span></p>\n</li>\n<li data-start=\"1704\" data-end=\"1725\">\n<p data-start=\"1706\" data-end=\"1725\"><span style=\"color: #000000;\">Cara build &amp; deploy</span></p>\n</li>\n<li data-start=\"1726\" data-end=\"1755\">\n<p data-start=\"1728\" data-end=\"1755\"><span style=\"color: #000000;\">Versi runtime yang didukung</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1757\" data-end=\"1764\"><span style=\"color: #000000;\">Contoh:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1765\" data-end=\"1870\">\n<li data-start=\"1765\" data-end=\"1788\">\n<p data-start=\"1767\" data-end=\"1788\"><span style=\"color: #000000;\">Buildpack pada Heroku</span></p>\n</li>\n<li data-start=\"1789\" data-end=\"1822\">\n<p data-start=\"1791\" data-end=\"1822\"><span style=\"color: #000000;\">App.yaml pada Google App Engine</span></p>\n</li>\n<li data-start=\"1823\" data-end=\"1870\">\n<p data-start=\"1825\" data-end=\"1870\"><span style=\"color: #000000;\">Platform configuration pada Azure App Service</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1872\" data-end=\"1945\"><span style=\"color: #000000;\">Hal ini mempercepat onboarding, tetapi membatasi fleksibilitas low-level.</span></p>\n<hr data-start=\"1947\" data-end=\"1950\" />\n<h3 style=\"text-align: justify;\" data-start=\"1952\" data-end=\"2000\"><span style=\"color: #000000;\">Deployment Model: Push-to-Deploy hingga CI/CD</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2001\" data-end=\"2050\"><span style=\"color: #000000;\">PaaS umumnya mendukung pola deployment sederhana:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2051\" data-end=\"2132\">\n<li data-start=\"2051\" data-end=\"2078\">\n<p data-start=\"2053\" data-end=\"2078\"><span style=\"color: #000000;\">Git push → build → deploy</span></p>\n</li>\n<li data-start=\"2079\" data-end=\"2107\">\n<p data-start=\"2081\" data-end=\"2107\"><span style=\"color: #000000;\">Container-based deployment</span></p>\n</li>\n<li data-start=\"2108\" data-end=\"2132\">\n<p data-start=\"2110\" data-end=\"2132\"><span style=\"color: #000000;\">Integrasi native CI/CD</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2134\" data-end=\"2182\"><span style=\"color: #000000;\">Bagi tim kecil hingga menengah, ini mempercepat:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2183\" data-end=\"2233\">\n<li data-start=\"2183\" data-end=\"2198\">\n<p data-start=\"2185\" data-end=\"2198\"><span style=\"color: #000000;\">Release cycle</span></p>\n</li>\n<li data-start=\"2199\" data-end=\"2209\">\n<p data-start=\"2201\" data-end=\"2209\"><span style=\"color: #000000;\">Rollback</span></p>\n</li>\n<li data-start=\"2210\" data-end=\"2233\">\n<p data-start=\"2212\" data-end=\"2233\"><span style=\"color: #000000;\">Blue-green deployment</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2235\" data-end=\"2319\"><span style=\"color: #000000;\">Namun, pada sistem kompleks, kontrol pipeline sering kali terasa “terlalu otomatis”.</span></p>\n<hr data-start=\"2321\" data-end=\"2324\" />\n<h3 style=\"text-align: justify;\" data-start=\"2326\" data-end=\"2365\"><span style=\"color: #000000;\">Skalabilitas dan Resource Management</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2366\" data-end=\"2416\"><span style=\"color: #000000;\">PaaS unggul dalam <strong data-start=\"2384\" data-end=\"2415\">autoscaling berbasis metrik</strong>:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2417\" data-end=\"2465\">\n<li data-start=\"2417\" data-end=\"2431\">\n<p data-start=\"2419\" data-end=\"2431\"><span style=\"color: #000000;\">Request rate</span></p>\n</li>\n<li data-start=\"2432\" data-end=\"2446\">\n<p data-start=\"2434\" data-end=\"2446\"><span style=\"color: #000000;\">CPU / memory</span></p>\n</li>\n<li data-start=\"2447\" data-end=\"2465\">\n<p data-start=\"2449\" data-end=\"2465\"><span style=\"color: #000000;\">Response latency</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2467\" data-end=\"2480\"><span style=\"color: #000000;\">Kelebihannya:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2481\" data-end=\"2565\">\n<li data-start=\"2481\" data-end=\"2527\">\n<p data-start=\"2483\" data-end=\"2527\"><span style=\"color: #000000;\">Scaling cepat tanpa capacity planning detail</span></p>\n</li>\n<li data-start=\"2528\" data-end=\"2565\">\n<p data-start=\"2530\" data-end=\"2565\"><span style=\"color: #000000;\">Cocok untuk traffic yang fluktuatif</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2567\" data-end=\"2581\"><span style=\"color: #000000;\">Kekurangannya:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2582\" data-end=\"2681\">\n<li data-start=\"2582\" data-end=\"2622\">\n<p data-start=\"2584\" data-end=\"2622\"><span style=\"color: #000000;\">Resource limit tidak selalu transparan</span></p>\n</li>\n<li data-start=\"2623\" data-end=\"2681\">\n<p data-start=\"2625\" data-end=\"2681\"><span style=\"color: #000000;\">Fine-grained tuning lebih sulit dibanding Kubernetes raw</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2683\" data-end=\"2865\"><span style=\"color: #000000;\">AWS sendiri menyebut Elastic Beanstalk sebagai solusi yang menyeimbangkan kemudahan dan kontrol, tetapi tetap menyarankan EKS untuk kebutuhan kompleks (dikutip dari dokumentasi AWS).</span></p>\n<hr data-start=\"2867\" data-end=\"2870\" />\n<h3 style=\"text-align: justify;\" data-start=\"2872\" data-end=\"2917\"><span style=\"color: #000000;\">Observability di PaaS: Mudah tapi Terbatas</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2918\" data-end=\"2944\"><span style=\"color: #000000;\">PaaS biasanya menyediakan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2945\" data-end=\"3000\">\n<li data-start=\"2945\" data-end=\"2960\">\n<p data-start=\"2947\" data-end=\"2960\"><span style=\"color: #000000;\">Basic metrics</span></p>\n</li>\n<li data-start=\"2961\" data-end=\"2982\">\n<p data-start=\"2963\" data-end=\"2982\"><span style=\"color: #000000;\">Centralized logging</span></p>\n</li>\n<li data-start=\"2983\" data-end=\"3000\">\n<p data-start=\"2985\" data-end=\"3000\"><span style=\"color: #000000;\">Error reporting</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3002\" data-end=\"3028\"><span style=\"color: #000000;\">Namun untuk sistem kritis:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3029\" data-end=\"3150\">\n<li data-start=\"3029\" data-end=\"3061\">\n<p data-start=\"3031\" data-end=\"3061\"><span style=\"color: #000000;\">Custom tracing sering terbatas</span></p>\n</li>\n<li data-start=\"3062\" data-end=\"3109\">\n<p data-start=\"3064\" data-end=\"3109\"><span style=\"color: #000000;\">Integrasi service mesh umumnya tidak tersedia</span></p>\n</li>\n<li data-start=\"3110\" data-end=\"3150\">\n<p data-start=\"3112\" data-end=\"3150\"><span style=\"color: #000000;\">Network-level visibility disembunyikan</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3152\" data-end=\"3250\"><span style=\"color: #000000;\">Artinya, PaaS cocok untuk <em data-start=\"3178\" data-end=\"3211\">application-level observability</em>, bukan <em data-start=\"3219\" data-end=\"3249\">platform-level observability</em>.</span></p>\n<hr data-start=\"3252\" data-end=\"3255\" />\n<h3 style=\"text-align: justify;\" data-start=\"3257\" data-end=\"3310\"><span style=\"color: #000000;\">Aspek Keamanan: Shared Responsibility yang Berbeda</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3311\" data-end=\"3328\"><span style=\"color: #000000;\">Dalam model PaaS:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3329\" data-end=\"3444\">\n<li data-start=\"3329\" data-end=\"3383\">\n<p data-start=\"3331\" data-end=\"3383\"><span style=\"color: #000000;\">Provider bertanggung jawab atas OS, runtime security</span></p>\n</li>\n<li data-start=\"3384\" data-end=\"3444\">\n<p data-start=\"3386\" data-end=\"3444\"><span style=\"color: #000000;\">User bertanggung jawab atas code, data, dan access control</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3446\" data-end=\"3457\"><span style=\"color: #000000;\">Keuntungan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3458\" data-end=\"3532\">\n<li data-start=\"3458\" data-end=\"3498\">\n<p data-start=\"3460\" data-end=\"3498\"><span style=\"color: #000000;\">Attack surface infrastruktur berkurang</span></p>\n</li>\n<li data-start=\"3499\" data-end=\"3532\">\n<p data-start=\"3501\" data-end=\"3532\"><span style=\"color: #000000;\">Patch kritis ditangani otomatis</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3534\" data-end=\"3541\"><span style=\"color: #000000;\">Risiko:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3542\" data-end=\"3658\">\n<li data-start=\"3542\" data-end=\"3599\">\n<p data-start=\"3544\" data-end=\"3599\"><span style=\"color: #000000;\">Dependency vulnerability tetap tanggung jawab developer</span></p>\n</li>\n<li data-start=\"3600\" data-end=\"3658\">\n<p data-start=\"3602\" data-end=\"3658\"><span style=\"color: #000000;\">Vendor lock-in bisa membatasi strategi security tertentu</span></p>\n</li>\n</ul>\n<hr data-start=\"3660\" data-end=\"3663\" />\n<h3 style=\"text-align: justify;\" data-start=\"3665\" data-end=\"3701\"><span style=\"color: #000000;\">Kapan PaaS Menjadi Pilihan Tepat?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3702\" data-end=\"3719\"><span style=\"color: #000000;\">PaaS ideal untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3720\" data-end=\"3833\">\n<li data-start=\"3720\" data-end=\"3734\">\n<p data-start=\"3722\" data-end=\"3734\"><span style=\"color: #000000;\">API services</span></p>\n</li>\n<li data-start=\"3735\" data-end=\"3753\">\n<p data-start=\"3737\" data-end=\"3753\"><span style=\"color: #000000;\">Web applications</span></p>\n</li>\n<li data-start=\"3754\" data-end=\"3777\">\n<p data-start=\"3756\" data-end=\"3777\"><span style=\"color: #000000;\">MVP &amp; rapid iteration</span></p>\n</li>\n<li data-start=\"3778\" data-end=\"3798\">\n<p data-start=\"3780\" data-end=\"3798\"><span style=\"color: #000000;\">Tim kecil–menengah</span></p>\n</li>\n<li data-start=\"3799\" data-end=\"3833\">\n<p data-start=\"3801\" data-end=\"3833\"><span style=\"color: #000000;\">Fokus product-driven development</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3835\" data-end=\"3854\"><span style=\"color: #000000;\">Kurang ideal untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3855\" data-end=\"3970\">\n<li data-start=\"3855\" data-end=\"3883\">\n<p data-start=\"3857\" data-end=\"3883\"><span style=\"color: #000000;\">Sistem low-latency ekstrem</span></p>\n</li>\n<li data-start=\"3884\" data-end=\"3910\">\n<p data-start=\"3886\" data-end=\"3910\"><span style=\"color: #000000;\">Kebutuhan network custom</span></p>\n</li>\n<li data-start=\"3911\" data-end=\"3942\">\n<p data-start=\"3913\" data-end=\"3942\"><span style=\"color: #000000;\">Workload yang sangat stateful</span></p>\n</li>\n<li data-start=\"3943\" data-end=\"3970\">\n<p data-start=\"3945\" data-end=\"3970\"><span style=\"color: #000000;\">Arsitektur platform-scale</span></p>\n</li>\n</ul>\n<hr data-start=\"3972\" data-end=\"3975\" />\n<h3 style=\"text-align: justify;\" data-start=\"3977\" data-end=\"4004\"><span style=\"color: #000000;\">PaaS di Era Cloud-Native</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4005\" data-end=\"4066\"><span style=\"color: #000000;\">Menariknya, PaaS modern mulai mengadopsi konsep cloud-native:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4067\" data-end=\"4149\">\n<li data-start=\"4067\" data-end=\"4093\">\n<p data-start=\"4069\" data-end=\"4093\"><span style=\"color: #000000;\">Container under the hood</span></p>\n</li>\n<li data-start=\"4094\" data-end=\"4126\">\n<p data-start=\"4096\" data-end=\"4126\"><span style=\"color: #000000;\">Managed Kubernetes abstraction</span></p>\n</li>\n<li data-start=\"4127\" data-end=\"4149\">\n<p data-start=\"4129\" data-end=\"4149\"><span style=\"color: #000000;\">Event-driven scaling</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4151\" data-end=\"4345\"><span style=\"color: #000000;\">Batas antara PaaS dan CaaS (Containers as a Service) semakin tipis. Banyak engineer kini menggunakan PaaS sebagai <strong data-start=\"4265\" data-end=\"4296\">entry point ke cloud-native</strong>, sebelum beralih ke kontrol yang lebih granular.</span></p>\n<hr data-start=\"4347\" data-end=\"4350\" />\n<h2 style=\"text-align: justify;\" data-start=\"4352\" data-end=\"4365\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"4366\" data-end=\"4650\"><span style=\"color: #000000;\">PaaS bukan solusi “lebih sederhana”, melainkan <strong data-start=\"4413\" data-end=\"4437\">pilihan arsitektural</strong> dengan trade-off yang jelas. Ia menawarkan produktivitas tinggi dengan mengorbankan sebagian kontrol. Bagi pembaca teknis, memahami PaaS berarti memahami di mana abstraksi membantu—dan di mana ia harus dihindari.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Platform as a Service (PaaS) sering diposisikan sebagai jalan tengah antara Infrastructure as a Service (IaaS) dan Software as a Service (SaaS). Bagi engineer dan developer berpengalaman, PaaS bukan sekadar “hosting yang dipermudah”, melainkan abstraksi terkelola yang berdampak langsung pada arsitektur aplikasi, workflow CI/CD, serta strategi scaling. Artikel ini mengulas PaaS dari sudut pandang teknis: apa yang diabstraksikan, trade-off yang muncul, dan kapan PaaS menjadi pilihan tepat (atau justru tidak). Apa yang Sebenarnya Diabstraksikan oleh PaaS? Pada PaaS, penyedia layanan menangani: Provisioning server &amp; OS Runtime (language, framework) Load balancing &amp; basic autoscaling Patch keamanan dasar Logging &amp; monitoring&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8135,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      62,
+      588
+    ],
+    "class_list": [
+      "post-8363",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-cloud",
+      "tag-paas"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Membedah Platform as a Service (PaaS): Antara Produktivitas Developer dan Kontrol Infrastruktur - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Membedah Platform as a Service (PaaS): Antara Produktivitas Developer dan Kontrol Infrastruktur - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Platform as a Service (PaaS) sering diposisikan sebagai jalan tengah antara Infrastructure as a Service (IaaS) dan Software as a Service (SaaS). Bagi engineer dan developer berpengalaman, PaaS bukan sekadar “hosting yang dipermudah”, melainkan abstraksi terkelola yang berdampak langsung pada arsitektur aplikasi, workflow CI/CD, serta strategi scaling. Artikel ini mengulas PaaS dari sudut pandang teknis: apa yang diabstraksikan, trade-off yang muncul, dan kapan PaaS menjadi pilihan tepat (atau justru tidak). Apa yang Sebenarnya Diabstraksikan oleh PaaS? Pada PaaS, penyedia layanan menangani: Provisioning server &amp; OS Runtime (language, framework) Load balancing &amp; basic autoscaling Patch keamanan dasar Logging &amp; monitoring...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2025-12-08T01:19:40+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/11/41.jpeg\" />\n\t<meta property=\"og:image:width\" content=\"768\" />\n\t<meta property=\"og:image:height\" content=\"512\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/\",\"url\":\"https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/\",\"name\":\"Membedah Platform as a Service (PaaS): Antara Produktivitas Developer dan Kontrol Infrastruktur - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/41.jpeg\",\"datePublished\":\"2025-12-08T01:19:40+00:00\",\"dateModified\":\"2025-12-08T01:19:40+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/11/41.jpeg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/41.jpeg\",\"width\":768,\"height\":512},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Membedah Platform as a Service (PaaS): Antara Produktivitas Developer dan Kontrol Infrastruktur\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Membedah Platform as a Service (PaaS): Antara Produktivitas Developer dan Kontrol Infrastruktur - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Membedah Platform as a Service (PaaS): Antara Produktivitas Developer dan Kontrol Infrastruktur - buletinsiber.com",
+      "og_description": "Pendahuluan Platform as a Service (PaaS) sering diposisikan sebagai jalan tengah antara Infrastructure as a Service (IaaS) dan Software as a Service (SaaS). Bagi engineer dan developer berpengalaman, PaaS bukan sekadar “hosting yang dipermudah”, melainkan abstraksi terkelola yang berdampak langsung pada arsitektur aplikasi, workflow CI/CD, serta strategi scaling. Artikel ini mengulas PaaS dari sudut pandang teknis: apa yang diabstraksikan, trade-off yang muncul, dan kapan PaaS menjadi pilihan tepat (atau justru tidak). Apa yang Sebenarnya Diabstraksikan oleh PaaS? Pada PaaS, penyedia layanan menangani: Provisioning server &amp; OS Runtime (language, framework) Load balancing &amp; basic autoscaling Patch keamanan dasar Logging &amp; monitoring...",
+      "og_url": "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2025-12-08T01:19:40+00:00",
+      "og_image": [
+        {
+          "width": 768,
+          "height": 512,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/11/41.jpeg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/",
+            "url": "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/",
+            "name": "Membedah Platform as a Service (PaaS): Antara Produktivitas Developer dan Kontrol Infrastruktur - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/41.jpeg",
+            "datePublished": "2025-12-08T01:19:40+00:00",
+            "dateModified": "2025-12-08T01:19:40+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/11/41.jpeg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/41.jpeg",
+            "width": 768,
+            "height": 512
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/membedah-platform-as-a-service-paas-antara-produktivitas-developer-dan-kontrol-infrastruktur/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Membedah Platform as a Service (PaaS): Antara Produktivitas Developer dan Kontrol Infrastruktur"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/8363",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=8363"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/8363/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 8364,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/8363/revisions/8364"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8135"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=8363"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=8363"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=8363"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

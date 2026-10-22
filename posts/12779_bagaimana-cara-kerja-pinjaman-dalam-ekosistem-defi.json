@@ -1,0 +1,334 @@
+{
+  "id": 12779,
+  "title": "Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi?",
+  "slug": "bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi",
+  "url": "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/",
+  "date": "2026-07-28T09:20:41",
+  "date_gmt": "2026-07-28T09:20:41",
+  "modified": "2026-07-29T06:37:24",
+  "modified_gmt": "2026-07-29T06:37:24",
+  "author": {
+    "id": 14,
+    "name": "Yoga adi pranata"
+  },
+  "categories": [
+    {
+      "id": 2208,
+      "name": "public"
+    },
+    {
+      "id": 6,
+      "name": "Tech"
+    },
+    {
+      "id": 7,
+      "name": "Trends"
+    }
+  ],
+  "tags": [
+    1454,
+    2310,
+    1455
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/how-defi-lending-works.webp",
+  "excerpt": "Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi? 1. Pendahuluan Konsep pinjaman di dunia DeFi mungkin sudah cukup familiar: setor jaminan, pinjam dana, bayar bunga. Namun di balik kesederhanaan itu, ada mekanisme teknis yang cukup kompleks yang bekerja secara otomatis melalui smart contract — mulai dari bagaimana dana yang disetorkan menghasilkan bunga, bagaimana suku bunga ditentukan tanpa campur tangan manusia, hingga bagaimana sistem menjaga dirinya sendiri agar tetap solvent melalui mekanisme likuidasi. Artikel ini akan membedah alur kerja pinjaman DeFi secara lebih teknis, dari sudut pandang tiga aktor utama: peminjam, pemberi pinjaman, dan sistem itu sendiri — agar pembaca memahami apa…",
+  "content_html": "<h4>Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi?</h4>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"aligncenter\" src=\"https://mkt-static.crypto.com/how-defi-lending-works.webp\" alt=\"Apa itu Pinjaman DeFi dan Bagaimana Cara Kerjanya? - Crypto.com US\" width=\"609\" height=\"406\" /></p>\n<h4>1. Pendahuluan</h4>\n<p>Konsep pinjaman di dunia DeFi mungkin sudah cukup familiar: setor jaminan, pinjam dana, bayar bunga. Namun di balik kesederhanaan itu, ada mekanisme teknis yang cukup kompleks yang bekerja secara otomatis melalui smart contract — mulai dari bagaimana dana yang disetorkan menghasilkan bunga, bagaimana suku bunga ditentukan tanpa campur tangan manusia, hingga bagaimana sistem menjaga dirinya sendiri agar tetap solvent melalui mekanisme likuidasi.</p>\n<p>Artikel ini akan membedah alur kerja pinjaman DeFi secara lebih teknis, dari sudut pandang tiga aktor utama: peminjam, pemberi pinjaman, dan sistem itu sendiri — agar pembaca memahami apa yang sebenarnya terjadi &#8220;di balik layar&#8221; setiap kali sebuah transaksi pinjaman dieksekusi.</p>\n<h4>2. Aktor-Aktor dalam Sistem Pinjaman DeFi</h4>\n<p>Sebelum masuk ke alur teknis, penting untuk memahami siapa saja pihak yang terlibat dalam sistem ini:</p>\n<ul>\n<li><strong>Peminjam (borrower)</strong> — pihak yang menyetorkan jaminan untuk mendapatkan pinjaman aset lain.</li>\n<li><strong>Pemberi pinjaman/penyetor likuiditas (lender/supplier)</strong> — pihak yang menyetorkan aset ke dalam pool untuk mendapatkan bunga.</li>\n<li><strong>Smart contract</strong> — bertindak sebagai &#8220;bank&#8221; otomatis yang mengatur seluruh aturan main, mulai dari perhitungan bunga hingga syarat likuidasi, tanpa campur tangan manusia.</li>\n<li><strong>Likuidator</strong> — pihak ketiga (sering berupa bot) yang berperan menjaga kesehatan protokol dengan melunasi posisi berisiko dan mengambil sebagian jaminan sebagai kompensasi.</li>\n</ul>\n<h4>3. Alur Kerja Penyetoran Dana (Supply Side)</h4>\n<p>Ketika seorang pemberi pinjaman menyetorkan aset (misalnya USDC) ke dalam protokol, dana tersebut masuk ke liquidity pool bersama. Sebagai bukti kepemilikan, protokol akan menerbitkan token turunan, seperti <strong>aToken</strong> di Aave atau <strong>cToken</strong> di Compound, yang mewakili bagian kepemilikan penyetor atas pool tersebut.</p>\n<p>Token turunan ini bekerja secara unik: nilainya secara bertahap bertambah seiring waktu (atau jumlahnya bertambah, tergantung mekanisme masing-masing protokol) sejalan dengan akumulasi bunga yang dihasilkan dari aktivitas peminjaman di pool tersebut. Dengan kata lain, bunga tidak dibayarkan secara manual, melainkan terakumulasi secara otomatis dan real-time melalui perubahan nilai atau jumlah token turunan yang dipegang penyetor.</p>\n<h4>4. Alur Kerja Pengambilan Pinjaman (Borrow Side)</h4>\n<p>Di sisi peminjam, proses dimulai dengan menyetorkan jaminan (collateral) ke dalam smart contract protokol. Setelah jaminan tercatat, sistem akan menghitung <strong>borrowing power</strong> — yaitu jumlah maksimum yang bisa dipinjam — berdasarkan rasio <strong>Loan-to-Value (LTV)</strong> yang ditetapkan untuk aset jaminan tersebut. Misalnya, jika LTV untuk ETH ditetapkan 75%, maka peminjam dapat meminjam hingga 75% dari nilai ETH yang mereka jaminkan.</p>\n<p>Setelah kapasitas pinjaman dihitung, peminjam dapat menarik dana pinjaman sesuai kebutuhan (selama tidak melebihi batas borrowing power). Sejak saat itu, kewajiban bunga mulai terakumulasi secara berkelanjutan (accrued interest) terhadap saldo utang peminjam, yang akan terus bertambah selama pinjaman belum dilunasi.</p>\n<h4>5. Mekanisme Penentuan Suku Bunga</h4>\n<p>Salah satu elemen paling penting dalam sistem pinjaman DeFi adalah bagaimana suku bunga ditentukan tanpa campur tangan manusia. Sebagian besar protokol menggunakan <strong>interest rate model</strong> yang berbasis pada <strong>utilization rate</strong> — yaitu rasio antara jumlah dana yang sedang dipinjam dibandingkan total dana yang tersedia di pool.</p>\n<p>Model ini umumnya membentuk kurva tertentu: ketika utilization rate masih rendah (artinya banyak dana menganggur di pool), suku bunga dijaga rendah untuk mendorong aktivitas peminjaman. Namun semakin mendekati titik utilization tinggi (mendekati 100%, artinya hampir seluruh dana di pool telah dipinjam), suku bunga akan melonjak tajam. Kenaikan tajam ini berfungsi sebagai insentif ekonomi ganda: mendorong peminjam untuk melunasi utang mereka, sekaligus menarik lebih banyak penyetor baru karena imbal hasil yang menjadi lebih menarik.</p>\n<h4>6. Menjaga Kesehatan Posisi: Health Factor dan Ambang Likuidasi</h4>\n<p>Untuk memantau seberapa aman posisi seorang peminjam, protokol menghitung metrik yang disebut <strong>Health Factor</strong>. Secara sederhana, nilai ini merepresentasikan perbandingan antara nilai jaminan (yang telah disesuaikan dengan faktor likuidasi) terhadap total utang yang dimiliki peminjam.</p>\n<p>Ketika Health Factor mendekati ambang kritis (biasanya nilai 1), itu berarti nilai jaminan sudah hampir tidak cukup untuk menutupi utang, sehingga risiko likuidasi meningkat drastis. Untuk menghindari hal ini, peminjam dapat mengambil dua langkah utama: menambah jumlah jaminan yang disetorkan, atau melunasi sebagian dari utang mereka, sehingga rasio kembali ke level yang lebih aman.</p>\n<h4>7. Proses Likuidasi Secara Teknis</h4>\n<p>Ketika Health Factor sebuah posisi jatuh di bawah ambang batas yang ditentukan, posisi tersebut menjadi memenuhi syarat untuk dilikuidasi. Likuidator — biasanya berupa bot otomatis yang terus memantau seluruh posisi di protokol — akan mendeteksi kondisi ini dan segera bertindak.</p>\n<p>Secara teknis, likuidator melunasi sebagian atau seluruh utang peminjam menggunakan dananya sendiri, kemudian sebagai kompensasi, likuidator berhak mengambil sebagian jaminan peminjam dengan harga diskon yang disebut <strong>liquidation bonus</strong>. Karena proses ini sangat menguntungkan secara finansial, biasanya terjadi kompetisi ketat antar bot likuidator untuk menjadi yang pertama mengeksekusi transaksi likuidasi begitu sebuah posisi memenuhi syarat.</p>\n<h4>8. Peran Oracle dalam Menjaga Akurasi Sistem</h4>\n<p>Seluruh mekanisme di atas — mulai dari perhitungan borrowing power, Health Factor, hingga keputusan likuidasi — sangat bergantung pada data harga aset yang akurat dan real-time. Di sinilah <strong>oracle</strong> memainkan peran krusial, dengan menyediakan data harga dari berbagai sumber independen ke dalam smart contract protokol.</p>\n<p>Jika data oracle mengalami keterlambatan (delay) atau berhasil dimanipulasi oleh pihak tertentu, dampaknya bisa sangat serius: mulai dari likuidasi yang terjadi secara tidak semestinya, hingga celah yang bisa dieksploitasi untuk keuntungan pihak jahat dengan mengorbankan dana pengguna lain di dalam protokol.</p>\n<h4>9. Kesimpulan</h4>\n<p>Dari penyetoran dana hingga potensi likuidasi, sistem pinjaman DeFi bekerja melalui rangkaian mekanisme otomatis yang saling terhubung: token turunan yang mengakumulasi bunga, interest rate model berbasis utilization rate, Health Factor sebagai penjaga kesehatan posisi, hingga peran likuidator dan oracle yang menjaga stabilitas keseluruhan sistem.</p>\n<p>Memahami alur kerja teknis ini penting, baik bagi mereka yang ingin berpartisipasi sebagai peminjam maupun sebagai penyetor likuiditas, karena setiap keputusan — mulai dari seberapa besar jaminan yang disetorkan hingga seberapa dekat posisi terhadap ambang likuidasi — berdampak langsung pada risiko dan potensi hasil yang akan diterima dalam ekosistem DeFi.</p>\n",
+  "content_text": "Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi?\n1. Pendahuluan\nKonsep pinjaman di dunia DeFi mungkin sudah cukup familiar: setor jaminan, pinjam dana, bayar bunga. Namun di balik kesederhanaan itu, ada mekanisme teknis yang cukup kompleks yang bekerja secara otomatis melalui smart contract — mulai dari bagaimana dana yang disetorkan menghasilkan bunga, bagaimana suku bunga ditentukan tanpa campur tangan manusia, hingga bagaimana sistem menjaga dirinya sendiri agar tetap solvent melalui mekanisme likuidasi.\nArtikel ini akan membedah alur kerja pinjaman DeFi secara lebih teknis, dari sudut pandang tiga aktor utama: peminjam, pemberi pinjaman, dan sistem itu sendiri — agar pembaca memahami apa yang sebenarnya terjadi “di balik layar” setiap kali sebuah transaksi pinjaman dieksekusi.\n2. Aktor-Aktor dalam Sistem Pinjaman DeFi\nSebelum masuk ke alur teknis, penting untuk memahami siapa saja pihak yang terlibat dalam sistem ini:\nPeminjam (borrower)  — pihak yang menyetorkan jaminan untuk mendapatkan pinjaman aset lain.\nPemberi pinjaman/penyetor likuiditas (lender/supplier)  — pihak yang menyetorkan aset ke dalam pool untuk mendapatkan bunga.\nSmart contract  — bertindak sebagai “bank” otomatis yang mengatur seluruh aturan main, mulai dari perhitungan bunga hingga syarat likuidasi, tanpa campur tangan manusia.\nLikuidator  — pihak ketiga (sering berupa bot) yang berperan menjaga kesehatan protokol dengan melunasi posisi berisiko dan mengambil sebagian jaminan sebagai kompensasi.\n3. Alur Kerja Penyetoran Dana (Supply Side)\nKetika seorang pemberi pinjaman menyetorkan aset (misalnya USDC) ke dalam protokol, dana tersebut masuk ke liquidity pool bersama. Sebagai bukti kepemilikan, protokol akan menerbitkan token turunan, seperti  aToken  di Aave atau  cToken  di Compound, yang mewakili bagian kepemilikan penyetor atas pool tersebut.\nToken turunan ini bekerja secara unik: nilainya secara bertahap bertambah seiring waktu (atau jumlahnya bertambah, tergantung mekanisme masing-masing protokol) sejalan dengan akumulasi bunga yang dihasilkan dari aktivitas peminjaman di pool tersebut. Dengan kata lain, bunga tidak dibayarkan secara manual, melainkan terakumulasi secara otomatis dan real-time melalui perubahan nilai atau jumlah token turunan yang dipegang penyetor.\n4. Alur Kerja Pengambilan Pinjaman (Borrow Side)\nDi sisi peminjam, proses dimulai dengan menyetorkan jaminan (collateral) ke dalam smart contract protokol. Setelah jaminan tercatat, sistem akan menghitung  borrowing power  — yaitu jumlah maksimum yang bisa dipinjam — berdasarkan rasio  Loan-to-Value (LTV)  yang ditetapkan untuk aset jaminan tersebut. Misalnya, jika LTV untuk ETH ditetapkan 75%, maka peminjam dapat meminjam hingga 75% dari nilai ETH yang mereka jaminkan.\nSetelah kapasitas pinjaman dihitung, peminjam dapat menarik dana pinjaman sesuai kebutuhan (selama tidak melebihi batas borrowing power). Sejak saat itu, kewajiban bunga mulai terakumulasi secara berkelanjutan (accrued interest) terhadap saldo utang peminjam, yang akan terus bertambah selama pinjaman belum dilunasi.\n5. Mekanisme Penentuan Suku Bunga\nSalah satu elemen paling penting dalam sistem pinjaman DeFi adalah bagaimana suku bunga ditentukan tanpa campur tangan manusia. Sebagian besar protokol menggunakan  interest rate model  yang berbasis pada  utilization rate  — yaitu rasio antara jumlah dana yang sedang dipinjam dibandingkan total dana yang tersedia di pool.\nModel ini umumnya membentuk kurva tertentu: ketika utilization rate masih rendah (artinya banyak dana menganggur di pool), suku bunga dijaga rendah untuk mendorong aktivitas peminjaman. Namun semakin mendekati titik utilization tinggi (mendekati 100%, artinya hampir seluruh dana di pool telah dipinjam), suku bunga akan melonjak tajam. Kenaikan tajam ini berfungsi sebagai insentif ekonomi ganda: mendorong peminjam untuk melunasi utang mereka, sekaligus menarik lebih banyak penyetor baru karena imbal hasil yang menjadi lebih menarik.\n6. Menjaga Kesehatan Posisi: Health Factor dan Ambang Likuidasi\nUntuk memantau seberapa aman posisi seorang peminjam, protokol menghitung metrik yang disebut  Health Factor . Secara sederhana, nilai ini merepresentasikan perbandingan antara nilai jaminan (yang telah disesuaikan dengan faktor likuidasi) terhadap total utang yang dimiliki peminjam.\nKetika Health Factor mendekati ambang kritis (biasanya nilai 1), itu berarti nilai jaminan sudah hampir tidak cukup untuk menutupi utang, sehingga risiko likuidasi meningkat drastis. Untuk menghindari hal ini, peminjam dapat mengambil dua langkah utama: menambah jumlah jaminan yang disetorkan, atau melunasi sebagian dari utang mereka, sehingga rasio kembali ke level yang lebih aman.\n7. Proses Likuidasi Secara Teknis\nKetika Health Factor sebuah posisi jatuh di bawah ambang batas yang ditentukan, posisi tersebut menjadi memenuhi syarat untuk dilikuidasi. Likuidator — biasanya berupa bot otomatis yang terus memantau seluruh posisi di protokol — akan mendeteksi kondisi ini dan segera bertindak.\nSecara teknis, likuidator melunasi sebagian atau seluruh utang peminjam menggunakan dananya sendiri, kemudian sebagai kompensasi, likuidator berhak mengambil sebagian jaminan peminjam dengan harga diskon yang disebut  liquidation bonus . Karena proses ini sangat menguntungkan secara finansial, biasanya terjadi kompetisi ketat antar bot likuidator untuk menjadi yang pertama mengeksekusi transaksi likuidasi begitu sebuah posisi memenuhi syarat.\n8. Peran Oracle dalam Menjaga Akurasi Sistem\nSeluruh mekanisme di atas — mulai dari perhitungan borrowing power, Health Factor, hingga keputusan likuidasi — sangat bergantung pada data harga aset yang akurat dan real-time. Di sinilah  oracle  memainkan peran krusial, dengan menyediakan data harga dari berbagai sumber independen ke dalam smart contract protokol.\nJika data oracle mengalami keterlambatan (delay) atau berhasil dimanipulasi oleh pihak tertentu, dampaknya bisa sangat serius: mulai dari likuidasi yang terjadi secara tidak semestinya, hingga celah yang bisa dieksploitasi untuk keuntungan pihak jahat dengan mengorbankan dana pengguna lain di dalam protokol.\n9. Kesimpulan\nDari penyetoran dana hingga potensi likuidasi, sistem pinjaman DeFi bekerja melalui rangkaian mekanisme otomatis yang saling terhubung: token turunan yang mengakumulasi bunga, interest rate model berbasis utilization rate, Health Factor sebagai penjaga kesehatan posisi, hingga peran likuidator dan oracle yang menjaga stabilitas keseluruhan sistem.\nMemahami alur kerja teknis ini penting, baik bagi mereka yang ingin berpartisipasi sebagai peminjam maupun sebagai penyetor likuiditas, karena setiap keputusan — mulai dari seberapa besar jaminan yang disetorkan hingga seberapa dekat posisi terhadap ambang likuidasi — berdampak langsung pada risiko dan potensi hasil yang akan diterima dalam ekosistem DeFi.",
+  "raw": {
+    "id": 12779,
+    "date": "2026-07-28T09:20:41",
+    "date_gmt": "2026-07-28T09:20:41",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=12779"
+    },
+    "modified": "2026-07-29T06:37:24",
+    "modified_gmt": "2026-07-29T06:37:24",
+    "slug": "bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/",
+    "title": {
+      "rendered": "Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi?"
+    },
+    "content": {
+      "rendered": "<h4>Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi?</h4>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"aligncenter\" src=\"https://mkt-static.crypto.com/how-defi-lending-works.webp\" alt=\"Apa itu Pinjaman DeFi dan Bagaimana Cara Kerjanya? - Crypto.com US\" width=\"609\" height=\"406\" /></p>\n<h4>1. Pendahuluan</h4>\n<p>Konsep pinjaman di dunia DeFi mungkin sudah cukup familiar: setor jaminan, pinjam dana, bayar bunga. Namun di balik kesederhanaan itu, ada mekanisme teknis yang cukup kompleks yang bekerja secara otomatis melalui smart contract — mulai dari bagaimana dana yang disetorkan menghasilkan bunga, bagaimana suku bunga ditentukan tanpa campur tangan manusia, hingga bagaimana sistem menjaga dirinya sendiri agar tetap solvent melalui mekanisme likuidasi.</p>\n<p>Artikel ini akan membedah alur kerja pinjaman DeFi secara lebih teknis, dari sudut pandang tiga aktor utama: peminjam, pemberi pinjaman, dan sistem itu sendiri — agar pembaca memahami apa yang sebenarnya terjadi &#8220;di balik layar&#8221; setiap kali sebuah transaksi pinjaman dieksekusi.</p>\n<h4>2. Aktor-Aktor dalam Sistem Pinjaman DeFi</h4>\n<p>Sebelum masuk ke alur teknis, penting untuk memahami siapa saja pihak yang terlibat dalam sistem ini:</p>\n<ul>\n<li><strong>Peminjam (borrower)</strong> — pihak yang menyetorkan jaminan untuk mendapatkan pinjaman aset lain.</li>\n<li><strong>Pemberi pinjaman/penyetor likuiditas (lender/supplier)</strong> — pihak yang menyetorkan aset ke dalam pool untuk mendapatkan bunga.</li>\n<li><strong>Smart contract</strong> — bertindak sebagai &#8220;bank&#8221; otomatis yang mengatur seluruh aturan main, mulai dari perhitungan bunga hingga syarat likuidasi, tanpa campur tangan manusia.</li>\n<li><strong>Likuidator</strong> — pihak ketiga (sering berupa bot) yang berperan menjaga kesehatan protokol dengan melunasi posisi berisiko dan mengambil sebagian jaminan sebagai kompensasi.</li>\n</ul>\n<h4>3. Alur Kerja Penyetoran Dana (Supply Side)</h4>\n<p>Ketika seorang pemberi pinjaman menyetorkan aset (misalnya USDC) ke dalam protokol, dana tersebut masuk ke liquidity pool bersama. Sebagai bukti kepemilikan, protokol akan menerbitkan token turunan, seperti <strong>aToken</strong> di Aave atau <strong>cToken</strong> di Compound, yang mewakili bagian kepemilikan penyetor atas pool tersebut.</p>\n<p>Token turunan ini bekerja secara unik: nilainya secara bertahap bertambah seiring waktu (atau jumlahnya bertambah, tergantung mekanisme masing-masing protokol) sejalan dengan akumulasi bunga yang dihasilkan dari aktivitas peminjaman di pool tersebut. Dengan kata lain, bunga tidak dibayarkan secara manual, melainkan terakumulasi secara otomatis dan real-time melalui perubahan nilai atau jumlah token turunan yang dipegang penyetor.</p>\n<h4>4. Alur Kerja Pengambilan Pinjaman (Borrow Side)</h4>\n<p>Di sisi peminjam, proses dimulai dengan menyetorkan jaminan (collateral) ke dalam smart contract protokol. Setelah jaminan tercatat, sistem akan menghitung <strong>borrowing power</strong> — yaitu jumlah maksimum yang bisa dipinjam — berdasarkan rasio <strong>Loan-to-Value (LTV)</strong> yang ditetapkan untuk aset jaminan tersebut. Misalnya, jika LTV untuk ETH ditetapkan 75%, maka peminjam dapat meminjam hingga 75% dari nilai ETH yang mereka jaminkan.</p>\n<p>Setelah kapasitas pinjaman dihitung, peminjam dapat menarik dana pinjaman sesuai kebutuhan (selama tidak melebihi batas borrowing power). Sejak saat itu, kewajiban bunga mulai terakumulasi secara berkelanjutan (accrued interest) terhadap saldo utang peminjam, yang akan terus bertambah selama pinjaman belum dilunasi.</p>\n<h4>5. Mekanisme Penentuan Suku Bunga</h4>\n<p>Salah satu elemen paling penting dalam sistem pinjaman DeFi adalah bagaimana suku bunga ditentukan tanpa campur tangan manusia. Sebagian besar protokol menggunakan <strong>interest rate model</strong> yang berbasis pada <strong>utilization rate</strong> — yaitu rasio antara jumlah dana yang sedang dipinjam dibandingkan total dana yang tersedia di pool.</p>\n<p>Model ini umumnya membentuk kurva tertentu: ketika utilization rate masih rendah (artinya banyak dana menganggur di pool), suku bunga dijaga rendah untuk mendorong aktivitas peminjaman. Namun semakin mendekati titik utilization tinggi (mendekati 100%, artinya hampir seluruh dana di pool telah dipinjam), suku bunga akan melonjak tajam. Kenaikan tajam ini berfungsi sebagai insentif ekonomi ganda: mendorong peminjam untuk melunasi utang mereka, sekaligus menarik lebih banyak penyetor baru karena imbal hasil yang menjadi lebih menarik.</p>\n<h4>6. Menjaga Kesehatan Posisi: Health Factor dan Ambang Likuidasi</h4>\n<p>Untuk memantau seberapa aman posisi seorang peminjam, protokol menghitung metrik yang disebut <strong>Health Factor</strong>. Secara sederhana, nilai ini merepresentasikan perbandingan antara nilai jaminan (yang telah disesuaikan dengan faktor likuidasi) terhadap total utang yang dimiliki peminjam.</p>\n<p>Ketika Health Factor mendekati ambang kritis (biasanya nilai 1), itu berarti nilai jaminan sudah hampir tidak cukup untuk menutupi utang, sehingga risiko likuidasi meningkat drastis. Untuk menghindari hal ini, peminjam dapat mengambil dua langkah utama: menambah jumlah jaminan yang disetorkan, atau melunasi sebagian dari utang mereka, sehingga rasio kembali ke level yang lebih aman.</p>\n<h4>7. Proses Likuidasi Secara Teknis</h4>\n<p>Ketika Health Factor sebuah posisi jatuh di bawah ambang batas yang ditentukan, posisi tersebut menjadi memenuhi syarat untuk dilikuidasi. Likuidator — biasanya berupa bot otomatis yang terus memantau seluruh posisi di protokol — akan mendeteksi kondisi ini dan segera bertindak.</p>\n<p>Secara teknis, likuidator melunasi sebagian atau seluruh utang peminjam menggunakan dananya sendiri, kemudian sebagai kompensasi, likuidator berhak mengambil sebagian jaminan peminjam dengan harga diskon yang disebut <strong>liquidation bonus</strong>. Karena proses ini sangat menguntungkan secara finansial, biasanya terjadi kompetisi ketat antar bot likuidator untuk menjadi yang pertama mengeksekusi transaksi likuidasi begitu sebuah posisi memenuhi syarat.</p>\n<h4>8. Peran Oracle dalam Menjaga Akurasi Sistem</h4>\n<p>Seluruh mekanisme di atas — mulai dari perhitungan borrowing power, Health Factor, hingga keputusan likuidasi — sangat bergantung pada data harga aset yang akurat dan real-time. Di sinilah <strong>oracle</strong> memainkan peran krusial, dengan menyediakan data harga dari berbagai sumber independen ke dalam smart contract protokol.</p>\n<p>Jika data oracle mengalami keterlambatan (delay) atau berhasil dimanipulasi oleh pihak tertentu, dampaknya bisa sangat serius: mulai dari likuidasi yang terjadi secara tidak semestinya, hingga celah yang bisa dieksploitasi untuk keuntungan pihak jahat dengan mengorbankan dana pengguna lain di dalam protokol.</p>\n<h4>9. Kesimpulan</h4>\n<p>Dari penyetoran dana hingga potensi likuidasi, sistem pinjaman DeFi bekerja melalui rangkaian mekanisme otomatis yang saling terhubung: token turunan yang mengakumulasi bunga, interest rate model berbasis utilization rate, Health Factor sebagai penjaga kesehatan posisi, hingga peran likuidator dan oracle yang menjaga stabilitas keseluruhan sistem.</p>\n<p>Memahami alur kerja teknis ini penting, baik bagi mereka yang ingin berpartisipasi sebagai peminjam maupun sebagai penyetor likuiditas, karena setiap keputusan — mulai dari seberapa besar jaminan yang disetorkan hingga seberapa dekat posisi terhadap ambang likuidasi — berdampak langsung pada risiko dan potensi hasil yang akan diterima dalam ekosistem DeFi.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi? 1. Pendahuluan Konsep pinjaman di dunia DeFi mungkin sudah cukup familiar: setor jaminan, pinjam dana, bayar bunga. Namun di balik kesederhanaan itu, ada mekanisme teknis yang cukup kompleks yang bekerja secara otomatis melalui smart contract — mulai dari bagaimana dana yang disetorkan menghasilkan bunga, bagaimana suku bunga ditentukan tanpa campur tangan manusia, hingga bagaimana sistem menjaga dirinya sendiri agar tetap solvent melalui mekanisme likuidasi. Artikel ini akan membedah alur kerja pinjaman DeFi secara lebih teknis, dari sudut pandang tiga aktor utama: peminjam, pemberi pinjaman, dan sistem itu sendiri — agar pembaca memahami apa&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 14,
+    "featured_media": 15016,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "Pinjaman dalam ekosistem DeFi (Decentralized Finance) bekerja tanpa perantara bank. Sistem ini menggunakan tiga unsur utama: kontrak pintar (smart contract), jaminan (kolateral), dan kumpulan likuiditas (liquidity pool)",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      2208,
+      6,
+      7
+    ],
+    "tags": [
+      1454,
+      2310,
+      1455
+    ],
+    "class_list": [
+      "post-12779",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-public",
+      "category-tech",
+      "category-trends",
+      "tag-apa-itu-defi",
+      "tag-bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi",
+      "tag-cara-kerja-defi"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi? - buletinsiber.com</title>\n<meta name=\"description\" content=\"Pinjaman dalam ekosistem DeFi (Decentralized Finance) bekerja tanpa perantara bank. Sistem ini menggunakan tiga unsur utama: kontrak pintar (smart contract), jaminan (kolateral), dan kumpulan likuiditas (liquidity pool)\" />\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi? - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pinjaman dalam ekosistem DeFi (Decentralized Finance) bekerja tanpa perantara bank. Sistem ini menggunakan tiga unsur utama: kontrak pintar (smart contract), jaminan (kolateral), dan kumpulan likuiditas (liquidity pool)\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-28T09:20:41+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-29T06:37:24+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/how-defi-lending-works.webp\" />\n\t<meta property=\"og:image:width\" content=\"1536\" />\n\t<meta property=\"og:image:height\" content=\"1024\" />\n\t<meta property=\"og:image:type\" content=\"image/webp\" />\n<meta name=\"author\" content=\"Yoga adi pranata\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Yoga adi pranata\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/\",\"url\":\"https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/\",\"name\":\"Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi? - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/how-defi-lending-works.webp\",\"datePublished\":\"2026-07-28T09:20:41+00:00\",\"dateModified\":\"2026-07-29T06:37:24+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/097cbb6082741df772ee25725f2034e8\"},\"description\":\"Pinjaman dalam ekosistem DeFi (Decentralized Finance) bekerja tanpa perantara bank. Sistem ini menggunakan tiga unsur utama: kontrak pintar (smart contract), jaminan (kolateral), dan kumpulan likuiditas (liquidity pool)\",\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/how-defi-lending-works.webp\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/how-defi-lending-works.webp\",\"width\":1536,\"height\":1024},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi?\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/097cbb6082741df772ee25725f2034e8\",\"name\":\"Yoga adi pranata\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/b01f53bb07918e0123dd73aa32e984a56e20b30cf7fb6069a9b4681786035fc4?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/b01f53bb07918e0123dd73aa32e984a56e20b30cf7fb6069a9b4681786035fc4?s=96&d=mm&r=g\",\"caption\":\"Yoga adi pranata\"},\"url\":\"https://buletinsiber.com/author/yoga-adi-pranata/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi? - buletinsiber.com",
+      "description": "Pinjaman dalam ekosistem DeFi (Decentralized Finance) bekerja tanpa perantara bank. Sistem ini menggunakan tiga unsur utama: kontrak pintar (smart contract), jaminan (kolateral), dan kumpulan likuiditas (liquidity pool)",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi? - buletinsiber.com",
+      "og_description": "Pinjaman dalam ekosistem DeFi (Decentralized Finance) bekerja tanpa perantara bank. Sistem ini menggunakan tiga unsur utama: kontrak pintar (smart contract), jaminan (kolateral), dan kumpulan likuiditas (liquidity pool)",
+      "og_url": "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-28T09:20:41+00:00",
+      "article_modified_time": "2026-07-29T06:37:24+00:00",
+      "og_image": [
+        {
+          "width": 1536,
+          "height": 1024,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/how-defi-lending-works.webp",
+          "type": "image/webp"
+        }
+      ],
+      "author": "Yoga adi pranata",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Yoga adi pranata",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/",
+            "url": "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/",
+            "name": "Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi? - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/how-defi-lending-works.webp",
+            "datePublished": "2026-07-28T09:20:41+00:00",
+            "dateModified": "2026-07-29T06:37:24+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/097cbb6082741df772ee25725f2034e8"
+            },
+            "description": "Pinjaman dalam ekosistem DeFi (Decentralized Finance) bekerja tanpa perantara bank. Sistem ini menggunakan tiga unsur utama: kontrak pintar (smart contract), jaminan (kolateral), dan kumpulan likuiditas (liquidity pool)",
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/how-defi-lending-works.webp",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/how-defi-lending-works.webp",
+            "width": 1536,
+            "height": 1024
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/bagaimana-cara-kerja-pinjaman-dalam-ekosistem-defi/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Bagaimana Cara Kerja Pinjaman dalam Ekosistem DeFi?"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/097cbb6082741df772ee25725f2034e8",
+            "name": "Yoga adi pranata",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/b01f53bb07918e0123dd73aa32e984a56e20b30cf7fb6069a9b4681786035fc4?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/b01f53bb07918e0123dd73aa32e984a56e20b30cf7fb6069a9b4681786035fc4?s=96&d=mm&r=g",
+              "caption": "Yoga adi pranata"
+            },
+            "url": "https://buletinsiber.com/author/yoga-adi-pranata/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/12779",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/14"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=12779"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/12779/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 12795,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/12779/revisions/12795"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/15016"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=12779"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=12779"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=12779"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

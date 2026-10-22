@@ -1,0 +1,329 @@
+{
+  "id": 9157,
+  "title": "Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern",
+  "slug": "mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern",
+  "url": "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/",
+  "date": "2026-01-09T00:10:51",
+  "date_gmt": "2026-01-09T00:10:51",
+  "modified": "2026-07-06T21:32:23",
+  "modified_gmt": "2026-07-06T21:32:23",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    951,
+    950
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/06/enkripsi-data-2.jpg",
+  "excerpt": "Pengantar Pemrosesan data sekuensial merupakan fondasi penting dalam berbagai aplikasi kecerdasan buatan, mulai dari pemodelan bahasa, analisis sinyal, hingga pemrosesan time series. Selama beberapa tahun terakhir, arsitektur berbasis Transformer mendominasi pendekatan ini. Namun, di balik popularitas tersebut, muncul pendekatan lain yang menawarkan sudut pandang berbeda dalam menangani urutan data secara efisien. Salah satu pendekatan tersebut adalah State Space Models (SSM), yang belakangan semakin diperhatikan berkat hadirnya arsitektur Mamba. Artikel ini membahas konsep dasar SSM, bagaimana Mamba mengimplementasikannya, serta mengapa pendekatan ini relevan dalam konteks pemrosesan sekuensial modern. Apa Itu State Space Models (SSM)? State Space Models adalah pendekatan matematis yang…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"352\" data-end=\"368\"><span style=\"color: #000000;\"><strong data-start=\"355\" data-end=\"368\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"369\" data-end=\"778\"><span style=\"color: #000000;\">Pemrosesan data sekuensial merupakan fondasi penting dalam berbagai aplikasi kecerdasan buatan, mulai dari pemodelan bahasa, analisis sinyal, hingga pemrosesan time series. Selama beberapa tahun terakhir, arsitektur berbasis <em data-start=\"594\" data-end=\"607\">Transformer</em> mendominasi pendekatan ini. Namun, di balik popularitas tersebut, muncul pendekatan lain yang menawarkan sudut pandang berbeda dalam menangani urutan data secara efisien.</span></p>\n<p style=\"text-align: justify;\" data-start=\"780\" data-end=\"1082\"><span style=\"color: #000000;\">Salah satu pendekatan tersebut adalah State Space Models (SSM), yang belakangan semakin diperhatikan berkat hadirnya arsitektur Mamba. Artikel ini membahas konsep dasar SSM, bagaimana Mamba mengimplementasikannya, serta mengapa pendekatan ini relevan dalam konteks pemrosesan sekuensial modern.</span></p>\n<hr data-start=\"1084\" data-end=\"1087\" />\n<h3 style=\"text-align: justify;\" data-start=\"1089\" data-end=\"1129\"><span style=\"color: #000000;\"><strong data-start=\"1092\" data-end=\"1129\">Apa Itu State Space Models (SSM)?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"1130\" data-end=\"1263\"><span style=\"color: #000000;\">State Space Models adalah pendekatan matematis yang telah lama digunakan dalam bidang kontrol, pemrosesan sinyal, dan sistem dinamis.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"1265\" data-end=\"1289\"><span style=\"color: #000000;\"><strong data-start=\"1269\" data-end=\"1289\">Konsep Dasar SSM</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1290\" data-end=\"1327\"><span style=\"color: #000000;\">SSM merepresentasikan sistem sebagai:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1328\" data-end=\"1462\">\n<li data-start=\"1328\" data-end=\"1386\">\n<p data-start=\"1330\" data-end=\"1386\"><span style=\"color: #000000;\"><strong data-start=\"1330\" data-end=\"1339\">State</strong>: kondisi internal sistem pada waktu tertentu</span></p>\n</li>\n<li data-start=\"1387\" data-end=\"1417\">\n<p data-start=\"1389\" data-end=\"1417\"><span style=\"color: #000000;\"><strong data-start=\"1389\" data-end=\"1398\">Input</strong>: data yang masuk</span></p>\n</li>\n<li data-start=\"1418\" data-end=\"1462\">\n<p data-start=\"1420\" data-end=\"1462\"><span style=\"color: #000000;\"><strong data-start=\"1420\" data-end=\"1430\">Output</strong>: hasil yang dihasilkan sistem</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1464\" data-end=\"1504\"><span style=\"color: #000000;\">Pendekatan ini memungkinkan model untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1505\" data-end=\"1632\">\n<li data-start=\"1505\" data-end=\"1544\">\n<p data-start=\"1507\" data-end=\"1544\"><span style=\"color: #000000;\">Menangkap dependensi jangka panjang</span></p>\n</li>\n<li data-start=\"1545\" data-end=\"1580\">\n<p data-start=\"1547\" data-end=\"1580\"><span style=\"color: #000000;\">Memproses data secara berurutan</span></p>\n</li>\n<li data-start=\"1581\" data-end=\"1632\">\n<p data-start=\"1583\" data-end=\"1632\"><span style=\"color: #000000;\">Mengelola informasi historis secara terstruktur</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1634\" data-end=\"1735\"><span style=\"color: #000000;\">Berbeda dengan model attention-heavy, SSM berfokus pada dinamika state yang berevolusi seiring waktu.</span></p>\n<blockquote>\n<p data-start=\"1634\" data-end=\"1735\">baca juga : <a href=\"https://buletinsiber.com/cve-2024-51788-kerentanan-kritis-pada-plugin-wordpress-yang-bisa-mengambil-alih-website/\">CVE-2024-51788: Kerentanan Kritis pada Plugin WordPress yang Bisa Mengambil Alih Website</a></p>\n</blockquote>\n<hr data-start=\"1737\" data-end=\"1740\" />\n<h3 style=\"text-align: justify;\" data-start=\"1742\" data-end=\"1793\"><span style=\"color: #000000;\"><strong data-start=\"1745\" data-end=\"1793\">Mengapa SSM Kembali Dilirik dalam AI Modern?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"1794\" data-end=\"1879\"><span style=\"color: #000000;\">Dalam konteks AI dan machine learning, SSM menawarkan beberapa karakteristik menarik:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1880\" data-end=\"2066\">\n<li data-start=\"1880\" data-end=\"1949\">\n<p data-start=\"1882\" data-end=\"1949\"><span style=\"color: #000000;\">Kompleksitas komputasi yang lebih stabil terhadap panjang sekuens</span></p>\n</li>\n<li data-start=\"1950\" data-end=\"1993\">\n<p data-start=\"1952\" data-end=\"1993\"><span style=\"color: #000000;\">Penggunaan memori yang lebih terkontrol</span></p>\n</li>\n<li data-start=\"1994\" data-end=\"2066\">\n<p data-start=\"1996\" data-end=\"2066\"><span style=\"color: #000000;\">Cocok untuk data sekuens panjang seperti audio, log, dan time series</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2068\" data-end=\"2234\"><span style=\"color: #000000;\">Kebutuhan akan efisiensi inilah yang mendorong eksplorasi SSM dalam arsitektur AI modern <em data-start=\"2157\" data-end=\"2182\">(dikutip dari <a href=\"https://medium.com/@raktims2210/mamba-selective-state-space-models-and-the-rise-of-post-transformer-ai-f197f05e8ab8\">medium.com</a>)</em>.</span></p>\n<hr data-start=\"2236\" data-end=\"2239\" />\n<h3 style=\"text-align: justify;\" data-start=\"2241\" data-end=\"2273\"><span style=\"color: #000000;\"><strong data-start=\"2244\" data-end=\"2273\">Apa Itu Arsitektur Mamba?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"2274\" data-end=\"2375\"><span style=\"color: #000000;\">Mamba adalah arsitektur neural network yang dibangun di atas prinsip <strong data-start=\"2343\" data-end=\"2374\">Selective State Space Model</strong>.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2377\" data-end=\"2410\"><span style=\"color: #000000;\"><strong data-start=\"2381\" data-end=\"2410\">Karakteristik Utama Mamba</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"2411\" data-end=\"2573\">\n<li data-start=\"2411\" data-end=\"2470\">\n<p data-start=\"2413\" data-end=\"2470\"><span style=\"color: #000000;\">Menggunakan mekanisme state space yang dapat dipelajari</span></p>\n</li>\n<li data-start=\"2471\" data-end=\"2511\">\n<p data-start=\"2473\" data-end=\"2511\"><span style=\"color: #000000;\">Tidak bergantung pada self-attention</span></p>\n</li>\n<li data-start=\"2512\" data-end=\"2573\">\n<p data-start=\"2514\" data-end=\"2573\"><span style=\"color: #000000;\">Dirancang untuk pemrosesan sekuens panjang secara efisien</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2575\" data-end=\"2699\"><span style=\"color: #000000;\">Pendekatan ini memungkinkan Mamba mempertahankan konteks jangka panjang tanpa biaya komputasi yang meningkat secara drastis.</span></p>\n<hr data-start=\"2701\" data-end=\"2704\" />\n<h3 style=\"text-align: justify;\" data-start=\"2706\" data-end=\"2755\"><span style=\"color: #000000;\"><strong data-start=\"2709\" data-end=\"2755\">Bagaimana Mamba Memproses Data Sekuensial?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2757\" data-end=\"2787\"><span style=\"color: #000000;\"><strong data-start=\"2761\" data-end=\"2787\">Selective State Update</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2788\" data-end=\"2828\"><span style=\"color: #000000;\">Tidak semua informasi diperlakukan sama.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"2830\" data-end=\"2859\"><span style=\"color: #000000;\"><strong data-start=\"2835\" data-end=\"2859\">Yang dilakukan Mamba</strong></span></h6>\n<ul style=\"text-align: justify;\" data-start=\"2860\" data-end=\"2982\">\n<li data-start=\"2860\" data-end=\"2891\">\n<p data-start=\"2862\" data-end=\"2891\"><span style=\"color: #000000;\">Menyaring informasi relevan</span></p>\n</li>\n<li data-start=\"2892\" data-end=\"2929\">\n<p data-start=\"2894\" data-end=\"2929\"><span style=\"color: #000000;\">Memperbarui state secara selektif</span></p>\n</li>\n<li data-start=\"2930\" data-end=\"2982\">\n<p data-start=\"2932\" data-end=\"2982\"><span style=\"color: #000000;\">Menghindari pemrosesan berulang yang tidak perlu</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2984\" data-end=\"3089\"><span style=\"color: #000000;\">Pendekatan ini membuat Mamba lebih efisien dalam memproses data panjang dibandingkan metode konvensional.</span></p>\n<hr data-start=\"3091\" data-end=\"3094\" />\n<h4 style=\"text-align: justify;\" data-start=\"3096\" data-end=\"3141\"><span style=\"color: #000000;\"><strong data-start=\"3100\" data-end=\"3141\">Perbedaan Pendekatan dengan Attention</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3142\" data-end=\"3199\"><span style=\"color: #000000;\">Alih-alih menghitung hubungan antar seluruh token, Mamba:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3200\" data-end=\"3297\">\n<li data-start=\"3200\" data-end=\"3232\">\n<p data-start=\"3202\" data-end=\"3232\"><span style=\"color: #000000;\">Memproses data secara linear</span></p>\n</li>\n<li data-start=\"3233\" data-end=\"3266\">\n<p data-start=\"3235\" data-end=\"3266\"><span style=\"color: #000000;\">Menyimpan konteks dalam state</span></p>\n</li>\n<li data-start=\"3267\" data-end=\"3297\">\n<p data-start=\"3269\" data-end=\"3297\"><span style=\"color: #000000;\">Mengurangi overhead memori</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3299\" data-end=\"3393\"><span style=\"color: #000000;\">Inilah yang menjadikan SSM berbasis Mamba menarik untuk skenario dengan keterbatasan resource.</span></p>\n<blockquote>\n<p data-start=\"3299\" data-end=\"3393\">baca juga : <a href=\"https://buletinsiber.com/satu-pixel-bisa-menipu-ai-mengenal-adversarial-attack-pada-sistem-computer-vision/\">Satu Pixel Bisa Menipu AI: Mengenal Adversarial Attack pada Sistem Computer Vision</a></p>\n</blockquote>\n<hr data-start=\"3395\" data-end=\"3398\" />\n<h3 style=\"text-align: justify;\" data-start=\"3400\" data-end=\"3452\"><span style=\"color: #000000;\"><strong data-start=\"3403\" data-end=\"3452\">Use Case Pemrosesan Sekuensial Berbasis Mamba</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"3453\" data-end=\"3525\"><span style=\"color: #000000;\">Arsitektur ini mulai dieksplorasi untuk berbagai kebutuhan, antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3526\" data-end=\"3683\">\n<li data-start=\"3526\" data-end=\"3557\">\n<p data-start=\"3528\" data-end=\"3557\"><span style=\"color: #000000;\">Pemrosesan audio dan sinyal</span></p>\n</li>\n<li data-start=\"3558\" data-end=\"3597\">\n<p data-start=\"3560\" data-end=\"3597\"><span style=\"color: #000000;\">Analisis time series berskala besar</span></p>\n</li>\n<li data-start=\"3598\" data-end=\"3637\">\n<p data-start=\"3600\" data-end=\"3637\"><span style=\"color: #000000;\">Model bahasa dengan konteks panjang</span></p>\n</li>\n<li data-start=\"3638\" data-end=\"3683\">\n<p data-start=\"3640\" data-end=\"3683\"><span style=\"color: #000000;\">Edge AI dan sistem dengan memori terbatas</span></p>\n</li>\n</ul>\n<hr data-start=\"3860\" data-end=\"3863\" />\n<h3 style=\"text-align: justify;\" data-start=\"3865\" data-end=\"3893\"><span style=\"color: #000000;\"><strong data-start=\"3868\" data-end=\"3893\">Tantangan dan Batasan</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"3894\" data-end=\"3963\"><span style=\"color: #000000;\">Meski menjanjikan, pendekatan SSM dan Mamba masih memiliki tantangan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3964\" data-end=\"4105\">\n<li data-start=\"3964\" data-end=\"4011\">\n<p data-start=\"3966\" data-end=\"4011\"><span style=\"color: #000000;\">Ekosistem tooling belum sebesar Transformer</span></p>\n</li>\n<li data-start=\"4012\" data-end=\"4048\">\n<p data-start=\"4014\" data-end=\"4048\"><span style=\"color: #000000;\">Kurva pembelajaran bagi praktisi</span></p>\n</li>\n<li data-start=\"4049\" data-end=\"4105\">\n<p data-start=\"4051\" data-end=\"4105\"><span style=\"color: #000000;\">Tidak selalu cocok untuk semua jenis data sekuensial</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4107\" data-end=\"4207\"><span style=\"color: #000000;\">Oleh karena itu, pemilihan arsitektur tetap harus disesuaikan dengan kebutuhan dan konteks aplikasi.</span></p>\n<blockquote>\n<p data-start=\"4107\" data-end=\"4207\">baca juga : <a href=\"https://buletinsiber.com/quantization-dan-pruning-teknik-mengompres-llm-agar-bisa-berjalan-di-perangkat-edge-dengan-resource-terbatas/\">Quantization dan Pruning: Teknik Mengompres LLM agar Bisa Berjalan di Perangkat Edge dengan Resource Terbatas</a></p>\n</blockquote>\n<hr data-start=\"4209\" data-end=\"4212\" />\n<h2 style=\"text-align: justify;\" data-start=\"4214\" data-end=\"4231\"><span style=\"color: #000000;\"><strong data-start=\"4217\" data-end=\"4231\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4232\" data-end=\"4542\"><span style=\"color: #000000;\">Arsitektur Mamba dan pendekatan State Space Models menghadirkan perspektif alternatif dalam pemrosesan data sekuensial modern. Dengan fokus pada efisiensi, pengelolaan state, dan kemampuan menangani sekuens panjang, SSM menawarkan solusi yang relevan di luar pendekatan attention-based yang selama ini dominan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4544\" data-end=\"4776\"><span style=\"color: #000000;\">Alih-alih menggantikan metode yang ada, Mamba dan SSM memperkaya lanskap arsitektur AI, memberikan pilihan tambahan bagi pengembang dan peneliti dalam merancang sistem pemrosesan sekuensial yang lebih sesuai dengan kebutuhan mereka.</span></p>\n",
+  "content_text": "Pengantar\nPemrosesan data sekuensial merupakan fondasi penting dalam berbagai aplikasi kecerdasan buatan, mulai dari pemodelan bahasa, analisis sinyal, hingga pemrosesan time series. Selama beberapa tahun terakhir, arsitektur berbasis  Transformer  mendominasi pendekatan ini. Namun, di balik popularitas tersebut, muncul pendekatan lain yang menawarkan sudut pandang berbeda dalam menangani urutan data secara efisien.\nSalah satu pendekatan tersebut adalah State Space Models (SSM), yang belakangan semakin diperhatikan berkat hadirnya arsitektur Mamba. Artikel ini membahas konsep dasar SSM, bagaimana Mamba mengimplementasikannya, serta mengapa pendekatan ini relevan dalam konteks pemrosesan sekuensial modern.\nApa Itu State Space Models (SSM)?\nState Space Models adalah pendekatan matematis yang telah lama digunakan dalam bidang kontrol, pemrosesan sinyal, dan sistem dinamis.\nKonsep Dasar SSM\nSSM merepresentasikan sistem sebagai:\nState : kondisi internal sistem pada waktu tertentu\nInput : data yang masuk\nOutput : hasil yang dihasilkan sistem\nPendekatan ini memungkinkan model untuk:\nMenangkap dependensi jangka panjang\nMemproses data secara berurutan\nMengelola informasi historis secara terstruktur\nBerbeda dengan model attention-heavy, SSM berfokus pada dinamika state yang berevolusi seiring waktu.\nbaca juga :  CVE-2024-51788: Kerentanan Kritis pada Plugin WordPress yang Bisa Mengambil Alih Website\nMengapa SSM Kembali Dilirik dalam AI Modern?\nDalam konteks AI dan machine learning, SSM menawarkan beberapa karakteristik menarik:\nKompleksitas komputasi yang lebih stabil terhadap panjang sekuens\nPenggunaan memori yang lebih terkontrol\nCocok untuk data sekuens panjang seperti audio, log, dan time series\nKebutuhan akan efisiensi inilah yang mendorong eksplorasi SSM dalam arsitektur AI modern  (dikutip dari  medium.com ) .\nApa Itu Arsitektur Mamba?\nMamba adalah arsitektur neural network yang dibangun di atas prinsip  Selective State Space Model .\nKarakteristik Utama Mamba\nMenggunakan mekanisme state space yang dapat dipelajari\nTidak bergantung pada self-attention\nDirancang untuk pemrosesan sekuens panjang secara efisien\nPendekatan ini memungkinkan Mamba mempertahankan konteks jangka panjang tanpa biaya komputasi yang meningkat secara drastis.\nBagaimana Mamba Memproses Data Sekuensial?\nSelective State Update\nTidak semua informasi diperlakukan sama.\nYang dilakukan Mamba\nMenyaring informasi relevan\nMemperbarui state secara selektif\nMenghindari pemrosesan berulang yang tidak perlu\nPendekatan ini membuat Mamba lebih efisien dalam memproses data panjang dibandingkan metode konvensional.\nPerbedaan Pendekatan dengan Attention\nAlih-alih menghitung hubungan antar seluruh token, Mamba:\nMemproses data secara linear\nMenyimpan konteks dalam state\nMengurangi overhead memori\nInilah yang menjadikan SSM berbasis Mamba menarik untuk skenario dengan keterbatasan resource.\nbaca juga :  Satu Pixel Bisa Menipu AI: Mengenal Adversarial Attack pada Sistem Computer Vision\nUse Case Pemrosesan Sekuensial Berbasis Mamba\nArsitektur ini mulai dieksplorasi untuk berbagai kebutuhan, antara lain:\nPemrosesan audio dan sinyal\nAnalisis time series berskala besar\nModel bahasa dengan konteks panjang\nEdge AI dan sistem dengan memori terbatas\nTantangan dan Batasan\nMeski menjanjikan, pendekatan SSM dan Mamba masih memiliki tantangan:\nEkosistem tooling belum sebesar Transformer\nKurva pembelajaran bagi praktisi\nTidak selalu cocok untuk semua jenis data sekuensial\nOleh karena itu, pemilihan arsitektur tetap harus disesuaikan dengan kebutuhan dan konteks aplikasi.\nbaca juga :  Quantization dan Pruning: Teknik Mengompres LLM agar Bisa Berjalan di Perangkat Edge dengan Resource Terbatas\nKesimpulan\nArsitektur Mamba dan pendekatan State Space Models menghadirkan perspektif alternatif dalam pemrosesan data sekuensial modern. Dengan fokus pada efisiensi, pengelolaan state, dan kemampuan menangani sekuens panjang, SSM menawarkan solusi yang relevan di luar pendekatan attention-based yang selama ini dominan.\nAlih-alih menggantikan metode yang ada, Mamba dan SSM memperkaya lanskap arsitektur AI, memberikan pilihan tambahan bagi pengembang dan peneliti dalam merancang sistem pemrosesan sekuensial yang lebih sesuai dengan kebutuhan mereka.",
+  "raw": {
+    "id": 9157,
+    "date": "2026-01-09T00:10:51",
+    "date_gmt": "2026-01-09T00:10:51",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9157"
+    },
+    "modified": "2026-07-06T21:32:23",
+    "modified_gmt": "2026-07-06T21:32:23",
+    "slug": "mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/",
+    "title": {
+      "rendered": "Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"352\" data-end=\"368\"><span style=\"color: #000000;\"><strong data-start=\"355\" data-end=\"368\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"369\" data-end=\"778\"><span style=\"color: #000000;\">Pemrosesan data sekuensial merupakan fondasi penting dalam berbagai aplikasi kecerdasan buatan, mulai dari pemodelan bahasa, analisis sinyal, hingga pemrosesan time series. Selama beberapa tahun terakhir, arsitektur berbasis <em data-start=\"594\" data-end=\"607\">Transformer</em> mendominasi pendekatan ini. Namun, di balik popularitas tersebut, muncul pendekatan lain yang menawarkan sudut pandang berbeda dalam menangani urutan data secara efisien.</span></p>\n<p style=\"text-align: justify;\" data-start=\"780\" data-end=\"1082\"><span style=\"color: #000000;\">Salah satu pendekatan tersebut adalah State Space Models (SSM), yang belakangan semakin diperhatikan berkat hadirnya arsitektur Mamba. Artikel ini membahas konsep dasar SSM, bagaimana Mamba mengimplementasikannya, serta mengapa pendekatan ini relevan dalam konteks pemrosesan sekuensial modern.</span></p>\n<hr data-start=\"1084\" data-end=\"1087\" />\n<h3 style=\"text-align: justify;\" data-start=\"1089\" data-end=\"1129\"><span style=\"color: #000000;\"><strong data-start=\"1092\" data-end=\"1129\">Apa Itu State Space Models (SSM)?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"1130\" data-end=\"1263\"><span style=\"color: #000000;\">State Space Models adalah pendekatan matematis yang telah lama digunakan dalam bidang kontrol, pemrosesan sinyal, dan sistem dinamis.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"1265\" data-end=\"1289\"><span style=\"color: #000000;\"><strong data-start=\"1269\" data-end=\"1289\">Konsep Dasar SSM</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1290\" data-end=\"1327\"><span style=\"color: #000000;\">SSM merepresentasikan sistem sebagai:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1328\" data-end=\"1462\">\n<li data-start=\"1328\" data-end=\"1386\">\n<p data-start=\"1330\" data-end=\"1386\"><span style=\"color: #000000;\"><strong data-start=\"1330\" data-end=\"1339\">State</strong>: kondisi internal sistem pada waktu tertentu</span></p>\n</li>\n<li data-start=\"1387\" data-end=\"1417\">\n<p data-start=\"1389\" data-end=\"1417\"><span style=\"color: #000000;\"><strong data-start=\"1389\" data-end=\"1398\">Input</strong>: data yang masuk</span></p>\n</li>\n<li data-start=\"1418\" data-end=\"1462\">\n<p data-start=\"1420\" data-end=\"1462\"><span style=\"color: #000000;\"><strong data-start=\"1420\" data-end=\"1430\">Output</strong>: hasil yang dihasilkan sistem</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1464\" data-end=\"1504\"><span style=\"color: #000000;\">Pendekatan ini memungkinkan model untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1505\" data-end=\"1632\">\n<li data-start=\"1505\" data-end=\"1544\">\n<p data-start=\"1507\" data-end=\"1544\"><span style=\"color: #000000;\">Menangkap dependensi jangka panjang</span></p>\n</li>\n<li data-start=\"1545\" data-end=\"1580\">\n<p data-start=\"1547\" data-end=\"1580\"><span style=\"color: #000000;\">Memproses data secara berurutan</span></p>\n</li>\n<li data-start=\"1581\" data-end=\"1632\">\n<p data-start=\"1583\" data-end=\"1632\"><span style=\"color: #000000;\">Mengelola informasi historis secara terstruktur</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1634\" data-end=\"1735\"><span style=\"color: #000000;\">Berbeda dengan model attention-heavy, SSM berfokus pada dinamika state yang berevolusi seiring waktu.</span></p>\n<blockquote>\n<p data-start=\"1634\" data-end=\"1735\">baca juga : <a href=\"https://buletinsiber.com/cve-2024-51788-kerentanan-kritis-pada-plugin-wordpress-yang-bisa-mengambil-alih-website/\">CVE-2024-51788: Kerentanan Kritis pada Plugin WordPress yang Bisa Mengambil Alih Website</a></p>\n</blockquote>\n<hr data-start=\"1737\" data-end=\"1740\" />\n<h3 style=\"text-align: justify;\" data-start=\"1742\" data-end=\"1793\"><span style=\"color: #000000;\"><strong data-start=\"1745\" data-end=\"1793\">Mengapa SSM Kembali Dilirik dalam AI Modern?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"1794\" data-end=\"1879\"><span style=\"color: #000000;\">Dalam konteks AI dan machine learning, SSM menawarkan beberapa karakteristik menarik:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1880\" data-end=\"2066\">\n<li data-start=\"1880\" data-end=\"1949\">\n<p data-start=\"1882\" data-end=\"1949\"><span style=\"color: #000000;\">Kompleksitas komputasi yang lebih stabil terhadap panjang sekuens</span></p>\n</li>\n<li data-start=\"1950\" data-end=\"1993\">\n<p data-start=\"1952\" data-end=\"1993\"><span style=\"color: #000000;\">Penggunaan memori yang lebih terkontrol</span></p>\n</li>\n<li data-start=\"1994\" data-end=\"2066\">\n<p data-start=\"1996\" data-end=\"2066\"><span style=\"color: #000000;\">Cocok untuk data sekuens panjang seperti audio, log, dan time series</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2068\" data-end=\"2234\"><span style=\"color: #000000;\">Kebutuhan akan efisiensi inilah yang mendorong eksplorasi SSM dalam arsitektur AI modern <em data-start=\"2157\" data-end=\"2182\">(dikutip dari <a href=\"https://medium.com/@raktims2210/mamba-selective-state-space-models-and-the-rise-of-post-transformer-ai-f197f05e8ab8\">medium.com</a>)</em>.</span></p>\n<hr data-start=\"2236\" data-end=\"2239\" />\n<h3 style=\"text-align: justify;\" data-start=\"2241\" data-end=\"2273\"><span style=\"color: #000000;\"><strong data-start=\"2244\" data-end=\"2273\">Apa Itu Arsitektur Mamba?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"2274\" data-end=\"2375\"><span style=\"color: #000000;\">Mamba adalah arsitektur neural network yang dibangun di atas prinsip <strong data-start=\"2343\" data-end=\"2374\">Selective State Space Model</strong>.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2377\" data-end=\"2410\"><span style=\"color: #000000;\"><strong data-start=\"2381\" data-end=\"2410\">Karakteristik Utama Mamba</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"2411\" data-end=\"2573\">\n<li data-start=\"2411\" data-end=\"2470\">\n<p data-start=\"2413\" data-end=\"2470\"><span style=\"color: #000000;\">Menggunakan mekanisme state space yang dapat dipelajari</span></p>\n</li>\n<li data-start=\"2471\" data-end=\"2511\">\n<p data-start=\"2473\" data-end=\"2511\"><span style=\"color: #000000;\">Tidak bergantung pada self-attention</span></p>\n</li>\n<li data-start=\"2512\" data-end=\"2573\">\n<p data-start=\"2514\" data-end=\"2573\"><span style=\"color: #000000;\">Dirancang untuk pemrosesan sekuens panjang secara efisien</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2575\" data-end=\"2699\"><span style=\"color: #000000;\">Pendekatan ini memungkinkan Mamba mempertahankan konteks jangka panjang tanpa biaya komputasi yang meningkat secara drastis.</span></p>\n<hr data-start=\"2701\" data-end=\"2704\" />\n<h3 style=\"text-align: justify;\" data-start=\"2706\" data-end=\"2755\"><span style=\"color: #000000;\"><strong data-start=\"2709\" data-end=\"2755\">Bagaimana Mamba Memproses Data Sekuensial?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2757\" data-end=\"2787\"><span style=\"color: #000000;\"><strong data-start=\"2761\" data-end=\"2787\">Selective State Update</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2788\" data-end=\"2828\"><span style=\"color: #000000;\">Tidak semua informasi diperlakukan sama.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"2830\" data-end=\"2859\"><span style=\"color: #000000;\"><strong data-start=\"2835\" data-end=\"2859\">Yang dilakukan Mamba</strong></span></h6>\n<ul style=\"text-align: justify;\" data-start=\"2860\" data-end=\"2982\">\n<li data-start=\"2860\" data-end=\"2891\">\n<p data-start=\"2862\" data-end=\"2891\"><span style=\"color: #000000;\">Menyaring informasi relevan</span></p>\n</li>\n<li data-start=\"2892\" data-end=\"2929\">\n<p data-start=\"2894\" data-end=\"2929\"><span style=\"color: #000000;\">Memperbarui state secara selektif</span></p>\n</li>\n<li data-start=\"2930\" data-end=\"2982\">\n<p data-start=\"2932\" data-end=\"2982\"><span style=\"color: #000000;\">Menghindari pemrosesan berulang yang tidak perlu</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2984\" data-end=\"3089\"><span style=\"color: #000000;\">Pendekatan ini membuat Mamba lebih efisien dalam memproses data panjang dibandingkan metode konvensional.</span></p>\n<hr data-start=\"3091\" data-end=\"3094\" />\n<h4 style=\"text-align: justify;\" data-start=\"3096\" data-end=\"3141\"><span style=\"color: #000000;\"><strong data-start=\"3100\" data-end=\"3141\">Perbedaan Pendekatan dengan Attention</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3142\" data-end=\"3199\"><span style=\"color: #000000;\">Alih-alih menghitung hubungan antar seluruh token, Mamba:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3200\" data-end=\"3297\">\n<li data-start=\"3200\" data-end=\"3232\">\n<p data-start=\"3202\" data-end=\"3232\"><span style=\"color: #000000;\">Memproses data secara linear</span></p>\n</li>\n<li data-start=\"3233\" data-end=\"3266\">\n<p data-start=\"3235\" data-end=\"3266\"><span style=\"color: #000000;\">Menyimpan konteks dalam state</span></p>\n</li>\n<li data-start=\"3267\" data-end=\"3297\">\n<p data-start=\"3269\" data-end=\"3297\"><span style=\"color: #000000;\">Mengurangi overhead memori</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3299\" data-end=\"3393\"><span style=\"color: #000000;\">Inilah yang menjadikan SSM berbasis Mamba menarik untuk skenario dengan keterbatasan resource.</span></p>\n<blockquote>\n<p data-start=\"3299\" data-end=\"3393\">baca juga : <a href=\"https://buletinsiber.com/satu-pixel-bisa-menipu-ai-mengenal-adversarial-attack-pada-sistem-computer-vision/\">Satu Pixel Bisa Menipu AI: Mengenal Adversarial Attack pada Sistem Computer Vision</a></p>\n</blockquote>\n<hr data-start=\"3395\" data-end=\"3398\" />\n<h3 style=\"text-align: justify;\" data-start=\"3400\" data-end=\"3452\"><span style=\"color: #000000;\"><strong data-start=\"3403\" data-end=\"3452\">Use Case Pemrosesan Sekuensial Berbasis Mamba</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"3453\" data-end=\"3525\"><span style=\"color: #000000;\">Arsitektur ini mulai dieksplorasi untuk berbagai kebutuhan, antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3526\" data-end=\"3683\">\n<li data-start=\"3526\" data-end=\"3557\">\n<p data-start=\"3528\" data-end=\"3557\"><span style=\"color: #000000;\">Pemrosesan audio dan sinyal</span></p>\n</li>\n<li data-start=\"3558\" data-end=\"3597\">\n<p data-start=\"3560\" data-end=\"3597\"><span style=\"color: #000000;\">Analisis time series berskala besar</span></p>\n</li>\n<li data-start=\"3598\" data-end=\"3637\">\n<p data-start=\"3600\" data-end=\"3637\"><span style=\"color: #000000;\">Model bahasa dengan konteks panjang</span></p>\n</li>\n<li data-start=\"3638\" data-end=\"3683\">\n<p data-start=\"3640\" data-end=\"3683\"><span style=\"color: #000000;\">Edge AI dan sistem dengan memori terbatas</span></p>\n</li>\n</ul>\n<hr data-start=\"3860\" data-end=\"3863\" />\n<h3 style=\"text-align: justify;\" data-start=\"3865\" data-end=\"3893\"><span style=\"color: #000000;\"><strong data-start=\"3868\" data-end=\"3893\">Tantangan dan Batasan</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"3894\" data-end=\"3963\"><span style=\"color: #000000;\">Meski menjanjikan, pendekatan SSM dan Mamba masih memiliki tantangan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3964\" data-end=\"4105\">\n<li data-start=\"3964\" data-end=\"4011\">\n<p data-start=\"3966\" data-end=\"4011\"><span style=\"color: #000000;\">Ekosistem tooling belum sebesar Transformer</span></p>\n</li>\n<li data-start=\"4012\" data-end=\"4048\">\n<p data-start=\"4014\" data-end=\"4048\"><span style=\"color: #000000;\">Kurva pembelajaran bagi praktisi</span></p>\n</li>\n<li data-start=\"4049\" data-end=\"4105\">\n<p data-start=\"4051\" data-end=\"4105\"><span style=\"color: #000000;\">Tidak selalu cocok untuk semua jenis data sekuensial</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4107\" data-end=\"4207\"><span style=\"color: #000000;\">Oleh karena itu, pemilihan arsitektur tetap harus disesuaikan dengan kebutuhan dan konteks aplikasi.</span></p>\n<blockquote>\n<p data-start=\"4107\" data-end=\"4207\">baca juga : <a href=\"https://buletinsiber.com/quantization-dan-pruning-teknik-mengompres-llm-agar-bisa-berjalan-di-perangkat-edge-dengan-resource-terbatas/\">Quantization dan Pruning: Teknik Mengompres LLM agar Bisa Berjalan di Perangkat Edge dengan Resource Terbatas</a></p>\n</blockquote>\n<hr data-start=\"4209\" data-end=\"4212\" />\n<h2 style=\"text-align: justify;\" data-start=\"4214\" data-end=\"4231\"><span style=\"color: #000000;\"><strong data-start=\"4217\" data-end=\"4231\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4232\" data-end=\"4542\"><span style=\"color: #000000;\">Arsitektur Mamba dan pendekatan State Space Models menghadirkan perspektif alternatif dalam pemrosesan data sekuensial modern. Dengan fokus pada efisiensi, pengelolaan state, dan kemampuan menangani sekuens panjang, SSM menawarkan solusi yang relevan di luar pendekatan attention-based yang selama ini dominan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4544\" data-end=\"4776\"><span style=\"color: #000000;\">Alih-alih menggantikan metode yang ada, Mamba dan SSM memperkaya lanskap arsitektur AI, memberikan pilihan tambahan bagi pengembang dan peneliti dalam merancang sistem pemrosesan sekuensial yang lebih sesuai dengan kebutuhan mereka.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Pemrosesan data sekuensial merupakan fondasi penting dalam berbagai aplikasi kecerdasan buatan, mulai dari pemodelan bahasa, analisis sinyal, hingga pemrosesan time series. Selama beberapa tahun terakhir, arsitektur berbasis Transformer mendominasi pendekatan ini. Namun, di balik popularitas tersebut, muncul pendekatan lain yang menawarkan sudut pandang berbeda dalam menangani urutan data secara efisien. Salah satu pendekatan tersebut adalah State Space Models (SSM), yang belakangan semakin diperhatikan berkat hadirnya arsitektur Mamba. Artikel ini membahas konsep dasar SSM, bagaimana Mamba mengimplementasikannya, serta mengapa pendekatan ini relevan dalam konteks pemrosesan sekuensial modern. Apa Itu State Space Models (SSM)? State Space Models adalah pendekatan matematis yang&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 2550,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "State Space Models (SSM)",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      951,
+      950
+    ],
+    "class_list": [
+      "post-9157",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-mamba",
+      "tag-ssm"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Pemrosesan data sekuensial merupakan fondasi penting dalam berbagai aplikasi kecerdasan buatan, mulai dari pemodelan bahasa, analisis sinyal, hingga pemrosesan time series. Selama beberapa tahun terakhir, arsitektur berbasis Transformer mendominasi pendekatan ini. Namun, di balik popularitas tersebut, muncul pendekatan lain yang menawarkan sudut pandang berbeda dalam menangani urutan data secara efisien. Salah satu pendekatan tersebut adalah State Space Models (SSM), yang belakangan semakin diperhatikan berkat hadirnya arsitektur Mamba. Artikel ini membahas konsep dasar SSM, bagaimana Mamba mengimplementasikannya, serta mengapa pendekatan ini relevan dalam konteks pemrosesan sekuensial modern. Apa Itu State Space Models (SSM)? State Space Models adalah pendekatan matematis yang...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-01-09T00:10:51+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T21:32:23+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/06/enkripsi-data-2.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"535\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/\",\"url\":\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/\",\"name\":\"Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/enkripsi-data-2.jpg\",\"datePublished\":\"2026-01-09T00:10:51+00:00\",\"dateModified\":\"2026-07-06T21:32:23+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/06/enkripsi-data-2.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/enkripsi-data-2.jpg\",\"width\":1024,\"height\":535},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern - buletinsiber.com",
+      "og_description": "Pengantar Pemrosesan data sekuensial merupakan fondasi penting dalam berbagai aplikasi kecerdasan buatan, mulai dari pemodelan bahasa, analisis sinyal, hingga pemrosesan time series. Selama beberapa tahun terakhir, arsitektur berbasis Transformer mendominasi pendekatan ini. Namun, di balik popularitas tersebut, muncul pendekatan lain yang menawarkan sudut pandang berbeda dalam menangani urutan data secara efisien. Salah satu pendekatan tersebut adalah State Space Models (SSM), yang belakangan semakin diperhatikan berkat hadirnya arsitektur Mamba. Artikel ini membahas konsep dasar SSM, bagaimana Mamba mengimplementasikannya, serta mengapa pendekatan ini relevan dalam konteks pemrosesan sekuensial modern. Apa Itu State Space Models (SSM)? State Space Models adalah pendekatan matematis yang...",
+      "og_url": "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-01-09T00:10:51+00:00",
+      "article_modified_time": "2026-07-06T21:32:23+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 535,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/06/enkripsi-data-2.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/",
+            "url": "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/",
+            "name": "Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/enkripsi-data-2.jpg",
+            "datePublished": "2026-01-09T00:10:51+00:00",
+            "dateModified": "2026-07-06T21:32:23+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/06/enkripsi-data-2.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/enkripsi-data-2.jpg",
+            "width": 1024,
+            "height": 535
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/mengenal-arsitektur-mamba-dan-state-space-models-ssm-dalam-pemrosesan-data-sekuensial-modern/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Mengenal Arsitektur Mamba dan State Space Models (SSM) dalam Pemrosesan Data Sekuensial Modern"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9157",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9157"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9157/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9158,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9157/revisions/9158"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2550"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9157"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9157"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9157"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

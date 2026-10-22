@@ -1,0 +1,328 @@
+{
+  "id": 22973,
+  "title": "Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory",
+  "slug": "resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory",
+  "url": "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/",
+  "date": "2026-09-01T00:30:09",
+  "date_gmt": "2026-09-01T00:30:09",
+  "modified": "2026-09-01T00:30:09",
+  "modified_gmt": "2026-09-01T00:30:09",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    472,
+    3988,
+    3987
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/Celah-Keamanan-pada-Kode.jpg",
+  "excerpt": "Pengantar Resource-Based Constrained Delegation (RBCD) adalah fitur pada Active Directory yang memungkinkan sebuah resource menentukan akun atau service mana yang boleh bertindak atas nama pengguna lain. Fitur ini berguna untuk kebutuhan delegasi antar-service. Namun, konfigurasi yang terlalu longgar dapat membuka peluang penyalahgunaan hak akses. Microsoft menjelaskan bahwa atribut msDS-AllowedToActOnBehalfOfOtherIdentity digunakan untuk menentukan apakah suatu pihak memiliki izin bertindak atas nama identitas lain pada service yang berjalan menggunakan akun tersebut (dikutip dari: Microsoft Learn – msDS-AllowedToActOnBehalfOfOtherIdentity). Apa Itu RBCD? RBCD merupakan mekanisme delegasi pada lingkungan Kerberos Active Directory. Berbeda dengan beberapa model delegasi tradisional, konfigurasi RBCD ditempatkan pada resource yang menerima…",
+  "content_html": "<h2>Pengantar</h2>\n<p class=\"isSelectedEnd\"><strong>Resource-Based Constrained Delegation (RBCD)</strong> adalah fitur pada Active Directory yang memungkinkan sebuah resource menentukan akun atau service mana yang boleh bertindak atas nama pengguna lain.</p>\n<p class=\"isSelectedEnd\">Fitur ini berguna untuk kebutuhan delegasi antar-service. Namun, konfigurasi yang terlalu longgar dapat membuka peluang penyalahgunaan hak akses. Microsoft menjelaskan bahwa atribut <code dir=\"ltr\">msDS-AllowedToActOnBehalfOfOtherIdentity</code> digunakan untuk menentukan apakah suatu pihak memiliki izin bertindak atas nama identitas lain pada service yang berjalan menggunakan akun tersebut <strong>(dikutip dari: </strong><a href=\"https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-ada2/cea4ac11-a4b2-4f2d-84cc-aebb4a4ad405\"><strong>Microsoft Learn – msDS-AllowedToActOnBehalfOfOtherIdentity</strong></a><strong>)</strong>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Itu RBCD?</h2>\n<p class=\"isSelectedEnd\">RBCD merupakan mekanisme delegasi pada lingkungan <strong>Kerberos Active Directory</strong>. Berbeda dengan beberapa model delegasi tradisional, konfigurasi RBCD ditempatkan pada <strong>resource yang menerima akses</strong>.</p>\n<p class=\"isSelectedEnd\">Pengaturan tersebut menggunakan atribut:</p>\n<p class=\"isSelectedEnd\"><code dir=\"ltr\">msDS-AllowedToActOnBehalfOfOtherIdentity</code></p>\n<p class=\"isSelectedEnd\">Atribut ini menyimpan informasi keamanan yang menentukan principal mana yang diperbolehkan bertindak atas nama identitas lain. Dengan demikian, RBCD memberikan kontrol delegasi dari sisi resource.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/windows-event-log-tampering-cara-mendeteksi-manipulasi-jejak-aktivitas-di-windows/\">Windows Event Log Tampering: Cara Mendeteksi Manipulasi Jejak Aktivitas di Windows</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa RBCD Bisa Berbahaya?</h2>\n<p class=\"isSelectedEnd\">Masalah biasanya muncul ketika attacker berhasil memperoleh hak untuk mengubah konfigurasi delegation pada object tertentu.</p>\n<p class=\"isSelectedEnd\">Jika sebuah akun yang dikendalikan attacker memiliki hak tulis yang cukup terhadap object target, konfigurasi RBCD dapat disalahgunakan untuk membangun jalur impersonation.</p>\n<p class=\"isSelectedEnd\">Risikonya menjadi lebih besar dalam Active Directory karena service account dan computer account sering memiliki akses ke resource penting.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Peran Kerberos dalam RBCD</h2>\n<p class=\"isSelectedEnd\">RBCD memanfaatkan kemampuan <strong>Kerberos delegation</strong> untuk memungkinkan sebuah service meminta tiket atas nama identitas lain.</p>\n<p class=\"isSelectedEnd\">Secara sederhana, konsepnya melibatkan:</p>\n<ul data-spread=\"false\">\n<li>Identitas pengguna.</li>\n<li>Akun service atau computer.</li>\n<li>Service Principal Name (SPN).</li>\n<li>Kerberos Service Ticket.</li>\n<li>Konfigurasi delegation pada resource.</li>\n</ul>\n<p class=\"isSelectedEnd\">Karena proses tersebut berkaitan dengan autentikasi Kerberos, penyalahgunaan RBCD dapat menjadi bagian dari serangan <strong>lateral movement</strong> atau privilege escalation.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Bagaimana Penyalahgunaan RBCD Terjadi?</h2>\n<h3>1. Attacker Memperoleh Akses Awal</h3>\n<p class=\"isSelectedEnd\">Serangan biasanya dimulai ketika attacker memiliki akun domain atau berhasil menguasai sebuah account yang mempunyai hak tertentu pada object Active Directory.</p>\n<p class=\"isSelectedEnd\">Tidak semua akun domain otomatis dapat melakukan serangan RBCD. Hak akses terhadap object target menjadi faktor penting.</p>\n<h3>2. Konfigurasi Delegation Disalahgunakan</h3>\n<p class=\"isSelectedEnd\">Attacker kemudian mencoba memanfaatkan hak tulis terhadap atribut <code dir=\"ltr\">msDS-AllowedToActOnBehalfOfOtherIdentity</code>.</p>\n<p class=\"isSelectedEnd\">Perubahan tersebut dapat membuat akun yang dikendalikan attacker memperoleh kemampuan delegation terhadap resource tertentu.</p>\n<h3>3. Kerberos Digunakan untuk Impersonation</h3>\n<p class=\"isSelectedEnd\">Setelah konfigurasi delegation tersedia, mekanisme Kerberos dapat digunakan untuk memperoleh akses service atas nama identitas lain.</p>\n<p class=\"isSelectedEnd\">Pada tahap ini, dampaknya sangat bergantung pada service dan privilege akun yang menjadi target.</p>\n<p class=\"isSelectedEnd\"><strong>Catatan:</strong> detail eksploitasi sebaiknya dilakukan hanya pada lab atau lingkungan pengujian yang memiliki izin.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"756\" height=\"504\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 756px) 100vw, 756px\" /></p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Dampaknya bagi Active Directory?</h2>\n<p class=\"isSelectedEnd\">Penyalahgunaan RBCD dapat memberikan attacker jalur untuk mendapatkan akses ke service menggunakan identitas yang lebih berprivilege.</p>\n<p class=\"isSelectedEnd\">Dampak yang mungkin terjadi antara lain:</p>\n<ul data-spread=\"false\">\n<li><strong>Privilege escalation</strong></li>\n<li><strong>Lateral movement</strong></li>\n<li><strong>Unauthorized service access</strong></li>\n<li><strong>Account impersonation</strong></li>\n<li><strong>Kompromi terhadap server tertentu</strong></li>\n</ul>\n<p class=\"isSelectedEnd\">Microsoft juga memperingatkan bahwa konfigurasi RBCD yang tidak diperlukan dapat meningkatkan risiko impersonation. Dalam konteks Microsoft Entra Seamless SSO, Microsoft merekomendasikan penghapusan konfigurasi RBCD jika tidak dibutuhkan dan menyarankan pemeriksaan atribut <code dir=\"ltr\">msDS-AllowedToActOnBehalfOfOtherIdentity</code> <strong>(dikutip dari: </strong><a href=\"https://learn.microsoft.com/en-us/defender-for-identity/remove-rbcd-microsoft-entra-seamless-single-sign-on-account\"><strong>Microsoft Learn – Remove Resource-Based Constrained Delegation</strong></a><strong>)</strong>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Cara Mendeteksi RBCD</h2>\n<h3>Periksa Konfigurasi Delegation</h3>\n<p class=\"isSelectedEnd\">Administrator perlu memeriksa object komputer dan service account yang memiliki konfigurasi RBCD.</p>\n<p class=\"isSelectedEnd\">Perhatian khusus perlu diberikan pada object yang memiliki nilai tidak biasa pada:</p>\n<p class=\"isSelectedEnd\"><code dir=\"ltr\">msDS-AllowedToActOnBehalfOfOtherIdentity</code></p>\n<p class=\"isSelectedEnd\">Konfigurasi tersebut harus dibandingkan dengan kebutuhan operasional sebenarnya.</p>\n<h3>Pantau Aktivitas Kerberos</h3>\n<p class=\"isSelectedEnd\">Anomali pada Kerberos dapat menjadi indikator penting. Misalnya, aktivitas ticket yang tidak sesuai dengan pola normal sebuah service perlu diperiksa lebih lanjut.</p>\n<p class=\"isSelectedEnd\">Selain itu, korelasikan event Kerberos dengan aktivitas akun dan perubahan object Active Directory.</p>\n<h3>Periksa Perubahan Object</h3>\n<p class=\"isSelectedEnd\">Perubahan permission atau atribut sensitif pada computer account juga perlu dipantau.</p>\n<p class=\"isSelectedEnd\">Dengan centralized logging dan SIEM, perubahan tersebut dapat dikorelasikan dengan identitas administrator serta waktu aktivitas.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/\">QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Cara Mencegah Penyalahgunaan RBCD</h2>\n<h3>Terapkan Least Privilege</h3>\n<p class=\"isSelectedEnd\">Batasi siapa yang dapat mengubah object komputer dan atribut delegation.</p>\n<p class=\"isSelectedEnd\">Hak seperti <strong>GenericWrite, WriteDACL, atau hak administratif lain</strong> perlu diberikan secara hati-hati. Semakin banyak akun yang dapat mengubah object sensitif, semakin besar pula permukaan serangannya.</p>\n<h3>Audit Konfigurasi RBCD</h3>\n<p class=\"isSelectedEnd\">Tidak semua RBCD configuration merupakan malicious activity. Beberapa lingkungan memang membutuhkannya.</p>\n<p class=\"isSelectedEnd\">Karena itu, administrator sebaiknya membuat daftar resource yang memang membutuhkan delegation. Konfigurasi di luar daftar tersebut perlu ditinjau.</p>\n<h3>Pantau Active Directory</h3>\n<p class=\"isSelectedEnd\">Gunakan monitoring untuk mendeteksi perubahan pada object penting.</p>\n<p class=\"isSelectedEnd\">Aktivitas seperti perubahan permission, perubahan atribut delegation, dan pola Kerberos yang tidak biasa dapat menjadi indikator awal.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>RBCD vs Constrained Delegation</h2>\n<p class=\"isSelectedEnd\">Keduanya sama-sama berkaitan dengan <strong>Kerberos delegation</strong>, tetapi model konfigurasinya berbeda.</p>\n<p class=\"isSelectedEnd\">Pada <strong>Constrained Delegation</strong>, konfigurasi delegation umumnya ditentukan pada akun yang dipercaya untuk melakukan delegation.</p>\n<p class=\"isSelectedEnd\">Sementara itu, <strong>RBCD</strong> menempatkan kontrol pada resource yang menerima delegation. Resource menentukan siapa yang boleh bertindak atas namanya.</p>\n<p class=\"isSelectedEnd\">Perbedaan tersebut membuat RBCD fleksibel untuk kebutuhan modern. Namun, kontrol permission pada object Active Directory menjadi sangat penting.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa RBCD Penting Dipahami?</h2>\n<p class=\"isSelectedEnd\">RBCD menunjukkan bahwa keamanan Active Directory tidak hanya bergantung pada password dan authentication.</p>\n<p class=\"isSelectedEnd\"><strong>Permission terhadap object Active Directory</strong> juga dapat menjadi bagian penting dari attack surface. Sebuah akun dengan hak tulis yang terlihat sederhana dapat memiliki dampak besar jika diberikan pada object yang sensitif.</p>\n<p class=\"isSelectedEnd\">Karena itu, audit permission dan delegation perlu menjadi bagian dari keamanan Active Directory secara rutin.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/type-confusion-vulnerability-memahami-celah-yang-bisa-memicu-memory-corruption/\">Type Confusion Vulnerability: Memahami Celah yang Bisa Memicu Memory Corruption</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Kesimpulan</h2>\n<p class=\"isSelectedEnd\"><strong>Resource-Based Constrained Delegation (RBCD)</strong> adalah mekanisme Kerberos yang memungkinkan resource menentukan akun atau service yang dapat bertindak atas nama identitas lain.</p>\n<p class=\"isSelectedEnd\">Fitur ini berguna untuk kebutuhan service-to-service authentication. Namun, konfigurasi yang salah atau permission yang terlalu luas dapat menciptakan jalur penyalahgunaan untuk <strong>impersonation, privilege escalation, dan lateral movement</strong>.</p>\n<p>Karena itu, organisasi perlu menerapkan <strong>least privilege, audit RBCD, monitoring perubahan Active Directory, serta pemantauan aktivitas Kerberos</strong>. Dengan langkah tersebut, risiko penyalahgunaan delegation dapat dikurangi tanpa menghilangkan fungsi RBCD yang memang dibutuhkan.</p>\n",
+  "content_text": "Pengantar\nResource-Based Constrained Delegation (RBCD)  adalah fitur pada Active Directory yang memungkinkan sebuah resource menentukan akun atau service mana yang boleh bertindak atas nama pengguna lain.\nFitur ini berguna untuk kebutuhan delegasi antar-service. Namun, konfigurasi yang terlalu longgar dapat membuka peluang penyalahgunaan hak akses. Microsoft menjelaskan bahwa atribut  msDS-AllowedToActOnBehalfOfOtherIdentity  digunakan untuk menentukan apakah suatu pihak memiliki izin bertindak atas nama identitas lain pada service yang berjalan menggunakan akun tersebut  (dikutip dari:    Microsoft Learn – msDS-AllowedToActOnBehalfOfOtherIdentity   ) .\nApa Itu RBCD?\nRBCD merupakan mekanisme delegasi pada lingkungan  Kerberos Active Directory . Berbeda dengan beberapa model delegasi tradisional, konfigurasi RBCD ditempatkan pada  resource yang menerima akses .\nPengaturan tersebut menggunakan atribut:\nmsDS-AllowedToActOnBehalfOfOtherIdentity\nAtribut ini menyimpan informasi keamanan yang menentukan principal mana yang diperbolehkan bertindak atas nama identitas lain. Dengan demikian, RBCD memberikan kontrol delegasi dari sisi resource.\nbaca juga :  Windows Event Log Tampering: Cara Mendeteksi Manipulasi Jejak Aktivitas di Windows\nMengapa RBCD Bisa Berbahaya?\nMasalah biasanya muncul ketika attacker berhasil memperoleh hak untuk mengubah konfigurasi delegation pada object tertentu.\nJika sebuah akun yang dikendalikan attacker memiliki hak tulis yang cukup terhadap object target, konfigurasi RBCD dapat disalahgunakan untuk membangun jalur impersonation.\nRisikonya menjadi lebih besar dalam Active Directory karena service account dan computer account sering memiliki akses ke resource penting.\nPeran Kerberos dalam RBCD\nRBCD memanfaatkan kemampuan  Kerberos delegation  untuk memungkinkan sebuah service meminta tiket atas nama identitas lain.\nSecara sederhana, konsepnya melibatkan:\nIdentitas pengguna.\nAkun service atau computer.\nService Principal Name (SPN).\nKerberos Service Ticket.\nKonfigurasi delegation pada resource.\nKarena proses tersebut berkaitan dengan autentikasi Kerberos, penyalahgunaan RBCD dapat menjadi bagian dari serangan  lateral movement  atau privilege escalation.\nBagaimana Penyalahgunaan RBCD Terjadi?\n1. Attacker Memperoleh Akses Awal\nSerangan biasanya dimulai ketika attacker memiliki akun domain atau berhasil menguasai sebuah account yang mempunyai hak tertentu pada object Active Directory.\nTidak semua akun domain otomatis dapat melakukan serangan RBCD. Hak akses terhadap object target menjadi faktor penting.\n2. Konfigurasi Delegation Disalahgunakan\nAttacker kemudian mencoba memanfaatkan hak tulis terhadap atribut  msDS-AllowedToActOnBehalfOfOtherIdentity .\nPerubahan tersebut dapat membuat akun yang dikendalikan attacker memperoleh kemampuan delegation terhadap resource tertentu.\n3. Kerberos Digunakan untuk Impersonation\nSetelah konfigurasi delegation tersedia, mekanisme Kerberos dapat digunakan untuk memperoleh akses service atas nama identitas lain.\nPada tahap ini, dampaknya sangat bergantung pada service dan privilege akun yang menjadi target.\nCatatan:  detail eksploitasi sebaiknya dilakukan hanya pada lab atau lingkungan pengujian yang memiliki izin.\nApa Dampaknya bagi Active Directory?\nPenyalahgunaan RBCD dapat memberikan attacker jalur untuk mendapatkan akses ke service menggunakan identitas yang lebih berprivilege.\nDampak yang mungkin terjadi antara lain:\nPrivilege escalation\nLateral movement\nUnauthorized service access\nAccount impersonation\nKompromi terhadap server tertentu\nMicrosoft juga memperingatkan bahwa konfigurasi RBCD yang tidak diperlukan dapat meningkatkan risiko impersonation. Dalam konteks Microsoft Entra Seamless SSO, Microsoft merekomendasikan penghapusan konfigurasi RBCD jika tidak dibutuhkan dan menyarankan pemeriksaan atribut  msDS-AllowedToActOnBehalfOfOtherIdentity   (dikutip dari:    Microsoft Learn – Remove Resource-Based Constrained Delegation   ) .\nCara Mendeteksi RBCD\nPeriksa Konfigurasi Delegation\nAdministrator perlu memeriksa object komputer dan service account yang memiliki konfigurasi RBCD.\nPerhatian khusus perlu diberikan pada object yang memiliki nilai tidak biasa pada:\nmsDS-AllowedToActOnBehalfOfOtherIdentity\nKonfigurasi tersebut harus dibandingkan dengan kebutuhan operasional sebenarnya.\nPantau Aktivitas Kerberos\nAnomali pada Kerberos dapat menjadi indikator penting. Misalnya, aktivitas ticket yang tidak sesuai dengan pola normal sebuah service perlu diperiksa lebih lanjut.\nSelain itu, korelasikan event Kerberos dengan aktivitas akun dan perubahan object Active Directory.\nPeriksa Perubahan Object\nPerubahan permission atau atribut sensitif pada computer account juga perlu dipantau.\nDengan centralized logging dan SIEM, perubahan tersebut dapat dikorelasikan dengan identitas administrator serta waktu aktivitas.\nbaca juga :  QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan\nCara Mencegah Penyalahgunaan RBCD\nTerapkan Least Privilege\nBatasi siapa yang dapat mengubah object komputer dan atribut delegation.\nHak seperti  GenericWrite, WriteDACL, atau hak administratif lain  perlu diberikan secara hati-hati. Semakin banyak akun yang dapat mengubah object sensitif, semakin besar pula permukaan serangannya.\nAudit Konfigurasi RBCD\nTidak semua RBCD configuration merupakan malicious activity. Beberapa lingkungan memang membutuhkannya.\nKarena itu, administrator sebaiknya membuat daftar resource yang memang membutuhkan delegation. Konfigurasi di luar daftar tersebut perlu ditinjau.\nPantau Active Directory\nGunakan monitoring untuk mendeteksi perubahan pada object penting.\nAktivitas seperti perubahan permission, perubahan atribut delegation, dan pola Kerberos yang tidak biasa dapat menjadi indikator awal.\nRBCD vs Constrained Delegation\nKeduanya sama-sama berkaitan dengan  Kerberos delegation , tetapi model konfigurasinya berbeda.\nPada  Constrained Delegation , konfigurasi delegation umumnya ditentukan pada akun yang dipercaya untuk melakukan delegation.\nSementara itu,  RBCD  menempatkan kontrol pada resource yang menerima delegation. Resource menentukan siapa yang boleh bertindak atas namanya.\nPerbedaan tersebut membuat RBCD fleksibel untuk kebutuhan modern. Namun, kontrol permission pada object Active Directory menjadi sangat penting.\nMengapa RBCD Penting Dipahami?\nRBCD menunjukkan bahwa keamanan Active Directory tidak hanya bergantung pada password dan authentication.\nPermission terhadap object Active Directory  juga dapat menjadi bagian penting dari attack surface. Sebuah akun dengan hak tulis yang terlihat sederhana dapat memiliki dampak besar jika diberikan pada object yang sensitif.\nKarena itu, audit permission dan delegation perlu menjadi bagian dari keamanan Active Directory secara rutin.\nbaca juga :  Type Confusion Vulnerability: Memahami Celah yang Bisa Memicu Memory Corruption\nKesimpulan\nResource-Based Constrained Delegation (RBCD)  adalah mekanisme Kerberos yang memungkinkan resource menentukan akun atau service yang dapat bertindak atas nama identitas lain.\nFitur ini berguna untuk kebutuhan service-to-service authentication. Namun, konfigurasi yang salah atau permission yang terlalu luas dapat menciptakan jalur penyalahgunaan untuk  impersonation, privilege escalation, dan lateral movement .\nKarena itu, organisasi perlu menerapkan  least privilege, audit RBCD, monitoring perubahan Active Directory, serta pemantauan aktivitas Kerberos . Dengan langkah tersebut, risiko penyalahgunaan delegation dapat dikurangi tanpa menghilangkan fungsi RBCD yang memang dibutuhkan.",
+  "raw": {
+    "id": 22973,
+    "date": "2026-09-01T00:30:09",
+    "date_gmt": "2026-09-01T00:30:09",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=22973"
+    },
+    "modified": "2026-09-01T00:30:09",
+    "modified_gmt": "2026-09-01T00:30:09",
+    "slug": "resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/",
+    "title": {
+      "rendered": "Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory"
+    },
+    "content": {
+      "rendered": "<h2>Pengantar</h2>\n<p class=\"isSelectedEnd\"><strong>Resource-Based Constrained Delegation (RBCD)</strong> adalah fitur pada Active Directory yang memungkinkan sebuah resource menentukan akun atau service mana yang boleh bertindak atas nama pengguna lain.</p>\n<p class=\"isSelectedEnd\">Fitur ini berguna untuk kebutuhan delegasi antar-service. Namun, konfigurasi yang terlalu longgar dapat membuka peluang penyalahgunaan hak akses. Microsoft menjelaskan bahwa atribut <code dir=\"ltr\">msDS-AllowedToActOnBehalfOfOtherIdentity</code> digunakan untuk menentukan apakah suatu pihak memiliki izin bertindak atas nama identitas lain pada service yang berjalan menggunakan akun tersebut <strong>(dikutip dari: </strong><a href=\"https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-ada2/cea4ac11-a4b2-4f2d-84cc-aebb4a4ad405\"><strong>Microsoft Learn – msDS-AllowedToActOnBehalfOfOtherIdentity</strong></a><strong>)</strong>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Itu RBCD?</h2>\n<p class=\"isSelectedEnd\">RBCD merupakan mekanisme delegasi pada lingkungan <strong>Kerberos Active Directory</strong>. Berbeda dengan beberapa model delegasi tradisional, konfigurasi RBCD ditempatkan pada <strong>resource yang menerima akses</strong>.</p>\n<p class=\"isSelectedEnd\">Pengaturan tersebut menggunakan atribut:</p>\n<p class=\"isSelectedEnd\"><code dir=\"ltr\">msDS-AllowedToActOnBehalfOfOtherIdentity</code></p>\n<p class=\"isSelectedEnd\">Atribut ini menyimpan informasi keamanan yang menentukan principal mana yang diperbolehkan bertindak atas nama identitas lain. Dengan demikian, RBCD memberikan kontrol delegasi dari sisi resource.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/windows-event-log-tampering-cara-mendeteksi-manipulasi-jejak-aktivitas-di-windows/\">Windows Event Log Tampering: Cara Mendeteksi Manipulasi Jejak Aktivitas di Windows</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa RBCD Bisa Berbahaya?</h2>\n<p class=\"isSelectedEnd\">Masalah biasanya muncul ketika attacker berhasil memperoleh hak untuk mengubah konfigurasi delegation pada object tertentu.</p>\n<p class=\"isSelectedEnd\">Jika sebuah akun yang dikendalikan attacker memiliki hak tulis yang cukup terhadap object target, konfigurasi RBCD dapat disalahgunakan untuk membangun jalur impersonation.</p>\n<p class=\"isSelectedEnd\">Risikonya menjadi lebih besar dalam Active Directory karena service account dan computer account sering memiliki akses ke resource penting.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Peran Kerberos dalam RBCD</h2>\n<p class=\"isSelectedEnd\">RBCD memanfaatkan kemampuan <strong>Kerberos delegation</strong> untuk memungkinkan sebuah service meminta tiket atas nama identitas lain.</p>\n<p class=\"isSelectedEnd\">Secara sederhana, konsepnya melibatkan:</p>\n<ul data-spread=\"false\">\n<li>Identitas pengguna.</li>\n<li>Akun service atau computer.</li>\n<li>Service Principal Name (SPN).</li>\n<li>Kerberos Service Ticket.</li>\n<li>Konfigurasi delegation pada resource.</li>\n</ul>\n<p class=\"isSelectedEnd\">Karena proses tersebut berkaitan dengan autentikasi Kerberos, penyalahgunaan RBCD dapat menjadi bagian dari serangan <strong>lateral movement</strong> atau privilege escalation.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Bagaimana Penyalahgunaan RBCD Terjadi?</h2>\n<h3>1. Attacker Memperoleh Akses Awal</h3>\n<p class=\"isSelectedEnd\">Serangan biasanya dimulai ketika attacker memiliki akun domain atau berhasil menguasai sebuah account yang mempunyai hak tertentu pada object Active Directory.</p>\n<p class=\"isSelectedEnd\">Tidak semua akun domain otomatis dapat melakukan serangan RBCD. Hak akses terhadap object target menjadi faktor penting.</p>\n<h3>2. Konfigurasi Delegation Disalahgunakan</h3>\n<p class=\"isSelectedEnd\">Attacker kemudian mencoba memanfaatkan hak tulis terhadap atribut <code dir=\"ltr\">msDS-AllowedToActOnBehalfOfOtherIdentity</code>.</p>\n<p class=\"isSelectedEnd\">Perubahan tersebut dapat membuat akun yang dikendalikan attacker memperoleh kemampuan delegation terhadap resource tertentu.</p>\n<h3>3. Kerberos Digunakan untuk Impersonation</h3>\n<p class=\"isSelectedEnd\">Setelah konfigurasi delegation tersedia, mekanisme Kerberos dapat digunakan untuk memperoleh akses service atas nama identitas lain.</p>\n<p class=\"isSelectedEnd\">Pada tahap ini, dampaknya sangat bergantung pada service dan privilege akun yang menjadi target.</p>\n<p class=\"isSelectedEnd\"><strong>Catatan:</strong> detail eksploitasi sebaiknya dilakukan hanya pada lab atau lingkungan pengujian yang memiliki izin.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"756\" height=\"504\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 756px) 100vw, 756px\" /></p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Dampaknya bagi Active Directory?</h2>\n<p class=\"isSelectedEnd\">Penyalahgunaan RBCD dapat memberikan attacker jalur untuk mendapatkan akses ke service menggunakan identitas yang lebih berprivilege.</p>\n<p class=\"isSelectedEnd\">Dampak yang mungkin terjadi antara lain:</p>\n<ul data-spread=\"false\">\n<li><strong>Privilege escalation</strong></li>\n<li><strong>Lateral movement</strong></li>\n<li><strong>Unauthorized service access</strong></li>\n<li><strong>Account impersonation</strong></li>\n<li><strong>Kompromi terhadap server tertentu</strong></li>\n</ul>\n<p class=\"isSelectedEnd\">Microsoft juga memperingatkan bahwa konfigurasi RBCD yang tidak diperlukan dapat meningkatkan risiko impersonation. Dalam konteks Microsoft Entra Seamless SSO, Microsoft merekomendasikan penghapusan konfigurasi RBCD jika tidak dibutuhkan dan menyarankan pemeriksaan atribut <code dir=\"ltr\">msDS-AllowedToActOnBehalfOfOtherIdentity</code> <strong>(dikutip dari: </strong><a href=\"https://learn.microsoft.com/en-us/defender-for-identity/remove-rbcd-microsoft-entra-seamless-single-sign-on-account\"><strong>Microsoft Learn – Remove Resource-Based Constrained Delegation</strong></a><strong>)</strong>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Cara Mendeteksi RBCD</h2>\n<h3>Periksa Konfigurasi Delegation</h3>\n<p class=\"isSelectedEnd\">Administrator perlu memeriksa object komputer dan service account yang memiliki konfigurasi RBCD.</p>\n<p class=\"isSelectedEnd\">Perhatian khusus perlu diberikan pada object yang memiliki nilai tidak biasa pada:</p>\n<p class=\"isSelectedEnd\"><code dir=\"ltr\">msDS-AllowedToActOnBehalfOfOtherIdentity</code></p>\n<p class=\"isSelectedEnd\">Konfigurasi tersebut harus dibandingkan dengan kebutuhan operasional sebenarnya.</p>\n<h3>Pantau Aktivitas Kerberos</h3>\n<p class=\"isSelectedEnd\">Anomali pada Kerberos dapat menjadi indikator penting. Misalnya, aktivitas ticket yang tidak sesuai dengan pola normal sebuah service perlu diperiksa lebih lanjut.</p>\n<p class=\"isSelectedEnd\">Selain itu, korelasikan event Kerberos dengan aktivitas akun dan perubahan object Active Directory.</p>\n<h3>Periksa Perubahan Object</h3>\n<p class=\"isSelectedEnd\">Perubahan permission atau atribut sensitif pada computer account juga perlu dipantau.</p>\n<p class=\"isSelectedEnd\">Dengan centralized logging dan SIEM, perubahan tersebut dapat dikorelasikan dengan identitas administrator serta waktu aktivitas.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/\">QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Cara Mencegah Penyalahgunaan RBCD</h2>\n<h3>Terapkan Least Privilege</h3>\n<p class=\"isSelectedEnd\">Batasi siapa yang dapat mengubah object komputer dan atribut delegation.</p>\n<p class=\"isSelectedEnd\">Hak seperti <strong>GenericWrite, WriteDACL, atau hak administratif lain</strong> perlu diberikan secara hati-hati. Semakin banyak akun yang dapat mengubah object sensitif, semakin besar pula permukaan serangannya.</p>\n<h3>Audit Konfigurasi RBCD</h3>\n<p class=\"isSelectedEnd\">Tidak semua RBCD configuration merupakan malicious activity. Beberapa lingkungan memang membutuhkannya.</p>\n<p class=\"isSelectedEnd\">Karena itu, administrator sebaiknya membuat daftar resource yang memang membutuhkan delegation. Konfigurasi di luar daftar tersebut perlu ditinjau.</p>\n<h3>Pantau Active Directory</h3>\n<p class=\"isSelectedEnd\">Gunakan monitoring untuk mendeteksi perubahan pada object penting.</p>\n<p class=\"isSelectedEnd\">Aktivitas seperti perubahan permission, perubahan atribut delegation, dan pola Kerberos yang tidak biasa dapat menjadi indikator awal.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>RBCD vs Constrained Delegation</h2>\n<p class=\"isSelectedEnd\">Keduanya sama-sama berkaitan dengan <strong>Kerberos delegation</strong>, tetapi model konfigurasinya berbeda.</p>\n<p class=\"isSelectedEnd\">Pada <strong>Constrained Delegation</strong>, konfigurasi delegation umumnya ditentukan pada akun yang dipercaya untuk melakukan delegation.</p>\n<p class=\"isSelectedEnd\">Sementara itu, <strong>RBCD</strong> menempatkan kontrol pada resource yang menerima delegation. Resource menentukan siapa yang boleh bertindak atas namanya.</p>\n<p class=\"isSelectedEnd\">Perbedaan tersebut membuat RBCD fleksibel untuk kebutuhan modern. Namun, kontrol permission pada object Active Directory menjadi sangat penting.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa RBCD Penting Dipahami?</h2>\n<p class=\"isSelectedEnd\">RBCD menunjukkan bahwa keamanan Active Directory tidak hanya bergantung pada password dan authentication.</p>\n<p class=\"isSelectedEnd\"><strong>Permission terhadap object Active Directory</strong> juga dapat menjadi bagian penting dari attack surface. Sebuah akun dengan hak tulis yang terlihat sederhana dapat memiliki dampak besar jika diberikan pada object yang sensitif.</p>\n<p class=\"isSelectedEnd\">Karena itu, audit permission dan delegation perlu menjadi bagian dari keamanan Active Directory secara rutin.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/type-confusion-vulnerability-memahami-celah-yang-bisa-memicu-memory-corruption/\">Type Confusion Vulnerability: Memahami Celah yang Bisa Memicu Memory Corruption</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Kesimpulan</h2>\n<p class=\"isSelectedEnd\"><strong>Resource-Based Constrained Delegation (RBCD)</strong> adalah mekanisme Kerberos yang memungkinkan resource menentukan akun atau service yang dapat bertindak atas nama identitas lain.</p>\n<p class=\"isSelectedEnd\">Fitur ini berguna untuk kebutuhan service-to-service authentication. Namun, konfigurasi yang salah atau permission yang terlalu luas dapat menciptakan jalur penyalahgunaan untuk <strong>impersonation, privilege escalation, dan lateral movement</strong>.</p>\n<p>Karena itu, organisasi perlu menerapkan <strong>least privilege, audit RBCD, monitoring perubahan Active Directory, serta pemantauan aktivitas Kerberos</strong>. Dengan langkah tersebut, risiko penyalahgunaan delegation dapat dikurangi tanpa menghilangkan fungsi RBCD yang memang dibutuhkan.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Resource-Based Constrained Delegation (RBCD) adalah fitur pada Active Directory yang memungkinkan sebuah resource menentukan akun atau service mana yang boleh bertindak atas nama pengguna lain. Fitur ini berguna untuk kebutuhan delegasi antar-service. Namun, konfigurasi yang terlalu longgar dapat membuka peluang penyalahgunaan hak akses. Microsoft menjelaskan bahwa atribut msDS-AllowedToActOnBehalfOfOtherIdentity digunakan untuk menentukan apakah suatu pihak memiliki izin bertindak atas nama identitas lain pada service yang berjalan menggunakan akun tersebut (dikutip dari: Microsoft Learn – msDS-AllowedToActOnBehalfOfOtherIdentity). Apa Itu RBCD? RBCD merupakan mekanisme delegasi pada lingkungan Kerberos Active Directory. Berbeda dengan beberapa model delegasi tradisional, konfigurasi RBCD ditempatkan pada resource yang menerima&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 18074,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Resource-Based Constrained Delegation",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      472,
+      3988,
+      3987
+    ],
+    "class_list": [
+      "post-22973",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-active-directory",
+      "tag-kerberos",
+      "tag-rbcd"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Resource-Based Constrained Delegation (RBCD) adalah fitur pada Active Directory yang memungkinkan sebuah resource menentukan akun atau service mana yang boleh bertindak atas nama pengguna lain. Fitur ini berguna untuk kebutuhan delegasi antar-service. Namun, konfigurasi yang terlalu longgar dapat membuka peluang penyalahgunaan hak akses. Microsoft menjelaskan bahwa atribut msDS-AllowedToActOnBehalfOfOtherIdentity digunakan untuk menentukan apakah suatu pihak memiliki izin bertindak atas nama identitas lain pada service yang berjalan menggunakan akun tersebut (dikutip dari: Microsoft Learn – msDS-AllowedToActOnBehalfOfOtherIdentity). Apa Itu RBCD? RBCD merupakan mekanisme delegasi pada lingkungan Kerberos Active Directory. Berbeda dengan beberapa model delegasi tradisional, konfigurasi RBCD ditempatkan pada resource yang menerima...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-09-01T00:30:09+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/Celah-Keamanan-pada-Kode.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1408\" />\n\t<meta property=\"og:image:height\" content=\"704\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/\",\"url\":\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/\",\"name\":\"Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Celah-Keamanan-pada-Kode.jpg\",\"datePublished\":\"2026-09-01T00:30:09+00:00\",\"dateModified\":\"2026-09-01T00:30:09+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Celah-Keamanan-pada-Kode.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Celah-Keamanan-pada-Kode.jpg\",\"width\":1408,\"height\":704},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory - buletinsiber.com",
+      "og_description": "Pengantar Resource-Based Constrained Delegation (RBCD) adalah fitur pada Active Directory yang memungkinkan sebuah resource menentukan akun atau service mana yang boleh bertindak atas nama pengguna lain. Fitur ini berguna untuk kebutuhan delegasi antar-service. Namun, konfigurasi yang terlalu longgar dapat membuka peluang penyalahgunaan hak akses. Microsoft menjelaskan bahwa atribut msDS-AllowedToActOnBehalfOfOtherIdentity digunakan untuk menentukan apakah suatu pihak memiliki izin bertindak atas nama identitas lain pada service yang berjalan menggunakan akun tersebut (dikutip dari: Microsoft Learn – msDS-AllowedToActOnBehalfOfOtherIdentity). Apa Itu RBCD? RBCD merupakan mekanisme delegasi pada lingkungan Kerberos Active Directory. Berbeda dengan beberapa model delegasi tradisional, konfigurasi RBCD ditempatkan pada resource yang menerima...",
+      "og_url": "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-09-01T00:30:09+00:00",
+      "og_image": [
+        {
+          "width": 1408,
+          "height": 704,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Celah-Keamanan-pada-Kode.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/",
+            "url": "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/",
+            "name": "Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Celah-Keamanan-pada-Kode.jpg",
+            "datePublished": "2026-09-01T00:30:09+00:00",
+            "dateModified": "2026-09-01T00:30:09+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Celah-Keamanan-pada-Kode.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Celah-Keamanan-pada-Kode.jpg",
+            "width": 1408,
+            "height": 704
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22973",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=22973"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22973/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 22974,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22973/revisions/22974"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/18074"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=22973"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=22973"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=22973"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

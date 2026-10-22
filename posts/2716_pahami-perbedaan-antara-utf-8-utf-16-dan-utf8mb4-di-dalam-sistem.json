@@ -1,0 +1,332 @@
+{
+  "id": 2716,
+  "title": "Pahami Perbedaan antara UTF-8, UTF-16, dan utf8mb4 di dalam Sistem",
+  "slug": "pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem",
+  "url": "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/",
+  "date": "2025-06-22T02:58:56",
+  "date_gmt": "2025-06-22T02:58:56",
+  "modified": "2026-06-30T18:55:54",
+  "modified_gmt": "2026-06-30T18:55:54",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    346,
+    345,
+    347
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/06/cara-menghilangkan-malware-di-windows-10.jpg",
+  "excerpt": "Pendahuluan Pernahkah Anda mengalami tulisan aneh atau karakter kotak-kotak saat membuka file atau website? Salah satu penyebabnya adalah masalah encoding karakter. Encoding karakter adalah cara komputer menyimpan dan menampilkan huruf, angka, atau simbol. Dalam dunia teknologi, tiga jenis encoding yang sering digunakan adalah UTF-8, UTF-16, dan utf8mb4. Memahami perbedaan di antara mereka penting agar data Anda tetap aman dan bisa dibaca di mana saja. Sekilas tentang Unicode Unicode adalah standar internasional yang menyatukan berbagai sistem penulisan dari seluruh dunia—mulai dari alfabet Latin, Arab, sampai simbol dan emoji. Unicode dibuat agar karakter dari bahasa mana pun bisa digunakan di komputer tanpa…",
+  "content_html": "<h3>Pendahuluan</h3>\n<p>Pernahkah Anda mengalami tulisan aneh atau karakter kotak-kotak saat membuka file atau website? Salah satu penyebabnya adalah masalah encoding karakter. Encoding karakter adalah cara komputer menyimpan dan menampilkan huruf, angka, atau simbol. Dalam dunia teknologi, tiga jenis encoding yang sering digunakan adalah UTF-8, UTF-16, dan utf8mb4. Memahami perbedaan di antara mereka penting agar data Anda tetap aman dan bisa dibaca di mana saja.</p>\n<h3>Sekilas tentang Unicode</h3>\n<p>Unicode adalah standar internasional yang menyatukan berbagai sistem penulisan dari seluruh dunia—mulai dari alfabet Latin, Arab, sampai simbol dan emoji. Unicode dibuat agar karakter dari bahasa mana pun bisa digunakan di komputer tanpa masalah. Namun, untuk menyimpan dan memproses karakter Unicode, dibutuhkan sistem encoding.</p>\n<h3>Apa Itu UTF-8?</h3>\n<p>UTF-8 adalah salah satu cara paling populer untuk menyimpan karakter Unicode. Pada UTF-8, satu karakter bisa disimpan dalam 1 hingga 4 byte. Misalnya, huruf-huruf alfabet Latin seperti “A” atau “a” hanya butuh 1 byte. Tapi untuk emoji atau karakter dari bahasa tertentu, bisa butuh hingga 4 byte.</p>\n<p><strong>Kelebihan UTF-8:</strong></p>\n<ul>\n<li>Hemat ruang untuk teks berbahasa Inggris atau alfabet Latin.</li>\n<li>Didukung luas di web, aplikasi, dan sistem operasi modern.</li>\n<li>Kompatibel dengan ASCII (standar lama untuk teks).</li>\n</ul>\n<p><strong>Kekurangan UTF-8:</strong></p>\n<ul>\n<li>Untuk karakter tertentu seperti emoji, butuh lebih banyak ruang.</li>\n</ul>\n<p><strong>Contoh penggunaan:</strong><br />\nUTF-8 adalah encoding default di mayoritas website dan API modern.</p>\n<h3>Apa Itu UTF-16?</h3>\n<p>UTF-16 adalah encoding yang menggunakan 2 atau 4 byte untuk setiap karakter. Banyak karakter umum (termasuk huruf Cina, Jepang, Korea) bisa diwakili dengan 2 byte, tapi karakter langka atau emoji perlu 4 byte.</p>\n<p><strong>Kelebihan UTF-16:</strong></p>\n<ul>\n<li>Efisien untuk bahasa yang punya banyak karakter (seperti Cina, Jepang).</li>\n<li>Banyak digunakan di lingkungan Windows dan aplikasi Java.</li>\n</ul>\n<p><strong>Kekurangan UTF-16:</strong></p>\n<ul>\n<li>Tidak kompatibel langsung dengan ASCII.</li>\n<li>Butuh lebih banyak ruang untuk teks yang didominasi huruf Latin.</li>\n</ul>\n<p><strong>Kapan sebaiknya menggunakan:</strong><br />\nUTF-16 cocok untuk aplikasi yang menangani banyak karakter non-Latin, misal aplikasi desktop internasional.</p>\n<h3>Apa Itu utf8mb4?</h3>\n<p>utf8mb4 adalah versi “lengkap” dari UTF-8 di MySQL (database populer). Di MySQL, encoding bernama “utf8” <strong>sebenarnya tidak mendukung semua karakter Unicode</strong>—hanya sampai 3 byte, sehingga emoji dan beberapa simbol tidak bisa disimpan. utf8mb4 (“mb4” = “most bytes, 4”) memperbaiki hal ini dengan mendukung karakter sampai 4 byte.</p>\n<p><strong>Kelebihan utf8mb4:</strong></p>\n<ul>\n<li>Bisa menyimpan semua karakter Unicode, termasuk emoji dan simbol modern.</li>\n<li>Tidak menyebabkan data “rusak” atau error saat menyimpan karakter aneh.</li>\n</ul>\n<p><strong>Risiko jika tetap pakai utf8 MySQL:</strong></p>\n<ul>\n<li>Karakter tertentu tidak bisa disimpan, atau jadi rusak/tanda tanya.</li>\n</ul>\n<h3>Perbandingan Tiga Encoding</h3>\n<table>\n<thead>\n<tr>\n<th>Encoding</th>\n<th>Byte per Karakter</th>\n<th>Dukungan Karakter</th>\n<th>Cocok untuk</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>UTF-8</td>\n<td>1–4</td>\n<td>Semua Unicode (umum)</td>\n<td>Web, API, file teks</td>\n</tr>\n<tr>\n<td>UTF-16</td>\n<td>2 atau 4</td>\n<td>Semua Unicode</td>\n<td>Windows, Java, aplikasi multibahasa</td>\n</tr>\n<tr>\n<td>utf8mb4</td>\n<td>1–4</td>\n<td>Semua Unicode (MySQL)</td>\n<td>Database MySQL modern</td>\n</tr>\n</tbody>\n</table>\n<p><strong>Studi Kasus:</strong><br />\nJika Anda membuat aplikasi web dan ingin user bisa memasukkan emoji di form, gunakan utf8mb4 di database Anda, bukan utf8 biasa.</p>\n<h3>Tips Memilih Encoding untuk Proyek Anda</h3>\n<ul>\n<li><strong>Aplikasi Web:</strong> Gunakan UTF-8 untuk file dan komunikasi data, utf8mb4 untuk database MySQL.</li>\n<li><strong>Aplikasi Mobile/Desktop Multibahasa:</strong> Pertimbangkan UTF-16 jika aplikasi banyak memproses bahasa non-Latin.</li>\n<li><strong>Pastikan konsistensi:</strong> Encoding harus sama antara aplikasi, database, dan file agar tidak ada karakter rusak.</li>\n<li><strong>Keamanan:</strong> Salah pilih encoding bisa membuat data berubah atau rusak, yang kadang bisa jadi celah keamanan.</li>\n</ul>\n<h3>Kesimpulan</h3>\n<p>Memahami perbedaan UTF-8, UTF-16, dan utf8mb4 sangat penting, terutama bagi pengembang aplikasi, admin database, maupun pengguna awam. Pilihan encoding yang tepat memastikan data tetap terbaca dan aman kapan saja dan di mana saja. Jika ragu, pilihlah UTF-8 (untuk file/web) dan utf8mb4 (untuk database MySQL) agar aplikasi Anda siap menghadapi data global!</p>\n<h3>Referensi &amp; Bacaan Lanjutan</h3>\n<ul>\n<li><a href=\"https://unicode.org/\">Dokumentasi Unicode</a></li>\n<li><a href=\"https://dev.mysql.com/doc/refman/8.0/en/charset-unicode-sets.html\">MySQL utf8 vs utf8mb4</a></li>\n<li><a href=\"https://stackoverflow.com/questions/6162484/utf-8-vs-utf-16\">UTF-8 vs UTF-16 – StackOverflow</a></li>\n</ul>\n",
+  "content_text": "Pendahuluan\nPernahkah Anda mengalami tulisan aneh atau karakter kotak-kotak saat membuka file atau website? Salah satu penyebabnya adalah masalah encoding karakter. Encoding karakter adalah cara komputer menyimpan dan menampilkan huruf, angka, atau simbol. Dalam dunia teknologi, tiga jenis encoding yang sering digunakan adalah UTF-8, UTF-16, dan utf8mb4. Memahami perbedaan di antara mereka penting agar data Anda tetap aman dan bisa dibaca di mana saja.\nSekilas tentang Unicode\nUnicode adalah standar internasional yang menyatukan berbagai sistem penulisan dari seluruh dunia—mulai dari alfabet Latin, Arab, sampai simbol dan emoji. Unicode dibuat agar karakter dari bahasa mana pun bisa digunakan di komputer tanpa masalah. Namun, untuk menyimpan dan memproses karakter Unicode, dibutuhkan sistem encoding.\nApa Itu UTF-8?\nUTF-8 adalah salah satu cara paling populer untuk menyimpan karakter Unicode. Pada UTF-8, satu karakter bisa disimpan dalam 1 hingga 4 byte. Misalnya, huruf-huruf alfabet Latin seperti “A” atau “a” hanya butuh 1 byte. Tapi untuk emoji atau karakter dari bahasa tertentu, bisa butuh hingga 4 byte.\nKelebihan UTF-8:\nHemat ruang untuk teks berbahasa Inggris atau alfabet Latin.\nDidukung luas di web, aplikasi, dan sistem operasi modern.\nKompatibel dengan ASCII (standar lama untuk teks).\nKekurangan UTF-8:\nUntuk karakter tertentu seperti emoji, butuh lebih banyak ruang.\nContoh penggunaan:\nUTF-8 adalah encoding default di mayoritas website dan API modern.\nApa Itu UTF-16?\nUTF-16 adalah encoding yang menggunakan 2 atau 4 byte untuk setiap karakter. Banyak karakter umum (termasuk huruf Cina, Jepang, Korea) bisa diwakili dengan 2 byte, tapi karakter langka atau emoji perlu 4 byte.\nKelebihan UTF-16:\nEfisien untuk bahasa yang punya banyak karakter (seperti Cina, Jepang).\nBanyak digunakan di lingkungan Windows dan aplikasi Java.\nKekurangan UTF-16:\nTidak kompatibel langsung dengan ASCII.\nButuh lebih banyak ruang untuk teks yang didominasi huruf Latin.\nKapan sebaiknya menggunakan:\nUTF-16 cocok untuk aplikasi yang menangani banyak karakter non-Latin, misal aplikasi desktop internasional.\nApa Itu utf8mb4?\nutf8mb4 adalah versi “lengkap” dari UTF-8 di MySQL (database populer). Di MySQL, encoding bernama “utf8”  sebenarnya tidak mendukung semua karakter Unicode —hanya sampai 3 byte, sehingga emoji dan beberapa simbol tidak bisa disimpan. utf8mb4 (“mb4” = “most bytes, 4”) memperbaiki hal ini dengan mendukung karakter sampai 4 byte.\nKelebihan utf8mb4:\nBisa menyimpan semua karakter Unicode, termasuk emoji dan simbol modern.\nTidak menyebabkan data “rusak” atau error saat menyimpan karakter aneh.\nRisiko jika tetap pakai utf8 MySQL:\nKarakter tertentu tidak bisa disimpan, atau jadi rusak/tanda tanya.\nPerbandingan Tiga Encoding\nEncoding\nByte per Karakter\nDukungan Karakter\nCocok untuk\nUTF-8\n1–4\nSemua Unicode (umum)\nWeb, API, file teks\nUTF-16\n2 atau 4\nSemua Unicode\nWindows, Java, aplikasi multibahasa\nutf8mb4\n1–4\nSemua Unicode (MySQL)\nDatabase MySQL modern\nStudi Kasus:\nJika Anda membuat aplikasi web dan ingin user bisa memasukkan emoji di form, gunakan utf8mb4 di database Anda, bukan utf8 biasa.\nTips Memilih Encoding untuk Proyek Anda\nAplikasi Web:  Gunakan UTF-8 untuk file dan komunikasi data, utf8mb4 untuk database MySQL.\nAplikasi Mobile/Desktop Multibahasa:  Pertimbangkan UTF-16 jika aplikasi banyak memproses bahasa non-Latin.\nPastikan konsistensi:  Encoding harus sama antara aplikasi, database, dan file agar tidak ada karakter rusak.\nKeamanan:  Salah pilih encoding bisa membuat data berubah atau rusak, yang kadang bisa jadi celah keamanan.\nKesimpulan\nMemahami perbedaan UTF-8, UTF-16, dan utf8mb4 sangat penting, terutama bagi pengembang aplikasi, admin database, maupun pengguna awam. Pilihan encoding yang tepat memastikan data tetap terbaca dan aman kapan saja dan di mana saja. Jika ragu, pilihlah UTF-8 (untuk file/web) dan utf8mb4 (untuk database MySQL) agar aplikasi Anda siap menghadapi data global!\nReferensi & Bacaan Lanjutan\nDokumentasi Unicode\nMySQL utf8 vs utf8mb4\nUTF-8 vs UTF-16 – StackOverflow",
+  "raw": {
+    "id": 2716,
+    "date": "2025-06-22T02:58:56",
+    "date_gmt": "2025-06-22T02:58:56",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2716"
+    },
+    "modified": "2026-06-30T18:55:54",
+    "modified_gmt": "2026-06-30T18:55:54",
+    "slug": "pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/",
+    "title": {
+      "rendered": "Pahami Perbedaan antara UTF-8, UTF-16, dan utf8mb4 di dalam Sistem"
+    },
+    "content": {
+      "rendered": "<h3>Pendahuluan</h3>\n<p>Pernahkah Anda mengalami tulisan aneh atau karakter kotak-kotak saat membuka file atau website? Salah satu penyebabnya adalah masalah encoding karakter. Encoding karakter adalah cara komputer menyimpan dan menampilkan huruf, angka, atau simbol. Dalam dunia teknologi, tiga jenis encoding yang sering digunakan adalah UTF-8, UTF-16, dan utf8mb4. Memahami perbedaan di antara mereka penting agar data Anda tetap aman dan bisa dibaca di mana saja.</p>\n<h3>Sekilas tentang Unicode</h3>\n<p>Unicode adalah standar internasional yang menyatukan berbagai sistem penulisan dari seluruh dunia—mulai dari alfabet Latin, Arab, sampai simbol dan emoji. Unicode dibuat agar karakter dari bahasa mana pun bisa digunakan di komputer tanpa masalah. Namun, untuk menyimpan dan memproses karakter Unicode, dibutuhkan sistem encoding.</p>\n<h3>Apa Itu UTF-8?</h3>\n<p>UTF-8 adalah salah satu cara paling populer untuk menyimpan karakter Unicode. Pada UTF-8, satu karakter bisa disimpan dalam 1 hingga 4 byte. Misalnya, huruf-huruf alfabet Latin seperti “A” atau “a” hanya butuh 1 byte. Tapi untuk emoji atau karakter dari bahasa tertentu, bisa butuh hingga 4 byte.</p>\n<p><strong>Kelebihan UTF-8:</strong></p>\n<ul>\n<li>Hemat ruang untuk teks berbahasa Inggris atau alfabet Latin.</li>\n<li>Didukung luas di web, aplikasi, dan sistem operasi modern.</li>\n<li>Kompatibel dengan ASCII (standar lama untuk teks).</li>\n</ul>\n<p><strong>Kekurangan UTF-8:</strong></p>\n<ul>\n<li>Untuk karakter tertentu seperti emoji, butuh lebih banyak ruang.</li>\n</ul>\n<p><strong>Contoh penggunaan:</strong><br />\nUTF-8 adalah encoding default di mayoritas website dan API modern.</p>\n<h3>Apa Itu UTF-16?</h3>\n<p>UTF-16 adalah encoding yang menggunakan 2 atau 4 byte untuk setiap karakter. Banyak karakter umum (termasuk huruf Cina, Jepang, Korea) bisa diwakili dengan 2 byte, tapi karakter langka atau emoji perlu 4 byte.</p>\n<p><strong>Kelebihan UTF-16:</strong></p>\n<ul>\n<li>Efisien untuk bahasa yang punya banyak karakter (seperti Cina, Jepang).</li>\n<li>Banyak digunakan di lingkungan Windows dan aplikasi Java.</li>\n</ul>\n<p><strong>Kekurangan UTF-16:</strong></p>\n<ul>\n<li>Tidak kompatibel langsung dengan ASCII.</li>\n<li>Butuh lebih banyak ruang untuk teks yang didominasi huruf Latin.</li>\n</ul>\n<p><strong>Kapan sebaiknya menggunakan:</strong><br />\nUTF-16 cocok untuk aplikasi yang menangani banyak karakter non-Latin, misal aplikasi desktop internasional.</p>\n<h3>Apa Itu utf8mb4?</h3>\n<p>utf8mb4 adalah versi “lengkap” dari UTF-8 di MySQL (database populer). Di MySQL, encoding bernama “utf8” <strong>sebenarnya tidak mendukung semua karakter Unicode</strong>—hanya sampai 3 byte, sehingga emoji dan beberapa simbol tidak bisa disimpan. utf8mb4 (“mb4” = “most bytes, 4”) memperbaiki hal ini dengan mendukung karakter sampai 4 byte.</p>\n<p><strong>Kelebihan utf8mb4:</strong></p>\n<ul>\n<li>Bisa menyimpan semua karakter Unicode, termasuk emoji dan simbol modern.</li>\n<li>Tidak menyebabkan data “rusak” atau error saat menyimpan karakter aneh.</li>\n</ul>\n<p><strong>Risiko jika tetap pakai utf8 MySQL:</strong></p>\n<ul>\n<li>Karakter tertentu tidak bisa disimpan, atau jadi rusak/tanda tanya.</li>\n</ul>\n<h3>Perbandingan Tiga Encoding</h3>\n<table>\n<thead>\n<tr>\n<th>Encoding</th>\n<th>Byte per Karakter</th>\n<th>Dukungan Karakter</th>\n<th>Cocok untuk</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>UTF-8</td>\n<td>1–4</td>\n<td>Semua Unicode (umum)</td>\n<td>Web, API, file teks</td>\n</tr>\n<tr>\n<td>UTF-16</td>\n<td>2 atau 4</td>\n<td>Semua Unicode</td>\n<td>Windows, Java, aplikasi multibahasa</td>\n</tr>\n<tr>\n<td>utf8mb4</td>\n<td>1–4</td>\n<td>Semua Unicode (MySQL)</td>\n<td>Database MySQL modern</td>\n</tr>\n</tbody>\n</table>\n<p><strong>Studi Kasus:</strong><br />\nJika Anda membuat aplikasi web dan ingin user bisa memasukkan emoji di form, gunakan utf8mb4 di database Anda, bukan utf8 biasa.</p>\n<h3>Tips Memilih Encoding untuk Proyek Anda</h3>\n<ul>\n<li><strong>Aplikasi Web:</strong> Gunakan UTF-8 untuk file dan komunikasi data, utf8mb4 untuk database MySQL.</li>\n<li><strong>Aplikasi Mobile/Desktop Multibahasa:</strong> Pertimbangkan UTF-16 jika aplikasi banyak memproses bahasa non-Latin.</li>\n<li><strong>Pastikan konsistensi:</strong> Encoding harus sama antara aplikasi, database, dan file agar tidak ada karakter rusak.</li>\n<li><strong>Keamanan:</strong> Salah pilih encoding bisa membuat data berubah atau rusak, yang kadang bisa jadi celah keamanan.</li>\n</ul>\n<h3>Kesimpulan</h3>\n<p>Memahami perbedaan UTF-8, UTF-16, dan utf8mb4 sangat penting, terutama bagi pengembang aplikasi, admin database, maupun pengguna awam. Pilihan encoding yang tepat memastikan data tetap terbaca dan aman kapan saja dan di mana saja. Jika ragu, pilihlah UTF-8 (untuk file/web) dan utf8mb4 (untuk database MySQL) agar aplikasi Anda siap menghadapi data global!</p>\n<h3>Referensi &amp; Bacaan Lanjutan</h3>\n<ul>\n<li><a href=\"https://unicode.org/\">Dokumentasi Unicode</a></li>\n<li><a href=\"https://dev.mysql.com/doc/refman/8.0/en/charset-unicode-sets.html\">MySQL utf8 vs utf8mb4</a></li>\n<li><a href=\"https://stackoverflow.com/questions/6162484/utf-8-vs-utf-16\">UTF-8 vs UTF-16 – StackOverflow</a></li>\n</ul>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Pernahkah Anda mengalami tulisan aneh atau karakter kotak-kotak saat membuka file atau website? Salah satu penyebabnya adalah masalah encoding karakter. Encoding karakter adalah cara komputer menyimpan dan menampilkan huruf, angka, atau simbol. Dalam dunia teknologi, tiga jenis encoding yang sering digunakan adalah UTF-8, UTF-16, dan utf8mb4. Memahami perbedaan di antara mereka penting agar data Anda tetap aman dan bisa dibaca di mana saja. Sekilas tentang Unicode Unicode adalah standar internasional yang menyatukan berbagai sistem penulisan dari seluruh dunia—mulai dari alfabet Latin, Arab, sampai simbol dan emoji. Unicode dibuat agar karakter dari bahasa mana pun bisa digunakan di komputer tanpa&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 2578,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      346,
+      345,
+      347
+    ],
+    "class_list": [
+      "post-2716",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-utf-16",
+      "tag-utf-8",
+      "tag-utf8mb4"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Pahami Perbedaan antara UTF-8, UTF-16, dan utf8mb4 di dalam Sistem - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Pahami Perbedaan antara UTF-8, UTF-16, dan utf8mb4 di dalam Sistem - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Pernahkah Anda mengalami tulisan aneh atau karakter kotak-kotak saat membuka file atau website? Salah satu penyebabnya adalah masalah encoding karakter. Encoding karakter adalah cara komputer menyimpan dan menampilkan huruf, angka, atau simbol. Dalam dunia teknologi, tiga jenis encoding yang sering digunakan adalah UTF-8, UTF-16, dan utf8mb4. Memahami perbedaan di antara mereka penting agar data Anda tetap aman dan bisa dibaca di mana saja. Sekilas tentang Unicode Unicode adalah standar internasional yang menyatukan berbagai sistem penulisan dari seluruh dunia—mulai dari alfabet Latin, Arab, sampai simbol dan emoji. Unicode dibuat agar karakter dari bahasa mana pun bisa digunakan di komputer tanpa...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2025-06-22T02:58:56+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T18:55:54+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/06/cara-menghilangkan-malware-di-windows-10.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1106\" />\n\t<meta property=\"og:image:height\" content=\"622\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/\",\"url\":\"https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/\",\"name\":\"Pahami Perbedaan antara UTF-8, UTF-16, dan utf8mb4 di dalam Sistem - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/cara-menghilangkan-malware-di-windows-10.jpg\",\"datePublished\":\"2025-06-22T02:58:56+00:00\",\"dateModified\":\"2026-06-30T18:55:54+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/06/cara-menghilangkan-malware-di-windows-10.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/cara-menghilangkan-malware-di-windows-10.jpg\",\"width\":1106,\"height\":622},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Pahami Perbedaan antara UTF-8, UTF-16, dan utf8mb4 di dalam Sistem\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Pahami Perbedaan antara UTF-8, UTF-16, dan utf8mb4 di dalam Sistem - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Pahami Perbedaan antara UTF-8, UTF-16, dan utf8mb4 di dalam Sistem - buletinsiber.com",
+      "og_description": "Pendahuluan Pernahkah Anda mengalami tulisan aneh atau karakter kotak-kotak saat membuka file atau website? Salah satu penyebabnya adalah masalah encoding karakter. Encoding karakter adalah cara komputer menyimpan dan menampilkan huruf, angka, atau simbol. Dalam dunia teknologi, tiga jenis encoding yang sering digunakan adalah UTF-8, UTF-16, dan utf8mb4. Memahami perbedaan di antara mereka penting agar data Anda tetap aman dan bisa dibaca di mana saja. Sekilas tentang Unicode Unicode adalah standar internasional yang menyatukan berbagai sistem penulisan dari seluruh dunia—mulai dari alfabet Latin, Arab, sampai simbol dan emoji. Unicode dibuat agar karakter dari bahasa mana pun bisa digunakan di komputer tanpa...",
+      "og_url": "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2025-06-22T02:58:56+00:00",
+      "article_modified_time": "2026-06-30T18:55:54+00:00",
+      "og_image": [
+        {
+          "width": 1106,
+          "height": 622,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/06/cara-menghilangkan-malware-di-windows-10.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/",
+            "url": "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/",
+            "name": "Pahami Perbedaan antara UTF-8, UTF-16, dan utf8mb4 di dalam Sistem - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/cara-menghilangkan-malware-di-windows-10.jpg",
+            "datePublished": "2025-06-22T02:58:56+00:00",
+            "dateModified": "2026-06-30T18:55:54+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/06/cara-menghilangkan-malware-di-windows-10.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/cara-menghilangkan-malware-di-windows-10.jpg",
+            "width": 1106,
+            "height": 622
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/pahami-perbedaan-antara-utf-8-utf-16-dan-utf8mb4-di-dalam-sistem/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Pahami Perbedaan antara UTF-8, UTF-16, dan utf8mb4 di dalam Sistem"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2716",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2716"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2716/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 2717,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2716/revisions/2717"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2578"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2716"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2716"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2716"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

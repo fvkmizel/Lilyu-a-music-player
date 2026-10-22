@@ -1,0 +1,318 @@
+{
+  "id": 23142,
+  "title": "AI Temukan Celah Keamanan Linux Kernel yang Bisa Memberikan Akses Root dan Menembus Virtual Machine",
+  "slug": "ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine",
+  "url": "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/",
+  "date": "2026-10-14T20:49:34",
+  "date_gmt": "2026-10-14T13:49:34",
+  "modified": "2026-10-14T20:50:43",
+  "modified_gmt": "2026-10-14T13:50:43",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/10/linux-exploit-1.jpg",
+  "excerpt": "Pengantar Peneliti keamanan siber menemukan celah keamanan serius pada Linux Kernel yang berpotensi memungkinkan pengguna biasa mendapatkan hak akses root. Dalam kondisi tertentu, celah tersebut juga dapat dimanfaatkan untuk menyerang sistem host dari dalam virtual machine (VM). Temuan ini menarik perhatian karena proses penemuan kerentanan melibatkan bantuan kecerdasan buatan (AI). Teknologi AI digunakan untuk membantu menganalisis kode sumber dan menemukan kesalahan yang berpotensi menimbulkan masalah keamanan. Kerentanan ini dikenal sebagai Vghost dengan kode CVE-2026-74580. Temuan tersebut menjadi pengingat bahwa komponen inti sistem operasi seperti Linux Kernel tetap membutuhkan pemeriksaan keamanan dan pembaruan secara berkala. Mengenal Kerentanan Vghost pada Linux Kernel…",
+  "content_html": "<h1>Pengantar</h1>\n<p>Peneliti keamanan siber menemukan celah keamanan serius pada Linux Kernel yang berpotensi memungkinkan pengguna biasa mendapatkan hak akses root. Dalam kondisi tertentu, celah tersebut juga dapat dimanfaatkan untuk menyerang sistem host dari dalam virtual machine (VM).</p>\n<p>Temuan ini menarik perhatian karena proses penemuan kerentanan melibatkan bantuan kecerdasan buatan (AI). Teknologi AI digunakan untuk membantu menganalisis kode sumber dan menemukan kesalahan yang berpotensi menimbulkan masalah keamanan.</p>\n<p>Kerentanan ini dikenal sebagai <strong>Vghost dengan kode CVE-2026-74580</strong>. Temuan tersebut menjadi pengingat bahwa komponen inti sistem operasi seperti Linux Kernel tetap membutuhkan pemeriksaan keamanan dan pembaruan secara berkala.</p>\n<h2>Mengenal Kerentanan Vghost pada Linux Kernel</h2>\n<p>Linux Kernel merupakan bagian inti dari sistem operasi Linux. Kernel bertanggung jawab mengatur komunikasi antara perangkat keras, memori, proses, dan aplikasi yang berjalan di dalam sistem.</p>\n<p>Karena memiliki kendali terhadap berbagai sumber daya sistem, kerentanan pada kernel dapat menimbulkan dampak yang serius.</p>\n<p>Vghost berkaitan dengan subsistem <code>vhost</code> pada Linux Kernel. Subsistem ini digunakan untuk membantu mempercepat komunikasi antara mesin virtual dan sistem host, khususnya dalam lingkungan virtualisasi.</p>\n<p>Masalah keamanan muncul ketika pengelolaan pemetaan memori tidak berjalan sebagaimana mestinya. Kondisi tersebut berpotensi membuat sistem mengakses area memori yang seharusnya tidak dapat dijangkau.</p>\n<p>Jika berhasil dieksploitasi dalam kondisi yang sesuai, penyerang dapat memperoleh kemampuan yang lebih tinggi daripada hak akses awalnya.</p>\n<h2>Bagaimana Kerentanan Vghost Bekerja?</h2>\n<p>Untuk memahami kerentanan ini, kita perlu mengetahui cara kerja virtualisasi pada Linux.</p>\n<p>Dalam lingkungan virtualisasi, beberapa sistem operasi dapat berjalan di atas satu mesin fisik. Sistem operasi yang berjalan di dalam mesin virtual disebut <em>guest</em>, sedangkan sistem yang menjalankan mesin virtual tersebut disebut <em>host</em>.</p>\n<p>Linux menggunakan berbagai mekanisme untuk mengatur komunikasi antara guest dan host. Salah satunya melibatkan subsistem <code>vhost</code>, yang membantu menangani operasi I/O pada mesin virtual secara efisien.</p>\n<p>Masalah pada Vghost berkaitan dengan pengelolaan cache pemetaan memori yang digunakan oleh virtual ring.</p>\n<p>Secara sederhana, cache dapat dipahami sebagai tempat penyimpanan informasi sementara agar sistem tidak perlu melakukan pekerjaan yang sama berulang kali. Dalam konteks ini, cache menyimpan informasi yang berkaitan dengan pemetaan memori.</p>\n<p>Jika informasi pemetaan lama tidak diperbarui atau dibersihkan dengan benar setelah terjadi perubahan tertentu, sistem berpotensi menggunakan referensi memori yang sudah tidak sesuai.</p>\n<p>Akibatnya, operasi yang seharusnya hanya mengakses area memori tertentu dapat memengaruhi area lain di luar batas yang diizinkan.</p>\n<p>Kesalahan semacam ini berbahaya karena kernel dan proses virtualisasi memiliki akses terhadap sumber daya sistem yang penting.</p>\n<h2>Dampak Kerentanan Vghost terhadap Keamanan Sistem</h2>\n<h3>1. Pengguna Biasa Berpotensi Mendapatkan Akses Root</h3>\n<p>Salah satu risiko utama Vghost adalah eskalasi hak akses atau <em>privilege escalation</em>.</p>\n<p>Pada sistem Linux, pengguna biasa umumnya memiliki hak akses terbatas. Sementara itu, root merupakan akun dengan hak istimewa tertinggi yang dapat mengelola hampir seluruh bagian sistem.</p>\n<p>Jika kerentanan berhasil dieksploitasi, pengguna lokal yang memenuhi kondisi serangan berpotensi meningkatkan hak aksesnya menjadi root.</p>\n<p>Dampaknya dapat mencakup perubahan konfigurasi keamanan, akses terhadap data yang dilindungi, pemasangan perangkat lunak berbahaya, hingga pengambilalihan sistem.</p>\n<p>Namun, hal tersebut tidak berarti setiap pengguna Linux dapat langsung menjadi root. Keberhasilan serangan bergantung pada versi kernel, konfigurasi sistem, izin akses, serta kondisi teknis lainnya.</p>\n<h3>2. Potensi Serangan dari Guest VM ke Host</h3>\n<p>Risiko lain yang perlu diperhatikan adalah kemungkinan serangan dari mesin virtual ke sistem host.</p>\n<p>Virtualisasi banyak digunakan pada pusat data, layanan cloud, laboratorium pengujian, dan infrastruktur perusahaan. Teknologi ini memungkinkan beberapa mesin virtual berbagi sumber daya dari satu server fisik.</p>\n<p>Salah satu tujuan utama virtualisasi adalah menjaga agar setiap mesin virtual tetap terisolasi dari sistem host dan mesin virtual lainnya.</p>\n<p>Dalam kondisi tertentu, kerentanan Vghost berpotensi merusak batas isolasi tersebut. Penyerang yang memiliki akses ke guest VM dapat mencoba memanfaatkan kelemahan pada jalur pemrosesan memori untuk memengaruhi proses virtualisasi di host.</p>\n<p>Apabila serangan lintas batas ini berhasil, dampaknya dapat lebih serius daripada kompromi satu mesin virtual saja.</p>\n<p>Meski demikian, kemampuan melakukan eskalasi hak akses lokal tidak otomatis membuktikan bahwa serangan <em>guest-to-host escape</em> dapat dilakukan pada semua konfigurasi virtualisasi.</p>\n<h3>3. Ancaman bagi Infrastruktur Cloud</h3>\n<p>Penyedia layanan cloud dan organisasi yang menjalankan banyak mesin virtual perlu memperhatikan kerentanan yang berpotensi melewati batas isolasi.</p>\n<p>Sebagai contoh, sebuah server fisik dapat menjalankan beberapa mesin virtual untuk pelanggan atau aplikasi yang berbeda. Jika isolasi antara guest dan host berhasil ditembus, sumber daya pada sistem host dapat ikut terancam.</p>\n<p>Risiko tersebut dapat memengaruhi kerahasiaan data, integritas sistem, dan ketersediaan layanan.</p>\n<p>Walaupun demikian, tingkat risiko aktual harus dinilai berdasarkan konfigurasi infrastruktur, versi kernel, serta ketersediaan pembaruan keamanan.</p>\n<h2>AI Membantu Menemukan Kerentanan Linux Kernel</h2>\n<p>Salah satu aspek menarik dari temuan ini adalah penggunaan AI dalam proses penelitian keamanan.</p>\n<p>Berdasarkan laporan The Hacker News, kerentanan tersebut ditemukan dengan bantuan Corvus AI, sistem multiagen yang dikembangkan oleh Tencent Zhuque Lab.</p>\n<p>Dalam penelitian keamanan, AI dapat membantu menganalisis kode sumber, menelusuri hubungan antarfungsi, mengidentifikasi pola pemrograman yang berisiko, serta menemukan kemungkinan kesalahan logika.</p>\n<p>Kode sumber Linux Kernel sangat besar dan kompleks. Pemeriksaan manual terhadap seluruh bagian kode membutuhkan waktu dan keahlian yang tinggi.</p>\n<p>AI dapat membantu mempercepat proses tersebut dengan mengarahkan perhatian peneliti pada bagian kode yang berpotensi bermasalah.</p>\n<p>Namun, AI bukan pengganti sepenuhnya bagi peneliti keamanan. Hasil analisis tetap perlu diverifikasi melalui pemeriksaan kode, pengujian terkontrol, dan validasi teknis.</p>\n<p>Temuan Vghost memperlihatkan bagaimana AI dapat dimanfaatkan sebagai alat bantu dalam menemukan kerentanan perangkat lunak yang mungkin sulit ditemukan melalui pemeriksaan biasa.</p>\n<h2>Versi Linux yang Terdampak</h2>\n<p>Laporan mengenai Vghost menyebutkan rentang Linux Kernel yang terdampak mulai dari versi 4.11 hingga 7.2-rc4.</p>\n<p>Sejumlah distribusi Linux juga disebut dalam pengujian peneliti, termasuk Ubuntu, Red Hat Enterprise Linux (RHEL), Amazon Linux, Microsoft Azure Linux, dan Oracle Linux.</p>\n<p>Meski demikian, administrator tidak boleh menyimpulkan bahwa seluruh instalasi distribusi tersebut pasti rentan. Setiap vendor dapat menggunakan versi kernel yang telah dimodifikasi, menerapkan patch keamanan secara terpisah, atau menyediakan pembaruan melalui mekanisme distribusi masing-masing.</p>\n<p>Oleh karena itu, pemeriksaan harus dilakukan berdasarkan advisori resmi dari vendor yang digunakan.</p>\n<p>Administrator dapat memeriksa versi kernel yang sedang berjalan menggunakan perintah berikut:</p>\n<pre><code>uname -r</code></pre>\n<p>Perintah tersebut menampilkan versi kernel aktif. Namun, hasilnya saja belum cukup untuk memastikan apakah sistem telah terdampak atau sudah menerima perbaikan keamanan.</p>\n<p>Periksa juga paket kernel yang terpasang dan status pembaruan keamanan dari vendor distribusi Linux.</p>\n<h2>Cara Mengurangi Risiko Kerentanan Vghost</h2>\n<p>Administrator sistem dapat melakukan beberapa langkah untuk mengurangi risiko eksploitasi.</p>\n<h3>1. Perbarui Linux Kernel</h3>\n<p>Langkah pertama adalah memeriksa pembaruan keamanan yang tersedia dari vendor distribusi Linux.</p>\n<p>Pada sistem Ubuntu atau Debian, administrator dapat memperbarui informasi paket dan memasang pembaruan melalui mekanisme resmi:</p>\n<pre><code>sudo apt update\r\nsudo apt upgrade</code></pre>\n<p>Pada sistem RHEL atau distribusi yang menggunakan DNF, pembaruan dapat diperiksa dan dipasang menggunakan:</p>\n<pre><code>sudo dnf check-update\r\nsudo dnf upgrade</code></pre>\n<p>Perintah tersebut memasang pembaruan paket yang tersedia, tetapi tidak menjamin bahwa perbaikan khusus CVE-2026-74580 sudah termasuk di dalamnya. Pastikan vendor telah menyediakan patch yang sesuai.</p>\n<p>Sebelum memperbarui server produksi, lakukan pengujian pada lingkungan yang aman dan siapkan prosedur pemulihan jika pembaruan menimbulkan masalah.</p>\n<h3>2. Batasi Akses ke Perangkat Vhost</h3>\n<p>Administrator perlu memeriksa izin akses perangkat yang berkaitan dengan subsistem <code>vhost</code>, termasuk <code>/dev/vhost-net</code> dan <code>/dev/vhost-vsock</code> jika tersedia.</p>\n<p>Jangan memberikan akses ke perangkat tersebut secara luas kepada pengguna atau aplikasi yang tidak tepercaya.</p>\n<p>Pembatasan akses harus disesuaikan dengan kebutuhan layanan virtualisasi agar tidak mengganggu aplikasi yang sah.</p>\n<h3>3. Periksa Konfigurasi Virtualisasi</h3>\n<p>Jika server menjalankan KVM, QEMU, atau layanan virtualisasi lainnya, periksa konfigurasi dan izin akses yang digunakan.</p>\n<p>Pastikan mesin virtual tidak memperoleh akses ke perangkat host yang tidak diperlukan. Tinjau pula pemisahan hak akses antara administrator, pengguna, dan layanan yang menjalankan mesin virtual.</p>\n<h3>4. Pantau Advisori Keamanan</h3>\n<p>Administrator sebaiknya mengikuti informasi keamanan dari vendor distribusi Linux dan pengelola proyek kernel.</p>\n<p>Pembaruan advisori dapat memberikan informasi mengenai versi yang terdampak, status patch, tingkat keparahan, dan tindakan mitigasi yang direkomendasikan.</p>\n<p>Pemantauan ini penting karena status kerentanan dan ketersediaan patch dapat berbeda antarvendor.</p>\n<h2>Pelajaran bagi Administrator dan Praktisi Keamanan Siber</h2>\n<p>Kasus Vghost memberikan beberapa pelajaran penting bagi pengelola sistem dan praktisi keamanan.</p>\n<p>Pertama, kerentanan dapat ditemukan pada komponen sistem yang telah digunakan selama bertahun-tahun. Karena itu, usia perangkat lunak tidak dapat dijadikan jaminan bahwa perangkat lunak tersebut aman.</p>\n<p>Kedua, keamanan virtualisasi harus diperhatikan secara serius. Mesin virtual memang memberikan lapisan isolasi, tetapi efektivitasnya tetap bergantung pada keamanan kernel, hypervisor, konfigurasi, dan komponen pendukung lainnya.</p>\n<p>Ketiga, pembaruan sistem operasi harus menjadi bagian dari proses pemeliharaan rutin. Administrator perlu memiliki inventaris versi kernel, prosedur patch management, dan mekanisme pengujian sebelum pembaruan diterapkan ke lingkungan produksi.</p>\n<p>Keempat, AI membuka peluang baru dalam penelitian keamanan. Teknologi ini dapat membantu menemukan pola kesalahan dan mempercepat analisis kode, tetapi hasilnya tetap harus diperiksa oleh manusia dan divalidasi melalui pengujian yang tepat.</p>\n<h2>Kesimpulan</h2>\n<p>Vghost atau CVE-2026-74580 merupakan kerentanan Linux Kernel yang dilaporkan berpotensi memungkinkan eskalasi hak akses lokal dan, dalam kondisi virtualisasi tertentu, serangan dari guest VM ke host.</p>\n<p>Temuan ini menegaskan pentingnya pengelolaan memori yang aman, pembatasan hak akses, dan pemeliharaan keamanan pada infrastruktur Linux.</p>\n<p>Penggunaan AI dalam proses penemuan kerentanan juga menunjukkan bahwa teknologi kecerdasan buatan semakin berperan dalam penelitian keamanan siber.</p>\n<p>Bagi administrator, tindakan terpenting adalah memeriksa advisori resmi, memastikan kernel memperoleh pembaruan yang sesuai, membatasi akses ke perangkat virtualisasi, serta mengevaluasi konfigurasi server yang berpotensi terdampak.</p>\n<p>Dengan langkah tersebut, organisasi dapat mengurangi risiko eksploitasi dan memperkuat keamanan sistem Linux yang digunakan dalam operasional sehari-hari.</p>\n",
+  "content_text": "Pengantar\nPeneliti keamanan siber menemukan celah keamanan serius pada Linux Kernel yang berpotensi memungkinkan pengguna biasa mendapatkan hak akses root. Dalam kondisi tertentu, celah tersebut juga dapat dimanfaatkan untuk menyerang sistem host dari dalam virtual machine (VM).\nTemuan ini menarik perhatian karena proses penemuan kerentanan melibatkan bantuan kecerdasan buatan (AI). Teknologi AI digunakan untuk membantu menganalisis kode sumber dan menemukan kesalahan yang berpotensi menimbulkan masalah keamanan.\nKerentanan ini dikenal sebagai  Vghost dengan kode CVE-2026-74580 . Temuan tersebut menjadi pengingat bahwa komponen inti sistem operasi seperti Linux Kernel tetap membutuhkan pemeriksaan keamanan dan pembaruan secara berkala.\nMengenal Kerentanan Vghost pada Linux Kernel\nLinux Kernel merupakan bagian inti dari sistem operasi Linux. Kernel bertanggung jawab mengatur komunikasi antara perangkat keras, memori, proses, dan aplikasi yang berjalan di dalam sistem.\nKarena memiliki kendali terhadap berbagai sumber daya sistem, kerentanan pada kernel dapat menimbulkan dampak yang serius.\nVghost berkaitan dengan subsistem  vhost  pada Linux Kernel. Subsistem ini digunakan untuk membantu mempercepat komunikasi antara mesin virtual dan sistem host, khususnya dalam lingkungan virtualisasi.\nMasalah keamanan muncul ketika pengelolaan pemetaan memori tidak berjalan sebagaimana mestinya. Kondisi tersebut berpotensi membuat sistem mengakses area memori yang seharusnya tidak dapat dijangkau.\nJika berhasil dieksploitasi dalam kondisi yang sesuai, penyerang dapat memperoleh kemampuan yang lebih tinggi daripada hak akses awalnya.\nBagaimana Kerentanan Vghost Bekerja?\nUntuk memahami kerentanan ini, kita perlu mengetahui cara kerja virtualisasi pada Linux.\nDalam lingkungan virtualisasi, beberapa sistem operasi dapat berjalan di atas satu mesin fisik. Sistem operasi yang berjalan di dalam mesin virtual disebut  guest , sedangkan sistem yang menjalankan mesin virtual tersebut disebut  host .\nLinux menggunakan berbagai mekanisme untuk mengatur komunikasi antara guest dan host. Salah satunya melibatkan subsistem  vhost , yang membantu menangani operasi I/O pada mesin virtual secara efisien.\nMasalah pada Vghost berkaitan dengan pengelolaan cache pemetaan memori yang digunakan oleh virtual ring.\nSecara sederhana, cache dapat dipahami sebagai tempat penyimpanan informasi sementara agar sistem tidak perlu melakukan pekerjaan yang sama berulang kali. Dalam konteks ini, cache menyimpan informasi yang berkaitan dengan pemetaan memori.\nJika informasi pemetaan lama tidak diperbarui atau dibersihkan dengan benar setelah terjadi perubahan tertentu, sistem berpotensi menggunakan referensi memori yang sudah tidak sesuai.\nAkibatnya, operasi yang seharusnya hanya mengakses area memori tertentu dapat memengaruhi area lain di luar batas yang diizinkan.\nKesalahan semacam ini berbahaya karena kernel dan proses virtualisasi memiliki akses terhadap sumber daya sistem yang penting.\nDampak Kerentanan Vghost terhadap Keamanan Sistem\n1. Pengguna Biasa Berpotensi Mendapatkan Akses Root\nSalah satu risiko utama Vghost adalah eskalasi hak akses atau  privilege escalation .\nPada sistem Linux, pengguna biasa umumnya memiliki hak akses terbatas. Sementara itu, root merupakan akun dengan hak istimewa tertinggi yang dapat mengelola hampir seluruh bagian sistem.\nJika kerentanan berhasil dieksploitasi, pengguna lokal yang memenuhi kondisi serangan berpotensi meningkatkan hak aksesnya menjadi root.\nDampaknya dapat mencakup perubahan konfigurasi keamanan, akses terhadap data yang dilindungi, pemasangan perangkat lunak berbahaya, hingga pengambilalihan sistem.\nNamun, hal tersebut tidak berarti setiap pengguna Linux dapat langsung menjadi root. Keberhasilan serangan bergantung pada versi kernel, konfigurasi sistem, izin akses, serta kondisi teknis lainnya.\n2. Potensi Serangan dari Guest VM ke Host\nRisiko lain yang perlu diperhatikan adalah kemungkinan serangan dari mesin virtual ke sistem host.\nVirtualisasi banyak digunakan pada pusat data, layanan cloud, laboratorium pengujian, dan infrastruktur perusahaan. Teknologi ini memungkinkan beberapa mesin virtual berbagi sumber daya dari satu server fisik.\nSalah satu tujuan utama virtualisasi adalah menjaga agar setiap mesin virtual tetap terisolasi dari sistem host dan mesin virtual lainnya.\nDalam kondisi tertentu, kerentanan Vghost berpotensi merusak batas isolasi tersebut. Penyerang yang memiliki akses ke guest VM dapat mencoba memanfaatkan kelemahan pada jalur pemrosesan memori untuk memengaruhi proses virtualisasi di host.\nApabila serangan lintas batas ini berhasil, dampaknya dapat lebih serius daripada kompromi satu mesin virtual saja.\nMeski demikian, kemampuan melakukan eskalasi hak akses lokal tidak otomatis membuktikan bahwa serangan  guest-to-host escape  dapat dilakukan pada semua konfigurasi virtualisasi.\n3. Ancaman bagi Infrastruktur Cloud\nPenyedia layanan cloud dan organisasi yang menjalankan banyak mesin virtual perlu memperhatikan kerentanan yang berpotensi melewati batas isolasi.\nSebagai contoh, sebuah server fisik dapat menjalankan beberapa mesin virtual untuk pelanggan atau aplikasi yang berbeda. Jika isolasi antara guest dan host berhasil ditembus, sumber daya pada sistem host dapat ikut terancam.\nRisiko tersebut dapat memengaruhi kerahasiaan data, integritas sistem, dan ketersediaan layanan.\nWalaupun demikian, tingkat risiko aktual harus dinilai berdasarkan konfigurasi infrastruktur, versi kernel, serta ketersediaan pembaruan keamanan.\nAI Membantu Menemukan Kerentanan Linux Kernel\nSalah satu aspek menarik dari temuan ini adalah penggunaan AI dalam proses penelitian keamanan.\nBerdasarkan laporan The Hacker News, kerentanan tersebut ditemukan dengan bantuan Corvus AI, sistem multiagen yang dikembangkan oleh Tencent Zhuque Lab.\nDalam penelitian keamanan, AI dapat membantu menganalisis kode sumber, menelusuri hubungan antarfungsi, mengidentifikasi pola pemrograman yang berisiko, serta menemukan kemungkinan kesalahan logika.\nKode sumber Linux Kernel sangat besar dan kompleks. Pemeriksaan manual terhadap seluruh bagian kode membutuhkan waktu dan keahlian yang tinggi.\nAI dapat membantu mempercepat proses tersebut dengan mengarahkan perhatian peneliti pada bagian kode yang berpotensi bermasalah.\nNamun, AI bukan pengganti sepenuhnya bagi peneliti keamanan. Hasil analisis tetap perlu diverifikasi melalui pemeriksaan kode, pengujian terkontrol, dan validasi teknis.\nTemuan Vghost memperlihatkan bagaimana AI dapat dimanfaatkan sebagai alat bantu dalam menemukan kerentanan perangkat lunak yang mungkin sulit ditemukan melalui pemeriksaan biasa.\nVersi Linux yang Terdampak\nLaporan mengenai Vghost menyebutkan rentang Linux Kernel yang terdampak mulai dari versi 4.11 hingga 7.2-rc4.\nSejumlah distribusi Linux juga disebut dalam pengujian peneliti, termasuk Ubuntu, Red Hat Enterprise Linux (RHEL), Amazon Linux, Microsoft Azure Linux, dan Oracle Linux.\nMeski demikian, administrator tidak boleh menyimpulkan bahwa seluruh instalasi distribusi tersebut pasti rentan. Setiap vendor dapat menggunakan versi kernel yang telah dimodifikasi, menerapkan patch keamanan secara terpisah, atau menyediakan pembaruan melalui mekanisme distribusi masing-masing.\nOleh karena itu, pemeriksaan harus dilakukan berdasarkan advisori resmi dari vendor yang digunakan.\nAdministrator dapat memeriksa versi kernel yang sedang berjalan menggunakan perintah berikut:\nuname -r\nPerintah tersebut menampilkan versi kernel aktif. Namun, hasilnya saja belum cukup untuk memastikan apakah sistem telah terdampak atau sudah menerima perbaikan keamanan.\nPeriksa juga paket kernel yang terpasang dan status pembaruan keamanan dari vendor distribusi Linux.\nCara Mengurangi Risiko Kerentanan Vghost\nAdministrator sistem dapat melakukan beberapa langkah untuk mengurangi risiko eksploitasi.\n1. Perbarui Linux Kernel\nLangkah pertama adalah memeriksa pembaruan keamanan yang tersedia dari vendor distribusi Linux.\nPada sistem Ubuntu atau Debian, administrator dapat memperbarui informasi paket dan memasang pembaruan melalui mekanisme resmi:\nsudo apt update\nsudo apt upgrade\nPada sistem RHEL atau distribusi yang menggunakan DNF, pembaruan dapat diperiksa dan dipasang menggunakan:\nsudo dnf check-update\nsudo dnf upgrade\nPerintah tersebut memasang pembaruan paket yang tersedia, tetapi tidak menjamin bahwa perbaikan khusus CVE-2026-74580 sudah termasuk di dalamnya. Pastikan vendor telah menyediakan patch yang sesuai.\nSebelum memperbarui server produksi, lakukan pengujian pada lingkungan yang aman dan siapkan prosedur pemulihan jika pembaruan menimbulkan masalah.\n2. Batasi Akses ke Perangkat Vhost\nAdministrator perlu memeriksa izin akses perangkat yang berkaitan dengan subsistem  vhost , termasuk  /dev/vhost-net  dan  /dev/vhost-vsock  jika tersedia.\nJangan memberikan akses ke perangkat tersebut secara luas kepada pengguna atau aplikasi yang tidak tepercaya.\nPembatasan akses harus disesuaikan dengan kebutuhan layanan virtualisasi agar tidak mengganggu aplikasi yang sah.\n3. Periksa Konfigurasi Virtualisasi\nJika server menjalankan KVM, QEMU, atau layanan virtualisasi lainnya, periksa konfigurasi dan izin akses yang digunakan.\nPastikan mesin virtual tidak memperoleh akses ke perangkat host yang tidak diperlukan. Tinjau pula pemisahan hak akses antara administrator, pengguna, dan layanan yang menjalankan mesin virtual.\n4. Pantau Advisori Keamanan\nAdministrator sebaiknya mengikuti informasi keamanan dari vendor distribusi Linux dan pengelola proyek kernel.\nPembaruan advisori dapat memberikan informasi mengenai versi yang terdampak, status patch, tingkat keparahan, dan tindakan mitigasi yang direkomendasikan.\nPemantauan ini penting karena status kerentanan dan ketersediaan patch dapat berbeda antarvendor.\nPelajaran bagi Administrator dan Praktisi Keamanan Siber\nKasus Vghost memberikan beberapa pelajaran penting bagi pengelola sistem dan praktisi keamanan.\nPertama, kerentanan dapat ditemukan pada komponen sistem yang telah digunakan selama bertahun-tahun. Karena itu, usia perangkat lunak tidak dapat dijadikan jaminan bahwa perangkat lunak tersebut aman.\nKedua, keamanan virtualisasi harus diperhatikan secara serius. Mesin virtual memang memberikan lapisan isolasi, tetapi efektivitasnya tetap bergantung pada keamanan kernel, hypervisor, konfigurasi, dan komponen pendukung lainnya.\nKetiga, pembaruan sistem operasi harus menjadi bagian dari proses pemeliharaan rutin. Administrator perlu memiliki inventaris versi kernel, prosedur patch management, dan mekanisme pengujian sebelum pembaruan diterapkan ke lingkungan produksi.\nKeempat, AI membuka peluang baru dalam penelitian keamanan. Teknologi ini dapat membantu menemukan pola kesalahan dan mempercepat analisis kode, tetapi hasilnya tetap harus diperiksa oleh manusia dan divalidasi melalui pengujian yang tepat.\nKesimpulan\nVghost atau CVE-2026-74580 merupakan kerentanan Linux Kernel yang dilaporkan berpotensi memungkinkan eskalasi hak akses lokal dan, dalam kondisi virtualisasi tertentu, serangan dari guest VM ke host.\nTemuan ini menegaskan pentingnya pengelolaan memori yang aman, pembatasan hak akses, dan pemeliharaan keamanan pada infrastruktur Linux.\nPenggunaan AI dalam proses penemuan kerentanan juga menunjukkan bahwa teknologi kecerdasan buatan semakin berperan dalam penelitian keamanan siber.\nBagi administrator, tindakan terpenting adalah memeriksa advisori resmi, memastikan kernel memperoleh pembaruan yang sesuai, membatasi akses ke perangkat virtualisasi, serta mengevaluasi konfigurasi server yang berpotensi terdampak.\nDengan langkah tersebut, organisasi dapat mengurangi risiko eksploitasi dan memperkuat keamanan sistem Linux yang digunakan dalam operasional sehari-hari.",
+  "raw": {
+    "id": 23142,
+    "date": "2026-10-14T20:49:34",
+    "date_gmt": "2026-10-14T13:49:34",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=23142"
+    },
+    "modified": "2026-10-14T20:50:43",
+    "modified_gmt": "2026-10-14T13:50:43",
+    "slug": "ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/",
+    "title": {
+      "rendered": "AI Temukan Celah Keamanan Linux Kernel yang Bisa Memberikan Akses Root dan Menembus Virtual Machine"
+    },
+    "content": {
+      "rendered": "<h1>Pengantar</h1>\n<p>Peneliti keamanan siber menemukan celah keamanan serius pada Linux Kernel yang berpotensi memungkinkan pengguna biasa mendapatkan hak akses root. Dalam kondisi tertentu, celah tersebut juga dapat dimanfaatkan untuk menyerang sistem host dari dalam virtual machine (VM).</p>\n<p>Temuan ini menarik perhatian karena proses penemuan kerentanan melibatkan bantuan kecerdasan buatan (AI). Teknologi AI digunakan untuk membantu menganalisis kode sumber dan menemukan kesalahan yang berpotensi menimbulkan masalah keamanan.</p>\n<p>Kerentanan ini dikenal sebagai <strong>Vghost dengan kode CVE-2026-74580</strong>. Temuan tersebut menjadi pengingat bahwa komponen inti sistem operasi seperti Linux Kernel tetap membutuhkan pemeriksaan keamanan dan pembaruan secara berkala.</p>\n<h2>Mengenal Kerentanan Vghost pada Linux Kernel</h2>\n<p>Linux Kernel merupakan bagian inti dari sistem operasi Linux. Kernel bertanggung jawab mengatur komunikasi antara perangkat keras, memori, proses, dan aplikasi yang berjalan di dalam sistem.</p>\n<p>Karena memiliki kendali terhadap berbagai sumber daya sistem, kerentanan pada kernel dapat menimbulkan dampak yang serius.</p>\n<p>Vghost berkaitan dengan subsistem <code>vhost</code> pada Linux Kernel. Subsistem ini digunakan untuk membantu mempercepat komunikasi antara mesin virtual dan sistem host, khususnya dalam lingkungan virtualisasi.</p>\n<p>Masalah keamanan muncul ketika pengelolaan pemetaan memori tidak berjalan sebagaimana mestinya. Kondisi tersebut berpotensi membuat sistem mengakses area memori yang seharusnya tidak dapat dijangkau.</p>\n<p>Jika berhasil dieksploitasi dalam kondisi yang sesuai, penyerang dapat memperoleh kemampuan yang lebih tinggi daripada hak akses awalnya.</p>\n<h2>Bagaimana Kerentanan Vghost Bekerja?</h2>\n<p>Untuk memahami kerentanan ini, kita perlu mengetahui cara kerja virtualisasi pada Linux.</p>\n<p>Dalam lingkungan virtualisasi, beberapa sistem operasi dapat berjalan di atas satu mesin fisik. Sistem operasi yang berjalan di dalam mesin virtual disebut <em>guest</em>, sedangkan sistem yang menjalankan mesin virtual tersebut disebut <em>host</em>.</p>\n<p>Linux menggunakan berbagai mekanisme untuk mengatur komunikasi antara guest dan host. Salah satunya melibatkan subsistem <code>vhost</code>, yang membantu menangani operasi I/O pada mesin virtual secara efisien.</p>\n<p>Masalah pada Vghost berkaitan dengan pengelolaan cache pemetaan memori yang digunakan oleh virtual ring.</p>\n<p>Secara sederhana, cache dapat dipahami sebagai tempat penyimpanan informasi sementara agar sistem tidak perlu melakukan pekerjaan yang sama berulang kali. Dalam konteks ini, cache menyimpan informasi yang berkaitan dengan pemetaan memori.</p>\n<p>Jika informasi pemetaan lama tidak diperbarui atau dibersihkan dengan benar setelah terjadi perubahan tertentu, sistem berpotensi menggunakan referensi memori yang sudah tidak sesuai.</p>\n<p>Akibatnya, operasi yang seharusnya hanya mengakses area memori tertentu dapat memengaruhi area lain di luar batas yang diizinkan.</p>\n<p>Kesalahan semacam ini berbahaya karena kernel dan proses virtualisasi memiliki akses terhadap sumber daya sistem yang penting.</p>\n<h2>Dampak Kerentanan Vghost terhadap Keamanan Sistem</h2>\n<h3>1. Pengguna Biasa Berpotensi Mendapatkan Akses Root</h3>\n<p>Salah satu risiko utama Vghost adalah eskalasi hak akses atau <em>privilege escalation</em>.</p>\n<p>Pada sistem Linux, pengguna biasa umumnya memiliki hak akses terbatas. Sementara itu, root merupakan akun dengan hak istimewa tertinggi yang dapat mengelola hampir seluruh bagian sistem.</p>\n<p>Jika kerentanan berhasil dieksploitasi, pengguna lokal yang memenuhi kondisi serangan berpotensi meningkatkan hak aksesnya menjadi root.</p>\n<p>Dampaknya dapat mencakup perubahan konfigurasi keamanan, akses terhadap data yang dilindungi, pemasangan perangkat lunak berbahaya, hingga pengambilalihan sistem.</p>\n<p>Namun, hal tersebut tidak berarti setiap pengguna Linux dapat langsung menjadi root. Keberhasilan serangan bergantung pada versi kernel, konfigurasi sistem, izin akses, serta kondisi teknis lainnya.</p>\n<h3>2. Potensi Serangan dari Guest VM ke Host</h3>\n<p>Risiko lain yang perlu diperhatikan adalah kemungkinan serangan dari mesin virtual ke sistem host.</p>\n<p>Virtualisasi banyak digunakan pada pusat data, layanan cloud, laboratorium pengujian, dan infrastruktur perusahaan. Teknologi ini memungkinkan beberapa mesin virtual berbagi sumber daya dari satu server fisik.</p>\n<p>Salah satu tujuan utama virtualisasi adalah menjaga agar setiap mesin virtual tetap terisolasi dari sistem host dan mesin virtual lainnya.</p>\n<p>Dalam kondisi tertentu, kerentanan Vghost berpotensi merusak batas isolasi tersebut. Penyerang yang memiliki akses ke guest VM dapat mencoba memanfaatkan kelemahan pada jalur pemrosesan memori untuk memengaruhi proses virtualisasi di host.</p>\n<p>Apabila serangan lintas batas ini berhasil, dampaknya dapat lebih serius daripada kompromi satu mesin virtual saja.</p>\n<p>Meski demikian, kemampuan melakukan eskalasi hak akses lokal tidak otomatis membuktikan bahwa serangan <em>guest-to-host escape</em> dapat dilakukan pada semua konfigurasi virtualisasi.</p>\n<h3>3. Ancaman bagi Infrastruktur Cloud</h3>\n<p>Penyedia layanan cloud dan organisasi yang menjalankan banyak mesin virtual perlu memperhatikan kerentanan yang berpotensi melewati batas isolasi.</p>\n<p>Sebagai contoh, sebuah server fisik dapat menjalankan beberapa mesin virtual untuk pelanggan atau aplikasi yang berbeda. Jika isolasi antara guest dan host berhasil ditembus, sumber daya pada sistem host dapat ikut terancam.</p>\n<p>Risiko tersebut dapat memengaruhi kerahasiaan data, integritas sistem, dan ketersediaan layanan.</p>\n<p>Walaupun demikian, tingkat risiko aktual harus dinilai berdasarkan konfigurasi infrastruktur, versi kernel, serta ketersediaan pembaruan keamanan.</p>\n<h2>AI Membantu Menemukan Kerentanan Linux Kernel</h2>\n<p>Salah satu aspek menarik dari temuan ini adalah penggunaan AI dalam proses penelitian keamanan.</p>\n<p>Berdasarkan laporan The Hacker News, kerentanan tersebut ditemukan dengan bantuan Corvus AI, sistem multiagen yang dikembangkan oleh Tencent Zhuque Lab.</p>\n<p>Dalam penelitian keamanan, AI dapat membantu menganalisis kode sumber, menelusuri hubungan antarfungsi, mengidentifikasi pola pemrograman yang berisiko, serta menemukan kemungkinan kesalahan logika.</p>\n<p>Kode sumber Linux Kernel sangat besar dan kompleks. Pemeriksaan manual terhadap seluruh bagian kode membutuhkan waktu dan keahlian yang tinggi.</p>\n<p>AI dapat membantu mempercepat proses tersebut dengan mengarahkan perhatian peneliti pada bagian kode yang berpotensi bermasalah.</p>\n<p>Namun, AI bukan pengganti sepenuhnya bagi peneliti keamanan. Hasil analisis tetap perlu diverifikasi melalui pemeriksaan kode, pengujian terkontrol, dan validasi teknis.</p>\n<p>Temuan Vghost memperlihatkan bagaimana AI dapat dimanfaatkan sebagai alat bantu dalam menemukan kerentanan perangkat lunak yang mungkin sulit ditemukan melalui pemeriksaan biasa.</p>\n<h2>Versi Linux yang Terdampak</h2>\n<p>Laporan mengenai Vghost menyebutkan rentang Linux Kernel yang terdampak mulai dari versi 4.11 hingga 7.2-rc4.</p>\n<p>Sejumlah distribusi Linux juga disebut dalam pengujian peneliti, termasuk Ubuntu, Red Hat Enterprise Linux (RHEL), Amazon Linux, Microsoft Azure Linux, dan Oracle Linux.</p>\n<p>Meski demikian, administrator tidak boleh menyimpulkan bahwa seluruh instalasi distribusi tersebut pasti rentan. Setiap vendor dapat menggunakan versi kernel yang telah dimodifikasi, menerapkan patch keamanan secara terpisah, atau menyediakan pembaruan melalui mekanisme distribusi masing-masing.</p>\n<p>Oleh karena itu, pemeriksaan harus dilakukan berdasarkan advisori resmi dari vendor yang digunakan.</p>\n<p>Administrator dapat memeriksa versi kernel yang sedang berjalan menggunakan perintah berikut:</p>\n<pre><code>uname -r</code></pre>\n<p>Perintah tersebut menampilkan versi kernel aktif. Namun, hasilnya saja belum cukup untuk memastikan apakah sistem telah terdampak atau sudah menerima perbaikan keamanan.</p>\n<p>Periksa juga paket kernel yang terpasang dan status pembaruan keamanan dari vendor distribusi Linux.</p>\n<h2>Cara Mengurangi Risiko Kerentanan Vghost</h2>\n<p>Administrator sistem dapat melakukan beberapa langkah untuk mengurangi risiko eksploitasi.</p>\n<h3>1. Perbarui Linux Kernel</h3>\n<p>Langkah pertama adalah memeriksa pembaruan keamanan yang tersedia dari vendor distribusi Linux.</p>\n<p>Pada sistem Ubuntu atau Debian, administrator dapat memperbarui informasi paket dan memasang pembaruan melalui mekanisme resmi:</p>\n<pre><code>sudo apt update\r\nsudo apt upgrade</code></pre>\n<p>Pada sistem RHEL atau distribusi yang menggunakan DNF, pembaruan dapat diperiksa dan dipasang menggunakan:</p>\n<pre><code>sudo dnf check-update\r\nsudo dnf upgrade</code></pre>\n<p>Perintah tersebut memasang pembaruan paket yang tersedia, tetapi tidak menjamin bahwa perbaikan khusus CVE-2026-74580 sudah termasuk di dalamnya. Pastikan vendor telah menyediakan patch yang sesuai.</p>\n<p>Sebelum memperbarui server produksi, lakukan pengujian pada lingkungan yang aman dan siapkan prosedur pemulihan jika pembaruan menimbulkan masalah.</p>\n<h3>2. Batasi Akses ke Perangkat Vhost</h3>\n<p>Administrator perlu memeriksa izin akses perangkat yang berkaitan dengan subsistem <code>vhost</code>, termasuk <code>/dev/vhost-net</code> dan <code>/dev/vhost-vsock</code> jika tersedia.</p>\n<p>Jangan memberikan akses ke perangkat tersebut secara luas kepada pengguna atau aplikasi yang tidak tepercaya.</p>\n<p>Pembatasan akses harus disesuaikan dengan kebutuhan layanan virtualisasi agar tidak mengganggu aplikasi yang sah.</p>\n<h3>3. Periksa Konfigurasi Virtualisasi</h3>\n<p>Jika server menjalankan KVM, QEMU, atau layanan virtualisasi lainnya, periksa konfigurasi dan izin akses yang digunakan.</p>\n<p>Pastikan mesin virtual tidak memperoleh akses ke perangkat host yang tidak diperlukan. Tinjau pula pemisahan hak akses antara administrator, pengguna, dan layanan yang menjalankan mesin virtual.</p>\n<h3>4. Pantau Advisori Keamanan</h3>\n<p>Administrator sebaiknya mengikuti informasi keamanan dari vendor distribusi Linux dan pengelola proyek kernel.</p>\n<p>Pembaruan advisori dapat memberikan informasi mengenai versi yang terdampak, status patch, tingkat keparahan, dan tindakan mitigasi yang direkomendasikan.</p>\n<p>Pemantauan ini penting karena status kerentanan dan ketersediaan patch dapat berbeda antarvendor.</p>\n<h2>Pelajaran bagi Administrator dan Praktisi Keamanan Siber</h2>\n<p>Kasus Vghost memberikan beberapa pelajaran penting bagi pengelola sistem dan praktisi keamanan.</p>\n<p>Pertama, kerentanan dapat ditemukan pada komponen sistem yang telah digunakan selama bertahun-tahun. Karena itu, usia perangkat lunak tidak dapat dijadikan jaminan bahwa perangkat lunak tersebut aman.</p>\n<p>Kedua, keamanan virtualisasi harus diperhatikan secara serius. Mesin virtual memang memberikan lapisan isolasi, tetapi efektivitasnya tetap bergantung pada keamanan kernel, hypervisor, konfigurasi, dan komponen pendukung lainnya.</p>\n<p>Ketiga, pembaruan sistem operasi harus menjadi bagian dari proses pemeliharaan rutin. Administrator perlu memiliki inventaris versi kernel, prosedur patch management, dan mekanisme pengujian sebelum pembaruan diterapkan ke lingkungan produksi.</p>\n<p>Keempat, AI membuka peluang baru dalam penelitian keamanan. Teknologi ini dapat membantu menemukan pola kesalahan dan mempercepat analisis kode, tetapi hasilnya tetap harus diperiksa oleh manusia dan divalidasi melalui pengujian yang tepat.</p>\n<h2>Kesimpulan</h2>\n<p>Vghost atau CVE-2026-74580 merupakan kerentanan Linux Kernel yang dilaporkan berpotensi memungkinkan eskalasi hak akses lokal dan, dalam kondisi virtualisasi tertentu, serangan dari guest VM ke host.</p>\n<p>Temuan ini menegaskan pentingnya pengelolaan memori yang aman, pembatasan hak akses, dan pemeliharaan keamanan pada infrastruktur Linux.</p>\n<p>Penggunaan AI dalam proses penemuan kerentanan juga menunjukkan bahwa teknologi kecerdasan buatan semakin berperan dalam penelitian keamanan siber.</p>\n<p>Bagi administrator, tindakan terpenting adalah memeriksa advisori resmi, memastikan kernel memperoleh pembaruan yang sesuai, membatasi akses ke perangkat virtualisasi, serta mengevaluasi konfigurasi server yang berpotensi terdampak.</p>\n<p>Dengan langkah tersebut, organisasi dapat mengurangi risiko eksploitasi dan memperkuat keamanan sistem Linux yang digunakan dalam operasional sehari-hari.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Peneliti keamanan siber menemukan celah keamanan serius pada Linux Kernel yang berpotensi memungkinkan pengguna biasa mendapatkan hak akses root. Dalam kondisi tertentu, celah tersebut juga dapat dimanfaatkan untuk menyerang sistem host dari dalam virtual machine (VM). Temuan ini menarik perhatian karena proses penemuan kerentanan melibatkan bantuan kecerdasan buatan (AI). Teknologi AI digunakan untuk membantu menganalisis kode sumber dan menemukan kesalahan yang berpotensi menimbulkan masalah keamanan. Kerentanan ini dikenal sebagai Vghost dengan kode CVE-2026-74580. Temuan tersebut menjadi pengingat bahwa komponen inti sistem operasi seperti Linux Kernel tetap membutuhkan pemeriksaan keamanan dan pembaruan secara berkala. Mengenal Kerentanan Vghost pada Linux Kernel&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 23143,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [],
+    "class_list": [
+      "post-23142",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>AI Temukan Celah Keamanan Linux Kernel yang Bisa Memberikan Akses Root dan Menembus Virtual Machine - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"AI Temukan Celah Keamanan Linux Kernel yang Bisa Memberikan Akses Root dan Menembus Virtual Machine - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Peneliti keamanan siber menemukan celah keamanan serius pada Linux Kernel yang berpotensi memungkinkan pengguna biasa mendapatkan hak akses root. Dalam kondisi tertentu, celah tersebut juga dapat dimanfaatkan untuk menyerang sistem host dari dalam virtual machine (VM). Temuan ini menarik perhatian karena proses penemuan kerentanan melibatkan bantuan kecerdasan buatan (AI). Teknologi AI digunakan untuk membantu menganalisis kode sumber dan menemukan kesalahan yang berpotensi menimbulkan masalah keamanan. Kerentanan ini dikenal sebagai Vghost dengan kode CVE-2026-74580. Temuan tersebut menjadi pengingat bahwa komponen inti sistem operasi seperti Linux Kernel tetap membutuhkan pemeriksaan keamanan dan pembaruan secara berkala. Mengenal Kerentanan Vghost pada Linux Kernel...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-10-14T13:49:34+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-10-14T13:50:43+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/10/linux-exploit-1.jpg\" />\n\t<meta property=\"og:image:width\" content=\"900\" />\n\t<meta property=\"og:image:height\" content=\"470\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"7 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/\",\"url\":\"https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/\",\"name\":\"AI Temukan Celah Keamanan Linux Kernel yang Bisa Memberikan Akses Root dan Menembus Virtual Machine - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/10/linux-exploit-1.jpg\",\"datePublished\":\"2026-10-14T13:49:34+00:00\",\"dateModified\":\"2026-10-14T13:50:43+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/10/linux-exploit-1.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/10/linux-exploit-1.jpg\",\"width\":900,\"height\":470},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"AI Temukan Celah Keamanan Linux Kernel yang Bisa Memberikan Akses Root dan Menembus Virtual Machine\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "AI Temukan Celah Keamanan Linux Kernel yang Bisa Memberikan Akses Root dan Menembus Virtual Machine - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "AI Temukan Celah Keamanan Linux Kernel yang Bisa Memberikan Akses Root dan Menembus Virtual Machine - buletinsiber.com",
+      "og_description": "Pengantar Peneliti keamanan siber menemukan celah keamanan serius pada Linux Kernel yang berpotensi memungkinkan pengguna biasa mendapatkan hak akses root. Dalam kondisi tertentu, celah tersebut juga dapat dimanfaatkan untuk menyerang sistem host dari dalam virtual machine (VM). Temuan ini menarik perhatian karena proses penemuan kerentanan melibatkan bantuan kecerdasan buatan (AI). Teknologi AI digunakan untuk membantu menganalisis kode sumber dan menemukan kesalahan yang berpotensi menimbulkan masalah keamanan. Kerentanan ini dikenal sebagai Vghost dengan kode CVE-2026-74580. Temuan tersebut menjadi pengingat bahwa komponen inti sistem operasi seperti Linux Kernel tetap membutuhkan pemeriksaan keamanan dan pembaruan secara berkala. Mengenal Kerentanan Vghost pada Linux Kernel...",
+      "og_url": "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-10-14T13:49:34+00:00",
+      "article_modified_time": "2026-10-14T13:50:43+00:00",
+      "og_image": [
+        {
+          "width": 900,
+          "height": 470,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/10/linux-exploit-1.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "7 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/",
+            "url": "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/",
+            "name": "AI Temukan Celah Keamanan Linux Kernel yang Bisa Memberikan Akses Root dan Menembus Virtual Machine - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/10/linux-exploit-1.jpg",
+            "datePublished": "2026-10-14T13:49:34+00:00",
+            "dateModified": "2026-10-14T13:50:43+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/10/linux-exploit-1.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/10/linux-exploit-1.jpg",
+            "width": 900,
+            "height": 470
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/ai-temukan-celah-keamanan-linux-kernel-yang-bisa-memberikan-akses-root-dan-menembus-virtual-machine/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "AI Temukan Celah Keamanan Linux Kernel yang Bisa Memberikan Akses Root dan Menembus Virtual Machine"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23142",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=23142"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23142/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 23146,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23142/revisions/23146"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/23143"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=23142"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=23142"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=23142"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,333 @@
+{
+  "id": 9742,
+  "title": "Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server",
+  "slug": "server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server",
+  "url": "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/",
+  "date": "2026-03-14T00:42:30",
+  "date_gmt": "2026-03-14T00:42:30",
+  "modified": "2026-07-06T20:55:13",
+  "modified_gmt": "2026-07-06T20:55:13",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    682,
+    1157,
+    444
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/12/firewall-antivirus-alert-protection-security-caution-concept-scaled.jpg",
+  "excerpt": "Pengantar Dalam pengembangan aplikasi web modern, template engine sering digunakan untuk mempermudah proses pembuatan halaman dinamis. Template engine memungkinkan developer menampilkan data dari server ke halaman web dengan cara yang lebih terstruktur dan efisien. Framework populer seperti Flask, Django, Node.js, maupun Java Spring banyak menggunakan teknologi ini. Namun, penggunaan template engine juga dapat menimbulkan celah keamanan jika tidak dikonfigurasi dengan benar. Salah satu kerentanan yang cukup berbahaya adalah Server-Side Template Injection (SSTI). SSTI merupakan teknik serangan yang terjadi ketika penyerang dapat menyisipkan kode berbahaya ke dalam template yang diproses oleh server. Jika berhasil dieksploitasi, serangan ini dapat memungkinkan penyerang mengakses…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"90\" data-end=\"102\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"104\" data-end=\"462\"><span style=\"color: #000000;\">Dalam pengembangan aplikasi web modern, template engine sering digunakan untuk mempermudah proses pembuatan halaman dinamis. Template engine memungkinkan developer menampilkan data dari server ke halaman web dengan cara yang lebih terstruktur dan efisien. Framework populer seperti Flask, Django, Node.js, maupun Java Spring banyak menggunakan teknologi ini.</span></p>\n<p style=\"text-align: justify;\" data-start=\"464\" data-end=\"667\"><span style=\"color: #000000;\">Namun, penggunaan template engine juga dapat menimbulkan celah keamanan jika tidak dikonfigurasi dengan benar. Salah satu kerentanan yang cukup berbahaya adalah <strong data-start=\"625\" data-end=\"666\">Server-Side Template Injection (SSTI)</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"669\" data-end=\"975\"><span style=\"color: #000000;\">SSTI merupakan teknik serangan yang terjadi ketika penyerang dapat menyisipkan kode berbahaya ke dalam template yang diproses oleh server. Jika berhasil dieksploitasi, serangan ini dapat memungkinkan penyerang <strong data-start=\"879\" data-end=\"974\">mengakses data sensitif, menjalankan perintah sistem, hingga mengambil alih server aplikasi</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"977\" data-end=\"1109\"><span style=\"color: #000000;\">Karena dampaknya yang serius, SSTI menjadi salah satu kerentanan yang perlu diwaspadai oleh developer dan tim keamanan aplikasi web.</span></p>\n<hr data-start=\"1111\" data-end=\"1114\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"52ydm2\" data-start=\"1116\" data-end=\"1165\"><span style=\"color: #000000;\">Apa Itu Server-Side Template Injection (SSTI)?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1167\" data-end=\"1372\"><span style=\"color: #000000;\"><strong data-start=\"1167\" data-end=\"1208\">Server-Side Template Injection (SSTI)</strong> adalah kerentanan keamanan yang terjadi ketika input pengguna dimasukkan secara langsung ke dalam template engine tanpa proses validasi atau sanitasi yang memadai.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1374\" data-end=\"1648\"><span style=\"color: #000000;\">Template engine biasanya bekerja dengan mengeksekusi ekspresi tertentu untuk menghasilkan tampilan halaman web. Jika input pengguna diproses sebagai bagian dari template, penyerang dapat memanfaatkan mekanisme ini untuk menjalankan kode yang tidak diinginkan di sisi server.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1650\" data-end=\"1715\"><span style=\"color: #000000;\">Sebagai contoh, dalam beberapa template engine, ekspresi seperti:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">{{7*7}}</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"1734\" data-end=\"1922\"><span style=\"color: #000000;\">dapat diproses oleh server dan menghasilkan nilai <strong data-start=\"1784\" data-end=\"1790\">49</strong>. Jika input seperti ini dapat dijalankan oleh aplikasi tanpa pembatasan, maka ada kemungkinan sistem rentan terhadap serangan SSTI.</span></p>\n<blockquote>\n<p data-start=\"1734\" data-end=\"1922\">baca juga : <a href=\"https://buletinsiber.com/file-carving-teknik-forensik-digital-untuk-mengembalikan-file-yang-terhapus/\">File Carving: Teknik Forensik Digital untuk Mengembalikan File yang Terhapus</a></p>\n</blockquote>\n<hr data-start=\"2307\" data-end=\"2310\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1w6rk99\" data-start=\"2312\" data-end=\"2350\"><span style=\"color: #000000;\">Bagaimana Cara Kerja Serangan SSTI?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2352\" data-end=\"2480\"><span style=\"color: #000000;\">Serangan SSTI biasanya dimulai ketika aplikasi web menampilkan input pengguna ke dalam template tanpa proses validasi yang aman.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2482\" data-end=\"2557\"><span style=\"color: #000000;\">Secara umum, proses serangan dapat terjadi melalui langkah-langkah berikut:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"2559\" data-end=\"2945\">\n<li data-section-id=\"1s4ezyt\" data-start=\"2559\" data-end=\"2639\">\n<p data-start=\"2562\" data-end=\"2639\"><span style=\"color: #000000;\">Penyerang menemukan fitur yang menampilkan input pengguna pada halaman web.</span></p>\n</li>\n<li data-section-id=\"eqc779\" data-start=\"2640\" data-end=\"2747\">\n<p data-start=\"2643\" data-end=\"2747\"><span style=\"color: #000000;\">Penyerang mencoba menyisipkan ekspresi template sederhana untuk melihat apakah server mengeksekusinya.</span></p>\n</li>\n<li data-section-id=\"i4p1hx\" data-start=\"2748\" data-end=\"2845\">\n<p data-start=\"2751\" data-end=\"2845\"><span style=\"color: #000000;\">Jika ekspresi tersebut diproses oleh server, maka aplikasi kemungkinan rentan terhadap SSTI.</span></p>\n</li>\n<li data-section-id=\"1cpjxe6\" data-start=\"2846\" data-end=\"2945\">\n<p data-start=\"2849\" data-end=\"2945\"><span style=\"color: #000000;\">Penyerang kemudian mencoba payload yang lebih kompleks untuk mendapatkan akses ke sistem server.</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2947\" data-end=\"3070\"><span style=\"color: #000000;\">Ketika eksploitasi berhasil, penyerang dapat menjalankan berbagai perintah berbahaya yang berdampak pada keamanan aplikasi.</span></p>\n<hr data-start=\"3072\" data-end=\"3075\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"3qox34\" data-start=\"3077\" data-end=\"3126\"><span style=\"color: #000000;\">Dampak Serangan Server-Side Template Injection</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3128\" data-end=\"3221\"><span style=\"color: #000000;\">Kerentanan SSTI dapat menimbulkan berbagai risiko serius bagi aplikasi web dan sistem server.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"q78fj4\" data-start=\"3223\" data-end=\"3246\"><span style=\"color: #000000;\">Akses Data Sensitif</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3248\" data-end=\"3368\"><span style=\"color: #000000;\">Penyerang dapat membaca data internal aplikasi seperti konfigurasi server, kredensial database, atau informasi pengguna.</span></p>\n<hr data-start=\"3370\" data-end=\"3373\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1pwtceg\" data-start=\"3375\" data-end=\"3406\"><span style=\"color: #000000;\">Remote Code Execution (RCE)</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3408\" data-end=\"3569\"><span style=\"color: #000000;\">Dalam beberapa kasus, SSTI dapat berkembang menjadi <strong data-start=\"3460\" data-end=\"3485\">Remote Code Execution</strong>, yang memungkinkan penyerang menjalankan perintah sistem secara langsung di server.</span></p>\n<hr data-start=\"3571\" data-end=\"3574\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"v65hhj\" data-start=\"3576\" data-end=\"3602\"><span style=\"color: #000000;\">Pengambilalihan Sistem</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3604\" data-end=\"3739\"><span style=\"color: #000000;\">Jika eksploitasi dilakukan secara penuh, penyerang dapat memperoleh akses ke sistem operasi server dan mengambil kendali atas aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3741\" data-end=\"3962\"><span style=\"color: #000000;\">Menurut PortSwigger, SSTI merupakan kerentanan yang sangat berbahaya karena dapat memberikan akses langsung ke lingkungan eksekusi server (dikutip dari <a href=\"https://portswigger.net/web-security/server-side-template-injection\">portswigger</a>).</span></p>\n<blockquote>\n<p data-start=\"3741\" data-end=\"3962\">baca juga : <a href=\"https://buletinsiber.com/ssl-stripping-serangan-yang-mengubah-https-menjadi-http-tanpa-disadari/\">SSL Stripping: Serangan yang Mengubah HTTPS Menjadi HTTP Tanpa Disadari</a></p>\n</blockquote>\n<hr data-start=\"3964\" data-end=\"3967\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"elsjwb\" data-start=\"3969\" data-end=\"4020\"><span style=\"color: #000000;\">Contoh Template Engine yang Rentan terhadap SSTI</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4022\" data-end=\"4133\"><span style=\"color: #000000;\">Berbagai template engine dapat berpotensi mengalami kerentanan SSTI jika digunakan tanpa pengamanan yang tepat.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4135\" data-end=\"4218\"><span style=\"color: #000000;\">Beberapa contoh template engine yang sering dibahas dalam konteks SSTI antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4220\" data-end=\"4349\">\n<li data-section-id=\"1wy5f4l\" data-start=\"4220\" data-end=\"4251\">\n<p data-start=\"4222\" data-end=\"4251\"><span style=\"color: #000000;\"><strong data-start=\"4222\" data-end=\"4232\">Jinja2</strong> (Python / Flask)</span></p>\n</li>\n<li data-section-id=\"v42suy\" data-start=\"4252\" data-end=\"4280\">\n<p data-start=\"4254\" data-end=\"4280\"><span style=\"color: #000000;\"><strong data-start=\"4254\" data-end=\"4262\">Twig</strong> (PHP / Symfony)</span></p>\n</li>\n<li data-section-id=\"1rqqnc3\" data-start=\"4281\" data-end=\"4306\">\n<p data-start=\"4283\" data-end=\"4306\"><span style=\"color: #000000;\"><strong data-start=\"4283\" data-end=\"4297\">Freemarker</strong> (Java)</span></p>\n</li>\n<li data-section-id=\"18rid36\" data-start=\"4307\" data-end=\"4330\">\n<p data-start=\"4309\" data-end=\"4330\"><span style=\"color: #000000;\"><strong data-start=\"4309\" data-end=\"4321\">Velocity</strong> (Java)</span></p>\n</li>\n<li data-section-id=\"crh081\" data-start=\"4331\" data-end=\"4349\">\n<p data-start=\"4333\" data-end=\"4349\"><span style=\"color: #000000;\"><strong data-start=\"4333\" data-end=\"4343\">Smarty</strong> (PHP)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4351\" data-end=\"4527\"><span style=\"color: #000000;\">Namun penting untuk dipahami bahwa kerentanan ini bukan berasal dari template engine itu sendiri, melainkan dari cara implementasi developer dalam memproses input pengguna.</span></p>\n<hr data-start=\"4529\" data-end=\"4532\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"o0s12m\" data-start=\"4534\" data-end=\"4581\"><span style=\"color: #000000;\">Cara Mencegah Server-Side Template Injection</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4583\" data-end=\"4696\"><span style=\"color: #000000;\">Untuk mengurangi risiko SSTI, beberapa langkah keamanan berikut dapat diterapkan dalam pengembangan aplikasi web.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"1nvl370\" data-start=\"4698\" data-end=\"4729\"><span style=\"color: #000000;\">Validasi dan Sanitasi Input</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4731\" data-end=\"4854\"><span style=\"color: #000000;\">Setiap input pengguna harus divalidasi sebelum digunakan dalam template untuk mencegah eksekusi kode yang tidak diinginkan.</span></p>\n<hr data-start=\"4856\" data-end=\"4859\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1q0wa1w\" data-start=\"4861\" data-end=\"4911\"><span style=\"color: #000000;\">Hindari Rendering Template dari Input Pengguna</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4913\" data-end=\"5035\"><span style=\"color: #000000;\">Developer sebaiknya tidak menggunakan input pengguna sebagai bagian langsung dari template yang akan diproses oleh server.</span></p>\n<hr data-start=\"5037\" data-end=\"5040\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"h3k8r5\" data-start=\"5042\" data-end=\"5066\"><span style=\"color: #000000;\">Gunakan Mode Sandbox</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5068\" data-end=\"5200\"><span style=\"color: #000000;\">Beberapa template engine menyediakan fitur sandbox environment yang membatasi akses terhadap fungsi berbahaya di dalam template.</span></p>\n<hr data-start=\"5202\" data-end=\"5205\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"807gj\" data-start=\"5207\" data-end=\"5252\"><span style=\"color: #000000;\">Lakukan Pengujian Keamanan Secara Berkala</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5254\" data-end=\"5415\"><span style=\"color: #000000;\">Pengujian keamanan seperti penetration testing atau security testing dapat membantu mengidentifikasi kerentanan SSTI sebelum dimanfaatkan oleh penyerang.</span></p>\n<blockquote>\n<p data-start=\"5254\" data-end=\"5415\">baca juga : <a href=\"https://buletinsiber.com/use-after-free-kerentanan-memori-yang-bisa-membuka-jalan-bagi-serangan-siber/\">Use-After-Free: Kerentanan Memori yang Bisa Membuka Jalan bagi Serangan Siber</a></p>\n</blockquote>\n<hr data-start=\"5417\" data-end=\"5420\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"5422\" data-end=\"5435\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5437\" data-end=\"5766\"><span style=\"color: #000000;\">Server-Side Template Injection (SSTI) merupakan kerentanan keamanan yang terjadi ketika input pengguna diproses secara langsung oleh template engine di sisi server. Jika tidak ditangani dengan baik, celah ini dapat memungkinkan penyerang menjalankan kode berbahaya, mengakses data sensitif, bahkan mengambil alih server aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5768\" data-end=\"6096\"><span style=\"color: #000000;\">Karena dampaknya yang serius, developer perlu memahami cara kerja SSTI dan menerapkan praktik keamanan yang baik seperti validasi input, penggunaan sandbox, serta pengujian keamanan secara rutin. Dengan pendekatan keamanan yang tepat, risiko eksploitasi SSTI dapat diminimalkan dan aplikasi web dapat berjalan dengan lebih aman.</span></p>\n",
+  "content_text": "Pengantar\nDalam pengembangan aplikasi web modern, template engine sering digunakan untuk mempermudah proses pembuatan halaman dinamis. Template engine memungkinkan developer menampilkan data dari server ke halaman web dengan cara yang lebih terstruktur dan efisien. Framework populer seperti Flask, Django, Node.js, maupun Java Spring banyak menggunakan teknologi ini.\nNamun, penggunaan template engine juga dapat menimbulkan celah keamanan jika tidak dikonfigurasi dengan benar. Salah satu kerentanan yang cukup berbahaya adalah  Server-Side Template Injection (SSTI) .\nSSTI merupakan teknik serangan yang terjadi ketika penyerang dapat menyisipkan kode berbahaya ke dalam template yang diproses oleh server. Jika berhasil dieksploitasi, serangan ini dapat memungkinkan penyerang  mengakses data sensitif, menjalankan perintah sistem, hingga mengambil alih server aplikasi .\nKarena dampaknya yang serius, SSTI menjadi salah satu kerentanan yang perlu diwaspadai oleh developer dan tim keamanan aplikasi web.\nApa Itu Server-Side Template Injection (SSTI)?\nServer-Side Template Injection (SSTI)  adalah kerentanan keamanan yang terjadi ketika input pengguna dimasukkan secara langsung ke dalam template engine tanpa proses validasi atau sanitasi yang memadai.\nTemplate engine biasanya bekerja dengan mengeksekusi ekspresi tertentu untuk menghasilkan tampilan halaman web. Jika input pengguna diproses sebagai bagian dari template, penyerang dapat memanfaatkan mekanisme ini untuk menjalankan kode yang tidak diinginkan di sisi server.\nSebagai contoh, dalam beberapa template engine, ekspresi seperti:\n{{7*7}}\ndapat diproses oleh server dan menghasilkan nilai  49 . Jika input seperti ini dapat dijalankan oleh aplikasi tanpa pembatasan, maka ada kemungkinan sistem rentan terhadap serangan SSTI.\nbaca juga :  File Carving: Teknik Forensik Digital untuk Mengembalikan File yang Terhapus\nBagaimana Cara Kerja Serangan SSTI?\nSerangan SSTI biasanya dimulai ketika aplikasi web menampilkan input pengguna ke dalam template tanpa proses validasi yang aman.\nSecara umum, proses serangan dapat terjadi melalui langkah-langkah berikut:\nPenyerang menemukan fitur yang menampilkan input pengguna pada halaman web.\nPenyerang mencoba menyisipkan ekspresi template sederhana untuk melihat apakah server mengeksekusinya.\nJika ekspresi tersebut diproses oleh server, maka aplikasi kemungkinan rentan terhadap SSTI.\nPenyerang kemudian mencoba payload yang lebih kompleks untuk mendapatkan akses ke sistem server.\nKetika eksploitasi berhasil, penyerang dapat menjalankan berbagai perintah berbahaya yang berdampak pada keamanan aplikasi.\nDampak Serangan Server-Side Template Injection\nKerentanan SSTI dapat menimbulkan berbagai risiko serius bagi aplikasi web dan sistem server.\nAkses Data Sensitif\nPenyerang dapat membaca data internal aplikasi seperti konfigurasi server, kredensial database, atau informasi pengguna.\nRemote Code Execution (RCE)\nDalam beberapa kasus, SSTI dapat berkembang menjadi  Remote Code Execution , yang memungkinkan penyerang menjalankan perintah sistem secara langsung di server.\nPengambilalihan Sistem\nJika eksploitasi dilakukan secara penuh, penyerang dapat memperoleh akses ke sistem operasi server dan mengambil kendali atas aplikasi.\nMenurut PortSwigger, SSTI merupakan kerentanan yang sangat berbahaya karena dapat memberikan akses langsung ke lingkungan eksekusi server (dikutip dari  portswigger ).\nbaca juga :  SSL Stripping: Serangan yang Mengubah HTTPS Menjadi HTTP Tanpa Disadari\nContoh Template Engine yang Rentan terhadap SSTI\nBerbagai template engine dapat berpotensi mengalami kerentanan SSTI jika digunakan tanpa pengamanan yang tepat.\nBeberapa contoh template engine yang sering dibahas dalam konteks SSTI antara lain:\nJinja2  (Python / Flask)\nTwig  (PHP / Symfony)\nFreemarker  (Java)\nVelocity  (Java)\nSmarty  (PHP)\nNamun penting untuk dipahami bahwa kerentanan ini bukan berasal dari template engine itu sendiri, melainkan dari cara implementasi developer dalam memproses input pengguna.\nCara Mencegah Server-Side Template Injection\nUntuk mengurangi risiko SSTI, beberapa langkah keamanan berikut dapat diterapkan dalam pengembangan aplikasi web.\nValidasi dan Sanitasi Input\nSetiap input pengguna harus divalidasi sebelum digunakan dalam template untuk mencegah eksekusi kode yang tidak diinginkan.\nHindari Rendering Template dari Input Pengguna\nDeveloper sebaiknya tidak menggunakan input pengguna sebagai bagian langsung dari template yang akan diproses oleh server.\nGunakan Mode Sandbox\nBeberapa template engine menyediakan fitur sandbox environment yang membatasi akses terhadap fungsi berbahaya di dalam template.\nLakukan Pengujian Keamanan Secara Berkala\nPengujian keamanan seperti penetration testing atau security testing dapat membantu mengidentifikasi kerentanan SSTI sebelum dimanfaatkan oleh penyerang.\nbaca juga :  Use-After-Free: Kerentanan Memori yang Bisa Membuka Jalan bagi Serangan Siber\nKesimpulan\nServer-Side Template Injection (SSTI) merupakan kerentanan keamanan yang terjadi ketika input pengguna diproses secara langsung oleh template engine di sisi server. Jika tidak ditangani dengan baik, celah ini dapat memungkinkan penyerang menjalankan kode berbahaya, mengakses data sensitif, bahkan mengambil alih server aplikasi.\nKarena dampaknya yang serius, developer perlu memahami cara kerja SSTI dan menerapkan praktik keamanan yang baik seperti validasi input, penggunaan sandbox, serta pengujian keamanan secara rutin. Dengan pendekatan keamanan yang tepat, risiko eksploitasi SSTI dapat diminimalkan dan aplikasi web dapat berjalan dengan lebih aman.",
+  "raw": {
+    "id": 9742,
+    "date": "2026-03-14T00:42:30",
+    "date_gmt": "2026-03-14T00:42:30",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9742"
+    },
+    "modified": "2026-07-06T20:55:13",
+    "modified_gmt": "2026-07-06T20:55:13",
+    "slug": "server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/",
+    "title": {
+      "rendered": "Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"90\" data-end=\"102\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"104\" data-end=\"462\"><span style=\"color: #000000;\">Dalam pengembangan aplikasi web modern, template engine sering digunakan untuk mempermudah proses pembuatan halaman dinamis. Template engine memungkinkan developer menampilkan data dari server ke halaman web dengan cara yang lebih terstruktur dan efisien. Framework populer seperti Flask, Django, Node.js, maupun Java Spring banyak menggunakan teknologi ini.</span></p>\n<p style=\"text-align: justify;\" data-start=\"464\" data-end=\"667\"><span style=\"color: #000000;\">Namun, penggunaan template engine juga dapat menimbulkan celah keamanan jika tidak dikonfigurasi dengan benar. Salah satu kerentanan yang cukup berbahaya adalah <strong data-start=\"625\" data-end=\"666\">Server-Side Template Injection (SSTI)</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"669\" data-end=\"975\"><span style=\"color: #000000;\">SSTI merupakan teknik serangan yang terjadi ketika penyerang dapat menyisipkan kode berbahaya ke dalam template yang diproses oleh server. Jika berhasil dieksploitasi, serangan ini dapat memungkinkan penyerang <strong data-start=\"879\" data-end=\"974\">mengakses data sensitif, menjalankan perintah sistem, hingga mengambil alih server aplikasi</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"977\" data-end=\"1109\"><span style=\"color: #000000;\">Karena dampaknya yang serius, SSTI menjadi salah satu kerentanan yang perlu diwaspadai oleh developer dan tim keamanan aplikasi web.</span></p>\n<hr data-start=\"1111\" data-end=\"1114\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"52ydm2\" data-start=\"1116\" data-end=\"1165\"><span style=\"color: #000000;\">Apa Itu Server-Side Template Injection (SSTI)?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1167\" data-end=\"1372\"><span style=\"color: #000000;\"><strong data-start=\"1167\" data-end=\"1208\">Server-Side Template Injection (SSTI)</strong> adalah kerentanan keamanan yang terjadi ketika input pengguna dimasukkan secara langsung ke dalam template engine tanpa proses validasi atau sanitasi yang memadai.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1374\" data-end=\"1648\"><span style=\"color: #000000;\">Template engine biasanya bekerja dengan mengeksekusi ekspresi tertentu untuk menghasilkan tampilan halaman web. Jika input pengguna diproses sebagai bagian dari template, penyerang dapat memanfaatkan mekanisme ini untuk menjalankan kode yang tidak diinginkan di sisi server.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1650\" data-end=\"1715\"><span style=\"color: #000000;\">Sebagai contoh, dalam beberapa template engine, ekspresi seperti:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">{{7*7}}</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"1734\" data-end=\"1922\"><span style=\"color: #000000;\">dapat diproses oleh server dan menghasilkan nilai <strong data-start=\"1784\" data-end=\"1790\">49</strong>. Jika input seperti ini dapat dijalankan oleh aplikasi tanpa pembatasan, maka ada kemungkinan sistem rentan terhadap serangan SSTI.</span></p>\n<blockquote>\n<p data-start=\"1734\" data-end=\"1922\">baca juga : <a href=\"https://buletinsiber.com/file-carving-teknik-forensik-digital-untuk-mengembalikan-file-yang-terhapus/\">File Carving: Teknik Forensik Digital untuk Mengembalikan File yang Terhapus</a></p>\n</blockquote>\n<hr data-start=\"2307\" data-end=\"2310\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1w6rk99\" data-start=\"2312\" data-end=\"2350\"><span style=\"color: #000000;\">Bagaimana Cara Kerja Serangan SSTI?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2352\" data-end=\"2480\"><span style=\"color: #000000;\">Serangan SSTI biasanya dimulai ketika aplikasi web menampilkan input pengguna ke dalam template tanpa proses validasi yang aman.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2482\" data-end=\"2557\"><span style=\"color: #000000;\">Secara umum, proses serangan dapat terjadi melalui langkah-langkah berikut:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"2559\" data-end=\"2945\">\n<li data-section-id=\"1s4ezyt\" data-start=\"2559\" data-end=\"2639\">\n<p data-start=\"2562\" data-end=\"2639\"><span style=\"color: #000000;\">Penyerang menemukan fitur yang menampilkan input pengguna pada halaman web.</span></p>\n</li>\n<li data-section-id=\"eqc779\" data-start=\"2640\" data-end=\"2747\">\n<p data-start=\"2643\" data-end=\"2747\"><span style=\"color: #000000;\">Penyerang mencoba menyisipkan ekspresi template sederhana untuk melihat apakah server mengeksekusinya.</span></p>\n</li>\n<li data-section-id=\"i4p1hx\" data-start=\"2748\" data-end=\"2845\">\n<p data-start=\"2751\" data-end=\"2845\"><span style=\"color: #000000;\">Jika ekspresi tersebut diproses oleh server, maka aplikasi kemungkinan rentan terhadap SSTI.</span></p>\n</li>\n<li data-section-id=\"1cpjxe6\" data-start=\"2846\" data-end=\"2945\">\n<p data-start=\"2849\" data-end=\"2945\"><span style=\"color: #000000;\">Penyerang kemudian mencoba payload yang lebih kompleks untuk mendapatkan akses ke sistem server.</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2947\" data-end=\"3070\"><span style=\"color: #000000;\">Ketika eksploitasi berhasil, penyerang dapat menjalankan berbagai perintah berbahaya yang berdampak pada keamanan aplikasi.</span></p>\n<hr data-start=\"3072\" data-end=\"3075\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"3qox34\" data-start=\"3077\" data-end=\"3126\"><span style=\"color: #000000;\">Dampak Serangan Server-Side Template Injection</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3128\" data-end=\"3221\"><span style=\"color: #000000;\">Kerentanan SSTI dapat menimbulkan berbagai risiko serius bagi aplikasi web dan sistem server.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"q78fj4\" data-start=\"3223\" data-end=\"3246\"><span style=\"color: #000000;\">Akses Data Sensitif</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3248\" data-end=\"3368\"><span style=\"color: #000000;\">Penyerang dapat membaca data internal aplikasi seperti konfigurasi server, kredensial database, atau informasi pengguna.</span></p>\n<hr data-start=\"3370\" data-end=\"3373\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1pwtceg\" data-start=\"3375\" data-end=\"3406\"><span style=\"color: #000000;\">Remote Code Execution (RCE)</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3408\" data-end=\"3569\"><span style=\"color: #000000;\">Dalam beberapa kasus, SSTI dapat berkembang menjadi <strong data-start=\"3460\" data-end=\"3485\">Remote Code Execution</strong>, yang memungkinkan penyerang menjalankan perintah sistem secara langsung di server.</span></p>\n<hr data-start=\"3571\" data-end=\"3574\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"v65hhj\" data-start=\"3576\" data-end=\"3602\"><span style=\"color: #000000;\">Pengambilalihan Sistem</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3604\" data-end=\"3739\"><span style=\"color: #000000;\">Jika eksploitasi dilakukan secara penuh, penyerang dapat memperoleh akses ke sistem operasi server dan mengambil kendali atas aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3741\" data-end=\"3962\"><span style=\"color: #000000;\">Menurut PortSwigger, SSTI merupakan kerentanan yang sangat berbahaya karena dapat memberikan akses langsung ke lingkungan eksekusi server (dikutip dari <a href=\"https://portswigger.net/web-security/server-side-template-injection\">portswigger</a>).</span></p>\n<blockquote>\n<p data-start=\"3741\" data-end=\"3962\">baca juga : <a href=\"https://buletinsiber.com/ssl-stripping-serangan-yang-mengubah-https-menjadi-http-tanpa-disadari/\">SSL Stripping: Serangan yang Mengubah HTTPS Menjadi HTTP Tanpa Disadari</a></p>\n</blockquote>\n<hr data-start=\"3964\" data-end=\"3967\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"elsjwb\" data-start=\"3969\" data-end=\"4020\"><span style=\"color: #000000;\">Contoh Template Engine yang Rentan terhadap SSTI</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4022\" data-end=\"4133\"><span style=\"color: #000000;\">Berbagai template engine dapat berpotensi mengalami kerentanan SSTI jika digunakan tanpa pengamanan yang tepat.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4135\" data-end=\"4218\"><span style=\"color: #000000;\">Beberapa contoh template engine yang sering dibahas dalam konteks SSTI antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4220\" data-end=\"4349\">\n<li data-section-id=\"1wy5f4l\" data-start=\"4220\" data-end=\"4251\">\n<p data-start=\"4222\" data-end=\"4251\"><span style=\"color: #000000;\"><strong data-start=\"4222\" data-end=\"4232\">Jinja2</strong> (Python / Flask)</span></p>\n</li>\n<li data-section-id=\"v42suy\" data-start=\"4252\" data-end=\"4280\">\n<p data-start=\"4254\" data-end=\"4280\"><span style=\"color: #000000;\"><strong data-start=\"4254\" data-end=\"4262\">Twig</strong> (PHP / Symfony)</span></p>\n</li>\n<li data-section-id=\"1rqqnc3\" data-start=\"4281\" data-end=\"4306\">\n<p data-start=\"4283\" data-end=\"4306\"><span style=\"color: #000000;\"><strong data-start=\"4283\" data-end=\"4297\">Freemarker</strong> (Java)</span></p>\n</li>\n<li data-section-id=\"18rid36\" data-start=\"4307\" data-end=\"4330\">\n<p data-start=\"4309\" data-end=\"4330\"><span style=\"color: #000000;\"><strong data-start=\"4309\" data-end=\"4321\">Velocity</strong> (Java)</span></p>\n</li>\n<li data-section-id=\"crh081\" data-start=\"4331\" data-end=\"4349\">\n<p data-start=\"4333\" data-end=\"4349\"><span style=\"color: #000000;\"><strong data-start=\"4333\" data-end=\"4343\">Smarty</strong> (PHP)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4351\" data-end=\"4527\"><span style=\"color: #000000;\">Namun penting untuk dipahami bahwa kerentanan ini bukan berasal dari template engine itu sendiri, melainkan dari cara implementasi developer dalam memproses input pengguna.</span></p>\n<hr data-start=\"4529\" data-end=\"4532\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"o0s12m\" data-start=\"4534\" data-end=\"4581\"><span style=\"color: #000000;\">Cara Mencegah Server-Side Template Injection</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4583\" data-end=\"4696\"><span style=\"color: #000000;\">Untuk mengurangi risiko SSTI, beberapa langkah keamanan berikut dapat diterapkan dalam pengembangan aplikasi web.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"1nvl370\" data-start=\"4698\" data-end=\"4729\"><span style=\"color: #000000;\">Validasi dan Sanitasi Input</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4731\" data-end=\"4854\"><span style=\"color: #000000;\">Setiap input pengguna harus divalidasi sebelum digunakan dalam template untuk mencegah eksekusi kode yang tidak diinginkan.</span></p>\n<hr data-start=\"4856\" data-end=\"4859\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1q0wa1w\" data-start=\"4861\" data-end=\"4911\"><span style=\"color: #000000;\">Hindari Rendering Template dari Input Pengguna</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4913\" data-end=\"5035\"><span style=\"color: #000000;\">Developer sebaiknya tidak menggunakan input pengguna sebagai bagian langsung dari template yang akan diproses oleh server.</span></p>\n<hr data-start=\"5037\" data-end=\"5040\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"h3k8r5\" data-start=\"5042\" data-end=\"5066\"><span style=\"color: #000000;\">Gunakan Mode Sandbox</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5068\" data-end=\"5200\"><span style=\"color: #000000;\">Beberapa template engine menyediakan fitur sandbox environment yang membatasi akses terhadap fungsi berbahaya di dalam template.</span></p>\n<hr data-start=\"5202\" data-end=\"5205\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"807gj\" data-start=\"5207\" data-end=\"5252\"><span style=\"color: #000000;\">Lakukan Pengujian Keamanan Secara Berkala</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5254\" data-end=\"5415\"><span style=\"color: #000000;\">Pengujian keamanan seperti penetration testing atau security testing dapat membantu mengidentifikasi kerentanan SSTI sebelum dimanfaatkan oleh penyerang.</span></p>\n<blockquote>\n<p data-start=\"5254\" data-end=\"5415\">baca juga : <a href=\"https://buletinsiber.com/use-after-free-kerentanan-memori-yang-bisa-membuka-jalan-bagi-serangan-siber/\">Use-After-Free: Kerentanan Memori yang Bisa Membuka Jalan bagi Serangan Siber</a></p>\n</blockquote>\n<hr data-start=\"5417\" data-end=\"5420\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"5422\" data-end=\"5435\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5437\" data-end=\"5766\"><span style=\"color: #000000;\">Server-Side Template Injection (SSTI) merupakan kerentanan keamanan yang terjadi ketika input pengguna diproses secara langsung oleh template engine di sisi server. Jika tidak ditangani dengan baik, celah ini dapat memungkinkan penyerang menjalankan kode berbahaya, mengakses data sensitif, bahkan mengambil alih server aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5768\" data-end=\"6096\"><span style=\"color: #000000;\">Karena dampaknya yang serius, developer perlu memahami cara kerja SSTI dan menerapkan praktik keamanan yang baik seperti validasi input, penggunaan sandbox, serta pengujian keamanan secara rutin. Dengan pendekatan keamanan yang tepat, risiko eksploitasi SSTI dapat diminimalkan dan aplikasi web dapat berjalan dengan lebih aman.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dalam pengembangan aplikasi web modern, template engine sering digunakan untuk mempermudah proses pembuatan halaman dinamis. Template engine memungkinkan developer menampilkan data dari server ke halaman web dengan cara yang lebih terstruktur dan efisien. Framework populer seperti Flask, Django, Node.js, maupun Java Spring banyak menggunakan teknologi ini. Namun, penggunaan template engine juga dapat menimbulkan celah keamanan jika tidak dikonfigurasi dengan benar. Salah satu kerentanan yang cukup berbahaya adalah Server-Side Template Injection (SSTI). SSTI merupakan teknik serangan yang terjadi ketika penyerang dapat menyisipkan kode berbahaya ke dalam template yang diproses oleh server. Jika berhasil dieksploitasi, serangan ini dapat memungkinkan penyerang mengakses&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8838,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Server-Side Template Injection (SSTI)",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      682,
+      1157,
+      444
+    ],
+    "class_list": [
+      "post-9742",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-keamanan",
+      "tag-ssti",
+      "tag-web"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dalam pengembangan aplikasi web modern, template engine sering digunakan untuk mempermudah proses pembuatan halaman dinamis. Template engine memungkinkan developer menampilkan data dari server ke halaman web dengan cara yang lebih terstruktur dan efisien. Framework populer seperti Flask, Django, Node.js, maupun Java Spring banyak menggunakan teknologi ini. Namun, penggunaan template engine juga dapat menimbulkan celah keamanan jika tidak dikonfigurasi dengan benar. Salah satu kerentanan yang cukup berbahaya adalah Server-Side Template Injection (SSTI). SSTI merupakan teknik serangan yang terjadi ketika penyerang dapat menyisipkan kode berbahaya ke dalam template yang diproses oleh server. Jika berhasil dieksploitasi, serangan ini dapat memungkinkan penyerang mengakses...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-03-14T00:42:30+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:55:13+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/12/firewall-antivirus-alert-protection-security-caution-concept-scaled.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2560\" />\n\t<meta property=\"og:image:height\" content=\"1709\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/\",\"url\":\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/\",\"name\":\"Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/firewall-antivirus-alert-protection-security-caution-concept-scaled.jpg\",\"datePublished\":\"2026-03-14T00:42:30+00:00\",\"dateModified\":\"2026-07-06T20:55:13+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/12/firewall-antivirus-alert-protection-security-caution-concept-scaled.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/firewall-antivirus-alert-protection-security-caution-concept-scaled.jpg\",\"width\":2560,\"height\":1709,\"caption\":\"Firewall Antivirus Alert Protection Security Caution Concept\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server - buletinsiber.com",
+      "og_description": "Pengantar Dalam pengembangan aplikasi web modern, template engine sering digunakan untuk mempermudah proses pembuatan halaman dinamis. Template engine memungkinkan developer menampilkan data dari server ke halaman web dengan cara yang lebih terstruktur dan efisien. Framework populer seperti Flask, Django, Node.js, maupun Java Spring banyak menggunakan teknologi ini. Namun, penggunaan template engine juga dapat menimbulkan celah keamanan jika tidak dikonfigurasi dengan benar. Salah satu kerentanan yang cukup berbahaya adalah Server-Side Template Injection (SSTI). SSTI merupakan teknik serangan yang terjadi ketika penyerang dapat menyisipkan kode berbahaya ke dalam template yang diproses oleh server. Jika berhasil dieksploitasi, serangan ini dapat memungkinkan penyerang mengakses...",
+      "og_url": "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-03-14T00:42:30+00:00",
+      "article_modified_time": "2026-07-06T20:55:13+00:00",
+      "og_image": [
+        {
+          "width": 2560,
+          "height": 1709,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/12/firewall-antivirus-alert-protection-security-caution-concept-scaled.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/",
+            "url": "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/",
+            "name": "Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/firewall-antivirus-alert-protection-security-caution-concept-scaled.jpg",
+            "datePublished": "2026-03-14T00:42:30+00:00",
+            "dateModified": "2026-07-06T20:55:13+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/12/firewall-antivirus-alert-protection-security-caution-concept-scaled.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/firewall-antivirus-alert-protection-security-caution-concept-scaled.jpg",
+            "width": 2560,
+            "height": 1709,
+            "caption": "Firewall Antivirus Alert Protection Security Caution Concept"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9742",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9742"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9742/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9743,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9742/revisions/9743"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8838"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9742"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9742"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9742"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

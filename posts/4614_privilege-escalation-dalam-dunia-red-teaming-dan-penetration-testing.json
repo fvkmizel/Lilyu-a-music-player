@@ -1,0 +1,317 @@
+{
+  "id": 4614,
+  "title": "Privilege Escalation dalam Dunia Red Teaming dan Penetration Testing",
+  "slug": "privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing",
+  "url": "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/",
+  "date": "2025-07-09T11:12:34",
+  "date_gmt": "2025-07-09T11:12:34",
+  "modified": "2026-07-06T20:45:01",
+  "modified_gmt": "2026-07-06T20:45:01",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    149
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/06/digitaltech.jpg",
+  "excerpt": "Dalam dunia keamanan siber, ada dua kegiatan penting yang dilakukan untuk menguji seberapa kuat sistem sebuah organisasi: Red Teaming dan Penetration Testing (pentest). Keduanya dilakukan oleh tim profesional untuk meniru cara kerja penyerang dan menemukan celah keamanan yang mungkin bisa dimanfaatkan. Salah satu teknik penting dalam kedua kegiatan ini adalah privilege escalation. Teknik ini digunakan untuk melihat apakah seorang penyerang bisa mendapatkan hak akses yang lebih tinggi setelah berhasil masuk ke dalam sistem. Artikel ini akan membahas bagaimana privilege escalation dilakukan dalam red teaming dan pentest, serta bagaimana organisasi bisa mengantisipasinya.   Apa Itu Privilege Escalation? Privilege escalation berarti menaikkan…",
+  "content_html": "<p>Dalam dunia keamanan siber, ada dua kegiatan penting yang dilakukan untuk menguji seberapa kuat sistem sebuah organisasi: <strong>Red Teaming</strong> dan <strong>Penetration Testing</strong> (pentest). Keduanya dilakukan oleh tim profesional untuk meniru cara kerja penyerang dan menemukan celah keamanan yang mungkin bisa dimanfaatkan.</p>\n<p>Salah satu teknik penting dalam kedua kegiatan ini adalah <strong>privilege escalation</strong>. Teknik ini digunakan untuk melihat apakah seorang penyerang bisa mendapatkan hak akses yang lebih tinggi setelah berhasil masuk ke dalam sistem. Artikel ini akan membahas bagaimana privilege escalation dilakukan dalam red teaming dan pentest, serta bagaimana organisasi bisa mengantisipasinya.</p>\n<p>&nbsp;</p>\n<h2><strong>Apa Itu Privilege Escalation?</strong></h2>\n<p>Privilege escalation berarti <strong>menaikkan hak akses</strong> dari user biasa menjadi user dengan hak penuh (seperti admin atau root). Teknik ini biasanya dilakukan setelah penyerang mendapatkan akses awal ke sistem.</p>\n<p>Ada dua jenis privilege escalation:</p>\n<ul>\n<li><strong>Vertikal</strong>: naik dari user biasa ke admin/root.</li>\n<li><strong>Horizontal</strong>: pindah dari satu user biasa ke user lain yang memiliki akses berbeda.</li>\n</ul>\n<p>Dalam dunia pentest dan red teaming, privilege escalation penting untuk melihat sejauh mana penyerang bisa menguasai sistem jika berhasil masuk.</p>\n<p>&nbsp;</p>\n<h2><strong>Posisi Privilege Escalation dalam Tahapan Red Teaming dan Pentest</strong></h2>\n<p>Red Teaming dan Penetration Testing memiliki tahapan-tahapan tertentu, yaitu:</p>\n<ol>\n<li><strong>Reconnaissance (pengintaian)</strong><br />\nMengumpulkan informasi tentang target.</li>\n<li><strong>Initial Access (akses awal)</strong><br />\nMasuk ke sistem dengan cara tertentu, seperti phishing atau exploit.</li>\n<li><strong>Privilege Escalation (peningkatan hak akses)</strong><br />\nMenaikkan hak akses agar bisa melakukan lebih banyak hal.</li>\n<li><strong>Lateral Movement</strong><br />\nMenyusup ke sistem lain dalam jaringan.</li>\n<li><strong>Exfiltration atau Impact</strong><br />\nMencuri data atau melakukan tindakan yang menunjukkan kelemahan sistem.</li>\n</ol>\n<p>Privilege escalation ada di tahap penting setelah akses awal, dan sering kali menjadi kunci keberhasilan seluruh simulasi serangan.</p>\n<p>&nbsp;</p>\n<h2><strong>Teknik-Teknik Privilege Escalation yang Umum Digunakan</strong></h2>\n<p>Berikut ini beberapa strategi privilege escalation yang sering digunakan oleh tim red team dan pentester:</p>\n<p><strong>1. Enumerasi Sistem dan Layanan</strong></p>\n<p>Langkah awal adalah mengumpulkan informasi dari dalam sistem:</p>\n<ul>\n<li>Nama pengguna, versi sistem operasi, proses yang berjalan</li>\n<li>Tools umum: <code>whoami</code>, <code>systeminfo</code>, <code>hostname</code>, <code>ps</code>, <code>netstat</code>, <code>sudo -l</code></li>\n</ul>\n<p><strong>2. Eksploitasi Celah Keamanan Lokal (Local Privilege Escalation &#8211; LPE)</strong></p>\n<p>Jika sistem tidak diperbarui, bisa saja ada celah (CVE) yang bisa dimanfaatkan untuk menjadi root.</p>\n<p><strong>3. Penyalahgunaan Konfigurasi yang Lemah</strong></p>\n<p>Misalnya:</p>\n<ul>\n<li>Cron job yang bisa dimodifikasi</li>\n<li>Script yang bisa diedit oleh user biasa</li>\n<li>File dengan izin akses yang terlalu bebas</li>\n</ul>\n<p><strong>4. Sudo/SUID/Capability Abuse (Linux) atau Token Impersonation (Windows)</strong></p>\n<ul>\n<li>Melihat perintah <code>sudo</code> apa saja yang bisa dijalankan tanpa password</li>\n<li>Mengecek file <code>SUID</code> yang bisa dimanfaatkan untuk eskalasi</li>\n</ul>\n<p><strong>5. Menggunakan Tools Otomatis</strong></p>\n<p>Beberapa tools yang sering digunakan:</p>\n<ul>\n<li><code>linPEAS</code>, <code>winPEAS</code> → untuk memindai kelemahan sistem</li>\n<li><code>PowerUp</code>, <code>BeRoot</code>, <code>Seatbelt</code> → untuk privilege escalation di Windows</li>\n<li><code>GTFOBins</code> → untuk menyalahgunakan binary Linux yang umum</li>\n</ul>\n<p>&nbsp;</p>\n<h2><strong>Studi Kasus Simulasi Red Team</strong></h2>\n<p>Contoh skenario:</p>\n<p>Seorang pentester berhasil masuk ke server menggunakan akun biasa milik karyawan. Ia menjalankan <code>linPEAS</code> dan menemukan file script backup yang dijalankan setiap jam dan bisa diubah oleh user biasa. Lalu, dia menambahkan baris perintah dalam script itu agar sistem membuka shell dengan hak akses root. Ketika script dijalankan, dia pun mendapat akses root ke server tersebut.</p>\n<p>Dari satu celah kecil, ia bisa menguasai seluruh sistem.</p>\n<p>&nbsp;</p>\n<h2><strong>Etika dan Tujuan Penggunaan Privilege Escalation dalam Red Teaming</strong></h2>\n<p>Red Teaming dan Penetration Testing dilakukan dengan <strong>izin resmi</strong> dari pemilik sistem. Tujuannya bukan untuk merusak, tapi untuk <strong>menemukan kelemahan sebelum orang jahat menemukannya</strong>.</p>\n<p>Privilege escalation dalam red teaming digunakan untuk menjawab pertanyaan penting:</p>\n<ul>\n<li>Apakah sistem kita bisa dijebol dari dalam?</li>\n<li>Seberapa jauh seorang penyerang bisa melangkah jika mendapat akses awal?</li>\n</ul>\n<p>Tim red team juga wajib membuat dokumentasi dan laporan agar hasil tes bisa dijadikan dasar perbaikan sistem.</p>\n<p>&nbsp;</p>\n<h2><strong>Cara Organisasi Bisa Mengantisipasi Privilege Escalation</strong></h2>\n<p>Berikut beberapa langkah pencegahan yang bisa dilakukan:</p>\n<ol>\n<li><strong>Audit dan Pemeriksaan Berkala</strong><br />\nCek permission file, konfigurasi cron job, dan hak akses user.</li>\n<li><strong>Prinsip Least Privilege</strong><br />\nBerikan akses hanya sesuai kebutuhan, tidak semua user butuh hak admin.</li>\n<li><strong>Update dan Patch Sistem Secara Teratur</strong><br />\nHindari kerentanan yang sudah diketahui publik.</li>\n<li><strong>Monitoring dan Deteksi</strong><br />\nGunakan sistem monitoring (seperti SIEM) untuk melihat aktivitas mencurigakan.</li>\n<li><strong>Pelatihan untuk Tim IT dan Pengguna</strong><br />\nSupaya tidak ceroboh memberi akses atau menjalankan file asing.</li>\n</ol>\n<p>&nbsp;</p>\n<h2><strong>Kesimpulan</strong></h2>\n<p>Privilege escalation adalah langkah penting dalam dunia red teaming dan penetration testing. Meski dilakukan secara etis dan legal, teknik ini meniru bagaimana penyerang asli bekerja.</p>\n<p>Dengan memahami bagaimana privilege escalation dilakukan, organisasi bisa lebih siap menghadapi ancaman dunia nyata. Tujuan akhirnya bukan membuat sistem tak bisa ditembus sama sekali, tapi membuatnya <strong>lebih kuat dan lebih sulit diretas</strong>.</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>Nama: Damarudin<br />\nNIM: 23156201034<br />\nProdi: Sistem Komputer</p>\n",
+  "content_text": "Dalam dunia keamanan siber, ada dua kegiatan penting yang dilakukan untuk menguji seberapa kuat sistem sebuah organisasi:  Red Teaming  dan  Penetration Testing  (pentest). Keduanya dilakukan oleh tim profesional untuk meniru cara kerja penyerang dan menemukan celah keamanan yang mungkin bisa dimanfaatkan.\nSalah satu teknik penting dalam kedua kegiatan ini adalah  privilege escalation . Teknik ini digunakan untuk melihat apakah seorang penyerang bisa mendapatkan hak akses yang lebih tinggi setelah berhasil masuk ke dalam sistem. Artikel ini akan membahas bagaimana privilege escalation dilakukan dalam red teaming dan pentest, serta bagaimana organisasi bisa mengantisipasinya.\nApa Itu Privilege Escalation?\nPrivilege escalation berarti  menaikkan hak akses  dari user biasa menjadi user dengan hak penuh (seperti admin atau root). Teknik ini biasanya dilakukan setelah penyerang mendapatkan akses awal ke sistem.\nAda dua jenis privilege escalation:\nVertikal : naik dari user biasa ke admin/root.\nHorizontal : pindah dari satu user biasa ke user lain yang memiliki akses berbeda.\nDalam dunia pentest dan red teaming, privilege escalation penting untuk melihat sejauh mana penyerang bisa menguasai sistem jika berhasil masuk.\nPosisi Privilege Escalation dalam Tahapan Red Teaming dan Pentest\nRed Teaming dan Penetration Testing memiliki tahapan-tahapan tertentu, yaitu:\nReconnaissance (pengintaian)\nMengumpulkan informasi tentang target.\nInitial Access (akses awal)\nMasuk ke sistem dengan cara tertentu, seperti phishing atau exploit.\nPrivilege Escalation (peningkatan hak akses)\nMenaikkan hak akses agar bisa melakukan lebih banyak hal.\nLateral Movement\nMenyusup ke sistem lain dalam jaringan.\nExfiltration atau Impact\nMencuri data atau melakukan tindakan yang menunjukkan kelemahan sistem.\nPrivilege escalation ada di tahap penting setelah akses awal, dan sering kali menjadi kunci keberhasilan seluruh simulasi serangan.\nTeknik-Teknik Privilege Escalation yang Umum Digunakan\nBerikut ini beberapa strategi privilege escalation yang sering digunakan oleh tim red team dan pentester:\n1. Enumerasi Sistem dan Layanan\nLangkah awal adalah mengumpulkan informasi dari dalam sistem:\nNama pengguna, versi sistem operasi, proses yang berjalan\nTools umum:  whoami ,  systeminfo ,  hostname ,  ps ,  netstat ,  sudo -l\n2. Eksploitasi Celah Keamanan Lokal (Local Privilege Escalation – LPE)\nJika sistem tidak diperbarui, bisa saja ada celah (CVE) yang bisa dimanfaatkan untuk menjadi root.\n3. Penyalahgunaan Konfigurasi yang Lemah\nMisalnya:\nCron job yang bisa dimodifikasi\nScript yang bisa diedit oleh user biasa\nFile dengan izin akses yang terlalu bebas\n4. Sudo/SUID/Capability Abuse (Linux) atau Token Impersonation (Windows)\nMelihat perintah  sudo  apa saja yang bisa dijalankan tanpa password\nMengecek file  SUID  yang bisa dimanfaatkan untuk eskalasi\n5. Menggunakan Tools Otomatis\nBeberapa tools yang sering digunakan:\nlinPEAS ,  winPEAS  → untuk memindai kelemahan sistem\nPowerUp ,  BeRoot ,  Seatbelt  → untuk privilege escalation di Windows\nGTFOBins  → untuk menyalahgunakan binary Linux yang umum\nStudi Kasus Simulasi Red Team\nContoh skenario:\nSeorang pentester berhasil masuk ke server menggunakan akun biasa milik karyawan. Ia menjalankan  linPEAS  dan menemukan file script backup yang dijalankan setiap jam dan bisa diubah oleh user biasa. Lalu, dia menambahkan baris perintah dalam script itu agar sistem membuka shell dengan hak akses root. Ketika script dijalankan, dia pun mendapat akses root ke server tersebut.\nDari satu celah kecil, ia bisa menguasai seluruh sistem.\nEtika dan Tujuan Penggunaan Privilege Escalation dalam Red Teaming\nRed Teaming dan Penetration Testing dilakukan dengan  izin resmi  dari pemilik sistem. Tujuannya bukan untuk merusak, tapi untuk  menemukan kelemahan sebelum orang jahat menemukannya .\nPrivilege escalation dalam red teaming digunakan untuk menjawab pertanyaan penting:\nApakah sistem kita bisa dijebol dari dalam?\nSeberapa jauh seorang penyerang bisa melangkah jika mendapat akses awal?\nTim red team juga wajib membuat dokumentasi dan laporan agar hasil tes bisa dijadikan dasar perbaikan sistem.\nCara Organisasi Bisa Mengantisipasi Privilege Escalation\nBerikut beberapa langkah pencegahan yang bisa dilakukan:\nAudit dan Pemeriksaan Berkala\nCek permission file, konfigurasi cron job, dan hak akses user.\nPrinsip Least Privilege\nBerikan akses hanya sesuai kebutuhan, tidak semua user butuh hak admin.\nUpdate dan Patch Sistem Secara Teratur\nHindari kerentanan yang sudah diketahui publik.\nMonitoring dan Deteksi\nGunakan sistem monitoring (seperti SIEM) untuk melihat aktivitas mencurigakan.\nPelatihan untuk Tim IT dan Pengguna\nSupaya tidak ceroboh memberi akses atau menjalankan file asing.\nKesimpulan\nPrivilege escalation adalah langkah penting dalam dunia red teaming dan penetration testing. Meski dilakukan secara etis dan legal, teknik ini meniru bagaimana penyerang asli bekerja.\nDengan memahami bagaimana privilege escalation dilakukan, organisasi bisa lebih siap menghadapi ancaman dunia nyata. Tujuan akhirnya bukan membuat sistem tak bisa ditembus sama sekali, tapi membuatnya  lebih kuat dan lebih sulit diretas .\nNama: Damarudin\nNIM: 23156201034\nProdi: Sistem Komputer",
+  "raw": {
+    "id": 4614,
+    "date": "2025-07-09T11:12:34",
+    "date_gmt": "2025-07-09T11:12:34",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=4614"
+    },
+    "modified": "2026-07-06T20:45:01",
+    "modified_gmt": "2026-07-06T20:45:01",
+    "slug": "privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/",
+    "title": {
+      "rendered": "Privilege Escalation dalam Dunia Red Teaming dan Penetration Testing"
+    },
+    "content": {
+      "rendered": "<p>Dalam dunia keamanan siber, ada dua kegiatan penting yang dilakukan untuk menguji seberapa kuat sistem sebuah organisasi: <strong>Red Teaming</strong> dan <strong>Penetration Testing</strong> (pentest). Keduanya dilakukan oleh tim profesional untuk meniru cara kerja penyerang dan menemukan celah keamanan yang mungkin bisa dimanfaatkan.</p>\n<p>Salah satu teknik penting dalam kedua kegiatan ini adalah <strong>privilege escalation</strong>. Teknik ini digunakan untuk melihat apakah seorang penyerang bisa mendapatkan hak akses yang lebih tinggi setelah berhasil masuk ke dalam sistem. Artikel ini akan membahas bagaimana privilege escalation dilakukan dalam red teaming dan pentest, serta bagaimana organisasi bisa mengantisipasinya.</p>\n<p>&nbsp;</p>\n<h2><strong>Apa Itu Privilege Escalation?</strong></h2>\n<p>Privilege escalation berarti <strong>menaikkan hak akses</strong> dari user biasa menjadi user dengan hak penuh (seperti admin atau root). Teknik ini biasanya dilakukan setelah penyerang mendapatkan akses awal ke sistem.</p>\n<p>Ada dua jenis privilege escalation:</p>\n<ul>\n<li><strong>Vertikal</strong>: naik dari user biasa ke admin/root.</li>\n<li><strong>Horizontal</strong>: pindah dari satu user biasa ke user lain yang memiliki akses berbeda.</li>\n</ul>\n<p>Dalam dunia pentest dan red teaming, privilege escalation penting untuk melihat sejauh mana penyerang bisa menguasai sistem jika berhasil masuk.</p>\n<p>&nbsp;</p>\n<h2><strong>Posisi Privilege Escalation dalam Tahapan Red Teaming dan Pentest</strong></h2>\n<p>Red Teaming dan Penetration Testing memiliki tahapan-tahapan tertentu, yaitu:</p>\n<ol>\n<li><strong>Reconnaissance (pengintaian)</strong><br />\nMengumpulkan informasi tentang target.</li>\n<li><strong>Initial Access (akses awal)</strong><br />\nMasuk ke sistem dengan cara tertentu, seperti phishing atau exploit.</li>\n<li><strong>Privilege Escalation (peningkatan hak akses)</strong><br />\nMenaikkan hak akses agar bisa melakukan lebih banyak hal.</li>\n<li><strong>Lateral Movement</strong><br />\nMenyusup ke sistem lain dalam jaringan.</li>\n<li><strong>Exfiltration atau Impact</strong><br />\nMencuri data atau melakukan tindakan yang menunjukkan kelemahan sistem.</li>\n</ol>\n<p>Privilege escalation ada di tahap penting setelah akses awal, dan sering kali menjadi kunci keberhasilan seluruh simulasi serangan.</p>\n<p>&nbsp;</p>\n<h2><strong>Teknik-Teknik Privilege Escalation yang Umum Digunakan</strong></h2>\n<p>Berikut ini beberapa strategi privilege escalation yang sering digunakan oleh tim red team dan pentester:</p>\n<p><strong>1. Enumerasi Sistem dan Layanan</strong></p>\n<p>Langkah awal adalah mengumpulkan informasi dari dalam sistem:</p>\n<ul>\n<li>Nama pengguna, versi sistem operasi, proses yang berjalan</li>\n<li>Tools umum: <code>whoami</code>, <code>systeminfo</code>, <code>hostname</code>, <code>ps</code>, <code>netstat</code>, <code>sudo -l</code></li>\n</ul>\n<p><strong>2. Eksploitasi Celah Keamanan Lokal (Local Privilege Escalation &#8211; LPE)</strong></p>\n<p>Jika sistem tidak diperbarui, bisa saja ada celah (CVE) yang bisa dimanfaatkan untuk menjadi root.</p>\n<p><strong>3. Penyalahgunaan Konfigurasi yang Lemah</strong></p>\n<p>Misalnya:</p>\n<ul>\n<li>Cron job yang bisa dimodifikasi</li>\n<li>Script yang bisa diedit oleh user biasa</li>\n<li>File dengan izin akses yang terlalu bebas</li>\n</ul>\n<p><strong>4. Sudo/SUID/Capability Abuse (Linux) atau Token Impersonation (Windows)</strong></p>\n<ul>\n<li>Melihat perintah <code>sudo</code> apa saja yang bisa dijalankan tanpa password</li>\n<li>Mengecek file <code>SUID</code> yang bisa dimanfaatkan untuk eskalasi</li>\n</ul>\n<p><strong>5. Menggunakan Tools Otomatis</strong></p>\n<p>Beberapa tools yang sering digunakan:</p>\n<ul>\n<li><code>linPEAS</code>, <code>winPEAS</code> → untuk memindai kelemahan sistem</li>\n<li><code>PowerUp</code>, <code>BeRoot</code>, <code>Seatbelt</code> → untuk privilege escalation di Windows</li>\n<li><code>GTFOBins</code> → untuk menyalahgunakan binary Linux yang umum</li>\n</ul>\n<p>&nbsp;</p>\n<h2><strong>Studi Kasus Simulasi Red Team</strong></h2>\n<p>Contoh skenario:</p>\n<p>Seorang pentester berhasil masuk ke server menggunakan akun biasa milik karyawan. Ia menjalankan <code>linPEAS</code> dan menemukan file script backup yang dijalankan setiap jam dan bisa diubah oleh user biasa. Lalu, dia menambahkan baris perintah dalam script itu agar sistem membuka shell dengan hak akses root. Ketika script dijalankan, dia pun mendapat akses root ke server tersebut.</p>\n<p>Dari satu celah kecil, ia bisa menguasai seluruh sistem.</p>\n<p>&nbsp;</p>\n<h2><strong>Etika dan Tujuan Penggunaan Privilege Escalation dalam Red Teaming</strong></h2>\n<p>Red Teaming dan Penetration Testing dilakukan dengan <strong>izin resmi</strong> dari pemilik sistem. Tujuannya bukan untuk merusak, tapi untuk <strong>menemukan kelemahan sebelum orang jahat menemukannya</strong>.</p>\n<p>Privilege escalation dalam red teaming digunakan untuk menjawab pertanyaan penting:</p>\n<ul>\n<li>Apakah sistem kita bisa dijebol dari dalam?</li>\n<li>Seberapa jauh seorang penyerang bisa melangkah jika mendapat akses awal?</li>\n</ul>\n<p>Tim red team juga wajib membuat dokumentasi dan laporan agar hasil tes bisa dijadikan dasar perbaikan sistem.</p>\n<p>&nbsp;</p>\n<h2><strong>Cara Organisasi Bisa Mengantisipasi Privilege Escalation</strong></h2>\n<p>Berikut beberapa langkah pencegahan yang bisa dilakukan:</p>\n<ol>\n<li><strong>Audit dan Pemeriksaan Berkala</strong><br />\nCek permission file, konfigurasi cron job, dan hak akses user.</li>\n<li><strong>Prinsip Least Privilege</strong><br />\nBerikan akses hanya sesuai kebutuhan, tidak semua user butuh hak admin.</li>\n<li><strong>Update dan Patch Sistem Secara Teratur</strong><br />\nHindari kerentanan yang sudah diketahui publik.</li>\n<li><strong>Monitoring dan Deteksi</strong><br />\nGunakan sistem monitoring (seperti SIEM) untuk melihat aktivitas mencurigakan.</li>\n<li><strong>Pelatihan untuk Tim IT dan Pengguna</strong><br />\nSupaya tidak ceroboh memberi akses atau menjalankan file asing.</li>\n</ol>\n<p>&nbsp;</p>\n<h2><strong>Kesimpulan</strong></h2>\n<p>Privilege escalation adalah langkah penting dalam dunia red teaming dan penetration testing. Meski dilakukan secara etis dan legal, teknik ini meniru bagaimana penyerang asli bekerja.</p>\n<p>Dengan memahami bagaimana privilege escalation dilakukan, organisasi bisa lebih siap menghadapi ancaman dunia nyata. Tujuan akhirnya bukan membuat sistem tak bisa ditembus sama sekali, tapi membuatnya <strong>lebih kuat dan lebih sulit diretas</strong>.</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>Nama: Damarudin<br />\nNIM: 23156201034<br />\nProdi: Sistem Komputer</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Dalam dunia keamanan siber, ada dua kegiatan penting yang dilakukan untuk menguji seberapa kuat sistem sebuah organisasi: Red Teaming dan Penetration Testing (pentest). Keduanya dilakukan oleh tim profesional untuk meniru cara kerja penyerang dan menemukan celah keamanan yang mungkin bisa dimanfaatkan. Salah satu teknik penting dalam kedua kegiatan ini adalah privilege escalation. Teknik ini digunakan untuk melihat apakah seorang penyerang bisa mendapatkan hak akses yang lebih tinggi setelah berhasil masuk ke dalam sistem. Artikel ini akan membahas bagaimana privilege escalation dilakukan dalam red teaming dan pentest, serta bagaimana organisasi bisa mengantisipasinya. &nbsp; Apa Itu Privilege Escalation? Privilege escalation berarti menaikkan&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 2614,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      149
+    ],
+    "class_list": [
+      "post-4614",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-privilege-escalation"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Privilege Escalation dalam Dunia Red Teaming dan Penetration Testing - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Privilege Escalation dalam Dunia Red Teaming dan Penetration Testing - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Dalam dunia keamanan siber, ada dua kegiatan penting yang dilakukan untuk menguji seberapa kuat sistem sebuah organisasi: Red Teaming dan Penetration Testing (pentest). Keduanya dilakukan oleh tim profesional untuk meniru cara kerja penyerang dan menemukan celah keamanan yang mungkin bisa dimanfaatkan. Salah satu teknik penting dalam kedua kegiatan ini adalah privilege escalation. Teknik ini digunakan untuk melihat apakah seorang penyerang bisa mendapatkan hak akses yang lebih tinggi setelah berhasil masuk ke dalam sistem. Artikel ini akan membahas bagaimana privilege escalation dilakukan dalam red teaming dan pentest, serta bagaimana organisasi bisa mengantisipasinya. &nbsp; Apa Itu Privilege Escalation? Privilege escalation berarti menaikkan...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-09T11:12:34+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:45:01+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/06/digitaltech.jpg\" />\n\t<meta property=\"og:image:width\" content=\"960\" />\n\t<meta property=\"og:image:height\" content=\"540\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/\",\"url\":\"https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/\",\"name\":\"Privilege Escalation dalam Dunia Red Teaming dan Penetration Testing - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/digitaltech.jpg\",\"datePublished\":\"2025-07-09T11:12:34+00:00\",\"dateModified\":\"2026-07-06T20:45:01+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/06/digitaltech.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/digitaltech.jpg\",\"width\":960,\"height\":540},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Privilege Escalation dalam Dunia Red Teaming dan Penetration Testing\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Privilege Escalation dalam Dunia Red Teaming dan Penetration Testing - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Privilege Escalation dalam Dunia Red Teaming dan Penetration Testing - buletinsiber.com",
+      "og_description": "Dalam dunia keamanan siber, ada dua kegiatan penting yang dilakukan untuk menguji seberapa kuat sistem sebuah organisasi: Red Teaming dan Penetration Testing (pentest). Keduanya dilakukan oleh tim profesional untuk meniru cara kerja penyerang dan menemukan celah keamanan yang mungkin bisa dimanfaatkan. Salah satu teknik penting dalam kedua kegiatan ini adalah privilege escalation. Teknik ini digunakan untuk melihat apakah seorang penyerang bisa mendapatkan hak akses yang lebih tinggi setelah berhasil masuk ke dalam sistem. Artikel ini akan membahas bagaimana privilege escalation dilakukan dalam red teaming dan pentest, serta bagaimana organisasi bisa mengantisipasinya. &nbsp; Apa Itu Privilege Escalation? Privilege escalation berarti menaikkan...",
+      "og_url": "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-09T11:12:34+00:00",
+      "article_modified_time": "2026-07-06T20:45:01+00:00",
+      "og_image": [
+        {
+          "width": 960,
+          "height": 540,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/06/digitaltech.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/",
+            "url": "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/",
+            "name": "Privilege Escalation dalam Dunia Red Teaming dan Penetration Testing - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/digitaltech.jpg",
+            "datePublished": "2025-07-09T11:12:34+00:00",
+            "dateModified": "2026-07-06T20:45:01+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/06/digitaltech.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/digitaltech.jpg",
+            "width": 960,
+            "height": 540
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/privilege-escalation-dalam-dunia-red-teaming-dan-penetration-testing/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Privilege Escalation dalam Dunia Red Teaming dan Penetration Testing"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4614",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=4614"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4614/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 4615,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4614/revisions/4615"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2614"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=4614"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=4614"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=4614"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

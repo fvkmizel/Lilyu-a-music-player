@@ -1,0 +1,336 @@
+{
+  "id": 9685,
+  "title": "SQL Dynamic Data Masking: Cara Menyembunyikan Data Sensitif Tanpa Mengubah Database",
+  "slug": "sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database",
+  "url": "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/",
+  "date": "2026-03-05T01:43:51",
+  "date_gmt": "2026-03-05T01:43:51",
+  "modified": "2026-07-06T20:56:26",
+  "modified_gmt": "2026-07-06T20:56:26",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    259,
+    682,
+    522,
+    257
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/06/istockphoto-1487874503-170667a.jpg",
+  "excerpt": "Pengantar Dalam sistem database modern, melindungi data sensitif seperti nomor kartu kredit, alamat email, nomor identitas, atau informasi pribadi pelanggan menjadi hal yang sangat penting. Banyak organisasi menghadapi dilema: data tersebut diperlukan oleh aplikasi untuk beroperasi, tetapi tidak semua pengguna database seharusnya dapat melihat informasi tersebut secara penuh. Untuk mengatasi masalah ini, beberapa sistem database menyediakan fitur keamanan yang disebut SQL Dynamic Data Masking (DDM). Teknologi ini memungkinkan administrator database menyembunyikan sebagian data sensitif dari pengguna tertentu tanpa benar-benar mengubah data asli di database. Dynamic Data Masking bekerja dengan cara menampilkan versi data yang sudah “dimask” atau disamarkan ketika pengguna…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"87\" data-end=\"99\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"101\" data-end=\"469\"><span style=\"color: #000000;\">Dalam sistem database modern, melindungi data sensitif seperti nomor kartu kredit, alamat email, nomor identitas, atau informasi pribadi pelanggan menjadi hal yang sangat penting. Banyak organisasi menghadapi dilema: data tersebut diperlukan oleh aplikasi untuk beroperasi, tetapi tidak semua pengguna database seharusnya dapat melihat informasi tersebut secara penuh.</span></p>\n<p style=\"text-align: justify;\" data-start=\"471\" data-end=\"765\"><span style=\"color: #000000;\">Untuk mengatasi masalah ini, beberapa sistem database menyediakan fitur keamanan yang disebut SQL Dynamic Data Masking (DDM). Teknologi ini memungkinkan administrator database menyembunyikan sebagian data sensitif dari pengguna tertentu tanpa benar-benar mengubah data asli di database.</span></p>\n<p style=\"text-align: justify;\" data-start=\"767\" data-end=\"1124\"><span style=\"color: #000000;\">Dynamic Data Masking bekerja dengan cara menampilkan versi data yang sudah “dimask” atau disamarkan ketika pengguna melakukan query. Namun, data asli tetap tersimpan utuh di dalam database dan hanya dapat dilihat oleh pengguna dengan hak akses tertentu. Dengan pendekatan ini, organisasi dapat meningkatkan keamanan data tanpa harus membuat salinan database atau memodifikasi struktur aplikasi yang sudah ada.</span></p>\n<hr data-start=\"1283\" data-end=\"1286\" />\n<h3 style=\"text-align: justify;\" data-start=\"1288\" data-end=\"1323\"><span style=\"color: #000000;\">Apa Itu SQL Dynamic Data Masking</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1325\" data-end=\"1468\"><span style=\"color: #000000;\">Dynamic Data Masking adalah fitur keamanan pada database yang digunakan untuk <strong data-start=\"1403\" data-end=\"1467\">membatasi visibilitas data sensitif kepada pengguna tertentu</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1470\" data-end=\"1593\"><span style=\"color: #000000;\">Alih-alih mengenkripsi data atau menghapusnya, sistem hanya <strong data-start=\"1530\" data-end=\"1583\">mengubah tampilan data pada saat query dijalankan</strong>. Artinya:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1595\" data-end=\"1763\">\n<li data-start=\"1595\" data-end=\"1636\">\n<p data-start=\"1597\" data-end=\"1636\"><span style=\"color: #000000;\">Data asli tetap tersimpan di database</span></p>\n</li>\n<li data-start=\"1637\" data-end=\"1690\">\n<p data-start=\"1639\" data-end=\"1690\"><span style=\"color: #000000;\">Pengguna biasa melihat data yang sudah disamarkan</span></p>\n</li>\n<li data-start=\"1691\" data-end=\"1763\">\n<p data-start=\"1693\" data-end=\"1763\"><span style=\"color: #000000;\">Administrator atau pengguna dengan izin khusus dapat melihat data asli</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1765\" data-end=\"1849\"><span style=\"color: #000000;\">Sebagai contoh, sebuah tabel pelanggan mungkin memiliki kolom email seperti berikut:</span></p>\n<div class=\"relative w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">email: johndoe@email.com</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"1885\" data-end=\"1967\"><span style=\"color: #000000;\">Dengan Dynamic Data Masking, pengguna dengan akses terbatas mungkin hanya melihat:</span></p>\n<div class=\"relative w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">email: j*****@email.com</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"2002\" data-end=\"2182\"><span style=\"color: #000000;\">Pendekatan ini sangat berguna untuk tim support, analis data, atau developer yang membutuhkan akses ke database tetapi tidak perlu melihat seluruh informasi sensitif pelanggan.</span></p>\n<blockquote>\n<p data-start=\"2002\" data-end=\"2182\">baca juga : <a href=\"https://buletinsiber.com/virtual-memory-cara-komputer-tetap-berjalan-saat-ram-sudah-penuh/\">Virtual Memory: Cara Komputer Tetap Berjalan Saat RAM Sudah Penuh</a></p>\n</blockquote>\n<hr data-start=\"2184\" data-end=\"2187\" />\n<h3 style=\"text-align: justify;\" data-start=\"2189\" data-end=\"2223\"><span style=\"color: #000000;\">Cara Kerja Dynamic Data Masking</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2225\" data-end=\"2268\"><span style=\"color: #000000;\">Masking Dilakukan Saat Query Dijalankan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2270\" data-end=\"2410\"><span style=\"color: #000000;\">Berbeda dengan teknik keamanan lain seperti <strong data-start=\"2314\" data-end=\"2335\">enkripsi database</strong>, Dynamic Data Masking tidak mengubah data yang disimpan di dalam database.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2412\" data-end=\"2624\"><span style=\"color: #000000;\">Sebaliknya, masking dilakukan <strong data-start=\"2442\" data-end=\"2498\">secara dinamis ketika query dijalankan oleh pengguna</strong>. Sistem database akan memeriksa hak akses pengguna dan menentukan apakah data harus ditampilkan secara penuh atau disamarkan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2626\" data-end=\"2756\"><span style=\"color: #000000;\">Karena proses ini terjadi pada level query, implementasinya relatif lebih sederhana dibandingkan metode perlindungan data lainnya.</span></p>\n<hr data-start=\"2758\" data-end=\"2761\" />\n<h4 style=\"text-align: justify;\" data-start=\"2763\" data-end=\"2800\"><span style=\"color: #000000;\">Jenis Masking yang Umum Digunakan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2802\" data-end=\"2928\"><span style=\"color: #000000;\">Beberapa sistem database seperti Microsoft SQL Server menyediakan beberapa jenis masking yang bisa digunakan sesuai kebutuhan.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"2930\" data-end=\"2950\"><span style=\"color: #000000;\">Default Masking</span></h6>\n<p style=\"text-align: justify;\" data-start=\"2952\" data-end=\"3065\"><span style=\"color: #000000;\">Jenis masking ini mengganti sebagian besar data dengan karakter umum seperti <strong data-start=\"3029\" data-end=\"3037\">XXXX</strong> atau nilai default lainnya.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3067\" data-end=\"3074\"><span style=\"color: #000000;\">Contoh:</span></p>\n<div class=\"relative w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">123456789 → XXXX</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<hr data-start=\"3102\" data-end=\"3105\" />\n<h6 style=\"text-align: justify;\" data-start=\"3107\" data-end=\"3125\"><span style=\"color: #000000;\">Email Masking</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3127\" data-end=\"3224\"><span style=\"color: #000000;\">Masking ini dirancang khusus untuk alamat email dengan cara menampilkan sebagian kecil informasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3226\" data-end=\"3233\"><span style=\"color: #000000;\">Contoh:</span></p>\n<div class=\"relative w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">user@example.com → uXXX@XXXX.com</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<hr data-start=\"3277\" data-end=\"3280\" />\n<h6 style=\"text-align: justify;\" data-start=\"3282\" data-end=\"3302\"><span style=\"color: #000000;\">Partial Masking</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3304\" data-end=\"3436\"><span style=\"color: #000000;\">Partial masking memungkinkan administrator menentukan <strong data-start=\"3358\" data-end=\"3403\">bagian mana dari data yang tetap terlihat</strong> dan bagian mana yang disamarkan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3438\" data-end=\"3459\"><span style=\"color: #000000;\">Contoh nomor telepon:</span></p>\n<div class=\"relative w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">081234567890 → 0812XXXX7890</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<hr data-start=\"3498\" data-end=\"3501\" />\n<h3 style=\"text-align: justify;\" data-start=\"3503\" data-end=\"3554\"><span style=\"color: #000000;\">Manfaat Dynamic Data Masking dalam Keamanan Data</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3556\" data-end=\"3587\"><span style=\"color: #000000;\">1. Melindungi Data Sensitif</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3589\" data-end=\"3652\"><span style=\"color: #000000;\">Dynamic Data Masking membantu melindungi data sensitif seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3654\" data-end=\"3741\">\n<li data-start=\"3654\" data-end=\"3676\">\n<p data-start=\"3656\" data-end=\"3676\"><span style=\"color: #000000;\">Nomor kartu kredit</span></p>\n</li>\n<li data-start=\"3677\" data-end=\"3696\">\n<p data-start=\"3679\" data-end=\"3696\"><span style=\"color: #000000;\">Nomor identitas</span></p>\n</li>\n<li data-start=\"3697\" data-end=\"3723\">\n<p data-start=\"3699\" data-end=\"3723\"><span style=\"color: #000000;\">Alamat email pelanggan</span></p>\n</li>\n<li data-start=\"3724\" data-end=\"3741\">\n<p data-start=\"3726\" data-end=\"3741\"><span style=\"color: #000000;\">Nomor telepon</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3743\" data-end=\"3829\"><span style=\"color: #000000;\">Hal ini sangat penting bagi organisasi yang harus mematuhi regulasi perlindungan data.</span></p>\n<hr data-start=\"3831\" data-end=\"3834\" />\n<h4 style=\"text-align: justify;\" data-start=\"3836\" data-end=\"3884\"><span style=\"color: #000000;\">2. Mengurangi Risiko Kebocoran Data Internal</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3886\" data-end=\"4033\"><span style=\"color: #000000;\">Tidak semua kebocoran data berasal dari serangan eksternal. Dalam banyak kasus, risiko justru datang dari <strong data-start=\"3992\" data-end=\"4032\">akses internal yang tidak terkontrol</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4035\" data-end=\"4176\"><span style=\"color: #000000;\">Dengan Dynamic Data Masking, administrator dapat memastikan bahwa pengguna internal hanya melihat informasi yang benar-benar mereka butuhkan.</span></p>\n<hr data-start=\"4178\" data-end=\"4181\" />\n<h4 style=\"text-align: justify;\" data-start=\"4183\" data-end=\"4239\"><span style=\"color: #000000;\">3. Mempermudah Penggunaan Database untuk Development</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4241\" data-end=\"4338\"><span style=\"color: #000000;\">Developer sering membutuhkan akses ke database untuk melakukan pengujian atau debugging aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4340\" data-end=\"4534\"><span style=\"color: #000000;\">Namun memberikan akses penuh ke data produksi bisa berisiko. Dynamic Data Masking memungkinkan developer mengakses struktur dan data database tanpa melihat informasi sensitif secara lengkap.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4536\" data-end=\"4792\"><span style=\"color: #000000;\">Menurut dokumentasi Microsoft, fitur ini dirancang untuk membatasi paparan data sensitif dengan perubahan minimal pada aplikasi yang sudah berjalan (dikutip dari <a href=\"http://learn.microsoft.com/id-id/sql/relational-databases/security/dynamic-data-masking?view=sql-server-ver17\">Microsoft Learn</a>).</span></p>\n<blockquote>\n<p data-start=\"4536\" data-end=\"4792\">baca juga : <a href=\"https://buletinsiber.com/legacy-boot-vs-uefi-mana-yang-lebih-cepat-dan-lebih-aman/\">Legacy Boot vs UEFI: Mana yang Lebih Cepat dan Lebih Aman?</a></p>\n</blockquote>\n<hr data-start=\"4794\" data-end=\"4797\" />\n<h3 style=\"text-align: justify;\" data-start=\"4799\" data-end=\"4835\"><span style=\"color: #000000;\">Keterbatasan Dynamic Data Masking</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4837\" data-end=\"4922\"><span style=\"color: #000000;\">Walaupun sangat berguna, Dynamic Data Masking bukanlah solusi keamanan yang sempurna.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4924\" data-end=\"4961\"><span style=\"color: #000000;\">Beberapa keterbatasannya antara lain:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"4963\" data-end=\"5326\">\n<li data-start=\"4963\" data-end=\"5061\">\n<p data-start=\"4966\" data-end=\"5061\"><span style=\"color: #000000;\"><strong data-start=\"4966\" data-end=\"4994\">Bukan pengganti enkripsi</strong></span><br data-start=\"4994\" data-end=\"4997\" /><span style=\"color: #000000;\">Data asli tetap tersimpan dalam bentuk yang sama di database.</span></p>\n</li>\n<li data-start=\"5063\" data-end=\"5174\">\n<p data-start=\"5066\" data-end=\"5174\"><span style=\"color: #000000;\"><strong data-start=\"5066\" data-end=\"5112\">Administrator masih bisa melihat data asli</strong></span><br data-start=\"5112\" data-end=\"5115\" /><span style=\"color: #000000;\">Pengguna dengan hak akses tinggi dapat melewati masking.</span></p>\n</li>\n<li data-start=\"5176\" data-end=\"5326\">\n<p data-start=\"5179\" data-end=\"5326\"><span style=\"color: #000000;\"><strong data-start=\"5179\" data-end=\"5225\">Tidak melindungi dari semua jenis serangan</strong></span><br data-start=\"5225\" data-end=\"5228\" /><span style=\"color: #000000;\">Teknik ini lebih berfokus pada kontrol akses, bukan perlindungan terhadap eksploitasi database.</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"5328\" data-end=\"5489\"><span style=\"color: #000000;\">Karena itu, Dynamic Data Masking sebaiknya digunakan <strong data-start=\"5381\" data-end=\"5416\">bersama mekanisme keamanan lain</strong>, seperti enkripsi database, kontrol akses berbasis peran, dan audit log.</span></p>\n<blockquote>\n<p data-start=\"5328\" data-end=\"5489\">baca juga : <a href=\"https://buletinsiber.com/cuda-cores-mengapa-kartu-grafis-jauh-lebih-pintar-dari-cpu-dalam-menghitung-data-ribuan-baris/\">CUDA Cores: Mengapa Kartu Grafis Jauh Lebih Pintar dari CPU dalam Menghitung Data Ribuan Baris</a></p>\n</blockquote>\n<hr data-start=\"5491\" data-end=\"5494\" />\n<h2 style=\"text-align: justify;\" data-start=\"5496\" data-end=\"5509\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5511\" data-end=\"5812\"><span style=\"color: #000000;\">SQL Dynamic Data Masking merupakan fitur keamanan database yang memungkinkan organisasi menyembunyikan data sensitif dari pengguna tertentu tanpa mengubah data asli yang tersimpan di database. Dengan teknik ini, administrator dapat mengontrol bagaimana data ditampilkan kepada berbagai jenis pengguna.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5814\" data-end=\"6009\"><span style=\"color: #000000;\">Pendekatan ini sangat bermanfaat untuk meningkatkan keamanan data internal, membatasi akses informasi sensitif, serta mendukung aktivitas pengembangan aplikasi tanpa membuka seluruh isi database.</span></p>\n<p style=\"text-align: justify;\" data-start=\"6011\" data-end=\"6264\"><span style=\"color: #000000;\">Namun, Dynamic Data Masking bukanlah pengganti metode keamanan lain seperti enkripsi atau kontrol akses yang ketat. Untuk perlindungan data yang optimal, fitur ini sebaiknya digunakan sebagai bagian dari strategi keamanan database yang lebih menyeluruh.</span></p>\n",
+  "content_text": "Pengantar\nDalam sistem database modern, melindungi data sensitif seperti nomor kartu kredit, alamat email, nomor identitas, atau informasi pribadi pelanggan menjadi hal yang sangat penting. Banyak organisasi menghadapi dilema: data tersebut diperlukan oleh aplikasi untuk beroperasi, tetapi tidak semua pengguna database seharusnya dapat melihat informasi tersebut secara penuh.\nUntuk mengatasi masalah ini, beberapa sistem database menyediakan fitur keamanan yang disebut SQL Dynamic Data Masking (DDM). Teknologi ini memungkinkan administrator database menyembunyikan sebagian data sensitif dari pengguna tertentu tanpa benar-benar mengubah data asli di database.\nDynamic Data Masking bekerja dengan cara menampilkan versi data yang sudah “dimask” atau disamarkan ketika pengguna melakukan query. Namun, data asli tetap tersimpan utuh di dalam database dan hanya dapat dilihat oleh pengguna dengan hak akses tertentu. Dengan pendekatan ini, organisasi dapat meningkatkan keamanan data tanpa harus membuat salinan database atau memodifikasi struktur aplikasi yang sudah ada.\nApa Itu SQL Dynamic Data Masking\nDynamic Data Masking adalah fitur keamanan pada database yang digunakan untuk  membatasi visibilitas data sensitif kepada pengguna tertentu .\nAlih-alih mengenkripsi data atau menghapusnya, sistem hanya  mengubah tampilan data pada saat query dijalankan . Artinya:\nData asli tetap tersimpan di database\nPengguna biasa melihat data yang sudah disamarkan\nAdministrator atau pengguna dengan izin khusus dapat melihat data asli\nSebagai contoh, sebuah tabel pelanggan mungkin memiliki kolom email seperti berikut:\nemail: johndoe@email.com\nDengan Dynamic Data Masking, pengguna dengan akses terbatas mungkin hanya melihat:\nemail: j*****@email.com\nPendekatan ini sangat berguna untuk tim support, analis data, atau developer yang membutuhkan akses ke database tetapi tidak perlu melihat seluruh informasi sensitif pelanggan.\nbaca juga :  Virtual Memory: Cara Komputer Tetap Berjalan Saat RAM Sudah Penuh\nCara Kerja Dynamic Data Masking\nMasking Dilakukan Saat Query Dijalankan\nBerbeda dengan teknik keamanan lain seperti  enkripsi database , Dynamic Data Masking tidak mengubah data yang disimpan di dalam database.\nSebaliknya, masking dilakukan  secara dinamis ketika query dijalankan oleh pengguna . Sistem database akan memeriksa hak akses pengguna dan menentukan apakah data harus ditampilkan secara penuh atau disamarkan.\nKarena proses ini terjadi pada level query, implementasinya relatif lebih sederhana dibandingkan metode perlindungan data lainnya.\nJenis Masking yang Umum Digunakan\nBeberapa sistem database seperti Microsoft SQL Server menyediakan beberapa jenis masking yang bisa digunakan sesuai kebutuhan.\nDefault Masking\nJenis masking ini mengganti sebagian besar data dengan karakter umum seperti  XXXX  atau nilai default lainnya.\nContoh:\n123456789 → XXXX\nEmail Masking\nMasking ini dirancang khusus untuk alamat email dengan cara menampilkan sebagian kecil informasi.\nContoh:\nuser@example.com → uXXX@XXXX.com\nPartial Masking\nPartial masking memungkinkan administrator menentukan  bagian mana dari data yang tetap terlihat  dan bagian mana yang disamarkan.\nContoh nomor telepon:\n081234567890 → 0812XXXX7890\nManfaat Dynamic Data Masking dalam Keamanan Data\n1. Melindungi Data Sensitif\nDynamic Data Masking membantu melindungi data sensitif seperti:\nNomor kartu kredit\nNomor identitas\nAlamat email pelanggan\nNomor telepon\nHal ini sangat penting bagi organisasi yang harus mematuhi regulasi perlindungan data.\n2. Mengurangi Risiko Kebocoran Data Internal\nTidak semua kebocoran data berasal dari serangan eksternal. Dalam banyak kasus, risiko justru datang dari  akses internal yang tidak terkontrol .\nDengan Dynamic Data Masking, administrator dapat memastikan bahwa pengguna internal hanya melihat informasi yang benar-benar mereka butuhkan.\n3. Mempermudah Penggunaan Database untuk Development\nDeveloper sering membutuhkan akses ke database untuk melakukan pengujian atau debugging aplikasi.\nNamun memberikan akses penuh ke data produksi bisa berisiko. Dynamic Data Masking memungkinkan developer mengakses struktur dan data database tanpa melihat informasi sensitif secara lengkap.\nMenurut dokumentasi Microsoft, fitur ini dirancang untuk membatasi paparan data sensitif dengan perubahan minimal pada aplikasi yang sudah berjalan (dikutip dari  Microsoft Learn ).\nbaca juga :  Legacy Boot vs UEFI: Mana yang Lebih Cepat dan Lebih Aman?\nKeterbatasan Dynamic Data Masking\nWalaupun sangat berguna, Dynamic Data Masking bukanlah solusi keamanan yang sempurna.\nBeberapa keterbatasannya antara lain:\nBukan pengganti enkripsi\nData asli tetap tersimpan dalam bentuk yang sama di database.\nAdministrator masih bisa melihat data asli\nPengguna dengan hak akses tinggi dapat melewati masking.\nTidak melindungi dari semua jenis serangan\nTeknik ini lebih berfokus pada kontrol akses, bukan perlindungan terhadap eksploitasi database.\nKarena itu, Dynamic Data Masking sebaiknya digunakan  bersama mekanisme keamanan lain , seperti enkripsi database, kontrol akses berbasis peran, dan audit log.\nbaca juga :  CUDA Cores: Mengapa Kartu Grafis Jauh Lebih Pintar dari CPU dalam Menghitung Data Ribuan Baris\nKesimpulan\nSQL Dynamic Data Masking merupakan fitur keamanan database yang memungkinkan organisasi menyembunyikan data sensitif dari pengguna tertentu tanpa mengubah data asli yang tersimpan di database. Dengan teknik ini, administrator dapat mengontrol bagaimana data ditampilkan kepada berbagai jenis pengguna.\nPendekatan ini sangat bermanfaat untuk meningkatkan keamanan data internal, membatasi akses informasi sensitif, serta mendukung aktivitas pengembangan aplikasi tanpa membuka seluruh isi database.\nNamun, Dynamic Data Masking bukanlah pengganti metode keamanan lain seperti enkripsi atau kontrol akses yang ketat. Untuk perlindungan data yang optimal, fitur ini sebaiknya digunakan sebagai bagian dari strategi keamanan database yang lebih menyeluruh.",
+  "raw": {
+    "id": 9685,
+    "date": "2026-03-05T01:43:51",
+    "date_gmt": "2026-03-05T01:43:51",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9685"
+    },
+    "modified": "2026-07-06T20:56:26",
+    "modified_gmt": "2026-07-06T20:56:26",
+    "slug": "sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/",
+    "title": {
+      "rendered": "SQL Dynamic Data Masking: Cara Menyembunyikan Data Sensitif Tanpa Mengubah Database"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"87\" data-end=\"99\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"101\" data-end=\"469\"><span style=\"color: #000000;\">Dalam sistem database modern, melindungi data sensitif seperti nomor kartu kredit, alamat email, nomor identitas, atau informasi pribadi pelanggan menjadi hal yang sangat penting. Banyak organisasi menghadapi dilema: data tersebut diperlukan oleh aplikasi untuk beroperasi, tetapi tidak semua pengguna database seharusnya dapat melihat informasi tersebut secara penuh.</span></p>\n<p style=\"text-align: justify;\" data-start=\"471\" data-end=\"765\"><span style=\"color: #000000;\">Untuk mengatasi masalah ini, beberapa sistem database menyediakan fitur keamanan yang disebut SQL Dynamic Data Masking (DDM). Teknologi ini memungkinkan administrator database menyembunyikan sebagian data sensitif dari pengguna tertentu tanpa benar-benar mengubah data asli di database.</span></p>\n<p style=\"text-align: justify;\" data-start=\"767\" data-end=\"1124\"><span style=\"color: #000000;\">Dynamic Data Masking bekerja dengan cara menampilkan versi data yang sudah “dimask” atau disamarkan ketika pengguna melakukan query. Namun, data asli tetap tersimpan utuh di dalam database dan hanya dapat dilihat oleh pengguna dengan hak akses tertentu. Dengan pendekatan ini, organisasi dapat meningkatkan keamanan data tanpa harus membuat salinan database atau memodifikasi struktur aplikasi yang sudah ada.</span></p>\n<hr data-start=\"1283\" data-end=\"1286\" />\n<h3 style=\"text-align: justify;\" data-start=\"1288\" data-end=\"1323\"><span style=\"color: #000000;\">Apa Itu SQL Dynamic Data Masking</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1325\" data-end=\"1468\"><span style=\"color: #000000;\">Dynamic Data Masking adalah fitur keamanan pada database yang digunakan untuk <strong data-start=\"1403\" data-end=\"1467\">membatasi visibilitas data sensitif kepada pengguna tertentu</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1470\" data-end=\"1593\"><span style=\"color: #000000;\">Alih-alih mengenkripsi data atau menghapusnya, sistem hanya <strong data-start=\"1530\" data-end=\"1583\">mengubah tampilan data pada saat query dijalankan</strong>. Artinya:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1595\" data-end=\"1763\">\n<li data-start=\"1595\" data-end=\"1636\">\n<p data-start=\"1597\" data-end=\"1636\"><span style=\"color: #000000;\">Data asli tetap tersimpan di database</span></p>\n</li>\n<li data-start=\"1637\" data-end=\"1690\">\n<p data-start=\"1639\" data-end=\"1690\"><span style=\"color: #000000;\">Pengguna biasa melihat data yang sudah disamarkan</span></p>\n</li>\n<li data-start=\"1691\" data-end=\"1763\">\n<p data-start=\"1693\" data-end=\"1763\"><span style=\"color: #000000;\">Administrator atau pengguna dengan izin khusus dapat melihat data asli</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1765\" data-end=\"1849\"><span style=\"color: #000000;\">Sebagai contoh, sebuah tabel pelanggan mungkin memiliki kolom email seperti berikut:</span></p>\n<div class=\"relative w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">email: johndoe@email.com</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"1885\" data-end=\"1967\"><span style=\"color: #000000;\">Dengan Dynamic Data Masking, pengguna dengan akses terbatas mungkin hanya melihat:</span></p>\n<div class=\"relative w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">email: j*****@email.com</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"2002\" data-end=\"2182\"><span style=\"color: #000000;\">Pendekatan ini sangat berguna untuk tim support, analis data, atau developer yang membutuhkan akses ke database tetapi tidak perlu melihat seluruh informasi sensitif pelanggan.</span></p>\n<blockquote>\n<p data-start=\"2002\" data-end=\"2182\">baca juga : <a href=\"https://buletinsiber.com/virtual-memory-cara-komputer-tetap-berjalan-saat-ram-sudah-penuh/\">Virtual Memory: Cara Komputer Tetap Berjalan Saat RAM Sudah Penuh</a></p>\n</blockquote>\n<hr data-start=\"2184\" data-end=\"2187\" />\n<h3 style=\"text-align: justify;\" data-start=\"2189\" data-end=\"2223\"><span style=\"color: #000000;\">Cara Kerja Dynamic Data Masking</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2225\" data-end=\"2268\"><span style=\"color: #000000;\">Masking Dilakukan Saat Query Dijalankan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2270\" data-end=\"2410\"><span style=\"color: #000000;\">Berbeda dengan teknik keamanan lain seperti <strong data-start=\"2314\" data-end=\"2335\">enkripsi database</strong>, Dynamic Data Masking tidak mengubah data yang disimpan di dalam database.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2412\" data-end=\"2624\"><span style=\"color: #000000;\">Sebaliknya, masking dilakukan <strong data-start=\"2442\" data-end=\"2498\">secara dinamis ketika query dijalankan oleh pengguna</strong>. Sistem database akan memeriksa hak akses pengguna dan menentukan apakah data harus ditampilkan secara penuh atau disamarkan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2626\" data-end=\"2756\"><span style=\"color: #000000;\">Karena proses ini terjadi pada level query, implementasinya relatif lebih sederhana dibandingkan metode perlindungan data lainnya.</span></p>\n<hr data-start=\"2758\" data-end=\"2761\" />\n<h4 style=\"text-align: justify;\" data-start=\"2763\" data-end=\"2800\"><span style=\"color: #000000;\">Jenis Masking yang Umum Digunakan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2802\" data-end=\"2928\"><span style=\"color: #000000;\">Beberapa sistem database seperti Microsoft SQL Server menyediakan beberapa jenis masking yang bisa digunakan sesuai kebutuhan.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"2930\" data-end=\"2950\"><span style=\"color: #000000;\">Default Masking</span></h6>\n<p style=\"text-align: justify;\" data-start=\"2952\" data-end=\"3065\"><span style=\"color: #000000;\">Jenis masking ini mengganti sebagian besar data dengan karakter umum seperti <strong data-start=\"3029\" data-end=\"3037\">XXXX</strong> atau nilai default lainnya.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3067\" data-end=\"3074\"><span style=\"color: #000000;\">Contoh:</span></p>\n<div class=\"relative w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">123456789 → XXXX</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<hr data-start=\"3102\" data-end=\"3105\" />\n<h6 style=\"text-align: justify;\" data-start=\"3107\" data-end=\"3125\"><span style=\"color: #000000;\">Email Masking</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3127\" data-end=\"3224\"><span style=\"color: #000000;\">Masking ini dirancang khusus untuk alamat email dengan cara menampilkan sebagian kecil informasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3226\" data-end=\"3233\"><span style=\"color: #000000;\">Contoh:</span></p>\n<div class=\"relative w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">user@example.com → uXXX@XXXX.com</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<hr data-start=\"3277\" data-end=\"3280\" />\n<h6 style=\"text-align: justify;\" data-start=\"3282\" data-end=\"3302\"><span style=\"color: #000000;\">Partial Masking</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3304\" data-end=\"3436\"><span style=\"color: #000000;\">Partial masking memungkinkan administrator menentukan <strong data-start=\"3358\" data-end=\"3403\">bagian mana dari data yang tetap terlihat</strong> dan bagian mana yang disamarkan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3438\" data-end=\"3459\"><span style=\"color: #000000;\">Contoh nomor telepon:</span></p>\n<div class=\"relative w-full my-4\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">081234567890 → 0812XXXX7890</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<hr data-start=\"3498\" data-end=\"3501\" />\n<h3 style=\"text-align: justify;\" data-start=\"3503\" data-end=\"3554\"><span style=\"color: #000000;\">Manfaat Dynamic Data Masking dalam Keamanan Data</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3556\" data-end=\"3587\"><span style=\"color: #000000;\">1. Melindungi Data Sensitif</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3589\" data-end=\"3652\"><span style=\"color: #000000;\">Dynamic Data Masking membantu melindungi data sensitif seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3654\" data-end=\"3741\">\n<li data-start=\"3654\" data-end=\"3676\">\n<p data-start=\"3656\" data-end=\"3676\"><span style=\"color: #000000;\">Nomor kartu kredit</span></p>\n</li>\n<li data-start=\"3677\" data-end=\"3696\">\n<p data-start=\"3679\" data-end=\"3696\"><span style=\"color: #000000;\">Nomor identitas</span></p>\n</li>\n<li data-start=\"3697\" data-end=\"3723\">\n<p data-start=\"3699\" data-end=\"3723\"><span style=\"color: #000000;\">Alamat email pelanggan</span></p>\n</li>\n<li data-start=\"3724\" data-end=\"3741\">\n<p data-start=\"3726\" data-end=\"3741\"><span style=\"color: #000000;\">Nomor telepon</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3743\" data-end=\"3829\"><span style=\"color: #000000;\">Hal ini sangat penting bagi organisasi yang harus mematuhi regulasi perlindungan data.</span></p>\n<hr data-start=\"3831\" data-end=\"3834\" />\n<h4 style=\"text-align: justify;\" data-start=\"3836\" data-end=\"3884\"><span style=\"color: #000000;\">2. Mengurangi Risiko Kebocoran Data Internal</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3886\" data-end=\"4033\"><span style=\"color: #000000;\">Tidak semua kebocoran data berasal dari serangan eksternal. Dalam banyak kasus, risiko justru datang dari <strong data-start=\"3992\" data-end=\"4032\">akses internal yang tidak terkontrol</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4035\" data-end=\"4176\"><span style=\"color: #000000;\">Dengan Dynamic Data Masking, administrator dapat memastikan bahwa pengguna internal hanya melihat informasi yang benar-benar mereka butuhkan.</span></p>\n<hr data-start=\"4178\" data-end=\"4181\" />\n<h4 style=\"text-align: justify;\" data-start=\"4183\" data-end=\"4239\"><span style=\"color: #000000;\">3. Mempermudah Penggunaan Database untuk Development</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4241\" data-end=\"4338\"><span style=\"color: #000000;\">Developer sering membutuhkan akses ke database untuk melakukan pengujian atau debugging aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4340\" data-end=\"4534\"><span style=\"color: #000000;\">Namun memberikan akses penuh ke data produksi bisa berisiko. Dynamic Data Masking memungkinkan developer mengakses struktur dan data database tanpa melihat informasi sensitif secara lengkap.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4536\" data-end=\"4792\"><span style=\"color: #000000;\">Menurut dokumentasi Microsoft, fitur ini dirancang untuk membatasi paparan data sensitif dengan perubahan minimal pada aplikasi yang sudah berjalan (dikutip dari <a href=\"http://learn.microsoft.com/id-id/sql/relational-databases/security/dynamic-data-masking?view=sql-server-ver17\">Microsoft Learn</a>).</span></p>\n<blockquote>\n<p data-start=\"4536\" data-end=\"4792\">baca juga : <a href=\"https://buletinsiber.com/legacy-boot-vs-uefi-mana-yang-lebih-cepat-dan-lebih-aman/\">Legacy Boot vs UEFI: Mana yang Lebih Cepat dan Lebih Aman?</a></p>\n</blockquote>\n<hr data-start=\"4794\" data-end=\"4797\" />\n<h3 style=\"text-align: justify;\" data-start=\"4799\" data-end=\"4835\"><span style=\"color: #000000;\">Keterbatasan Dynamic Data Masking</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4837\" data-end=\"4922\"><span style=\"color: #000000;\">Walaupun sangat berguna, Dynamic Data Masking bukanlah solusi keamanan yang sempurna.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4924\" data-end=\"4961\"><span style=\"color: #000000;\">Beberapa keterbatasannya antara lain:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"4963\" data-end=\"5326\">\n<li data-start=\"4963\" data-end=\"5061\">\n<p data-start=\"4966\" data-end=\"5061\"><span style=\"color: #000000;\"><strong data-start=\"4966\" data-end=\"4994\">Bukan pengganti enkripsi</strong></span><br data-start=\"4994\" data-end=\"4997\" /><span style=\"color: #000000;\">Data asli tetap tersimpan dalam bentuk yang sama di database.</span></p>\n</li>\n<li data-start=\"5063\" data-end=\"5174\">\n<p data-start=\"5066\" data-end=\"5174\"><span style=\"color: #000000;\"><strong data-start=\"5066\" data-end=\"5112\">Administrator masih bisa melihat data asli</strong></span><br data-start=\"5112\" data-end=\"5115\" /><span style=\"color: #000000;\">Pengguna dengan hak akses tinggi dapat melewati masking.</span></p>\n</li>\n<li data-start=\"5176\" data-end=\"5326\">\n<p data-start=\"5179\" data-end=\"5326\"><span style=\"color: #000000;\"><strong data-start=\"5179\" data-end=\"5225\">Tidak melindungi dari semua jenis serangan</strong></span><br data-start=\"5225\" data-end=\"5228\" /><span style=\"color: #000000;\">Teknik ini lebih berfokus pada kontrol akses, bukan perlindungan terhadap eksploitasi database.</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"5328\" data-end=\"5489\"><span style=\"color: #000000;\">Karena itu, Dynamic Data Masking sebaiknya digunakan <strong data-start=\"5381\" data-end=\"5416\">bersama mekanisme keamanan lain</strong>, seperti enkripsi database, kontrol akses berbasis peran, dan audit log.</span></p>\n<blockquote>\n<p data-start=\"5328\" data-end=\"5489\">baca juga : <a href=\"https://buletinsiber.com/cuda-cores-mengapa-kartu-grafis-jauh-lebih-pintar-dari-cpu-dalam-menghitung-data-ribuan-baris/\">CUDA Cores: Mengapa Kartu Grafis Jauh Lebih Pintar dari CPU dalam Menghitung Data Ribuan Baris</a></p>\n</blockquote>\n<hr data-start=\"5491\" data-end=\"5494\" />\n<h2 style=\"text-align: justify;\" data-start=\"5496\" data-end=\"5509\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5511\" data-end=\"5812\"><span style=\"color: #000000;\">SQL Dynamic Data Masking merupakan fitur keamanan database yang memungkinkan organisasi menyembunyikan data sensitif dari pengguna tertentu tanpa mengubah data asli yang tersimpan di database. Dengan teknik ini, administrator dapat mengontrol bagaimana data ditampilkan kepada berbagai jenis pengguna.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5814\" data-end=\"6009\"><span style=\"color: #000000;\">Pendekatan ini sangat bermanfaat untuk meningkatkan keamanan data internal, membatasi akses informasi sensitif, serta mendukung aktivitas pengembangan aplikasi tanpa membuka seluruh isi database.</span></p>\n<p style=\"text-align: justify;\" data-start=\"6011\" data-end=\"6264\"><span style=\"color: #000000;\">Namun, Dynamic Data Masking bukanlah pengganti metode keamanan lain seperti enkripsi atau kontrol akses yang ketat. Untuk perlindungan data yang optimal, fitur ini sebaiknya digunakan sebagai bagian dari strategi keamanan database yang lebih menyeluruh.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dalam sistem database modern, melindungi data sensitif seperti nomor kartu kredit, alamat email, nomor identitas, atau informasi pribadi pelanggan menjadi hal yang sangat penting. Banyak organisasi menghadapi dilema: data tersebut diperlukan oleh aplikasi untuk beroperasi, tetapi tidak semua pengguna database seharusnya dapat melihat informasi tersebut secara penuh. Untuk mengatasi masalah ini, beberapa sistem database menyediakan fitur keamanan yang disebut SQL Dynamic Data Masking (DDM). Teknologi ini memungkinkan administrator database menyembunyikan sebagian data sensitif dari pengguna tertentu tanpa benar-benar mengubah data asli di database. Dynamic Data Masking bekerja dengan cara menampilkan versi data yang sudah “dimask” atau disamarkan ketika pengguna&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 2573,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "SQL Dynamic Data Masking",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      259,
+      682,
+      522,
+      257
+    ],
+    "class_list": [
+      "post-9685",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-database",
+      "tag-keamanan",
+      "tag-masking",
+      "tag-sql"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>SQL Dynamic Data Masking: Cara Menyembunyikan Data Sensitif Tanpa Mengubah Database - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"SQL Dynamic Data Masking: Cara Menyembunyikan Data Sensitif Tanpa Mengubah Database - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dalam sistem database modern, melindungi data sensitif seperti nomor kartu kredit, alamat email, nomor identitas, atau informasi pribadi pelanggan menjadi hal yang sangat penting. Banyak organisasi menghadapi dilema: data tersebut diperlukan oleh aplikasi untuk beroperasi, tetapi tidak semua pengguna database seharusnya dapat melihat informasi tersebut secara penuh. Untuk mengatasi masalah ini, beberapa sistem database menyediakan fitur keamanan yang disebut SQL Dynamic Data Masking (DDM). Teknologi ini memungkinkan administrator database menyembunyikan sebagian data sensitif dari pengguna tertentu tanpa benar-benar mengubah data asli di database. Dynamic Data Masking bekerja dengan cara menampilkan versi data yang sudah “dimask” atau disamarkan ketika pengguna...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-03-05T01:43:51+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:56:26+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/06/istockphoto-1487874503-170667a.jpg\" />\n\t<meta property=\"og:image:width\" content=\"509\" />\n\t<meta property=\"og:image:height\" content=\"339\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/\",\"url\":\"https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/\",\"name\":\"SQL Dynamic Data Masking: Cara Menyembunyikan Data Sensitif Tanpa Mengubah Database - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/istockphoto-1487874503-170667a.jpg\",\"datePublished\":\"2026-03-05T01:43:51+00:00\",\"dateModified\":\"2026-07-06T20:56:26+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/06/istockphoto-1487874503-170667a.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/istockphoto-1487874503-170667a.jpg\",\"width\":509,\"height\":339,\"caption\":\"Cybersecurity and privacy concepts to protect data. Lock icon and internet network security technology. Businessman protecting personal data on a computer with virtual screen interfaces\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"SQL Dynamic Data Masking: Cara Menyembunyikan Data Sensitif Tanpa Mengubah Database\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "SQL Dynamic Data Masking: Cara Menyembunyikan Data Sensitif Tanpa Mengubah Database - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "SQL Dynamic Data Masking: Cara Menyembunyikan Data Sensitif Tanpa Mengubah Database - buletinsiber.com",
+      "og_description": "Pengantar Dalam sistem database modern, melindungi data sensitif seperti nomor kartu kredit, alamat email, nomor identitas, atau informasi pribadi pelanggan menjadi hal yang sangat penting. Banyak organisasi menghadapi dilema: data tersebut diperlukan oleh aplikasi untuk beroperasi, tetapi tidak semua pengguna database seharusnya dapat melihat informasi tersebut secara penuh. Untuk mengatasi masalah ini, beberapa sistem database menyediakan fitur keamanan yang disebut SQL Dynamic Data Masking (DDM). Teknologi ini memungkinkan administrator database menyembunyikan sebagian data sensitif dari pengguna tertentu tanpa benar-benar mengubah data asli di database. Dynamic Data Masking bekerja dengan cara menampilkan versi data yang sudah “dimask” atau disamarkan ketika pengguna...",
+      "og_url": "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-03-05T01:43:51+00:00",
+      "article_modified_time": "2026-07-06T20:56:26+00:00",
+      "og_image": [
+        {
+          "width": 509,
+          "height": 339,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/06/istockphoto-1487874503-170667a.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/",
+            "url": "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/",
+            "name": "SQL Dynamic Data Masking: Cara Menyembunyikan Data Sensitif Tanpa Mengubah Database - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/istockphoto-1487874503-170667a.jpg",
+            "datePublished": "2026-03-05T01:43:51+00:00",
+            "dateModified": "2026-07-06T20:56:26+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/06/istockphoto-1487874503-170667a.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/istockphoto-1487874503-170667a.jpg",
+            "width": 509,
+            "height": 339,
+            "caption": "Cybersecurity and privacy concepts to protect data. Lock icon and internet network security technology. Businessman protecting personal data on a computer with virtual screen interfaces"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/sql-dynamic-data-masking-cara-menyembunyikan-data-sensitif-tanpa-mengubah-database/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "SQL Dynamic Data Masking: Cara Menyembunyikan Data Sensitif Tanpa Mengubah Database"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9685",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9685"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9685/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9686,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9685/revisions/9686"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2573"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9685"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9685"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9685"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

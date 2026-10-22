@@ -1,0 +1,324 @@
+{
+  "id": 9727,
+  "title": "Waspada! Celah Keamanan di SQL Server Bisa Bikin Karyawan Biasa Jadi “Admin” Database",
+  "slug": "waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database",
+  "url": "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/",
+  "date": "2026-03-12T06:20:52",
+  "date_gmt": "2026-03-12T06:20:52",
+  "modified": "2026-07-06T20:55:14",
+  "modified_gmt": "2026-07-06T20:55:14",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 777,
+      "name": "CVE & PoC"
+    }
+  ],
+  "tags": [
+    1385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg",
+  "excerpt": "Pendahuluan Setiap bulan, Microsoft selalu merilis pembaruan keamanan di hari Selasa kedua, yang dikenal dengan istilah Patch Tuesday. Di bulan Maret 2026 ini, Microsoft merilis tambalan untuk 79 hingga 84 celah keamanan . Dari jumlah tersebut, ada dua celah yang diumumkan ke publik sebelum patch-nya tersedia, dan salah satunya adalah CVE-2026-21262 . Celah ini menyerang Microsoft SQL Server, sebuah perangkat lunak database yang sangat populer di dunia. Kabar baiknya, hingga patch ini dirilis, belum ada laporan bahwa celah ini benar-benar sudah dipakai oleh peretas . Tapi, karena sudah diumumkan ke publik, risikonya tetap ada. Artikel ini akan membahas secara sederhana apa itu CVE-2026-21262, apa dampaknya, dan…",
+  "content_html": "<h2 style=\"text-align: justify;\">Pendahuluan</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Setiap bulan, Microsoft selalu merilis pembaruan keamanan di hari Selasa kedua, yang dikenal dengan istilah <strong>Patch Tuesday</strong>. Di bulan Maret 2026 ini, Microsoft merilis tambalan untuk 79 hingga 84 celah keamanan . Dari jumlah tersebut, ada dua celah yang diumumkan ke publik sebelum patch-nya tersedia, dan salah satunya adalah <strong>CVE-2026-21262</strong> .</p>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Celah ini menyerang <strong>Microsoft SQL Server</strong>, sebuah perangkat lunak database yang sangat populer di dunia. Kabar baiknya, hingga patch ini dirilis, belum ada laporan bahwa celah ini benar-benar sudah dipakai oleh peretas . Tapi, karena sudah diumumkan ke publik, risikonya tetap ada. Artikel ini akan membahas secara sederhana apa itu CVE-2026-21262, apa dampaknya, dan yang terpenting, bagaimana cara melindungi diri.</p>\n<h2 style=\"text-align: justify;\">Apa Itu CVE-2026-21262? (Penjelasan Sederhana)</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">CVE-2026-21262 adalah sebuah <strong>kerentanan &#8220;Elevation of Privilege&#8221;</strong> (Kenaikan Hak Akses) di Microsoft SQL Server . Istilah ini mungkin terdengar rumit, tapi mari kita sederhanakan.</p>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Bayangkan SQL Server sebagai sebuah gedung perkantoran yang sangat aman.</p>\n<ul style=\"text-align: justify;\">\n<li>\n<p class=\"ds-markdown-paragraph\">Seorang karyawan magang biasanya hanya punya akses ke meja dan komputernya sendiri.</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\">Seorang manajer punya akses ke ruang rapat dan beberapa lemari arsip.</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\">Sedangkan <strong>direktur utama (sysadmin)</strong> punya akses ke semua ruangan, brankas, dan bisa memecat atau mempekerjakan siapa saja.</p>\n</li>\n</ul>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Nah, celah CVE-2026-21262 ini ibarat sebuah <strong>cacat desain pada pintu gedung</strong>. Seorang karyawan magang yang jahat bisa memanfaatkan cacat ini untuk tiba-tiba mendapatkan akses seperti seorang direktur utama, hanya dengan mengirimkan perintah tertentu melalui jaringan kantor .</p>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Penyebab utamanya adalah <strong>&#8220;Improper Access Control&#8221;</strong> atau kontrol akses yang tidak tepat . Sistem gagal memeriksa dengan benar apa yang boleh dan tidak boleh dilakukan oleh seorang pengguna. Jadi, pengguna dengan hak terbatas bisa menipu sistem agar memberinya kekuasaan yang lebih besar .</p>\n<h2 style=\"text-align: justify;\">Dampak dan Tingkat Keparahan</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Kerentanan ini diberi skor <strong>CVSS 8.8</strong> dari 10, yang masuk kategori <strong>TINGGI</strong> . Kok bisa setinggi itu? Karena dampaknya sangat besar.</p>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Jika seorang peretas berhasil mengeksploitasi celah ini, ia bisa mendapatkan hak sebagai <strong>sysadmin</strong> (administrator sistem) database . Dengan kekuasaan ini, ia bisa melakukan apa saja, seperti:</p>\n<ul style=\"text-align: justify;\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Membaca, mengubah, atau menghapus semua data sensitif</strong> di database, seperti data pelanggan, keuangan, atau rahasia perusahaan .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Membuat akun baru</strong> dengan hak admin untuk masuk kapan saja .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Mengubah konfigurasi database</strong> atau bahkan mematikan sistem .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\">Yang lebih berbahaya, ia bisa mengaktifkan fitur <strong><code>xp_cmdshell</code></strong> (yang biasanya mati) untuk kemudian mengirim perintah dari database ke sistem operasi server itu sendiri . Bayangkan, ia bisa mengendalikan server tempat database berada!</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\">Produk yang Terdampak (Apakah Server Anda Termasuk?)</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Celah ini menyerang banyak versi SQL Server, dari yang lama hingga yang terbaru, yaitu SQL Server 2016 hingga SQL Server 2025 . Berikut adalah daftar versi yang <strong>rentan</strong> beserta versi yang sudah <strong>diperbaiki (patch)</strong>:</p>\n<div class=\"ds-scroll-area ds-scroll-area--show-on-focus-within _1210dd7 c03cafe9\" style=\"text-align: justify;\">\n<table>\n<thead>\n<tr>\n<th>Produk SQL Server</th>\n<th>Versi yang Rentan (Contoh)</th>\n<th>Versi yang Telah Diperbaiki (Patch)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>SQL Server 2016 SP3 (GDR)</strong></td>\n<td>di bawah 13.0.6480.4</td>\n<td>13.0.6480.4 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2016 SP3 (Azure Connect)</strong></td>\n<td>di bawah 13.0.7075.5</td>\n<td>13.0.7075.5 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2017 (GDR)</strong></td>\n<td>di bawah 14.0.2100.4</td>\n<td>14.0.2100.4 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2017 (CU 31)</strong></td>\n<td>di bawah 14.0.3520.4</td>\n<td>14.0.3520.4 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2019 (GDR)</strong></td>\n<td>di bawah 16.0.1170.5</td>\n<td>16.0.1170.5 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2019 (CU 32)</strong></td>\n<td>di bawah 15.0.4460.4</td>\n<td>15.0.4460.4 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2022 (GDR)</strong></td>\n<td>di bawah 16.0.1170.5</td>\n<td>16.0.1170.5 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2022 (CU 23)</strong></td>\n<td>di bawah 16.0.4240.4</td>\n<td>16.0.4240.4 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2025 (GDR)</strong></td>\n<td>di bawah 17.0.1105.2</td>\n<td>17.0.1105.2 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2025 (CU 2)</strong></td>\n<td>di bawah 17.0.4020.2</td>\n<td>17.0.4020.2 atau lebih baru</td>\n</tr>\n</tbody>\n</table>\n</div>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Jika server Anda menjalankan versi di bawah versi yang sudah diperbaiki, <strong>Anda berisiko</strong>.</p>\n<h2 style=\"text-align: justify;\">Bagaimana Cara Peretas Memanfaatkannya? (Skenario Serangan)</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Yang membuat celah ini berbahaya adalah kemudahan eksekusinya . Seorang peretas tidak perlu melakukan hal-hal yang rumit. Cukup dengan:</p>\n<ol style=\"text-align: justify;\" start=\"1\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Memiliki akses awal</strong>: Peretas harus punya kredensial (nama pengguna dan kata sandi) sah, meskipun itu hanya punya hak sangat rendah. Ini bisa didapat dari karyawan yang tidak puas, atau dari serangan <em>phishing</em> sebelumnya yang berhasil mencuri akun karyawan magang tadi .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Mengirim &#8220;perintah jahat&#8221;</strong>: Dari komputernya, ia lalu mengirimkan perintah SQL yang sudah dirancang khusus ke server database melalui jaringan .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Menjadi &#8220;Raja Database&#8221;</strong>: Server yang rentan akan menjalankan perintah itu dan memberikan hak sysadmin kepada peretas. Dalam sekejap, ia naik jabatan dari &#8220;karyawan magang&#8221; menjadi &#8220;direktur utama&#8221; .</p>\n</li>\n</ol>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Skenario ini sangat berbahaya karena serangan datang dari dalam (pengguna yang sah) dan tidak memerlukan interaksi dari korban lain .</p>\n<h2 style=\"text-align: justify;\">Cara Melindungi Server SQL Server Anda (Mitigasi)</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Jangan panik. Ada beberapa langkah yang bisa Anda lakukan untuk melindungi diri, terutama yang nomor 1 adalah yang paling penting:</p>\n<ul style=\"text-align: justify;\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Langkah 1: Segera Patch / Tambal (WAJIB!)</strong><br />\nIni adalah solusi paling ampuh. Segera unduh dan instal pembaruan keamanan (patch) resmi dari Microsoft untuk versi SQL Server Anda . Sebaiknya uji coba dulu di server uji coba (<em>staging</em>) sebelum diterapkan ke server produksi utama.</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Langkah 2: Batasi Hak Akses Pengguna (Prinsip &#8220;Hak Minimal&#8221;)</strong><br />\nAudit ulang semua pengguna database. Berikan hak akses sekecil mungkin sesuai dengan pekerjaan mereka. Jangan asal memberi akses tinggi. Jika seorang karyawan hanya perlu membaca data, jangan beri hak untuk mengubah atau menghapus .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Langkah 3: Batasi Akses Jaringan</strong><br />\nJangan biarkan server SQL Server Anda terhubung langsung ke internet. Tempatkan di belakang <em>firewall</em> dan batasi koneksi hanya dari komputer-komputer tepercaya di jaringan internal kantor .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Langkah 4: Perkuat Autentikasi</strong><br />\nUntuk akun-akun penting (seperti admin), aktifkan <strong>Multi-Factor Authentication (MFA)</strong>. Dengan MFA, meskipun kata sandi bocor, peretas tetap tidak bisa masuk karena butuh kode dari ponsel, misalnya .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Langkah 5: Aktifkan Pemantauan (Monitoring)</strong><br />\nPantau secara rutin log dan aktivitas database Anda. Waspadai jika ada aktivitas mencurigakan, seperti percobaan kenaikan hak akses, perubahan izin yang tidak biasa, atau query aneh yang dijalankan oleh pengguna biasa . Gunakan alat <em>vulnerability scanner</em> untuk secara rutin memeriksa apakah ada server yang belum di-<em>patch</em> .</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\">Kata Pakar Keamanan</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Para pakar keamanan menyoroti betapa seriusnya celah ini. <strong>Adam Barnett</strong> dari <strong>Rapid7</strong> mengatakan bahwa ini &#8220;bukan sembarang kerentanan privilege escalation.&#8221; Ia menegaskan bahwa administrator yang berani menunda pemasangan <em>patch</em> untuk celah ini adalah orang yang sangat &#8220;berani&#8221; (dalam tanda kutip), mengingat besarnya risiko yang mengintai . Bayangkan, seorang peretas yang berhasil menjadi sysadmin bisa dengan mudah mengaktifkan <code>xp_cmdshell</code> dan langsung menguasai server dari sistem operasinya .</p>\n<h2 style=\"text-align: justify;\">Kesimpulan</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">CVE-2026-21262 adalah celah keamanan serius pada Microsoft SQL Server yang memungkinkan pengguna dengan hak terbatas menjadi administrator penuh (sysadmin) dan mengambil alih database. Meskipun belum ada laporan serangan aktif, pengumuman publik atas celah ini membuatnya menjadi incaran para peretas.</p>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Jangan tunda! Segera periksa versi SQL Server Anda dan <strong>pasang patch keamanan</strong> dari Microsoft. Keamanan data perusahaan Anda dipertaruhkan.</p>\n<h2 style=\"text-align: justify;\">Di Mana Baca Informasi Lebih Lanjut?</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Untuk informasi lebih detail, Anda bisa mengunjungi situs-situs berikut:</p>\n<ul>\n<li style=\"text-align: justify;\">\n<p class=\"ds-markdown-paragraph\"><strong>Microsoft Security Response Center</strong>: Sumber resmi dari Microsoft.</p>\n</li>\n<li style=\"text-align: justify;\">\n<p class=\"ds-markdown-paragraph\"><strong>Malwarebytes Blog</strong>: Menyediakan analisis keamanan yang mudah dipahami .</p>\n</li>\n<li style=\"text-align: justify;\">\n<p class=\"ds-markdown-paragraph\"><strong>Rapid7 Blog</strong>: Analisis mendalam dari pakar keamanan .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\"><strong>eSecurity Planet</strong>: Artikel tentang keamanan siber untuk perusahaan .</p>\n</li>\n</ul>\n",
+  "content_text": "Pendahuluan\nSetiap bulan, Microsoft selalu merilis pembaruan keamanan di hari Selasa kedua, yang dikenal dengan istilah  Patch Tuesday . Di bulan Maret 2026 ini, Microsoft merilis tambalan untuk 79 hingga 84 celah keamanan . Dari jumlah tersebut, ada dua celah yang diumumkan ke publik sebelum patch-nya tersedia, dan salah satunya adalah  CVE-2026-21262  .\nCelah ini menyerang  Microsoft SQL Server , sebuah perangkat lunak database yang sangat populer di dunia. Kabar baiknya, hingga patch ini dirilis, belum ada laporan bahwa celah ini benar-benar sudah dipakai oleh peretas . Tapi, karena sudah diumumkan ke publik, risikonya tetap ada. Artikel ini akan membahas secara sederhana apa itu CVE-2026-21262, apa dampaknya, dan yang terpenting, bagaimana cara melindungi diri.\nApa Itu CVE-2026-21262? (Penjelasan Sederhana)\nCVE-2026-21262 adalah sebuah  kerentanan “Elevation of Privilege”  (Kenaikan Hak Akses) di Microsoft SQL Server . Istilah ini mungkin terdengar rumit, tapi mari kita sederhanakan.\nBayangkan SQL Server sebagai sebuah gedung perkantoran yang sangat aman.\nSeorang karyawan magang biasanya hanya punya akses ke meja dan komputernya sendiri.\nSeorang manajer punya akses ke ruang rapat dan beberapa lemari arsip.\nSedangkan  direktur utama (sysadmin)  punya akses ke semua ruangan, brankas, dan bisa memecat atau mempekerjakan siapa saja.\nNah, celah CVE-2026-21262 ini ibarat sebuah  cacat desain pada pintu gedung . Seorang karyawan magang yang jahat bisa memanfaatkan cacat ini untuk tiba-tiba mendapatkan akses seperti seorang direktur utama, hanya dengan mengirimkan perintah tertentu melalui jaringan kantor .\nPenyebab utamanya adalah  “Improper Access Control”  atau kontrol akses yang tidak tepat . Sistem gagal memeriksa dengan benar apa yang boleh dan tidak boleh dilakukan oleh seorang pengguna. Jadi, pengguna dengan hak terbatas bisa menipu sistem agar memberinya kekuasaan yang lebih besar .\nDampak dan Tingkat Keparahan\nKerentanan ini diberi skor  CVSS 8.8  dari 10, yang masuk kategori  TINGGI  . Kok bisa setinggi itu? Karena dampaknya sangat besar.\nJika seorang peretas berhasil mengeksploitasi celah ini, ia bisa mendapatkan hak sebagai  sysadmin  (administrator sistem) database . Dengan kekuasaan ini, ia bisa melakukan apa saja, seperti:\nMembaca, mengubah, atau menghapus semua data sensitif  di database, seperti data pelanggan, keuangan, atau rahasia perusahaan .\nMembuat akun baru  dengan hak admin untuk masuk kapan saja .\nMengubah konfigurasi database  atau bahkan mematikan sistem .\nYang lebih berbahaya, ia bisa mengaktifkan fitur   xp_cmdshell   (yang biasanya mati) untuk kemudian mengirim perintah dari database ke sistem operasi server itu sendiri . Bayangkan, ia bisa mengendalikan server tempat database berada!\nProduk yang Terdampak (Apakah Server Anda Termasuk?)\nCelah ini menyerang banyak versi SQL Server, dari yang lama hingga yang terbaru, yaitu SQL Server 2016 hingga SQL Server 2025 . Berikut adalah daftar versi yang  rentan  beserta versi yang sudah  diperbaiki (patch) :\nProduk SQL Server\nVersi yang Rentan (Contoh)\nVersi yang Telah Diperbaiki (Patch)\nSQL Server 2016 SP3 (GDR)\ndi bawah 13.0.6480.4\n13.0.6480.4 atau lebih baru\nSQL Server 2016 SP3 (Azure Connect)\ndi bawah 13.0.7075.5\n13.0.7075.5 atau lebih baru\nSQL Server 2017 (GDR)\ndi bawah 14.0.2100.4\n14.0.2100.4 atau lebih baru\nSQL Server 2017 (CU 31)\ndi bawah 14.0.3520.4\n14.0.3520.4 atau lebih baru\nSQL Server 2019 (GDR)\ndi bawah 16.0.1170.5\n16.0.1170.5 atau lebih baru\nSQL Server 2019 (CU 32)\ndi bawah 15.0.4460.4\n15.0.4460.4 atau lebih baru\nSQL Server 2022 (GDR)\ndi bawah 16.0.1170.5\n16.0.1170.5 atau lebih baru\nSQL Server 2022 (CU 23)\ndi bawah 16.0.4240.4\n16.0.4240.4 atau lebih baru\nSQL Server 2025 (GDR)\ndi bawah 17.0.1105.2\n17.0.1105.2 atau lebih baru\nSQL Server 2025 (CU 2)\ndi bawah 17.0.4020.2\n17.0.4020.2 atau lebih baru\nJika server Anda menjalankan versi di bawah versi yang sudah diperbaiki,  Anda berisiko .\nBagaimana Cara Peretas Memanfaatkannya? (Skenario Serangan)\nYang membuat celah ini berbahaya adalah kemudahan eksekusinya . Seorang peretas tidak perlu melakukan hal-hal yang rumit. Cukup dengan:\nMemiliki akses awal : Peretas harus punya kredensial (nama pengguna dan kata sandi) sah, meskipun itu hanya punya hak sangat rendah. Ini bisa didapat dari karyawan yang tidak puas, atau dari serangan  phishing  sebelumnya yang berhasil mencuri akun karyawan magang tadi .\nMengirim “perintah jahat” : Dari komputernya, ia lalu mengirimkan perintah SQL yang sudah dirancang khusus ke server database melalui jaringan .\nMenjadi “Raja Database” : Server yang rentan akan menjalankan perintah itu dan memberikan hak sysadmin kepada peretas. Dalam sekejap, ia naik jabatan dari “karyawan magang” menjadi “direktur utama” .\nSkenario ini sangat berbahaya karena serangan datang dari dalam (pengguna yang sah) dan tidak memerlukan interaksi dari korban lain .\nCara Melindungi Server SQL Server Anda (Mitigasi)\nJangan panik. Ada beberapa langkah yang bisa Anda lakukan untuk melindungi diri, terutama yang nomor 1 adalah yang paling penting:\nLangkah 1: Segera Patch / Tambal (WAJIB!)\nIni adalah solusi paling ampuh. Segera unduh dan instal pembaruan keamanan (patch) resmi dari Microsoft untuk versi SQL Server Anda . Sebaiknya uji coba dulu di server uji coba ( staging ) sebelum diterapkan ke server produksi utama.\nLangkah 2: Batasi Hak Akses Pengguna (Prinsip “Hak Minimal”)\nAudit ulang semua pengguna database. Berikan hak akses sekecil mungkin sesuai dengan pekerjaan mereka. Jangan asal memberi akses tinggi. Jika seorang karyawan hanya perlu membaca data, jangan beri hak untuk mengubah atau menghapus .\nLangkah 3: Batasi Akses Jaringan\nJangan biarkan server SQL Server Anda terhubung langsung ke internet. Tempatkan di belakang  firewall  dan batasi koneksi hanya dari komputer-komputer tepercaya di jaringan internal kantor .\nLangkah 4: Perkuat Autentikasi\nUntuk akun-akun penting (seperti admin), aktifkan  Multi-Factor Authentication (MFA) . Dengan MFA, meskipun kata sandi bocor, peretas tetap tidak bisa masuk karena butuh kode dari ponsel, misalnya .\nLangkah 5: Aktifkan Pemantauan (Monitoring)\nPantau secara rutin log dan aktivitas database Anda. Waspadai jika ada aktivitas mencurigakan, seperti percobaan kenaikan hak akses, perubahan izin yang tidak biasa, atau query aneh yang dijalankan oleh pengguna biasa . Gunakan alat  vulnerability scanner  untuk secara rutin memeriksa apakah ada server yang belum di- patch  .\nKata Pakar Keamanan\nPara pakar keamanan menyoroti betapa seriusnya celah ini.  Adam Barnett  dari  Rapid7  mengatakan bahwa ini “bukan sembarang kerentanan privilege escalation.” Ia menegaskan bahwa administrator yang berani menunda pemasangan  patch  untuk celah ini adalah orang yang sangat “berani” (dalam tanda kutip), mengingat besarnya risiko yang mengintai . Bayangkan, seorang peretas yang berhasil menjadi sysadmin bisa dengan mudah mengaktifkan  xp_cmdshell  dan langsung menguasai server dari sistem operasinya .\nKesimpulan\nCVE-2026-21262 adalah celah keamanan serius pada Microsoft SQL Server yang memungkinkan pengguna dengan hak terbatas menjadi administrator penuh (sysadmin) dan mengambil alih database. Meskipun belum ada laporan serangan aktif, pengumuman publik atas celah ini membuatnya menjadi incaran para peretas.\nJangan tunda! Segera periksa versi SQL Server Anda dan  pasang patch keamanan  dari Microsoft. Keamanan data perusahaan Anda dipertaruhkan.\nDi Mana Baca Informasi Lebih Lanjut?\nUntuk informasi lebih detail, Anda bisa mengunjungi situs-situs berikut:\nMicrosoft Security Response Center : Sumber resmi dari Microsoft.\nMalwarebytes Blog : Menyediakan analisis keamanan yang mudah dipahami .\nRapid7 Blog : Analisis mendalam dari pakar keamanan .\neSecurity Planet : Artikel tentang keamanan siber untuk perusahaan .",
+  "raw": {
+    "id": 9727,
+    "date": "2026-03-12T06:20:52",
+    "date_gmt": "2026-03-12T06:20:52",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9727"
+    },
+    "modified": "2026-07-06T20:55:14",
+    "modified_gmt": "2026-07-06T20:55:14",
+    "slug": "waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/",
+    "title": {
+      "rendered": "Waspada! Celah Keamanan di SQL Server Bisa Bikin Karyawan Biasa Jadi &#8220;Admin&#8221; Database"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\">Pendahuluan</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Setiap bulan, Microsoft selalu merilis pembaruan keamanan di hari Selasa kedua, yang dikenal dengan istilah <strong>Patch Tuesday</strong>. Di bulan Maret 2026 ini, Microsoft merilis tambalan untuk 79 hingga 84 celah keamanan . Dari jumlah tersebut, ada dua celah yang diumumkan ke publik sebelum patch-nya tersedia, dan salah satunya adalah <strong>CVE-2026-21262</strong> .</p>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Celah ini menyerang <strong>Microsoft SQL Server</strong>, sebuah perangkat lunak database yang sangat populer di dunia. Kabar baiknya, hingga patch ini dirilis, belum ada laporan bahwa celah ini benar-benar sudah dipakai oleh peretas . Tapi, karena sudah diumumkan ke publik, risikonya tetap ada. Artikel ini akan membahas secara sederhana apa itu CVE-2026-21262, apa dampaknya, dan yang terpenting, bagaimana cara melindungi diri.</p>\n<h2 style=\"text-align: justify;\">Apa Itu CVE-2026-21262? (Penjelasan Sederhana)</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">CVE-2026-21262 adalah sebuah <strong>kerentanan &#8220;Elevation of Privilege&#8221;</strong> (Kenaikan Hak Akses) di Microsoft SQL Server . Istilah ini mungkin terdengar rumit, tapi mari kita sederhanakan.</p>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Bayangkan SQL Server sebagai sebuah gedung perkantoran yang sangat aman.</p>\n<ul style=\"text-align: justify;\">\n<li>\n<p class=\"ds-markdown-paragraph\">Seorang karyawan magang biasanya hanya punya akses ke meja dan komputernya sendiri.</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\">Seorang manajer punya akses ke ruang rapat dan beberapa lemari arsip.</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\">Sedangkan <strong>direktur utama (sysadmin)</strong> punya akses ke semua ruangan, brankas, dan bisa memecat atau mempekerjakan siapa saja.</p>\n</li>\n</ul>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Nah, celah CVE-2026-21262 ini ibarat sebuah <strong>cacat desain pada pintu gedung</strong>. Seorang karyawan magang yang jahat bisa memanfaatkan cacat ini untuk tiba-tiba mendapatkan akses seperti seorang direktur utama, hanya dengan mengirimkan perintah tertentu melalui jaringan kantor .</p>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Penyebab utamanya adalah <strong>&#8220;Improper Access Control&#8221;</strong> atau kontrol akses yang tidak tepat . Sistem gagal memeriksa dengan benar apa yang boleh dan tidak boleh dilakukan oleh seorang pengguna. Jadi, pengguna dengan hak terbatas bisa menipu sistem agar memberinya kekuasaan yang lebih besar .</p>\n<h2 style=\"text-align: justify;\">Dampak dan Tingkat Keparahan</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Kerentanan ini diberi skor <strong>CVSS 8.8</strong> dari 10, yang masuk kategori <strong>TINGGI</strong> . Kok bisa setinggi itu? Karena dampaknya sangat besar.</p>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Jika seorang peretas berhasil mengeksploitasi celah ini, ia bisa mendapatkan hak sebagai <strong>sysadmin</strong> (administrator sistem) database . Dengan kekuasaan ini, ia bisa melakukan apa saja, seperti:</p>\n<ul style=\"text-align: justify;\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Membaca, mengubah, atau menghapus semua data sensitif</strong> di database, seperti data pelanggan, keuangan, atau rahasia perusahaan .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Membuat akun baru</strong> dengan hak admin untuk masuk kapan saja .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Mengubah konfigurasi database</strong> atau bahkan mematikan sistem .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\">Yang lebih berbahaya, ia bisa mengaktifkan fitur <strong><code>xp_cmdshell</code></strong> (yang biasanya mati) untuk kemudian mengirim perintah dari database ke sistem operasi server itu sendiri . Bayangkan, ia bisa mengendalikan server tempat database berada!</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\">Produk yang Terdampak (Apakah Server Anda Termasuk?)</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Celah ini menyerang banyak versi SQL Server, dari yang lama hingga yang terbaru, yaitu SQL Server 2016 hingga SQL Server 2025 . Berikut adalah daftar versi yang <strong>rentan</strong> beserta versi yang sudah <strong>diperbaiki (patch)</strong>:</p>\n<div class=\"ds-scroll-area ds-scroll-area--show-on-focus-within _1210dd7 c03cafe9\" style=\"text-align: justify;\">\n<table>\n<thead>\n<tr>\n<th>Produk SQL Server</th>\n<th>Versi yang Rentan (Contoh)</th>\n<th>Versi yang Telah Diperbaiki (Patch)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><strong>SQL Server 2016 SP3 (GDR)</strong></td>\n<td>di bawah 13.0.6480.4</td>\n<td>13.0.6480.4 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2016 SP3 (Azure Connect)</strong></td>\n<td>di bawah 13.0.7075.5</td>\n<td>13.0.7075.5 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2017 (GDR)</strong></td>\n<td>di bawah 14.0.2100.4</td>\n<td>14.0.2100.4 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2017 (CU 31)</strong></td>\n<td>di bawah 14.0.3520.4</td>\n<td>14.0.3520.4 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2019 (GDR)</strong></td>\n<td>di bawah 16.0.1170.5</td>\n<td>16.0.1170.5 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2019 (CU 32)</strong></td>\n<td>di bawah 15.0.4460.4</td>\n<td>15.0.4460.4 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2022 (GDR)</strong></td>\n<td>di bawah 16.0.1170.5</td>\n<td>16.0.1170.5 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2022 (CU 23)</strong></td>\n<td>di bawah 16.0.4240.4</td>\n<td>16.0.4240.4 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2025 (GDR)</strong></td>\n<td>di bawah 17.0.1105.2</td>\n<td>17.0.1105.2 atau lebih baru</td>\n</tr>\n<tr>\n<td><strong>SQL Server 2025 (CU 2)</strong></td>\n<td>di bawah 17.0.4020.2</td>\n<td>17.0.4020.2 atau lebih baru</td>\n</tr>\n</tbody>\n</table>\n</div>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Jika server Anda menjalankan versi di bawah versi yang sudah diperbaiki, <strong>Anda berisiko</strong>.</p>\n<h2 style=\"text-align: justify;\">Bagaimana Cara Peretas Memanfaatkannya? (Skenario Serangan)</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Yang membuat celah ini berbahaya adalah kemudahan eksekusinya . Seorang peretas tidak perlu melakukan hal-hal yang rumit. Cukup dengan:</p>\n<ol style=\"text-align: justify;\" start=\"1\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Memiliki akses awal</strong>: Peretas harus punya kredensial (nama pengguna dan kata sandi) sah, meskipun itu hanya punya hak sangat rendah. Ini bisa didapat dari karyawan yang tidak puas, atau dari serangan <em>phishing</em> sebelumnya yang berhasil mencuri akun karyawan magang tadi .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Mengirim &#8220;perintah jahat&#8221;</strong>: Dari komputernya, ia lalu mengirimkan perintah SQL yang sudah dirancang khusus ke server database melalui jaringan .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Menjadi &#8220;Raja Database&#8221;</strong>: Server yang rentan akan menjalankan perintah itu dan memberikan hak sysadmin kepada peretas. Dalam sekejap, ia naik jabatan dari &#8220;karyawan magang&#8221; menjadi &#8220;direktur utama&#8221; .</p>\n</li>\n</ol>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Skenario ini sangat berbahaya karena serangan datang dari dalam (pengguna yang sah) dan tidak memerlukan interaksi dari korban lain .</p>\n<h2 style=\"text-align: justify;\">Cara Melindungi Server SQL Server Anda (Mitigasi)</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Jangan panik. Ada beberapa langkah yang bisa Anda lakukan untuk melindungi diri, terutama yang nomor 1 adalah yang paling penting:</p>\n<ul style=\"text-align: justify;\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Langkah 1: Segera Patch / Tambal (WAJIB!)</strong><br />\nIni adalah solusi paling ampuh. Segera unduh dan instal pembaruan keamanan (patch) resmi dari Microsoft untuk versi SQL Server Anda . Sebaiknya uji coba dulu di server uji coba (<em>staging</em>) sebelum diterapkan ke server produksi utama.</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Langkah 2: Batasi Hak Akses Pengguna (Prinsip &#8220;Hak Minimal&#8221;)</strong><br />\nAudit ulang semua pengguna database. Berikan hak akses sekecil mungkin sesuai dengan pekerjaan mereka. Jangan asal memberi akses tinggi. Jika seorang karyawan hanya perlu membaca data, jangan beri hak untuk mengubah atau menghapus .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Langkah 3: Batasi Akses Jaringan</strong><br />\nJangan biarkan server SQL Server Anda terhubung langsung ke internet. Tempatkan di belakang <em>firewall</em> dan batasi koneksi hanya dari komputer-komputer tepercaya di jaringan internal kantor .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Langkah 4: Perkuat Autentikasi</strong><br />\nUntuk akun-akun penting (seperti admin), aktifkan <strong>Multi-Factor Authentication (MFA)</strong>. Dengan MFA, meskipun kata sandi bocor, peretas tetap tidak bisa masuk karena butuh kode dari ponsel, misalnya .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong>Langkah 5: Aktifkan Pemantauan (Monitoring)</strong><br />\nPantau secara rutin log dan aktivitas database Anda. Waspadai jika ada aktivitas mencurigakan, seperti percobaan kenaikan hak akses, perubahan izin yang tidak biasa, atau query aneh yang dijalankan oleh pengguna biasa . Gunakan alat <em>vulnerability scanner</em> untuk secara rutin memeriksa apakah ada server yang belum di-<em>patch</em> .</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\">Kata Pakar Keamanan</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Para pakar keamanan menyoroti betapa seriusnya celah ini. <strong>Adam Barnett</strong> dari <strong>Rapid7</strong> mengatakan bahwa ini &#8220;bukan sembarang kerentanan privilege escalation.&#8221; Ia menegaskan bahwa administrator yang berani menunda pemasangan <em>patch</em> untuk celah ini adalah orang yang sangat &#8220;berani&#8221; (dalam tanda kutip), mengingat besarnya risiko yang mengintai . Bayangkan, seorang peretas yang berhasil menjadi sysadmin bisa dengan mudah mengaktifkan <code>xp_cmdshell</code> dan langsung menguasai server dari sistem operasinya .</p>\n<h2 style=\"text-align: justify;\">Kesimpulan</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">CVE-2026-21262 adalah celah keamanan serius pada Microsoft SQL Server yang memungkinkan pengguna dengan hak terbatas menjadi administrator penuh (sysadmin) dan mengambil alih database. Meskipun belum ada laporan serangan aktif, pengumuman publik atas celah ini membuatnya menjadi incaran para peretas.</p>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Jangan tunda! Segera periksa versi SQL Server Anda dan <strong>pasang patch keamanan</strong> dari Microsoft. Keamanan data perusahaan Anda dipertaruhkan.</p>\n<h2 style=\"text-align: justify;\">Di Mana Baca Informasi Lebih Lanjut?</h2>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\">Untuk informasi lebih detail, Anda bisa mengunjungi situs-situs berikut:</p>\n<ul>\n<li style=\"text-align: justify;\">\n<p class=\"ds-markdown-paragraph\"><strong>Microsoft Security Response Center</strong>: Sumber resmi dari Microsoft.</p>\n</li>\n<li style=\"text-align: justify;\">\n<p class=\"ds-markdown-paragraph\"><strong>Malwarebytes Blog</strong>: Menyediakan analisis keamanan yang mudah dipahami .</p>\n</li>\n<li style=\"text-align: justify;\">\n<p class=\"ds-markdown-paragraph\"><strong>Rapid7 Blog</strong>: Analisis mendalam dari pakar keamanan .</p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\" style=\"text-align: justify;\"><strong>eSecurity Planet</strong>: Artikel tentang keamanan siber untuk perusahaan .</p>\n</li>\n</ul>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Setiap bulan, Microsoft selalu merilis pembaruan keamanan di hari Selasa kedua, yang dikenal dengan istilah Patch Tuesday. Di bulan Maret 2026 ini, Microsoft merilis tambalan untuk 79 hingga 84 celah keamanan . Dari jumlah tersebut, ada dua celah yang diumumkan ke publik sebelum patch-nya tersedia, dan salah satunya adalah CVE-2026-21262 . Celah ini menyerang Microsoft SQL Server, sebuah perangkat lunak database yang sangat populer di dunia. Kabar baiknya, hingga patch ini dirilis, belum ada laporan bahwa celah ini benar-benar sudah dipakai oleh peretas . Tapi, karena sudah diumumkan ke publik, risikonya tetap ada. Artikel ini akan membahas secara sederhana apa itu CVE-2026-21262, apa dampaknya, dan&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8930,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      777
+    ],
+    "tags": [
+      1385
+    ],
+    "class_list": [
+      "post-9727",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-cve-poc",
+      "tag-buletin-siber"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Waspada! Celah Keamanan di SQL Server Bisa Bikin Karyawan Biasa Jadi &quot;Admin&quot; Database - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Waspada! Celah Keamanan di SQL Server Bisa Bikin Karyawan Biasa Jadi &quot;Admin&quot; Database - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Setiap bulan, Microsoft selalu merilis pembaruan keamanan di hari Selasa kedua, yang dikenal dengan istilah Patch Tuesday. Di bulan Maret 2026 ini, Microsoft merilis tambalan untuk 79 hingga 84 celah keamanan . Dari jumlah tersebut, ada dua celah yang diumumkan ke publik sebelum patch-nya tersedia, dan salah satunya adalah CVE-2026-21262 . Celah ini menyerang Microsoft SQL Server, sebuah perangkat lunak database yang sangat populer di dunia. Kabar baiknya, hingga patch ini dirilis, belum ada laporan bahwa celah ini benar-benar sudah dipakai oleh peretas . Tapi, karena sudah diumumkan ke publik, risikonya tetap ada. Artikel ini akan membahas secara sederhana apa itu CVE-2026-21262, apa dampaknya, dan...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-03-12T06:20:52+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:55:14+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2560\" />\n\t<meta property=\"og:image:height\" content=\"1350\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/\",\"url\":\"https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/\",\"name\":\"Waspada! Celah Keamanan di SQL Server Bisa Bikin Karyawan Biasa Jadi \\\"Admin\\\" Database - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg\",\"datePublished\":\"2026-03-12T06:20:52+00:00\",\"dateModified\":\"2026-07-06T20:55:14+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg\",\"width\":2560,\"height\":1350,\"caption\":\"Masked worker in photovoltaics factory commits corporate espionage, stealing proprietary technology using USB stick. Man exploits insider access to copy trade secrets from solar panel plant, camera B\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Waspada! Celah Keamanan di SQL Server Bisa Bikin Karyawan Biasa Jadi &#8220;Admin&#8221; Database\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Waspada! Celah Keamanan di SQL Server Bisa Bikin Karyawan Biasa Jadi \"Admin\" Database - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Waspada! Celah Keamanan di SQL Server Bisa Bikin Karyawan Biasa Jadi \"Admin\" Database - buletinsiber.com",
+      "og_description": "Pendahuluan Setiap bulan, Microsoft selalu merilis pembaruan keamanan di hari Selasa kedua, yang dikenal dengan istilah Patch Tuesday. Di bulan Maret 2026 ini, Microsoft merilis tambalan untuk 79 hingga 84 celah keamanan . Dari jumlah tersebut, ada dua celah yang diumumkan ke publik sebelum patch-nya tersedia, dan salah satunya adalah CVE-2026-21262 . Celah ini menyerang Microsoft SQL Server, sebuah perangkat lunak database yang sangat populer di dunia. Kabar baiknya, hingga patch ini dirilis, belum ada laporan bahwa celah ini benar-benar sudah dipakai oleh peretas . Tapi, karena sudah diumumkan ke publik, risikonya tetap ada. Artikel ini akan membahas secara sederhana apa itu CVE-2026-21262, apa dampaknya, dan...",
+      "og_url": "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-03-12T06:20:52+00:00",
+      "article_modified_time": "2026-07-06T20:55:14+00:00",
+      "og_image": [
+        {
+          "width": 2560,
+          "height": 1350,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/",
+            "url": "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/",
+            "name": "Waspada! Celah Keamanan di SQL Server Bisa Bikin Karyawan Biasa Jadi \"Admin\" Database - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg",
+            "datePublished": "2026-03-12T06:20:52+00:00",
+            "dateModified": "2026-07-06T20:55:14+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/masked-worker-photovoltaics-factory-stealing-proprietary-technology-data-1-scaled.jpg",
+            "width": 2560,
+            "height": 1350,
+            "caption": "Masked worker in photovoltaics factory commits corporate espionage, stealing proprietary technology using USB stick. Man exploits insider access to copy trade secrets from solar panel plant, camera B"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/waspada-celah-keamanan-di-sql-server-bisa-bikin-karyawan-biasa-jadi-admin-database/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Waspada! Celah Keamanan di SQL Server Bisa Bikin Karyawan Biasa Jadi &#8220;Admin&#8221; Database"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9727",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9727"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9727/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9728,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9727/revisions/9728"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8930"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9727"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9727"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9727"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

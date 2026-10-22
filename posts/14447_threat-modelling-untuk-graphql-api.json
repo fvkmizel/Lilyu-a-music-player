@@ -1,0 +1,325 @@
+{
+  "id": 14447,
+  "title": "Threat Modelling untuk GraphQL API",
+  "slug": "threat-modelling-untuk-graphql-api",
+  "url": "https://buletinsiber.com/threat-modelling-untuk-graphql-api/",
+  "date": "2026-07-28T19:36:48",
+  "date_gmt": "2026-07-28T19:36:48",
+  "modified": "2026-07-28T19:36:48",
+  "modified_gmt": "2026-07-28T19:36:48",
+  "author": {
+    "id": 21,
+    "name": "Muh Abduh Syahran"
+  },
+  "categories": [
+    {
+      "id": 2237,
+      "name": "Cybersecurity"
+    }
+  ],
+  "tags": [
+    371,
+    185,
+    51,
+    406,
+    682
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-033020.png",
+  "excerpt": "GraphQL semakin banyak digunakan sebagai alternatif REST API karena menawarkan cara yang lebih fleksibel dalam mengambil data. Dengan satu endpoint, aplikasi dapat meminta informasi yang benar-benar dibutuhkan tanpa harus melakukan banyak permintaan ke server. Pendekatan ini membuat pertukaran data menjadi lebih efisien, terutama untuk aplikasi web dan mobile yang membutuhkan respons cepat. Namun, fleksibilitas tersebut juga menghadirkan tantangan tersendiri. Kemampuan klien untuk menentukan struktur data yang ingin diambil dapat membuka peluang penyalahgunaan jika tidak diatur dengan baik. Permintaan yang terlalu kompleks, akses ke data yang tidak semestinya, atau konfigurasi yang kurang tepat dapat memengaruhi keamanan maupun kinerja sistem. Karena itu,…",
+  "content_html": "<p class=\"PDq2pG_selectionAnchorContainer\" data-start=\"174\" data-end=\"569\">GraphQL semakin banyak digunakan sebagai alternatif REST API karena menawarkan cara yang lebih fleksibel dalam mengambil data. Dengan satu <em data-start=\"313\" data-end=\"323\">endpoint</em>, aplikasi dapat meminta informasi yang benar-benar dibutuhkan tanpa harus melakukan banyak permintaan ke server. Pendekatan ini membuat pertukaran data menjadi lebih efisien, terutama untuk aplikasi web dan mobile yang membutuhkan respons cepat.</p>\n<p data-start=\"571\" data-end=\"930\">Namun, fleksibilitas tersebut juga menghadirkan tantangan tersendiri. Kemampuan klien untuk menentukan struktur data yang ingin diambil dapat membuka peluang penyalahgunaan jika tidak diatur dengan baik. Permintaan yang terlalu kompleks, akses ke data yang tidak semestinya, atau konfigurasi yang kurang tepat dapat memengaruhi keamanan maupun kinerja sistem.</p>\n<p data-start=\"932\" data-end=\"1226\">Karena itu, penerapan <em data-start=\"954\" data-end=\"972\">threat modelling</em> menjadi langkah yang penting saat merancang maupun mengembangkan GraphQL API. Dengan memahami bagaimana API digunakan dan mengenali potensi ancaman sejak awal, tim dapat mengambil keputusan yang tepat sebelum layanan digunakan dalam lingkungan produksi.</p>\n<h2 data-section-id=\"2uvkt8\" data-start=\"1489\" data-end=\"1526\">1. Memahami Cara Kerja GraphQL API</h2>\n<p data-start=\"1528\" data-end=\"1778\">GraphQL adalah teknologi yang memungkinkan aplikasi mengambil data melalui satu <em data-start=\"1608\" data-end=\"1618\">endpoint</em> dengan struktur permintaan yang dapat disesuaikan. Klien hanya meminta data yang diperlukan, sementara server mengirimkan informasi sesuai permintaan tersebut.</p>\n<p data-start=\"1780\" data-end=\"2068\">Sebagai contoh, aplikasi toko online dapat meminta nama produk, harga, dan stok dalam satu permintaan tanpa harus mengambil seluruh informasi yang tersedia. Pendekatan ini membantu mengurangi jumlah data yang dikirim sekaligus meningkatkan efisiensi komunikasi antara aplikasi dan server.</p>\n<p data-start=\"2070\" data-end=\"2241\">Meski demikian, kebebasan dalam menyusun <em data-start=\"2111\" data-end=\"2118\">query</em> membuat GraphQL memerlukan pengaturan keamanan yang lebih cermat dibandingkan API yang memiliki struktur permintaan tetap.</p>\n<h2 data-section-id=\"1njqth0\" data-start=\"2248\" data-end=\"2298\">2. Mengapa GraphQL Memerlukan Threat Modelling?</h2>\n<p data-start=\"2300\" data-end=\"2532\">GraphQL memberikan keleluasaan kepada klien untuk menentukan data yang ingin diakses. Jika tidak dibatasi dengan baik, pengguna dapat mencoba mengambil informasi dalam jumlah besar atau mengakses data yang seharusnya tidak tersedia.</p>\n<p data-start=\"2534\" data-end=\"2791\">Selain itu, GraphQL biasanya menggunakan satu <em data-start=\"2580\" data-end=\"2590\">endpoint</em> untuk berbagai jenis permintaan. Kondisi ini membuat proses analisis keamanan tidak cukup hanya berfokus pada URL, tetapi juga pada struktur <em data-start=\"2732\" data-end=\"2739\">query</em>, <em data-start=\"2741\" data-end=\"2751\">mutation</em>, dan hubungan antarobjek yang diproses.</p>\n<p data-start=\"2793\" data-end=\"2941\">Melalui threat modelling, tim dapat memahami bagaimana GraphQL API bekerja sekaligus mengenali risiko yang mungkin muncul sebelum layanan digunakan.</p>\n<h2 data-section-id=\"1odywtb\" data-start=\"2948\" data-end=\"3000\">3. Ancaman yang Sering Ditemukan pada GraphQL API</h2>\n<p data-start=\"3002\" data-end=\"3119\">Beberapa ancaman berikut cukup sering dijumpai pada implementasi GraphQL yang belum memiliki pengamanan yang memadai.</p>\n<h3 data-section-id=\"gnzgsi\" data-start=\"3121\" data-end=\"3152\">Query yang Terlalu Kompleks</h3>\n<p data-start=\"3154\" data-end=\"3296\">Permintaan dengan tingkat kedalaman (<em data-start=\"3191\" data-end=\"3204\">query depth</em>) atau jumlah relasi yang berlebihan dapat membebani server dan menurunkan kinerja aplikasi.</p>\n<h3 data-section-id=\"11a2wu5\" data-start=\"3298\" data-end=\"3334\">Akses Data yang Tidak Semestinya</h3>\n<p data-start=\"3336\" data-end=\"3440\">Kesalahan dalam pengaturan otorisasi dapat memungkinkan pengguna melihat data yang bukan menjadi haknya.</p>\n<h3 data-section-id=\"8b25fi\" data-start=\"3442\" data-end=\"3472\">Introspection yang Terbuka</h3>\n<p data-start=\"3474\" data-end=\"3672\">Fitur <em data-start=\"3480\" data-end=\"3495\">introspection</em> memudahkan developer memahami struktur API, tetapi jika dibiarkan aktif di lingkungan produksi tanpa pengamanan, informasi tersebut dapat dimanfaatkan untuk mempelajari sistem.</p>\n<h3 data-section-id=\"132e5f5\" data-start=\"3674\" data-end=\"3711\">Validasi Masukan yang Kurang Baik</h3>\n<p data-start=\"3713\" data-end=\"3849\">Data yang dikirim melalui <em data-start=\"3739\" data-end=\"3746\">query</em> atau <em data-start=\"3752\" data-end=\"3762\">mutation</em> tetap perlu diperiksa agar tidak menyebabkan gangguan pada aplikasi maupun basis data.</p>\n<h3 data-section-id=\"9b10f9\" data-start=\"3851\" data-end=\"3880\">Penyalahgunaan Permintaan</h3>\n<p data-start=\"3882\" data-end=\"4007\">Tanpa pembatasan jumlah permintaan, GraphQL API dapat menerima <em data-start=\"3945\" data-end=\"3952\">query</em> dalam jumlah besar yang mengganggu stabilitas layanan.</p>\n<h2 data-section-id=\"1e7a0lz\" data-start=\"4014\" data-end=\"4070\">4. Langkah-Langkah Threat Modelling untuk GraphQL API</h2>\n<p data-start=\"4072\" data-end=\"4186\">Agar proses analisis berjalan lebih sistematis, threat modelling dapat dilakukan melalui beberapa tahapan berikut.</p>\n<h3 data-section-id=\"1ee2km3\" data-start=\"4188\" data-end=\"4224\">Identifikasi Schema dan Endpoint</h3>\n<p data-start=\"4226\" data-end=\"4328\">Pahami struktur schema, tipe data, <em data-start=\"4261\" data-end=\"4268\">query</em>, <em data-start=\"4270\" data-end=\"4280\">mutation</em>, serta fungsi yang disediakan oleh GraphQL API.</p>\n<h3 data-section-id=\"8rfevi\" data-start=\"4330\" data-end=\"4353\">Kenali Aset Penting</h3>\n<p data-start=\"4355\" data-end=\"4482\">Tentukan data atau layanan yang memerlukan perlindungan lebih, seperti informasi pengguna, transaksi, maupun data administrasi.</p>\n<h3 data-section-id=\"l4jjt\" data-start=\"4484\" data-end=\"4512\">Analisis Alur Permintaan</h3>\n<p data-start=\"4514\" data-end=\"4628\">Perhatikan bagaimana permintaan diproses, data diambil dari berbagai sumber, lalu dikirim kembali kepada pengguna.</p>\n<h3 data-section-id=\"10k6b2b\" data-start=\"4630\" data-end=\"4658\">Evaluasi Potensi Ancaman</h3>\n<p data-start=\"4660\" data-end=\"4782\">Identifikasi kemungkinan penyalahgunaan <em data-start=\"4700\" data-end=\"4707\">query</em>, kelemahan otorisasi, paparan data, maupun risiko terhadap kinerja server.</p>\n<h3 data-section-id=\"p2d26e\" data-start=\"4784\" data-end=\"4811\">Susun Strategi Mitigasi</h3>\n<p data-start=\"4813\" data-end=\"4909\">Tentukan langkah perlindungan yang sesuai agar ancaman dapat dikurangi sebelum sistem digunakan.</p>\n<h2 data-section-id=\"1qx7gze\" data-start=\"4916\" data-end=\"4965\">5. Praktik Keamanan yang Mendukung GraphQL API</h2>\n<p data-start=\"4967\" data-end=\"5091\">Threat modelling akan lebih efektif jika diikuti dengan penerapan praktik keamanan yang sesuai dengan karakteristik GraphQL.</p>\n<p data-start=\"5093\" data-end=\"5144\">Beberapa langkah yang dapat diterapkan antara lain:</p>\n<ul data-start=\"5146\" data-end=\"5628\">\n<li data-section-id=\"1em3l3l\" data-start=\"5146\" data-end=\"5227\">menerapkan autentikasi dan otorisasi pada setiap operasi yang memerlukan akses;</li>\n<li data-section-id=\"1quz91f\" data-start=\"5228\" data-end=\"5294\">membatasi kedalaman (<em data-start=\"5251\" data-end=\"5264\">query depth</em>) dan kompleksitas permintaan;</li>\n<li data-section-id=\"1qjujew\" data-start=\"5295\" data-end=\"5390\">menonaktifkan atau membatasi fitur <em data-start=\"5332\" data-end=\"5347\">introspection</em> pada lingkungan produksi sesuai kebutuhan;</li>\n<li data-section-id=\"gg8n2l\" data-start=\"5391\" data-end=\"5466\">memvalidasi seluruh data yang diterima melalui <em data-start=\"5440\" data-end=\"5447\">query</em> maupun <em data-start=\"5455\" data-end=\"5465\">mutation</em>;</li>\n<li data-section-id=\"yznq00\" data-start=\"5467\" data-end=\"5553\">menerapkan <em data-start=\"5480\" data-end=\"5495\">rate limiting</em> untuk membatasi jumlah permintaan dalam periode tertentu;</li>\n<li data-section-id=\"5virxt\" data-start=\"5554\" data-end=\"5628\">memantau aktivitas API guna mendeteksi pola penggunaan yang tidak wajar.</li>\n</ul>\n<p data-start=\"5630\" data-end=\"5730\">Dengan langkah-langkah tersebut, GraphQL API dapat tetap fleksibel tanpa mengabaikan aspek keamanan.</p>\n<h2 data-section-id=\"3kaxby\" data-start=\"5737\" data-end=\"5759\">6. Contoh Penerapan</h2>\n<p data-start=\"5761\" data-end=\"5913\">Sebuah perusahaan mengembangkan aplikasi manajemen proyek yang menggunakan GraphQL API untuk menampilkan data tugas, anggota tim, dan progres pekerjaan.</p>\n<p data-start=\"5915\" data-end=\"6237\">Saat melakukan threat modelling, tim menemukan bahwa pengguna dapat membuat <em data-start=\"5991\" data-end=\"5998\">query</em> dengan tingkat kedalaman yang sangat tinggi sehingga server harus memproses banyak relasi sekaligus. Selain itu, beberapa data administrasi masih dapat diakses oleh pengguna biasa karena aturan otorisasi belum diterapkan secara konsisten.</p>\n<p data-start=\"6239\" data-end=\"6506\">Setelah evaluasi dilakukan, tim membatasi kompleksitas <em data-start=\"6294\" data-end=\"6301\">query</em>, memperbaiki mekanisme otorisasi pada setiap operasi, serta membatasi akses terhadap data yang bersifat sensitif. Perubahan tersebut membuat API tetap responsif sekaligus mengurangi risiko penyalahgunaan.</p>\n<h2 data-section-id=\"1ftlvvo\" data-start=\"6513\" data-end=\"6571\">7. Threat Modelling Perlu Mengikuti Perkembangan Schema</h2>\n<p data-start=\"6573\" data-end=\"6742\">Schema GraphQL biasanya terus berkembang mengikuti kebutuhan aplikasi. Tipe data baru ditambahkan, operasi baru dibuat, dan hubungan antarobjek menjadi semakin kompleks.</p>\n<p data-start=\"6744\" data-end=\"6974\">Karena itu, threat modelling tidak cukup dilakukan sekali pada awal proyek. Setiap perubahan pada schema sebaiknya diikuti dengan evaluasi ulang terhadap potensi ancaman agar mekanisme keamanan tetap sesuai dengan kondisi terbaru.</p>\n<p data-start=\"6976\" data-end=\"7111\">Dengan pendekatan yang berkelanjutan, tim dapat mengembangkan GraphQL API secara lebih percaya diri tanpa mengorbankan keamanan sistem.</p>\n<h2 data-section-id=\"10wb3ix\" data-start=\"7118\" data-end=\"7189\">KESIMPULAN</h2>\n<p data-start=\"7191\" data-end=\"7510\">GraphQL menawarkan cara yang lebih efisien dalam mengelola pertukaran data antara aplikasi dan server. Namun, fleksibilitas tersebut juga membawa tantangan baru yang tidak boleh diabaikan. Semakin besar kebebasan yang diberikan kepada klien, semakin penting pula memastikan bahwa setiap permintaan diproses secara aman.</p>\n<p data-start=\"7512\" data-end=\"7942\" data-is-last-node=\"\" data-is-only-node=\"\">Melalui threat modelling, tim dapat memahami risiko yang berkaitan dengan GraphQL API sejak tahap perancangan, mengenali titik-titik yang berpotensi disalahgunakan, serta menentukan langkah mitigasi sebelum layanan digunakan. Dengan pendekatan ini, GraphQL tidak hanya memberikan kemudahan dalam pengembangan, tetapi juga mampu mendukung sistem yang lebih aman, stabil, dan siap menghadapi berbagai ancaman keamanan di masa depan</p>\n",
+  "content_text": "GraphQL semakin banyak digunakan sebagai alternatif REST API karena menawarkan cara yang lebih fleksibel dalam mengambil data. Dengan satu  endpoint , aplikasi dapat meminta informasi yang benar-benar dibutuhkan tanpa harus melakukan banyak permintaan ke server. Pendekatan ini membuat pertukaran data menjadi lebih efisien, terutama untuk aplikasi web dan mobile yang membutuhkan respons cepat.\nNamun, fleksibilitas tersebut juga menghadirkan tantangan tersendiri. Kemampuan klien untuk menentukan struktur data yang ingin diambil dapat membuka peluang penyalahgunaan jika tidak diatur dengan baik. Permintaan yang terlalu kompleks, akses ke data yang tidak semestinya, atau konfigurasi yang kurang tepat dapat memengaruhi keamanan maupun kinerja sistem.\nKarena itu, penerapan  threat modelling  menjadi langkah yang penting saat merancang maupun mengembangkan GraphQL API. Dengan memahami bagaimana API digunakan dan mengenali potensi ancaman sejak awal, tim dapat mengambil keputusan yang tepat sebelum layanan digunakan dalam lingkungan produksi.\n1. Memahami Cara Kerja GraphQL API\nGraphQL adalah teknologi yang memungkinkan aplikasi mengambil data melalui satu  endpoint  dengan struktur permintaan yang dapat disesuaikan. Klien hanya meminta data yang diperlukan, sementara server mengirimkan informasi sesuai permintaan tersebut.\nSebagai contoh, aplikasi toko online dapat meminta nama produk, harga, dan stok dalam satu permintaan tanpa harus mengambil seluruh informasi yang tersedia. Pendekatan ini membantu mengurangi jumlah data yang dikirim sekaligus meningkatkan efisiensi komunikasi antara aplikasi dan server.\nMeski demikian, kebebasan dalam menyusun  query  membuat GraphQL memerlukan pengaturan keamanan yang lebih cermat dibandingkan API yang memiliki struktur permintaan tetap.\n2. Mengapa GraphQL Memerlukan Threat Modelling?\nGraphQL memberikan keleluasaan kepada klien untuk menentukan data yang ingin diakses. Jika tidak dibatasi dengan baik, pengguna dapat mencoba mengambil informasi dalam jumlah besar atau mengakses data yang seharusnya tidak tersedia.\nSelain itu, GraphQL biasanya menggunakan satu  endpoint  untuk berbagai jenis permintaan. Kondisi ini membuat proses analisis keamanan tidak cukup hanya berfokus pada URL, tetapi juga pada struktur  query ,  mutation , dan hubungan antarobjek yang diproses.\nMelalui threat modelling, tim dapat memahami bagaimana GraphQL API bekerja sekaligus mengenali risiko yang mungkin muncul sebelum layanan digunakan.\n3. Ancaman yang Sering Ditemukan pada GraphQL API\nBeberapa ancaman berikut cukup sering dijumpai pada implementasi GraphQL yang belum memiliki pengamanan yang memadai.\nQuery yang Terlalu Kompleks\nPermintaan dengan tingkat kedalaman ( query depth ) atau jumlah relasi yang berlebihan dapat membebani server dan menurunkan kinerja aplikasi.\nAkses Data yang Tidak Semestinya\nKesalahan dalam pengaturan otorisasi dapat memungkinkan pengguna melihat data yang bukan menjadi haknya.\nIntrospection yang Terbuka\nFitur  introspection  memudahkan developer memahami struktur API, tetapi jika dibiarkan aktif di lingkungan produksi tanpa pengamanan, informasi tersebut dapat dimanfaatkan untuk mempelajari sistem.\nValidasi Masukan yang Kurang Baik\nData yang dikirim melalui  query  atau  mutation  tetap perlu diperiksa agar tidak menyebabkan gangguan pada aplikasi maupun basis data.\nPenyalahgunaan Permintaan\nTanpa pembatasan jumlah permintaan, GraphQL API dapat menerima  query  dalam jumlah besar yang mengganggu stabilitas layanan.\n4. Langkah-Langkah Threat Modelling untuk GraphQL API\nAgar proses analisis berjalan lebih sistematis, threat modelling dapat dilakukan melalui beberapa tahapan berikut.\nIdentifikasi Schema dan Endpoint\nPahami struktur schema, tipe data,  query ,  mutation , serta fungsi yang disediakan oleh GraphQL API.\nKenali Aset Penting\nTentukan data atau layanan yang memerlukan perlindungan lebih, seperti informasi pengguna, transaksi, maupun data administrasi.\nAnalisis Alur Permintaan\nPerhatikan bagaimana permintaan diproses, data diambil dari berbagai sumber, lalu dikirim kembali kepada pengguna.\nEvaluasi Potensi Ancaman\nIdentifikasi kemungkinan penyalahgunaan  query , kelemahan otorisasi, paparan data, maupun risiko terhadap kinerja server.\nSusun Strategi Mitigasi\nTentukan langkah perlindungan yang sesuai agar ancaman dapat dikurangi sebelum sistem digunakan.\n5. Praktik Keamanan yang Mendukung GraphQL API\nThreat modelling akan lebih efektif jika diikuti dengan penerapan praktik keamanan yang sesuai dengan karakteristik GraphQL.\nBeberapa langkah yang dapat diterapkan antara lain:\nmenerapkan autentikasi dan otorisasi pada setiap operasi yang memerlukan akses;\nmembatasi kedalaman ( query depth ) dan kompleksitas permintaan;\nmenonaktifkan atau membatasi fitur  introspection  pada lingkungan produksi sesuai kebutuhan;\nmemvalidasi seluruh data yang diterima melalui  query  maupun  mutation ;\nmenerapkan  rate limiting  untuk membatasi jumlah permintaan dalam periode tertentu;\nmemantau aktivitas API guna mendeteksi pola penggunaan yang tidak wajar.\nDengan langkah-langkah tersebut, GraphQL API dapat tetap fleksibel tanpa mengabaikan aspek keamanan.\n6. Contoh Penerapan\nSebuah perusahaan mengembangkan aplikasi manajemen proyek yang menggunakan GraphQL API untuk menampilkan data tugas, anggota tim, dan progres pekerjaan.\nSaat melakukan threat modelling, tim menemukan bahwa pengguna dapat membuat  query  dengan tingkat kedalaman yang sangat tinggi sehingga server harus memproses banyak relasi sekaligus. Selain itu, beberapa data administrasi masih dapat diakses oleh pengguna biasa karena aturan otorisasi belum diterapkan secara konsisten.\nSetelah evaluasi dilakukan, tim membatasi kompleksitas  query , memperbaiki mekanisme otorisasi pada setiap operasi, serta membatasi akses terhadap data yang bersifat sensitif. Perubahan tersebut membuat API tetap responsif sekaligus mengurangi risiko penyalahgunaan.\n7. Threat Modelling Perlu Mengikuti Perkembangan Schema\nSchema GraphQL biasanya terus berkembang mengikuti kebutuhan aplikasi. Tipe data baru ditambahkan, operasi baru dibuat, dan hubungan antarobjek menjadi semakin kompleks.\nKarena itu, threat modelling tidak cukup dilakukan sekali pada awal proyek. Setiap perubahan pada schema sebaiknya diikuti dengan evaluasi ulang terhadap potensi ancaman agar mekanisme keamanan tetap sesuai dengan kondisi terbaru.\nDengan pendekatan yang berkelanjutan, tim dapat mengembangkan GraphQL API secara lebih percaya diri tanpa mengorbankan keamanan sistem.\nKESIMPULAN\nGraphQL menawarkan cara yang lebih efisien dalam mengelola pertukaran data antara aplikasi dan server. Namun, fleksibilitas tersebut juga membawa tantangan baru yang tidak boleh diabaikan. Semakin besar kebebasan yang diberikan kepada klien, semakin penting pula memastikan bahwa setiap permintaan diproses secara aman.\nMelalui threat modelling, tim dapat memahami risiko yang berkaitan dengan GraphQL API sejak tahap perancangan, mengenali titik-titik yang berpotensi disalahgunakan, serta menentukan langkah mitigasi sebelum layanan digunakan. Dengan pendekatan ini, GraphQL tidak hanya memberikan kemudahan dalam pengembangan, tetapi juga mampu mendukung sistem yang lebih aman, stabil, dan siap menghadapi berbagai ancaman keamanan di masa depan",
+  "raw": {
+    "id": 14447,
+    "date": "2026-07-28T19:36:48",
+    "date_gmt": "2026-07-28T19:36:48",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=14447"
+    },
+    "modified": "2026-07-28T19:36:48",
+    "modified_gmt": "2026-07-28T19:36:48",
+    "slug": "threat-modelling-untuk-graphql-api",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/threat-modelling-untuk-graphql-api/",
+    "title": {
+      "rendered": "Threat Modelling untuk GraphQL API"
+    },
+    "content": {
+      "rendered": "<p class=\"PDq2pG_selectionAnchorContainer\" data-start=\"174\" data-end=\"569\">GraphQL semakin banyak digunakan sebagai alternatif REST API karena menawarkan cara yang lebih fleksibel dalam mengambil data. Dengan satu <em data-start=\"313\" data-end=\"323\">endpoint</em>, aplikasi dapat meminta informasi yang benar-benar dibutuhkan tanpa harus melakukan banyak permintaan ke server. Pendekatan ini membuat pertukaran data menjadi lebih efisien, terutama untuk aplikasi web dan mobile yang membutuhkan respons cepat.</p>\n<p data-start=\"571\" data-end=\"930\">Namun, fleksibilitas tersebut juga menghadirkan tantangan tersendiri. Kemampuan klien untuk menentukan struktur data yang ingin diambil dapat membuka peluang penyalahgunaan jika tidak diatur dengan baik. Permintaan yang terlalu kompleks, akses ke data yang tidak semestinya, atau konfigurasi yang kurang tepat dapat memengaruhi keamanan maupun kinerja sistem.</p>\n<p data-start=\"932\" data-end=\"1226\">Karena itu, penerapan <em data-start=\"954\" data-end=\"972\">threat modelling</em> menjadi langkah yang penting saat merancang maupun mengembangkan GraphQL API. Dengan memahami bagaimana API digunakan dan mengenali potensi ancaman sejak awal, tim dapat mengambil keputusan yang tepat sebelum layanan digunakan dalam lingkungan produksi.</p>\n<h2 data-section-id=\"2uvkt8\" data-start=\"1489\" data-end=\"1526\">1. Memahami Cara Kerja GraphQL API</h2>\n<p data-start=\"1528\" data-end=\"1778\">GraphQL adalah teknologi yang memungkinkan aplikasi mengambil data melalui satu <em data-start=\"1608\" data-end=\"1618\">endpoint</em> dengan struktur permintaan yang dapat disesuaikan. Klien hanya meminta data yang diperlukan, sementara server mengirimkan informasi sesuai permintaan tersebut.</p>\n<p data-start=\"1780\" data-end=\"2068\">Sebagai contoh, aplikasi toko online dapat meminta nama produk, harga, dan stok dalam satu permintaan tanpa harus mengambil seluruh informasi yang tersedia. Pendekatan ini membantu mengurangi jumlah data yang dikirim sekaligus meningkatkan efisiensi komunikasi antara aplikasi dan server.</p>\n<p data-start=\"2070\" data-end=\"2241\">Meski demikian, kebebasan dalam menyusun <em data-start=\"2111\" data-end=\"2118\">query</em> membuat GraphQL memerlukan pengaturan keamanan yang lebih cermat dibandingkan API yang memiliki struktur permintaan tetap.</p>\n<h2 data-section-id=\"1njqth0\" data-start=\"2248\" data-end=\"2298\">2. Mengapa GraphQL Memerlukan Threat Modelling?</h2>\n<p data-start=\"2300\" data-end=\"2532\">GraphQL memberikan keleluasaan kepada klien untuk menentukan data yang ingin diakses. Jika tidak dibatasi dengan baik, pengguna dapat mencoba mengambil informasi dalam jumlah besar atau mengakses data yang seharusnya tidak tersedia.</p>\n<p data-start=\"2534\" data-end=\"2791\">Selain itu, GraphQL biasanya menggunakan satu <em data-start=\"2580\" data-end=\"2590\">endpoint</em> untuk berbagai jenis permintaan. Kondisi ini membuat proses analisis keamanan tidak cukup hanya berfokus pada URL, tetapi juga pada struktur <em data-start=\"2732\" data-end=\"2739\">query</em>, <em data-start=\"2741\" data-end=\"2751\">mutation</em>, dan hubungan antarobjek yang diproses.</p>\n<p data-start=\"2793\" data-end=\"2941\">Melalui threat modelling, tim dapat memahami bagaimana GraphQL API bekerja sekaligus mengenali risiko yang mungkin muncul sebelum layanan digunakan.</p>\n<h2 data-section-id=\"1odywtb\" data-start=\"2948\" data-end=\"3000\">3. Ancaman yang Sering Ditemukan pada GraphQL API</h2>\n<p data-start=\"3002\" data-end=\"3119\">Beberapa ancaman berikut cukup sering dijumpai pada implementasi GraphQL yang belum memiliki pengamanan yang memadai.</p>\n<h3 data-section-id=\"gnzgsi\" data-start=\"3121\" data-end=\"3152\">Query yang Terlalu Kompleks</h3>\n<p data-start=\"3154\" data-end=\"3296\">Permintaan dengan tingkat kedalaman (<em data-start=\"3191\" data-end=\"3204\">query depth</em>) atau jumlah relasi yang berlebihan dapat membebani server dan menurunkan kinerja aplikasi.</p>\n<h3 data-section-id=\"11a2wu5\" data-start=\"3298\" data-end=\"3334\">Akses Data yang Tidak Semestinya</h3>\n<p data-start=\"3336\" data-end=\"3440\">Kesalahan dalam pengaturan otorisasi dapat memungkinkan pengguna melihat data yang bukan menjadi haknya.</p>\n<h3 data-section-id=\"8b25fi\" data-start=\"3442\" data-end=\"3472\">Introspection yang Terbuka</h3>\n<p data-start=\"3474\" data-end=\"3672\">Fitur <em data-start=\"3480\" data-end=\"3495\">introspection</em> memudahkan developer memahami struktur API, tetapi jika dibiarkan aktif di lingkungan produksi tanpa pengamanan, informasi tersebut dapat dimanfaatkan untuk mempelajari sistem.</p>\n<h3 data-section-id=\"132e5f5\" data-start=\"3674\" data-end=\"3711\">Validasi Masukan yang Kurang Baik</h3>\n<p data-start=\"3713\" data-end=\"3849\">Data yang dikirim melalui <em data-start=\"3739\" data-end=\"3746\">query</em> atau <em data-start=\"3752\" data-end=\"3762\">mutation</em> tetap perlu diperiksa agar tidak menyebabkan gangguan pada aplikasi maupun basis data.</p>\n<h3 data-section-id=\"9b10f9\" data-start=\"3851\" data-end=\"3880\">Penyalahgunaan Permintaan</h3>\n<p data-start=\"3882\" data-end=\"4007\">Tanpa pembatasan jumlah permintaan, GraphQL API dapat menerima <em data-start=\"3945\" data-end=\"3952\">query</em> dalam jumlah besar yang mengganggu stabilitas layanan.</p>\n<h2 data-section-id=\"1e7a0lz\" data-start=\"4014\" data-end=\"4070\">4. Langkah-Langkah Threat Modelling untuk GraphQL API</h2>\n<p data-start=\"4072\" data-end=\"4186\">Agar proses analisis berjalan lebih sistematis, threat modelling dapat dilakukan melalui beberapa tahapan berikut.</p>\n<h3 data-section-id=\"1ee2km3\" data-start=\"4188\" data-end=\"4224\">Identifikasi Schema dan Endpoint</h3>\n<p data-start=\"4226\" data-end=\"4328\">Pahami struktur schema, tipe data, <em data-start=\"4261\" data-end=\"4268\">query</em>, <em data-start=\"4270\" data-end=\"4280\">mutation</em>, serta fungsi yang disediakan oleh GraphQL API.</p>\n<h3 data-section-id=\"8rfevi\" data-start=\"4330\" data-end=\"4353\">Kenali Aset Penting</h3>\n<p data-start=\"4355\" data-end=\"4482\">Tentukan data atau layanan yang memerlukan perlindungan lebih, seperti informasi pengguna, transaksi, maupun data administrasi.</p>\n<h3 data-section-id=\"l4jjt\" data-start=\"4484\" data-end=\"4512\">Analisis Alur Permintaan</h3>\n<p data-start=\"4514\" data-end=\"4628\">Perhatikan bagaimana permintaan diproses, data diambil dari berbagai sumber, lalu dikirim kembali kepada pengguna.</p>\n<h3 data-section-id=\"10k6b2b\" data-start=\"4630\" data-end=\"4658\">Evaluasi Potensi Ancaman</h3>\n<p data-start=\"4660\" data-end=\"4782\">Identifikasi kemungkinan penyalahgunaan <em data-start=\"4700\" data-end=\"4707\">query</em>, kelemahan otorisasi, paparan data, maupun risiko terhadap kinerja server.</p>\n<h3 data-section-id=\"p2d26e\" data-start=\"4784\" data-end=\"4811\">Susun Strategi Mitigasi</h3>\n<p data-start=\"4813\" data-end=\"4909\">Tentukan langkah perlindungan yang sesuai agar ancaman dapat dikurangi sebelum sistem digunakan.</p>\n<h2 data-section-id=\"1qx7gze\" data-start=\"4916\" data-end=\"4965\">5. Praktik Keamanan yang Mendukung GraphQL API</h2>\n<p data-start=\"4967\" data-end=\"5091\">Threat modelling akan lebih efektif jika diikuti dengan penerapan praktik keamanan yang sesuai dengan karakteristik GraphQL.</p>\n<p data-start=\"5093\" data-end=\"5144\">Beberapa langkah yang dapat diterapkan antara lain:</p>\n<ul data-start=\"5146\" data-end=\"5628\">\n<li data-section-id=\"1em3l3l\" data-start=\"5146\" data-end=\"5227\">menerapkan autentikasi dan otorisasi pada setiap operasi yang memerlukan akses;</li>\n<li data-section-id=\"1quz91f\" data-start=\"5228\" data-end=\"5294\">membatasi kedalaman (<em data-start=\"5251\" data-end=\"5264\">query depth</em>) dan kompleksitas permintaan;</li>\n<li data-section-id=\"1qjujew\" data-start=\"5295\" data-end=\"5390\">menonaktifkan atau membatasi fitur <em data-start=\"5332\" data-end=\"5347\">introspection</em> pada lingkungan produksi sesuai kebutuhan;</li>\n<li data-section-id=\"gg8n2l\" data-start=\"5391\" data-end=\"5466\">memvalidasi seluruh data yang diterima melalui <em data-start=\"5440\" data-end=\"5447\">query</em> maupun <em data-start=\"5455\" data-end=\"5465\">mutation</em>;</li>\n<li data-section-id=\"yznq00\" data-start=\"5467\" data-end=\"5553\">menerapkan <em data-start=\"5480\" data-end=\"5495\">rate limiting</em> untuk membatasi jumlah permintaan dalam periode tertentu;</li>\n<li data-section-id=\"5virxt\" data-start=\"5554\" data-end=\"5628\">memantau aktivitas API guna mendeteksi pola penggunaan yang tidak wajar.</li>\n</ul>\n<p data-start=\"5630\" data-end=\"5730\">Dengan langkah-langkah tersebut, GraphQL API dapat tetap fleksibel tanpa mengabaikan aspek keamanan.</p>\n<h2 data-section-id=\"3kaxby\" data-start=\"5737\" data-end=\"5759\">6. Contoh Penerapan</h2>\n<p data-start=\"5761\" data-end=\"5913\">Sebuah perusahaan mengembangkan aplikasi manajemen proyek yang menggunakan GraphQL API untuk menampilkan data tugas, anggota tim, dan progres pekerjaan.</p>\n<p data-start=\"5915\" data-end=\"6237\">Saat melakukan threat modelling, tim menemukan bahwa pengguna dapat membuat <em data-start=\"5991\" data-end=\"5998\">query</em> dengan tingkat kedalaman yang sangat tinggi sehingga server harus memproses banyak relasi sekaligus. Selain itu, beberapa data administrasi masih dapat diakses oleh pengguna biasa karena aturan otorisasi belum diterapkan secara konsisten.</p>\n<p data-start=\"6239\" data-end=\"6506\">Setelah evaluasi dilakukan, tim membatasi kompleksitas <em data-start=\"6294\" data-end=\"6301\">query</em>, memperbaiki mekanisme otorisasi pada setiap operasi, serta membatasi akses terhadap data yang bersifat sensitif. Perubahan tersebut membuat API tetap responsif sekaligus mengurangi risiko penyalahgunaan.</p>\n<h2 data-section-id=\"1ftlvvo\" data-start=\"6513\" data-end=\"6571\">7. Threat Modelling Perlu Mengikuti Perkembangan Schema</h2>\n<p data-start=\"6573\" data-end=\"6742\">Schema GraphQL biasanya terus berkembang mengikuti kebutuhan aplikasi. Tipe data baru ditambahkan, operasi baru dibuat, dan hubungan antarobjek menjadi semakin kompleks.</p>\n<p data-start=\"6744\" data-end=\"6974\">Karena itu, threat modelling tidak cukup dilakukan sekali pada awal proyek. Setiap perubahan pada schema sebaiknya diikuti dengan evaluasi ulang terhadap potensi ancaman agar mekanisme keamanan tetap sesuai dengan kondisi terbaru.</p>\n<p data-start=\"6976\" data-end=\"7111\">Dengan pendekatan yang berkelanjutan, tim dapat mengembangkan GraphQL API secara lebih percaya diri tanpa mengorbankan keamanan sistem.</p>\n<h2 data-section-id=\"10wb3ix\" data-start=\"7118\" data-end=\"7189\">KESIMPULAN</h2>\n<p data-start=\"7191\" data-end=\"7510\">GraphQL menawarkan cara yang lebih efisien dalam mengelola pertukaran data antara aplikasi dan server. Namun, fleksibilitas tersebut juga membawa tantangan baru yang tidak boleh diabaikan. Semakin besar kebebasan yang diberikan kepada klien, semakin penting pula memastikan bahwa setiap permintaan diproses secara aman.</p>\n<p data-start=\"7512\" data-end=\"7942\" data-is-last-node=\"\" data-is-only-node=\"\">Melalui threat modelling, tim dapat memahami risiko yang berkaitan dengan GraphQL API sejak tahap perancangan, mengenali titik-titik yang berpotensi disalahgunakan, serta menentukan langkah mitigasi sebelum layanan digunakan. Dengan pendekatan ini, GraphQL tidak hanya memberikan kemudahan dalam pengembangan, tetapi juga mampu mendukung sistem yang lebih aman, stabil, dan siap menghadapi berbagai ancaman keamanan di masa depan</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>GraphQL semakin banyak digunakan sebagai alternatif REST API karena menawarkan cara yang lebih fleksibel dalam mengambil data. Dengan satu endpoint, aplikasi dapat meminta informasi yang benar-benar dibutuhkan tanpa harus melakukan banyak permintaan ke server. Pendekatan ini membuat pertukaran data menjadi lebih efisien, terutama untuk aplikasi web dan mobile yang membutuhkan respons cepat. Namun, fleksibilitas tersebut juga menghadirkan tantangan tersendiri. Kemampuan klien untuk menentukan struktur data yang ingin diambil dapat membuka peluang penyalahgunaan jika tidak diatur dengan baik. Permintaan yang terlalu kompleks, akses ke data yang tidak semestinya, atau konfigurasi yang kurang tepat dapat memengaruhi keamanan maupun kinerja sistem. Karena itu,&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 21,
+    "featured_media": 14448,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      2237
+    ],
+    "tags": [
+      371,
+      185,
+      51,
+      406,
+      682
+    ],
+    "class_list": [
+      "post-14447",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-cybersecurity",
+      "tag-ancaman-siber",
+      "tag-cybersecurity",
+      "tag-data",
+      "tag-data-protection-law",
+      "tag-keamanan"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Threat Modelling untuk GraphQL API - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/threat-modelling-untuk-graphql-api/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Threat Modelling untuk GraphQL API - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"GraphQL semakin banyak digunakan sebagai alternatif REST API karena menawarkan cara yang lebih fleksibel dalam mengambil data. Dengan satu endpoint, aplikasi dapat meminta informasi yang benar-benar dibutuhkan tanpa harus melakukan banyak permintaan ke server. Pendekatan ini membuat pertukaran data menjadi lebih efisien, terutama untuk aplikasi web dan mobile yang membutuhkan respons cepat. Namun, fleksibilitas tersebut juga menghadirkan tantangan tersendiri. Kemampuan klien untuk menentukan struktur data yang ingin diambil dapat membuka peluang penyalahgunaan jika tidak diatur dengan baik. Permintaan yang terlalu kompleks, akses ke data yang tidak semestinya, atau konfigurasi yang kurang tepat dapat memengaruhi keamanan maupun kinerja sistem. Karena itu,...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/threat-modelling-untuk-graphql-api/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-28T19:36:48+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-033020.png\" />\n\t<meta property=\"og:image:width\" content=\"1730\" />\n\t<meta property=\"og:image:height\" content=\"1186\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Muh Abduh Syahran\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Muh Abduh Syahran\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-graphql-api/\",\"url\":\"https://buletinsiber.com/threat-modelling-untuk-graphql-api/\",\"name\":\"Threat Modelling untuk GraphQL API - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-graphql-api/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-graphql-api/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-033020.png\",\"datePublished\":\"2026-07-28T19:36:48+00:00\",\"dateModified\":\"2026-07-28T19:36:48+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/986e1055bada9bf3754505f96ac527af\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-graphql-api/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/threat-modelling-untuk-graphql-api/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-graphql-api/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-033020.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-033020.png\",\"width\":1730,\"height\":1186},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-graphql-api/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Threat Modelling untuk GraphQL API\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/986e1055bada9bf3754505f96ac527af\",\"name\":\"Muh Abduh Syahran\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/44cb9c644149ed6db0223b22548b07da8497b4bf560b0ff288ece57f812882b4?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/44cb9c644149ed6db0223b22548b07da8497b4bf560b0ff288ece57f812882b4?s=96&d=mm&r=g\",\"caption\":\"Muh Abduh Syahran\"},\"url\":\"https://buletinsiber.com/author/muh-abduh-syahran/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Threat Modelling untuk GraphQL API - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/threat-modelling-untuk-graphql-api/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Threat Modelling untuk GraphQL API - buletinsiber.com",
+      "og_description": "GraphQL semakin banyak digunakan sebagai alternatif REST API karena menawarkan cara yang lebih fleksibel dalam mengambil data. Dengan satu endpoint, aplikasi dapat meminta informasi yang benar-benar dibutuhkan tanpa harus melakukan banyak permintaan ke server. Pendekatan ini membuat pertukaran data menjadi lebih efisien, terutama untuk aplikasi web dan mobile yang membutuhkan respons cepat. Namun, fleksibilitas tersebut juga menghadirkan tantangan tersendiri. Kemampuan klien untuk menentukan struktur data yang ingin diambil dapat membuka peluang penyalahgunaan jika tidak diatur dengan baik. Permintaan yang terlalu kompleks, akses ke data yang tidak semestinya, atau konfigurasi yang kurang tepat dapat memengaruhi keamanan maupun kinerja sistem. Karena itu,...",
+      "og_url": "https://buletinsiber.com/threat-modelling-untuk-graphql-api/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-28T19:36:48+00:00",
+      "og_image": [
+        {
+          "width": 1730,
+          "height": 1186,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-033020.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Muh Abduh Syahran",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Muh Abduh Syahran",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/threat-modelling-untuk-graphql-api/",
+            "url": "https://buletinsiber.com/threat-modelling-untuk-graphql-api/",
+            "name": "Threat Modelling untuk GraphQL API - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/threat-modelling-untuk-graphql-api/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/threat-modelling-untuk-graphql-api/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-033020.png",
+            "datePublished": "2026-07-28T19:36:48+00:00",
+            "dateModified": "2026-07-28T19:36:48+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/986e1055bada9bf3754505f96ac527af"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/threat-modelling-untuk-graphql-api/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/threat-modelling-untuk-graphql-api/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/threat-modelling-untuk-graphql-api/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-033020.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-033020.png",
+            "width": 1730,
+            "height": 1186
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/threat-modelling-untuk-graphql-api/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Threat Modelling untuk GraphQL API"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/986e1055bada9bf3754505f96ac527af",
+            "name": "Muh Abduh Syahran",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/44cb9c644149ed6db0223b22548b07da8497b4bf560b0ff288ece57f812882b4?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/44cb9c644149ed6db0223b22548b07da8497b4bf560b0ff288ece57f812882b4?s=96&d=mm&r=g",
+              "caption": "Muh Abduh Syahran"
+            },
+            "url": "https://buletinsiber.com/author/muh-abduh-syahran/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14447",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/21"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=14447"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14447/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 14449,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14447/revisions/14449"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/14448"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=14447"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=14447"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=14447"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

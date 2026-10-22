@@ -1,0 +1,329 @@
+{
+  "id": 9359,
+  "title": "Database Hardening: Teknik Mengunci SQL Server agar Tidak Menjadi ‘Open House’ bagi SQL Injection",
+  "slug": "database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection",
+  "url": "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/",
+  "date": "2026-01-24T00:10:02",
+  "date_gmt": "2026-01-24T00:10:02",
+  "modified": "2026-07-06T21:13:08",
+  "modified_gmt": "2026-07-06T21:13:08",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    259,
+    257
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg",
+  "excerpt": "Pengantar Database menjadi salah satu komponen terpenting dalam sistem modern—menyimpan data sensitif hingga informasi bisnis krusial. Namun pada sisi yang sama, database juga menjadi target utama serangan siber, terutama SQL Injection. Tanpa pengamanan yang tepat, SQL Server bisa ibarat rumah yang terbuka lebar bagi peretas. Database hardening adalah proses memperkuat konfigurasi, akses, dan kode agar database lebih kebal terhadap serangan—termasuk serangan injeksi yang mencoba memanipulasi input untuk menjalankan perintah berbahaya. Apa Itu Database Hardening? Database hardening adalah serangkaian tindakan sistematis untuk mengurangi permukaan serangan (attack surface) dan menutup celah konfigurasi sehingga database lebih aman terhadap eksploitasi. Ini mencakup: Pengaturan hak…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"277\" data-end=\"293\"><span style=\"color: #000000;\"><strong data-start=\"280\" data-end=\"293\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"294\" data-end=\"615\"><span style=\"color: #000000;\">Database menjadi salah satu komponen terpenting dalam sistem modern—menyimpan data sensitif hingga informasi bisnis krusial. Namun pada sisi yang sama, database juga menjadi target utama serangan siber, terutama <strong data-start=\"506\" data-end=\"523\">SQL Injection</strong>. Tanpa pengamanan yang tepat, SQL Server bisa ibarat rumah yang terbuka lebar bagi peretas.</span></p>\n<p style=\"text-align: justify;\" data-start=\"617\" data-end=\"833\"><span style=\"color: #000000;\"><strong data-start=\"617\" data-end=\"639\">Database hardening</strong> adalah proses memperkuat konfigurasi, akses, dan kode agar database lebih kebal terhadap serangan—termasuk serangan injeksi yang mencoba memanipulasi input untuk menjalankan perintah berbahaya.</span></p>\n<hr data-start=\"835\" data-end=\"838\" />\n<h3 style=\"text-align: justify;\" data-start=\"840\" data-end=\"874\"><span style=\"color: #000000;\"><strong data-start=\"843\" data-end=\"874\">Apa Itu Database Hardening?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"875\" data-end=\"1070\"><span style=\"color: #000000;\">Database hardening adalah serangkaian tindakan sistematis untuk mengurangi <strong data-start=\"950\" data-end=\"972\">permukaan serangan</strong> (attack surface) dan menutup celah konfigurasi sehingga database lebih aman terhadap eksploitasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1072\" data-end=\"1085\"><span style=\"color: #000000;\">Ini mencakup:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1086\" data-end=\"1199\">\n<li data-start=\"1086\" data-end=\"1110\">\n<p data-start=\"1088\" data-end=\"1110\"><span style=\"color: #000000;\">Pengaturan hak akses</span></p>\n</li>\n<li data-start=\"1111\" data-end=\"1134\">\n<p data-start=\"1113\" data-end=\"1134\"><span style=\"color: #000000;\">Konfigurasi layanan</span></p>\n</li>\n<li data-start=\"1135\" data-end=\"1154\">\n<p data-start=\"1137\" data-end=\"1154\"><span style=\"color: #000000;\">Pembaruan patch</span></p>\n</li>\n<li data-start=\"1155\" data-end=\"1180\">\n<p data-start=\"1157\" data-end=\"1180\"><span style=\"color: #000000;\">Pengamanan komunikasi</span></p>\n</li>\n<li data-start=\"1181\" data-end=\"1199\">\n<p data-start=\"1183\" data-end=\"1199\"><span style=\"color: #000000;\">Validasi input</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1201\" data-end=\"1285\"><span style=\"color: #000000;\">Dengan hardening, database tidak lagi menjadi titik lemah dalam arsitektur aplikasi (dikutip dari<a href=\"https://security.berkeley.edu/education-awareness/database-hardening-best-practices\"> Berkeley</a>).</span></p>\n<blockquote>\n<p data-start=\"1201\" data-end=\"1285\">baca juga : <a href=\"https://buletinsiber.com/the-art-of-refactoring-mengubah-spaghetti-code-menjadi-arsitektur-clean-code-yang-scalable/\">The Art of Refactoring: Mengubah ‘Spaghetti Code’ Menjadi Arsitektur Clean Code yang Scalable</a></p>\n</blockquote>\n<hr data-start=\"1287\" data-end=\"1290\" />\n<h3 style=\"text-align: justify;\" data-start=\"1292\" data-end=\"1349\"><span style=\"color: #000000;\"><strong data-start=\"1295\" data-end=\"1349\">Mengapa SQL Injection Masih Menjadi Ancaman Besar?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"1350\" data-end=\"1518\"><span style=\"color: #000000;\">SQL Injection adalah teknik peretasan di mana peretas memasukkan kode SQL berbahaya ke dalam input yang tidak tervalidasi dengan benar. Hal ini memungkinkan data untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1519\" data-end=\"1655\">\n<li data-start=\"1519\" data-end=\"1529\">\n<p data-start=\"1521\" data-end=\"1529\"><span style=\"color: #000000;\">Dicuri</span></p>\n</li>\n<li data-start=\"1530\" data-end=\"1546\">\n<p data-start=\"1532\" data-end=\"1546\"><span style=\"color: #000000;\">Dimodifikasi</span></p>\n</li>\n<li data-start=\"1547\" data-end=\"1655\">\n<p data-start=\"1549\" data-end=\"1655\"><span style=\"color: #000000;\">Bahkan dihapus atau disalahgunakan melalui manipulasi yang tidak sah</span></p>\n</li>\n</ul>\n<h4 style=\"text-align: justify;\" data-start=\"1657\" data-end=\"1696\"><span style=\"color: #000000;\"><strong data-start=\"1661\" data-end=\"1696\">Bagaimana SQL Injection Bekerja</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"1697\" data-end=\"1718\"><span style=\"color: #000000;\">Manipulasi Input</span></h6>\n<p style=\"text-align: justify;\" data-start=\"1719\" data-end=\"1875\"><span style=\"color: #000000;\">Peretas menyisipkan sintaks SQL khusus ke dalam input, yang kemudian diproses server sebagai perintah sah—misalnya mengambil atau mengubah data dalam tabel.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1877\" data-end=\"2017\"><span style=\"color: #000000;\">Karena serangan ini memanfaatkan logika query, teknik ini sering lolos dari pengamanan standar jika tidak ada <strong data-start=\"1987\" data-end=\"2016\">validasi input yang benar</strong>.</span></p>\n<hr data-start=\"2019\" data-end=\"2022\" />\n<h3 style=\"text-align: justify;\" data-start=\"2024\" data-end=\"2063\"><span style=\"color: #000000;\"><strong data-start=\"2027\" data-end=\"2063\">Prinsip Dasar Database Hardening</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"2064\" data-end=\"2158\"><span style=\"color: #000000;\">Database hardening mencakup beberapa area penting yang berkontribusi pada keamanan menyeluruh.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2160\" data-end=\"2198\"><span style=\"color: #000000;\"><strong data-start=\"2164\" data-end=\"2198\">1. Konfigurasi Dasar yang Aman</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"2199\" data-end=\"2243\"><span style=\"color: #000000;\">Nonaktifkan Fitur yang Tidak Diperlukan</span></h6>\n<p style=\"text-align: justify;\" data-start=\"2244\" data-end=\"2452\"><span style=\"color: #000000;\">Fitur default atau layanan yang tidak digunakan hanya akan memperluas permukaan serangan. Menonaktifkannya mengurangi kemungkinan eksploitasi serangan yang tidak terduga.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"2454\" data-end=\"2481\"><span style=\"color: #000000;\">Patch dan Update Rutin</span></h6>\n<p style=\"text-align: justify;\" data-start=\"2482\" data-end=\"2599\"><span style=\"color: #000000;\">Memastikan SQL Server menjalankan versi terbaru membantu menutup celah yang diketahui dan dieksploitasi oleh peretas.</span></p>\n<hr data-start=\"2601\" data-end=\"2604\" />\n<h4 style=\"text-align: justify;\" data-start=\"2606\" data-end=\"2652\"><span style=\"color: #000000;\"><strong data-start=\"2610\" data-end=\"2652\">2. Akses dan Hak Istimewa (Privileges)</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"2653\" data-end=\"2686\"><span style=\"color: #000000;\">Principle of Least Privilege</span></h6>\n<p style=\"text-align: justify;\" data-start=\"2687\" data-end=\"2890\"><span style=\"color: #000000;\">Hanya berikan hak akses yang benar-benar diperlukan kepada pengguna atau aplikasi. Akun database tidak harus bekerja sebagai admin secara default, karena peran admin lebih rentan terhadap penyalahgunaan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2892\" data-end=\"3038\"><span style=\"color: #000000;\">Role-based access control (RBAC) memastikan setiap pihak hanya bisa melakukan apa yang sesuai perannya saja.</span></p>\n<blockquote>\n<p data-start=\"2892\" data-end=\"3038\">baca juga : <a href=\"https://buletinsiber.com/hardening-code-mengunci-logic-flaw-yang-tak-terlihat-oleh-scanner-otomatis/\">Hardening Code: Mengunci Logic Flaw yang Tak Terlihat oleh Scanner Otomatis</a></p>\n</blockquote>\n<hr data-start=\"3040\" data-end=\"3043\" />\n<h4 style=\"text-align: justify;\" data-start=\"3045\" data-end=\"3083\"><span style=\"color: #000000;\"><strong data-start=\"3049\" data-end=\"3083\">3. Validasi dan Sanitasi Input</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"3084\" data-end=\"3115\"><span style=\"color: #000000;\">Handling Input Secara Aman</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3116\" data-end=\"3231\"><span style=\"color: #000000;\">Input dari pengguna harus <strong data-start=\"3142\" data-end=\"3171\">divalidasi dan disanitasi</strong> secara menyeluruh sebelum diproses ke dalam query database.</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3233\" data-end=\"3372\">\n<li data-start=\"3233\" data-end=\"3297\">\n<p data-start=\"3235\" data-end=\"3297\"><span style=\"color: #000000;\">Gunakan <strong data-start=\"3243\" data-end=\"3268\">parameterized queries</strong> atau <em data-start=\"3274\" data-end=\"3295\">prepared statements</em></span></p>\n</li>\n<li data-start=\"3298\" data-end=\"3372\">\n<p data-start=\"3300\" data-end=\"3372\"><span style=\"color: #000000;\">Hindari menyusun query dengan penggabungan (concatenation) data pengguna</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3374\" data-end=\"3467\"><span style=\"color: #000000;\">Pendekatan ini menjadikan input sebagai data, bukan bagian dari perintah SQL yang dijalankan.</span></p>\n<hr data-start=\"3469\" data-end=\"3472\" />\n<h4 style=\"text-align: justify;\" data-start=\"3474\" data-end=\"3505\"><span style=\"color: #000000;\"><strong data-start=\"3478\" data-end=\"3505\">4. Monitoring dan Audit</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"3506\" data-end=\"3534\"><span style=\"color: #000000;\">Log dan Audit Aktivitas</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3535\" data-end=\"3659\"><span style=\"color: #000000;\">Memantau aktivitas di SQL Server membantu organisasi <strong data-start=\"3588\" data-end=\"3624\">mendeteksi perilaku mencurigakan</strong> atau upaya eksploitasi sejak dini.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3661\" data-end=\"3792\"><span style=\"color: #000000;\">Audit yang aktif mencatat login, perubahan struktur skema, hingga query yang mencurigakan, menjadikan database lebih mudah diawasi.</span></p>\n<hr data-start=\"3794\" data-end=\"3797\" />\n<h4 style=\"text-align: justify;\" data-start=\"3799\" data-end=\"3842\"><span style=\"color: #000000;\"><strong data-start=\"3803\" data-end=\"3842\">5. Pengamanan Jaringan dan Enkripsi</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"3843\" data-end=\"3876\"><span style=\"color: #000000;\">Lindungi Akses dari Jaringan</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3877\" data-end=\"3966\"><span style=\"color: #000000;\">Pastikan SQL Server tidak langsung terekspos ke Internet tanpa firewall atau pembatas IP.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3968\" data-end=\"4096\"><span style=\"color: #000000;\">Gunakan enkripsi SSL/TLS untuk melindungi data saat bergerak antara aplikasi dan database.</span></p>\n<hr data-start=\"4098\" data-end=\"4101\" />\n<h3 style=\"text-align: justify;\" data-start=\"4103\" data-end=\"4146\"><span style=\"color: #000000;\"><strong data-start=\"4106\" data-end=\"4146\">Langkah Praktis Hardening SQL Server</strong></span></h3>\n<ol style=\"text-align: justify;\" data-start=\"4147\" data-end=\"4713\">\n<li data-start=\"4147\" data-end=\"4313\">\n<p data-start=\"4150\" data-end=\"4313\"><span style=\"color: #000000;\"><strong data-start=\"4150\" data-end=\"4200\">Nonaktifkan akun default yang tidak diperlukan</strong></span><br data-start=\"4200\" data-end=\"4203\" /><span style=\"color: #000000;\">Akun seperti <code data-start=\"4219\" data-end=\"4223\">sa</code> di SQL Server merupakan target utama peretas jika dibiarkan aktif tanpa konfigurasi aman.</span></p>\n</li>\n<li data-start=\"4315\" data-end=\"4449\">\n<p data-start=\"4318\" data-end=\"4449\"><span style=\"color: #000000;\"><strong data-start=\"4318\" data-end=\"4350\">Gunakan autentikasi terpusat</strong></span><br data-start=\"4350\" data-end=\"4353\" /><span style=\"color: #000000;\">Integrasi dengan Active Directory atau sistem autentikasi yang kuat membantu manajemen akses.</span></p>\n</li>\n<li data-start=\"4451\" data-end=\"4574\">\n<p data-start=\"4454\" data-end=\"4574\"><span style=\"color: #000000;\"><strong data-start=\"4454\" data-end=\"4502\">Konfigurasi firewall dan segmentasi jaringan</strong></span><br data-start=\"4502\" data-end=\"4505\" /><span style=\"color: #000000;\">Batasi koneksi hanya dari host atau aplikasi yang diperlukan saja.</span></p>\n</li>\n<li data-start=\"4576\" data-end=\"4713\">\n<p data-start=\"4579\" data-end=\"4713\"><span style=\"color: #000000;\"><strong data-start=\"4579\" data-end=\"4626\">Audit dan review konfigurasi secara berkala</strong></span><br data-start=\"4626\" data-end=\"4629\" /><span style=\"color: #000000;\">Pastikan setting keamanan tetap konsisten terhadap kebijakan internal organisasi.</span></p>\n</li>\n</ol>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/edge-security-mengamankan-gerbang-data-sebelum-menyentuh-jaringan-pusat/\">Edge Security: Mengamankan Gerbang Data Sebelum Menyentuh Jaringan Pusat</a></p></blockquote>\n<hr data-start=\"4715\" data-end=\"4718\" />\n<h2 style=\"text-align: justify;\" data-start=\"4720\" data-end=\"4737\"><span style=\"color: #000000;\"><strong data-start=\"4723\" data-end=\"4737\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4738\" data-end=\"5038\"><span style=\"color: #000000;\">Database hardening adalah fondasi penting dalam strategi keamanan aplikasi. Dengan menerapkan prinsip-prinsip hardening—mulai dari pembaruan rutin, akses terbatas, validasi input yang ketat, hingga audit berkelanjutan—Anda dapat mengurangi risiko SQL Injection dan serangan lainnya secara signifikan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5040\" data-end=\"5262\"><span style=\"color: #000000;\">Hardening bukan tindakan sekali jadi, tetapi proses yang terus berjalan seiring perubahan pada aplikasi dan ancaman siber. Database yang aman berarti data dan sistem Anda tetap utuh dan terlindungi dari agresi peretas.</span></p>\n",
+  "content_text": "Pengantar\nDatabase menjadi salah satu komponen terpenting dalam sistem modern—menyimpan data sensitif hingga informasi bisnis krusial. Namun pada sisi yang sama, database juga menjadi target utama serangan siber, terutama  SQL Injection . Tanpa pengamanan yang tepat, SQL Server bisa ibarat rumah yang terbuka lebar bagi peretas.\nDatabase hardening  adalah proses memperkuat konfigurasi, akses, dan kode agar database lebih kebal terhadap serangan—termasuk serangan injeksi yang mencoba memanipulasi input untuk menjalankan perintah berbahaya.\nApa Itu Database Hardening?\nDatabase hardening adalah serangkaian tindakan sistematis untuk mengurangi  permukaan serangan  (attack surface) dan menutup celah konfigurasi sehingga database lebih aman terhadap eksploitasi.\nIni mencakup:\nPengaturan hak akses\nKonfigurasi layanan\nPembaruan patch\nPengamanan komunikasi\nValidasi input\nDengan hardening, database tidak lagi menjadi titik lemah dalam arsitektur aplikasi (dikutip dari  Berkeley ).\nbaca juga :  The Art of Refactoring: Mengubah ‘Spaghetti Code’ Menjadi Arsitektur Clean Code yang Scalable\nMengapa SQL Injection Masih Menjadi Ancaman Besar?\nSQL Injection adalah teknik peretasan di mana peretas memasukkan kode SQL berbahaya ke dalam input yang tidak tervalidasi dengan benar. Hal ini memungkinkan data untuk:\nDicuri\nDimodifikasi\nBahkan dihapus atau disalahgunakan melalui manipulasi yang tidak sah\nBagaimana SQL Injection Bekerja\nManipulasi Input\nPeretas menyisipkan sintaks SQL khusus ke dalam input, yang kemudian diproses server sebagai perintah sah—misalnya mengambil atau mengubah data dalam tabel.\nKarena serangan ini memanfaatkan logika query, teknik ini sering lolos dari pengamanan standar jika tidak ada  validasi input yang benar .\nPrinsip Dasar Database Hardening\nDatabase hardening mencakup beberapa area penting yang berkontribusi pada keamanan menyeluruh.\n1. Konfigurasi Dasar yang Aman\nNonaktifkan Fitur yang Tidak Diperlukan\nFitur default atau layanan yang tidak digunakan hanya akan memperluas permukaan serangan. Menonaktifkannya mengurangi kemungkinan eksploitasi serangan yang tidak terduga.\nPatch dan Update Rutin\nMemastikan SQL Server menjalankan versi terbaru membantu menutup celah yang diketahui dan dieksploitasi oleh peretas.\n2. Akses dan Hak Istimewa (Privileges)\nPrinciple of Least Privilege\nHanya berikan hak akses yang benar-benar diperlukan kepada pengguna atau aplikasi. Akun database tidak harus bekerja sebagai admin secara default, karena peran admin lebih rentan terhadap penyalahgunaan.\nRole-based access control (RBAC) memastikan setiap pihak hanya bisa melakukan apa yang sesuai perannya saja.\nbaca juga :  Hardening Code: Mengunci Logic Flaw yang Tak Terlihat oleh Scanner Otomatis\n3. Validasi dan Sanitasi Input\nHandling Input Secara Aman\nInput dari pengguna harus  divalidasi dan disanitasi  secara menyeluruh sebelum diproses ke dalam query database.\nGunakan  parameterized queries  atau  prepared statements\nHindari menyusun query dengan penggabungan (concatenation) data pengguna\nPendekatan ini menjadikan input sebagai data, bukan bagian dari perintah SQL yang dijalankan.\n4. Monitoring dan Audit\nLog dan Audit Aktivitas\nMemantau aktivitas di SQL Server membantu organisasi  mendeteksi perilaku mencurigakan  atau upaya eksploitasi sejak dini.\nAudit yang aktif mencatat login, perubahan struktur skema, hingga query yang mencurigakan, menjadikan database lebih mudah diawasi.\n5. Pengamanan Jaringan dan Enkripsi\nLindungi Akses dari Jaringan\nPastikan SQL Server tidak langsung terekspos ke Internet tanpa firewall atau pembatas IP.\nGunakan enkripsi SSL/TLS untuk melindungi data saat bergerak antara aplikasi dan database.\nLangkah Praktis Hardening SQL Server\nNonaktifkan akun default yang tidak diperlukan\nAkun seperti  sa  di SQL Server merupakan target utama peretas jika dibiarkan aktif tanpa konfigurasi aman.\nGunakan autentikasi terpusat\nIntegrasi dengan Active Directory atau sistem autentikasi yang kuat membantu manajemen akses.\nKonfigurasi firewall dan segmentasi jaringan\nBatasi koneksi hanya dari host atau aplikasi yang diperlukan saja.\nAudit dan review konfigurasi secara berkala\nPastikan setting keamanan tetap konsisten terhadap kebijakan internal organisasi.\nbaca juga :  Edge Security: Mengamankan Gerbang Data Sebelum Menyentuh Jaringan Pusat\nKesimpulan\nDatabase hardening adalah fondasi penting dalam strategi keamanan aplikasi. Dengan menerapkan prinsip-prinsip hardening—mulai dari pembaruan rutin, akses terbatas, validasi input yang ketat, hingga audit berkelanjutan—Anda dapat mengurangi risiko SQL Injection dan serangan lainnya secara signifikan.\nHardening bukan tindakan sekali jadi, tetapi proses yang terus berjalan seiring perubahan pada aplikasi dan ancaman siber. Database yang aman berarti data dan sistem Anda tetap utuh dan terlindungi dari agresi peretas.",
+  "raw": {
+    "id": 9359,
+    "date": "2026-01-24T00:10:02",
+    "date_gmt": "2026-01-24T00:10:02",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9359"
+    },
+    "modified": "2026-07-06T21:13:08",
+    "modified_gmt": "2026-07-06T21:13:08",
+    "slug": "database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/",
+    "title": {
+      "rendered": "Database Hardening: Teknik Mengunci SQL Server agar Tidak Menjadi &#8216;Open House&#8217; bagi SQL Injection"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"277\" data-end=\"293\"><span style=\"color: #000000;\"><strong data-start=\"280\" data-end=\"293\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"294\" data-end=\"615\"><span style=\"color: #000000;\">Database menjadi salah satu komponen terpenting dalam sistem modern—menyimpan data sensitif hingga informasi bisnis krusial. Namun pada sisi yang sama, database juga menjadi target utama serangan siber, terutama <strong data-start=\"506\" data-end=\"523\">SQL Injection</strong>. Tanpa pengamanan yang tepat, SQL Server bisa ibarat rumah yang terbuka lebar bagi peretas.</span></p>\n<p style=\"text-align: justify;\" data-start=\"617\" data-end=\"833\"><span style=\"color: #000000;\"><strong data-start=\"617\" data-end=\"639\">Database hardening</strong> adalah proses memperkuat konfigurasi, akses, dan kode agar database lebih kebal terhadap serangan—termasuk serangan injeksi yang mencoba memanipulasi input untuk menjalankan perintah berbahaya.</span></p>\n<hr data-start=\"835\" data-end=\"838\" />\n<h3 style=\"text-align: justify;\" data-start=\"840\" data-end=\"874\"><span style=\"color: #000000;\"><strong data-start=\"843\" data-end=\"874\">Apa Itu Database Hardening?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"875\" data-end=\"1070\"><span style=\"color: #000000;\">Database hardening adalah serangkaian tindakan sistematis untuk mengurangi <strong data-start=\"950\" data-end=\"972\">permukaan serangan</strong> (attack surface) dan menutup celah konfigurasi sehingga database lebih aman terhadap eksploitasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1072\" data-end=\"1085\"><span style=\"color: #000000;\">Ini mencakup:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1086\" data-end=\"1199\">\n<li data-start=\"1086\" data-end=\"1110\">\n<p data-start=\"1088\" data-end=\"1110\"><span style=\"color: #000000;\">Pengaturan hak akses</span></p>\n</li>\n<li data-start=\"1111\" data-end=\"1134\">\n<p data-start=\"1113\" data-end=\"1134\"><span style=\"color: #000000;\">Konfigurasi layanan</span></p>\n</li>\n<li data-start=\"1135\" data-end=\"1154\">\n<p data-start=\"1137\" data-end=\"1154\"><span style=\"color: #000000;\">Pembaruan patch</span></p>\n</li>\n<li data-start=\"1155\" data-end=\"1180\">\n<p data-start=\"1157\" data-end=\"1180\"><span style=\"color: #000000;\">Pengamanan komunikasi</span></p>\n</li>\n<li data-start=\"1181\" data-end=\"1199\">\n<p data-start=\"1183\" data-end=\"1199\"><span style=\"color: #000000;\">Validasi input</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1201\" data-end=\"1285\"><span style=\"color: #000000;\">Dengan hardening, database tidak lagi menjadi titik lemah dalam arsitektur aplikasi (dikutip dari<a href=\"https://security.berkeley.edu/education-awareness/database-hardening-best-practices\"> Berkeley</a>).</span></p>\n<blockquote>\n<p data-start=\"1201\" data-end=\"1285\">baca juga : <a href=\"https://buletinsiber.com/the-art-of-refactoring-mengubah-spaghetti-code-menjadi-arsitektur-clean-code-yang-scalable/\">The Art of Refactoring: Mengubah ‘Spaghetti Code’ Menjadi Arsitektur Clean Code yang Scalable</a></p>\n</blockquote>\n<hr data-start=\"1287\" data-end=\"1290\" />\n<h3 style=\"text-align: justify;\" data-start=\"1292\" data-end=\"1349\"><span style=\"color: #000000;\"><strong data-start=\"1295\" data-end=\"1349\">Mengapa SQL Injection Masih Menjadi Ancaman Besar?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"1350\" data-end=\"1518\"><span style=\"color: #000000;\">SQL Injection adalah teknik peretasan di mana peretas memasukkan kode SQL berbahaya ke dalam input yang tidak tervalidasi dengan benar. Hal ini memungkinkan data untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1519\" data-end=\"1655\">\n<li data-start=\"1519\" data-end=\"1529\">\n<p data-start=\"1521\" data-end=\"1529\"><span style=\"color: #000000;\">Dicuri</span></p>\n</li>\n<li data-start=\"1530\" data-end=\"1546\">\n<p data-start=\"1532\" data-end=\"1546\"><span style=\"color: #000000;\">Dimodifikasi</span></p>\n</li>\n<li data-start=\"1547\" data-end=\"1655\">\n<p data-start=\"1549\" data-end=\"1655\"><span style=\"color: #000000;\">Bahkan dihapus atau disalahgunakan melalui manipulasi yang tidak sah</span></p>\n</li>\n</ul>\n<h4 style=\"text-align: justify;\" data-start=\"1657\" data-end=\"1696\"><span style=\"color: #000000;\"><strong data-start=\"1661\" data-end=\"1696\">Bagaimana SQL Injection Bekerja</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"1697\" data-end=\"1718\"><span style=\"color: #000000;\">Manipulasi Input</span></h6>\n<p style=\"text-align: justify;\" data-start=\"1719\" data-end=\"1875\"><span style=\"color: #000000;\">Peretas menyisipkan sintaks SQL khusus ke dalam input, yang kemudian diproses server sebagai perintah sah—misalnya mengambil atau mengubah data dalam tabel.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1877\" data-end=\"2017\"><span style=\"color: #000000;\">Karena serangan ini memanfaatkan logika query, teknik ini sering lolos dari pengamanan standar jika tidak ada <strong data-start=\"1987\" data-end=\"2016\">validasi input yang benar</strong>.</span></p>\n<hr data-start=\"2019\" data-end=\"2022\" />\n<h3 style=\"text-align: justify;\" data-start=\"2024\" data-end=\"2063\"><span style=\"color: #000000;\"><strong data-start=\"2027\" data-end=\"2063\">Prinsip Dasar Database Hardening</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"2064\" data-end=\"2158\"><span style=\"color: #000000;\">Database hardening mencakup beberapa area penting yang berkontribusi pada keamanan menyeluruh.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2160\" data-end=\"2198\"><span style=\"color: #000000;\"><strong data-start=\"2164\" data-end=\"2198\">1. Konfigurasi Dasar yang Aman</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"2199\" data-end=\"2243\"><span style=\"color: #000000;\">Nonaktifkan Fitur yang Tidak Diperlukan</span></h6>\n<p style=\"text-align: justify;\" data-start=\"2244\" data-end=\"2452\"><span style=\"color: #000000;\">Fitur default atau layanan yang tidak digunakan hanya akan memperluas permukaan serangan. Menonaktifkannya mengurangi kemungkinan eksploitasi serangan yang tidak terduga.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"2454\" data-end=\"2481\"><span style=\"color: #000000;\">Patch dan Update Rutin</span></h6>\n<p style=\"text-align: justify;\" data-start=\"2482\" data-end=\"2599\"><span style=\"color: #000000;\">Memastikan SQL Server menjalankan versi terbaru membantu menutup celah yang diketahui dan dieksploitasi oleh peretas.</span></p>\n<hr data-start=\"2601\" data-end=\"2604\" />\n<h4 style=\"text-align: justify;\" data-start=\"2606\" data-end=\"2652\"><span style=\"color: #000000;\"><strong data-start=\"2610\" data-end=\"2652\">2. Akses dan Hak Istimewa (Privileges)</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"2653\" data-end=\"2686\"><span style=\"color: #000000;\">Principle of Least Privilege</span></h6>\n<p style=\"text-align: justify;\" data-start=\"2687\" data-end=\"2890\"><span style=\"color: #000000;\">Hanya berikan hak akses yang benar-benar diperlukan kepada pengguna atau aplikasi. Akun database tidak harus bekerja sebagai admin secara default, karena peran admin lebih rentan terhadap penyalahgunaan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2892\" data-end=\"3038\"><span style=\"color: #000000;\">Role-based access control (RBAC) memastikan setiap pihak hanya bisa melakukan apa yang sesuai perannya saja.</span></p>\n<blockquote>\n<p data-start=\"2892\" data-end=\"3038\">baca juga : <a href=\"https://buletinsiber.com/hardening-code-mengunci-logic-flaw-yang-tak-terlihat-oleh-scanner-otomatis/\">Hardening Code: Mengunci Logic Flaw yang Tak Terlihat oleh Scanner Otomatis</a></p>\n</blockquote>\n<hr data-start=\"3040\" data-end=\"3043\" />\n<h4 style=\"text-align: justify;\" data-start=\"3045\" data-end=\"3083\"><span style=\"color: #000000;\"><strong data-start=\"3049\" data-end=\"3083\">3. Validasi dan Sanitasi Input</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"3084\" data-end=\"3115\"><span style=\"color: #000000;\">Handling Input Secara Aman</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3116\" data-end=\"3231\"><span style=\"color: #000000;\">Input dari pengguna harus <strong data-start=\"3142\" data-end=\"3171\">divalidasi dan disanitasi</strong> secara menyeluruh sebelum diproses ke dalam query database.</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3233\" data-end=\"3372\">\n<li data-start=\"3233\" data-end=\"3297\">\n<p data-start=\"3235\" data-end=\"3297\"><span style=\"color: #000000;\">Gunakan <strong data-start=\"3243\" data-end=\"3268\">parameterized queries</strong> atau <em data-start=\"3274\" data-end=\"3295\">prepared statements</em></span></p>\n</li>\n<li data-start=\"3298\" data-end=\"3372\">\n<p data-start=\"3300\" data-end=\"3372\"><span style=\"color: #000000;\">Hindari menyusun query dengan penggabungan (concatenation) data pengguna</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3374\" data-end=\"3467\"><span style=\"color: #000000;\">Pendekatan ini menjadikan input sebagai data, bukan bagian dari perintah SQL yang dijalankan.</span></p>\n<hr data-start=\"3469\" data-end=\"3472\" />\n<h4 style=\"text-align: justify;\" data-start=\"3474\" data-end=\"3505\"><span style=\"color: #000000;\"><strong data-start=\"3478\" data-end=\"3505\">4. Monitoring dan Audit</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"3506\" data-end=\"3534\"><span style=\"color: #000000;\">Log dan Audit Aktivitas</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3535\" data-end=\"3659\"><span style=\"color: #000000;\">Memantau aktivitas di SQL Server membantu organisasi <strong data-start=\"3588\" data-end=\"3624\">mendeteksi perilaku mencurigakan</strong> atau upaya eksploitasi sejak dini.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3661\" data-end=\"3792\"><span style=\"color: #000000;\">Audit yang aktif mencatat login, perubahan struktur skema, hingga query yang mencurigakan, menjadikan database lebih mudah diawasi.</span></p>\n<hr data-start=\"3794\" data-end=\"3797\" />\n<h4 style=\"text-align: justify;\" data-start=\"3799\" data-end=\"3842\"><span style=\"color: #000000;\"><strong data-start=\"3803\" data-end=\"3842\">5. Pengamanan Jaringan dan Enkripsi</strong></span></h4>\n<h6 style=\"text-align: justify;\" data-start=\"3843\" data-end=\"3876\"><span style=\"color: #000000;\">Lindungi Akses dari Jaringan</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3877\" data-end=\"3966\"><span style=\"color: #000000;\">Pastikan SQL Server tidak langsung terekspos ke Internet tanpa firewall atau pembatas IP.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3968\" data-end=\"4096\"><span style=\"color: #000000;\">Gunakan enkripsi SSL/TLS untuk melindungi data saat bergerak antara aplikasi dan database.</span></p>\n<hr data-start=\"4098\" data-end=\"4101\" />\n<h3 style=\"text-align: justify;\" data-start=\"4103\" data-end=\"4146\"><span style=\"color: #000000;\"><strong data-start=\"4106\" data-end=\"4146\">Langkah Praktis Hardening SQL Server</strong></span></h3>\n<ol style=\"text-align: justify;\" data-start=\"4147\" data-end=\"4713\">\n<li data-start=\"4147\" data-end=\"4313\">\n<p data-start=\"4150\" data-end=\"4313\"><span style=\"color: #000000;\"><strong data-start=\"4150\" data-end=\"4200\">Nonaktifkan akun default yang tidak diperlukan</strong></span><br data-start=\"4200\" data-end=\"4203\" /><span style=\"color: #000000;\">Akun seperti <code data-start=\"4219\" data-end=\"4223\">sa</code> di SQL Server merupakan target utama peretas jika dibiarkan aktif tanpa konfigurasi aman.</span></p>\n</li>\n<li data-start=\"4315\" data-end=\"4449\">\n<p data-start=\"4318\" data-end=\"4449\"><span style=\"color: #000000;\"><strong data-start=\"4318\" data-end=\"4350\">Gunakan autentikasi terpusat</strong></span><br data-start=\"4350\" data-end=\"4353\" /><span style=\"color: #000000;\">Integrasi dengan Active Directory atau sistem autentikasi yang kuat membantu manajemen akses.</span></p>\n</li>\n<li data-start=\"4451\" data-end=\"4574\">\n<p data-start=\"4454\" data-end=\"4574\"><span style=\"color: #000000;\"><strong data-start=\"4454\" data-end=\"4502\">Konfigurasi firewall dan segmentasi jaringan</strong></span><br data-start=\"4502\" data-end=\"4505\" /><span style=\"color: #000000;\">Batasi koneksi hanya dari host atau aplikasi yang diperlukan saja.</span></p>\n</li>\n<li data-start=\"4576\" data-end=\"4713\">\n<p data-start=\"4579\" data-end=\"4713\"><span style=\"color: #000000;\"><strong data-start=\"4579\" data-end=\"4626\">Audit dan review konfigurasi secara berkala</strong></span><br data-start=\"4626\" data-end=\"4629\" /><span style=\"color: #000000;\">Pastikan setting keamanan tetap konsisten terhadap kebijakan internal organisasi.</span></p>\n</li>\n</ol>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/edge-security-mengamankan-gerbang-data-sebelum-menyentuh-jaringan-pusat/\">Edge Security: Mengamankan Gerbang Data Sebelum Menyentuh Jaringan Pusat</a></p></blockquote>\n<hr data-start=\"4715\" data-end=\"4718\" />\n<h2 style=\"text-align: justify;\" data-start=\"4720\" data-end=\"4737\"><span style=\"color: #000000;\"><strong data-start=\"4723\" data-end=\"4737\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4738\" data-end=\"5038\"><span style=\"color: #000000;\">Database hardening adalah fondasi penting dalam strategi keamanan aplikasi. Dengan menerapkan prinsip-prinsip hardening—mulai dari pembaruan rutin, akses terbatas, validasi input yang ketat, hingga audit berkelanjutan—Anda dapat mengurangi risiko SQL Injection dan serangan lainnya secara signifikan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5040\" data-end=\"5262\"><span style=\"color: #000000;\">Hardening bukan tindakan sekali jadi, tetapi proses yang terus berjalan seiring perubahan pada aplikasi dan ancaman siber. Database yang aman berarti data dan sistem Anda tetap utuh dan terlindungi dari agresi peretas.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Database menjadi salah satu komponen terpenting dalam sistem modern—menyimpan data sensitif hingga informasi bisnis krusial. Namun pada sisi yang sama, database juga menjadi target utama serangan siber, terutama SQL Injection. Tanpa pengamanan yang tepat, SQL Server bisa ibarat rumah yang terbuka lebar bagi peretas. Database hardening adalah proses memperkuat konfigurasi, akses, dan kode agar database lebih kebal terhadap serangan—termasuk serangan injeksi yang mencoba memanipulasi input untuk menjalankan perintah berbahaya. Apa Itu Database Hardening? Database hardening adalah serangkaian tindakan sistematis untuk mengurangi permukaan serangan (attack surface) dan menutup celah konfigurasi sehingga database lebih aman terhadap eksploitasi. Ini mencakup: Pengaturan hak&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8142,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "database hardening sql server",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      259,
+      257
+    ],
+    "class_list": [
+      "post-9359",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-database",
+      "tag-sql"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Database Hardening: Teknik Mengunci SQL Server agar Tidak Menjadi &#039;Open House&#039; bagi SQL Injection - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Database Hardening: Teknik Mengunci SQL Server agar Tidak Menjadi &#039;Open House&#039; bagi SQL Injection - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Database menjadi salah satu komponen terpenting dalam sistem modern—menyimpan data sensitif hingga informasi bisnis krusial. Namun pada sisi yang sama, database juga menjadi target utama serangan siber, terutama SQL Injection. Tanpa pengamanan yang tepat, SQL Server bisa ibarat rumah yang terbuka lebar bagi peretas. Database hardening adalah proses memperkuat konfigurasi, akses, dan kode agar database lebih kebal terhadap serangan—termasuk serangan injeksi yang mencoba memanipulasi input untuk menjalankan perintah berbahaya. Apa Itu Database Hardening? Database hardening adalah serangkaian tindakan sistematis untuk mengurangi permukaan serangan (attack surface) dan menutup celah konfigurasi sehingga database lebih aman terhadap eksploitasi. Ini mencakup: Pengaturan hak...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-01-24T00:10:02+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T21:13:08+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg\" />\n\t<meta property=\"og:image:width\" content=\"768\" />\n\t<meta property=\"og:image:height\" content=\"512\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/\",\"url\":\"https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/\",\"name\":\"Database Hardening: Teknik Mengunci SQL Server agar Tidak Menjadi 'Open House' bagi SQL Injection - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg\",\"datePublished\":\"2026-01-24T00:10:02+00:00\",\"dateModified\":\"2026-07-06T21:13:08+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg\",\"width\":768,\"height\":512},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Database Hardening: Teknik Mengunci SQL Server agar Tidak Menjadi &#8216;Open House&#8217; bagi SQL Injection\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Database Hardening: Teknik Mengunci SQL Server agar Tidak Menjadi 'Open House' bagi SQL Injection - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Database Hardening: Teknik Mengunci SQL Server agar Tidak Menjadi 'Open House' bagi SQL Injection - buletinsiber.com",
+      "og_description": "Pengantar Database menjadi salah satu komponen terpenting dalam sistem modern—menyimpan data sensitif hingga informasi bisnis krusial. Namun pada sisi yang sama, database juga menjadi target utama serangan siber, terutama SQL Injection. Tanpa pengamanan yang tepat, SQL Server bisa ibarat rumah yang terbuka lebar bagi peretas. Database hardening adalah proses memperkuat konfigurasi, akses, dan kode agar database lebih kebal terhadap serangan—termasuk serangan injeksi yang mencoba memanipulasi input untuk menjalankan perintah berbahaya. Apa Itu Database Hardening? Database hardening adalah serangkaian tindakan sistematis untuk mengurangi permukaan serangan (attack surface) dan menutup celah konfigurasi sehingga database lebih aman terhadap eksploitasi. Ini mencakup: Pengaturan hak...",
+      "og_url": "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-01-24T00:10:02+00:00",
+      "article_modified_time": "2026-07-06T21:13:08+00:00",
+      "og_image": [
+        {
+          "width": 768,
+          "height": 512,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/",
+            "url": "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/",
+            "name": "Database Hardening: Teknik Mengunci SQL Server agar Tidak Menjadi 'Open House' bagi SQL Injection - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg",
+            "datePublished": "2026-01-24T00:10:02+00:00",
+            "dateModified": "2026-07-06T21:13:08+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg",
+            "width": 768,
+            "height": 512
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/database-hardening-teknik-mengunci-sql-server-agar-tidak-menjadi-open-house-bagi-sql-injection/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Database Hardening: Teknik Mengunci SQL Server agar Tidak Menjadi &#8216;Open House&#8217; bagi SQL Injection"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9359",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9359"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9359/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9360,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9359/revisions/9360"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8142"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9359"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9359"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9359"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

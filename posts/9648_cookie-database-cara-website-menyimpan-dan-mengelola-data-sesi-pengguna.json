@@ -1,0 +1,336 @@
+{
+  "id": 9648,
+  "title": "Cookie Database: Cara Website Menyimpan dan Mengelola Data Sesi Pengguna",
+  "slug": "cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna",
+  "url": "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/",
+  "date": "2026-02-27T02:04:02",
+  "date_gmt": "2026-02-27T02:04:02",
+  "modified": "2026-07-06T20:56:58",
+  "modified_gmt": "2026-07-06T20:56:58",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    1128,
+    51,
+    682,
+    299
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1322517295-612x612-1.jpg",
+  "excerpt": "Pengantar Setiap kali Anda login ke sebuah website, menambahkan produk ke keranjang belanja, atau mengatur preferensi bahasa, sistem bekerja di balik layar untuk mengingat aktivitas tersebut. Salah satu komponen utama yang berperan dalam proses ini adalah cookie. Namun, di luar cookie yang tersimpan di browser pengguna, terdapat mekanisme penyimpanan dan pengelolaan data yang lebih kompleks di sisi server maupun aplikasi. Konsep inilah yang sering disebut sebagai Cookie Database — tempat penyimpanan dan pengelolaan data sesi, autentikasi, serta preferensi pengguna dalam skala besar. Meski terdengar sederhana, pengelolaan cookie dan database terkait memiliki implikasi besar terhadap keamanan, privasi, dan performa sistem. Apa…",
+  "content_html": "<h2 data-start=\"74\" data-end=\"86\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p data-start=\"88\" data-end=\"345\"><span style=\"color: #000000;\">Setiap kali Anda login ke sebuah website, menambahkan produk ke keranjang belanja, atau mengatur preferensi bahasa, sistem bekerja di balik layar untuk mengingat aktivitas tersebut. Salah satu komponen utama yang berperan dalam proses ini adalah <strong data-start=\"334\" data-end=\"344\">cookie</strong>.</span></p>\n<p data-start=\"347\" data-end=\"676\"><span style=\"color: #000000;\">Namun, di luar cookie yang tersimpan di browser pengguna, terdapat mekanisme penyimpanan dan pengelolaan data yang lebih kompleks di sisi server maupun aplikasi. Konsep inilah yang sering disebut sebagai <strong data-start=\"551\" data-end=\"570\">Cookie Database</strong> — tempat penyimpanan dan pengelolaan data sesi, autentikasi, serta preferensi pengguna dalam skala besar.</span></p>\n<p data-start=\"678\" data-end=\"818\"><span style=\"color: #000000;\">Meski terdengar sederhana, pengelolaan cookie dan database terkait memiliki implikasi besar terhadap keamanan, privasi, dan performa sistem.</span></p>\n<hr data-start=\"820\" data-end=\"823\" />\n<h3 data-start=\"825\" data-end=\"852\"><span style=\"color: #000000;\">Apa Itu Cookie Database?</span></h3>\n<p data-start=\"854\" data-end=\"1008\"><span style=\"color: #000000;\">Secara teknis, cookie adalah file kecil yang disimpan di browser pengguna untuk menyimpan informasi tertentu, seperti session ID atau preferensi pengguna.</span></p>\n<p data-start=\"1010\" data-end=\"1247\"><span style=\"color: #000000;\">Menurut Cloudflare, cookie adalah data kecil yang dikirim dari server ke browser dan disimpan untuk mengidentifikasi pengguna atau mengingat informasi tertentu (dikutip dari <a href=\"https://www.cloudflare.com/learning/privacy/what-are-cookies/\">cloudflare</a>).</span></p>\n<p data-start=\"1249\" data-end=\"1317\"><span style=\"color: #000000;\">Sementara itu, <strong data-start=\"1264\" data-end=\"1283\">Cookie Database</strong> merujuk pada sistem backend yang:</span></p>\n<ul data-start=\"1319\" data-end=\"1537\">\n<li data-start=\"1319\" data-end=\"1371\">\n<p data-start=\"1321\" data-end=\"1371\"><span style=\"color: #000000;\">Mengelola session ID yang tersimpan dalam cookie</span></p>\n</li>\n<li data-start=\"1372\" data-end=\"1411\">\n<p data-start=\"1374\" data-end=\"1411\"><span style=\"color: #000000;\">Menyimpan data autentikasi pengguna</span></p>\n</li>\n<li data-start=\"1412\" data-end=\"1467\">\n<p data-start=\"1414\" data-end=\"1467\"><span style=\"color: #000000;\">Mengaitkan cookie dengan informasi akun di database</span></p>\n</li>\n<li data-start=\"1468\" data-end=\"1537\">\n<p data-start=\"1470\" data-end=\"1537\"><span style=\"color: #000000;\">Melacak aktivitas pengguna untuk keperluan analitik atau keamanan</span></p>\n</li>\n</ul>\n<p data-start=\"1539\" data-end=\"1691\"><span style=\"color: #000000;\">Dengan kata lain, cookie di browser sering kali hanya berisi referensi (seperti session token), sedangkan data utamanya tersimpan dalam database server.</span></p>\n<blockquote>\n<p data-start=\"1539\" data-end=\"1691\">baca juga : <a href=\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/\">SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan</a></p>\n</blockquote>\n<hr data-start=\"1693\" data-end=\"1696\" />\n<h3 data-start=\"1698\" data-end=\"1738\"><span style=\"color: #000000;\">Bagaimana Cara Kerja Cookie Database?</span></h3>\n<h4 data-start=\"1740\" data-end=\"1766\"><span style=\"color: #000000;\">Penyimpanan Session ID</span></h4>\n<p data-start=\"1768\" data-end=\"1788\"><span style=\"color: #000000;\">Saat pengguna login:</span></p>\n<ol data-start=\"1790\" data-end=\"1966\">\n<li data-start=\"1790\" data-end=\"1826\">\n<p data-start=\"1793\" data-end=\"1826\"><span style=\"color: #000000;\">Server membuat session ID unik.</span></p>\n</li>\n<li data-start=\"1827\" data-end=\"1882\">\n<p data-start=\"1830\" data-end=\"1882\"><span style=\"color: #000000;\">Session ID dikirim ke browser dalam bentuk cookie.</span></p>\n</li>\n<li data-start=\"1883\" data-end=\"1966\">\n<p data-start=\"1886\" data-end=\"1966\"><span style=\"color: #000000;\">Session ID tersebut disimpan dalam database server bersama data sesi pengguna.</span></p>\n</li>\n</ol>\n<p data-start=\"1968\" data-end=\"2127\"><span style=\"color: #000000;\">Ketika pengguna mengakses halaman lain, browser mengirimkan kembali cookie tersebut, dan server mencocokkannya dengan database untuk mengidentifikasi pengguna.</span></p>\n<h4 data-start=\"2129\" data-end=\"2166\"><span style=\"color: #000000;\">Integrasi dengan Database Backend</span></h4>\n<p data-start=\"2168\" data-end=\"2213\"><span style=\"color: #000000;\">Database backend menyimpan informasi seperti:</span></p>\n<ul data-start=\"2215\" data-end=\"2324\">\n<li data-start=\"2215\" data-end=\"2230\">\n<p data-start=\"2217\" data-end=\"2230\"><span style=\"color: #000000;\">ID pengguna</span></p>\n</li>\n<li data-start=\"2231\" data-end=\"2247\">\n<p data-start=\"2233\" data-end=\"2247\"><span style=\"color: #000000;\">Status login</span></p>\n</li>\n<li data-start=\"2248\" data-end=\"2280\">\n<p data-start=\"2250\" data-end=\"2280\"><span style=\"color: #000000;\">Timestamp aktivitas terakhir</span></p>\n</li>\n<li data-start=\"2281\" data-end=\"2304\">\n<p data-start=\"2283\" data-end=\"2304\"><span style=\"color: #000000;\">Hak akses atau role</span></p>\n</li>\n<li data-start=\"2305\" data-end=\"2324\">\n<p data-start=\"2307\" data-end=\"2324\"><span style=\"color: #000000;\">Preferensi akun</span></p>\n</li>\n</ul>\n<p data-start=\"2326\" data-end=\"2437\"><span style=\"color: #000000;\">Sistem ini memungkinkan website menjaga status autentikasi tanpa harus meminta login ulang pada setiap halaman.</span></p>\n<hr data-start=\"2439\" data-end=\"2442\" />\n<h3 data-start=\"2444\" data-end=\"2485\"><span style=\"color: #000000;\">Jenis-Jenis Cookie dalam Sistem Modern</span></h3>\n<h4 data-start=\"2487\" data-end=\"2506\"><span style=\"color: #000000;\">Session Cookies</span></h4>\n<p data-start=\"2508\" data-end=\"2568\"><span style=\"color: #000000;\">Cookie sementara yang aktif selama sesi browser berlangsung.</span></p>\n<h4 data-start=\"2570\" data-end=\"2592\"><span style=\"color: #000000;\">Persistent Cookies</span></h4>\n<p data-start=\"2594\" data-end=\"2647\"><span style=\"color: #000000;\">Cookie yang tetap tersimpan meskipun browser ditutup.</span></p>\n<h4 data-start=\"2649\" data-end=\"2675\"><span style=\"color: #000000;\">Authentication Cookies</span></h4>\n<p data-start=\"2677\" data-end=\"2754\"><span style=\"color: #000000;\">Digunakan untuk mengelola proses login dan menjaga sesi pengguna tetap aktif.</span></p>\n<h4 data-start=\"2756\" data-end=\"2776\"><span style=\"color: #000000;\">Tracking Cookies</span></h4>\n<p data-start=\"2778\" data-end=\"2827\"><span style=\"color: #000000;\">Digunakan untuk keperluan analitik dan pemasaran.</span></p>\n<p data-start=\"2829\" data-end=\"3066\"><span style=\"color: #000000;\">Menurut Mozilla Developer Network (MDN), cookie memiliki atribut seperti HttpOnly, Secure, dan SameSite yang dirancang untuk meningkatkan keamanan penyimpanan data (dikutip dari <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies\">Mozilla</a>).</span></p>\n<blockquote>\n<p data-start=\"2829\" data-end=\"3066\">baca juga : <a href=\"https://buletinsiber.com/cloud-hopper-strategi-spionase-siber-yang-menyusup-lewat-penyedia-layanan-cloud/\">Cloud Hopper: Strategi Spionase Siber yang Menyusup Lewat Penyedia Layanan Cloud</a></p>\n</blockquote>\n<hr data-start=\"3068\" data-end=\"3071\" />\n<h3 data-start=\"3073\" data-end=\"3112\"><span style=\"color: #000000;\">Risiko Keamanan pada Cookie Database</span></h3>\n<h4 data-start=\"3114\" data-end=\"3135\"><span style=\"color: #000000;\">Session Hijacking</span></h4>\n<p data-start=\"3137\" data-end=\"3238\"><span style=\"color: #000000;\">Jika session ID dicuri, penyerang dapat mengambil alih akun pengguna tanpa perlu mengetahui password.</span></p>\n<h4 data-start=\"3240\" data-end=\"3270\"><span style=\"color: #000000;\">Cross-Site Scripting (XSS)</span></h4>\n<p data-start=\"3272\" data-end=\"3352\"><span style=\"color: #000000;\">Serangan XSS dapat mencuri cookie jika tidak dilindungi dengan atribut HttpOnly.</span></p>\n<h4 data-start=\"3354\" data-end=\"3374\"><span style=\"color: #000000;\">Session Fixation</span></h4>\n<p data-start=\"3376\" data-end=\"3462\"><span style=\"color: #000000;\">Penyerang memaksa korban menggunakan session ID tertentu untuk kemudian dieksploitasi.</span></p>\n<h4 data-start=\"3464\" data-end=\"3490\"><span style=\"color: #000000;\">Kebocoran Data Backend</span></h4>\n<p data-start=\"3492\" data-end=\"3587\"><span style=\"color: #000000;\">Jika database sesi tidak diamankan dengan baik, seluruh sistem autentikasi dapat dikompromikan.</span></p>\n<hr data-start=\"3589\" data-end=\"3592\" />\n<h3 data-start=\"3594\" data-end=\"3640\"><span style=\"color: #000000;\">Praktik Terbaik Mengamankan Cookie Database</span></h3>\n<h4 data-start=\"3642\" data-end=\"3677\"><span style=\"color: #000000;\">Gunakan Atribut Keamanan Cookie</span></h4>\n<ul data-start=\"3679\" data-end=\"3815\">\n<li data-start=\"3679\" data-end=\"3726\">\n<p data-start=\"3681\" data-end=\"3726\"><span style=\"color: #000000;\">HttpOnly: Mencegah akses melalui JavaScript</span></p>\n</li>\n<li data-start=\"3727\" data-end=\"3766\">\n<p data-start=\"3729\" data-end=\"3766\"><span style=\"color: #000000;\">Secure: Hanya dikirim melalui HTTPS</span></p>\n</li>\n<li data-start=\"3767\" data-end=\"3815\">\n<p data-start=\"3769\" data-end=\"3815\"><span style=\"color: #000000;\">SameSite: Membatasi pengiriman lintas domain</span></p>\n</li>\n</ul>\n<h4 data-start=\"3817\" data-end=\"3852\"><span style=\"color: #000000;\">Enkripsi dan Hashing Session ID</span></h4>\n<p data-start=\"3854\" data-end=\"3934\"><span style=\"color: #000000;\">Pastikan session token sulit ditebak dan terenkripsi dengan algoritma yang kuat.</span></p>\n<h4 data-start=\"3936\" data-end=\"3962\"><span style=\"color: #000000;\">Batasi Masa Aktif Sesi</span></h4>\n<p data-start=\"3964\" data-end=\"4030\"><span style=\"color: #000000;\">Atur timeout otomatis untuk mengurangi risiko penyalahgunaan sesi.</span></p>\n<h4 data-start=\"4032\" data-end=\"4062\"><span style=\"color: #000000;\">Monitoring Aktivitas Login</span></h4>\n<p data-start=\"4064\" data-end=\"4143\"><span style=\"color: #000000;\">Deteksi aktivitas login yang mencurigakan seperti lokasi geografis tidak biasa.</span></p>\n<h4 data-start=\"4145\" data-end=\"4172\"><span style=\"color: #000000;\">Prinsip Least Privilege</span></h4>\n<p data-start=\"4174\" data-end=\"4245\"><span style=\"color: #000000;\">Batasi akses database hanya untuk layanan yang benar-benar membutuhkan.</span></p>\n<hr data-start=\"4247\" data-end=\"4250\" />\n<h3 data-start=\"4252\" data-end=\"4300\"><span style=\"color: #000000;\">Peran Cookie Database dalam Kepatuhan Privasi</span></h3>\n<p data-start=\"4302\" data-end=\"4462\"><span style=\"color: #000000;\">Pengelolaan cookie juga berkaitan erat dengan regulasi privasi seperti GDPR dan berbagai kebijakan perlindungan data lainnya. Website harus transparan mengenai:</span></p>\n<ul data-start=\"4464\" data-end=\"4570\">\n<li data-start=\"4464\" data-end=\"4495\">\n<p data-start=\"4466\" data-end=\"4495\"><span style=\"color: #000000;\">Jenis cookie yang digunakan</span></p>\n</li>\n<li data-start=\"4496\" data-end=\"4517\">\n<p data-start=\"4498\" data-end=\"4517\"><span style=\"color: #000000;\">Tujuan penggunaan</span></p>\n</li>\n<li data-start=\"4518\" data-end=\"4540\">\n<p data-start=\"4520\" data-end=\"4540\"><span style=\"color: #000000;\">Durasi penyimpanan</span></p>\n</li>\n<li data-start=\"4541\" data-end=\"4570\">\n<p data-start=\"4543\" data-end=\"4570\"><span style=\"color: #000000;\">Opsi persetujuan pengguna</span></p>\n</li>\n</ul>\n<p data-start=\"4572\" data-end=\"4674\"><span style=\"color: #000000;\">Transparansi ini tidak hanya meningkatkan kepatuhan hukum, tetapi juga membangun kepercayaan pengguna.</span></p>\n<hr data-start=\"4676\" data-end=\"4679\" />\n<h3 data-start=\"4681\" data-end=\"4724\"><span style=\"color: #000000;\">Relevansi Cookie Database di Era Digital</span></h3>\n<p data-start=\"4726\" data-end=\"4954\"><span style=\"color: #000000;\">Dengan meningkatnya integrasi sistem berbasis cloud dan aplikasi web modern, pengelolaan sesi menjadi semakin kompleks. Arsitektur microservices, API, dan aplikasi mobile menuntut sistem autentikasi yang lebih aman dan skalabel.</span></p>\n<p data-start=\"4956\" data-end=\"5069\"><span style=\"color: #000000;\">Cookie Database bukan sekadar sistem penyimpanan, melainkan fondasi keamanan autentikasi dalam ekosistem digital.</span></p>\n<blockquote>\n<p data-start=\"4956\" data-end=\"5069\">baca juga : <a href=\"https://buletinsiber.com/magecart-attack-ancaman-tersembunyi-di-balik-transaksi-belanja-online/\">Magecart Attack: Ancaman Tersembunyi di Balik Transaksi Belanja Online</a></p>\n</blockquote>\n<hr data-start=\"5071\" data-end=\"5074\" />\n<h2 data-start=\"5076\" data-end=\"5089\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p data-start=\"5091\" data-end=\"5373\"><span style=\"color: #000000;\">Cookie Database memainkan peran penting dalam mengelola autentikasi, sesi pengguna, dan preferensi dalam aplikasi web modern. Meskipun cookie terlihat sederhana di sisi pengguna, sistem backend yang mendukungnya memiliki tanggung jawab besar dalam menjaga keamanan dan privasi data.</span></p>\n<p data-start=\"5375\" data-end=\"5607\"><span style=\"color: #000000;\">Dengan penerapan praktik keamanan yang tepat, seperti penggunaan atribut cookie yang aman, enkripsi session ID, serta monitoring aktivitas mencurigakan, organisasi dapat meminimalkan risiko eksploitasi dan menjaga integritas sistem.</span></p>\n<p data-start=\"5609\" data-end=\"5776\"><span style=\"color: #000000;\">Di tengah meningkatnya ancaman siber dan regulasi privasi yang ketat, pengelolaan cookie database yang aman menjadi bagian penting dari strategi keamanan aplikasi web.</span></p>\n",
+  "content_text": "Pengantar\nSetiap kali Anda login ke sebuah website, menambahkan produk ke keranjang belanja, atau mengatur preferensi bahasa, sistem bekerja di balik layar untuk mengingat aktivitas tersebut. Salah satu komponen utama yang berperan dalam proses ini adalah  cookie .\nNamun, di luar cookie yang tersimpan di browser pengguna, terdapat mekanisme penyimpanan dan pengelolaan data yang lebih kompleks di sisi server maupun aplikasi. Konsep inilah yang sering disebut sebagai  Cookie Database  — tempat penyimpanan dan pengelolaan data sesi, autentikasi, serta preferensi pengguna dalam skala besar.\nMeski terdengar sederhana, pengelolaan cookie dan database terkait memiliki implikasi besar terhadap keamanan, privasi, dan performa sistem.\nApa Itu Cookie Database?\nSecara teknis, cookie adalah file kecil yang disimpan di browser pengguna untuk menyimpan informasi tertentu, seperti session ID atau preferensi pengguna.\nMenurut Cloudflare, cookie adalah data kecil yang dikirim dari server ke browser dan disimpan untuk mengidentifikasi pengguna atau mengingat informasi tertentu (dikutip dari  cloudflare ).\nSementara itu,  Cookie Database  merujuk pada sistem backend yang:\nMengelola session ID yang tersimpan dalam cookie\nMenyimpan data autentikasi pengguna\nMengaitkan cookie dengan informasi akun di database\nMelacak aktivitas pengguna untuk keperluan analitik atau keamanan\nDengan kata lain, cookie di browser sering kali hanya berisi referensi (seperti session token), sedangkan data utamanya tersimpan dalam database server.\nbaca juga :  SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan\nBagaimana Cara Kerja Cookie Database?\nPenyimpanan Session ID\nSaat pengguna login:\nServer membuat session ID unik.\nSession ID dikirim ke browser dalam bentuk cookie.\nSession ID tersebut disimpan dalam database server bersama data sesi pengguna.\nKetika pengguna mengakses halaman lain, browser mengirimkan kembali cookie tersebut, dan server mencocokkannya dengan database untuk mengidentifikasi pengguna.\nIntegrasi dengan Database Backend\nDatabase backend menyimpan informasi seperti:\nID pengguna\nStatus login\nTimestamp aktivitas terakhir\nHak akses atau role\nPreferensi akun\nSistem ini memungkinkan website menjaga status autentikasi tanpa harus meminta login ulang pada setiap halaman.\nJenis-Jenis Cookie dalam Sistem Modern\nSession Cookies\nCookie sementara yang aktif selama sesi browser berlangsung.\nPersistent Cookies\nCookie yang tetap tersimpan meskipun browser ditutup.\nAuthentication Cookies\nDigunakan untuk mengelola proses login dan menjaga sesi pengguna tetap aktif.\nTracking Cookies\nDigunakan untuk keperluan analitik dan pemasaran.\nMenurut Mozilla Developer Network (MDN), cookie memiliki atribut seperti HttpOnly, Secure, dan SameSite yang dirancang untuk meningkatkan keamanan penyimpanan data (dikutip dari  Mozilla ).\nbaca juga :  Cloud Hopper: Strategi Spionase Siber yang Menyusup Lewat Penyedia Layanan Cloud\nRisiko Keamanan pada Cookie Database\nSession Hijacking\nJika session ID dicuri, penyerang dapat mengambil alih akun pengguna tanpa perlu mengetahui password.\nCross-Site Scripting (XSS)\nSerangan XSS dapat mencuri cookie jika tidak dilindungi dengan atribut HttpOnly.\nSession Fixation\nPenyerang memaksa korban menggunakan session ID tertentu untuk kemudian dieksploitasi.\nKebocoran Data Backend\nJika database sesi tidak diamankan dengan baik, seluruh sistem autentikasi dapat dikompromikan.\nPraktik Terbaik Mengamankan Cookie Database\nGunakan Atribut Keamanan Cookie\nHttpOnly: Mencegah akses melalui JavaScript\nSecure: Hanya dikirim melalui HTTPS\nSameSite: Membatasi pengiriman lintas domain\nEnkripsi dan Hashing Session ID\nPastikan session token sulit ditebak dan terenkripsi dengan algoritma yang kuat.\nBatasi Masa Aktif Sesi\nAtur timeout otomatis untuk mengurangi risiko penyalahgunaan sesi.\nMonitoring Aktivitas Login\nDeteksi aktivitas login yang mencurigakan seperti lokasi geografis tidak biasa.\nPrinsip Least Privilege\nBatasi akses database hanya untuk layanan yang benar-benar membutuhkan.\nPeran Cookie Database dalam Kepatuhan Privasi\nPengelolaan cookie juga berkaitan erat dengan regulasi privasi seperti GDPR dan berbagai kebijakan perlindungan data lainnya. Website harus transparan mengenai:\nJenis cookie yang digunakan\nTujuan penggunaan\nDurasi penyimpanan\nOpsi persetujuan pengguna\nTransparansi ini tidak hanya meningkatkan kepatuhan hukum, tetapi juga membangun kepercayaan pengguna.\nRelevansi Cookie Database di Era Digital\nDengan meningkatnya integrasi sistem berbasis cloud dan aplikasi web modern, pengelolaan sesi menjadi semakin kompleks. Arsitektur microservices, API, dan aplikasi mobile menuntut sistem autentikasi yang lebih aman dan skalabel.\nCookie Database bukan sekadar sistem penyimpanan, melainkan fondasi keamanan autentikasi dalam ekosistem digital.\nbaca juga :  Magecart Attack: Ancaman Tersembunyi di Balik Transaksi Belanja Online\nKesimpulan\nCookie Database memainkan peran penting dalam mengelola autentikasi, sesi pengguna, dan preferensi dalam aplikasi web modern. Meskipun cookie terlihat sederhana di sisi pengguna, sistem backend yang mendukungnya memiliki tanggung jawab besar dalam menjaga keamanan dan privasi data.\nDengan penerapan praktik keamanan yang tepat, seperti penggunaan atribut cookie yang aman, enkripsi session ID, serta monitoring aktivitas mencurigakan, organisasi dapat meminimalkan risiko eksploitasi dan menjaga integritas sistem.\nDi tengah meningkatnya ancaman siber dan regulasi privasi yang ketat, pengelolaan cookie database yang aman menjadi bagian penting dari strategi keamanan aplikasi web.",
+  "raw": {
+    "id": 9648,
+    "date": "2026-02-27T02:04:02",
+    "date_gmt": "2026-02-27T02:04:02",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9648"
+    },
+    "modified": "2026-07-06T20:56:58",
+    "modified_gmt": "2026-07-06T20:56:58",
+    "slug": "cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/",
+    "title": {
+      "rendered": "Cookie Database: Cara Website Menyimpan dan Mengelola Data Sesi Pengguna"
+    },
+    "content": {
+      "rendered": "<h2 data-start=\"74\" data-end=\"86\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p data-start=\"88\" data-end=\"345\"><span style=\"color: #000000;\">Setiap kali Anda login ke sebuah website, menambahkan produk ke keranjang belanja, atau mengatur preferensi bahasa, sistem bekerja di balik layar untuk mengingat aktivitas tersebut. Salah satu komponen utama yang berperan dalam proses ini adalah <strong data-start=\"334\" data-end=\"344\">cookie</strong>.</span></p>\n<p data-start=\"347\" data-end=\"676\"><span style=\"color: #000000;\">Namun, di luar cookie yang tersimpan di browser pengguna, terdapat mekanisme penyimpanan dan pengelolaan data yang lebih kompleks di sisi server maupun aplikasi. Konsep inilah yang sering disebut sebagai <strong data-start=\"551\" data-end=\"570\">Cookie Database</strong> — tempat penyimpanan dan pengelolaan data sesi, autentikasi, serta preferensi pengguna dalam skala besar.</span></p>\n<p data-start=\"678\" data-end=\"818\"><span style=\"color: #000000;\">Meski terdengar sederhana, pengelolaan cookie dan database terkait memiliki implikasi besar terhadap keamanan, privasi, dan performa sistem.</span></p>\n<hr data-start=\"820\" data-end=\"823\" />\n<h3 data-start=\"825\" data-end=\"852\"><span style=\"color: #000000;\">Apa Itu Cookie Database?</span></h3>\n<p data-start=\"854\" data-end=\"1008\"><span style=\"color: #000000;\">Secara teknis, cookie adalah file kecil yang disimpan di browser pengguna untuk menyimpan informasi tertentu, seperti session ID atau preferensi pengguna.</span></p>\n<p data-start=\"1010\" data-end=\"1247\"><span style=\"color: #000000;\">Menurut Cloudflare, cookie adalah data kecil yang dikirim dari server ke browser dan disimpan untuk mengidentifikasi pengguna atau mengingat informasi tertentu (dikutip dari <a href=\"https://www.cloudflare.com/learning/privacy/what-are-cookies/\">cloudflare</a>).</span></p>\n<p data-start=\"1249\" data-end=\"1317\"><span style=\"color: #000000;\">Sementara itu, <strong data-start=\"1264\" data-end=\"1283\">Cookie Database</strong> merujuk pada sistem backend yang:</span></p>\n<ul data-start=\"1319\" data-end=\"1537\">\n<li data-start=\"1319\" data-end=\"1371\">\n<p data-start=\"1321\" data-end=\"1371\"><span style=\"color: #000000;\">Mengelola session ID yang tersimpan dalam cookie</span></p>\n</li>\n<li data-start=\"1372\" data-end=\"1411\">\n<p data-start=\"1374\" data-end=\"1411\"><span style=\"color: #000000;\">Menyimpan data autentikasi pengguna</span></p>\n</li>\n<li data-start=\"1412\" data-end=\"1467\">\n<p data-start=\"1414\" data-end=\"1467\"><span style=\"color: #000000;\">Mengaitkan cookie dengan informasi akun di database</span></p>\n</li>\n<li data-start=\"1468\" data-end=\"1537\">\n<p data-start=\"1470\" data-end=\"1537\"><span style=\"color: #000000;\">Melacak aktivitas pengguna untuk keperluan analitik atau keamanan</span></p>\n</li>\n</ul>\n<p data-start=\"1539\" data-end=\"1691\"><span style=\"color: #000000;\">Dengan kata lain, cookie di browser sering kali hanya berisi referensi (seperti session token), sedangkan data utamanya tersimpan dalam database server.</span></p>\n<blockquote>\n<p data-start=\"1539\" data-end=\"1691\">baca juga : <a href=\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/\">SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan</a></p>\n</blockquote>\n<hr data-start=\"1693\" data-end=\"1696\" />\n<h3 data-start=\"1698\" data-end=\"1738\"><span style=\"color: #000000;\">Bagaimana Cara Kerja Cookie Database?</span></h3>\n<h4 data-start=\"1740\" data-end=\"1766\"><span style=\"color: #000000;\">Penyimpanan Session ID</span></h4>\n<p data-start=\"1768\" data-end=\"1788\"><span style=\"color: #000000;\">Saat pengguna login:</span></p>\n<ol data-start=\"1790\" data-end=\"1966\">\n<li data-start=\"1790\" data-end=\"1826\">\n<p data-start=\"1793\" data-end=\"1826\"><span style=\"color: #000000;\">Server membuat session ID unik.</span></p>\n</li>\n<li data-start=\"1827\" data-end=\"1882\">\n<p data-start=\"1830\" data-end=\"1882\"><span style=\"color: #000000;\">Session ID dikirim ke browser dalam bentuk cookie.</span></p>\n</li>\n<li data-start=\"1883\" data-end=\"1966\">\n<p data-start=\"1886\" data-end=\"1966\"><span style=\"color: #000000;\">Session ID tersebut disimpan dalam database server bersama data sesi pengguna.</span></p>\n</li>\n</ol>\n<p data-start=\"1968\" data-end=\"2127\"><span style=\"color: #000000;\">Ketika pengguna mengakses halaman lain, browser mengirimkan kembali cookie tersebut, dan server mencocokkannya dengan database untuk mengidentifikasi pengguna.</span></p>\n<h4 data-start=\"2129\" data-end=\"2166\"><span style=\"color: #000000;\">Integrasi dengan Database Backend</span></h4>\n<p data-start=\"2168\" data-end=\"2213\"><span style=\"color: #000000;\">Database backend menyimpan informasi seperti:</span></p>\n<ul data-start=\"2215\" data-end=\"2324\">\n<li data-start=\"2215\" data-end=\"2230\">\n<p data-start=\"2217\" data-end=\"2230\"><span style=\"color: #000000;\">ID pengguna</span></p>\n</li>\n<li data-start=\"2231\" data-end=\"2247\">\n<p data-start=\"2233\" data-end=\"2247\"><span style=\"color: #000000;\">Status login</span></p>\n</li>\n<li data-start=\"2248\" data-end=\"2280\">\n<p data-start=\"2250\" data-end=\"2280\"><span style=\"color: #000000;\">Timestamp aktivitas terakhir</span></p>\n</li>\n<li data-start=\"2281\" data-end=\"2304\">\n<p data-start=\"2283\" data-end=\"2304\"><span style=\"color: #000000;\">Hak akses atau role</span></p>\n</li>\n<li data-start=\"2305\" data-end=\"2324\">\n<p data-start=\"2307\" data-end=\"2324\"><span style=\"color: #000000;\">Preferensi akun</span></p>\n</li>\n</ul>\n<p data-start=\"2326\" data-end=\"2437\"><span style=\"color: #000000;\">Sistem ini memungkinkan website menjaga status autentikasi tanpa harus meminta login ulang pada setiap halaman.</span></p>\n<hr data-start=\"2439\" data-end=\"2442\" />\n<h3 data-start=\"2444\" data-end=\"2485\"><span style=\"color: #000000;\">Jenis-Jenis Cookie dalam Sistem Modern</span></h3>\n<h4 data-start=\"2487\" data-end=\"2506\"><span style=\"color: #000000;\">Session Cookies</span></h4>\n<p data-start=\"2508\" data-end=\"2568\"><span style=\"color: #000000;\">Cookie sementara yang aktif selama sesi browser berlangsung.</span></p>\n<h4 data-start=\"2570\" data-end=\"2592\"><span style=\"color: #000000;\">Persistent Cookies</span></h4>\n<p data-start=\"2594\" data-end=\"2647\"><span style=\"color: #000000;\">Cookie yang tetap tersimpan meskipun browser ditutup.</span></p>\n<h4 data-start=\"2649\" data-end=\"2675\"><span style=\"color: #000000;\">Authentication Cookies</span></h4>\n<p data-start=\"2677\" data-end=\"2754\"><span style=\"color: #000000;\">Digunakan untuk mengelola proses login dan menjaga sesi pengguna tetap aktif.</span></p>\n<h4 data-start=\"2756\" data-end=\"2776\"><span style=\"color: #000000;\">Tracking Cookies</span></h4>\n<p data-start=\"2778\" data-end=\"2827\"><span style=\"color: #000000;\">Digunakan untuk keperluan analitik dan pemasaran.</span></p>\n<p data-start=\"2829\" data-end=\"3066\"><span style=\"color: #000000;\">Menurut Mozilla Developer Network (MDN), cookie memiliki atribut seperti HttpOnly, Secure, dan SameSite yang dirancang untuk meningkatkan keamanan penyimpanan data (dikutip dari <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies\">Mozilla</a>).</span></p>\n<blockquote>\n<p data-start=\"2829\" data-end=\"3066\">baca juga : <a href=\"https://buletinsiber.com/cloud-hopper-strategi-spionase-siber-yang-menyusup-lewat-penyedia-layanan-cloud/\">Cloud Hopper: Strategi Spionase Siber yang Menyusup Lewat Penyedia Layanan Cloud</a></p>\n</blockquote>\n<hr data-start=\"3068\" data-end=\"3071\" />\n<h3 data-start=\"3073\" data-end=\"3112\"><span style=\"color: #000000;\">Risiko Keamanan pada Cookie Database</span></h3>\n<h4 data-start=\"3114\" data-end=\"3135\"><span style=\"color: #000000;\">Session Hijacking</span></h4>\n<p data-start=\"3137\" data-end=\"3238\"><span style=\"color: #000000;\">Jika session ID dicuri, penyerang dapat mengambil alih akun pengguna tanpa perlu mengetahui password.</span></p>\n<h4 data-start=\"3240\" data-end=\"3270\"><span style=\"color: #000000;\">Cross-Site Scripting (XSS)</span></h4>\n<p data-start=\"3272\" data-end=\"3352\"><span style=\"color: #000000;\">Serangan XSS dapat mencuri cookie jika tidak dilindungi dengan atribut HttpOnly.</span></p>\n<h4 data-start=\"3354\" data-end=\"3374\"><span style=\"color: #000000;\">Session Fixation</span></h4>\n<p data-start=\"3376\" data-end=\"3462\"><span style=\"color: #000000;\">Penyerang memaksa korban menggunakan session ID tertentu untuk kemudian dieksploitasi.</span></p>\n<h4 data-start=\"3464\" data-end=\"3490\"><span style=\"color: #000000;\">Kebocoran Data Backend</span></h4>\n<p data-start=\"3492\" data-end=\"3587\"><span style=\"color: #000000;\">Jika database sesi tidak diamankan dengan baik, seluruh sistem autentikasi dapat dikompromikan.</span></p>\n<hr data-start=\"3589\" data-end=\"3592\" />\n<h3 data-start=\"3594\" data-end=\"3640\"><span style=\"color: #000000;\">Praktik Terbaik Mengamankan Cookie Database</span></h3>\n<h4 data-start=\"3642\" data-end=\"3677\"><span style=\"color: #000000;\">Gunakan Atribut Keamanan Cookie</span></h4>\n<ul data-start=\"3679\" data-end=\"3815\">\n<li data-start=\"3679\" data-end=\"3726\">\n<p data-start=\"3681\" data-end=\"3726\"><span style=\"color: #000000;\">HttpOnly: Mencegah akses melalui JavaScript</span></p>\n</li>\n<li data-start=\"3727\" data-end=\"3766\">\n<p data-start=\"3729\" data-end=\"3766\"><span style=\"color: #000000;\">Secure: Hanya dikirim melalui HTTPS</span></p>\n</li>\n<li data-start=\"3767\" data-end=\"3815\">\n<p data-start=\"3769\" data-end=\"3815\"><span style=\"color: #000000;\">SameSite: Membatasi pengiriman lintas domain</span></p>\n</li>\n</ul>\n<h4 data-start=\"3817\" data-end=\"3852\"><span style=\"color: #000000;\">Enkripsi dan Hashing Session ID</span></h4>\n<p data-start=\"3854\" data-end=\"3934\"><span style=\"color: #000000;\">Pastikan session token sulit ditebak dan terenkripsi dengan algoritma yang kuat.</span></p>\n<h4 data-start=\"3936\" data-end=\"3962\"><span style=\"color: #000000;\">Batasi Masa Aktif Sesi</span></h4>\n<p data-start=\"3964\" data-end=\"4030\"><span style=\"color: #000000;\">Atur timeout otomatis untuk mengurangi risiko penyalahgunaan sesi.</span></p>\n<h4 data-start=\"4032\" data-end=\"4062\"><span style=\"color: #000000;\">Monitoring Aktivitas Login</span></h4>\n<p data-start=\"4064\" data-end=\"4143\"><span style=\"color: #000000;\">Deteksi aktivitas login yang mencurigakan seperti lokasi geografis tidak biasa.</span></p>\n<h4 data-start=\"4145\" data-end=\"4172\"><span style=\"color: #000000;\">Prinsip Least Privilege</span></h4>\n<p data-start=\"4174\" data-end=\"4245\"><span style=\"color: #000000;\">Batasi akses database hanya untuk layanan yang benar-benar membutuhkan.</span></p>\n<hr data-start=\"4247\" data-end=\"4250\" />\n<h3 data-start=\"4252\" data-end=\"4300\"><span style=\"color: #000000;\">Peran Cookie Database dalam Kepatuhan Privasi</span></h3>\n<p data-start=\"4302\" data-end=\"4462\"><span style=\"color: #000000;\">Pengelolaan cookie juga berkaitan erat dengan regulasi privasi seperti GDPR dan berbagai kebijakan perlindungan data lainnya. Website harus transparan mengenai:</span></p>\n<ul data-start=\"4464\" data-end=\"4570\">\n<li data-start=\"4464\" data-end=\"4495\">\n<p data-start=\"4466\" data-end=\"4495\"><span style=\"color: #000000;\">Jenis cookie yang digunakan</span></p>\n</li>\n<li data-start=\"4496\" data-end=\"4517\">\n<p data-start=\"4498\" data-end=\"4517\"><span style=\"color: #000000;\">Tujuan penggunaan</span></p>\n</li>\n<li data-start=\"4518\" data-end=\"4540\">\n<p data-start=\"4520\" data-end=\"4540\"><span style=\"color: #000000;\">Durasi penyimpanan</span></p>\n</li>\n<li data-start=\"4541\" data-end=\"4570\">\n<p data-start=\"4543\" data-end=\"4570\"><span style=\"color: #000000;\">Opsi persetujuan pengguna</span></p>\n</li>\n</ul>\n<p data-start=\"4572\" data-end=\"4674\"><span style=\"color: #000000;\">Transparansi ini tidak hanya meningkatkan kepatuhan hukum, tetapi juga membangun kepercayaan pengguna.</span></p>\n<hr data-start=\"4676\" data-end=\"4679\" />\n<h3 data-start=\"4681\" data-end=\"4724\"><span style=\"color: #000000;\">Relevansi Cookie Database di Era Digital</span></h3>\n<p data-start=\"4726\" data-end=\"4954\"><span style=\"color: #000000;\">Dengan meningkatnya integrasi sistem berbasis cloud dan aplikasi web modern, pengelolaan sesi menjadi semakin kompleks. Arsitektur microservices, API, dan aplikasi mobile menuntut sistem autentikasi yang lebih aman dan skalabel.</span></p>\n<p data-start=\"4956\" data-end=\"5069\"><span style=\"color: #000000;\">Cookie Database bukan sekadar sistem penyimpanan, melainkan fondasi keamanan autentikasi dalam ekosistem digital.</span></p>\n<blockquote>\n<p data-start=\"4956\" data-end=\"5069\">baca juga : <a href=\"https://buletinsiber.com/magecart-attack-ancaman-tersembunyi-di-balik-transaksi-belanja-online/\">Magecart Attack: Ancaman Tersembunyi di Balik Transaksi Belanja Online</a></p>\n</blockquote>\n<hr data-start=\"5071\" data-end=\"5074\" />\n<h2 data-start=\"5076\" data-end=\"5089\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p data-start=\"5091\" data-end=\"5373\"><span style=\"color: #000000;\">Cookie Database memainkan peran penting dalam mengelola autentikasi, sesi pengguna, dan preferensi dalam aplikasi web modern. Meskipun cookie terlihat sederhana di sisi pengguna, sistem backend yang mendukungnya memiliki tanggung jawab besar dalam menjaga keamanan dan privasi data.</span></p>\n<p data-start=\"5375\" data-end=\"5607\"><span style=\"color: #000000;\">Dengan penerapan praktik keamanan yang tepat, seperti penggunaan atribut cookie yang aman, enkripsi session ID, serta monitoring aktivitas mencurigakan, organisasi dapat meminimalkan risiko eksploitasi dan menjaga integritas sistem.</span></p>\n<p data-start=\"5609\" data-end=\"5776\"><span style=\"color: #000000;\">Di tengah meningkatnya ancaman siber dan regulasi privasi yang ketat, pengelolaan cookie database yang aman menjadi bagian penting dari strategi keamanan aplikasi web.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Setiap kali Anda login ke sebuah website, menambahkan produk ke keranjang belanja, atau mengatur preferensi bahasa, sistem bekerja di balik layar untuk mengingat aktivitas tersebut. Salah satu komponen utama yang berperan dalam proses ini adalah cookie. Namun, di luar cookie yang tersimpan di browser pengguna, terdapat mekanisme penyimpanan dan pengelolaan data yang lebih kompleks di sisi server maupun aplikasi. Konsep inilah yang sering disebut sebagai Cookie Database — tempat penyimpanan dan pengelolaan data sesi, autentikasi, serta preferensi pengguna dalam skala besar. Meski terdengar sederhana, pengelolaan cookie dan database terkait memiliki implikasi besar terhadap keamanan, privasi, dan performa sistem. Apa&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 4906,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Cookie Database",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      1128,
+      51,
+      682,
+      299
+    ],
+    "class_list": [
+      "post-9648",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-cookie",
+      "tag-data",
+      "tag-keamanan",
+      "tag-website"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Cookie Database: Cara Website Menyimpan dan Mengelola Data Sesi Pengguna - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Cookie Database: Cara Website Menyimpan dan Mengelola Data Sesi Pengguna - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Setiap kali Anda login ke sebuah website, menambahkan produk ke keranjang belanja, atau mengatur preferensi bahasa, sistem bekerja di balik layar untuk mengingat aktivitas tersebut. Salah satu komponen utama yang berperan dalam proses ini adalah cookie. Namun, di luar cookie yang tersimpan di browser pengguna, terdapat mekanisme penyimpanan dan pengelolaan data yang lebih kompleks di sisi server maupun aplikasi. Konsep inilah yang sering disebut sebagai Cookie Database — tempat penyimpanan dan pengelolaan data sesi, autentikasi, serta preferensi pengguna dalam skala besar. Meski terdengar sederhana, pengelolaan cookie dan database terkait memiliki implikasi besar terhadap keamanan, privasi, dan performa sistem. Apa...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-02-27T02:04:02+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:56:58+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1322517295-612x612-1.jpg\" />\n\t<meta property=\"og:image:width\" content=\"612\" />\n\t<meta property=\"og:image:height\" content=\"408\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/\",\"url\":\"https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/\",\"name\":\"Cookie Database: Cara Website Menyimpan dan Mengelola Data Sesi Pengguna - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1322517295-612x612-1.jpg\",\"datePublished\":\"2026-02-27T02:04:02+00:00\",\"dateModified\":\"2026-07-06T20:56:58+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1322517295-612x612-1.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1322517295-612x612-1.jpg\",\"width\":612,\"height\":408,\"caption\":\"Cyber security IT engineer working on protecting network against cyberattack from hackers on internet. Secure access for online privacy and personal data protection. Hands typing on keyboard and PCB\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Cookie Database: Cara Website Menyimpan dan Mengelola Data Sesi Pengguna\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Cookie Database: Cara Website Menyimpan dan Mengelola Data Sesi Pengguna - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Cookie Database: Cara Website Menyimpan dan Mengelola Data Sesi Pengguna - buletinsiber.com",
+      "og_description": "Pengantar Setiap kali Anda login ke sebuah website, menambahkan produk ke keranjang belanja, atau mengatur preferensi bahasa, sistem bekerja di balik layar untuk mengingat aktivitas tersebut. Salah satu komponen utama yang berperan dalam proses ini adalah cookie. Namun, di luar cookie yang tersimpan di browser pengguna, terdapat mekanisme penyimpanan dan pengelolaan data yang lebih kompleks di sisi server maupun aplikasi. Konsep inilah yang sering disebut sebagai Cookie Database — tempat penyimpanan dan pengelolaan data sesi, autentikasi, serta preferensi pengguna dalam skala besar. Meski terdengar sederhana, pengelolaan cookie dan database terkait memiliki implikasi besar terhadap keamanan, privasi, dan performa sistem. Apa...",
+      "og_url": "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-02-27T02:04:02+00:00",
+      "article_modified_time": "2026-07-06T20:56:58+00:00",
+      "og_image": [
+        {
+          "width": 612,
+          "height": 408,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1322517295-612x612-1.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/",
+            "url": "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/",
+            "name": "Cookie Database: Cara Website Menyimpan dan Mengelola Data Sesi Pengguna - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1322517295-612x612-1.jpg",
+            "datePublished": "2026-02-27T02:04:02+00:00",
+            "dateModified": "2026-07-06T20:56:58+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1322517295-612x612-1.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1322517295-612x612-1.jpg",
+            "width": 612,
+            "height": 408,
+            "caption": "Cyber security IT engineer working on protecting network against cyberattack from hackers on internet. Secure access for online privacy and personal data protection. Hands typing on keyboard and PCB"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/cookie-database-cara-website-menyimpan-dan-mengelola-data-sesi-pengguna/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Cookie Database: Cara Website Menyimpan dan Mengelola Data Sesi Pengguna"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9648",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9648"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9648/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9649,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9648/revisions/9649"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4906"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9648"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9648"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9648"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

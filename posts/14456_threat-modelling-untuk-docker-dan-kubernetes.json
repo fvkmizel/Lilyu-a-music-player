@@ -1,0 +1,322 @@
+{
+  "id": 14456,
+  "title": "Threat Modelling untuk Docker dan Kubernetes",
+  "slug": "threat-modelling-untuk-docker-dan-kubernetes",
+  "url": "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/",
+  "date": "2026-07-28T19:46:48",
+  "date_gmt": "2026-07-28T19:46:48",
+  "modified": "2026-07-28T19:46:48",
+  "modified_gmt": "2026-07-28T19:46:48",
+  "author": {
+    "id": 21,
+    "name": "Muh Abduh Syahran"
+  },
+  "categories": [
+    {
+      "id": 2237,
+      "name": "Cybersecurity"
+    }
+  ],
+  "tags": [
+    371,
+    333,
+    51,
+    682
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-034504.png",
+  "excerpt": "Docker dan Kubernetes telah menjadi bagian penting dalam pengembangan aplikasi modern. Docker memudahkan pengembang mengemas aplikasi beserta seluruh dependensinya ke dalam container, sedangkan Kubernetes membantu mengelola ratusan bahkan ribuan container agar tetap berjalan dengan baik. Kombinasi keduanya membuat proses deployment menjadi lebih cepat, konsisten, dan mudah diperluas sesuai kebutuhan. Meski menawarkan banyak keuntungan, penggunaan Docker dan Kubernetes juga memperluas area yang perlu diamankan. Selain aplikasi itu sendiri, tim harus memperhatikan keamanan container image, konfigurasi cluster, jaringan, penyimpanan data, hingga pengelolaan hak akses. Kesalahan pada satu komponen dapat memengaruhi layanan lain yang berada dalam lingkungan yang sama. Karena itu, threat modelling…",
+  "content_html": "<p class=\"PDq2pG_selectionAnchorContainer\" data-start=\"221\" data-end=\"624\">Docker dan Kubernetes telah menjadi bagian penting dalam pengembangan aplikasi modern. Docker memudahkan pengembang mengemas aplikasi beserta seluruh dependensinya ke dalam container, sedangkan Kubernetes membantu mengelola ratusan bahkan ribuan container agar tetap berjalan dengan baik. Kombinasi keduanya membuat proses deployment menjadi lebih cepat, konsisten, dan mudah diperluas sesuai kebutuhan.</p>\n<p data-start=\"626\" data-end=\"995\">Meski menawarkan banyak keuntungan, penggunaan Docker dan Kubernetes juga memperluas area yang perlu diamankan. Selain aplikasi itu sendiri, tim harus memperhatikan keamanan container image, konfigurasi cluster, jaringan, penyimpanan data, hingga pengelolaan hak akses. Kesalahan pada satu komponen dapat memengaruhi layanan lain yang berada dalam lingkungan yang sama.</p>\n<p data-start=\"997\" data-end=\"1276\">Karena itu, <em data-start=\"1009\" data-end=\"1027\">threat modelling</em> menjadi langkah yang penting sebelum sistem dijalankan di lingkungan produksi. Dengan menganalisis potensi ancaman sejak tahap perancangan, tim dapat mengambil keputusan yang lebih tepat untuk mengurangi risiko sekaligus menjaga stabilitas layanan.</p>\n<h2 data-section-id=\"1rlksh2\" data-start=\"1530\" data-end=\"1572\">1. Memahami Peran Docker dan Kubernetes</h2>\n<p data-start=\"1574\" data-end=\"1798\">Docker digunakan untuk mengemas aplikasi ke dalam container yang ringan dan mudah dipindahkan antarlingkungan. Dengan cara ini, aplikasi dapat berjalan secara konsisten, baik di komputer pengembang maupun di server produksi.</p>\n<p data-start=\"1800\" data-end=\"2054\">Sementara itu, Kubernetes berfungsi sebagai platform yang mengatur container tersebut. Kubernetes menangani proses seperti menjalankan container, membagi beban kerja, memulihkan layanan yang mengalami gangguan, hingga mengelola komunikasi antarcontainer.</p>\n<p data-start=\"2056\" data-end=\"2176\">Karena kedua teknologi ini saling melengkapi, pendekatan keamanan juga perlu mempertimbangkan keduanya secara bersamaan.</p>\n<h2 data-section-id=\"bu1dnp\" data-start=\"2183\" data-end=\"2222\">2. Mengapa Threat Modelling Penting?</h2>\n<p data-start=\"2224\" data-end=\"2445\">Lingkungan Docker dan Kubernetes terdiri atas banyak komponen yang saling terhubung. Selain container, ada registry image, cluster Kubernetes, jaringan internal, penyimpanan data, serta berbagai layanan pendukung lainnya.</p>\n<p data-start=\"2447\" data-end=\"2675\">Threat modelling membantu tim memahami hubungan antar komponen tersebut. Dengan memetakan arsitektur sejak awal, tim dapat mengetahui bagian mana yang paling berisiko dan menentukan langkah perlindungan sebelum sistem digunakan.</p>\n<p data-start=\"2677\" data-end=\"2799\">Pendekatan ini juga membantu mengurangi kemungkinan perubahan besar ketika aplikasi sudah berjalan di lingkungan produksi.</p>\n<h2 data-section-id=\"1p9vqpu\" data-start=\"2806\" data-end=\"2841\">3. Ancaman yang Sering Ditemukan</h2>\n<p data-start=\"2843\" data-end=\"2920\">Berikut beberapa ancaman yang umum ditemukan melalui proses threat modelling.</p>\n<h3 data-section-id=\"1vlj482\" data-start=\"2922\" data-end=\"2968\">Container Image yang Mengandung Kerentanan</h3>\n<p data-start=\"2970\" data-end=\"3092\">Image yang diambil dari sumber yang tidak terpercaya atau jarang diperbarui dapat membawa kerentanan yang sudah diketahui.</p>\n<h3 data-section-id=\"1249y9\" data-start=\"3099\" data-end=\"3140\">Hak Akses Container yang Terlalu Luas</h3>\n<p data-start=\"3142\" data-end=\"3330\">Container yang berjalan dengan hak akses tinggi memiliki risiko lebih besar jika berhasil disusupi. Penyerang dapat memanfaatkan hak tersebut untuk mengakses sumber daya lain dalam sistem.</p>\n<h3 data-section-id=\"91inqz\" data-start=\"3337\" data-end=\"3381\">Konfigurasi Kubernetes yang Kurang Tepat</h3>\n<p data-start=\"3383\" data-end=\"3520\">Kesalahan dalam mengatur cluster, <em data-start=\"3417\" data-end=\"3444\">Role-Based Access Control</em> (RBAC), atau <em data-start=\"3458\" data-end=\"3474\">network policy</em> dapat membuka akses yang seharusnya dibatasi.</p>\n<h3 data-section-id=\"1q0nffn\" data-start=\"3527\" data-end=\"3572\">Komunikasi Antarcontainer yang Tidak Aman</h3>\n<p data-start=\"3574\" data-end=\"3715\">Container saling bertukar data melalui jaringan internal. Jika komunikasi tidak diamankan, informasi penting dapat disadap atau dimanipulasi.</p>\n<h3 data-section-id=\"1wjggqr\" data-start=\"3722\" data-end=\"3756\">Penyimpanan Informasi Sensitif</h3>\n<p data-start=\"3758\" data-end=\"3902\">Token, kata sandi, atau kunci API yang disimpan langsung di dalam image atau file konfigurasi berpotensi bocor jika tidak dikelola dengan benar.</p>\n<h2 data-section-id=\"1wlno5r\" data-start=\"3909\" data-end=\"3947\">4. Langkah-Langkah Threat Modelling</h2>\n<p data-start=\"3949\" data-end=\"4051\">Agar proses analisis lebih terarah, threat modelling dapat dilakukan melalui beberapa tahapan berikut.</p>\n<h3 data-section-id=\"4ap36f\" data-start=\"4053\" data-end=\"4082\">Petakan Arsitektur Sistem</h3>\n<p data-start=\"4084\" data-end=\"4224\">Identifikasi seluruh komponen yang digunakan, mulai dari Docker image, registry, cluster Kubernetes, node, layanan, hingga penyimpanan data.</p>\n<h3 data-section-id=\"4a7oit\" data-start=\"4226\" data-end=\"4254\">Analisis Alur Komunikasi</h3>\n<p data-start=\"4256\" data-end=\"4346\">Pahami bagaimana container saling berkomunikasi dan bagaimana pengguna mengakses aplikasi.</p>\n<h3 data-section-id=\"17my44u\" data-start=\"4348\" data-end=\"4377\">Identifikasi Aset Penting</h3>\n<p data-start=\"4379\" data-end=\"4513\">Tentukan data dan layanan yang memiliki nilai tinggi, seperti informasi pengguna, basis data, kredensial, maupun layanan administrasi.</p>\n<h3 data-section-id=\"10k6b2b\" data-start=\"4515\" data-end=\"4543\">Evaluasi Potensi Ancaman</h3>\n<p data-start=\"4545\" data-end=\"4676\">Analisis kemungkinan ancaman pada setiap komponen, termasuk kesalahan konfigurasi, akses tanpa izin, maupun penyalahgunaan layanan.</p>\n<h3 data-section-id=\"vcblsp\" data-start=\"4678\" data-end=\"4699\">Tentukan Mitigasi</h3>\n<p data-start=\"4701\" data-end=\"4819\">Susun langkah pengamanan yang sesuai berdasarkan hasil analisis agar risiko dapat dikurangi sebelum sistem dijalankan.</p>\n<h2 data-section-id=\"11bvv1q\" data-start=\"4826\" data-end=\"4885\">5. Praktik Keamanan yang Mendukung Docker dan Kubernetes</h2>\n<p data-start=\"4887\" data-end=\"4985\">Threat modelling akan lebih efektif jika diikuti dengan penerapan praktik keamanan yang konsisten.</p>\n<p data-start=\"4987\" data-end=\"5037\">Beberapa langkah yang dapat dilakukan antara lain:</p>\n<ul data-start=\"5039\" data-end=\"5605\">\n<li data-section-id=\"5b3uon\" data-start=\"5039\" data-end=\"5103\">menggunakan image resmi atau image dari sumber yang tepercaya;</li>\n<li data-section-id=\"1j5goux\" data-start=\"5104\" data-end=\"5185\">memperbarui image secara berkala untuk menutup kerentanan yang telah diketahui;</li>\n<li data-section-id=\"r5xjzt\" data-start=\"5186\" data-end=\"5263\">menerapkan prinsip <strong data-start=\"5207\" data-end=\"5226\">least privilege</strong> pada container maupun akun pengguna;</li>\n<li data-section-id=\"qo81vc\" data-start=\"5264\" data-end=\"5331\">membatasi komunikasi antarcontainer menggunakan <em data-start=\"5314\" data-end=\"5330\">network policy</em>;</li>\n<li data-section-id=\"dq9h\" data-start=\"5332\" data-end=\"5442\">menyimpan data sensitif menggunakan layanan <em data-start=\"5378\" data-end=\"5387\">Secrets</em> di Kubernetes atau sistem <em data-start=\"5414\" data-end=\"5433\">secret management</em> lainnya;</li>\n<li data-section-id=\"f3e8yw\" data-start=\"5443\" data-end=\"5532\">menerapkan RBAC agar setiap pengguna dan layanan hanya memiliki akses sesuai kebutuhan;</li>\n<li data-section-id=\"1s59eah\" data-start=\"5533\" data-end=\"5605\">memantau aktivitas cluster untuk mendeteksi perilaku yang tidak biasa.</li>\n</ul>\n<p data-start=\"5607\" data-end=\"5722\">Langkah-langkah tersebut membantu mengurangi peluang terjadinya penyalahgunaan tanpa menghambat operasional sistem.</p>\n<h2 data-section-id=\"3kaxby\" data-start=\"5729\" data-end=\"5751\">6. Contoh Penerapan</h2>\n<p data-start=\"5753\" data-end=\"5949\">Sebuah perusahaan menjalankan aplikasi e-commerce menggunakan Docker dan Kubernetes. Sistem tersebut terdiri atas beberapa layanan, seperti autentikasi, katalog produk, pembayaran, dan pengiriman.</p>\n<p data-start=\"5951\" data-end=\"6257\">Saat melakukan threat modelling, tim menemukan bahwa beberapa container masih menggunakan image yang sudah lama tidak diperbarui. Selain itu, seluruh layanan di dalam cluster dapat saling berkomunikasi tanpa pembatasan, dan beberapa akun layanan memiliki hak akses yang lebih luas daripada yang diperlukan.</p>\n<p data-start=\"6259\" data-end=\"6653\">Berdasarkan hasil analisis, tim memperbarui seluruh image ke versi yang lebih aman, menerapkan <em data-start=\"6354\" data-end=\"6370\">network policy</em> untuk membatasi komunikasi antar layanan, memperbaiki konfigurasi RBAC, serta memindahkan kredensial aplikasi ke Kubernetes Secrets. Setelah perubahan tersebut diterapkan, lingkungan produksi menjadi lebih terlindungi tanpa memengaruhi proses deployment maupun pengelolaan aplikasi.</p>\n<h2 data-section-id=\"18fcyt8\" data-start=\"6660\" data-end=\"6719\">7. Threat Modelling Harus Mengikuti Perkembangan Cluster</h2>\n<p data-start=\"6721\" data-end=\"6882\">Lingkungan Docker dan Kubernetes terus berubah. Container baru ditambahkan, layanan diperbarui, dan konfigurasi cluster disesuaikan mengikuti kebutuhan aplikasi.</p>\n<p data-start=\"6884\" data-end=\"7116\">Karena itu, threat modelling tidak sebaiknya dilakukan hanya sekali pada awal proyek. Setiap perubahan pada arsitektur atau konfigurasi perlu diikuti dengan evaluasi ulang agar langkah pengamanan tetap sesuai dengan kondisi terbaru.</p>\n<p data-start=\"7118\" data-end=\"7235\">Dengan cara ini, keamanan dapat berkembang seiring dengan pertumbuhan infrastruktur, bukan tertinggal di belakangnya.</p>\n<h2 data-section-id=\"g59fj8\" data-start=\"7242\" data-end=\"7319\">KESIMPULAN</h2>\n<p data-start=\"7321\" data-end=\"7573\">Docker dan Kubernetes memberikan kemudahan dalam membangun aplikasi yang fleksibel, mudah diperluas, dan cepat dikelola. Namun, semakin kompleks lingkungan container yang digunakan, semakin besar pula perhatian yang perlu diberikan pada aspek keamanan.</p>\n<p data-start=\"7575\" data-end=\"8050\" data-is-last-node=\"\" data-is-only-node=\"\">Melalui threat modelling, tim dapat mengenali potensi ancaman sebelum aplikasi dijalankan, memahami hubungan antar komponen dalam cluster, serta menentukan langkah mitigasi yang sesuai sejak tahap perancangan. Dengan menjadikan proses ini sebagai bagian dari pengembangan dan pengelolaan infrastruktur, organisasi dapat membangun lingkungan Docker dan Kubernetes yang tidak hanya efisien, tetapi juga lebih aman, stabil, dan siap menghadapi berbagai tantangan keamanan siber.</p>\n",
+  "content_text": "Docker dan Kubernetes telah menjadi bagian penting dalam pengembangan aplikasi modern. Docker memudahkan pengembang mengemas aplikasi beserta seluruh dependensinya ke dalam container, sedangkan Kubernetes membantu mengelola ratusan bahkan ribuan container agar tetap berjalan dengan baik. Kombinasi keduanya membuat proses deployment menjadi lebih cepat, konsisten, dan mudah diperluas sesuai kebutuhan.\nMeski menawarkan banyak keuntungan, penggunaan Docker dan Kubernetes juga memperluas area yang perlu diamankan. Selain aplikasi itu sendiri, tim harus memperhatikan keamanan container image, konfigurasi cluster, jaringan, penyimpanan data, hingga pengelolaan hak akses. Kesalahan pada satu komponen dapat memengaruhi layanan lain yang berada dalam lingkungan yang sama.\nKarena itu,  threat modelling  menjadi langkah yang penting sebelum sistem dijalankan di lingkungan produksi. Dengan menganalisis potensi ancaman sejak tahap perancangan, tim dapat mengambil keputusan yang lebih tepat untuk mengurangi risiko sekaligus menjaga stabilitas layanan.\n1. Memahami Peran Docker dan Kubernetes\nDocker digunakan untuk mengemas aplikasi ke dalam container yang ringan dan mudah dipindahkan antarlingkungan. Dengan cara ini, aplikasi dapat berjalan secara konsisten, baik di komputer pengembang maupun di server produksi.\nSementara itu, Kubernetes berfungsi sebagai platform yang mengatur container tersebut. Kubernetes menangani proses seperti menjalankan container, membagi beban kerja, memulihkan layanan yang mengalami gangguan, hingga mengelola komunikasi antarcontainer.\nKarena kedua teknologi ini saling melengkapi, pendekatan keamanan juga perlu mempertimbangkan keduanya secara bersamaan.\n2. Mengapa Threat Modelling Penting?\nLingkungan Docker dan Kubernetes terdiri atas banyak komponen yang saling terhubung. Selain container, ada registry image, cluster Kubernetes, jaringan internal, penyimpanan data, serta berbagai layanan pendukung lainnya.\nThreat modelling membantu tim memahami hubungan antar komponen tersebut. Dengan memetakan arsitektur sejak awal, tim dapat mengetahui bagian mana yang paling berisiko dan menentukan langkah perlindungan sebelum sistem digunakan.\nPendekatan ini juga membantu mengurangi kemungkinan perubahan besar ketika aplikasi sudah berjalan di lingkungan produksi.\n3. Ancaman yang Sering Ditemukan\nBerikut beberapa ancaman yang umum ditemukan melalui proses threat modelling.\nContainer Image yang Mengandung Kerentanan\nImage yang diambil dari sumber yang tidak terpercaya atau jarang diperbarui dapat membawa kerentanan yang sudah diketahui.\nHak Akses Container yang Terlalu Luas\nContainer yang berjalan dengan hak akses tinggi memiliki risiko lebih besar jika berhasil disusupi. Penyerang dapat memanfaatkan hak tersebut untuk mengakses sumber daya lain dalam sistem.\nKonfigurasi Kubernetes yang Kurang Tepat\nKesalahan dalam mengatur cluster,  Role-Based Access Control  (RBAC), atau  network policy  dapat membuka akses yang seharusnya dibatasi.\nKomunikasi Antarcontainer yang Tidak Aman\nContainer saling bertukar data melalui jaringan internal. Jika komunikasi tidak diamankan, informasi penting dapat disadap atau dimanipulasi.\nPenyimpanan Informasi Sensitif\nToken, kata sandi, atau kunci API yang disimpan langsung di dalam image atau file konfigurasi berpotensi bocor jika tidak dikelola dengan benar.\n4. Langkah-Langkah Threat Modelling\nAgar proses analisis lebih terarah, threat modelling dapat dilakukan melalui beberapa tahapan berikut.\nPetakan Arsitektur Sistem\nIdentifikasi seluruh komponen yang digunakan, mulai dari Docker image, registry, cluster Kubernetes, node, layanan, hingga penyimpanan data.\nAnalisis Alur Komunikasi\nPahami bagaimana container saling berkomunikasi dan bagaimana pengguna mengakses aplikasi.\nIdentifikasi Aset Penting\nTentukan data dan layanan yang memiliki nilai tinggi, seperti informasi pengguna, basis data, kredensial, maupun layanan administrasi.\nEvaluasi Potensi Ancaman\nAnalisis kemungkinan ancaman pada setiap komponen, termasuk kesalahan konfigurasi, akses tanpa izin, maupun penyalahgunaan layanan.\nTentukan Mitigasi\nSusun langkah pengamanan yang sesuai berdasarkan hasil analisis agar risiko dapat dikurangi sebelum sistem dijalankan.\n5. Praktik Keamanan yang Mendukung Docker dan Kubernetes\nThreat modelling akan lebih efektif jika diikuti dengan penerapan praktik keamanan yang konsisten.\nBeberapa langkah yang dapat dilakukan antara lain:\nmenggunakan image resmi atau image dari sumber yang tepercaya;\nmemperbarui image secara berkala untuk menutup kerentanan yang telah diketahui;\nmenerapkan prinsip  least privilege  pada container maupun akun pengguna;\nmembatasi komunikasi antarcontainer menggunakan  network policy ;\nmenyimpan data sensitif menggunakan layanan  Secrets  di Kubernetes atau sistem  secret management  lainnya;\nmenerapkan RBAC agar setiap pengguna dan layanan hanya memiliki akses sesuai kebutuhan;\nmemantau aktivitas cluster untuk mendeteksi perilaku yang tidak biasa.\nLangkah-langkah tersebut membantu mengurangi peluang terjadinya penyalahgunaan tanpa menghambat operasional sistem.\n6. Contoh Penerapan\nSebuah perusahaan menjalankan aplikasi e-commerce menggunakan Docker dan Kubernetes. Sistem tersebut terdiri atas beberapa layanan, seperti autentikasi, katalog produk, pembayaran, dan pengiriman.\nSaat melakukan threat modelling, tim menemukan bahwa beberapa container masih menggunakan image yang sudah lama tidak diperbarui. Selain itu, seluruh layanan di dalam cluster dapat saling berkomunikasi tanpa pembatasan, dan beberapa akun layanan memiliki hak akses yang lebih luas daripada yang diperlukan.\nBerdasarkan hasil analisis, tim memperbarui seluruh image ke versi yang lebih aman, menerapkan  network policy  untuk membatasi komunikasi antar layanan, memperbaiki konfigurasi RBAC, serta memindahkan kredensial aplikasi ke Kubernetes Secrets. Setelah perubahan tersebut diterapkan, lingkungan produksi menjadi lebih terlindungi tanpa memengaruhi proses deployment maupun pengelolaan aplikasi.\n7. Threat Modelling Harus Mengikuti Perkembangan Cluster\nLingkungan Docker dan Kubernetes terus berubah. Container baru ditambahkan, layanan diperbarui, dan konfigurasi cluster disesuaikan mengikuti kebutuhan aplikasi.\nKarena itu, threat modelling tidak sebaiknya dilakukan hanya sekali pada awal proyek. Setiap perubahan pada arsitektur atau konfigurasi perlu diikuti dengan evaluasi ulang agar langkah pengamanan tetap sesuai dengan kondisi terbaru.\nDengan cara ini, keamanan dapat berkembang seiring dengan pertumbuhan infrastruktur, bukan tertinggal di belakangnya.\nKESIMPULAN\nDocker dan Kubernetes memberikan kemudahan dalam membangun aplikasi yang fleksibel, mudah diperluas, dan cepat dikelola. Namun, semakin kompleks lingkungan container yang digunakan, semakin besar pula perhatian yang perlu diberikan pada aspek keamanan.\nMelalui threat modelling, tim dapat mengenali potensi ancaman sebelum aplikasi dijalankan, memahami hubungan antar komponen dalam cluster, serta menentukan langkah mitigasi yang sesuai sejak tahap perancangan. Dengan menjadikan proses ini sebagai bagian dari pengembangan dan pengelolaan infrastruktur, organisasi dapat membangun lingkungan Docker dan Kubernetes yang tidak hanya efisien, tetapi juga lebih aman, stabil, dan siap menghadapi berbagai tantangan keamanan siber.",
+  "raw": {
+    "id": 14456,
+    "date": "2026-07-28T19:46:48",
+    "date_gmt": "2026-07-28T19:46:48",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=14456"
+    },
+    "modified": "2026-07-28T19:46:48",
+    "modified_gmt": "2026-07-28T19:46:48",
+    "slug": "threat-modelling-untuk-docker-dan-kubernetes",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/",
+    "title": {
+      "rendered": "Threat Modelling untuk Docker dan Kubernetes"
+    },
+    "content": {
+      "rendered": "<p class=\"PDq2pG_selectionAnchorContainer\" data-start=\"221\" data-end=\"624\">Docker dan Kubernetes telah menjadi bagian penting dalam pengembangan aplikasi modern. Docker memudahkan pengembang mengemas aplikasi beserta seluruh dependensinya ke dalam container, sedangkan Kubernetes membantu mengelola ratusan bahkan ribuan container agar tetap berjalan dengan baik. Kombinasi keduanya membuat proses deployment menjadi lebih cepat, konsisten, dan mudah diperluas sesuai kebutuhan.</p>\n<p data-start=\"626\" data-end=\"995\">Meski menawarkan banyak keuntungan, penggunaan Docker dan Kubernetes juga memperluas area yang perlu diamankan. Selain aplikasi itu sendiri, tim harus memperhatikan keamanan container image, konfigurasi cluster, jaringan, penyimpanan data, hingga pengelolaan hak akses. Kesalahan pada satu komponen dapat memengaruhi layanan lain yang berada dalam lingkungan yang sama.</p>\n<p data-start=\"997\" data-end=\"1276\">Karena itu, <em data-start=\"1009\" data-end=\"1027\">threat modelling</em> menjadi langkah yang penting sebelum sistem dijalankan di lingkungan produksi. Dengan menganalisis potensi ancaman sejak tahap perancangan, tim dapat mengambil keputusan yang lebih tepat untuk mengurangi risiko sekaligus menjaga stabilitas layanan.</p>\n<h2 data-section-id=\"1rlksh2\" data-start=\"1530\" data-end=\"1572\">1. Memahami Peran Docker dan Kubernetes</h2>\n<p data-start=\"1574\" data-end=\"1798\">Docker digunakan untuk mengemas aplikasi ke dalam container yang ringan dan mudah dipindahkan antarlingkungan. Dengan cara ini, aplikasi dapat berjalan secara konsisten, baik di komputer pengembang maupun di server produksi.</p>\n<p data-start=\"1800\" data-end=\"2054\">Sementara itu, Kubernetes berfungsi sebagai platform yang mengatur container tersebut. Kubernetes menangani proses seperti menjalankan container, membagi beban kerja, memulihkan layanan yang mengalami gangguan, hingga mengelola komunikasi antarcontainer.</p>\n<p data-start=\"2056\" data-end=\"2176\">Karena kedua teknologi ini saling melengkapi, pendekatan keamanan juga perlu mempertimbangkan keduanya secara bersamaan.</p>\n<h2 data-section-id=\"bu1dnp\" data-start=\"2183\" data-end=\"2222\">2. Mengapa Threat Modelling Penting?</h2>\n<p data-start=\"2224\" data-end=\"2445\">Lingkungan Docker dan Kubernetes terdiri atas banyak komponen yang saling terhubung. Selain container, ada registry image, cluster Kubernetes, jaringan internal, penyimpanan data, serta berbagai layanan pendukung lainnya.</p>\n<p data-start=\"2447\" data-end=\"2675\">Threat modelling membantu tim memahami hubungan antar komponen tersebut. Dengan memetakan arsitektur sejak awal, tim dapat mengetahui bagian mana yang paling berisiko dan menentukan langkah perlindungan sebelum sistem digunakan.</p>\n<p data-start=\"2677\" data-end=\"2799\">Pendekatan ini juga membantu mengurangi kemungkinan perubahan besar ketika aplikasi sudah berjalan di lingkungan produksi.</p>\n<h2 data-section-id=\"1p9vqpu\" data-start=\"2806\" data-end=\"2841\">3. Ancaman yang Sering Ditemukan</h2>\n<p data-start=\"2843\" data-end=\"2920\">Berikut beberapa ancaman yang umum ditemukan melalui proses threat modelling.</p>\n<h3 data-section-id=\"1vlj482\" data-start=\"2922\" data-end=\"2968\">Container Image yang Mengandung Kerentanan</h3>\n<p data-start=\"2970\" data-end=\"3092\">Image yang diambil dari sumber yang tidak terpercaya atau jarang diperbarui dapat membawa kerentanan yang sudah diketahui.</p>\n<h3 data-section-id=\"1249y9\" data-start=\"3099\" data-end=\"3140\">Hak Akses Container yang Terlalu Luas</h3>\n<p data-start=\"3142\" data-end=\"3330\">Container yang berjalan dengan hak akses tinggi memiliki risiko lebih besar jika berhasil disusupi. Penyerang dapat memanfaatkan hak tersebut untuk mengakses sumber daya lain dalam sistem.</p>\n<h3 data-section-id=\"91inqz\" data-start=\"3337\" data-end=\"3381\">Konfigurasi Kubernetes yang Kurang Tepat</h3>\n<p data-start=\"3383\" data-end=\"3520\">Kesalahan dalam mengatur cluster, <em data-start=\"3417\" data-end=\"3444\">Role-Based Access Control</em> (RBAC), atau <em data-start=\"3458\" data-end=\"3474\">network policy</em> dapat membuka akses yang seharusnya dibatasi.</p>\n<h3 data-section-id=\"1q0nffn\" data-start=\"3527\" data-end=\"3572\">Komunikasi Antarcontainer yang Tidak Aman</h3>\n<p data-start=\"3574\" data-end=\"3715\">Container saling bertukar data melalui jaringan internal. Jika komunikasi tidak diamankan, informasi penting dapat disadap atau dimanipulasi.</p>\n<h3 data-section-id=\"1wjggqr\" data-start=\"3722\" data-end=\"3756\">Penyimpanan Informasi Sensitif</h3>\n<p data-start=\"3758\" data-end=\"3902\">Token, kata sandi, atau kunci API yang disimpan langsung di dalam image atau file konfigurasi berpotensi bocor jika tidak dikelola dengan benar.</p>\n<h2 data-section-id=\"1wlno5r\" data-start=\"3909\" data-end=\"3947\">4. Langkah-Langkah Threat Modelling</h2>\n<p data-start=\"3949\" data-end=\"4051\">Agar proses analisis lebih terarah, threat modelling dapat dilakukan melalui beberapa tahapan berikut.</p>\n<h3 data-section-id=\"4ap36f\" data-start=\"4053\" data-end=\"4082\">Petakan Arsitektur Sistem</h3>\n<p data-start=\"4084\" data-end=\"4224\">Identifikasi seluruh komponen yang digunakan, mulai dari Docker image, registry, cluster Kubernetes, node, layanan, hingga penyimpanan data.</p>\n<h3 data-section-id=\"4a7oit\" data-start=\"4226\" data-end=\"4254\">Analisis Alur Komunikasi</h3>\n<p data-start=\"4256\" data-end=\"4346\">Pahami bagaimana container saling berkomunikasi dan bagaimana pengguna mengakses aplikasi.</p>\n<h3 data-section-id=\"17my44u\" data-start=\"4348\" data-end=\"4377\">Identifikasi Aset Penting</h3>\n<p data-start=\"4379\" data-end=\"4513\">Tentukan data dan layanan yang memiliki nilai tinggi, seperti informasi pengguna, basis data, kredensial, maupun layanan administrasi.</p>\n<h3 data-section-id=\"10k6b2b\" data-start=\"4515\" data-end=\"4543\">Evaluasi Potensi Ancaman</h3>\n<p data-start=\"4545\" data-end=\"4676\">Analisis kemungkinan ancaman pada setiap komponen, termasuk kesalahan konfigurasi, akses tanpa izin, maupun penyalahgunaan layanan.</p>\n<h3 data-section-id=\"vcblsp\" data-start=\"4678\" data-end=\"4699\">Tentukan Mitigasi</h3>\n<p data-start=\"4701\" data-end=\"4819\">Susun langkah pengamanan yang sesuai berdasarkan hasil analisis agar risiko dapat dikurangi sebelum sistem dijalankan.</p>\n<h2 data-section-id=\"11bvv1q\" data-start=\"4826\" data-end=\"4885\">5. Praktik Keamanan yang Mendukung Docker dan Kubernetes</h2>\n<p data-start=\"4887\" data-end=\"4985\">Threat modelling akan lebih efektif jika diikuti dengan penerapan praktik keamanan yang konsisten.</p>\n<p data-start=\"4987\" data-end=\"5037\">Beberapa langkah yang dapat dilakukan antara lain:</p>\n<ul data-start=\"5039\" data-end=\"5605\">\n<li data-section-id=\"5b3uon\" data-start=\"5039\" data-end=\"5103\">menggunakan image resmi atau image dari sumber yang tepercaya;</li>\n<li data-section-id=\"1j5goux\" data-start=\"5104\" data-end=\"5185\">memperbarui image secara berkala untuk menutup kerentanan yang telah diketahui;</li>\n<li data-section-id=\"r5xjzt\" data-start=\"5186\" data-end=\"5263\">menerapkan prinsip <strong data-start=\"5207\" data-end=\"5226\">least privilege</strong> pada container maupun akun pengguna;</li>\n<li data-section-id=\"qo81vc\" data-start=\"5264\" data-end=\"5331\">membatasi komunikasi antarcontainer menggunakan <em data-start=\"5314\" data-end=\"5330\">network policy</em>;</li>\n<li data-section-id=\"dq9h\" data-start=\"5332\" data-end=\"5442\">menyimpan data sensitif menggunakan layanan <em data-start=\"5378\" data-end=\"5387\">Secrets</em> di Kubernetes atau sistem <em data-start=\"5414\" data-end=\"5433\">secret management</em> lainnya;</li>\n<li data-section-id=\"f3e8yw\" data-start=\"5443\" data-end=\"5532\">menerapkan RBAC agar setiap pengguna dan layanan hanya memiliki akses sesuai kebutuhan;</li>\n<li data-section-id=\"1s59eah\" data-start=\"5533\" data-end=\"5605\">memantau aktivitas cluster untuk mendeteksi perilaku yang tidak biasa.</li>\n</ul>\n<p data-start=\"5607\" data-end=\"5722\">Langkah-langkah tersebut membantu mengurangi peluang terjadinya penyalahgunaan tanpa menghambat operasional sistem.</p>\n<h2 data-section-id=\"3kaxby\" data-start=\"5729\" data-end=\"5751\">6. Contoh Penerapan</h2>\n<p data-start=\"5753\" data-end=\"5949\">Sebuah perusahaan menjalankan aplikasi e-commerce menggunakan Docker dan Kubernetes. Sistem tersebut terdiri atas beberapa layanan, seperti autentikasi, katalog produk, pembayaran, dan pengiriman.</p>\n<p data-start=\"5951\" data-end=\"6257\">Saat melakukan threat modelling, tim menemukan bahwa beberapa container masih menggunakan image yang sudah lama tidak diperbarui. Selain itu, seluruh layanan di dalam cluster dapat saling berkomunikasi tanpa pembatasan, dan beberapa akun layanan memiliki hak akses yang lebih luas daripada yang diperlukan.</p>\n<p data-start=\"6259\" data-end=\"6653\">Berdasarkan hasil analisis, tim memperbarui seluruh image ke versi yang lebih aman, menerapkan <em data-start=\"6354\" data-end=\"6370\">network policy</em> untuk membatasi komunikasi antar layanan, memperbaiki konfigurasi RBAC, serta memindahkan kredensial aplikasi ke Kubernetes Secrets. Setelah perubahan tersebut diterapkan, lingkungan produksi menjadi lebih terlindungi tanpa memengaruhi proses deployment maupun pengelolaan aplikasi.</p>\n<h2 data-section-id=\"18fcyt8\" data-start=\"6660\" data-end=\"6719\">7. Threat Modelling Harus Mengikuti Perkembangan Cluster</h2>\n<p data-start=\"6721\" data-end=\"6882\">Lingkungan Docker dan Kubernetes terus berubah. Container baru ditambahkan, layanan diperbarui, dan konfigurasi cluster disesuaikan mengikuti kebutuhan aplikasi.</p>\n<p data-start=\"6884\" data-end=\"7116\">Karena itu, threat modelling tidak sebaiknya dilakukan hanya sekali pada awal proyek. Setiap perubahan pada arsitektur atau konfigurasi perlu diikuti dengan evaluasi ulang agar langkah pengamanan tetap sesuai dengan kondisi terbaru.</p>\n<p data-start=\"7118\" data-end=\"7235\">Dengan cara ini, keamanan dapat berkembang seiring dengan pertumbuhan infrastruktur, bukan tertinggal di belakangnya.</p>\n<h2 data-section-id=\"g59fj8\" data-start=\"7242\" data-end=\"7319\">KESIMPULAN</h2>\n<p data-start=\"7321\" data-end=\"7573\">Docker dan Kubernetes memberikan kemudahan dalam membangun aplikasi yang fleksibel, mudah diperluas, dan cepat dikelola. Namun, semakin kompleks lingkungan container yang digunakan, semakin besar pula perhatian yang perlu diberikan pada aspek keamanan.</p>\n<p data-start=\"7575\" data-end=\"8050\" data-is-last-node=\"\" data-is-only-node=\"\">Melalui threat modelling, tim dapat mengenali potensi ancaman sebelum aplikasi dijalankan, memahami hubungan antar komponen dalam cluster, serta menentukan langkah mitigasi yang sesuai sejak tahap perancangan. Dengan menjadikan proses ini sebagai bagian dari pengembangan dan pengelolaan infrastruktur, organisasi dapat membangun lingkungan Docker dan Kubernetes yang tidak hanya efisien, tetapi juga lebih aman, stabil, dan siap menghadapi berbagai tantangan keamanan siber.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Docker dan Kubernetes telah menjadi bagian penting dalam pengembangan aplikasi modern. Docker memudahkan pengembang mengemas aplikasi beserta seluruh dependensinya ke dalam container, sedangkan Kubernetes membantu mengelola ratusan bahkan ribuan container agar tetap berjalan dengan baik. Kombinasi keduanya membuat proses deployment menjadi lebih cepat, konsisten, dan mudah diperluas sesuai kebutuhan. Meski menawarkan banyak keuntungan, penggunaan Docker dan Kubernetes juga memperluas area yang perlu diamankan. Selain aplikasi itu sendiri, tim harus memperhatikan keamanan container image, konfigurasi cluster, jaringan, penyimpanan data, hingga pengelolaan hak akses. Kesalahan pada satu komponen dapat memengaruhi layanan lain yang berada dalam lingkungan yang sama. Karena itu, threat modelling&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 21,
+    "featured_media": 14457,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      2237
+    ],
+    "tags": [
+      371,
+      333,
+      51,
+      682
+    ],
+    "class_list": [
+      "post-14456",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-cybersecurity",
+      "tag-ancaman-siber",
+      "tag-artikel",
+      "tag-data",
+      "tag-keamanan"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Threat Modelling untuk Docker dan Kubernetes - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Threat Modelling untuk Docker dan Kubernetes - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Docker dan Kubernetes telah menjadi bagian penting dalam pengembangan aplikasi modern. Docker memudahkan pengembang mengemas aplikasi beserta seluruh dependensinya ke dalam container, sedangkan Kubernetes membantu mengelola ratusan bahkan ribuan container agar tetap berjalan dengan baik. Kombinasi keduanya membuat proses deployment menjadi lebih cepat, konsisten, dan mudah diperluas sesuai kebutuhan. Meski menawarkan banyak keuntungan, penggunaan Docker dan Kubernetes juga memperluas area yang perlu diamankan. Selain aplikasi itu sendiri, tim harus memperhatikan keamanan container image, konfigurasi cluster, jaringan, penyimpanan data, hingga pengelolaan hak akses. Kesalahan pada satu komponen dapat memengaruhi layanan lain yang berada dalam lingkungan yang sama. Karena itu, threat modelling...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-28T19:46:48+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-034504.png\" />\n\t<meta property=\"og:image:width\" content=\"1176\" />\n\t<meta property=\"og:image:height\" content=\"1190\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Muh Abduh Syahran\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Muh Abduh Syahran\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/\",\"url\":\"https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/\",\"name\":\"Threat Modelling untuk Docker dan Kubernetes - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-034504.png\",\"datePublished\":\"2026-07-28T19:46:48+00:00\",\"dateModified\":\"2026-07-28T19:46:48+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/986e1055bada9bf3754505f96ac527af\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-034504.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-034504.png\",\"width\":1176,\"height\":1190},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Threat Modelling untuk Docker dan Kubernetes\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/986e1055bada9bf3754505f96ac527af\",\"name\":\"Muh Abduh Syahran\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/44cb9c644149ed6db0223b22548b07da8497b4bf560b0ff288ece57f812882b4?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/44cb9c644149ed6db0223b22548b07da8497b4bf560b0ff288ece57f812882b4?s=96&d=mm&r=g\",\"caption\":\"Muh Abduh Syahran\"},\"url\":\"https://buletinsiber.com/author/muh-abduh-syahran/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Threat Modelling untuk Docker dan Kubernetes - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Threat Modelling untuk Docker dan Kubernetes - buletinsiber.com",
+      "og_description": "Docker dan Kubernetes telah menjadi bagian penting dalam pengembangan aplikasi modern. Docker memudahkan pengembang mengemas aplikasi beserta seluruh dependensinya ke dalam container, sedangkan Kubernetes membantu mengelola ratusan bahkan ribuan container agar tetap berjalan dengan baik. Kombinasi keduanya membuat proses deployment menjadi lebih cepat, konsisten, dan mudah diperluas sesuai kebutuhan. Meski menawarkan banyak keuntungan, penggunaan Docker dan Kubernetes juga memperluas area yang perlu diamankan. Selain aplikasi itu sendiri, tim harus memperhatikan keamanan container image, konfigurasi cluster, jaringan, penyimpanan data, hingga pengelolaan hak akses. Kesalahan pada satu komponen dapat memengaruhi layanan lain yang berada dalam lingkungan yang sama. Karena itu, threat modelling...",
+      "og_url": "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-28T19:46:48+00:00",
+      "og_image": [
+        {
+          "width": 1176,
+          "height": 1190,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-034504.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Muh Abduh Syahran",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Muh Abduh Syahran",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/",
+            "url": "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/",
+            "name": "Threat Modelling untuk Docker dan Kubernetes - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-034504.png",
+            "datePublished": "2026-07-28T19:46:48+00:00",
+            "dateModified": "2026-07-28T19:46:48+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/986e1055bada9bf3754505f96ac527af"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-034504.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Screenshot-2026-07-29-034504.png",
+            "width": 1176,
+            "height": 1190
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/threat-modelling-untuk-docker-dan-kubernetes/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Threat Modelling untuk Docker dan Kubernetes"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/986e1055bada9bf3754505f96ac527af",
+            "name": "Muh Abduh Syahran",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/44cb9c644149ed6db0223b22548b07da8497b4bf560b0ff288ece57f812882b4?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/44cb9c644149ed6db0223b22548b07da8497b4bf560b0ff288ece57f812882b4?s=96&d=mm&r=g",
+              "caption": "Muh Abduh Syahran"
+            },
+            "url": "https://buletinsiber.com/author/muh-abduh-syahran/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14456",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/21"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=14456"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14456/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 14458,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14456/revisions/14458"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/14457"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=14456"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=14456"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=14456"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

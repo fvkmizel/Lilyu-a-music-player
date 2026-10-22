@@ -1,0 +1,335 @@
+{
+  "id": 9707,
+  "title": "Host Header Injection: Celah Tersembunyi yang Bisa Mengambil Alih Aplikasi Web",
+  "slug": "host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web",
+  "url": "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/",
+  "date": "2026-03-10T14:11:54",
+  "date_gmt": "2026-03-10T14:11:54",
+  "modified": "2026-07-06T20:56:23",
+  "modified_gmt": "2026-07-06T20:56:23",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    185,
+    932,
+    682,
+    444
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/11/image-generator-6.png",
+  "excerpt": "Pengantar Dalam dunia keamanan aplikasi web, terdapat berbagai jenis kerentanan yang sering dimanfaatkan oleh penyerang untuk mengeksploitasi sistem. Salah satu celah yang cukup berbahaya namun sering tidak disadari oleh pengembang adalah Host Header Injection. Kerentanan ini terjadi ketika aplikasi web mempercayai nilai HTTP Host Header yang dikirim oleh pengguna tanpa melakukan validasi yang memadai. Akibatnya, penyerang dapat memanipulasi header tersebut untuk melakukan berbagai serangan, seperti password reset poisoning, cache poisoning, hingga phishing. Karena HTTP Host Header merupakan bagian standar dari permintaan HTTP, banyak aplikasi yang menggunakannya untuk menghasilkan URL absolut, redirect, atau email otomatis. Jika tidak dikonfigurasi dengan benar, celah…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"82\" data-end=\"94\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"96\" data-end=\"351\"><span style=\"color: #000000;\">Dalam dunia keamanan aplikasi web, terdapat berbagai jenis kerentanan yang sering dimanfaatkan oleh penyerang untuk mengeksploitasi sistem. Salah satu celah yang cukup berbahaya namun sering tidak disadari oleh pengembang adalah <strong data-start=\"325\" data-end=\"350\">Host Header Injection</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"353\" data-end=\"671\"><span style=\"color: #000000;\">Kerentanan ini terjadi ketika aplikasi web mempercayai nilai <strong data-start=\"414\" data-end=\"434\">HTTP Host Header</strong> yang dikirim oleh pengguna tanpa melakukan validasi yang memadai. Akibatnya, penyerang dapat memanipulasi header tersebut untuk melakukan berbagai serangan, seperti <strong data-start=\"600\" data-end=\"628\">password reset poisoning</strong>, <strong data-start=\"630\" data-end=\"649\">cache poisoning</strong>, hingga <strong data-start=\"658\" data-end=\"670\">phishing</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"673\" data-end=\"974\"><span style=\"color: #000000;\">Karena HTTP Host Header merupakan bagian standar dari permintaan HTTP, banyak aplikasi yang menggunakannya untuk menghasilkan URL absolut, redirect, atau email otomatis. Jika tidak dikonfigurasi dengan benar, celah kecil ini dapat membuka pintu bagi serangan yang berdampak besar pada keamanan sistem.</span></p>\n<hr data-start=\"976\" data-end=\"979\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1v2jqwa\" data-start=\"981\" data-end=\"1014\"><span style=\"color: #000000;\">Apa Itu Host Header Injection?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1016\" data-end=\"1214\"><span style=\"color: #000000;\"><strong data-start=\"1016\" data-end=\"1041\">Host Header Injection</strong> adalah kerentanan keamanan pada aplikasi web yang terjadi ketika server atau aplikasi tidak memvalidasi nilai <strong data-start=\"1152\" data-end=\"1167\">Host Header</strong> dalam permintaan HTTP yang dikirim oleh klien.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1216\" data-end=\"1430\"><span style=\"color: #000000;\">Host Header sendiri digunakan oleh server untuk menentukan domain mana yang sedang diakses oleh pengguna, terutama pada server yang menjalankan beberapa website dalam satu alamat IP menggunakan <strong data-start=\"1410\" data-end=\"1429\">virtual hosting</strong>.</span></p>\n<blockquote>\n<p data-start=\"1216\" data-end=\"1430\">baca juga : <a href=\"https://buletinsiber.com/kernel-panic-ketika-sistem-operasi-tiba-tiba-lumpuh-total/\">Kernel Panic: Ketika Sistem Operasi Tiba-Tiba Lumpuh Total</a></p>\n</blockquote>\n<p style=\"text-align: justify;\" data-start=\"1432\" data-end=\"1465\"><span style=\"color: #000000;\">Contoh permintaan HTTP sederhana:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">GET /login HTTP/1.1</span>\r\n<span style=\"color: #000000;\">Host: example.com</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"1514\" data-end=\"1626\"><span style=\"color: #000000;\">Jika aplikasi mempercayai nilai Host Header secara langsung tanpa validasi, penyerang dapat mengubahnya menjadi:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">Host: attacker.com</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"1656\" data-end=\"1776\"><span style=\"color: #000000;\">Manipulasi sederhana ini dapat menyebabkan server menghasilkan URL atau respons yang mengarah ke domain milik penyerang.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1778\" data-end=\"2073\"><span style=\"color: #000000;\">Menurut dokumentasi keamanan dari PortSwigger, Host Header Injection terjadi ketika aplikasi menggunakan nilai Host Header tanpa validasi yang memadai sehingga dapat dimanfaatkan untuk berbagai jenis serangan terhadap aplikasi web (dikutip dari <a href=\"https://portswigger.net/web-security/host-header\">portswigger</a>).</span></p>\n<hr data-start=\"2075\" data-end=\"2078\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"cqngzc\" data-start=\"2080\" data-end=\"2123\"><span style=\"color: #000000;\">Bagaimana Host Header Injection Terjadi?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2125\" data-end=\"2237\"><span style=\"color: #000000;\">Kerentanan ini biasanya muncul ketika aplikasi web menggunakan nilai Host Header untuk berbagai fungsi internal.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2239\" data-end=\"2302\"><span style=\"color: #000000;\">Beberapa contoh penggunaan Host Header yang rentan antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2304\" data-end=\"2411\">\n<li data-section-id=\"19tmu3p\" data-start=\"2304\" data-end=\"2337\">\n<p data-start=\"2306\" data-end=\"2337\"><span style=\"color: #000000;\">Membuat link <strong data-start=\"2319\" data-end=\"2337\">password reset</strong></span></p>\n</li>\n<li data-section-id=\"l5vp6z\" data-start=\"2338\" data-end=\"2364\">\n<p data-start=\"2340\" data-end=\"2364\"><span style=\"color: #000000;\">Menghasilkan URL absolut</span></p>\n</li>\n<li data-section-id=\"1bkg8p0\" data-start=\"2365\" data-end=\"2384\">\n<p data-start=\"2367\" data-end=\"2384\"><span style=\"color: #000000;\">Redirect otomatis</span></p>\n</li>\n<li data-section-id=\"sssabl\" data-start=\"2385\" data-end=\"2411\">\n<p data-start=\"2387\" data-end=\"2411\"><span style=\"color: #000000;\">Validasi domain aplikasi</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2413\" data-end=\"2571\"><span style=\"color: #000000;\">Jika aplikasi tidak melakukan validasi terhadap domain yang diterima dari header tersebut, maka penyerang dapat mengontrol nilai yang digunakan oleh aplikasi.</span></p>\n<hr data-start=\"2573\" data-end=\"2576\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"10qbraw\" data-start=\"2578\" data-end=\"2635\"><span style=\"color: #000000;\">Jenis Serangan yang Memanfaatkan Host Header Injection</span></h3>\n<h4 style=\"text-align: justify;\" data-section-id=\"16lqjfs\" data-start=\"2637\" data-end=\"2665\"><span style=\"color: #000000;\">Password Reset Poisoning</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2667\" data-end=\"2765\"><span style=\"color: #000000;\">Salah satu eksploitasi paling umum dari Host Header Injection adalah <strong data-start=\"2736\" data-end=\"2764\">password reset poisoning</strong>.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"2767\" data-end=\"2791\"><span style=\"color: #000000;\">Cara Kerja Serangan</span></h6>\n<ol style=\"text-align: justify;\" data-start=\"2793\" data-end=\"3083\">\n<li data-section-id=\"1cvz16e\" data-start=\"2793\" data-end=\"2855\">\n<p data-start=\"2796\" data-end=\"2855\"><span style=\"color: #000000;\">Penyerang meminta fitur reset password pada website target.</span></p>\n</li>\n<li data-section-id=\"1lfwb3h\" data-start=\"2856\" data-end=\"2915\">\n<p data-start=\"2859\" data-end=\"2915\"><span style=\"color: #000000;\">Permintaan dikirim dengan Host Header yang dimodifikasi.</span></p>\n</li>\n<li data-section-id=\"1jnbsej\" data-start=\"2916\" data-end=\"2988\">\n<p data-start=\"2919\" data-end=\"2988\"><span style=\"color: #000000;\">Server membuat link reset password menggunakan domain palsu tersebut.</span></p>\n</li>\n<li data-section-id=\"vyi4sv\" data-start=\"2989\" data-end=\"3083\">\n<p data-start=\"2992\" data-end=\"3083\"><span style=\"color: #000000;\">Email reset password dikirim ke korban dengan link yang mengarah ke domain milik penyerang.</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"3085\" data-end=\"3170\"><span style=\"color: #000000;\">Jika korban mengklik link tersebut, token reset password dapat dicuri oleh penyerang.</span></p>\n<hr data-start=\"3172\" data-end=\"3175\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1bjv732\" data-start=\"3177\" data-end=\"3200\"><span style=\"color: #000000;\">Web Cache Poisoning</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3202\" data-end=\"3281\"><span style=\"color: #000000;\">Host Header Injection juga dapat digunakan untuk melakukan <strong data-start=\"3261\" data-end=\"3280\">cache poisoning</strong>.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"3283\" data-end=\"3303\"><span style=\"color: #000000;\">Dampak Serangan</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3305\" data-end=\"3498\"><span style=\"color: #000000;\">Penyerang dapat menyisipkan konten berbahaya ke dalam cache server atau CDN. Ketika pengguna lain mengakses halaman tersebut, mereka akan menerima konten yang sudah dimodifikasi oleh penyerang.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3500\" data-end=\"3536\"><span style=\"color: #000000;\">Serangan ini berpotensi menyebarkan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3538\" data-end=\"3610\">\n<li data-section-id=\"1fwwm0w\" data-start=\"3538\" data-end=\"3558\">\n<p data-start=\"3540\" data-end=\"3558\"><span style=\"color: #000000;\">script berbahaya</span></p>\n</li>\n<li data-section-id=\"addafy\" data-start=\"3559\" data-end=\"3589\">\n<p data-start=\"3561\" data-end=\"3589\"><span style=\"color: #000000;\">redirect ke situs phishing</span></p>\n</li>\n<li data-section-id=\"mby6x1\" data-start=\"3590\" data-end=\"3610\">\n<p data-start=\"3592\" data-end=\"3610\"><span style=\"color: #000000;\">konten manipulatif</span></p>\n</li>\n</ul>\n<hr data-start=\"3612\" data-end=\"3615\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1kxa3wj\" data-start=\"3617\" data-end=\"3645\"><span style=\"color: #000000;\">Bypass Proteksi Keamanan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3647\" data-end=\"3778\"><span style=\"color: #000000;\">Dalam beberapa kasus, aplikasi menggunakan Host Header untuk memvalidasi permintaan internal atau menentukan domain yang diizinkan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3780\" data-end=\"3867\"><span style=\"color: #000000;\">Jika validasi tersebut lemah, penyerang dapat memanfaatkan Host Header Injection untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3869\" data-end=\"3959\">\n<li data-section-id=\"126mqm\" data-start=\"3869\" data-end=\"3898\">\n<p data-start=\"3871\" data-end=\"3898\"><span style=\"color: #000000;\">melewati mekanisme keamanan</span></p>\n</li>\n<li data-section-id=\"15wkski\" data-start=\"3899\" data-end=\"3928\">\n<p data-start=\"3901\" data-end=\"3928\"><span style=\"color: #000000;\">mengakses endpoint internal</span></p>\n</li>\n<li data-section-id=\"j08nru\" data-start=\"3929\" data-end=\"3959\">\n<p data-start=\"3931\" data-end=\"3959\"><span style=\"color: #000000;\">memanipulasi logika aplikasi</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/ssh-tunneling-teknik-mengamankan-data-dan-menembus-batas-jaringan/\">SSH Tunneling: Teknik Mengamankan Data dan Menembus Batas Jaringan</a></p></blockquote>\n<hr data-start=\"4249\" data-end=\"4252\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1l7ne8i\" data-start=\"4254\" data-end=\"4292\"><span style=\"color: #000000;\">Cara Mencegah Host Header Injection</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4294\" data-end=\"4397\"><span style=\"color: #000000;\">Mencegah kerentanan ini membutuhkan pendekatan yang tepat pada sisi aplikasi maupun konfigurasi server.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"7i6ltg\" data-start=\"4399\" data-end=\"4423\"><span style=\"color: #000000;\">Validasi Host Header</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4425\" data-end=\"4527\"><span style=\"color: #000000;\">Server harus memverifikasi bahwa nilai Host Header hanya berasal dari domain yang valid dan terdaftar.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4529\" data-end=\"4579\"><span style=\"color: #000000;\">Contohnya dengan menggunakan <strong data-start=\"4558\" data-end=\"4578\">whitelist domain</strong>.</span></p>\n<hr data-start=\"4581\" data-end=\"4584\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1f54rei\" data-start=\"4586\" data-end=\"4627\"><span style=\"color: #000000;\">Gunakan Konfigurasi Server yang Ketat</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4629\" data-end=\"4754\"><span style=\"color: #000000;\">Beberapa web server seperti <strong data-start=\"4657\" data-end=\"4666\">Nginx</strong> dan <strong data-start=\"4671\" data-end=\"4681\">Apache</strong> memungkinkan konfigurasi domain yang diperbolehkan melalui virtual host.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4756\" data-end=\"4840\"><span style=\"color: #000000;\">Dengan konfigurasi ini, server hanya akan merespons permintaan dari domain yang sah.</span></p>\n<hr data-start=\"4842\" data-end=\"4845\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"teonbw\" data-start=\"4847\" data-end=\"4898\"><span style=\"color: #000000;\">Hindari Menggunakan Host Header Secara Langsung</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4900\" data-end=\"5042\"><span style=\"color: #000000;\">Jika aplikasi membutuhkan URL absolut, sebaiknya gunakan <strong data-start=\"4957\" data-end=\"4986\">konfigurasi domain statis</strong> daripada mengambil nilai langsung dari permintaan HTTP.</span></p>\n<hr data-start=\"5044\" data-end=\"5047\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"s0kuln\" data-start=\"5049\" data-end=\"5095\"><span style=\"color: #000000;\">Gunakan Framework dengan Proteksi Keamanan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5097\" data-end=\"5280\"><span style=\"color: #000000;\">Banyak framework modern seperti <strong data-start=\"5129\" data-end=\"5165\">Django, Laravel, dan Spring Boot</strong> sudah menyediakan mekanisme perlindungan terhadap Host Header Injection melalui konfigurasi domain yang diizinkan.</span></p>\n<blockquote>\n<p data-start=\"5097\" data-end=\"5280\">baca juga : <a href=\"https://buletinsiber.com/vm-escape-ancaman-tersembunyi-dalam-virtualisasi-yang-bisa-menembus-host-system/\">VM Escape: Ancaman Tersembunyi dalam Virtualisasi yang Bisa Menembus Host System</a></p>\n</blockquote>\n<hr data-start=\"5282\" data-end=\"5285\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"5287\" data-end=\"5300\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5302\" data-end=\"5634\"><span style=\"color: #000000;\">Host Header Injection merupakan kerentanan keamanan yang sering kali dianggap sepele, namun memiliki potensi dampak yang besar terhadap keamanan aplikasi web. Dengan memanipulasi nilai Host Header dalam permintaan HTTP, penyerang dapat mengeksploitasi berbagai fitur aplikasi seperti password reset, caching, hingga sistem redirect.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5636\" data-end=\"5955\"><span style=\"color: #000000;\">Serangan yang memanfaatkan celah ini dapat menyebabkan pencurian akun, penyebaran konten berbahaya, serta manipulasi respons server. Oleh karena itu, pengembang dan administrator sistem perlu memastikan bahwa aplikasi web selalu melakukan validasi Host Header dengan benar serta menerapkan konfigurasi server yang aman.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5957\" data-end=\"6141\"><span style=\"color: #000000;\">Dengan pemahaman yang baik tentang cara kerja dan mitigasi Host Header Injection, organisasi dapat mengurangi risiko serangan dan meningkatkan keamanan aplikasi web yang mereka kelola.</span></p>\n",
+  "content_text": "Pengantar\nDalam dunia keamanan aplikasi web, terdapat berbagai jenis kerentanan yang sering dimanfaatkan oleh penyerang untuk mengeksploitasi sistem. Salah satu celah yang cukup berbahaya namun sering tidak disadari oleh pengembang adalah  Host Header Injection .\nKerentanan ini terjadi ketika aplikasi web mempercayai nilai  HTTP Host Header  yang dikirim oleh pengguna tanpa melakukan validasi yang memadai. Akibatnya, penyerang dapat memanipulasi header tersebut untuk melakukan berbagai serangan, seperti  password reset poisoning ,  cache poisoning , hingga  phishing .\nKarena HTTP Host Header merupakan bagian standar dari permintaan HTTP, banyak aplikasi yang menggunakannya untuk menghasilkan URL absolut, redirect, atau email otomatis. Jika tidak dikonfigurasi dengan benar, celah kecil ini dapat membuka pintu bagi serangan yang berdampak besar pada keamanan sistem.\nApa Itu Host Header Injection?\nHost Header Injection  adalah kerentanan keamanan pada aplikasi web yang terjadi ketika server atau aplikasi tidak memvalidasi nilai  Host Header  dalam permintaan HTTP yang dikirim oleh klien.\nHost Header sendiri digunakan oleh server untuk menentukan domain mana yang sedang diakses oleh pengguna, terutama pada server yang menjalankan beberapa website dalam satu alamat IP menggunakan  virtual hosting .\nbaca juga :  Kernel Panic: Ketika Sistem Operasi Tiba-Tiba Lumpuh Total\nContoh permintaan HTTP sederhana:\nGET /login HTTP/1.1\nHost: example.com\nJika aplikasi mempercayai nilai Host Header secara langsung tanpa validasi, penyerang dapat mengubahnya menjadi:\nHost: attacker.com\nManipulasi sederhana ini dapat menyebabkan server menghasilkan URL atau respons yang mengarah ke domain milik penyerang.\nMenurut dokumentasi keamanan dari PortSwigger, Host Header Injection terjadi ketika aplikasi menggunakan nilai Host Header tanpa validasi yang memadai sehingga dapat dimanfaatkan untuk berbagai jenis serangan terhadap aplikasi web (dikutip dari  portswigger ).\nBagaimana Host Header Injection Terjadi?\nKerentanan ini biasanya muncul ketika aplikasi web menggunakan nilai Host Header untuk berbagai fungsi internal.\nBeberapa contoh penggunaan Host Header yang rentan antara lain:\nMembuat link  password reset\nMenghasilkan URL absolut\nRedirect otomatis\nValidasi domain aplikasi\nJika aplikasi tidak melakukan validasi terhadap domain yang diterima dari header tersebut, maka penyerang dapat mengontrol nilai yang digunakan oleh aplikasi.\nJenis Serangan yang Memanfaatkan Host Header Injection\nPassword Reset Poisoning\nSalah satu eksploitasi paling umum dari Host Header Injection adalah  password reset poisoning .\nCara Kerja Serangan\nPenyerang meminta fitur reset password pada website target.\nPermintaan dikirim dengan Host Header yang dimodifikasi.\nServer membuat link reset password menggunakan domain palsu tersebut.\nEmail reset password dikirim ke korban dengan link yang mengarah ke domain milik penyerang.\nJika korban mengklik link tersebut, token reset password dapat dicuri oleh penyerang.\nWeb Cache Poisoning\nHost Header Injection juga dapat digunakan untuk melakukan  cache poisoning .\nDampak Serangan\nPenyerang dapat menyisipkan konten berbahaya ke dalam cache server atau CDN. Ketika pengguna lain mengakses halaman tersebut, mereka akan menerima konten yang sudah dimodifikasi oleh penyerang.\nSerangan ini berpotensi menyebarkan:\nscript berbahaya\nredirect ke situs phishing\nkonten manipulatif\nBypass Proteksi Keamanan\nDalam beberapa kasus, aplikasi menggunakan Host Header untuk memvalidasi permintaan internal atau menentukan domain yang diizinkan.\nJika validasi tersebut lemah, penyerang dapat memanfaatkan Host Header Injection untuk:\nmelewati mekanisme keamanan\nmengakses endpoint internal\nmemanipulasi logika aplikasi\nbaca juga :  SSH Tunneling: Teknik Mengamankan Data dan Menembus Batas Jaringan\nCara Mencegah Host Header Injection\nMencegah kerentanan ini membutuhkan pendekatan yang tepat pada sisi aplikasi maupun konfigurasi server.\nValidasi Host Header\nServer harus memverifikasi bahwa nilai Host Header hanya berasal dari domain yang valid dan terdaftar.\nContohnya dengan menggunakan  whitelist domain .\nGunakan Konfigurasi Server yang Ketat\nBeberapa web server seperti  Nginx  dan  Apache  memungkinkan konfigurasi domain yang diperbolehkan melalui virtual host.\nDengan konfigurasi ini, server hanya akan merespons permintaan dari domain yang sah.\nHindari Menggunakan Host Header Secara Langsung\nJika aplikasi membutuhkan URL absolut, sebaiknya gunakan  konfigurasi domain statis  daripada mengambil nilai langsung dari permintaan HTTP.\nGunakan Framework dengan Proteksi Keamanan\nBanyak framework modern seperti  Django, Laravel, dan Spring Boot  sudah menyediakan mekanisme perlindungan terhadap Host Header Injection melalui konfigurasi domain yang diizinkan.\nbaca juga :  VM Escape: Ancaman Tersembunyi dalam Virtualisasi yang Bisa Menembus Host System\nKesimpulan\nHost Header Injection merupakan kerentanan keamanan yang sering kali dianggap sepele, namun memiliki potensi dampak yang besar terhadap keamanan aplikasi web. Dengan memanipulasi nilai Host Header dalam permintaan HTTP, penyerang dapat mengeksploitasi berbagai fitur aplikasi seperti password reset, caching, hingga sistem redirect.\nSerangan yang memanfaatkan celah ini dapat menyebabkan pencurian akun, penyebaran konten berbahaya, serta manipulasi respons server. Oleh karena itu, pengembang dan administrator sistem perlu memastikan bahwa aplikasi web selalu melakukan validasi Host Header dengan benar serta menerapkan konfigurasi server yang aman.\nDengan pemahaman yang baik tentang cara kerja dan mitigasi Host Header Injection, organisasi dapat mengurangi risiko serangan dan meningkatkan keamanan aplikasi web yang mereka kelola.",
+  "raw": {
+    "id": 9707,
+    "date": "2026-03-10T14:11:54",
+    "date_gmt": "2026-03-10T14:11:54",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9707"
+    },
+    "modified": "2026-07-06T20:56:23",
+    "modified_gmt": "2026-07-06T20:56:23",
+    "slug": "host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/",
+    "title": {
+      "rendered": "Host Header Injection: Celah Tersembunyi yang Bisa Mengambil Alih Aplikasi Web"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"82\" data-end=\"94\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"96\" data-end=\"351\"><span style=\"color: #000000;\">Dalam dunia keamanan aplikasi web, terdapat berbagai jenis kerentanan yang sering dimanfaatkan oleh penyerang untuk mengeksploitasi sistem. Salah satu celah yang cukup berbahaya namun sering tidak disadari oleh pengembang adalah <strong data-start=\"325\" data-end=\"350\">Host Header Injection</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"353\" data-end=\"671\"><span style=\"color: #000000;\">Kerentanan ini terjadi ketika aplikasi web mempercayai nilai <strong data-start=\"414\" data-end=\"434\">HTTP Host Header</strong> yang dikirim oleh pengguna tanpa melakukan validasi yang memadai. Akibatnya, penyerang dapat memanipulasi header tersebut untuk melakukan berbagai serangan, seperti <strong data-start=\"600\" data-end=\"628\">password reset poisoning</strong>, <strong data-start=\"630\" data-end=\"649\">cache poisoning</strong>, hingga <strong data-start=\"658\" data-end=\"670\">phishing</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"673\" data-end=\"974\"><span style=\"color: #000000;\">Karena HTTP Host Header merupakan bagian standar dari permintaan HTTP, banyak aplikasi yang menggunakannya untuk menghasilkan URL absolut, redirect, atau email otomatis. Jika tidak dikonfigurasi dengan benar, celah kecil ini dapat membuka pintu bagi serangan yang berdampak besar pada keamanan sistem.</span></p>\n<hr data-start=\"976\" data-end=\"979\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1v2jqwa\" data-start=\"981\" data-end=\"1014\"><span style=\"color: #000000;\">Apa Itu Host Header Injection?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1016\" data-end=\"1214\"><span style=\"color: #000000;\"><strong data-start=\"1016\" data-end=\"1041\">Host Header Injection</strong> adalah kerentanan keamanan pada aplikasi web yang terjadi ketika server atau aplikasi tidak memvalidasi nilai <strong data-start=\"1152\" data-end=\"1167\">Host Header</strong> dalam permintaan HTTP yang dikirim oleh klien.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1216\" data-end=\"1430\"><span style=\"color: #000000;\">Host Header sendiri digunakan oleh server untuk menentukan domain mana yang sedang diakses oleh pengguna, terutama pada server yang menjalankan beberapa website dalam satu alamat IP menggunakan <strong data-start=\"1410\" data-end=\"1429\">virtual hosting</strong>.</span></p>\n<blockquote>\n<p data-start=\"1216\" data-end=\"1430\">baca juga : <a href=\"https://buletinsiber.com/kernel-panic-ketika-sistem-operasi-tiba-tiba-lumpuh-total/\">Kernel Panic: Ketika Sistem Operasi Tiba-Tiba Lumpuh Total</a></p>\n</blockquote>\n<p style=\"text-align: justify;\" data-start=\"1432\" data-end=\"1465\"><span style=\"color: #000000;\">Contoh permintaan HTTP sederhana:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">GET /login HTTP/1.1</span>\r\n<span style=\"color: #000000;\">Host: example.com</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"1514\" data-end=\"1626\"><span style=\"color: #000000;\">Jika aplikasi mempercayai nilai Host Header secara langsung tanpa validasi, penyerang dapat mengubahnya menjadi:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">Host: attacker.com</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"1656\" data-end=\"1776\"><span style=\"color: #000000;\">Manipulasi sederhana ini dapat menyebabkan server menghasilkan URL atau respons yang mengarah ke domain milik penyerang.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1778\" data-end=\"2073\"><span style=\"color: #000000;\">Menurut dokumentasi keamanan dari PortSwigger, Host Header Injection terjadi ketika aplikasi menggunakan nilai Host Header tanpa validasi yang memadai sehingga dapat dimanfaatkan untuk berbagai jenis serangan terhadap aplikasi web (dikutip dari <a href=\"https://portswigger.net/web-security/host-header\">portswigger</a>).</span></p>\n<hr data-start=\"2075\" data-end=\"2078\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"cqngzc\" data-start=\"2080\" data-end=\"2123\"><span style=\"color: #000000;\">Bagaimana Host Header Injection Terjadi?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2125\" data-end=\"2237\"><span style=\"color: #000000;\">Kerentanan ini biasanya muncul ketika aplikasi web menggunakan nilai Host Header untuk berbagai fungsi internal.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2239\" data-end=\"2302\"><span style=\"color: #000000;\">Beberapa contoh penggunaan Host Header yang rentan antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2304\" data-end=\"2411\">\n<li data-section-id=\"19tmu3p\" data-start=\"2304\" data-end=\"2337\">\n<p data-start=\"2306\" data-end=\"2337\"><span style=\"color: #000000;\">Membuat link <strong data-start=\"2319\" data-end=\"2337\">password reset</strong></span></p>\n</li>\n<li data-section-id=\"l5vp6z\" data-start=\"2338\" data-end=\"2364\">\n<p data-start=\"2340\" data-end=\"2364\"><span style=\"color: #000000;\">Menghasilkan URL absolut</span></p>\n</li>\n<li data-section-id=\"1bkg8p0\" data-start=\"2365\" data-end=\"2384\">\n<p data-start=\"2367\" data-end=\"2384\"><span style=\"color: #000000;\">Redirect otomatis</span></p>\n</li>\n<li data-section-id=\"sssabl\" data-start=\"2385\" data-end=\"2411\">\n<p data-start=\"2387\" data-end=\"2411\"><span style=\"color: #000000;\">Validasi domain aplikasi</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2413\" data-end=\"2571\"><span style=\"color: #000000;\">Jika aplikasi tidak melakukan validasi terhadap domain yang diterima dari header tersebut, maka penyerang dapat mengontrol nilai yang digunakan oleh aplikasi.</span></p>\n<hr data-start=\"2573\" data-end=\"2576\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"10qbraw\" data-start=\"2578\" data-end=\"2635\"><span style=\"color: #000000;\">Jenis Serangan yang Memanfaatkan Host Header Injection</span></h3>\n<h4 style=\"text-align: justify;\" data-section-id=\"16lqjfs\" data-start=\"2637\" data-end=\"2665\"><span style=\"color: #000000;\">Password Reset Poisoning</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2667\" data-end=\"2765\"><span style=\"color: #000000;\">Salah satu eksploitasi paling umum dari Host Header Injection adalah <strong data-start=\"2736\" data-end=\"2764\">password reset poisoning</strong>.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"2767\" data-end=\"2791\"><span style=\"color: #000000;\">Cara Kerja Serangan</span></h6>\n<ol style=\"text-align: justify;\" data-start=\"2793\" data-end=\"3083\">\n<li data-section-id=\"1cvz16e\" data-start=\"2793\" data-end=\"2855\">\n<p data-start=\"2796\" data-end=\"2855\"><span style=\"color: #000000;\">Penyerang meminta fitur reset password pada website target.</span></p>\n</li>\n<li data-section-id=\"1lfwb3h\" data-start=\"2856\" data-end=\"2915\">\n<p data-start=\"2859\" data-end=\"2915\"><span style=\"color: #000000;\">Permintaan dikirim dengan Host Header yang dimodifikasi.</span></p>\n</li>\n<li data-section-id=\"1jnbsej\" data-start=\"2916\" data-end=\"2988\">\n<p data-start=\"2919\" data-end=\"2988\"><span style=\"color: #000000;\">Server membuat link reset password menggunakan domain palsu tersebut.</span></p>\n</li>\n<li data-section-id=\"vyi4sv\" data-start=\"2989\" data-end=\"3083\">\n<p data-start=\"2992\" data-end=\"3083\"><span style=\"color: #000000;\">Email reset password dikirim ke korban dengan link yang mengarah ke domain milik penyerang.</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"3085\" data-end=\"3170\"><span style=\"color: #000000;\">Jika korban mengklik link tersebut, token reset password dapat dicuri oleh penyerang.</span></p>\n<hr data-start=\"3172\" data-end=\"3175\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1bjv732\" data-start=\"3177\" data-end=\"3200\"><span style=\"color: #000000;\">Web Cache Poisoning</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3202\" data-end=\"3281\"><span style=\"color: #000000;\">Host Header Injection juga dapat digunakan untuk melakukan <strong data-start=\"3261\" data-end=\"3280\">cache poisoning</strong>.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"3283\" data-end=\"3303\"><span style=\"color: #000000;\">Dampak Serangan</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3305\" data-end=\"3498\"><span style=\"color: #000000;\">Penyerang dapat menyisipkan konten berbahaya ke dalam cache server atau CDN. Ketika pengguna lain mengakses halaman tersebut, mereka akan menerima konten yang sudah dimodifikasi oleh penyerang.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3500\" data-end=\"3536\"><span style=\"color: #000000;\">Serangan ini berpotensi menyebarkan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3538\" data-end=\"3610\">\n<li data-section-id=\"1fwwm0w\" data-start=\"3538\" data-end=\"3558\">\n<p data-start=\"3540\" data-end=\"3558\"><span style=\"color: #000000;\">script berbahaya</span></p>\n</li>\n<li data-section-id=\"addafy\" data-start=\"3559\" data-end=\"3589\">\n<p data-start=\"3561\" data-end=\"3589\"><span style=\"color: #000000;\">redirect ke situs phishing</span></p>\n</li>\n<li data-section-id=\"mby6x1\" data-start=\"3590\" data-end=\"3610\">\n<p data-start=\"3592\" data-end=\"3610\"><span style=\"color: #000000;\">konten manipulatif</span></p>\n</li>\n</ul>\n<hr data-start=\"3612\" data-end=\"3615\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1kxa3wj\" data-start=\"3617\" data-end=\"3645\"><span style=\"color: #000000;\">Bypass Proteksi Keamanan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3647\" data-end=\"3778\"><span style=\"color: #000000;\">Dalam beberapa kasus, aplikasi menggunakan Host Header untuk memvalidasi permintaan internal atau menentukan domain yang diizinkan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3780\" data-end=\"3867\"><span style=\"color: #000000;\">Jika validasi tersebut lemah, penyerang dapat memanfaatkan Host Header Injection untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3869\" data-end=\"3959\">\n<li data-section-id=\"126mqm\" data-start=\"3869\" data-end=\"3898\">\n<p data-start=\"3871\" data-end=\"3898\"><span style=\"color: #000000;\">melewati mekanisme keamanan</span></p>\n</li>\n<li data-section-id=\"15wkski\" data-start=\"3899\" data-end=\"3928\">\n<p data-start=\"3901\" data-end=\"3928\"><span style=\"color: #000000;\">mengakses endpoint internal</span></p>\n</li>\n<li data-section-id=\"j08nru\" data-start=\"3929\" data-end=\"3959\">\n<p data-start=\"3931\" data-end=\"3959\"><span style=\"color: #000000;\">memanipulasi logika aplikasi</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/ssh-tunneling-teknik-mengamankan-data-dan-menembus-batas-jaringan/\">SSH Tunneling: Teknik Mengamankan Data dan Menembus Batas Jaringan</a></p></blockquote>\n<hr data-start=\"4249\" data-end=\"4252\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1l7ne8i\" data-start=\"4254\" data-end=\"4292\"><span style=\"color: #000000;\">Cara Mencegah Host Header Injection</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4294\" data-end=\"4397\"><span style=\"color: #000000;\">Mencegah kerentanan ini membutuhkan pendekatan yang tepat pada sisi aplikasi maupun konfigurasi server.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"7i6ltg\" data-start=\"4399\" data-end=\"4423\"><span style=\"color: #000000;\">Validasi Host Header</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4425\" data-end=\"4527\"><span style=\"color: #000000;\">Server harus memverifikasi bahwa nilai Host Header hanya berasal dari domain yang valid dan terdaftar.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4529\" data-end=\"4579\"><span style=\"color: #000000;\">Contohnya dengan menggunakan <strong data-start=\"4558\" data-end=\"4578\">whitelist domain</strong>.</span></p>\n<hr data-start=\"4581\" data-end=\"4584\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1f54rei\" data-start=\"4586\" data-end=\"4627\"><span style=\"color: #000000;\">Gunakan Konfigurasi Server yang Ketat</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4629\" data-end=\"4754\"><span style=\"color: #000000;\">Beberapa web server seperti <strong data-start=\"4657\" data-end=\"4666\">Nginx</strong> dan <strong data-start=\"4671\" data-end=\"4681\">Apache</strong> memungkinkan konfigurasi domain yang diperbolehkan melalui virtual host.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4756\" data-end=\"4840\"><span style=\"color: #000000;\">Dengan konfigurasi ini, server hanya akan merespons permintaan dari domain yang sah.</span></p>\n<hr data-start=\"4842\" data-end=\"4845\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"teonbw\" data-start=\"4847\" data-end=\"4898\"><span style=\"color: #000000;\">Hindari Menggunakan Host Header Secara Langsung</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4900\" data-end=\"5042\"><span style=\"color: #000000;\">Jika aplikasi membutuhkan URL absolut, sebaiknya gunakan <strong data-start=\"4957\" data-end=\"4986\">konfigurasi domain statis</strong> daripada mengambil nilai langsung dari permintaan HTTP.</span></p>\n<hr data-start=\"5044\" data-end=\"5047\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"s0kuln\" data-start=\"5049\" data-end=\"5095\"><span style=\"color: #000000;\">Gunakan Framework dengan Proteksi Keamanan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5097\" data-end=\"5280\"><span style=\"color: #000000;\">Banyak framework modern seperti <strong data-start=\"5129\" data-end=\"5165\">Django, Laravel, dan Spring Boot</strong> sudah menyediakan mekanisme perlindungan terhadap Host Header Injection melalui konfigurasi domain yang diizinkan.</span></p>\n<blockquote>\n<p data-start=\"5097\" data-end=\"5280\">baca juga : <a href=\"https://buletinsiber.com/vm-escape-ancaman-tersembunyi-dalam-virtualisasi-yang-bisa-menembus-host-system/\">VM Escape: Ancaman Tersembunyi dalam Virtualisasi yang Bisa Menembus Host System</a></p>\n</blockquote>\n<hr data-start=\"5282\" data-end=\"5285\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"5287\" data-end=\"5300\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5302\" data-end=\"5634\"><span style=\"color: #000000;\">Host Header Injection merupakan kerentanan keamanan yang sering kali dianggap sepele, namun memiliki potensi dampak yang besar terhadap keamanan aplikasi web. Dengan memanipulasi nilai Host Header dalam permintaan HTTP, penyerang dapat mengeksploitasi berbagai fitur aplikasi seperti password reset, caching, hingga sistem redirect.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5636\" data-end=\"5955\"><span style=\"color: #000000;\">Serangan yang memanfaatkan celah ini dapat menyebabkan pencurian akun, penyebaran konten berbahaya, serta manipulasi respons server. Oleh karena itu, pengembang dan administrator sistem perlu memastikan bahwa aplikasi web selalu melakukan validasi Host Header dengan benar serta menerapkan konfigurasi server yang aman.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5957\" data-end=\"6141\"><span style=\"color: #000000;\">Dengan pemahaman yang baik tentang cara kerja dan mitigasi Host Header Injection, organisasi dapat mengurangi risiko serangan dan meningkatkan keamanan aplikasi web yang mereka kelola.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dalam dunia keamanan aplikasi web, terdapat berbagai jenis kerentanan yang sering dimanfaatkan oleh penyerang untuk mengeksploitasi sistem. Salah satu celah yang cukup berbahaya namun sering tidak disadari oleh pengembang adalah Host Header Injection. Kerentanan ini terjadi ketika aplikasi web mempercayai nilai HTTP Host Header yang dikirim oleh pengguna tanpa melakukan validasi yang memadai. Akibatnya, penyerang dapat memanipulasi header tersebut untuk melakukan berbagai serangan, seperti password reset poisoning, cache poisoning, hingga phishing. Karena HTTP Host Header merupakan bagian standar dari permintaan HTTP, banyak aplikasi yang menggunakannya untuk menghasilkan URL absolut, redirect, atau email otomatis. Jika tidak dikonfigurasi dengan benar, celah&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 7233,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Host Header Injection",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      185,
+      932,
+      682,
+      444
+    ],
+    "class_list": [
+      "post-9707",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-cybersecurity",
+      "tag-injection",
+      "tag-keamanan",
+      "tag-web"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Host Header Injection: Celah Tersembunyi yang Bisa Mengambil Alih Aplikasi Web - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Host Header Injection: Celah Tersembunyi yang Bisa Mengambil Alih Aplikasi Web - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dalam dunia keamanan aplikasi web, terdapat berbagai jenis kerentanan yang sering dimanfaatkan oleh penyerang untuk mengeksploitasi sistem. Salah satu celah yang cukup berbahaya namun sering tidak disadari oleh pengembang adalah Host Header Injection. Kerentanan ini terjadi ketika aplikasi web mempercayai nilai HTTP Host Header yang dikirim oleh pengguna tanpa melakukan validasi yang memadai. Akibatnya, penyerang dapat memanipulasi header tersebut untuk melakukan berbagai serangan, seperti password reset poisoning, cache poisoning, hingga phishing. Karena HTTP Host Header merupakan bagian standar dari permintaan HTTP, banyak aplikasi yang menggunakannya untuk menghasilkan URL absolut, redirect, atau email otomatis. Jika tidak dikonfigurasi dengan benar, celah...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-03-10T14:11:54+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:56:23+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/11/image-generator-6.png\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"1024\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/\",\"url\":\"https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/\",\"name\":\"Host Header Injection: Celah Tersembunyi yang Bisa Mengambil Alih Aplikasi Web - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/image-generator-6.png\",\"datePublished\":\"2026-03-10T14:11:54+00:00\",\"dateModified\":\"2026-07-06T20:56:23+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/11/image-generator-6.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/image-generator-6.png\",\"width\":1024,\"height\":1024},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Host Header Injection: Celah Tersembunyi yang Bisa Mengambil Alih Aplikasi Web\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Host Header Injection: Celah Tersembunyi yang Bisa Mengambil Alih Aplikasi Web - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Host Header Injection: Celah Tersembunyi yang Bisa Mengambil Alih Aplikasi Web - buletinsiber.com",
+      "og_description": "Pengantar Dalam dunia keamanan aplikasi web, terdapat berbagai jenis kerentanan yang sering dimanfaatkan oleh penyerang untuk mengeksploitasi sistem. Salah satu celah yang cukup berbahaya namun sering tidak disadari oleh pengembang adalah Host Header Injection. Kerentanan ini terjadi ketika aplikasi web mempercayai nilai HTTP Host Header yang dikirim oleh pengguna tanpa melakukan validasi yang memadai. Akibatnya, penyerang dapat memanipulasi header tersebut untuk melakukan berbagai serangan, seperti password reset poisoning, cache poisoning, hingga phishing. Karena HTTP Host Header merupakan bagian standar dari permintaan HTTP, banyak aplikasi yang menggunakannya untuk menghasilkan URL absolut, redirect, atau email otomatis. Jika tidak dikonfigurasi dengan benar, celah...",
+      "og_url": "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-03-10T14:11:54+00:00",
+      "article_modified_time": "2026-07-06T20:56:23+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 1024,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/11/image-generator-6.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/",
+            "url": "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/",
+            "name": "Host Header Injection: Celah Tersembunyi yang Bisa Mengambil Alih Aplikasi Web - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/image-generator-6.png",
+            "datePublished": "2026-03-10T14:11:54+00:00",
+            "dateModified": "2026-07-06T20:56:23+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/11/image-generator-6.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/image-generator-6.png",
+            "width": 1024,
+            "height": 1024
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/host-header-injection-celah-tersembunyi-yang-bisa-mengambil-alih-aplikasi-web/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Host Header Injection: Celah Tersembunyi yang Bisa Mengambil Alih Aplikasi Web"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9707",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9707"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9707/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9708,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9707/revisions/9708"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/7233"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9707"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9707"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9707"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,317 @@
+{
+  "id": 23057,
+  "title": "Click2Shell: Celah WordPress yang Bisa Memaksa Instalasi Theme hingga RCE",
+  "slug": "click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce",
+  "url": "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/",
+  "date": "2026-09-20T03:48:35",
+  "date_gmt": "2026-09-20T03:48:35",
+  "modified": "2026-09-20T03:48:35",
+  "modified_gmt": "2026-09-20T03:48:35",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Uncategorized"
+    }
+  ],
+  "tags": [],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg",
+  "excerpt": "Pengantar WordPress kembali menjadi perhatian setelah peneliti keamanan menemukan sebuah kerentanan yang dijuluki Click2Shell. Kerentanan ini menarik karena serangan dapat dimulai hanya dari sebuah link yang dibuat secara khusus. Dalam kondisi tertentu, link tersebut dapat membuat administrator WordPress yang sedang login secara tidak sengaja memicu proses instalasi dan preview sebuah theme. Jika teknik ini digabungkan dengan kerentanan lain pada theme, serangan dapat berkembang menjadi Remote Code Execution (RCE). Artinya, penyerang berpotensi menjalankan kode tertentu di server yang menjalankan website WordPress. Apa Itu Click2Shell? Click2Shell merupakan nama yang diberikan peneliti dari pwn.ai terhadap teknik serangan yang memanfaatkan cara WordPress memproses URL…",
+  "content_html": "<h1>Pengantar</h1>\n<p>WordPress kembali menjadi perhatian setelah peneliti keamanan menemukan sebuah kerentanan yang dijuluki <strong>Click2Shell</strong>. Kerentanan ini menarik karena serangan dapat dimulai hanya dari sebuah link yang dibuat secara khusus.</p>\n<p>Dalam kondisi tertentu, link tersebut dapat membuat administrator WordPress yang sedang login secara tidak sengaja memicu proses instalasi dan preview sebuah theme. Jika teknik ini digabungkan dengan kerentanan lain pada theme, serangan dapat berkembang menjadi <strong>Remote Code Execution (RCE)</strong>.</p>\n<p>Artinya, penyerang berpotensi menjalankan kode tertentu di server yang menjalankan website WordPress.</p>\n<h2>Apa Itu Click2Shell?</h2>\n<p>Click2Shell merupakan nama yang diberikan peneliti dari pwn.ai terhadap teknik serangan yang memanfaatkan cara WordPress memproses URL dan permintaan instalasi theme.</p>\n<p>Secara sederhana, alurnya dapat digambarkan seperti ini:</p>\n<p><strong>Administrator login → membuka link berbahaya → WordPress memproses URL → theme dipasang → theme dipreview → kerentanan lain dieksploitasi → code execution</strong></p>\n<p>Hal penting yang perlu dipahami adalah <strong>Click2Shell sendiri tidak secara otomatis memberikan akses RCE</strong>.</p>\n<p>Serangan menjadi lebih berbahaya ketika kerentanan tersebut digabungkan dengan kelemahan lain pada sebuah theme.</p>\n<h2>Bagaimana Click2Shell Bekerja?</h2>\n<p>Serangan memanfaatkan perbedaan cara beberapa bagian WordPress menangani URL.</p>\n<p>Penyerang dapat membuat URL tertentu yang ketika dibuka oleh administrator yang sudah login dapat menyebabkan JavaScript pada WordPress mengarahkan pengguna ke proses instalasi theme.</p>\n<p>Karena administrator sudah memiliki session yang valid, WordPress dapat menganggap permintaan tersebut sebagai aktivitas yang dilakukan oleh pengguna yang memiliki hak administrator.</p>\n<p>Dalam kondisi tertentu, theme kemudian dapat terinstal dan digunakan dalam proses preview.</p>\n<p>Inilah bagian penting dari serangan.</p>\n<p>Administrator mungkin tidak merasa sedang melakukan instalasi theme, tetapi browsernya dapat memicu proses tersebut ketika membuka link yang telah dimanipulasi.</p>\n<h2>Mengapa Administrator Menjadi Target Penting?</h2>\n<p>Administrator memiliki hak akses yang sangat tinggi di WordPress.</p>\n<p>Seorang administrator pada umumnya dapat:</p>\n<ul>\n<li>Menginstal plugin.</li>\n<li>Menginstal theme.</li>\n<li>Mengubah konfigurasi website.</li>\n<li>Mengubah atau membuat konten.</li>\n<li>Mengelola pengguna.</li>\n<li>Mengubah file tertentu melalui fitur WordPress.</li>\n<li>Melakukan berbagai aktivitas administratif lainnya.</li>\n</ul>\n<p>Karena itu, jika browser administrator berhasil dipengaruhi oleh link berbahaya, dampaknya dapat jauh lebih besar dibandingkan serangan terhadap pengguna biasa.</p>\n<p>Serangan seperti ini juga menunjukkan pentingnya <strong>social engineering</strong>.</p>\n<p>Penyerang tidak selalu harus mencuri password administrator. Mereka dapat mencoba membuat administrator membuka sebuah link tertentu.</p>\n<h2>Theme yang Dipasang Tidak Harus Langsung Aktif</h2>\n<p>Salah satu hal menarik dari serangan Click2Shell adalah theme yang dipasang tidak harus langsung menjadi theme utama website.</p>\n<p>Theme dapat berada dalam kondisi <strong>inactive</strong>.</p>\n<p>Bagi administrator, website mungkin tetap terlihat normal.</p>\n<p>Namun, theme tersebut dapat digunakan dalam proses preview. Pada tahap inilah kode PHP yang terdapat di dalam theme dapat ikut diproses oleh server.</p>\n<p>Dengan kata lain, keberadaan theme yang tidak aktif bukan berarti tidak memiliki risiko sama sekali.</p>\n<h2>Dari Instalasi Theme hingga RCE</h2>\n<p>Bagian yang membuat Click2Shell menjadi lebih serius adalah kemungkinan menggabungkannya dengan kerentanan lain.</p>\n<p>Dalam penelitian yang dipublikasikan oleh pwn.ai, peneliti menggunakan theme <strong>Mobile Repair Zone</strong> sebagai bagian dari demonstrasi attack chain.</p>\n<p>Theme tersebut memiliki kelemahan yang dapat dimanfaatkan untuk mengambil package dari URL tertentu dan menjalankan kode di server.</p>\n<p>Jika kelemahan tersebut digabungkan dengan Click2Shell, terbentuk sebuah rangkaian serangan:</p>\n<p><strong>Click2Shell → Install Theme → Preview Theme → Eksploitasi Theme → Remote Code Execution</strong></p>\n<p>Jadi, serangan tidak hanya bergantung pada satu kerentanan.</p>\n<p>Ini merupakan contoh <strong>vulnerability chaining</strong>, yaitu menggabungkan beberapa kelemahan untuk mendapatkan dampak yang lebih besar.</p>\n<h2>Seberapa Berbahayakah Click2Shell?</h2>\n<p>Menurut laporan penelitian tersebut, kerentanan utama Click2Shell memiliki tingkat keparahan yang dinilai <strong>CVSS 7.1</strong>.</p>\n<p>Sementara itu, ketika digabungkan dengan kerentanan pada theme dalam attack chain yang didemonstrasikan, tingkat keparahannya dinilai mencapai <strong>CVSS 9.6</strong>.</p>\n<table>\n<thead>\n<tr>\n<th>Komponen</th>\n<th>Keterangan</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Click2Shell</td>\n<td>Forced theme installation/preview</td>\n</tr>\n<tr>\n<td>CVSS Click2Shell</td>\n<td>7.1</td>\n</tr>\n<tr>\n<td>Attack chain</td>\n<td>Dapat berujung pada code execution</td>\n</tr>\n<tr>\n<td>CVSS attack chain</td>\n<td>9.6</td>\n</tr>\n<tr>\n<td>Target utama</td>\n<td>Administrator WordPress yang sudah login</td>\n</tr>\n<tr>\n<td>CVE</td>\n<td>Belum tersedia saat laporan diterbitkan</td>\n</tr>\n</tbody>\n</table>\n<p>Angka tersebut merupakan penilaian dari peneliti yang melaporkan kerentanan, sehingga perlu dibedakan dari severity rating resmi yang mungkin diberikan oleh vendor.</p>\n<h2>WordPress Merilis Security Update</h2>\n<p>WordPress telah merilis pembaruan keamanan untuk menangani masalah tersebut.</p>\n<p>Laporan menyebutkan bahwa kerentanan tersebut berdampak pada berbagai versi WordPress mulai dari <strong>6.0</strong> hingga versi yang belum diperbaiki.</p>\n<p>WordPress kemudian merilis <strong>versi 7.1.1 pada 17 September 2026</strong> sebagai salah satu security update.</p>\n<p>Administrator sebaiknya tidak hanya melihat nomor versi terbaru secara umum, tetapi memastikan branch WordPress yang digunakan telah mendapatkan security update yang sesuai.</p>\n<h2>Apakah Click2Shell Sudah Digunakan Hacker?</h2>\n<p>Pada saat laporan tersebut diterbitkan, belum terdapat indikasi bahwa Click2Shell telah digunakan dalam serangan nyata.</p>\n<p>Namun, kondisi tersebut bukan berarti administrator dapat mengabaikannya.</p>\n<p>Informasi mengenai kerentanan yang telah dipublikasikan dapat membantu peneliti maupun attacker memahami bagaimana serangan bekerja.</p>\n<p>Semakin lama sebuah website tidak diperbarui, semakin besar pula peluang administrator menghadapi risiko dari kerentanan yang sudah diketahui publik.</p>\n<h2>Cara Melindungi Website WordPress</h2>\n<p>Ada beberapa langkah yang dapat dilakukan administrator WordPress.</p>\n<h3>1. Segera Update WordPress</h3>\n<p>Pastikan WordPress menggunakan versi yang sudah mendapatkan security patch.</p>\n<p>Jika menggunakan branch lama, periksa apakah terdapat security update untuk branch tersebut.</p>\n<h3>2. Aktifkan Automatic Security Updates</h3>\n<p>Automatic security updates dapat membantu mempercepat proses pemasangan patch keamanan.</p>\n<p>Namun, administrator tetap perlu melakukan monitoring untuk memastikan update berhasil diterapkan.</p>\n<h3>3. Gunakan MFA untuk Administrator</h3>\n<p>Password saja tidak cukup untuk melindungi akun administrator.</p>\n<p>Gunakan <strong>Multi-Factor Authentication (MFA)</strong> jika tersedia.</p>\n<p>Dengan MFA, pencurian password saja tidak langsung memberikan akses ke akun.</p>\n<h3>4. Audit Akun Administrator</h3>\n<p>Periksa seluruh akun yang memiliki hak administrator.</p>\n<p>Hapus akun yang sudah tidak digunakan dan gunakan prinsip <strong>least privilege</strong>.</p>\n<p>Tidak semua pengguna membutuhkan akses administrator.</p>\n<h3>5. Periksa Theme dan Plugin</h3>\n<p>Theme dan plugin merupakan bagian penting dari keamanan WordPress.</p>\n<p>Hapus theme atau plugin yang tidak digunakan.</p>\n<p>Selain itu, hindari menggunakan theme dan plugin dari sumber yang tidak terpercaya.</p>\n<h3>6. Monitor Instalasi Theme</h3>\n<p>Administrator dapat memonitor perubahan pada website, termasuk:</p>\n<ul>\n<li>Instalasi theme baru.</li>\n<li>Aktivasi theme.</li>\n<li>Instalasi plugin.</li>\n<li>Perubahan file.</li>\n<li>Perubahan akun administrator.</li>\n<li>Login administrator yang tidak biasa.</li>\n</ul>\n<p>Monitoring seperti ini dapat membantu menemukan aktivitas mencurigakan lebih awal.</p>\n<h2>Apa Pelajaran dari Click2Shell?</h2>\n<p>Click2Shell memberikan beberapa pelajaran penting bagi administrator WordPress.</p>\n<p>Pertama, <strong>akun administrator merupakan aset yang sangat penting</strong>. Ketika browser administrator berhasil dipengaruhi oleh link berbahaya, dampaknya dapat menjadi serius.</p>\n<p>Kedua, sebuah kerentanan tidak selalu harus memiliki dampak besar ketika berdiri sendiri. Dua kerentanan dengan dampak berbeda dapat digabungkan menjadi sebuah attack chain yang jauh lebih berbahaya.</p>\n<p>Ketiga, keamanan WordPress bukan hanya masalah password.</p>\n<p>Theme, plugin, core WordPress, akun pengguna, browser administrator, dan server semuanya merupakan bagian dari attack surface.</p>\n<p>Terakhir, <strong>patch management sangat penting</strong>. Ketika vendor sudah menyediakan security update, administrator sebaiknya tidak menunda pemasangannya tanpa alasan yang kuat.</p>\n<h2>Kesimpulan</h2>\n<p><strong>Click2Shell</strong> menunjukkan bagaimana sebuah link yang dibuat secara khusus dapat digunakan untuk memengaruhi administrator WordPress yang sedang login.</p>\n<p>Serangan tersebut dapat memaksa proses instalasi dan preview theme. Dalam kondisi tertentu, teknik ini dapat dirangkai dengan kelemahan lain pada theme hingga berpotensi menghasilkan <strong>Remote Code Execution (RCE)</strong>.</p>\n<p>Walaupun belum ada indikasi eksploitasi aktif pada saat laporan diterbitkan, administrator WordPress tetap perlu mengambil langkah pencegahan.</p>\n<p>Memperbarui WordPress, mengamankan akun administrator dengan MFA, mengaudit theme dan plugin, serta memonitor perubahan pada website merupakan langkah sederhana yang dapat membantu mengurangi risiko.</p>\n<p><strong>Jangan menunggu website terkena serangan. Pastikan WordPress, theme, dan plugin yang digunakan selalu mendapatkan security update terbaru.</strong></p>\n",
+  "content_text": "Pengantar\nWordPress kembali menjadi perhatian setelah peneliti keamanan menemukan sebuah kerentanan yang dijuluki  Click2Shell . Kerentanan ini menarik karena serangan dapat dimulai hanya dari sebuah link yang dibuat secara khusus.\nDalam kondisi tertentu, link tersebut dapat membuat administrator WordPress yang sedang login secara tidak sengaja memicu proses instalasi dan preview sebuah theme. Jika teknik ini digabungkan dengan kerentanan lain pada theme, serangan dapat berkembang menjadi  Remote Code Execution (RCE) .\nArtinya, penyerang berpotensi menjalankan kode tertentu di server yang menjalankan website WordPress.\nApa Itu Click2Shell?\nClick2Shell merupakan nama yang diberikan peneliti dari pwn.ai terhadap teknik serangan yang memanfaatkan cara WordPress memproses URL dan permintaan instalasi theme.\nSecara sederhana, alurnya dapat digambarkan seperti ini:\nAdministrator login → membuka link berbahaya → WordPress memproses URL → theme dipasang → theme dipreview → kerentanan lain dieksploitasi → code execution\nHal penting yang perlu dipahami adalah  Click2Shell sendiri tidak secara otomatis memberikan akses RCE .\nSerangan menjadi lebih berbahaya ketika kerentanan tersebut digabungkan dengan kelemahan lain pada sebuah theme.\nBagaimana Click2Shell Bekerja?\nSerangan memanfaatkan perbedaan cara beberapa bagian WordPress menangani URL.\nPenyerang dapat membuat URL tertentu yang ketika dibuka oleh administrator yang sudah login dapat menyebabkan JavaScript pada WordPress mengarahkan pengguna ke proses instalasi theme.\nKarena administrator sudah memiliki session yang valid, WordPress dapat menganggap permintaan tersebut sebagai aktivitas yang dilakukan oleh pengguna yang memiliki hak administrator.\nDalam kondisi tertentu, theme kemudian dapat terinstal dan digunakan dalam proses preview.\nInilah bagian penting dari serangan.\nAdministrator mungkin tidak merasa sedang melakukan instalasi theme, tetapi browsernya dapat memicu proses tersebut ketika membuka link yang telah dimanipulasi.\nMengapa Administrator Menjadi Target Penting?\nAdministrator memiliki hak akses yang sangat tinggi di WordPress.\nSeorang administrator pada umumnya dapat:\nMenginstal plugin.\nMenginstal theme.\nMengubah konfigurasi website.\nMengubah atau membuat konten.\nMengelola pengguna.\nMengubah file tertentu melalui fitur WordPress.\nMelakukan berbagai aktivitas administratif lainnya.\nKarena itu, jika browser administrator berhasil dipengaruhi oleh link berbahaya, dampaknya dapat jauh lebih besar dibandingkan serangan terhadap pengguna biasa.\nSerangan seperti ini juga menunjukkan pentingnya  social engineering .\nPenyerang tidak selalu harus mencuri password administrator. Mereka dapat mencoba membuat administrator membuka sebuah link tertentu.\nTheme yang Dipasang Tidak Harus Langsung Aktif\nSalah satu hal menarik dari serangan Click2Shell adalah theme yang dipasang tidak harus langsung menjadi theme utama website.\nTheme dapat berada dalam kondisi  inactive .\nBagi administrator, website mungkin tetap terlihat normal.\nNamun, theme tersebut dapat digunakan dalam proses preview. Pada tahap inilah kode PHP yang terdapat di dalam theme dapat ikut diproses oleh server.\nDengan kata lain, keberadaan theme yang tidak aktif bukan berarti tidak memiliki risiko sama sekali.\nDari Instalasi Theme hingga RCE\nBagian yang membuat Click2Shell menjadi lebih serius adalah kemungkinan menggabungkannya dengan kerentanan lain.\nDalam penelitian yang dipublikasikan oleh pwn.ai, peneliti menggunakan theme  Mobile Repair Zone  sebagai bagian dari demonstrasi attack chain.\nTheme tersebut memiliki kelemahan yang dapat dimanfaatkan untuk mengambil package dari URL tertentu dan menjalankan kode di server.\nJika kelemahan tersebut digabungkan dengan Click2Shell, terbentuk sebuah rangkaian serangan:\nClick2Shell → Install Theme → Preview Theme → Eksploitasi Theme → Remote Code Execution\nJadi, serangan tidak hanya bergantung pada satu kerentanan.\nIni merupakan contoh  vulnerability chaining , yaitu menggabungkan beberapa kelemahan untuk mendapatkan dampak yang lebih besar.\nSeberapa Berbahayakah Click2Shell?\nMenurut laporan penelitian tersebut, kerentanan utama Click2Shell memiliki tingkat keparahan yang dinilai  CVSS 7.1 .\nSementara itu, ketika digabungkan dengan kerentanan pada theme dalam attack chain yang didemonstrasikan, tingkat keparahannya dinilai mencapai  CVSS 9.6 .\nKomponen\nKeterangan\nClick2Shell\nForced theme installation/preview\nCVSS Click2Shell\n7.1\nAttack chain\nDapat berujung pada code execution\nCVSS attack chain\n9.6\nTarget utama\nAdministrator WordPress yang sudah login\nCVE\nBelum tersedia saat laporan diterbitkan\nAngka tersebut merupakan penilaian dari peneliti yang melaporkan kerentanan, sehingga perlu dibedakan dari severity rating resmi yang mungkin diberikan oleh vendor.\nWordPress Merilis Security Update\nWordPress telah merilis pembaruan keamanan untuk menangani masalah tersebut.\nLaporan menyebutkan bahwa kerentanan tersebut berdampak pada berbagai versi WordPress mulai dari  6.0  hingga versi yang belum diperbaiki.\nWordPress kemudian merilis  versi 7.1.1 pada 17 September 2026  sebagai salah satu security update.\nAdministrator sebaiknya tidak hanya melihat nomor versi terbaru secara umum, tetapi memastikan branch WordPress yang digunakan telah mendapatkan security update yang sesuai.\nApakah Click2Shell Sudah Digunakan Hacker?\nPada saat laporan tersebut diterbitkan, belum terdapat indikasi bahwa Click2Shell telah digunakan dalam serangan nyata.\nNamun, kondisi tersebut bukan berarti administrator dapat mengabaikannya.\nInformasi mengenai kerentanan yang telah dipublikasikan dapat membantu peneliti maupun attacker memahami bagaimana serangan bekerja.\nSemakin lama sebuah website tidak diperbarui, semakin besar pula peluang administrator menghadapi risiko dari kerentanan yang sudah diketahui publik.\nCara Melindungi Website WordPress\nAda beberapa langkah yang dapat dilakukan administrator WordPress.\n1. Segera Update WordPress\nPastikan WordPress menggunakan versi yang sudah mendapatkan security patch.\nJika menggunakan branch lama, periksa apakah terdapat security update untuk branch tersebut.\n2. Aktifkan Automatic Security Updates\nAutomatic security updates dapat membantu mempercepat proses pemasangan patch keamanan.\nNamun, administrator tetap perlu melakukan monitoring untuk memastikan update berhasil diterapkan.\n3. Gunakan MFA untuk Administrator\nPassword saja tidak cukup untuk melindungi akun administrator.\nGunakan  Multi-Factor Authentication (MFA)  jika tersedia.\nDengan MFA, pencurian password saja tidak langsung memberikan akses ke akun.\n4. Audit Akun Administrator\nPeriksa seluruh akun yang memiliki hak administrator.\nHapus akun yang sudah tidak digunakan dan gunakan prinsip  least privilege .\nTidak semua pengguna membutuhkan akses administrator.\n5. Periksa Theme dan Plugin\nTheme dan plugin merupakan bagian penting dari keamanan WordPress.\nHapus theme atau plugin yang tidak digunakan.\nSelain itu, hindari menggunakan theme dan plugin dari sumber yang tidak terpercaya.\n6. Monitor Instalasi Theme\nAdministrator dapat memonitor perubahan pada website, termasuk:\nInstalasi theme baru.\nAktivasi theme.\nInstalasi plugin.\nPerubahan file.\nPerubahan akun administrator.\nLogin administrator yang tidak biasa.\nMonitoring seperti ini dapat membantu menemukan aktivitas mencurigakan lebih awal.\nApa Pelajaran dari Click2Shell?\nClick2Shell memberikan beberapa pelajaran penting bagi administrator WordPress.\nPertama,  akun administrator merupakan aset yang sangat penting . Ketika browser administrator berhasil dipengaruhi oleh link berbahaya, dampaknya dapat menjadi serius.\nKedua, sebuah kerentanan tidak selalu harus memiliki dampak besar ketika berdiri sendiri. Dua kerentanan dengan dampak berbeda dapat digabungkan menjadi sebuah attack chain yang jauh lebih berbahaya.\nKetiga, keamanan WordPress bukan hanya masalah password.\nTheme, plugin, core WordPress, akun pengguna, browser administrator, dan server semuanya merupakan bagian dari attack surface.\nTerakhir,  patch management sangat penting . Ketika vendor sudah menyediakan security update, administrator sebaiknya tidak menunda pemasangannya tanpa alasan yang kuat.\nKesimpulan\nClick2Shell  menunjukkan bagaimana sebuah link yang dibuat secara khusus dapat digunakan untuk memengaruhi administrator WordPress yang sedang login.\nSerangan tersebut dapat memaksa proses instalasi dan preview theme. Dalam kondisi tertentu, teknik ini dapat dirangkai dengan kelemahan lain pada theme hingga berpotensi menghasilkan  Remote Code Execution (RCE) .\nWalaupun belum ada indikasi eksploitasi aktif pada saat laporan diterbitkan, administrator WordPress tetap perlu mengambil langkah pencegahan.\nMemperbarui WordPress, mengamankan akun administrator dengan MFA, mengaudit theme dan plugin, serta memonitor perubahan pada website merupakan langkah sederhana yang dapat membantu mengurangi risiko.\nJangan menunggu website terkena serangan. Pastikan WordPress, theme, dan plugin yang digunakan selalu mendapatkan security update terbaru.",
+  "raw": {
+    "id": 23057,
+    "date": "2026-09-20T03:48:35",
+    "date_gmt": "2026-09-20T03:48:35",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=23057"
+    },
+    "modified": "2026-09-20T03:48:35",
+    "modified_gmt": "2026-09-20T03:48:35",
+    "slug": "click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/",
+    "title": {
+      "rendered": "Click2Shell: Celah WordPress yang Bisa Memaksa Instalasi Theme hingga RCE"
+    },
+    "content": {
+      "rendered": "<h1>Pengantar</h1>\n<p>WordPress kembali menjadi perhatian setelah peneliti keamanan menemukan sebuah kerentanan yang dijuluki <strong>Click2Shell</strong>. Kerentanan ini menarik karena serangan dapat dimulai hanya dari sebuah link yang dibuat secara khusus.</p>\n<p>Dalam kondisi tertentu, link tersebut dapat membuat administrator WordPress yang sedang login secara tidak sengaja memicu proses instalasi dan preview sebuah theme. Jika teknik ini digabungkan dengan kerentanan lain pada theme, serangan dapat berkembang menjadi <strong>Remote Code Execution (RCE)</strong>.</p>\n<p>Artinya, penyerang berpotensi menjalankan kode tertentu di server yang menjalankan website WordPress.</p>\n<h2>Apa Itu Click2Shell?</h2>\n<p>Click2Shell merupakan nama yang diberikan peneliti dari pwn.ai terhadap teknik serangan yang memanfaatkan cara WordPress memproses URL dan permintaan instalasi theme.</p>\n<p>Secara sederhana, alurnya dapat digambarkan seperti ini:</p>\n<p><strong>Administrator login → membuka link berbahaya → WordPress memproses URL → theme dipasang → theme dipreview → kerentanan lain dieksploitasi → code execution</strong></p>\n<p>Hal penting yang perlu dipahami adalah <strong>Click2Shell sendiri tidak secara otomatis memberikan akses RCE</strong>.</p>\n<p>Serangan menjadi lebih berbahaya ketika kerentanan tersebut digabungkan dengan kelemahan lain pada sebuah theme.</p>\n<h2>Bagaimana Click2Shell Bekerja?</h2>\n<p>Serangan memanfaatkan perbedaan cara beberapa bagian WordPress menangani URL.</p>\n<p>Penyerang dapat membuat URL tertentu yang ketika dibuka oleh administrator yang sudah login dapat menyebabkan JavaScript pada WordPress mengarahkan pengguna ke proses instalasi theme.</p>\n<p>Karena administrator sudah memiliki session yang valid, WordPress dapat menganggap permintaan tersebut sebagai aktivitas yang dilakukan oleh pengguna yang memiliki hak administrator.</p>\n<p>Dalam kondisi tertentu, theme kemudian dapat terinstal dan digunakan dalam proses preview.</p>\n<p>Inilah bagian penting dari serangan.</p>\n<p>Administrator mungkin tidak merasa sedang melakukan instalasi theme, tetapi browsernya dapat memicu proses tersebut ketika membuka link yang telah dimanipulasi.</p>\n<h2>Mengapa Administrator Menjadi Target Penting?</h2>\n<p>Administrator memiliki hak akses yang sangat tinggi di WordPress.</p>\n<p>Seorang administrator pada umumnya dapat:</p>\n<ul>\n<li>Menginstal plugin.</li>\n<li>Menginstal theme.</li>\n<li>Mengubah konfigurasi website.</li>\n<li>Mengubah atau membuat konten.</li>\n<li>Mengelola pengguna.</li>\n<li>Mengubah file tertentu melalui fitur WordPress.</li>\n<li>Melakukan berbagai aktivitas administratif lainnya.</li>\n</ul>\n<p>Karena itu, jika browser administrator berhasil dipengaruhi oleh link berbahaya, dampaknya dapat jauh lebih besar dibandingkan serangan terhadap pengguna biasa.</p>\n<p>Serangan seperti ini juga menunjukkan pentingnya <strong>social engineering</strong>.</p>\n<p>Penyerang tidak selalu harus mencuri password administrator. Mereka dapat mencoba membuat administrator membuka sebuah link tertentu.</p>\n<h2>Theme yang Dipasang Tidak Harus Langsung Aktif</h2>\n<p>Salah satu hal menarik dari serangan Click2Shell adalah theme yang dipasang tidak harus langsung menjadi theme utama website.</p>\n<p>Theme dapat berada dalam kondisi <strong>inactive</strong>.</p>\n<p>Bagi administrator, website mungkin tetap terlihat normal.</p>\n<p>Namun, theme tersebut dapat digunakan dalam proses preview. Pada tahap inilah kode PHP yang terdapat di dalam theme dapat ikut diproses oleh server.</p>\n<p>Dengan kata lain, keberadaan theme yang tidak aktif bukan berarti tidak memiliki risiko sama sekali.</p>\n<h2>Dari Instalasi Theme hingga RCE</h2>\n<p>Bagian yang membuat Click2Shell menjadi lebih serius adalah kemungkinan menggabungkannya dengan kerentanan lain.</p>\n<p>Dalam penelitian yang dipublikasikan oleh pwn.ai, peneliti menggunakan theme <strong>Mobile Repair Zone</strong> sebagai bagian dari demonstrasi attack chain.</p>\n<p>Theme tersebut memiliki kelemahan yang dapat dimanfaatkan untuk mengambil package dari URL tertentu dan menjalankan kode di server.</p>\n<p>Jika kelemahan tersebut digabungkan dengan Click2Shell, terbentuk sebuah rangkaian serangan:</p>\n<p><strong>Click2Shell → Install Theme → Preview Theme → Eksploitasi Theme → Remote Code Execution</strong></p>\n<p>Jadi, serangan tidak hanya bergantung pada satu kerentanan.</p>\n<p>Ini merupakan contoh <strong>vulnerability chaining</strong>, yaitu menggabungkan beberapa kelemahan untuk mendapatkan dampak yang lebih besar.</p>\n<h2>Seberapa Berbahayakah Click2Shell?</h2>\n<p>Menurut laporan penelitian tersebut, kerentanan utama Click2Shell memiliki tingkat keparahan yang dinilai <strong>CVSS 7.1</strong>.</p>\n<p>Sementara itu, ketika digabungkan dengan kerentanan pada theme dalam attack chain yang didemonstrasikan, tingkat keparahannya dinilai mencapai <strong>CVSS 9.6</strong>.</p>\n<table>\n<thead>\n<tr>\n<th>Komponen</th>\n<th>Keterangan</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Click2Shell</td>\n<td>Forced theme installation/preview</td>\n</tr>\n<tr>\n<td>CVSS Click2Shell</td>\n<td>7.1</td>\n</tr>\n<tr>\n<td>Attack chain</td>\n<td>Dapat berujung pada code execution</td>\n</tr>\n<tr>\n<td>CVSS attack chain</td>\n<td>9.6</td>\n</tr>\n<tr>\n<td>Target utama</td>\n<td>Administrator WordPress yang sudah login</td>\n</tr>\n<tr>\n<td>CVE</td>\n<td>Belum tersedia saat laporan diterbitkan</td>\n</tr>\n</tbody>\n</table>\n<p>Angka tersebut merupakan penilaian dari peneliti yang melaporkan kerentanan, sehingga perlu dibedakan dari severity rating resmi yang mungkin diberikan oleh vendor.</p>\n<h2>WordPress Merilis Security Update</h2>\n<p>WordPress telah merilis pembaruan keamanan untuk menangani masalah tersebut.</p>\n<p>Laporan menyebutkan bahwa kerentanan tersebut berdampak pada berbagai versi WordPress mulai dari <strong>6.0</strong> hingga versi yang belum diperbaiki.</p>\n<p>WordPress kemudian merilis <strong>versi 7.1.1 pada 17 September 2026</strong> sebagai salah satu security update.</p>\n<p>Administrator sebaiknya tidak hanya melihat nomor versi terbaru secara umum, tetapi memastikan branch WordPress yang digunakan telah mendapatkan security update yang sesuai.</p>\n<h2>Apakah Click2Shell Sudah Digunakan Hacker?</h2>\n<p>Pada saat laporan tersebut diterbitkan, belum terdapat indikasi bahwa Click2Shell telah digunakan dalam serangan nyata.</p>\n<p>Namun, kondisi tersebut bukan berarti administrator dapat mengabaikannya.</p>\n<p>Informasi mengenai kerentanan yang telah dipublikasikan dapat membantu peneliti maupun attacker memahami bagaimana serangan bekerja.</p>\n<p>Semakin lama sebuah website tidak diperbarui, semakin besar pula peluang administrator menghadapi risiko dari kerentanan yang sudah diketahui publik.</p>\n<h2>Cara Melindungi Website WordPress</h2>\n<p>Ada beberapa langkah yang dapat dilakukan administrator WordPress.</p>\n<h3>1. Segera Update WordPress</h3>\n<p>Pastikan WordPress menggunakan versi yang sudah mendapatkan security patch.</p>\n<p>Jika menggunakan branch lama, periksa apakah terdapat security update untuk branch tersebut.</p>\n<h3>2. Aktifkan Automatic Security Updates</h3>\n<p>Automatic security updates dapat membantu mempercepat proses pemasangan patch keamanan.</p>\n<p>Namun, administrator tetap perlu melakukan monitoring untuk memastikan update berhasil diterapkan.</p>\n<h3>3. Gunakan MFA untuk Administrator</h3>\n<p>Password saja tidak cukup untuk melindungi akun administrator.</p>\n<p>Gunakan <strong>Multi-Factor Authentication (MFA)</strong> jika tersedia.</p>\n<p>Dengan MFA, pencurian password saja tidak langsung memberikan akses ke akun.</p>\n<h3>4. Audit Akun Administrator</h3>\n<p>Periksa seluruh akun yang memiliki hak administrator.</p>\n<p>Hapus akun yang sudah tidak digunakan dan gunakan prinsip <strong>least privilege</strong>.</p>\n<p>Tidak semua pengguna membutuhkan akses administrator.</p>\n<h3>5. Periksa Theme dan Plugin</h3>\n<p>Theme dan plugin merupakan bagian penting dari keamanan WordPress.</p>\n<p>Hapus theme atau plugin yang tidak digunakan.</p>\n<p>Selain itu, hindari menggunakan theme dan plugin dari sumber yang tidak terpercaya.</p>\n<h3>6. Monitor Instalasi Theme</h3>\n<p>Administrator dapat memonitor perubahan pada website, termasuk:</p>\n<ul>\n<li>Instalasi theme baru.</li>\n<li>Aktivasi theme.</li>\n<li>Instalasi plugin.</li>\n<li>Perubahan file.</li>\n<li>Perubahan akun administrator.</li>\n<li>Login administrator yang tidak biasa.</li>\n</ul>\n<p>Monitoring seperti ini dapat membantu menemukan aktivitas mencurigakan lebih awal.</p>\n<h2>Apa Pelajaran dari Click2Shell?</h2>\n<p>Click2Shell memberikan beberapa pelajaran penting bagi administrator WordPress.</p>\n<p>Pertama, <strong>akun administrator merupakan aset yang sangat penting</strong>. Ketika browser administrator berhasil dipengaruhi oleh link berbahaya, dampaknya dapat menjadi serius.</p>\n<p>Kedua, sebuah kerentanan tidak selalu harus memiliki dampak besar ketika berdiri sendiri. Dua kerentanan dengan dampak berbeda dapat digabungkan menjadi sebuah attack chain yang jauh lebih berbahaya.</p>\n<p>Ketiga, keamanan WordPress bukan hanya masalah password.</p>\n<p>Theme, plugin, core WordPress, akun pengguna, browser administrator, dan server semuanya merupakan bagian dari attack surface.</p>\n<p>Terakhir, <strong>patch management sangat penting</strong>. Ketika vendor sudah menyediakan security update, administrator sebaiknya tidak menunda pemasangannya tanpa alasan yang kuat.</p>\n<h2>Kesimpulan</h2>\n<p><strong>Click2Shell</strong> menunjukkan bagaimana sebuah link yang dibuat secara khusus dapat digunakan untuk memengaruhi administrator WordPress yang sedang login.</p>\n<p>Serangan tersebut dapat memaksa proses instalasi dan preview theme. Dalam kondisi tertentu, teknik ini dapat dirangkai dengan kelemahan lain pada theme hingga berpotensi menghasilkan <strong>Remote Code Execution (RCE)</strong>.</p>\n<p>Walaupun belum ada indikasi eksploitasi aktif pada saat laporan diterbitkan, administrator WordPress tetap perlu mengambil langkah pencegahan.</p>\n<p>Memperbarui WordPress, mengamankan akun administrator dengan MFA, mengaudit theme dan plugin, serta memonitor perubahan pada website merupakan langkah sederhana yang dapat membantu mengurangi risiko.</p>\n<p><strong>Jangan menunggu website terkena serangan. Pastikan WordPress, theme, dan plugin yang digunakan selalu mendapatkan security update terbaru.</strong></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar WordPress kembali menjadi perhatian setelah peneliti keamanan menemukan sebuah kerentanan yang dijuluki Click2Shell. Kerentanan ini menarik karena serangan dapat dimulai hanya dari sebuah link yang dibuat secara khusus. Dalam kondisi tertentu, link tersebut dapat membuat administrator WordPress yang sedang login secara tidak sengaja memicu proses instalasi dan preview sebuah theme. Jika teknik ini digabungkan dengan kerentanan lain pada theme, serangan dapat berkembang menjadi Remote Code Execution (RCE). Artinya, penyerang berpotensi menjalankan kode tertentu di server yang menjalankan website WordPress. Apa Itu Click2Shell? Click2Shell merupakan nama yang diberikan peneliti dari pwn.ai terhadap teknik serangan yang memanfaatkan cara WordPress memproses URL&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 10229,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1
+    ],
+    "tags": [],
+    "class_list": [
+      "post-23057",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-uncategorized"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Click2Shell: Celah WordPress yang Bisa Memaksa Instalasi Theme hingga RCE - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Click2Shell: Celah WordPress yang Bisa Memaksa Instalasi Theme hingga RCE - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar WordPress kembali menjadi perhatian setelah peneliti keamanan menemukan sebuah kerentanan yang dijuluki Click2Shell. Kerentanan ini menarik karena serangan dapat dimulai hanya dari sebuah link yang dibuat secara khusus. Dalam kondisi tertentu, link tersebut dapat membuat administrator WordPress yang sedang login secara tidak sengaja memicu proses instalasi dan preview sebuah theme. Jika teknik ini digabungkan dengan kerentanan lain pada theme, serangan dapat berkembang menjadi Remote Code Execution (RCE). Artinya, penyerang berpotensi menjalankan kode tertentu di server yang menjalankan website WordPress. Apa Itu Click2Shell? Click2Shell merupakan nama yang diberikan peneliti dari pwn.ai terhadap teknik serangan yang memanfaatkan cara WordPress memproses URL...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-09-20T03:48:35+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1600\" />\n\t<meta property=\"og:image:height\" content=\"900\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/\",\"url\":\"https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/\",\"name\":\"Click2Shell: Celah WordPress yang Bisa Memaksa Instalasi Theme hingga RCE - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg\",\"datePublished\":\"2026-09-20T03:48:35+00:00\",\"dateModified\":\"2026-09-20T03:48:35+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg\",\"width\":1600,\"height\":900},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Click2Shell: Celah WordPress yang Bisa Memaksa Instalasi Theme hingga RCE\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Click2Shell: Celah WordPress yang Bisa Memaksa Instalasi Theme hingga RCE - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Click2Shell: Celah WordPress yang Bisa Memaksa Instalasi Theme hingga RCE - buletinsiber.com",
+      "og_description": "Pengantar WordPress kembali menjadi perhatian setelah peneliti keamanan menemukan sebuah kerentanan yang dijuluki Click2Shell. Kerentanan ini menarik karena serangan dapat dimulai hanya dari sebuah link yang dibuat secara khusus. Dalam kondisi tertentu, link tersebut dapat membuat administrator WordPress yang sedang login secara tidak sengaja memicu proses instalasi dan preview sebuah theme. Jika teknik ini digabungkan dengan kerentanan lain pada theme, serangan dapat berkembang menjadi Remote Code Execution (RCE). Artinya, penyerang berpotensi menjalankan kode tertentu di server yang menjalankan website WordPress. Apa Itu Click2Shell? Click2Shell merupakan nama yang diberikan peneliti dari pwn.ai terhadap teknik serangan yang memanfaatkan cara WordPress memproses URL...",
+      "og_url": "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-09-20T03:48:35+00:00",
+      "og_image": [
+        {
+          "width": 1600,
+          "height": 900,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/",
+            "url": "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/",
+            "name": "Click2Shell: Celah WordPress yang Bisa Memaksa Instalasi Theme hingga RCE - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg",
+            "datePublished": "2026-09-20T03:48:35+00:00",
+            "dateModified": "2026-09-20T03:48:35+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg",
+            "width": 1600,
+            "height": 900
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/click2shell-celah-wordpress-yang-bisa-memaksa-instalasi-theme-hingga-rce/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Click2Shell: Celah WordPress yang Bisa Memaksa Instalasi Theme hingga RCE"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23057",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=23057"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23057/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 23058,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23057/revisions/23058"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/10229"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=23057"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=23057"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=23057"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "id": 6232,
+  "title": "Memahami Pass-the-Hash: Saat Hash Menggantikan Kata Sandi dalam Lateral Movement",
+  "slug": "memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement",
+  "url": "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/",
+  "date": "2025-09-24T15:43:03",
+  "date_gmt": "2025-09-24T15:43:03",
+  "modified": "2026-07-12T16:43:40",
+  "modified_gmt": "2026-07-12T16:43:40",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    202,
+    470
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/66e63178591c6-hacker-ilustrasi_wisata.jpg",
+  "excerpt": "Ringkasan singkat Pass-the-Hash (PtH) adalah salah satu teknik lateral movement yang sering dipakai penyerang setelah mereka mendapatkan akses awal ke jaringan. Alih-alih menggunakan kata sandi biasa, penyerang memanfaatkan hash (representasi terenkripsi dari kata sandi) untuk melakukan autentikasi ke komputer lain. Artikel ini menjelaskan konsep, bagaimana PtH bekerja secara garis besar, tanda-tanda kompromi, dan langkah-langkah yang bisa dilakukan organisasi untuk mendeteksi dan mencegahnya — semuanya dalam bahasa yang sederhana. Apa itu hash dan kenapa bisa dipakai sebagai kredensial? Hash adalah hasil transformasi satu arah dari sebuah data — dalam konteks ini kata sandi. Ketika Anda mengetik kata sandi, sistem biasanya mengubahnya…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"84\" data-end=\"629\"><strong data-start=\"84\" data-end=\"105\">Ringkasan singkat</strong></h2>\n<p style=\"text-align: justify;\" data-start=\"84\" data-end=\"629\">Pass-the-Hash (PtH) adalah salah satu teknik lateral movement yang sering dipakai penyerang setelah mereka mendapatkan akses awal ke jaringan. Alih-alih menggunakan kata sandi biasa, penyerang memanfaatkan <em data-start=\"314\" data-end=\"320\">hash</em> (representasi terenkripsi dari kata sandi) untuk melakukan autentikasi ke komputer lain. Artikel ini menjelaskan konsep, bagaimana PtH bekerja secara garis besar, tanda-tanda kompromi, dan langkah-langkah yang bisa dilakukan organisasi untuk mendeteksi dan mencegahnya — semuanya dalam bahasa yang sederhana.</p>\n<h2 style=\"text-align: justify;\" data-start=\"636\" data-end=\"695\">Apa itu hash dan kenapa bisa dipakai sebagai kredensial?</h2>\n<p style=\"text-align: justify;\" data-start=\"697\" data-end=\"997\">Hash adalah hasil transformasi satu arah dari sebuah data — dalam konteks ini kata sandi. Ketika Anda mengetik kata sandi, sistem biasanya mengubahnya menjadi hash dan menyimpan hash tersebut. Hash berbeda dari kata sandi asli: Anda tidak bisa (dengan mudah) mengubah hash kembali menjadi kata sandi.</p>\n<p style=\"text-align: justify;\" data-start=\"999\" data-end=\"1306\">Namun beberapa sistem autentikasi, khususnya model lama di Windows (NTLM), menerima hash sebagai bukti identitas saat proses login. Artinya, jika penyerang berhasil mengambil hash dari sebuah mesin, mereka bisa menggunakannya seperti &#8220;kunci&#8221; untuk mengakses mesin lain — tanpa mengetahui kata sandi aslinya.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1313\" data-end=\"1359\">Di mana Pass-the-Hash masuk dalam serangan?</h2>\n<p style=\"text-align: justify;\" data-start=\"1361\" data-end=\"1774\">Lateral movement adalah fase setelah penyerang mendapatkan akses awal ke sebuah perangkat atau akun. Tujuannya: memperluas akses ke sistem lain, mencari data sensitif, atau mencapai akun dengan hak istimewa lebih tinggi (mis. domain admin). Pass-the-Hash adalah salah satu metode yang membuat lateral movement jadi mudah karena penyerang tidak perlu menebak kata sandi — cukup memanfaatkan hash yang sudah dicuri.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1781\" data-end=\"1827\">Gambaran umum: Bagaimana alur Pass-the-Hash</h2>\n<p style=\"text-align: justify;\" data-start=\"1829\" data-end=\"1882\">Berikut alur sederhana tanpa detail teknis berbahaya:</p>\n<ol style=\"text-align: justify;\" data-start=\"1884\" data-end=\"2652\">\n<li data-start=\"1884\" data-end=\"2012\">\n<p data-start=\"1887\" data-end=\"2012\"><strong data-start=\"1887\" data-end=\"1905\">Initial access</strong>: Penyerang berhasil masuk ke sebuah workstation atau server (mis. lewat phishing atau eksploitasi lain).</p>\n</li>\n<li data-start=\"2013\" data-end=\"2163\">\n<p data-start=\"2016\" data-end=\"2163\"><strong data-start=\"2016\" data-end=\"2036\">Pengambilan hash</strong>: Dari sistem yang sudah dikompromi, penyerang menemukan atau mengekstrak hash kredensial yang tersimpan di memori atau file.</p>\n</li>\n<li data-start=\"2164\" data-end=\"2340\">\n<p data-start=\"2167\" data-end=\"2340\"><strong data-start=\"2167\" data-end=\"2186\">Penggunaan hash</strong>: Penyerang menggunakan hash tersebut untuk melakukan autentikasi ke sistem lain dalam jaringan (mis. server file, domain controller, atau server lain).</p>\n</li>\n<li data-start=\"2341\" data-end=\"2508\">\n<p data-start=\"2344\" data-end=\"2508\"><strong data-start=\"2344\" data-end=\"2363\">Perluasan akses</strong>: Jika hash yang dicuri milik akun dengan hak tinggi, penyerang bisa mendapatkan akses lebih luas atau eskalasi ke privilege yang lebih tinggi.</p>\n</li>\n<li data-start=\"2509\" data-end=\"2652\">\n<p data-start=\"2512\" data-end=\"2652\"><strong data-start=\"2512\" data-end=\"2542\">Eksfiltrasi / tujuan akhir</strong>: Setelah memperluas akses, penyerang mencari data berharga atau menempatkan backdoor untuk akses selanjutnya.</p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2654\" data-end=\"2810\">Penting: artikel ini tidak menjelaskan langkah teknis untuk mengekstrak atau menggunakan hash. Tujuan kita adalah memahami risiko dan bagaimana mencegahnya.</p>\n<h2 style=\"text-align: justify;\" data-start=\"2817\" data-end=\"2864\">Mengapa Pass-the-Hash masih menjadi ancaman?</h2>\n<p style=\"text-align: justify;\" data-start=\"2866\" data-end=\"2908\">Beberapa faktor membuat PtH tetap efektif:</p>\n<ul style=\"text-align: justify;\" data-start=\"2910\" data-end=\"3342\">\n<li data-start=\"2910\" data-end=\"3028\">\n<p data-start=\"2912\" data-end=\"3028\"><strong data-start=\"2912\" data-end=\"2947\">Penggunaan kredensial yang sama</strong> di banyak mesin (mis. akun admin lokal dengan password sama di banyak server).</p>\n</li>\n<li data-start=\"3029\" data-end=\"3131\">\n<p data-start=\"3031\" data-end=\"3131\"><strong data-start=\"3031\" data-end=\"3048\">Protokol lama</strong> atau konfigurasi sistem yang masih mengizinkan autentikasi berbasis hash (NTLM).</p>\n</li>\n<li data-start=\"3132\" data-end=\"3231\">\n<p data-start=\"3134\" data-end=\"3231\"><strong data-start=\"3134\" data-end=\"3167\">Kurangnya segmentasi jaringan</strong>, sehingga satu host yang dikompromi mudah mencapai host lain.</p>\n</li>\n<li data-start=\"3232\" data-end=\"3342\">\n<p data-start=\"3234\" data-end=\"3342\"><strong data-start=\"3234\" data-end=\"3258\">Kurangnya monitoring</strong> pada aktivitas autentikasi internal yang membuat perilaku anomali sulit terdeteksi.</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"3349\" data-end=\"3394\">Indikator Kompromi (Apa yang harus dicari)</h2>\n<p style=\"text-align: justify;\" data-start=\"3396\" data-end=\"3501\">Berikut tanda-tanda umum yang dapat mengindikasikan aktivitas PtH atau perilaku lateral movement terkait:</p>\n<ul style=\"text-align: justify;\" data-start=\"3503\" data-end=\"4176\">\n<li data-start=\"3503\" data-end=\"3630\">\n<p data-start=\"3505\" data-end=\"3630\"><strong data-start=\"3505\" data-end=\"3526\">Logon tidak biasa</strong>: akun yang biasanya hanya login di satu mesin tiba-tiba muncul melakukan autentikasi di banyak mesin.</p>\n</li>\n<li data-start=\"3631\" data-end=\"3766\">\n<p data-start=\"3633\" data-end=\"3766\"><strong data-start=\"3633\" data-end=\"3666\">Koneksi SMB/WinRM tak terduga</strong>: lalu lintas file sharing atau remote management antara host yang seharusnya tidak berkomunikasi.</p>\n</li>\n<li data-start=\"3767\" data-end=\"3930\">\n<p data-start=\"3769\" data-end=\"3930\"><strong data-start=\"3769\" data-end=\"3796\">Proses memori yang aneh</strong>: aktivitas proses yang mengakses memori proses sistem kritis atau melakukan dump memori (indikator adanya tool dumping kredensial).</p>\n</li>\n<li data-start=\"3931\" data-end=\"4042\">\n<p data-start=\"3933\" data-end=\"4042\"><strong data-start=\"3933\" data-end=\"3958\">Event Windows anomali</strong>: event login yang berulang, logon dengan hak istimewa dari host yang tidak lazim.</p>\n</li>\n<li data-start=\"4043\" data-end=\"4176\">\n<p data-start=\"4045\" data-end=\"4176\"><strong data-start=\"4045\" data-end=\"4070\">Koneksi outbound aneh</strong>: ketika attacker menjadikan mesin sebagai pivot, Anda mungkin melihat koneksi keluar/in yang tidak biasa.</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4178\" data-end=\"4297\">Catatan: indikator di atas bersifat umum. Untuk konfirmasi diperlukan korelasi log, timeline, dan investigasi forensik.</p>\n<hr data-start=\"4299\" data-end=\"4302\" />\n<h2 style=\"text-align: justify;\" data-start=\"4304\" data-end=\"4343\">Cara mendeteksi (pendekatan praktis)</h2>\n<p style=\"text-align: justify;\" data-start=\"4345\" data-end=\"4399\">Beberapa pendekatan yang bisa diterapkan tim keamanan:</p>\n<ul style=\"text-align: justify;\" data-start=\"4401\" data-end=\"5142\">\n<li data-start=\"4401\" data-end=\"4572\">\n<p data-start=\"4403\" data-end=\"4572\"><strong data-start=\"4403\" data-end=\"4431\">Endpoint detection (EDR)</strong>: deteksi proses yang mencoba membaca memori proses sistem (seperti LSASS pada Windows), atau binari yang dikenal untuk credential dumping.</p>\n</li>\n<li data-start=\"4573\" data-end=\"4730\">\n<p data-start=\"4575\" data-end=\"4730\"><strong data-start=\"4575\" data-end=\"4595\">Monitoring logon</strong>: pantau event login (mis. event 4624, 4672 di Windows) untuk pola login yang mencurigakan, terutama login administratif lintas host.</p>\n</li>\n<li data-start=\"4731\" data-end=\"4851\">\n<p data-start=\"4733\" data-end=\"4851\"><strong data-start=\"4733\" data-end=\"4755\">Network monitoring</strong>: analisa pola SMB/WinRM dan lihat apakah ada percobaan autentikasi yang tak lazim antar host.</p>\n</li>\n<li data-start=\"4852\" data-end=\"5012\">\n<p data-start=\"4854\" data-end=\"5012\"><strong data-start=\"4854\" data-end=\"4872\">Threat hunting</strong>: cari account yang melakukan autentikasi ke banyak host dalam rentang waktu singkat, atau percobaan autentikasi dari subnet yang berbeda.</p>\n</li>\n<li data-start=\"5013\" data-end=\"5142\">\n<p data-start=\"5015\" data-end=\"5142\"><strong data-start=\"5015\" data-end=\"5029\">SIEM rules</strong>: buat aturan yang menandai pola anomali seperti banyaknya logon administratif dari satu akun ke banyak komputer.</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"5149\" data-end=\"5221\">Mitigasi &amp; Langkah Pencegahan (Apa yang bisa dilakukan sekarang juga)</h2>\n<p style=\"text-align: justify;\" data-start=\"5223\" data-end=\"5289\">Berikut langkah-langkah praktis yang dapat memperkecil risiko PtH:</p>\n<ol style=\"text-align: justify;\" data-start=\"5291\" data-end=\"6681\">\n<li data-start=\"5291\" data-end=\"5414\">\n<p data-start=\"5294\" data-end=\"5414\"><strong data-start=\"5294\" data-end=\"5313\">Least privilege</strong> — Batasi hak admin hanya untuk yang memang perlu. Hindari akun admin yang tersebar di banyak host.</p>\n</li>\n<li data-start=\"5415\" data-end=\"5533\">\n<p data-start=\"5418\" data-end=\"5533\"><strong data-start=\"5418\" data-end=\"5442\">Network segmentation</strong> — Pisahkan subnet dan batasi komunikasi antar segmen hanya pada layanan yang diperlukan.</p>\n</li>\n<li data-start=\"5534\" data-end=\"5741\">\n<p data-start=\"5537\" data-end=\"5741\"><strong data-start=\"5537\" data-end=\"5575\">Non-reuse of local admin passwords</strong> — Jangan pakai password admin lokal yang sama di banyak mesin; gunakan solusi seperti LAPS (Local Administrator Password Solution) untuk mengrotasi password lokal.</p>\n</li>\n<li data-start=\"5742\" data-end=\"5878\">\n<p data-start=\"5745\" data-end=\"5878\"><strong data-start=\"5745\" data-end=\"5773\">Disable or restrict NTLM</strong> — Jika memungkinkan, matikan NTLM atau batasi penggunaan NTLM; pakai Kerberos yang dikonfigurasi aman.</p>\n</li>\n<li data-start=\"5879\" data-end=\"6008\">\n<p data-start=\"5882\" data-end=\"6008\"><strong data-start=\"5882\" data-end=\"5899\">Implement MFA</strong> — Terapkan multi-factor authentication untuk akses berprivilege, sehingga pencurian hash saja tidak cukup.</p>\n</li>\n<li data-start=\"6009\" data-end=\"6171\">\n<p data-start=\"6012\" data-end=\"6171\"><strong data-start=\"6012\" data-end=\"6064\">Credential Guard / virtualization-based security</strong> — Pada Windows modern, fitur seperti Credential Guard dapat membantu melindungi kredensial dari dumping.</p>\n</li>\n<li data-start=\"6172\" data-end=\"6295\">\n<p data-start=\"6175\" data-end=\"6295\"><strong data-start=\"6175\" data-end=\"6198\">Endpoint protection</strong> — Pasang EDR/antivirus yang mampu mendeteksi alat credential dumping dan aktivitas suspicious.</p>\n</li>\n<li data-start=\"6296\" data-end=\"6444\">\n<p data-start=\"6299\" data-end=\"6444\"><strong data-start=\"6299\" data-end=\"6323\">Monitoring &amp; logging</strong> — Pastikan audit log dikumpulkan dan dianalisis (SIEM), termasuk logon, privileged events, dan akses ke proses sistem.</p>\n</li>\n<li data-start=\"6445\" data-end=\"6549\">\n<p data-start=\"6448\" data-end=\"6549\"><strong data-start=\"6448\" data-end=\"6469\">Patch &amp; hardening</strong> — Terapkan pembaruan sistem secara berkala dan konfigurasi baseline keamanan.</p>\n</li>\n<li data-start=\"6550\" data-end=\"6681\">\n<p data-start=\"6554\" data-end=\"6681\"><strong data-start=\"6554\" data-end=\"6588\">Inventory &amp; account management</strong> — Catat dan audit akun dengan hak istimewa; rotasi password service accounts secara berkala.</p>\n</li>\n</ol>\n<h2 style=\"text-align: justify;\" data-start=\"6688\" data-end=\"6729\">Lab singkat yang aman (hanya gambaran)</h2>\n<p style=\"text-align: justify;\" data-start=\"6731\" data-end=\"6811\">Jika organisasi ingin melakukan latihan internal (pentest/assessment), pastikan:</p>\n<ul style=\"text-align: justify;\" data-start=\"6813\" data-end=\"7291\">\n<li data-start=\"6813\" data-end=\"6893\">\n<p data-start=\"6815\" data-end=\"6893\"><strong data-start=\"6815\" data-end=\"6849\">Gunakan environment terisolasi</strong> (VM lab yang bukan bagian dari produksi).</p>\n</li>\n<li data-start=\"6894\" data-end=\"6985\">\n<p data-start=\"6896\" data-end=\"6985\"><strong data-start=\"6896\" data-end=\"6927\">Dapatkan otorisasi tertulis</strong> (scope jelas: target, durasi, tindakan yang diizinkan).</p>\n</li>\n<li data-start=\"6986\" data-end=\"7062\">\n<p data-start=\"6988\" data-end=\"7062\"><strong data-start=\"6988\" data-end=\"7015\">Gunakan snapshot/backup</strong> sebelum menjalankan tes agar mudah rollback.</p>\n</li>\n<li data-start=\"7063\" data-end=\"7210\">\n<p data-start=\"7065\" data-end=\"7210\"><strong data-start=\"7065\" data-end=\"7079\">Tujuan lab</strong>: mengamati bagaimana PtH bisa terjadi, melihat log dan IOCs, lalu menguji apakah mitigasi (mis. LAPS, Credential Guard) efektif.</p>\n</li>\n<li data-start=\"7211\" data-end=\"7291\">\n<p data-start=\"7213\" data-end=\"7291\"><strong data-start=\"7213\" data-end=\"7223\">Jangan</strong> menyebarkan langkah eksploitasi ke lingkungan produksi atau publik.</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"7298\" data-end=\"7339\">Pelajaran dari insiden nyata (ringkas)</h2>\n<p style=\"text-align: justify;\" data-start=\"7341\" data-end=\"7642\">Banyak insiden serangan besar melibatkan lateral movement yang cepat setelah akses awal — sering karena akun admin lokal yang sama, konfigurasi lama, atau kurangnya monitoring. Pelajaran penting: pencegahan kredensial dan pembatasan komunikasi internal lebih efektif dari sekadar memperkuat perimeter.</p>\n<h2 style=\"text-align: justify;\" data-start=\"7649\" data-end=\"7686\">Checklist cepat untuk tim keamanan</h2>\n<ul style=\"text-align: justify;\" data-start=\"7688\" data-end=\"8134\">\n<li data-start=\"7688\" data-end=\"7753\">\n<p data-start=\"7690\" data-end=\"7753\">Apakah semua admin lokal memiliki password unik dan dirotasi?</p>\n</li>\n<li data-start=\"7754\" data-end=\"7794\">\n<p data-start=\"7756\" data-end=\"7794\">Apakah NTLM dimatikan atau dibatasi?</p>\n</li>\n<li data-start=\"7795\" data-end=\"7844\">\n<p data-start=\"7797\" data-end=\"7844\">Apakah MFA diterapkan pada akun berprivilege?</p>\n</li>\n<li data-start=\"7845\" data-end=\"7920\">\n<p data-start=\"7847\" data-end=\"7920\">Apakah EDR aktif dan dikonfigurasi untuk mendeteksi credential dumping?</p>\n</li>\n<li data-start=\"7921\" data-end=\"7981\">\n<p data-start=\"7923\" data-end=\"7981\">Apakah logon dan aktivitas network dianalisis oleh SIEM?</p>\n</li>\n<li data-start=\"7982\" data-end=\"8063\">\n<p data-start=\"7984\" data-end=\"8063\">Apakah ada segmentasi jaringan yang baik antara endpoint dan server sensitif?</p>\n</li>\n<li data-start=\"8064\" data-end=\"8134\">\n<p data-start=\"8066\" data-end=\"8134\">Apakah ada playbook tanggap insiden untuk skenario credential theft?</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"8141\" data-end=\"8154\">Kesimpulan</h2>\n<p style=\"text-align: justify;\" data-start=\"8156\" data-end=\"8582\">Pass-the-Hash adalah ancaman nyata dalam fase lateral movement karena memanfaatkan kelemahan cara penyimpanan dan penggunaan kredensial. Mencegahnya memerlukan kombinasi kebijakan (least privilege, rotasi password), teknologi (EDR, Credential Guard, MFA), dan operasi (monitoring, playbook insiden). Fokus pada perlindungan kredensial dan deteksi aktivitas internal akan jauh lebih efektif daripada hanya memperkuat perimeter.</p>\n",
+  "content_text": "Ringkasan singkat\nPass-the-Hash (PtH) adalah salah satu teknik lateral movement yang sering dipakai penyerang setelah mereka mendapatkan akses awal ke jaringan. Alih-alih menggunakan kata sandi biasa, penyerang memanfaatkan  hash  (representasi terenkripsi dari kata sandi) untuk melakukan autentikasi ke komputer lain. Artikel ini menjelaskan konsep, bagaimana PtH bekerja secara garis besar, tanda-tanda kompromi, dan langkah-langkah yang bisa dilakukan organisasi untuk mendeteksi dan mencegahnya — semuanya dalam bahasa yang sederhana.\nApa itu hash dan kenapa bisa dipakai sebagai kredensial?\nHash adalah hasil transformasi satu arah dari sebuah data — dalam konteks ini kata sandi. Ketika Anda mengetik kata sandi, sistem biasanya mengubahnya menjadi hash dan menyimpan hash tersebut. Hash berbeda dari kata sandi asli: Anda tidak bisa (dengan mudah) mengubah hash kembali menjadi kata sandi.\nNamun beberapa sistem autentikasi, khususnya model lama di Windows (NTLM), menerima hash sebagai bukti identitas saat proses login. Artinya, jika penyerang berhasil mengambil hash dari sebuah mesin, mereka bisa menggunakannya seperti “kunci” untuk mengakses mesin lain — tanpa mengetahui kata sandi aslinya.\nDi mana Pass-the-Hash masuk dalam serangan?\nLateral movement adalah fase setelah penyerang mendapatkan akses awal ke sebuah perangkat atau akun. Tujuannya: memperluas akses ke sistem lain, mencari data sensitif, atau mencapai akun dengan hak istimewa lebih tinggi (mis. domain admin). Pass-the-Hash adalah salah satu metode yang membuat lateral movement jadi mudah karena penyerang tidak perlu menebak kata sandi — cukup memanfaatkan hash yang sudah dicuri.\nGambaran umum: Bagaimana alur Pass-the-Hash\nBerikut alur sederhana tanpa detail teknis berbahaya:\nInitial access : Penyerang berhasil masuk ke sebuah workstation atau server (mis. lewat phishing atau eksploitasi lain).\nPengambilan hash : Dari sistem yang sudah dikompromi, penyerang menemukan atau mengekstrak hash kredensial yang tersimpan di memori atau file.\nPenggunaan hash : Penyerang menggunakan hash tersebut untuk melakukan autentikasi ke sistem lain dalam jaringan (mis. server file, domain controller, atau server lain).\nPerluasan akses : Jika hash yang dicuri milik akun dengan hak tinggi, penyerang bisa mendapatkan akses lebih luas atau eskalasi ke privilege yang lebih tinggi.\nEksfiltrasi / tujuan akhir : Setelah memperluas akses, penyerang mencari data berharga atau menempatkan backdoor untuk akses selanjutnya.\nPenting: artikel ini tidak menjelaskan langkah teknis untuk mengekstrak atau menggunakan hash. Tujuan kita adalah memahami risiko dan bagaimana mencegahnya.\nMengapa Pass-the-Hash masih menjadi ancaman?\nBeberapa faktor membuat PtH tetap efektif:\nPenggunaan kredensial yang sama  di banyak mesin (mis. akun admin lokal dengan password sama di banyak server).\nProtokol lama  atau konfigurasi sistem yang masih mengizinkan autentikasi berbasis hash (NTLM).\nKurangnya segmentasi jaringan , sehingga satu host yang dikompromi mudah mencapai host lain.\nKurangnya monitoring  pada aktivitas autentikasi internal yang membuat perilaku anomali sulit terdeteksi.\nIndikator Kompromi (Apa yang harus dicari)\nBerikut tanda-tanda umum yang dapat mengindikasikan aktivitas PtH atau perilaku lateral movement terkait:\nLogon tidak biasa : akun yang biasanya hanya login di satu mesin tiba-tiba muncul melakukan autentikasi di banyak mesin.\nKoneksi SMB/WinRM tak terduga : lalu lintas file sharing atau remote management antara host yang seharusnya tidak berkomunikasi.\nProses memori yang aneh : aktivitas proses yang mengakses memori proses sistem kritis atau melakukan dump memori (indikator adanya tool dumping kredensial).\nEvent Windows anomali : event login yang berulang, logon dengan hak istimewa dari host yang tidak lazim.\nKoneksi outbound aneh : ketika attacker menjadikan mesin sebagai pivot, Anda mungkin melihat koneksi keluar/in yang tidak biasa.\nCatatan: indikator di atas bersifat umum. Untuk konfirmasi diperlukan korelasi log, timeline, dan investigasi forensik.\nCara mendeteksi (pendekatan praktis)\nBeberapa pendekatan yang bisa diterapkan tim keamanan:\nEndpoint detection (EDR) : deteksi proses yang mencoba membaca memori proses sistem (seperti LSASS pada Windows), atau binari yang dikenal untuk credential dumping.\nMonitoring logon : pantau event login (mis. event 4624, 4672 di Windows) untuk pola login yang mencurigakan, terutama login administratif lintas host.\nNetwork monitoring : analisa pola SMB/WinRM dan lihat apakah ada percobaan autentikasi yang tak lazim antar host.\nThreat hunting : cari account yang melakukan autentikasi ke banyak host dalam rentang waktu singkat, atau percobaan autentikasi dari subnet yang berbeda.\nSIEM rules : buat aturan yang menandai pola anomali seperti banyaknya logon administratif dari satu akun ke banyak komputer.\nMitigasi & Langkah Pencegahan (Apa yang bisa dilakukan sekarang juga)\nBerikut langkah-langkah praktis yang dapat memperkecil risiko PtH:\nLeast privilege  — Batasi hak admin hanya untuk yang memang perlu. Hindari akun admin yang tersebar di banyak host.\nNetwork segmentation  — Pisahkan subnet dan batasi komunikasi antar segmen hanya pada layanan yang diperlukan.\nNon-reuse of local admin passwords  — Jangan pakai password admin lokal yang sama di banyak mesin; gunakan solusi seperti LAPS (Local Administrator Password Solution) untuk mengrotasi password lokal.\nDisable or restrict NTLM  — Jika memungkinkan, matikan NTLM atau batasi penggunaan NTLM; pakai Kerberos yang dikonfigurasi aman.\nImplement MFA  — Terapkan multi-factor authentication untuk akses berprivilege, sehingga pencurian hash saja tidak cukup.\nCredential Guard / virtualization-based security  — Pada Windows modern, fitur seperti Credential Guard dapat membantu melindungi kredensial dari dumping.\nEndpoint protection  — Pasang EDR/antivirus yang mampu mendeteksi alat credential dumping dan aktivitas suspicious.\nMonitoring & logging  — Pastikan audit log dikumpulkan dan dianalisis (SIEM), termasuk logon, privileged events, dan akses ke proses sistem.\nPatch & hardening  — Terapkan pembaruan sistem secara berkala dan konfigurasi baseline keamanan.\nInventory & account management  — Catat dan audit akun dengan hak istimewa; rotasi password service accounts secara berkala.\nLab singkat yang aman (hanya gambaran)\nJika organisasi ingin melakukan latihan internal (pentest/assessment), pastikan:\nGunakan environment terisolasi  (VM lab yang bukan bagian dari produksi).\nDapatkan otorisasi tertulis  (scope jelas: target, durasi, tindakan yang diizinkan).\nGunakan snapshot/backup  sebelum menjalankan tes agar mudah rollback.\nTujuan lab : mengamati bagaimana PtH bisa terjadi, melihat log dan IOCs, lalu menguji apakah mitigasi (mis. LAPS, Credential Guard) efektif.\nJangan  menyebarkan langkah eksploitasi ke lingkungan produksi atau publik.\nPelajaran dari insiden nyata (ringkas)\nBanyak insiden serangan besar melibatkan lateral movement yang cepat setelah akses awal — sering karena akun admin lokal yang sama, konfigurasi lama, atau kurangnya monitoring. Pelajaran penting: pencegahan kredensial dan pembatasan komunikasi internal lebih efektif dari sekadar memperkuat perimeter.\nChecklist cepat untuk tim keamanan\nApakah semua admin lokal memiliki password unik dan dirotasi?\nApakah NTLM dimatikan atau dibatasi?\nApakah MFA diterapkan pada akun berprivilege?\nApakah EDR aktif dan dikonfigurasi untuk mendeteksi credential dumping?\nApakah logon dan aktivitas network dianalisis oleh SIEM?\nApakah ada segmentasi jaringan yang baik antara endpoint dan server sensitif?\nApakah ada playbook tanggap insiden untuk skenario credential theft?\nKesimpulan\nPass-the-Hash adalah ancaman nyata dalam fase lateral movement karena memanfaatkan kelemahan cara penyimpanan dan penggunaan kredensial. Mencegahnya memerlukan kombinasi kebijakan (least privilege, rotasi password), teknologi (EDR, Credential Guard, MFA), dan operasi (monitoring, playbook insiden). Fokus pada perlindungan kredensial dan deteksi aktivitas internal akan jauh lebih efektif daripada hanya memperkuat perimeter.",
+  "raw": {
+    "id": 6232,
+    "date": "2025-09-24T15:43:03",
+    "date_gmt": "2025-09-24T15:43:03",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=6232"
+    },
+    "modified": "2026-07-12T16:43:40",
+    "modified_gmt": "2026-07-12T16:43:40",
+    "slug": "memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/",
+    "title": {
+      "rendered": "Memahami Pass-the-Hash: Saat Hash Menggantikan Kata Sandi dalam Lateral Movement"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"84\" data-end=\"629\"><strong data-start=\"84\" data-end=\"105\">Ringkasan singkat</strong></h2>\n<p style=\"text-align: justify;\" data-start=\"84\" data-end=\"629\">Pass-the-Hash (PtH) adalah salah satu teknik lateral movement yang sering dipakai penyerang setelah mereka mendapatkan akses awal ke jaringan. Alih-alih menggunakan kata sandi biasa, penyerang memanfaatkan <em data-start=\"314\" data-end=\"320\">hash</em> (representasi terenkripsi dari kata sandi) untuk melakukan autentikasi ke komputer lain. Artikel ini menjelaskan konsep, bagaimana PtH bekerja secara garis besar, tanda-tanda kompromi, dan langkah-langkah yang bisa dilakukan organisasi untuk mendeteksi dan mencegahnya — semuanya dalam bahasa yang sederhana.</p>\n<h2 style=\"text-align: justify;\" data-start=\"636\" data-end=\"695\">Apa itu hash dan kenapa bisa dipakai sebagai kredensial?</h2>\n<p style=\"text-align: justify;\" data-start=\"697\" data-end=\"997\">Hash adalah hasil transformasi satu arah dari sebuah data — dalam konteks ini kata sandi. Ketika Anda mengetik kata sandi, sistem biasanya mengubahnya menjadi hash dan menyimpan hash tersebut. Hash berbeda dari kata sandi asli: Anda tidak bisa (dengan mudah) mengubah hash kembali menjadi kata sandi.</p>\n<p style=\"text-align: justify;\" data-start=\"999\" data-end=\"1306\">Namun beberapa sistem autentikasi, khususnya model lama di Windows (NTLM), menerima hash sebagai bukti identitas saat proses login. Artinya, jika penyerang berhasil mengambil hash dari sebuah mesin, mereka bisa menggunakannya seperti &#8220;kunci&#8221; untuk mengakses mesin lain — tanpa mengetahui kata sandi aslinya.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1313\" data-end=\"1359\">Di mana Pass-the-Hash masuk dalam serangan?</h2>\n<p style=\"text-align: justify;\" data-start=\"1361\" data-end=\"1774\">Lateral movement adalah fase setelah penyerang mendapatkan akses awal ke sebuah perangkat atau akun. Tujuannya: memperluas akses ke sistem lain, mencari data sensitif, atau mencapai akun dengan hak istimewa lebih tinggi (mis. domain admin). Pass-the-Hash adalah salah satu metode yang membuat lateral movement jadi mudah karena penyerang tidak perlu menebak kata sandi — cukup memanfaatkan hash yang sudah dicuri.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1781\" data-end=\"1827\">Gambaran umum: Bagaimana alur Pass-the-Hash</h2>\n<p style=\"text-align: justify;\" data-start=\"1829\" data-end=\"1882\">Berikut alur sederhana tanpa detail teknis berbahaya:</p>\n<ol style=\"text-align: justify;\" data-start=\"1884\" data-end=\"2652\">\n<li data-start=\"1884\" data-end=\"2012\">\n<p data-start=\"1887\" data-end=\"2012\"><strong data-start=\"1887\" data-end=\"1905\">Initial access</strong>: Penyerang berhasil masuk ke sebuah workstation atau server (mis. lewat phishing atau eksploitasi lain).</p>\n</li>\n<li data-start=\"2013\" data-end=\"2163\">\n<p data-start=\"2016\" data-end=\"2163\"><strong data-start=\"2016\" data-end=\"2036\">Pengambilan hash</strong>: Dari sistem yang sudah dikompromi, penyerang menemukan atau mengekstrak hash kredensial yang tersimpan di memori atau file.</p>\n</li>\n<li data-start=\"2164\" data-end=\"2340\">\n<p data-start=\"2167\" data-end=\"2340\"><strong data-start=\"2167\" data-end=\"2186\">Penggunaan hash</strong>: Penyerang menggunakan hash tersebut untuk melakukan autentikasi ke sistem lain dalam jaringan (mis. server file, domain controller, atau server lain).</p>\n</li>\n<li data-start=\"2341\" data-end=\"2508\">\n<p data-start=\"2344\" data-end=\"2508\"><strong data-start=\"2344\" data-end=\"2363\">Perluasan akses</strong>: Jika hash yang dicuri milik akun dengan hak tinggi, penyerang bisa mendapatkan akses lebih luas atau eskalasi ke privilege yang lebih tinggi.</p>\n</li>\n<li data-start=\"2509\" data-end=\"2652\">\n<p data-start=\"2512\" data-end=\"2652\"><strong data-start=\"2512\" data-end=\"2542\">Eksfiltrasi / tujuan akhir</strong>: Setelah memperluas akses, penyerang mencari data berharga atau menempatkan backdoor untuk akses selanjutnya.</p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2654\" data-end=\"2810\">Penting: artikel ini tidak menjelaskan langkah teknis untuk mengekstrak atau menggunakan hash. Tujuan kita adalah memahami risiko dan bagaimana mencegahnya.</p>\n<h2 style=\"text-align: justify;\" data-start=\"2817\" data-end=\"2864\">Mengapa Pass-the-Hash masih menjadi ancaman?</h2>\n<p style=\"text-align: justify;\" data-start=\"2866\" data-end=\"2908\">Beberapa faktor membuat PtH tetap efektif:</p>\n<ul style=\"text-align: justify;\" data-start=\"2910\" data-end=\"3342\">\n<li data-start=\"2910\" data-end=\"3028\">\n<p data-start=\"2912\" data-end=\"3028\"><strong data-start=\"2912\" data-end=\"2947\">Penggunaan kredensial yang sama</strong> di banyak mesin (mis. akun admin lokal dengan password sama di banyak server).</p>\n</li>\n<li data-start=\"3029\" data-end=\"3131\">\n<p data-start=\"3031\" data-end=\"3131\"><strong data-start=\"3031\" data-end=\"3048\">Protokol lama</strong> atau konfigurasi sistem yang masih mengizinkan autentikasi berbasis hash (NTLM).</p>\n</li>\n<li data-start=\"3132\" data-end=\"3231\">\n<p data-start=\"3134\" data-end=\"3231\"><strong data-start=\"3134\" data-end=\"3167\">Kurangnya segmentasi jaringan</strong>, sehingga satu host yang dikompromi mudah mencapai host lain.</p>\n</li>\n<li data-start=\"3232\" data-end=\"3342\">\n<p data-start=\"3234\" data-end=\"3342\"><strong data-start=\"3234\" data-end=\"3258\">Kurangnya monitoring</strong> pada aktivitas autentikasi internal yang membuat perilaku anomali sulit terdeteksi.</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"3349\" data-end=\"3394\">Indikator Kompromi (Apa yang harus dicari)</h2>\n<p style=\"text-align: justify;\" data-start=\"3396\" data-end=\"3501\">Berikut tanda-tanda umum yang dapat mengindikasikan aktivitas PtH atau perilaku lateral movement terkait:</p>\n<ul style=\"text-align: justify;\" data-start=\"3503\" data-end=\"4176\">\n<li data-start=\"3503\" data-end=\"3630\">\n<p data-start=\"3505\" data-end=\"3630\"><strong data-start=\"3505\" data-end=\"3526\">Logon tidak biasa</strong>: akun yang biasanya hanya login di satu mesin tiba-tiba muncul melakukan autentikasi di banyak mesin.</p>\n</li>\n<li data-start=\"3631\" data-end=\"3766\">\n<p data-start=\"3633\" data-end=\"3766\"><strong data-start=\"3633\" data-end=\"3666\">Koneksi SMB/WinRM tak terduga</strong>: lalu lintas file sharing atau remote management antara host yang seharusnya tidak berkomunikasi.</p>\n</li>\n<li data-start=\"3767\" data-end=\"3930\">\n<p data-start=\"3769\" data-end=\"3930\"><strong data-start=\"3769\" data-end=\"3796\">Proses memori yang aneh</strong>: aktivitas proses yang mengakses memori proses sistem kritis atau melakukan dump memori (indikator adanya tool dumping kredensial).</p>\n</li>\n<li data-start=\"3931\" data-end=\"4042\">\n<p data-start=\"3933\" data-end=\"4042\"><strong data-start=\"3933\" data-end=\"3958\">Event Windows anomali</strong>: event login yang berulang, logon dengan hak istimewa dari host yang tidak lazim.</p>\n</li>\n<li data-start=\"4043\" data-end=\"4176\">\n<p data-start=\"4045\" data-end=\"4176\"><strong data-start=\"4045\" data-end=\"4070\">Koneksi outbound aneh</strong>: ketika attacker menjadikan mesin sebagai pivot, Anda mungkin melihat koneksi keluar/in yang tidak biasa.</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4178\" data-end=\"4297\">Catatan: indikator di atas bersifat umum. Untuk konfirmasi diperlukan korelasi log, timeline, dan investigasi forensik.</p>\n<hr data-start=\"4299\" data-end=\"4302\" />\n<h2 style=\"text-align: justify;\" data-start=\"4304\" data-end=\"4343\">Cara mendeteksi (pendekatan praktis)</h2>\n<p style=\"text-align: justify;\" data-start=\"4345\" data-end=\"4399\">Beberapa pendekatan yang bisa diterapkan tim keamanan:</p>\n<ul style=\"text-align: justify;\" data-start=\"4401\" data-end=\"5142\">\n<li data-start=\"4401\" data-end=\"4572\">\n<p data-start=\"4403\" data-end=\"4572\"><strong data-start=\"4403\" data-end=\"4431\">Endpoint detection (EDR)</strong>: deteksi proses yang mencoba membaca memori proses sistem (seperti LSASS pada Windows), atau binari yang dikenal untuk credential dumping.</p>\n</li>\n<li data-start=\"4573\" data-end=\"4730\">\n<p data-start=\"4575\" data-end=\"4730\"><strong data-start=\"4575\" data-end=\"4595\">Monitoring logon</strong>: pantau event login (mis. event 4624, 4672 di Windows) untuk pola login yang mencurigakan, terutama login administratif lintas host.</p>\n</li>\n<li data-start=\"4731\" data-end=\"4851\">\n<p data-start=\"4733\" data-end=\"4851\"><strong data-start=\"4733\" data-end=\"4755\">Network monitoring</strong>: analisa pola SMB/WinRM dan lihat apakah ada percobaan autentikasi yang tak lazim antar host.</p>\n</li>\n<li data-start=\"4852\" data-end=\"5012\">\n<p data-start=\"4854\" data-end=\"5012\"><strong data-start=\"4854\" data-end=\"4872\">Threat hunting</strong>: cari account yang melakukan autentikasi ke banyak host dalam rentang waktu singkat, atau percobaan autentikasi dari subnet yang berbeda.</p>\n</li>\n<li data-start=\"5013\" data-end=\"5142\">\n<p data-start=\"5015\" data-end=\"5142\"><strong data-start=\"5015\" data-end=\"5029\">SIEM rules</strong>: buat aturan yang menandai pola anomali seperti banyaknya logon administratif dari satu akun ke banyak komputer.</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"5149\" data-end=\"5221\">Mitigasi &amp; Langkah Pencegahan (Apa yang bisa dilakukan sekarang juga)</h2>\n<p style=\"text-align: justify;\" data-start=\"5223\" data-end=\"5289\">Berikut langkah-langkah praktis yang dapat memperkecil risiko PtH:</p>\n<ol style=\"text-align: justify;\" data-start=\"5291\" data-end=\"6681\">\n<li data-start=\"5291\" data-end=\"5414\">\n<p data-start=\"5294\" data-end=\"5414\"><strong data-start=\"5294\" data-end=\"5313\">Least privilege</strong> — Batasi hak admin hanya untuk yang memang perlu. Hindari akun admin yang tersebar di banyak host.</p>\n</li>\n<li data-start=\"5415\" data-end=\"5533\">\n<p data-start=\"5418\" data-end=\"5533\"><strong data-start=\"5418\" data-end=\"5442\">Network segmentation</strong> — Pisahkan subnet dan batasi komunikasi antar segmen hanya pada layanan yang diperlukan.</p>\n</li>\n<li data-start=\"5534\" data-end=\"5741\">\n<p data-start=\"5537\" data-end=\"5741\"><strong data-start=\"5537\" data-end=\"5575\">Non-reuse of local admin passwords</strong> — Jangan pakai password admin lokal yang sama di banyak mesin; gunakan solusi seperti LAPS (Local Administrator Password Solution) untuk mengrotasi password lokal.</p>\n</li>\n<li data-start=\"5742\" data-end=\"5878\">\n<p data-start=\"5745\" data-end=\"5878\"><strong data-start=\"5745\" data-end=\"5773\">Disable or restrict NTLM</strong> — Jika memungkinkan, matikan NTLM atau batasi penggunaan NTLM; pakai Kerberos yang dikonfigurasi aman.</p>\n</li>\n<li data-start=\"5879\" data-end=\"6008\">\n<p data-start=\"5882\" data-end=\"6008\"><strong data-start=\"5882\" data-end=\"5899\">Implement MFA</strong> — Terapkan multi-factor authentication untuk akses berprivilege, sehingga pencurian hash saja tidak cukup.</p>\n</li>\n<li data-start=\"6009\" data-end=\"6171\">\n<p data-start=\"6012\" data-end=\"6171\"><strong data-start=\"6012\" data-end=\"6064\">Credential Guard / virtualization-based security</strong> — Pada Windows modern, fitur seperti Credential Guard dapat membantu melindungi kredensial dari dumping.</p>\n</li>\n<li data-start=\"6172\" data-end=\"6295\">\n<p data-start=\"6175\" data-end=\"6295\"><strong data-start=\"6175\" data-end=\"6198\">Endpoint protection</strong> — Pasang EDR/antivirus yang mampu mendeteksi alat credential dumping dan aktivitas suspicious.</p>\n</li>\n<li data-start=\"6296\" data-end=\"6444\">\n<p data-start=\"6299\" data-end=\"6444\"><strong data-start=\"6299\" data-end=\"6323\">Monitoring &amp; logging</strong> — Pastikan audit log dikumpulkan dan dianalisis (SIEM), termasuk logon, privileged events, dan akses ke proses sistem.</p>\n</li>\n<li data-start=\"6445\" data-end=\"6549\">\n<p data-start=\"6448\" data-end=\"6549\"><strong data-start=\"6448\" data-end=\"6469\">Patch &amp; hardening</strong> — Terapkan pembaruan sistem secara berkala dan konfigurasi baseline keamanan.</p>\n</li>\n<li data-start=\"6550\" data-end=\"6681\">\n<p data-start=\"6554\" data-end=\"6681\"><strong data-start=\"6554\" data-end=\"6588\">Inventory &amp; account management</strong> — Catat dan audit akun dengan hak istimewa; rotasi password service accounts secara berkala.</p>\n</li>\n</ol>\n<h2 style=\"text-align: justify;\" data-start=\"6688\" data-end=\"6729\">Lab singkat yang aman (hanya gambaran)</h2>\n<p style=\"text-align: justify;\" data-start=\"6731\" data-end=\"6811\">Jika organisasi ingin melakukan latihan internal (pentest/assessment), pastikan:</p>\n<ul style=\"text-align: justify;\" data-start=\"6813\" data-end=\"7291\">\n<li data-start=\"6813\" data-end=\"6893\">\n<p data-start=\"6815\" data-end=\"6893\"><strong data-start=\"6815\" data-end=\"6849\">Gunakan environment terisolasi</strong> (VM lab yang bukan bagian dari produksi).</p>\n</li>\n<li data-start=\"6894\" data-end=\"6985\">\n<p data-start=\"6896\" data-end=\"6985\"><strong data-start=\"6896\" data-end=\"6927\">Dapatkan otorisasi tertulis</strong> (scope jelas: target, durasi, tindakan yang diizinkan).</p>\n</li>\n<li data-start=\"6986\" data-end=\"7062\">\n<p data-start=\"6988\" data-end=\"7062\"><strong data-start=\"6988\" data-end=\"7015\">Gunakan snapshot/backup</strong> sebelum menjalankan tes agar mudah rollback.</p>\n</li>\n<li data-start=\"7063\" data-end=\"7210\">\n<p data-start=\"7065\" data-end=\"7210\"><strong data-start=\"7065\" data-end=\"7079\">Tujuan lab</strong>: mengamati bagaimana PtH bisa terjadi, melihat log dan IOCs, lalu menguji apakah mitigasi (mis. LAPS, Credential Guard) efektif.</p>\n</li>\n<li data-start=\"7211\" data-end=\"7291\">\n<p data-start=\"7213\" data-end=\"7291\"><strong data-start=\"7213\" data-end=\"7223\">Jangan</strong> menyebarkan langkah eksploitasi ke lingkungan produksi atau publik.</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"7298\" data-end=\"7339\">Pelajaran dari insiden nyata (ringkas)</h2>\n<p style=\"text-align: justify;\" data-start=\"7341\" data-end=\"7642\">Banyak insiden serangan besar melibatkan lateral movement yang cepat setelah akses awal — sering karena akun admin lokal yang sama, konfigurasi lama, atau kurangnya monitoring. Pelajaran penting: pencegahan kredensial dan pembatasan komunikasi internal lebih efektif dari sekadar memperkuat perimeter.</p>\n<h2 style=\"text-align: justify;\" data-start=\"7649\" data-end=\"7686\">Checklist cepat untuk tim keamanan</h2>\n<ul style=\"text-align: justify;\" data-start=\"7688\" data-end=\"8134\">\n<li data-start=\"7688\" data-end=\"7753\">\n<p data-start=\"7690\" data-end=\"7753\">Apakah semua admin lokal memiliki password unik dan dirotasi?</p>\n</li>\n<li data-start=\"7754\" data-end=\"7794\">\n<p data-start=\"7756\" data-end=\"7794\">Apakah NTLM dimatikan atau dibatasi?</p>\n</li>\n<li data-start=\"7795\" data-end=\"7844\">\n<p data-start=\"7797\" data-end=\"7844\">Apakah MFA diterapkan pada akun berprivilege?</p>\n</li>\n<li data-start=\"7845\" data-end=\"7920\">\n<p data-start=\"7847\" data-end=\"7920\">Apakah EDR aktif dan dikonfigurasi untuk mendeteksi credential dumping?</p>\n</li>\n<li data-start=\"7921\" data-end=\"7981\">\n<p data-start=\"7923\" data-end=\"7981\">Apakah logon dan aktivitas network dianalisis oleh SIEM?</p>\n</li>\n<li data-start=\"7982\" data-end=\"8063\">\n<p data-start=\"7984\" data-end=\"8063\">Apakah ada segmentasi jaringan yang baik antara endpoint dan server sensitif?</p>\n</li>\n<li data-start=\"8064\" data-end=\"8134\">\n<p data-start=\"8066\" data-end=\"8134\">Apakah ada playbook tanggap insiden untuk skenario credential theft?</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"8141\" data-end=\"8154\">Kesimpulan</h2>\n<p style=\"text-align: justify;\" data-start=\"8156\" data-end=\"8582\">Pass-the-Hash adalah ancaman nyata dalam fase lateral movement karena memanfaatkan kelemahan cara penyimpanan dan penggunaan kredensial. Mencegahnya memerlukan kombinasi kebijakan (least privilege, rotasi password), teknologi (EDR, Credential Guard, MFA), dan operasi (monitoring, playbook insiden). Fokus pada perlindungan kredensial dan deteksi aktivitas internal akan jauh lebih efektif daripada hanya memperkuat perimeter.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Ringkasan singkat Pass-the-Hash (PtH) adalah salah satu teknik lateral movement yang sering dipakai penyerang setelah mereka mendapatkan akses awal ke jaringan. Alih-alih menggunakan kata sandi biasa, penyerang memanfaatkan hash (representasi terenkripsi dari kata sandi) untuk melakukan autentikasi ke komputer lain. Artikel ini menjelaskan konsep, bagaimana PtH bekerja secara garis besar, tanda-tanda kompromi, dan langkah-langkah yang bisa dilakukan organisasi untuk mendeteksi dan mencegahnya — semuanya dalam bahasa yang sederhana. Apa itu hash dan kenapa bisa dipakai sebagai kredensial? Hash adalah hasil transformasi satu arah dari sebuah data — dalam konteks ini kata sandi. Ketika Anda mengetik kata sandi, sistem biasanya mengubahnya&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 4292,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      202,
+      470
+    ],
+    "class_list": [
+      "post-6232",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-lateral-movement",
+      "tag-pass-the-hash"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Memahami Pass-the-Hash: Saat Hash Menggantikan Kata Sandi dalam Lateral Movement - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Memahami Pass-the-Hash: Saat Hash Menggantikan Kata Sandi dalam Lateral Movement - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Ringkasan singkat Pass-the-Hash (PtH) adalah salah satu teknik lateral movement yang sering dipakai penyerang setelah mereka mendapatkan akses awal ke jaringan. Alih-alih menggunakan kata sandi biasa, penyerang memanfaatkan hash (representasi terenkripsi dari kata sandi) untuk melakukan autentikasi ke komputer lain. Artikel ini menjelaskan konsep, bagaimana PtH bekerja secara garis besar, tanda-tanda kompromi, dan langkah-langkah yang bisa dilakukan organisasi untuk mendeteksi dan mencegahnya — semuanya dalam bahasa yang sederhana. Apa itu hash dan kenapa bisa dipakai sebagai kredensial? Hash adalah hasil transformasi satu arah dari sebuah data — dalam konteks ini kata sandi. Ketika Anda mengetik kata sandi, sistem biasanya mengubahnya...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2025-09-24T15:43:03+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-12T16:43:40+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/66e63178591c6-hacker-ilustrasi_wisata.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1265\" />\n\t<meta property=\"og:image:height\" content=\"711\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/\",\"url\":\"https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/\",\"name\":\"Memahami Pass-the-Hash: Saat Hash Menggantikan Kata Sandi dalam Lateral Movement - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/66e63178591c6-hacker-ilustrasi_wisata.jpg\",\"datePublished\":\"2025-09-24T15:43:03+00:00\",\"dateModified\":\"2026-07-12T16:43:40+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/66e63178591c6-hacker-ilustrasi_wisata.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/66e63178591c6-hacker-ilustrasi_wisata.jpg\",\"width\":1265,\"height\":711},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Memahami Pass-the-Hash: Saat Hash Menggantikan Kata Sandi dalam Lateral Movement\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Memahami Pass-the-Hash: Saat Hash Menggantikan Kata Sandi dalam Lateral Movement - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Memahami Pass-the-Hash: Saat Hash Menggantikan Kata Sandi dalam Lateral Movement - buletinsiber.com",
+      "og_description": "Ringkasan singkat Pass-the-Hash (PtH) adalah salah satu teknik lateral movement yang sering dipakai penyerang setelah mereka mendapatkan akses awal ke jaringan. Alih-alih menggunakan kata sandi biasa, penyerang memanfaatkan hash (representasi terenkripsi dari kata sandi) untuk melakukan autentikasi ke komputer lain. Artikel ini menjelaskan konsep, bagaimana PtH bekerja secara garis besar, tanda-tanda kompromi, dan langkah-langkah yang bisa dilakukan organisasi untuk mendeteksi dan mencegahnya — semuanya dalam bahasa yang sederhana. Apa itu hash dan kenapa bisa dipakai sebagai kredensial? Hash adalah hasil transformasi satu arah dari sebuah data — dalam konteks ini kata sandi. Ketika Anda mengetik kata sandi, sistem biasanya mengubahnya...",
+      "og_url": "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2025-09-24T15:43:03+00:00",
+      "article_modified_time": "2026-07-12T16:43:40+00:00",
+      "og_image": [
+        {
+          "width": 1265,
+          "height": 711,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/66e63178591c6-hacker-ilustrasi_wisata.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/",
+            "url": "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/",
+            "name": "Memahami Pass-the-Hash: Saat Hash Menggantikan Kata Sandi dalam Lateral Movement - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/66e63178591c6-hacker-ilustrasi_wisata.jpg",
+            "datePublished": "2025-09-24T15:43:03+00:00",
+            "dateModified": "2026-07-12T16:43:40+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/66e63178591c6-hacker-ilustrasi_wisata.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/66e63178591c6-hacker-ilustrasi_wisata.jpg",
+            "width": 1265,
+            "height": 711
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/memahami-pass-the-hash-saat-hash-menggantikan-kata-sandi-dalam-lateral-movement/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Memahami Pass-the-Hash: Saat Hash Menggantikan Kata Sandi dalam Lateral Movement"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/6232",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=6232"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/6232/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 6233,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/6232/revisions/6233"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4292"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=6232"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=6232"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=6232"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

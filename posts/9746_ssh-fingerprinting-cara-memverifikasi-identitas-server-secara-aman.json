@@ -1,0 +1,333 @@
+{
+  "id": 9746,
+  "title": "SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman",
+  "slug": "ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman",
+  "url": "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/",
+  "date": "2026-03-14T01:17:23",
+  "date_gmt": "2026-03-14T01:17:23",
+  "modified": "2026-07-06T20:55:13",
+  "modified_gmt": "2026-07-06T20:55:13",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    682,
+    280,
+    313
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1433374350-170667a.jpg",
+  "excerpt": "Pengantar Dalam dunia administrasi sistem dan keamanan jaringan, Secure Shell (SSH) merupakan salah satu protokol yang paling sering digunakan untuk mengakses server secara jarak jauh. SSH menyediakan koneksi yang terenkripsi sehingga komunikasi antara pengguna dan server menjadi lebih aman dibandingkan protokol yang tidak terenkripsi. Namun, meskipun SSH menggunakan enkripsi yang kuat, pengguna tetap perlu memastikan bahwa mereka benar-benar terhubung ke server yang sah. Jika tidak, ada kemungkinan terjadi serangan seperti Man-in-the-Middle (MitM), di mana penyerang mencoba menyamar sebagai server yang sebenarnya. Untuk mencegah risiko tersebut, SSH menggunakan mekanisme yang disebut SSH Fingerprinting. Teknik ini memungkinkan pengguna untuk memverifikasi identitas server…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"71\" data-end=\"83\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"85\" data-end=\"416\"><span style=\"color: #000000;\">Dalam dunia administrasi sistem dan keamanan jaringan, <strong data-start=\"140\" data-end=\"162\">Secure Shell (SSH)</strong> merupakan salah satu protokol yang paling sering digunakan untuk mengakses server secara jarak jauh. SSH menyediakan koneksi yang terenkripsi sehingga komunikasi antara pengguna dan server menjadi lebih aman dibandingkan protokol yang tidak terenkripsi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"418\" data-end=\"706\"><span style=\"color: #000000;\">Namun, meskipun SSH menggunakan enkripsi yang kuat, pengguna tetap perlu memastikan bahwa mereka benar-benar terhubung ke server yang sah. Jika tidak, ada kemungkinan terjadi serangan seperti <strong data-start=\"610\" data-end=\"638\">Man-in-the-Middle (MitM)</strong>, di mana penyerang mencoba menyamar sebagai server yang sebenarnya.</span></p>\n<p style=\"text-align: justify;\" data-start=\"708\" data-end=\"940\"><span style=\"color: #000000;\">Untuk mencegah risiko tersebut, SSH menggunakan mekanisme yang disebut <strong data-start=\"779\" data-end=\"801\">SSH Fingerprinting</strong>. Teknik ini memungkinkan pengguna untuk memverifikasi identitas server dengan menggunakan sidik jari kriptografi dari kunci publik server.</span></p>\n<p style=\"text-align: justify;\" data-start=\"942\" data-end=\"1124\"><span style=\"color: #000000;\">Dengan memahami SSH Fingerprinting, administrator sistem dan pengguna dapat meningkatkan keamanan koneksi SSH serta mengurangi risiko serangan yang menargetkan komunikasi jarak jauh.</span></p>\n<hr data-start=\"1126\" data-end=\"1129\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"2tzt6y\" data-start=\"1131\" data-end=\"1161\"><span style=\"color: #000000;\">Apa Itu SSH Fingerprinting?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1163\" data-end=\"1409\"><span style=\"color: #000000;\"><strong data-start=\"1163\" data-end=\"1185\">SSH Fingerprinting</strong> adalah proses identifikasi server SSH menggunakan <strong data-start=\"1236\" data-end=\"1272\">hash unik dari public key server</strong>. Fingerprint ini berfungsi seperti sidik jari digital yang memungkinkan pengguna memastikan bahwa mereka terhubung ke server yang benar.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1411\" data-end=\"1665\"><span style=\"color: #000000;\">Ketika pengguna pertama kali terhubung ke sebuah server melalui SSH, sistem akan menampilkan fingerprint dari kunci publik server tersebut. Pengguna kemudian dapat memverifikasi fingerprint tersebut dengan sumber yang terpercaya sebelum menerima koneksi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1667\" data-end=\"1825\"><span style=\"color: #000000;\">Jika fingerprint berubah secara tiba-tiba pada koneksi berikutnya, hal ini dapat menjadi indikasi adanya perubahan pada server atau potensi serangan keamanan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1827\" data-end=\"2039\"><span style=\"color: #000000;\">Menurut dokumentasi resmi OpenSSH, fingerprint digunakan untuk memverifikasi identitas server SSH dengan membandingkan hash dari public key yang dimiliki server (dikutip dari <a href=\"https://www.openssh.com/manual.html\">openssh.com</a>).</span></p>\n<blockquote>\n<p data-start=\"1827\" data-end=\"2039\">baca juga : <a href=\"https://buletinsiber.com/process-hollowing-teknik-malware-yang-menyusup-ke-proses-sistem/\">Process Hollowing: Teknik Malware yang Menyusup ke Proses Sistem</a></p>\n</blockquote>\n<hr data-start=\"2041\" data-end=\"2044\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1qvhj7f\" data-start=\"2046\" data-end=\"2089\"><span style=\"color: #000000;\">Bagaimana Cara Kerja SSH Fingerprinting?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2091\" data-end=\"2189\"><span style=\"color: #000000;\">SSH Fingerprinting bekerja dengan menggunakan <strong data-start=\"2137\" data-end=\"2158\">kunci kriptografi</strong> yang dimiliki oleh server SSH.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2191\" data-end=\"2249\"><span style=\"color: #000000;\">Prosesnya secara umum melibatkan beberapa langkah berikut:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"2251\" data-end=\"2626\">\n<li data-section-id=\"paoomj\" data-start=\"2251\" data-end=\"2332\">\n<p data-start=\"2254\" data-end=\"2332\"><span style=\"color: #000000;\">Server SSH memiliki pasangan kunci kriptografi (public key dan private key).</span></p>\n</li>\n<li data-section-id=\"nnbrmg\" data-start=\"2333\" data-end=\"2413\">\n<p data-start=\"2336\" data-end=\"2413\"><span style=\"color: #000000;\">Ketika klien mencoba terhubung, server mengirimkan public key kepada klien.</span></p>\n</li>\n<li data-section-id=\"146eis5\" data-start=\"2414\" data-end=\"2521\">\n<p data-start=\"2417\" data-end=\"2521\"><span style=\"color: #000000;\">Klien kemudian membuat fingerprint dari public key tersebut menggunakan algoritma hash seperti SHA256.</span></p>\n</li>\n<li data-section-id=\"15shy40\" data-start=\"2522\" data-end=\"2626\">\n<p data-start=\"2525\" data-end=\"2626\"><span style=\"color: #000000;\">Fingerprint tersebut dibandingkan dengan fingerprint yang telah diketahui atau disimpan sebelumnya.</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2628\" data-end=\"2808\"><span style=\"color: #000000;\">Jika fingerprint cocok, koneksi dianggap aman dan dapat dilanjutkan. Namun jika berbeda, pengguna harus berhati-hati karena ada kemungkinan koneksi sedang disusupi oleh pihak lain.</span></p>\n<hr data-start=\"2810\" data-end=\"2813\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"yhh8jy\" data-start=\"2815\" data-end=\"2840\"><span style=\"color: #000000;\">Format SSH Fingerprint</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2842\" data-end=\"2936\"><span style=\"color: #000000;\">Fingerprint SSH biasanya ditampilkan dalam bentuk hash yang dihasilkan dari public key server.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2938\" data-end=\"2976\"><span style=\"color: #000000;\">Contoh format fingerprint antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2978\" data-end=\"3026\">\n<li data-section-id=\"10iv1wj\" data-start=\"2978\" data-end=\"3004\">\n<p data-start=\"2980\" data-end=\"3004\"><span style=\"color: #000000;\"><strong data-start=\"2980\" data-end=\"3002\">SHA256 fingerprint</strong></span></p>\n</li>\n<li data-section-id=\"47mr9w\" data-start=\"3005\" data-end=\"3026\">\n<p data-start=\"3007\" data-end=\"3026\"><span style=\"color: #000000;\"><strong data-start=\"3007\" data-end=\"3026\">MD5 fingerprint</strong></span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3028\" data-end=\"3056\"><span style=\"color: #000000;\">Contoh tampilan fingerprint:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">SHA256:AbCdEfGhIjKlMnOpQrStUvWxYz1234567890abcd</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"3115\" data-end=\"3229\"><span style=\"color: #000000;\">Format SHA256 saat ini lebih banyak digunakan karena memberikan tingkat keamanan yang lebih baik dibandingkan MD5.</span></p>\n<hr data-start=\"3231\" data-end=\"3234\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"4szpol\" data-start=\"3236\" data-end=\"3292\"><span style=\"color: #000000;\">Pentingnya SSH Fingerprinting dalam Keamanan Jaringan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3294\" data-end=\"3381\"><span style=\"color: #000000;\">SSH Fingerprinting memiliki peran penting dalam menjaga keamanan koneksi remote server.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"jssnmf\" data-start=\"3383\" data-end=\"3422\"><span style=\"color: #000000;\">Mencegah Serangan Man-in-the-Middle</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3424\" data-end=\"3563\"><span style=\"color: #000000;\">Dengan memverifikasi fingerprint server, pengguna dapat memastikan bahwa mereka tidak terhubung ke server palsu yang dibuat oleh penyerang.</span></p>\n<hr data-start=\"3565\" data-end=\"3568\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"8amiwv\" data-start=\"3570\" data-end=\"3600\"><span style=\"color: #000000;\">Menjaga Integritas Koneksi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3602\" data-end=\"3700\"><span style=\"color: #000000;\">Fingerprint membantu memastikan bahwa komunikasi SSH benar-benar dilakukan dengan server yang sah.</span></p>\n<hr data-start=\"3702\" data-end=\"3705\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"o3ipo4\" data-start=\"3707\" data-end=\"3735\"><span style=\"color: #000000;\">Deteksi Perubahan Server</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3737\" data-end=\"3901\"><span style=\"color: #000000;\">Jika fingerprint server berubah, administrator dapat segera melakukan investigasi apakah perubahan tersebut disebabkan oleh pembaruan sistem atau indikasi serangan.</span></p>\n<blockquote>\n<p data-start=\"3737\" data-end=\"3901\">baca juga : <a href=\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/\">Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server</a></p>\n</blockquote>\n<hr data-start=\"4166\" data-end=\"4169\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1nm565o\" data-start=\"4171\" data-end=\"4226\"><span style=\"color: #000000;\">Praktik Terbaik dalam Menggunakan SSH Fingerprinting</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4228\" data-end=\"4312\"><span style=\"color: #000000;\">Untuk memaksimalkan keamanan koneksi SSH, beberapa praktik terbaik dapat diterapkan.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"jv6iy4\" data-start=\"4314\" data-end=\"4354\"><span style=\"color: #000000;\">Verifikasi Fingerprint Secara Manual</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4356\" data-end=\"4497\"><span style=\"color: #000000;\">Sebelum menerima koneksi pertama kali, administrator sebaiknya memverifikasi fingerprint server melalui sumber resmi atau dokumentasi sistem.</span></p>\n<hr data-start=\"4499\" data-end=\"4502\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"29dfrt\" data-start=\"4504\" data-end=\"4540\"><span style=\"color: #000000;\">Gunakan Algoritma Hash yang Aman</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4542\" data-end=\"4657\"><span style=\"color: #000000;\">Fingerprint berbasis <strong data-start=\"4563\" data-end=\"4573\">SHA256</strong> lebih disarankan dibandingkan MD5 karena lebih tahan terhadap serangan kriptografi.</span></p>\n<hr data-start=\"4659\" data-end=\"4662\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"19texfz\" data-start=\"4664\" data-end=\"4696\"><span style=\"color: #000000;\">Pantau Perubahan Fingerprint</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4698\" data-end=\"4847\"><span style=\"color: #000000;\">Jika sistem menampilkan peringatan bahwa fingerprint server berubah, jangan langsung menerima koneksi sebelum memastikan penyebab perubahan tersebut.</span></p>\n<blockquote>\n<p data-start=\"4698\" data-end=\"4847\">baca juga : <a href=\"https://buletinsiber.com/file-carving-teknik-forensik-digital-untuk-mengembalikan-file-yang-terhapus/\">File Carving: Teknik Forensik Digital untuk Mengembalikan File yang Terhapus</a></p>\n</blockquote>\n<hr data-start=\"4849\" data-end=\"4852\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"4854\" data-end=\"4867\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"4869\" data-end=\"5170\"><span style=\"color: #000000;\">SSH Fingerprinting merupakan mekanisme keamanan penting yang digunakan untuk memverifikasi identitas server dalam koneksi SSH. Dengan memanfaatkan hash unik dari public key server, pengguna dapat memastikan bahwa mereka terhubung ke server yang benar dan bukan server palsu yang dibuat oleh penyerang.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5172\" data-end=\"5501\"><span style=\"color: #000000;\">Proses verifikasi fingerprint menjadi langkah sederhana namun sangat penting dalam mencegah serangan seperti man-in-the-middle. Oleh karena itu, memahami dan menerapkan praktik terbaik dalam penggunaan SSH Fingerprinting dapat membantu meningkatkan keamanan komunikasi jarak jauh dalam administrasi sistem dan pengelolaan server.</span></p>\n",
+  "content_text": "Pengantar\nDalam dunia administrasi sistem dan keamanan jaringan,  Secure Shell (SSH)  merupakan salah satu protokol yang paling sering digunakan untuk mengakses server secara jarak jauh. SSH menyediakan koneksi yang terenkripsi sehingga komunikasi antara pengguna dan server menjadi lebih aman dibandingkan protokol yang tidak terenkripsi.\nNamun, meskipun SSH menggunakan enkripsi yang kuat, pengguna tetap perlu memastikan bahwa mereka benar-benar terhubung ke server yang sah. Jika tidak, ada kemungkinan terjadi serangan seperti  Man-in-the-Middle (MitM) , di mana penyerang mencoba menyamar sebagai server yang sebenarnya.\nUntuk mencegah risiko tersebut, SSH menggunakan mekanisme yang disebut  SSH Fingerprinting . Teknik ini memungkinkan pengguna untuk memverifikasi identitas server dengan menggunakan sidik jari kriptografi dari kunci publik server.\nDengan memahami SSH Fingerprinting, administrator sistem dan pengguna dapat meningkatkan keamanan koneksi SSH serta mengurangi risiko serangan yang menargetkan komunikasi jarak jauh.\nApa Itu SSH Fingerprinting?\nSSH Fingerprinting  adalah proses identifikasi server SSH menggunakan  hash unik dari public key server . Fingerprint ini berfungsi seperti sidik jari digital yang memungkinkan pengguna memastikan bahwa mereka terhubung ke server yang benar.\nKetika pengguna pertama kali terhubung ke sebuah server melalui SSH, sistem akan menampilkan fingerprint dari kunci publik server tersebut. Pengguna kemudian dapat memverifikasi fingerprint tersebut dengan sumber yang terpercaya sebelum menerima koneksi.\nJika fingerprint berubah secara tiba-tiba pada koneksi berikutnya, hal ini dapat menjadi indikasi adanya perubahan pada server atau potensi serangan keamanan.\nMenurut dokumentasi resmi OpenSSH, fingerprint digunakan untuk memverifikasi identitas server SSH dengan membandingkan hash dari public key yang dimiliki server (dikutip dari  openssh.com ).\nbaca juga :  Process Hollowing: Teknik Malware yang Menyusup ke Proses Sistem\nBagaimana Cara Kerja SSH Fingerprinting?\nSSH Fingerprinting bekerja dengan menggunakan  kunci kriptografi  yang dimiliki oleh server SSH.\nProsesnya secara umum melibatkan beberapa langkah berikut:\nServer SSH memiliki pasangan kunci kriptografi (public key dan private key).\nKetika klien mencoba terhubung, server mengirimkan public key kepada klien.\nKlien kemudian membuat fingerprint dari public key tersebut menggunakan algoritma hash seperti SHA256.\nFingerprint tersebut dibandingkan dengan fingerprint yang telah diketahui atau disimpan sebelumnya.\nJika fingerprint cocok, koneksi dianggap aman dan dapat dilanjutkan. Namun jika berbeda, pengguna harus berhati-hati karena ada kemungkinan koneksi sedang disusupi oleh pihak lain.\nFormat SSH Fingerprint\nFingerprint SSH biasanya ditampilkan dalam bentuk hash yang dihasilkan dari public key server.\nContoh format fingerprint antara lain:\nSHA256 fingerprint\nMD5 fingerprint\nContoh tampilan fingerprint:\nSHA256:AbCdEfGhIjKlMnOpQrStUvWxYz1234567890abcd\nFormat SHA256 saat ini lebih banyak digunakan karena memberikan tingkat keamanan yang lebih baik dibandingkan MD5.\nPentingnya SSH Fingerprinting dalam Keamanan Jaringan\nSSH Fingerprinting memiliki peran penting dalam menjaga keamanan koneksi remote server.\nMencegah Serangan Man-in-the-Middle\nDengan memverifikasi fingerprint server, pengguna dapat memastikan bahwa mereka tidak terhubung ke server palsu yang dibuat oleh penyerang.\nMenjaga Integritas Koneksi\nFingerprint membantu memastikan bahwa komunikasi SSH benar-benar dilakukan dengan server yang sah.\nDeteksi Perubahan Server\nJika fingerprint server berubah, administrator dapat segera melakukan investigasi apakah perubahan tersebut disebabkan oleh pembaruan sistem atau indikasi serangan.\nbaca juga :  Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server\nPraktik Terbaik dalam Menggunakan SSH Fingerprinting\nUntuk memaksimalkan keamanan koneksi SSH, beberapa praktik terbaik dapat diterapkan.\nVerifikasi Fingerprint Secara Manual\nSebelum menerima koneksi pertama kali, administrator sebaiknya memverifikasi fingerprint server melalui sumber resmi atau dokumentasi sistem.\nGunakan Algoritma Hash yang Aman\nFingerprint berbasis  SHA256  lebih disarankan dibandingkan MD5 karena lebih tahan terhadap serangan kriptografi.\nPantau Perubahan Fingerprint\nJika sistem menampilkan peringatan bahwa fingerprint server berubah, jangan langsung menerima koneksi sebelum memastikan penyebab perubahan tersebut.\nbaca juga :  File Carving: Teknik Forensik Digital untuk Mengembalikan File yang Terhapus\nKesimpulan\nSSH Fingerprinting merupakan mekanisme keamanan penting yang digunakan untuk memverifikasi identitas server dalam koneksi SSH. Dengan memanfaatkan hash unik dari public key server, pengguna dapat memastikan bahwa mereka terhubung ke server yang benar dan bukan server palsu yang dibuat oleh penyerang.\nProses verifikasi fingerprint menjadi langkah sederhana namun sangat penting dalam mencegah serangan seperti man-in-the-middle. Oleh karena itu, memahami dan menerapkan praktik terbaik dalam penggunaan SSH Fingerprinting dapat membantu meningkatkan keamanan komunikasi jarak jauh dalam administrasi sistem dan pengelolaan server.",
+  "raw": {
+    "id": 9746,
+    "date": "2026-03-14T01:17:23",
+    "date_gmt": "2026-03-14T01:17:23",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9746"
+    },
+    "modified": "2026-07-06T20:55:13",
+    "modified_gmt": "2026-07-06T20:55:13",
+    "slug": "ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/",
+    "title": {
+      "rendered": "SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"71\" data-end=\"83\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"85\" data-end=\"416\"><span style=\"color: #000000;\">Dalam dunia administrasi sistem dan keamanan jaringan, <strong data-start=\"140\" data-end=\"162\">Secure Shell (SSH)</strong> merupakan salah satu protokol yang paling sering digunakan untuk mengakses server secara jarak jauh. SSH menyediakan koneksi yang terenkripsi sehingga komunikasi antara pengguna dan server menjadi lebih aman dibandingkan protokol yang tidak terenkripsi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"418\" data-end=\"706\"><span style=\"color: #000000;\">Namun, meskipun SSH menggunakan enkripsi yang kuat, pengguna tetap perlu memastikan bahwa mereka benar-benar terhubung ke server yang sah. Jika tidak, ada kemungkinan terjadi serangan seperti <strong data-start=\"610\" data-end=\"638\">Man-in-the-Middle (MitM)</strong>, di mana penyerang mencoba menyamar sebagai server yang sebenarnya.</span></p>\n<p style=\"text-align: justify;\" data-start=\"708\" data-end=\"940\"><span style=\"color: #000000;\">Untuk mencegah risiko tersebut, SSH menggunakan mekanisme yang disebut <strong data-start=\"779\" data-end=\"801\">SSH Fingerprinting</strong>. Teknik ini memungkinkan pengguna untuk memverifikasi identitas server dengan menggunakan sidik jari kriptografi dari kunci publik server.</span></p>\n<p style=\"text-align: justify;\" data-start=\"942\" data-end=\"1124\"><span style=\"color: #000000;\">Dengan memahami SSH Fingerprinting, administrator sistem dan pengguna dapat meningkatkan keamanan koneksi SSH serta mengurangi risiko serangan yang menargetkan komunikasi jarak jauh.</span></p>\n<hr data-start=\"1126\" data-end=\"1129\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"2tzt6y\" data-start=\"1131\" data-end=\"1161\"><span style=\"color: #000000;\">Apa Itu SSH Fingerprinting?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1163\" data-end=\"1409\"><span style=\"color: #000000;\"><strong data-start=\"1163\" data-end=\"1185\">SSH Fingerprinting</strong> adalah proses identifikasi server SSH menggunakan <strong data-start=\"1236\" data-end=\"1272\">hash unik dari public key server</strong>. Fingerprint ini berfungsi seperti sidik jari digital yang memungkinkan pengguna memastikan bahwa mereka terhubung ke server yang benar.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1411\" data-end=\"1665\"><span style=\"color: #000000;\">Ketika pengguna pertama kali terhubung ke sebuah server melalui SSH, sistem akan menampilkan fingerprint dari kunci publik server tersebut. Pengguna kemudian dapat memverifikasi fingerprint tersebut dengan sumber yang terpercaya sebelum menerima koneksi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1667\" data-end=\"1825\"><span style=\"color: #000000;\">Jika fingerprint berubah secara tiba-tiba pada koneksi berikutnya, hal ini dapat menjadi indikasi adanya perubahan pada server atau potensi serangan keamanan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1827\" data-end=\"2039\"><span style=\"color: #000000;\">Menurut dokumentasi resmi OpenSSH, fingerprint digunakan untuk memverifikasi identitas server SSH dengan membandingkan hash dari public key yang dimiliki server (dikutip dari <a href=\"https://www.openssh.com/manual.html\">openssh.com</a>).</span></p>\n<blockquote>\n<p data-start=\"1827\" data-end=\"2039\">baca juga : <a href=\"https://buletinsiber.com/process-hollowing-teknik-malware-yang-menyusup-ke-proses-sistem/\">Process Hollowing: Teknik Malware yang Menyusup ke Proses Sistem</a></p>\n</blockquote>\n<hr data-start=\"2041\" data-end=\"2044\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1qvhj7f\" data-start=\"2046\" data-end=\"2089\"><span style=\"color: #000000;\">Bagaimana Cara Kerja SSH Fingerprinting?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2091\" data-end=\"2189\"><span style=\"color: #000000;\">SSH Fingerprinting bekerja dengan menggunakan <strong data-start=\"2137\" data-end=\"2158\">kunci kriptografi</strong> yang dimiliki oleh server SSH.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2191\" data-end=\"2249\"><span style=\"color: #000000;\">Prosesnya secara umum melibatkan beberapa langkah berikut:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"2251\" data-end=\"2626\">\n<li data-section-id=\"paoomj\" data-start=\"2251\" data-end=\"2332\">\n<p data-start=\"2254\" data-end=\"2332\"><span style=\"color: #000000;\">Server SSH memiliki pasangan kunci kriptografi (public key dan private key).</span></p>\n</li>\n<li data-section-id=\"nnbrmg\" data-start=\"2333\" data-end=\"2413\">\n<p data-start=\"2336\" data-end=\"2413\"><span style=\"color: #000000;\">Ketika klien mencoba terhubung, server mengirimkan public key kepada klien.</span></p>\n</li>\n<li data-section-id=\"146eis5\" data-start=\"2414\" data-end=\"2521\">\n<p data-start=\"2417\" data-end=\"2521\"><span style=\"color: #000000;\">Klien kemudian membuat fingerprint dari public key tersebut menggunakan algoritma hash seperti SHA256.</span></p>\n</li>\n<li data-section-id=\"15shy40\" data-start=\"2522\" data-end=\"2626\">\n<p data-start=\"2525\" data-end=\"2626\"><span style=\"color: #000000;\">Fingerprint tersebut dibandingkan dengan fingerprint yang telah diketahui atau disimpan sebelumnya.</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2628\" data-end=\"2808\"><span style=\"color: #000000;\">Jika fingerprint cocok, koneksi dianggap aman dan dapat dilanjutkan. Namun jika berbeda, pengguna harus berhati-hati karena ada kemungkinan koneksi sedang disusupi oleh pihak lain.</span></p>\n<hr data-start=\"2810\" data-end=\"2813\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"yhh8jy\" data-start=\"2815\" data-end=\"2840\"><span style=\"color: #000000;\">Format SSH Fingerprint</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2842\" data-end=\"2936\"><span style=\"color: #000000;\">Fingerprint SSH biasanya ditampilkan dalam bentuk hash yang dihasilkan dari public key server.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2938\" data-end=\"2976\"><span style=\"color: #000000;\">Contoh format fingerprint antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2978\" data-end=\"3026\">\n<li data-section-id=\"10iv1wj\" data-start=\"2978\" data-end=\"3004\">\n<p data-start=\"2980\" data-end=\"3004\"><span style=\"color: #000000;\"><strong data-start=\"2980\" data-end=\"3002\">SHA256 fingerprint</strong></span></p>\n</li>\n<li data-section-id=\"47mr9w\" data-start=\"3005\" data-end=\"3026\">\n<p data-start=\"3007\" data-end=\"3026\"><span style=\"color: #000000;\"><strong data-start=\"3007\" data-end=\"3026\">MD5 fingerprint</strong></span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3028\" data-end=\"3056\"><span style=\"color: #000000;\">Contoh tampilan fingerprint:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">SHA256:AbCdEfGhIjKlMnOpQrStUvWxYz1234567890abcd</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"3115\" data-end=\"3229\"><span style=\"color: #000000;\">Format SHA256 saat ini lebih banyak digunakan karena memberikan tingkat keamanan yang lebih baik dibandingkan MD5.</span></p>\n<hr data-start=\"3231\" data-end=\"3234\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"4szpol\" data-start=\"3236\" data-end=\"3292\"><span style=\"color: #000000;\">Pentingnya SSH Fingerprinting dalam Keamanan Jaringan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3294\" data-end=\"3381\"><span style=\"color: #000000;\">SSH Fingerprinting memiliki peran penting dalam menjaga keamanan koneksi remote server.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"jssnmf\" data-start=\"3383\" data-end=\"3422\"><span style=\"color: #000000;\">Mencegah Serangan Man-in-the-Middle</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3424\" data-end=\"3563\"><span style=\"color: #000000;\">Dengan memverifikasi fingerprint server, pengguna dapat memastikan bahwa mereka tidak terhubung ke server palsu yang dibuat oleh penyerang.</span></p>\n<hr data-start=\"3565\" data-end=\"3568\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"8amiwv\" data-start=\"3570\" data-end=\"3600\"><span style=\"color: #000000;\">Menjaga Integritas Koneksi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3602\" data-end=\"3700\"><span style=\"color: #000000;\">Fingerprint membantu memastikan bahwa komunikasi SSH benar-benar dilakukan dengan server yang sah.</span></p>\n<hr data-start=\"3702\" data-end=\"3705\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"o3ipo4\" data-start=\"3707\" data-end=\"3735\"><span style=\"color: #000000;\">Deteksi Perubahan Server</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3737\" data-end=\"3901\"><span style=\"color: #000000;\">Jika fingerprint server berubah, administrator dapat segera melakukan investigasi apakah perubahan tersebut disebabkan oleh pembaruan sistem atau indikasi serangan.</span></p>\n<blockquote>\n<p data-start=\"3737\" data-end=\"3901\">baca juga : <a href=\"https://buletinsiber.com/server-side-template-injection-ssti-kerentanan-web-yang-bisa-mengekspos-sistem-server/\">Server-Side Template Injection (SSTI): Kerentanan Web yang Bisa Mengekspos Sistem Server</a></p>\n</blockquote>\n<hr data-start=\"4166\" data-end=\"4169\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1nm565o\" data-start=\"4171\" data-end=\"4226\"><span style=\"color: #000000;\">Praktik Terbaik dalam Menggunakan SSH Fingerprinting</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4228\" data-end=\"4312\"><span style=\"color: #000000;\">Untuk memaksimalkan keamanan koneksi SSH, beberapa praktik terbaik dapat diterapkan.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"jv6iy4\" data-start=\"4314\" data-end=\"4354\"><span style=\"color: #000000;\">Verifikasi Fingerprint Secara Manual</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4356\" data-end=\"4497\"><span style=\"color: #000000;\">Sebelum menerima koneksi pertama kali, administrator sebaiknya memverifikasi fingerprint server melalui sumber resmi atau dokumentasi sistem.</span></p>\n<hr data-start=\"4499\" data-end=\"4502\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"29dfrt\" data-start=\"4504\" data-end=\"4540\"><span style=\"color: #000000;\">Gunakan Algoritma Hash yang Aman</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4542\" data-end=\"4657\"><span style=\"color: #000000;\">Fingerprint berbasis <strong data-start=\"4563\" data-end=\"4573\">SHA256</strong> lebih disarankan dibandingkan MD5 karena lebih tahan terhadap serangan kriptografi.</span></p>\n<hr data-start=\"4659\" data-end=\"4662\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"19texfz\" data-start=\"4664\" data-end=\"4696\"><span style=\"color: #000000;\">Pantau Perubahan Fingerprint</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4698\" data-end=\"4847\"><span style=\"color: #000000;\">Jika sistem menampilkan peringatan bahwa fingerprint server berubah, jangan langsung menerima koneksi sebelum memastikan penyebab perubahan tersebut.</span></p>\n<blockquote>\n<p data-start=\"4698\" data-end=\"4847\">baca juga : <a href=\"https://buletinsiber.com/file-carving-teknik-forensik-digital-untuk-mengembalikan-file-yang-terhapus/\">File Carving: Teknik Forensik Digital untuk Mengembalikan File yang Terhapus</a></p>\n</blockquote>\n<hr data-start=\"4849\" data-end=\"4852\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"4854\" data-end=\"4867\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"4869\" data-end=\"5170\"><span style=\"color: #000000;\">SSH Fingerprinting merupakan mekanisme keamanan penting yang digunakan untuk memverifikasi identitas server dalam koneksi SSH. Dengan memanfaatkan hash unik dari public key server, pengguna dapat memastikan bahwa mereka terhubung ke server yang benar dan bukan server palsu yang dibuat oleh penyerang.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5172\" data-end=\"5501\"><span style=\"color: #000000;\">Proses verifikasi fingerprint menjadi langkah sederhana namun sangat penting dalam mencegah serangan seperti man-in-the-middle. Oleh karena itu, memahami dan menerapkan praktik terbaik dalam penggunaan SSH Fingerprinting dapat membantu meningkatkan keamanan komunikasi jarak jauh dalam administrasi sistem dan pengelolaan server.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dalam dunia administrasi sistem dan keamanan jaringan, Secure Shell (SSH) merupakan salah satu protokol yang paling sering digunakan untuk mengakses server secara jarak jauh. SSH menyediakan koneksi yang terenkripsi sehingga komunikasi antara pengguna dan server menjadi lebih aman dibandingkan protokol yang tidak terenkripsi. Namun, meskipun SSH menggunakan enkripsi yang kuat, pengguna tetap perlu memastikan bahwa mereka benar-benar terhubung ke server yang sah. Jika tidak, ada kemungkinan terjadi serangan seperti Man-in-the-Middle (MitM), di mana penyerang mencoba menyamar sebagai server yang sebenarnya. Untuk mencegah risiko tersebut, SSH menggunakan mekanisme yang disebut SSH Fingerprinting. Teknik ini memungkinkan pengguna untuk memverifikasi identitas server&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 5160,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "SSH Fingerprinting",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      682,
+      280,
+      313
+    ],
+    "class_list": [
+      "post-9746",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-keamanan",
+      "tag-server",
+      "tag-ssh"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dalam dunia administrasi sistem dan keamanan jaringan, Secure Shell (SSH) merupakan salah satu protokol yang paling sering digunakan untuk mengakses server secara jarak jauh. SSH menyediakan koneksi yang terenkripsi sehingga komunikasi antara pengguna dan server menjadi lebih aman dibandingkan protokol yang tidak terenkripsi. Namun, meskipun SSH menggunakan enkripsi yang kuat, pengguna tetap perlu memastikan bahwa mereka benar-benar terhubung ke server yang sah. Jika tidak, ada kemungkinan terjadi serangan seperti Man-in-the-Middle (MitM), di mana penyerang mencoba menyamar sebagai server yang sebenarnya. Untuk mencegah risiko tersebut, SSH menggunakan mekanisme yang disebut SSH Fingerprinting. Teknik ini memungkinkan pengguna untuk memverifikasi identitas server...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-03-14T01:17:23+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:55:13+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1433374350-170667a.jpg\" />\n\t<meta property=\"og:image:width\" content=\"502\" />\n\t<meta property=\"og:image:height\" content=\"344\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/\",\"url\":\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/\",\"name\":\"SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1433374350-170667a.jpg\",\"datePublished\":\"2026-03-14T01:17:23+00:00\",\"dateModified\":\"2026-07-06T20:55:13+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1433374350-170667a.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1433374350-170667a.jpg\",\"width\":502,\"height\":344,\"caption\":\"Privacy protection, secure information access, dependable cloud computing service, big data security, and use the internet safely. Fingerprint scanning is a security-enhancing technological identity.\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman - buletinsiber.com",
+      "og_description": "Pengantar Dalam dunia administrasi sistem dan keamanan jaringan, Secure Shell (SSH) merupakan salah satu protokol yang paling sering digunakan untuk mengakses server secara jarak jauh. SSH menyediakan koneksi yang terenkripsi sehingga komunikasi antara pengguna dan server menjadi lebih aman dibandingkan protokol yang tidak terenkripsi. Namun, meskipun SSH menggunakan enkripsi yang kuat, pengguna tetap perlu memastikan bahwa mereka benar-benar terhubung ke server yang sah. Jika tidak, ada kemungkinan terjadi serangan seperti Man-in-the-Middle (MitM), di mana penyerang mencoba menyamar sebagai server yang sebenarnya. Untuk mencegah risiko tersebut, SSH menggunakan mekanisme yang disebut SSH Fingerprinting. Teknik ini memungkinkan pengguna untuk memverifikasi identitas server...",
+      "og_url": "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-03-14T01:17:23+00:00",
+      "article_modified_time": "2026-07-06T20:55:13+00:00",
+      "og_image": [
+        {
+          "width": 502,
+          "height": 344,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1433374350-170667a.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/",
+            "url": "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/",
+            "name": "SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1433374350-170667a.jpg",
+            "datePublished": "2026-03-14T01:17:23+00:00",
+            "dateModified": "2026-07-06T20:55:13+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1433374350-170667a.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1433374350-170667a.jpg",
+            "width": 502,
+            "height": 344,
+            "caption": "Privacy protection, secure information access, dependable cloud computing service, big data security, and use the internet safely. Fingerprint scanning is a security-enhancing technological identity."
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9746",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9746"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9746/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9747,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9746/revisions/9747"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/5160"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9746"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9746"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9746"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

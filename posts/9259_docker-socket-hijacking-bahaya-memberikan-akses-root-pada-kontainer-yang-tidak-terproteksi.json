@@ -1,0 +1,329 @@
+{
+  "id": 9259,
+  "title": "Docker Socket Hijacking: Bahaya Memberikan Akses Root pada Kontainer yang Tidak Terproteksi",
+  "slug": "docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi",
+  "url": "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/",
+  "date": "2026-01-15T00:33:39",
+  "date_gmt": "2026-01-15T00:33:39",
+  "modified": "2026-07-06T21:27:28",
+  "modified_gmt": "2026-07-06T21:27:28",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    185,
+    129
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/cybersecurity-3.jpg",
+  "excerpt": "Pengantar Docker telah menjadi fondasi utama dalam pengembangan dan deployment aplikasi modern. Dengan kemampuannya menjalankan aplikasi secara terisolasi, Docker sering dianggap aman secara default. Namun, asumsi ini bisa menjadi keliru ketika Docker socket (/var/run/docker.sock) diberikan akses tanpa proteksi yang memadai. Salah satu ancaman serius yang muncul dari konfigurasi keliru ini adalah Docker Socket Hijacking, sebuah kondisi di mana kontainer dapat mengambil alih kendali host dan memperoleh hak akses setara root. Artikel ini membahas risiko tersebut dari sudut pandang keamanan sistem dan mitigasinya. Memahami Docker Socket dan Fungsinya Apa Itu Docker Socket? Docker socket adalah endpoint komunikasi utama antara Docker client…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"399\" data-end=\"415\"><span style=\"color: #000000;\"><strong data-start=\"402\" data-end=\"415\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"417\" data-end=\"739\"><span style=\"color: #000000;\">Docker telah menjadi fondasi utama dalam pengembangan dan deployment aplikasi modern. Dengan kemampuannya menjalankan aplikasi secara terisolasi, Docker sering dianggap aman secara default. Namun, asumsi ini bisa menjadi keliru ketika Docker socket (<code data-start=\"669\" data-end=\"691\">/var/run/docker.sock</code>) diberikan akses tanpa proteksi yang memadai.</span></p>\n<p style=\"text-align: justify;\" data-start=\"741\" data-end=\"1040\"><span style=\"color: #000000;\">Salah satu ancaman serius yang muncul dari konfigurasi keliru ini adalah Docker Socket Hijacking, sebuah kondisi di mana kontainer dapat mengambil alih kendali host dan memperoleh hak akses setara root. Artikel ini membahas risiko tersebut dari sudut pandang keamanan sistem dan mitigasinya.</span></p>\n<hr data-start=\"1042\" data-end=\"1045\" />\n<h3 style=\"text-align: justify;\" data-start=\"1047\" data-end=\"1090\"><span style=\"color: #000000;\"><strong data-start=\"1050\" data-end=\"1090\">Memahami Docker Socket dan Fungsinya</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1097\" data-end=\"1127\"><span style=\"color: #000000;\"><strong data-start=\"1101\" data-end=\"1127\">Apa Itu <span style=\"color: #000000;\">Docker</span> Socket?</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1129\" data-end=\"1253\"><span style=\"color: #000000;\">Docker socket adalah endpoint komunikasi utama antara Docker client dan Docker daemon. Melalui socket ini, perintah seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1254\" data-end=\"1341\">\n<li data-start=\"1254\" data-end=\"1273\">\n<p data-start=\"1256\" data-end=\"1273\"><span style=\"color: #000000;\">membuat kontainer</span></p>\n</li>\n<li data-start=\"1274\" data-end=\"1291\">\n<p data-start=\"1276\" data-end=\"1291\"><span style=\"color: #000000;\">menghapus image</span></p>\n</li>\n<li data-start=\"1292\" data-end=\"1341\">\n<p data-start=\"1294\" data-end=\"1341\"><span style=\"color: #000000;\">menjalankan container dengan privilege tinggi</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1343\" data-end=\"1382\"><span style=\"color: #000000;\">dieksekusi langsung oleh daemon Docker.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1384\" data-end=\"1569\"><span style=\"color: #000000;\">Docker secara resmi menyatakan bahwa akses ke Docker daemon setara dengan akses root ke host </span><span style=\"color: #000000;\"><em data-start=\"1483\" data-end=\"1569\">(dikutip dari <a href=\"http://docs.docker.com/engine/security/protect-access/\">docker</a>).</em></span></p>\n<blockquote>\n<p data-start=\"1384\" data-end=\"1569\">baca juga : <a href=\"https://buletinsiber.com/anti-forensik-teknik-menghapus-metadata-dan-jejak-aktivitas-di-sistem-operasi-linux/\">Anti-Forensik: Teknik Menghapus Metadata dan Jejak Aktivitas di Sistem Operasi Linux</a></p>\n</blockquote>\n<hr data-start=\"1571\" data-end=\"1574\" />\n<h4 style=\"text-align: justify;\" data-start=\"1576\" data-end=\"1622\"><span style=\"color: #000000;\"><strong data-start=\"1580\" data-end=\"1622\">Mengapa Docker Socket Sangat Sensitif?</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1624\" data-end=\"1785\"><span style=\"color: #000000;\">Karena Docker daemon berjalan sebagai root, siapa pun yang dapat berinteraksi dengan socket ini secara efektif memiliki kendali penuh atas sistem host, termasuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1786\" data-end=\"1882\">\n<li data-start=\"1786\" data-end=\"1812\">\n<p data-start=\"1788\" data-end=\"1812\"><span style=\"color: #000000;\">mounting filesystem host</span></p>\n</li>\n<li data-start=\"1813\" data-end=\"1847\">\n<p data-start=\"1815\" data-end=\"1847\"><span style=\"color: #000000;\">menjalankan kontainer privileged</span></p>\n</li>\n<li data-start=\"1848\" data-end=\"1882\">\n<p data-start=\"1850\" data-end=\"1882\"><span style=\"color: #000000;\">mengakses credential dan secrets</span></p>\n</li>\n</ul>\n<hr data-start=\"1884\" data-end=\"1887\" />\n<h3 style=\"text-align: justify;\" data-start=\"1889\" data-end=\"1928\"><span style=\"color: #000000;\"><strong data-start=\"1892\" data-end=\"1928\">Apa Itu Docker Socket Hijacking?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1935\" data-end=\"1975\"><span style=\"color: #000000;\"><strong data-start=\"1939\" data-end=\"1975\">Definisi Docker Socket Hijacking</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1977\" data-end=\"2023\"><span style=\"color: #000000;\">Docker Socket Hijacking adalah kondisi ketika:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2024\" data-end=\"2173\">\n<li data-start=\"2024\" data-end=\"2075\">\n<p data-start=\"2026\" data-end=\"2075\"><span style=\"color: #000000;\"><code data-start=\"2026\" data-end=\"2048\">/var/run/docker.sock</code> dimount ke dalam kontainer</span></p>\n</li>\n<li data-start=\"2076\" data-end=\"2104\">\n<p data-start=\"2078\" data-end=\"2104\"><span style=\"color: #000000;\">tidak ada pembatasan akses</span></p>\n</li>\n<li data-start=\"2105\" data-end=\"2173\">\n<p data-start=\"2107\" data-end=\"2173\"><span style=\"color: #000000;\">kontainer tersebut dapat menjalankan perintah Docker terhadap host</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2175\" data-end=\"2232\"><span style=\"color: #000000;\">Akibatnya, batas isolasi kontainer menjadi tidak relevan.</span></p>\n<hr data-start=\"2234\" data-end=\"2237\" />\n<h4 style=\"text-align: justify;\" data-start=\"2239\" data-end=\"2269\"><span style=\"color: #000000;\"><strong data-start=\"2243\" data-end=\"2269\">Mengapa Ini Berbahaya?</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2271\" data-end=\"2416\"><span style=\"color: #000000;\">Dalam skenario ini, kontainer tidak lagi bersifat sandbox, melainkan bertindak sebagai <strong data-start=\"2358\" data-end=\"2394\">remote control untuk host Docker</strong>. Ini membuka peluang:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2417\" data-end=\"2489\">\n<li data-start=\"2417\" data-end=\"2439\">\n<p data-start=\"2419\" data-end=\"2439\"><span style=\"color: #000000;\">privilege escalation</span></p>\n</li>\n<li data-start=\"2440\" data-end=\"2458\">\n<p data-start=\"2442\" data-end=\"2458\"><span style=\"color: #000000;\">container escape</span></p>\n</li>\n<li data-start=\"2459\" data-end=\"2489\">\n<p data-start=\"2461\" data-end=\"2489\"><span style=\"color: #000000;\">pengambilalihan penuh server</span></p>\n</li>\n</ul>\n<hr data-start=\"2491\" data-end=\"2494\" />\n<h3 style=\"text-align: justify;\" data-start=\"2496\" data-end=\"2542\"><span style=\"color: #000000;\"><strong data-start=\"2499\" data-end=\"2542\">Skenario Risiko Docker Socket Hijacking</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2549\" data-end=\"2588\"><span style=\"color: #000000;\"><strong data-start=\"2553\" data-end=\"2588\">Akses Root dari Dalam Kontainer</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2590\" data-end=\"2659\"><span style=\"color: #000000;\">Jika sebuah kontainer memiliki akses ke Docker socket, maka ia dapat:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2660\" data-end=\"2785\">\n<li data-start=\"2660\" data-end=\"2706\">\n<p data-start=\"2662\" data-end=\"2706\"><span style=\"color: #000000;\">membuat kontainer baru dengan <code data-start=\"2692\" data-end=\"2706\">--privileged</code></span></p>\n</li>\n<li data-start=\"2707\" data-end=\"2747\">\n<p data-start=\"2709\" data-end=\"2747\"><span style=\"color: #000000;\">memount direktori root (<code data-start=\"2733\" data-end=\"2736\">/</code>) dari host</span></p>\n</li>\n<li data-start=\"2748\" data-end=\"2785\">\n<p data-start=\"2750\" data-end=\"2785\"><span style=\"color: #000000;\">mengeksekusi shell langsung di host</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2787\" data-end=\"2841\"><span style=\"color: #000000;\">Secara praktis, ini berarti <strong data-start=\"2815\" data-end=\"2840\">kontainer = root host</strong>.</span></p>\n<hr data-start=\"2843\" data-end=\"2846\" />\n<h4 style=\"text-align: justify;\" data-start=\"2848\" data-end=\"2888\"><span style=\"color: #000000;\"><strong data-start=\"2852\" data-end=\"2888\">Ancaman pada Lingkungan Produksi</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2890\" data-end=\"2915\"><span style=\"color: #000000;\">Di lingkungan production:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2916\" data-end=\"3058\">\n<li data-start=\"2916\" data-end=\"2966\">\n<p data-start=\"2918\" data-end=\"2966\"><span style=\"color: #000000;\">satu kontainer rentan → seluruh cluster berisiko</span></p>\n</li>\n<li data-start=\"2967\" data-end=\"3018\">\n<p data-start=\"2969\" data-end=\"3018\"><span style=\"color: #000000;\">secrets, database, dan service lain dapat diakses</span></p>\n</li>\n<li data-start=\"3019\" data-end=\"3058\">\n<p data-start=\"3021\" data-end=\"3058\"><span style=\"color: #000000;\">lateral movement menjadi sangat mudah</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3060\" data-end=\"3215\"><span style=\"color: #000000;\">OWASP menyoroti praktik ini sebagai <strong data-start=\"3096\" data-end=\"3151\">konfigurasi berbahaya pada lingkungan containerized </strong></span><span style=\"color: #000000;\"><em data-start=\"3154\" data-end=\"3215\">(dikutip dari <a href=\"https://owasp.org/www-project-docker-top-10/\">OWASP</a>).</em></span></p>\n<blockquote>\n<p data-start=\"3060\" data-end=\"3215\">baca juga : <a href=\"https://buletinsiber.com/ssrf-exploit-teknik-memaksa-server-anda-menyerang-infrastruktur-internal-sendiri/\">SSRF Exploit: Teknik Memaksa Server Anda Menyerang Infrastruktur Internal Sendiri</a></p>\n</blockquote>\n<hr data-start=\"3217\" data-end=\"3220\" />\n<h3 style=\"text-align: justify;\" data-start=\"3222\" data-end=\"3270\"><span style=\"color: #000000;\"><strong data-start=\"3225\" data-end=\"3270\">Kesalahan Konfigurasi yang Sering Terjadi</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3277\" data-end=\"3328\"><span style=\"color: #000000;\"><strong data-start=\"3281\" data-end=\"3328\">Mount Docker Socket untuk Kemudahan Otomasi</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3330\" data-end=\"3394\"><span style=\"color: #000000;\">Banyak tim DevOps memount Docker socket ke kontainer CI/CD agar:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3395\" data-end=\"3431\">\n<li data-start=\"3395\" data-end=\"3413\">\n<p data-start=\"3397\" data-end=\"3413\"><span style=\"color: #000000;\">bisa build image</span></p>\n</li>\n<li data-start=\"3414\" data-end=\"3431\">\n<p data-start=\"3416\" data-end=\"3431\"><span style=\"color: #000000;\">deploy otomatis</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3433\" data-end=\"3510\"><span style=\"color: #000000;\">Tanpa kontrol tambahan, ini menciptakan <strong data-start=\"3473\" data-end=\"3509\">single point of total compromise</strong>.</span></p>\n<hr data-start=\"3512\" data-end=\"3515\" />\n<h4 style=\"text-align: justify;\" data-start=\"3517\" data-end=\"3554\"><span style=\"color: #000000;\"><strong data-start=\"3521\" data-end=\"3554\">Kurangnya Pemisahan Hak Akses</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3556\" data-end=\"3569\"><span style=\"color: #000000;\">Tidak adanya:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3570\" data-end=\"3634\">\n<li data-start=\"3570\" data-end=\"3589\">\n<p data-start=\"3572\" data-end=\"3589\"><span style=\"color: #000000;\">role-based access</span></p>\n</li>\n<li data-start=\"3590\" data-end=\"3611\">\n<p data-start=\"3592\" data-end=\"3611\"><span style=\"color: #000000;\">namespace isolation</span></p>\n</li>\n<li data-start=\"3612\" data-end=\"3634\">\n<p data-start=\"3614\" data-end=\"3634\"><span style=\"color: #000000;\">policy enforcement</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3636\" data-end=\"3699\"><span style=\"color: #000000;\">menyebabkan satu kontainer berpotensi memengaruhi seluruh host.</span></p>\n<hr data-start=\"3701\" data-end=\"3704\" />\n<h3 style=\"text-align: justify;\" data-start=\"3706\" data-end=\"3748\"><span style=\"color: #000000;\"><strong data-start=\"3709\" data-end=\"3748\">Strategi Mitigasi dan Best Practice</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3755\" data-end=\"3803\"><span style=\"color: #000000;\"><strong data-start=\"3759\" data-end=\"3803\">Hindari Mount Docker Socket ke Kontainer</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3805\" data-end=\"3819\"><span style=\"color: #000000;\">Prinsip utama:</span></p>\n<p style=\"text-align: justify;\" data-start=\"3805\" data-end=\"3819\"><span style=\"color: #000000;\">&#8220;Jika sebuah kontainer tidak benar-benar membutuhkan akses Docker daemon, jangan pernah mount docker.sock.<strong>&#8220;</strong></span></p>\n<hr data-start=\"3933\" data-end=\"3936\" />\n<h4 style=\"text-align: justify;\" data-start=\"3938\" data-end=\"3985\"><span style=\"color: #000000;\"><strong data-start=\"3942\" data-end=\"3985\">Gunakan Docker API dengan Kontrol Akses</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3987\" data-end=\"4023\"><span style=\"color: #000000;\">Alternatif yang lebih aman meliputi:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4024\" data-end=\"4107\">\n<li data-start=\"4024\" data-end=\"4047\">\n<p data-start=\"4026\" data-end=\"4047\"><span style=\"color: #000000;\">Docker API dengan TLS</span></p>\n</li>\n<li data-start=\"4048\" data-end=\"4078\">\n<p data-start=\"4050\" data-end=\"4078\"><span style=\"color: #000000;\">akses terbatas berbasis role</span></p>\n</li>\n<li data-start=\"4079\" data-end=\"4107\">\n<p data-start=\"4081\" data-end=\"4107\"><span style=\"color: #000000;\">tools khusus orchestration</span></p>\n</li>\n</ul>\n<hr data-start=\"4109\" data-end=\"4112\" />\n<h4 style=\"text-align: justify;\" data-start=\"4114\" data-end=\"4153\"><span style=\"color: #000000;\"><strong data-start=\"4118\" data-end=\"4153\">Implementasi Security Hardening</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"4155\" data-end=\"4172\"><span style=\"color: #000000;\">Langkah tambahan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4173\" data-end=\"4256\">\n<li data-start=\"4173\" data-end=\"4193\">\n<p data-start=\"4175\" data-end=\"4193\"><span style=\"color: #000000;\">non-root container</span></p>\n</li>\n<li data-start=\"4194\" data-end=\"4214\">\n<p data-start=\"4196\" data-end=\"4214\"><span style=\"color: #000000;\">seccomp &amp; AppArmor</span></p>\n</li>\n<li data-start=\"4215\" data-end=\"4256\">\n<p data-start=\"4217\" data-end=\"4256\"><span style=\"color: #000000;\">audit konfigurasi Docker secara berkala</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/race-condition-celah-logika-yang-membuat-aplikasi-anda-melakukan-transaksi-ganda/\">Race Condition: Celah Logika yang Membuat Aplikasi Anda Melakukan Transaksi Ganda</a></p></blockquote>\n<hr data-start=\"4258\" data-end=\"4261\" />\n<h2 style=\"text-align: justify;\" data-start=\"4263\" data-end=\"4280\"><span style=\"color: #000000;\"><strong data-start=\"4266\" data-end=\"4280\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4282\" data-end=\"4503\"><span style=\"color: #000000;\">Docker Socket Hijacking adalah contoh nyata bagaimana miskonfigurasi kecil dapat berujung pada kompromi total sistem. Memberikan akses ke Docker socket sama artinya dengan menyerahkan kunci root host kepada kontainer.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4505\" data-end=\"4748\"><span style=\"color: #000000;\">Pemahaman terhadap risiko ini sangat penting, terutama bagi tim yang mengelola sistem produksi berbasis Docker. Keamanan kontainer bukan hanya soal image yang aman, tetapi juga bagaimana infrastruktur Docker dikonfigurasi dan dioperasikan.</span></p>\n",
+  "content_text": "Pengantar\nDocker telah menjadi fondasi utama dalam pengembangan dan deployment aplikasi modern. Dengan kemampuannya menjalankan aplikasi secara terisolasi, Docker sering dianggap aman secara default. Namun, asumsi ini bisa menjadi keliru ketika Docker socket ( /var/run/docker.sock ) diberikan akses tanpa proteksi yang memadai.\nSalah satu ancaman serius yang muncul dari konfigurasi keliru ini adalah Docker Socket Hijacking, sebuah kondisi di mana kontainer dapat mengambil alih kendali host dan memperoleh hak akses setara root. Artikel ini membahas risiko tersebut dari sudut pandang keamanan sistem dan mitigasinya.\nMemahami Docker Socket dan Fungsinya\nApa Itu  Docker  Socket?\nDocker socket adalah endpoint komunikasi utama antara Docker client dan Docker daemon. Melalui socket ini, perintah seperti:\nmembuat kontainer\nmenghapus image\nmenjalankan container dengan privilege tinggi\ndieksekusi langsung oleh daemon Docker.\nDocker secara resmi menyatakan bahwa akses ke Docker daemon setara dengan akses root ke host    (dikutip dari  docker ).\nbaca juga :  Anti-Forensik: Teknik Menghapus Metadata dan Jejak Aktivitas di Sistem Operasi Linux\nMengapa Docker Socket Sangat Sensitif?\nKarena Docker daemon berjalan sebagai root, siapa pun yang dapat berinteraksi dengan socket ini secara efektif memiliki kendali penuh atas sistem host, termasuk:\nmounting filesystem host\nmenjalankan kontainer privileged\nmengakses credential dan secrets\nApa Itu Docker Socket Hijacking?\nDefinisi Docker Socket Hijacking\nDocker Socket Hijacking adalah kondisi ketika:\n/var/run/docker.sock  dimount ke dalam kontainer\ntidak ada pembatasan akses\nkontainer tersebut dapat menjalankan perintah Docker terhadap host\nAkibatnya, batas isolasi kontainer menjadi tidak relevan.\nMengapa Ini Berbahaya?\nDalam skenario ini, kontainer tidak lagi bersifat sandbox, melainkan bertindak sebagai  remote control untuk host Docker . Ini membuka peluang:\nprivilege escalation\ncontainer escape\npengambilalihan penuh server\nSkenario Risiko Docker Socket Hijacking\nAkses Root dari Dalam Kontainer\nJika sebuah kontainer memiliki akses ke Docker socket, maka ia dapat:\nmembuat kontainer baru dengan  --privileged\nmemount direktori root ( / ) dari host\nmengeksekusi shell langsung di host\nSecara praktis, ini berarti  kontainer = root host .\nAncaman pada Lingkungan Produksi\nDi lingkungan production:\nsatu kontainer rentan → seluruh cluster berisiko\nsecrets, database, dan service lain dapat diakses\nlateral movement menjadi sangat mudah\nOWASP menyoroti praktik ini sebagai  konfigurasi berbahaya pada lingkungan containerized     (dikutip dari  OWASP ).\nbaca juga :  SSRF Exploit: Teknik Memaksa Server Anda Menyerang Infrastruktur Internal Sendiri\nKesalahan Konfigurasi yang Sering Terjadi\nMount Docker Socket untuk Kemudahan Otomasi\nBanyak tim DevOps memount Docker socket ke kontainer CI/CD agar:\nbisa build image\ndeploy otomatis\nTanpa kontrol tambahan, ini menciptakan  single point of total compromise .\nKurangnya Pemisahan Hak Akses\nTidak adanya:\nrole-based access\nnamespace isolation\npolicy enforcement\nmenyebabkan satu kontainer berpotensi memengaruhi seluruh host.\nStrategi Mitigasi dan Best Practice\nHindari Mount Docker Socket ke Kontainer\nPrinsip utama:\n“Jika sebuah kontainer tidak benar-benar membutuhkan akses Docker daemon, jangan pernah mount docker.sock. “\nGunakan Docker API dengan Kontrol Akses\nAlternatif yang lebih aman meliputi:\nDocker API dengan TLS\nakses terbatas berbasis role\ntools khusus orchestration\nImplementasi Security Hardening\nLangkah tambahan:\nnon-root container\nseccomp & AppArmor\naudit konfigurasi Docker secara berkala\nbaca juga :  Race Condition: Celah Logika yang Membuat Aplikasi Anda Melakukan Transaksi Ganda\nKesimpulan\nDocker Socket Hijacking adalah contoh nyata bagaimana miskonfigurasi kecil dapat berujung pada kompromi total sistem. Memberikan akses ke Docker socket sama artinya dengan menyerahkan kunci root host kepada kontainer.\nPemahaman terhadap risiko ini sangat penting, terutama bagi tim yang mengelola sistem produksi berbasis Docker. Keamanan kontainer bukan hanya soal image yang aman, tetapi juga bagaimana infrastruktur Docker dikonfigurasi dan dioperasikan.",
+  "raw": {
+    "id": 9259,
+    "date": "2026-01-15T00:33:39",
+    "date_gmt": "2026-01-15T00:33:39",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9259"
+    },
+    "modified": "2026-07-06T21:27:28",
+    "modified_gmt": "2026-07-06T21:27:28",
+    "slug": "docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/",
+    "title": {
+      "rendered": "Docker Socket Hijacking: Bahaya Memberikan Akses Root pada Kontainer yang Tidak Terproteksi"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"399\" data-end=\"415\"><span style=\"color: #000000;\"><strong data-start=\"402\" data-end=\"415\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"417\" data-end=\"739\"><span style=\"color: #000000;\">Docker telah menjadi fondasi utama dalam pengembangan dan deployment aplikasi modern. Dengan kemampuannya menjalankan aplikasi secara terisolasi, Docker sering dianggap aman secara default. Namun, asumsi ini bisa menjadi keliru ketika Docker socket (<code data-start=\"669\" data-end=\"691\">/var/run/docker.sock</code>) diberikan akses tanpa proteksi yang memadai.</span></p>\n<p style=\"text-align: justify;\" data-start=\"741\" data-end=\"1040\"><span style=\"color: #000000;\">Salah satu ancaman serius yang muncul dari konfigurasi keliru ini adalah Docker Socket Hijacking, sebuah kondisi di mana kontainer dapat mengambil alih kendali host dan memperoleh hak akses setara root. Artikel ini membahas risiko tersebut dari sudut pandang keamanan sistem dan mitigasinya.</span></p>\n<hr data-start=\"1042\" data-end=\"1045\" />\n<h3 style=\"text-align: justify;\" data-start=\"1047\" data-end=\"1090\"><span style=\"color: #000000;\"><strong data-start=\"1050\" data-end=\"1090\">Memahami Docker Socket dan Fungsinya</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1097\" data-end=\"1127\"><span style=\"color: #000000;\"><strong data-start=\"1101\" data-end=\"1127\">Apa Itu <span style=\"color: #000000;\">Docker</span> Socket?</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1129\" data-end=\"1253\"><span style=\"color: #000000;\">Docker socket adalah endpoint komunikasi utama antara Docker client dan Docker daemon. Melalui socket ini, perintah seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1254\" data-end=\"1341\">\n<li data-start=\"1254\" data-end=\"1273\">\n<p data-start=\"1256\" data-end=\"1273\"><span style=\"color: #000000;\">membuat kontainer</span></p>\n</li>\n<li data-start=\"1274\" data-end=\"1291\">\n<p data-start=\"1276\" data-end=\"1291\"><span style=\"color: #000000;\">menghapus image</span></p>\n</li>\n<li data-start=\"1292\" data-end=\"1341\">\n<p data-start=\"1294\" data-end=\"1341\"><span style=\"color: #000000;\">menjalankan container dengan privilege tinggi</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1343\" data-end=\"1382\"><span style=\"color: #000000;\">dieksekusi langsung oleh daemon Docker.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1384\" data-end=\"1569\"><span style=\"color: #000000;\">Docker secara resmi menyatakan bahwa akses ke Docker daemon setara dengan akses root ke host </span><span style=\"color: #000000;\"><em data-start=\"1483\" data-end=\"1569\">(dikutip dari <a href=\"http://docs.docker.com/engine/security/protect-access/\">docker</a>).</em></span></p>\n<blockquote>\n<p data-start=\"1384\" data-end=\"1569\">baca juga : <a href=\"https://buletinsiber.com/anti-forensik-teknik-menghapus-metadata-dan-jejak-aktivitas-di-sistem-operasi-linux/\">Anti-Forensik: Teknik Menghapus Metadata dan Jejak Aktivitas di Sistem Operasi Linux</a></p>\n</blockquote>\n<hr data-start=\"1571\" data-end=\"1574\" />\n<h4 style=\"text-align: justify;\" data-start=\"1576\" data-end=\"1622\"><span style=\"color: #000000;\"><strong data-start=\"1580\" data-end=\"1622\">Mengapa Docker Socket Sangat Sensitif?</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1624\" data-end=\"1785\"><span style=\"color: #000000;\">Karena Docker daemon berjalan sebagai root, siapa pun yang dapat berinteraksi dengan socket ini secara efektif memiliki kendali penuh atas sistem host, termasuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1786\" data-end=\"1882\">\n<li data-start=\"1786\" data-end=\"1812\">\n<p data-start=\"1788\" data-end=\"1812\"><span style=\"color: #000000;\">mounting filesystem host</span></p>\n</li>\n<li data-start=\"1813\" data-end=\"1847\">\n<p data-start=\"1815\" data-end=\"1847\"><span style=\"color: #000000;\">menjalankan kontainer privileged</span></p>\n</li>\n<li data-start=\"1848\" data-end=\"1882\">\n<p data-start=\"1850\" data-end=\"1882\"><span style=\"color: #000000;\">mengakses credential dan secrets</span></p>\n</li>\n</ul>\n<hr data-start=\"1884\" data-end=\"1887\" />\n<h3 style=\"text-align: justify;\" data-start=\"1889\" data-end=\"1928\"><span style=\"color: #000000;\"><strong data-start=\"1892\" data-end=\"1928\">Apa Itu Docker Socket Hijacking?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1935\" data-end=\"1975\"><span style=\"color: #000000;\"><strong data-start=\"1939\" data-end=\"1975\">Definisi Docker Socket Hijacking</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1977\" data-end=\"2023\"><span style=\"color: #000000;\">Docker Socket Hijacking adalah kondisi ketika:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2024\" data-end=\"2173\">\n<li data-start=\"2024\" data-end=\"2075\">\n<p data-start=\"2026\" data-end=\"2075\"><span style=\"color: #000000;\"><code data-start=\"2026\" data-end=\"2048\">/var/run/docker.sock</code> dimount ke dalam kontainer</span></p>\n</li>\n<li data-start=\"2076\" data-end=\"2104\">\n<p data-start=\"2078\" data-end=\"2104\"><span style=\"color: #000000;\">tidak ada pembatasan akses</span></p>\n</li>\n<li data-start=\"2105\" data-end=\"2173\">\n<p data-start=\"2107\" data-end=\"2173\"><span style=\"color: #000000;\">kontainer tersebut dapat menjalankan perintah Docker terhadap host</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2175\" data-end=\"2232\"><span style=\"color: #000000;\">Akibatnya, batas isolasi kontainer menjadi tidak relevan.</span></p>\n<hr data-start=\"2234\" data-end=\"2237\" />\n<h4 style=\"text-align: justify;\" data-start=\"2239\" data-end=\"2269\"><span style=\"color: #000000;\"><strong data-start=\"2243\" data-end=\"2269\">Mengapa Ini Berbahaya?</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2271\" data-end=\"2416\"><span style=\"color: #000000;\">Dalam skenario ini, kontainer tidak lagi bersifat sandbox, melainkan bertindak sebagai <strong data-start=\"2358\" data-end=\"2394\">remote control untuk host Docker</strong>. Ini membuka peluang:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2417\" data-end=\"2489\">\n<li data-start=\"2417\" data-end=\"2439\">\n<p data-start=\"2419\" data-end=\"2439\"><span style=\"color: #000000;\">privilege escalation</span></p>\n</li>\n<li data-start=\"2440\" data-end=\"2458\">\n<p data-start=\"2442\" data-end=\"2458\"><span style=\"color: #000000;\">container escape</span></p>\n</li>\n<li data-start=\"2459\" data-end=\"2489\">\n<p data-start=\"2461\" data-end=\"2489\"><span style=\"color: #000000;\">pengambilalihan penuh server</span></p>\n</li>\n</ul>\n<hr data-start=\"2491\" data-end=\"2494\" />\n<h3 style=\"text-align: justify;\" data-start=\"2496\" data-end=\"2542\"><span style=\"color: #000000;\"><strong data-start=\"2499\" data-end=\"2542\">Skenario Risiko Docker Socket Hijacking</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2549\" data-end=\"2588\"><span style=\"color: #000000;\"><strong data-start=\"2553\" data-end=\"2588\">Akses Root dari Dalam Kontainer</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2590\" data-end=\"2659\"><span style=\"color: #000000;\">Jika sebuah kontainer memiliki akses ke Docker socket, maka ia dapat:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2660\" data-end=\"2785\">\n<li data-start=\"2660\" data-end=\"2706\">\n<p data-start=\"2662\" data-end=\"2706\"><span style=\"color: #000000;\">membuat kontainer baru dengan <code data-start=\"2692\" data-end=\"2706\">--privileged</code></span></p>\n</li>\n<li data-start=\"2707\" data-end=\"2747\">\n<p data-start=\"2709\" data-end=\"2747\"><span style=\"color: #000000;\">memount direktori root (<code data-start=\"2733\" data-end=\"2736\">/</code>) dari host</span></p>\n</li>\n<li data-start=\"2748\" data-end=\"2785\">\n<p data-start=\"2750\" data-end=\"2785\"><span style=\"color: #000000;\">mengeksekusi shell langsung di host</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2787\" data-end=\"2841\"><span style=\"color: #000000;\">Secara praktis, ini berarti <strong data-start=\"2815\" data-end=\"2840\">kontainer = root host</strong>.</span></p>\n<hr data-start=\"2843\" data-end=\"2846\" />\n<h4 style=\"text-align: justify;\" data-start=\"2848\" data-end=\"2888\"><span style=\"color: #000000;\"><strong data-start=\"2852\" data-end=\"2888\">Ancaman pada Lingkungan Produksi</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2890\" data-end=\"2915\"><span style=\"color: #000000;\">Di lingkungan production:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2916\" data-end=\"3058\">\n<li data-start=\"2916\" data-end=\"2966\">\n<p data-start=\"2918\" data-end=\"2966\"><span style=\"color: #000000;\">satu kontainer rentan → seluruh cluster berisiko</span></p>\n</li>\n<li data-start=\"2967\" data-end=\"3018\">\n<p data-start=\"2969\" data-end=\"3018\"><span style=\"color: #000000;\">secrets, database, dan service lain dapat diakses</span></p>\n</li>\n<li data-start=\"3019\" data-end=\"3058\">\n<p data-start=\"3021\" data-end=\"3058\"><span style=\"color: #000000;\">lateral movement menjadi sangat mudah</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3060\" data-end=\"3215\"><span style=\"color: #000000;\">OWASP menyoroti praktik ini sebagai <strong data-start=\"3096\" data-end=\"3151\">konfigurasi berbahaya pada lingkungan containerized </strong></span><span style=\"color: #000000;\"><em data-start=\"3154\" data-end=\"3215\">(dikutip dari <a href=\"https://owasp.org/www-project-docker-top-10/\">OWASP</a>).</em></span></p>\n<blockquote>\n<p data-start=\"3060\" data-end=\"3215\">baca juga : <a href=\"https://buletinsiber.com/ssrf-exploit-teknik-memaksa-server-anda-menyerang-infrastruktur-internal-sendiri/\">SSRF Exploit: Teknik Memaksa Server Anda Menyerang Infrastruktur Internal Sendiri</a></p>\n</blockquote>\n<hr data-start=\"3217\" data-end=\"3220\" />\n<h3 style=\"text-align: justify;\" data-start=\"3222\" data-end=\"3270\"><span style=\"color: #000000;\"><strong data-start=\"3225\" data-end=\"3270\">Kesalahan Konfigurasi yang Sering Terjadi</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3277\" data-end=\"3328\"><span style=\"color: #000000;\"><strong data-start=\"3281\" data-end=\"3328\">Mount Docker Socket untuk Kemudahan Otomasi</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3330\" data-end=\"3394\"><span style=\"color: #000000;\">Banyak tim DevOps memount Docker socket ke kontainer CI/CD agar:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3395\" data-end=\"3431\">\n<li data-start=\"3395\" data-end=\"3413\">\n<p data-start=\"3397\" data-end=\"3413\"><span style=\"color: #000000;\">bisa build image</span></p>\n</li>\n<li data-start=\"3414\" data-end=\"3431\">\n<p data-start=\"3416\" data-end=\"3431\"><span style=\"color: #000000;\">deploy otomatis</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3433\" data-end=\"3510\"><span style=\"color: #000000;\">Tanpa kontrol tambahan, ini menciptakan <strong data-start=\"3473\" data-end=\"3509\">single point of total compromise</strong>.</span></p>\n<hr data-start=\"3512\" data-end=\"3515\" />\n<h4 style=\"text-align: justify;\" data-start=\"3517\" data-end=\"3554\"><span style=\"color: #000000;\"><strong data-start=\"3521\" data-end=\"3554\">Kurangnya Pemisahan Hak Akses</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3556\" data-end=\"3569\"><span style=\"color: #000000;\">Tidak adanya:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3570\" data-end=\"3634\">\n<li data-start=\"3570\" data-end=\"3589\">\n<p data-start=\"3572\" data-end=\"3589\"><span style=\"color: #000000;\">role-based access</span></p>\n</li>\n<li data-start=\"3590\" data-end=\"3611\">\n<p data-start=\"3592\" data-end=\"3611\"><span style=\"color: #000000;\">namespace isolation</span></p>\n</li>\n<li data-start=\"3612\" data-end=\"3634\">\n<p data-start=\"3614\" data-end=\"3634\"><span style=\"color: #000000;\">policy enforcement</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3636\" data-end=\"3699\"><span style=\"color: #000000;\">menyebabkan satu kontainer berpotensi memengaruhi seluruh host.</span></p>\n<hr data-start=\"3701\" data-end=\"3704\" />\n<h3 style=\"text-align: justify;\" data-start=\"3706\" data-end=\"3748\"><span style=\"color: #000000;\"><strong data-start=\"3709\" data-end=\"3748\">Strategi Mitigasi dan Best Practice</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3755\" data-end=\"3803\"><span style=\"color: #000000;\"><strong data-start=\"3759\" data-end=\"3803\">Hindari Mount Docker Socket ke Kontainer</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3805\" data-end=\"3819\"><span style=\"color: #000000;\">Prinsip utama:</span></p>\n<p style=\"text-align: justify;\" data-start=\"3805\" data-end=\"3819\"><span style=\"color: #000000;\">&#8220;Jika sebuah kontainer tidak benar-benar membutuhkan akses Docker daemon, jangan pernah mount docker.sock.<strong>&#8220;</strong></span></p>\n<hr data-start=\"3933\" data-end=\"3936\" />\n<h4 style=\"text-align: justify;\" data-start=\"3938\" data-end=\"3985\"><span style=\"color: #000000;\"><strong data-start=\"3942\" data-end=\"3985\">Gunakan Docker API dengan Kontrol Akses</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3987\" data-end=\"4023\"><span style=\"color: #000000;\">Alternatif yang lebih aman meliputi:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4024\" data-end=\"4107\">\n<li data-start=\"4024\" data-end=\"4047\">\n<p data-start=\"4026\" data-end=\"4047\"><span style=\"color: #000000;\">Docker API dengan TLS</span></p>\n</li>\n<li data-start=\"4048\" data-end=\"4078\">\n<p data-start=\"4050\" data-end=\"4078\"><span style=\"color: #000000;\">akses terbatas berbasis role</span></p>\n</li>\n<li data-start=\"4079\" data-end=\"4107\">\n<p data-start=\"4081\" data-end=\"4107\"><span style=\"color: #000000;\">tools khusus orchestration</span></p>\n</li>\n</ul>\n<hr data-start=\"4109\" data-end=\"4112\" />\n<h4 style=\"text-align: justify;\" data-start=\"4114\" data-end=\"4153\"><span style=\"color: #000000;\"><strong data-start=\"4118\" data-end=\"4153\">Implementasi Security Hardening</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"4155\" data-end=\"4172\"><span style=\"color: #000000;\">Langkah tambahan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4173\" data-end=\"4256\">\n<li data-start=\"4173\" data-end=\"4193\">\n<p data-start=\"4175\" data-end=\"4193\"><span style=\"color: #000000;\">non-root container</span></p>\n</li>\n<li data-start=\"4194\" data-end=\"4214\">\n<p data-start=\"4196\" data-end=\"4214\"><span style=\"color: #000000;\">seccomp &amp; AppArmor</span></p>\n</li>\n<li data-start=\"4215\" data-end=\"4256\">\n<p data-start=\"4217\" data-end=\"4256\"><span style=\"color: #000000;\">audit konfigurasi Docker secara berkala</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/race-condition-celah-logika-yang-membuat-aplikasi-anda-melakukan-transaksi-ganda/\">Race Condition: Celah Logika yang Membuat Aplikasi Anda Melakukan Transaksi Ganda</a></p></blockquote>\n<hr data-start=\"4258\" data-end=\"4261\" />\n<h2 style=\"text-align: justify;\" data-start=\"4263\" data-end=\"4280\"><span style=\"color: #000000;\"><strong data-start=\"4266\" data-end=\"4280\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4282\" data-end=\"4503\"><span style=\"color: #000000;\">Docker Socket Hijacking adalah contoh nyata bagaimana miskonfigurasi kecil dapat berujung pada kompromi total sistem. Memberikan akses ke Docker socket sama artinya dengan menyerahkan kunci root host kepada kontainer.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4505\" data-end=\"4748\"><span style=\"color: #000000;\">Pemahaman terhadap risiko ini sangat penting, terutama bagi tim yang mengelola sistem produksi berbasis Docker. Keamanan kontainer bukan hanya soal image yang aman, tetapi juga bagaimana infrastruktur Docker dikonfigurasi dan dioperasikan.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Docker telah menjadi fondasi utama dalam pengembangan dan deployment aplikasi modern. Dengan kemampuannya menjalankan aplikasi secara terisolasi, Docker sering dianggap aman secara default. Namun, asumsi ini bisa menjadi keliru ketika Docker socket (/var/run/docker.sock) diberikan akses tanpa proteksi yang memadai. Salah satu ancaman serius yang muncul dari konfigurasi keliru ini adalah Docker Socket Hijacking, sebuah kondisi di mana kontainer dapat mengambil alih kendali host dan memperoleh hak akses setara root. Artikel ini membahas risiko tersebut dari sudut pandang keamanan sistem dan mitigasinya. Memahami Docker Socket dan Fungsinya Apa Itu Docker Socket? Docker socket adalah endpoint komunikasi utama antara Docker client&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 2848,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Docker Socket Hijacking",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      185,
+      129
+    ],
+    "class_list": [
+      "post-9259",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-cybersecurity",
+      "tag-docker"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Docker Socket Hijacking: Bahaya Memberikan Akses Root pada Kontainer yang Tidak Terproteksi - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Docker Socket Hijacking: Bahaya Memberikan Akses Root pada Kontainer yang Tidak Terproteksi - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Docker telah menjadi fondasi utama dalam pengembangan dan deployment aplikasi modern. Dengan kemampuannya menjalankan aplikasi secara terisolasi, Docker sering dianggap aman secara default. Namun, asumsi ini bisa menjadi keliru ketika Docker socket (/var/run/docker.sock) diberikan akses tanpa proteksi yang memadai. Salah satu ancaman serius yang muncul dari konfigurasi keliru ini adalah Docker Socket Hijacking, sebuah kondisi di mana kontainer dapat mengambil alih kendali host dan memperoleh hak akses setara root. Artikel ini membahas risiko tersebut dari sudut pandang keamanan sistem dan mitigasinya. Memahami Docker Socket dan Fungsinya Apa Itu Docker Socket? Docker socket adalah endpoint komunikasi utama antara Docker client...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-01-15T00:33:39+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T21:27:28+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/cybersecurity-3.jpg\" />\n\t<meta property=\"og:image:width\" content=\"850\" />\n\t<meta property=\"og:image:height\" content=\"567\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/\",\"url\":\"https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/\",\"name\":\"Docker Socket Hijacking: Bahaya Memberikan Akses Root pada Kontainer yang Tidak Terproteksi - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/cybersecurity-3.jpg\",\"datePublished\":\"2026-01-15T00:33:39+00:00\",\"dateModified\":\"2026-07-06T21:27:28+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/cybersecurity-3.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/cybersecurity-3.jpg\",\"width\":850,\"height\":567},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Docker Socket Hijacking: Bahaya Memberikan Akses Root pada Kontainer yang Tidak Terproteksi\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Docker Socket Hijacking: Bahaya Memberikan Akses Root pada Kontainer yang Tidak Terproteksi - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Docker Socket Hijacking: Bahaya Memberikan Akses Root pada Kontainer yang Tidak Terproteksi - buletinsiber.com",
+      "og_description": "Pengantar Docker telah menjadi fondasi utama dalam pengembangan dan deployment aplikasi modern. Dengan kemampuannya menjalankan aplikasi secara terisolasi, Docker sering dianggap aman secara default. Namun, asumsi ini bisa menjadi keliru ketika Docker socket (/var/run/docker.sock) diberikan akses tanpa proteksi yang memadai. Salah satu ancaman serius yang muncul dari konfigurasi keliru ini adalah Docker Socket Hijacking, sebuah kondisi di mana kontainer dapat mengambil alih kendali host dan memperoleh hak akses setara root. Artikel ini membahas risiko tersebut dari sudut pandang keamanan sistem dan mitigasinya. Memahami Docker Socket dan Fungsinya Apa Itu Docker Socket? Docker socket adalah endpoint komunikasi utama antara Docker client...",
+      "og_url": "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-01-15T00:33:39+00:00",
+      "article_modified_time": "2026-07-06T21:27:28+00:00",
+      "og_image": [
+        {
+          "width": 850,
+          "height": 567,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/cybersecurity-3.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/",
+            "url": "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/",
+            "name": "Docker Socket Hijacking: Bahaya Memberikan Akses Root pada Kontainer yang Tidak Terproteksi - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/cybersecurity-3.jpg",
+            "datePublished": "2026-01-15T00:33:39+00:00",
+            "dateModified": "2026-07-06T21:27:28+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/cybersecurity-3.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/cybersecurity-3.jpg",
+            "width": 850,
+            "height": 567
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/docker-socket-hijacking-bahaya-memberikan-akses-root-pada-kontainer-yang-tidak-terproteksi/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Docker Socket Hijacking: Bahaya Memberikan Akses Root pada Kontainer yang Tidak Terproteksi"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9259",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9259"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9259/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9260,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9259/revisions/9260"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2848"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9259"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9259"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9259"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

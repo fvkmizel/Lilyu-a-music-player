@@ -1,0 +1,326 @@
+{
+  "id": 22901,
+  "title": "Eksploitasi Cloud Metadata API: Ancaman Tersembunyi di Balik SSRF",
+  "slug": "eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf",
+  "url": "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/",
+  "date": "2026-08-21T00:38:14",
+  "date_gmt": "2026-08-21T00:38:14",
+  "modified": "2026-08-21T00:38:14",
+  "modified_gmt": "2026-08-21T00:38:14",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    137,
+    905,
+    343
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/12/close-up-programmer-desk-with-laptop.jpg",
+  "excerpt": "Pengantar Cloud Metadata API menyediakan informasi penting yang digunakan oleh instance cloud untuk mengetahui identitas, konfigurasi, dan kredensial sementara. Layanan ini berjalan secara lokal pada instance dan biasanya tidak ditujukan untuk diakses dari internet. Masalah muncul ketika aplikasi memiliki celah Server-Side Request Forgery (SSRF). Attacker dapat mencoba memanfaatkan server yang rentan untuk mengirim request menuju metadata service. Jika berhasil, informasi sensitif dari lingkungan cloud dapat terekspos. AWS sendiri menyebut SSRF sebagai salah satu risiko yang dapat digunakan untuk mencoba mengakses Instance Metadata Service (IMDS). (dikutip dari: AWS – Security Hub EC2 Controls) Apa Itu Cloud Metadata API? Cloud Metadata API…",
+  "content_html": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"69\" data-end=\"81\">Pengantar</h2>\n<p data-start=\"83\" data-end=\"343\"><strong data-start=\"83\" data-end=\"105\">Cloud Metadata API</strong> menyediakan informasi penting yang digunakan oleh instance cloud untuk mengetahui identitas, konfigurasi, dan kredensial sementara. Layanan ini berjalan secara lokal pada instance dan biasanya tidak ditujukan untuk diakses dari internet.</p>\n<p data-start=\"345\" data-end=\"533\">Masalah muncul ketika aplikasi memiliki celah <strong data-start=\"391\" data-end=\"429\">Server-Side Request Forgery (SSRF)</strong>. Attacker dapat mencoba memanfaatkan server yang rentan untuk mengirim request menuju metadata service.</p>\n<p data-start=\"535\" data-end=\"866\">Jika berhasil, informasi sensitif dari lingkungan cloud dapat terekspos. AWS sendiri menyebut SSRF sebagai salah satu risiko yang dapat digunakan untuk mencoba mengakses Instance Metadata Service (IMDS). (dikutip dari: <a class=\"decorated-link\" href=\"https://docs.aws.amazon.com/securityhub/latest/userguide/ec2-controls.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"754\" data-end=\"863\">AWS – Security Hub EC2 Controls</a>)</p>\n<hr data-start=\"868\" data-end=\"871\" />\n<h2 data-section-id=\"d35y92\" data-start=\"873\" data-end=\"903\">Apa Itu Cloud Metadata API?</h2>\n<p data-start=\"905\" data-end=\"1024\"><strong data-start=\"905\" data-end=\"927\">Cloud Metadata API</strong> adalah layanan internal yang menyediakan informasi mengenai resource cloud yang sedang berjalan.</p>\n<p data-start=\"1026\" data-end=\"1369\">Pada Amazon EC2, misalnya, <strong data-start=\"1053\" data-end=\"1089\">Instance Metadata Service (IMDS)</strong> dapat menyediakan informasi seperti identitas instance, hostname, konfigurasi, dan data dinamis. AWS menyediakan IMDS melalui endpoint lokal pada instance. (dikutip dari: <a class=\"decorated-link\" href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"1261\" data-end=\"1366\">AWS – Instance Metadata</a>)</p>\n<p data-start=\"1371\" data-end=\"1514\">Metadata dapat digunakan aplikasi untuk melakukan konfigurasi otomatis. Karena itu, layanan ini memiliki fungsi penting dalam lingkungan cloud.</p>\n<p data-start=\"1516\" data-end=\"1581\">Namun, akses yang tidak semestinya dapat menjadi risiko keamanan.</p>\n<blockquote>\n<p data-start=\"1516\" data-end=\"1581\">baca juga : <a href=\"https://buletinsiber.com/analisis-memori-dengan-volatility-mengungkap-jejak-digital-di-ram/\">Analisis Memori dengan Volatility: Mengungkap Jejak Digital di RAM</a></p>\n</blockquote>\n<hr data-start=\"1583\" data-end=\"1586\" />\n<h2 data-section-id=\"1ow9tss\" data-start=\"1588\" data-end=\"1640\">Bagaimana Eksploitasi Cloud Metadata API Terjadi?</h2>\n<p data-start=\"1642\" data-end=\"1689\">Eksploitasi biasanya berkaitan dengan <strong data-start=\"1680\" data-end=\"1688\">SSRF</strong>.</p>\n<p data-start=\"1691\" data-end=\"1896\">Aplikasi yang memiliki fitur untuk mengambil URL dari input pengguna dapat menjadi titik awal. Jika validasi tidak diterapkan dengan baik, attacker dapat mencoba membuat server mengakses resource internal.</p>\n<p data-start=\"1898\" data-end=\"1923\">Alurnya secara sederhana:</p>\n<ol data-start=\"1925\" data-end=\"2224\">\n<li data-section-id=\"1ug1x1g\" data-start=\"1925\" data-end=\"1994\">Attacker menemukan fitur yang dapat melakukan server-side request.</li>\n<li data-section-id=\"12p46wy\" data-start=\"1995\" data-end=\"2064\">Attacker memanipulasi input agar server mengakses alamat internal.</li>\n<li data-section-id=\"o7hvk7\" data-start=\"2065\" data-end=\"2114\">Server mengirim request dari lingkungan cloud.</li>\n<li data-section-id=\"rmmb02\" data-start=\"2115\" data-end=\"2161\">Metadata service menerima request tersebut.</li>\n<li data-section-id=\"1doz8oa\" data-start=\"2162\" data-end=\"2224\">Informasi metadata berpotensi dikembalikan kepada aplikasi.</li>\n</ol>\n<p data-start=\"2226\" data-end=\"2374\">Dengan demikian, masalah utamanya bukan sekadar metadata service. <strong data-start=\"2292\" data-end=\"2374\">Celah SSRF pada aplikasi menjadi jalur yang dapat digunakan untuk mencapainya.</strong></p>\n<hr data-start=\"2376\" data-end=\"2379\" />\n<h2 data-section-id=\"hydr5b\" data-start=\"2381\" data-end=\"2420\">Mengapa Metadata API Menjadi Target?</h2>\n<p data-start=\"2422\" data-end=\"2481\">Metadata dapat berisi informasi yang berguna bagi attacker.</p>\n<p data-start=\"2483\" data-end=\"2525\">Beberapa contoh informasi tersebut adalah:</p>\n<ul data-start=\"2527\" data-end=\"2698\">\n<li data-section-id=\"163kkeq\" data-start=\"2527\" data-end=\"2548\">Identitas instance.</li>\n<li data-section-id=\"1cnww0i\" data-start=\"2549\" data-end=\"2573\">Informasi konfigurasi.</li>\n<li data-section-id=\"1mszp5f\" data-start=\"2574\" data-end=\"2598\">Data lingkungan cloud.</li>\n<li data-section-id=\"vdd9km\" data-start=\"2599\" data-end=\"2628\">Instance identity document.</li>\n<li data-section-id=\"olw9bz\" data-start=\"2629\" data-end=\"2698\">Informasi credential sementara, tergantung konfigurasi dan layanan.</li>\n</ul>\n<p data-start=\"2700\" data-end=\"2815\">Risikonya menjadi lebih serius jika metadata dapat digunakan untuk memperoleh credential dengan hak akses tertentu.</p>\n<p data-start=\"2817\" data-end=\"2897\">Karena itu, kebocoran metadata dapat menjadi awal dari serangan yang lebih luas.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"816\" height=\"544\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 816px) 100vw, 816px\" /></p>\n<hr data-start=\"2899\" data-end=\"2902\" />\n<h2 data-section-id=\"1weaxuu\" data-start=\"2904\" data-end=\"2942\">Hubungan SSRF dengan Cloud Metadata</h2>\n<p data-start=\"2944\" data-end=\"3004\">SSRF memungkinkan server membuat request atas nama attacker.</p>\n<p data-start=\"3006\" data-end=\"3171\">Dalam lingkungan cloud, kondisi tersebut menjadi berbahaya karena server dapat memiliki akses ke resource internal yang tidak dapat dijangkau langsung dari internet.</p>\n<p data-start=\"3173\" data-end=\"3220\">Contohnya, aplikasi publik dapat memiliki alur:</p>\n<p data-start=\"3222\" data-end=\"3268\"><strong data-start=\"3222\" data-end=\"3268\">User → Web Application → Internal Resource</strong></p>\n<p data-start=\"3270\" data-end=\"3399\">Jika input URL tidak divalidasi, attacker dapat mencoba mengubah tujuan request dari resource yang sah menjadi endpoint internal.</p>\n<p data-start=\"3401\" data-end=\"3489\">Karena itu, perlindungan SSRF harus menjadi bagian penting dari keamanan aplikasi cloud.</p>\n<hr data-start=\"3491\" data-end=\"3494\" />\n<h2 data-section-id=\"jxtacq\" data-start=\"3496\" data-end=\"3530\">Dampak Eksploitasi Metadata API</h2>\n<p data-start=\"3532\" data-end=\"3587\">Dampaknya bergantung pada informasi yang dapat diakses.</p>\n<h3 data-section-id=\"13pusf2\" data-start=\"3589\" data-end=\"3612\">Kebocoran Informasi</h3>\n<p data-start=\"3614\" data-end=\"3689\">Attacker dapat memperoleh informasi mengenai instance dan lingkungan cloud.</p>\n<h3 data-section-id=\"x7y3vi\" data-start=\"3691\" data-end=\"3714\">Credential Exposure</h3>\n<p data-start=\"3716\" data-end=\"3860\">Jika credential sementara dapat diakses melalui metadata, attacker berpotensi menggunakannya untuk melakukan autentikasi terhadap layanan cloud.</p>\n<h3 data-section-id=\"2zemih\" data-start=\"3862\" data-end=\"3881\">Privilege Abuse</h3>\n<p data-start=\"3883\" data-end=\"3961\">Credential yang memiliki permission tinggi dapat meningkatkan dampak serangan.</p>\n<h3 data-section-id=\"19ut4hy\" data-start=\"3963\" data-end=\"3983\">Lateral Movement</h3>\n<p data-start=\"3985\" data-end=\"4093\">Akses terhadap satu resource dapat digunakan sebagai pijakan untuk mencoba mengakses resource cloud lainnya.</p>\n<p data-start=\"4095\" data-end=\"4211\">Dengan demikian, eksploitasi metadata dapat berkembang dari masalah aplikasi menjadi insiden cloud yang lebih besar.</p>\n<blockquote>\n<p data-start=\"4095\" data-end=\"4211\">baca juga : <a href=\"https://buletinsiber.com/sim-swapping-attack-cara-kerja-dampak-dan-cara-mencegah-pembajakan-nomor-hp/\">SIM Swapping Attack: Cara Kerja, Dampak, dan Cara Mencegah Pembajakan Nomor HP</a></p>\n</blockquote>\n<hr data-start=\"4213\" data-end=\"4216\" />\n<h2 data-section-id=\"169sqyr\" data-start=\"4218\" data-end=\"4237\">IMDSv1 vs IMDSv2</h2>\n<p data-start=\"4239\" data-end=\"4290\">Pada Amazon EC2 terdapat <strong data-start=\"4264\" data-end=\"4274\">IMDSv1</strong> dan <strong data-start=\"4279\" data-end=\"4289\">IMDSv2</strong>.</p>\n<p data-start=\"4292\" data-end=\"4666\">IMDSv1 menggunakan pola request dan response sederhana. Sementara itu, IMDSv2 menggunakan mekanisme berbasis sesi dan membutuhkan token untuk request metadata. AWS menyediakan opsi untuk membuat instance hanya menerima IMDSv2.</p>\n<p data-start=\"4668\" data-end=\"4781\">Perbedaan tersebut penting karena IMDSv2 menambahkan lapisan perlindungan terhadap beberapa skenario eksploitasi.</p>\n<p data-start=\"4783\" data-end=\"4888\">AWS juga merekomendasikan penggunaan IMDSv2 untuk meningkatkan perlindungan terhadap risiko seperti SSRF.</p>\n<hr data-start=\"4890\" data-end=\"4893\" />\n<h2 data-section-id=\"12eealy\" data-start=\"4895\" data-end=\"4942\">Cara Mencegah Eksploitasi Cloud Metadata API</h2>\n<p data-start=\"4944\" data-end=\"4999\">Perlindungan sebaiknya dilakukan pada beberapa lapisan.</p>\n<h3 data-section-id=\"3mgctx\" data-start=\"5001\" data-end=\"5032\">1. Cegah SSRF pada Aplikasi</h3>\n<p data-start=\"5034\" data-end=\"5070\">Validasi URL yang diterima aplikasi.</p>\n<p data-start=\"5072\" data-end=\"5220\">Hindari membiarkan pengguna menentukan tujuan request secara bebas. Selain itu, gunakan allowlist untuk domain atau endpoint yang memang diperlukan.</p>\n<h3 data-section-id=\"i971mc\" data-start=\"5222\" data-end=\"5243\">2. Gunakan IMDSv2</h3>\n<p data-start=\"5245\" data-end=\"5300\">Pada EC2, konfigurasi instance agar membutuhkan IMDSv2.</p>\n<p data-start=\"5302\" data-end=\"5651\">AWS menyediakan pengaturan <code data-start=\"5329\" data-end=\"5341\">HttpTokens</code> untuk membuat token menjadi wajib. Konfigurasi tersebut membantu mengurangi risiko akses metadata melalui request yang tidak memenuhi mekanisme IMDSv2. (dikutip dari: <a class=\"decorated-link\" href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"5509\" data-end=\"5648\">AWS – Configure Instance Metadata Options</a>)</p>\n<h3 data-section-id=\"189cgt9\" data-start=\"5653\" data-end=\"5684\">3. Terapkan Least Privilege</h3>\n<p data-start=\"5686\" data-end=\"5785\">Credential yang digunakan instance sebaiknya hanya memiliki permission yang benar-benar diperlukan.</p>\n<p data-start=\"5787\" data-end=\"5881\">Jika credential berhasil terekspos, permission yang terbatas dapat mengurangi dampak serangan.</p>\n<h3 data-section-id=\"1gttd02\" data-start=\"5883\" data-end=\"5911\">4. Batasi Akses Metadata</h3>\n<p data-start=\"5913\" data-end=\"6012\">Jika aplikasi tidak membutuhkan metadata service, pertimbangkan untuk menonaktifkan akses tersebut.</p>\n<h3 data-section-id=\"1xmr79q\" data-start=\"6256\" data-end=\"6286\">5. Monitor Aktivitas Cloud</h3>\n<p data-start=\"6288\" data-end=\"6335\">Pantau aktivitas API dan penggunaan credential.</p>\n<p data-start=\"6337\" data-end=\"6432\">Aktivitas yang tiba-tiba berubah dapat menjadi indikator adanya credential yang disalahgunakan.</p>\n<blockquote>\n<p data-start=\"6337\" data-end=\"6432\">baca juga : <a href=\"https://buletinsiber.com/kerberos-golden-ticket-attack-ancaman-serius-yang-dapat-menguasai-active-directory/\">Kerberos Golden Ticket Attack: Ancaman Serius yang Dapat Menguasai Active Directory</a></p>\n</blockquote>\n<hr data-start=\"6434\" data-end=\"6437\" />\n<h2 data-section-id=\"1806px6\" data-start=\"6439\" data-end=\"6452\">Kesimpulan</h2>\n<p data-start=\"6454\" data-end=\"6573\"><strong data-start=\"6454\" data-end=\"6488\">Eksploitasi Cloud Metadata API</strong> merupakan salah satu risiko keamanan yang perlu diperhatikan dalam lingkungan cloud.</p>\n<p data-start=\"6575\" data-end=\"6815\">Serangan sering berkaitan dengan <strong data-start=\"6608\" data-end=\"6616\">SSRF</strong>, ketika aplikasi yang rentan digunakan untuk mengakses resource internal. Jika metadata berisi informasi sensitif atau dapat memberikan akses ke credential sementara, dampaknya dapat menjadi serius.</p>\n<p data-start=\"6817\" data-end=\"6947\">Penggunaan <strong data-start=\"6828\" data-end=\"6838\">IMDSv2</strong>, validasi URL, prinsip <strong data-start=\"6862\" data-end=\"6881\">least privilege</strong>, dan monitoring aktivitas cloud dapat membantu mengurangi risiko.</p>\n<p data-start=\"6949\" data-end=\"7141\">Karena itu, keamanan metadata tidak boleh dipisahkan dari keamanan aplikasi. <strong data-start=\"7026\" data-end=\"7141\">Celah kecil pada aplikasi dapat menjadi pintu menuju resource internal cloud jika tidak ditangani dengan tepat.</strong></p>\n",
+  "content_text": "Pengantar\nCloud Metadata API  menyediakan informasi penting yang digunakan oleh instance cloud untuk mengetahui identitas, konfigurasi, dan kredensial sementara. Layanan ini berjalan secara lokal pada instance dan biasanya tidak ditujukan untuk diakses dari internet.\nMasalah muncul ketika aplikasi memiliki celah  Server-Side Request Forgery (SSRF) . Attacker dapat mencoba memanfaatkan server yang rentan untuk mengirim request menuju metadata service.\nJika berhasil, informasi sensitif dari lingkungan cloud dapat terekspos. AWS sendiri menyebut SSRF sebagai salah satu risiko yang dapat digunakan untuk mencoba mengakses Instance Metadata Service (IMDS). (dikutip dari:  AWS – Security Hub EC2 Controls )\nApa Itu Cloud Metadata API?\nCloud Metadata API  adalah layanan internal yang menyediakan informasi mengenai resource cloud yang sedang berjalan.\nPada Amazon EC2, misalnya,  Instance Metadata Service (IMDS)  dapat menyediakan informasi seperti identitas instance, hostname, konfigurasi, dan data dinamis. AWS menyediakan IMDS melalui endpoint lokal pada instance. (dikutip dari:  AWS – Instance Metadata )\nMetadata dapat digunakan aplikasi untuk melakukan konfigurasi otomatis. Karena itu, layanan ini memiliki fungsi penting dalam lingkungan cloud.\nNamun, akses yang tidak semestinya dapat menjadi risiko keamanan.\nbaca juga :  Analisis Memori dengan Volatility: Mengungkap Jejak Digital di RAM\nBagaimana Eksploitasi Cloud Metadata API Terjadi?\nEksploitasi biasanya berkaitan dengan  SSRF .\nAplikasi yang memiliki fitur untuk mengambil URL dari input pengguna dapat menjadi titik awal. Jika validasi tidak diterapkan dengan baik, attacker dapat mencoba membuat server mengakses resource internal.\nAlurnya secara sederhana:\nAttacker menemukan fitur yang dapat melakukan server-side request.\nAttacker memanipulasi input agar server mengakses alamat internal.\nServer mengirim request dari lingkungan cloud.\nMetadata service menerima request tersebut.\nInformasi metadata berpotensi dikembalikan kepada aplikasi.\nDengan demikian, masalah utamanya bukan sekadar metadata service.  Celah SSRF pada aplikasi menjadi jalur yang dapat digunakan untuk mencapainya.\nMengapa Metadata API Menjadi Target?\nMetadata dapat berisi informasi yang berguna bagi attacker.\nBeberapa contoh informasi tersebut adalah:\nIdentitas instance.\nInformasi konfigurasi.\nData lingkungan cloud.\nInstance identity document.\nInformasi credential sementara, tergantung konfigurasi dan layanan.\nRisikonya menjadi lebih serius jika metadata dapat digunakan untuk memperoleh credential dengan hak akses tertentu.\nKarena itu, kebocoran metadata dapat menjadi awal dari serangan yang lebih luas.\nHubungan SSRF dengan Cloud Metadata\nSSRF memungkinkan server membuat request atas nama attacker.\nDalam lingkungan cloud, kondisi tersebut menjadi berbahaya karena server dapat memiliki akses ke resource internal yang tidak dapat dijangkau langsung dari internet.\nContohnya, aplikasi publik dapat memiliki alur:\nUser → Web Application → Internal Resource\nJika input URL tidak divalidasi, attacker dapat mencoba mengubah tujuan request dari resource yang sah menjadi endpoint internal.\nKarena itu, perlindungan SSRF harus menjadi bagian penting dari keamanan aplikasi cloud.\nDampak Eksploitasi Metadata API\nDampaknya bergantung pada informasi yang dapat diakses.\nKebocoran Informasi\nAttacker dapat memperoleh informasi mengenai instance dan lingkungan cloud.\nCredential Exposure\nJika credential sementara dapat diakses melalui metadata, attacker berpotensi menggunakannya untuk melakukan autentikasi terhadap layanan cloud.\nPrivilege Abuse\nCredential yang memiliki permission tinggi dapat meningkatkan dampak serangan.\nLateral Movement\nAkses terhadap satu resource dapat digunakan sebagai pijakan untuk mencoba mengakses resource cloud lainnya.\nDengan demikian, eksploitasi metadata dapat berkembang dari masalah aplikasi menjadi insiden cloud yang lebih besar.\nbaca juga :  SIM Swapping Attack: Cara Kerja, Dampak, dan Cara Mencegah Pembajakan Nomor HP\nIMDSv1 vs IMDSv2\nPada Amazon EC2 terdapat  IMDSv1  dan  IMDSv2 .\nIMDSv1 menggunakan pola request dan response sederhana. Sementara itu, IMDSv2 menggunakan mekanisme berbasis sesi dan membutuhkan token untuk request metadata. AWS menyediakan opsi untuk membuat instance hanya menerima IMDSv2.\nPerbedaan tersebut penting karena IMDSv2 menambahkan lapisan perlindungan terhadap beberapa skenario eksploitasi.\nAWS juga merekomendasikan penggunaan IMDSv2 untuk meningkatkan perlindungan terhadap risiko seperti SSRF.\nCara Mencegah Eksploitasi Cloud Metadata API\nPerlindungan sebaiknya dilakukan pada beberapa lapisan.\n1. Cegah SSRF pada Aplikasi\nValidasi URL yang diterima aplikasi.\nHindari membiarkan pengguna menentukan tujuan request secara bebas. Selain itu, gunakan allowlist untuk domain atau endpoint yang memang diperlukan.\n2. Gunakan IMDSv2\nPada EC2, konfigurasi instance agar membutuhkan IMDSv2.\nAWS menyediakan pengaturan  HttpTokens  untuk membuat token menjadi wajib. Konfigurasi tersebut membantu mengurangi risiko akses metadata melalui request yang tidak memenuhi mekanisme IMDSv2. (dikutip dari:  AWS – Configure Instance Metadata Options )\n3. Terapkan Least Privilege\nCredential yang digunakan instance sebaiknya hanya memiliki permission yang benar-benar diperlukan.\nJika credential berhasil terekspos, permission yang terbatas dapat mengurangi dampak serangan.\n4. Batasi Akses Metadata\nJika aplikasi tidak membutuhkan metadata service, pertimbangkan untuk menonaktifkan akses tersebut.\n5. Monitor Aktivitas Cloud\nPantau aktivitas API dan penggunaan credential.\nAktivitas yang tiba-tiba berubah dapat menjadi indikator adanya credential yang disalahgunakan.\nbaca juga :  Kerberos Golden Ticket Attack: Ancaman Serius yang Dapat Menguasai Active Directory\nKesimpulan\nEksploitasi Cloud Metadata API  merupakan salah satu risiko keamanan yang perlu diperhatikan dalam lingkungan cloud.\nSerangan sering berkaitan dengan  SSRF , ketika aplikasi yang rentan digunakan untuk mengakses resource internal. Jika metadata berisi informasi sensitif atau dapat memberikan akses ke credential sementara, dampaknya dapat menjadi serius.\nPenggunaan  IMDSv2 , validasi URL, prinsip  least privilege , dan monitoring aktivitas cloud dapat membantu mengurangi risiko.\nKarena itu, keamanan metadata tidak boleh dipisahkan dari keamanan aplikasi.  Celah kecil pada aplikasi dapat menjadi pintu menuju resource internal cloud jika tidak ditangani dengan tepat.",
+  "raw": {
+    "id": 22901,
+    "date": "2026-08-21T00:38:14",
+    "date_gmt": "2026-08-21T00:38:14",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=22901"
+    },
+    "modified": "2026-08-21T00:38:14",
+    "modified_gmt": "2026-08-21T00:38:14",
+    "slug": "eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/",
+    "title": {
+      "rendered": "Eksploitasi Cloud Metadata API: Ancaman Tersembunyi di Balik SSRF"
+    },
+    "content": {
+      "rendered": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-section-id=\"1mm19m9\" data-start=\"69\" data-end=\"81\">Pengantar</h2>\n<p data-start=\"83\" data-end=\"343\"><strong data-start=\"83\" data-end=\"105\">Cloud Metadata API</strong> menyediakan informasi penting yang digunakan oleh instance cloud untuk mengetahui identitas, konfigurasi, dan kredensial sementara. Layanan ini berjalan secara lokal pada instance dan biasanya tidak ditujukan untuk diakses dari internet.</p>\n<p data-start=\"345\" data-end=\"533\">Masalah muncul ketika aplikasi memiliki celah <strong data-start=\"391\" data-end=\"429\">Server-Side Request Forgery (SSRF)</strong>. Attacker dapat mencoba memanfaatkan server yang rentan untuk mengirim request menuju metadata service.</p>\n<p data-start=\"535\" data-end=\"866\">Jika berhasil, informasi sensitif dari lingkungan cloud dapat terekspos. AWS sendiri menyebut SSRF sebagai salah satu risiko yang dapat digunakan untuk mencoba mengakses Instance Metadata Service (IMDS). (dikutip dari: <a class=\"decorated-link\" href=\"https://docs.aws.amazon.com/securityhub/latest/userguide/ec2-controls.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"754\" data-end=\"863\">AWS – Security Hub EC2 Controls</a>)</p>\n<hr data-start=\"868\" data-end=\"871\" />\n<h2 data-section-id=\"d35y92\" data-start=\"873\" data-end=\"903\">Apa Itu Cloud Metadata API?</h2>\n<p data-start=\"905\" data-end=\"1024\"><strong data-start=\"905\" data-end=\"927\">Cloud Metadata API</strong> adalah layanan internal yang menyediakan informasi mengenai resource cloud yang sedang berjalan.</p>\n<p data-start=\"1026\" data-end=\"1369\">Pada Amazon EC2, misalnya, <strong data-start=\"1053\" data-end=\"1089\">Instance Metadata Service (IMDS)</strong> dapat menyediakan informasi seperti identitas instance, hostname, konfigurasi, dan data dinamis. AWS menyediakan IMDS melalui endpoint lokal pada instance. (dikutip dari: <a class=\"decorated-link\" href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"1261\" data-end=\"1366\">AWS – Instance Metadata</a>)</p>\n<p data-start=\"1371\" data-end=\"1514\">Metadata dapat digunakan aplikasi untuk melakukan konfigurasi otomatis. Karena itu, layanan ini memiliki fungsi penting dalam lingkungan cloud.</p>\n<p data-start=\"1516\" data-end=\"1581\">Namun, akses yang tidak semestinya dapat menjadi risiko keamanan.</p>\n<blockquote>\n<p data-start=\"1516\" data-end=\"1581\">baca juga : <a href=\"https://buletinsiber.com/analisis-memori-dengan-volatility-mengungkap-jejak-digital-di-ram/\">Analisis Memori dengan Volatility: Mengungkap Jejak Digital di RAM</a></p>\n</blockquote>\n<hr data-start=\"1583\" data-end=\"1586\" />\n<h2 data-section-id=\"1ow9tss\" data-start=\"1588\" data-end=\"1640\">Bagaimana Eksploitasi Cloud Metadata API Terjadi?</h2>\n<p data-start=\"1642\" data-end=\"1689\">Eksploitasi biasanya berkaitan dengan <strong data-start=\"1680\" data-end=\"1688\">SSRF</strong>.</p>\n<p data-start=\"1691\" data-end=\"1896\">Aplikasi yang memiliki fitur untuk mengambil URL dari input pengguna dapat menjadi titik awal. Jika validasi tidak diterapkan dengan baik, attacker dapat mencoba membuat server mengakses resource internal.</p>\n<p data-start=\"1898\" data-end=\"1923\">Alurnya secara sederhana:</p>\n<ol data-start=\"1925\" data-end=\"2224\">\n<li data-section-id=\"1ug1x1g\" data-start=\"1925\" data-end=\"1994\">Attacker menemukan fitur yang dapat melakukan server-side request.</li>\n<li data-section-id=\"12p46wy\" data-start=\"1995\" data-end=\"2064\">Attacker memanipulasi input agar server mengakses alamat internal.</li>\n<li data-section-id=\"o7hvk7\" data-start=\"2065\" data-end=\"2114\">Server mengirim request dari lingkungan cloud.</li>\n<li data-section-id=\"rmmb02\" data-start=\"2115\" data-end=\"2161\">Metadata service menerima request tersebut.</li>\n<li data-section-id=\"1doz8oa\" data-start=\"2162\" data-end=\"2224\">Informasi metadata berpotensi dikembalikan kepada aplikasi.</li>\n</ol>\n<p data-start=\"2226\" data-end=\"2374\">Dengan demikian, masalah utamanya bukan sekadar metadata service. <strong data-start=\"2292\" data-end=\"2374\">Celah SSRF pada aplikasi menjadi jalur yang dapat digunakan untuk mencapainya.</strong></p>\n<hr data-start=\"2376\" data-end=\"2379\" />\n<h2 data-section-id=\"hydr5b\" data-start=\"2381\" data-end=\"2420\">Mengapa Metadata API Menjadi Target?</h2>\n<p data-start=\"2422\" data-end=\"2481\">Metadata dapat berisi informasi yang berguna bagi attacker.</p>\n<p data-start=\"2483\" data-end=\"2525\">Beberapa contoh informasi tersebut adalah:</p>\n<ul data-start=\"2527\" data-end=\"2698\">\n<li data-section-id=\"163kkeq\" data-start=\"2527\" data-end=\"2548\">Identitas instance.</li>\n<li data-section-id=\"1cnww0i\" data-start=\"2549\" data-end=\"2573\">Informasi konfigurasi.</li>\n<li data-section-id=\"1mszp5f\" data-start=\"2574\" data-end=\"2598\">Data lingkungan cloud.</li>\n<li data-section-id=\"vdd9km\" data-start=\"2599\" data-end=\"2628\">Instance identity document.</li>\n<li data-section-id=\"olw9bz\" data-start=\"2629\" data-end=\"2698\">Informasi credential sementara, tergantung konfigurasi dan layanan.</li>\n</ul>\n<p data-start=\"2700\" data-end=\"2815\">Risikonya menjadi lebih serius jika metadata dapat digunakan untuk memperoleh credential dengan hak akses tertentu.</p>\n<p data-start=\"2817\" data-end=\"2897\">Karena itu, kebocoran metadata dapat menjadi awal dari serangan yang lebih luas.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"816\" height=\"544\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 816px) 100vw, 816px\" /></p>\n<hr data-start=\"2899\" data-end=\"2902\" />\n<h2 data-section-id=\"1weaxuu\" data-start=\"2904\" data-end=\"2942\">Hubungan SSRF dengan Cloud Metadata</h2>\n<p data-start=\"2944\" data-end=\"3004\">SSRF memungkinkan server membuat request atas nama attacker.</p>\n<p data-start=\"3006\" data-end=\"3171\">Dalam lingkungan cloud, kondisi tersebut menjadi berbahaya karena server dapat memiliki akses ke resource internal yang tidak dapat dijangkau langsung dari internet.</p>\n<p data-start=\"3173\" data-end=\"3220\">Contohnya, aplikasi publik dapat memiliki alur:</p>\n<p data-start=\"3222\" data-end=\"3268\"><strong data-start=\"3222\" data-end=\"3268\">User → Web Application → Internal Resource</strong></p>\n<p data-start=\"3270\" data-end=\"3399\">Jika input URL tidak divalidasi, attacker dapat mencoba mengubah tujuan request dari resource yang sah menjadi endpoint internal.</p>\n<p data-start=\"3401\" data-end=\"3489\">Karena itu, perlindungan SSRF harus menjadi bagian penting dari keamanan aplikasi cloud.</p>\n<hr data-start=\"3491\" data-end=\"3494\" />\n<h2 data-section-id=\"jxtacq\" data-start=\"3496\" data-end=\"3530\">Dampak Eksploitasi Metadata API</h2>\n<p data-start=\"3532\" data-end=\"3587\">Dampaknya bergantung pada informasi yang dapat diakses.</p>\n<h3 data-section-id=\"13pusf2\" data-start=\"3589\" data-end=\"3612\">Kebocoran Informasi</h3>\n<p data-start=\"3614\" data-end=\"3689\">Attacker dapat memperoleh informasi mengenai instance dan lingkungan cloud.</p>\n<h3 data-section-id=\"x7y3vi\" data-start=\"3691\" data-end=\"3714\">Credential Exposure</h3>\n<p data-start=\"3716\" data-end=\"3860\">Jika credential sementara dapat diakses melalui metadata, attacker berpotensi menggunakannya untuk melakukan autentikasi terhadap layanan cloud.</p>\n<h3 data-section-id=\"2zemih\" data-start=\"3862\" data-end=\"3881\">Privilege Abuse</h3>\n<p data-start=\"3883\" data-end=\"3961\">Credential yang memiliki permission tinggi dapat meningkatkan dampak serangan.</p>\n<h3 data-section-id=\"19ut4hy\" data-start=\"3963\" data-end=\"3983\">Lateral Movement</h3>\n<p data-start=\"3985\" data-end=\"4093\">Akses terhadap satu resource dapat digunakan sebagai pijakan untuk mencoba mengakses resource cloud lainnya.</p>\n<p data-start=\"4095\" data-end=\"4211\">Dengan demikian, eksploitasi metadata dapat berkembang dari masalah aplikasi menjadi insiden cloud yang lebih besar.</p>\n<blockquote>\n<p data-start=\"4095\" data-end=\"4211\">baca juga : <a href=\"https://buletinsiber.com/sim-swapping-attack-cara-kerja-dampak-dan-cara-mencegah-pembajakan-nomor-hp/\">SIM Swapping Attack: Cara Kerja, Dampak, dan Cara Mencegah Pembajakan Nomor HP</a></p>\n</blockquote>\n<hr data-start=\"4213\" data-end=\"4216\" />\n<h2 data-section-id=\"169sqyr\" data-start=\"4218\" data-end=\"4237\">IMDSv1 vs IMDSv2</h2>\n<p data-start=\"4239\" data-end=\"4290\">Pada Amazon EC2 terdapat <strong data-start=\"4264\" data-end=\"4274\">IMDSv1</strong> dan <strong data-start=\"4279\" data-end=\"4289\">IMDSv2</strong>.</p>\n<p data-start=\"4292\" data-end=\"4666\">IMDSv1 menggunakan pola request dan response sederhana. Sementara itu, IMDSv2 menggunakan mekanisme berbasis sesi dan membutuhkan token untuk request metadata. AWS menyediakan opsi untuk membuat instance hanya menerima IMDSv2.</p>\n<p data-start=\"4668\" data-end=\"4781\">Perbedaan tersebut penting karena IMDSv2 menambahkan lapisan perlindungan terhadap beberapa skenario eksploitasi.</p>\n<p data-start=\"4783\" data-end=\"4888\">AWS juga merekomendasikan penggunaan IMDSv2 untuk meningkatkan perlindungan terhadap risiko seperti SSRF.</p>\n<hr data-start=\"4890\" data-end=\"4893\" />\n<h2 data-section-id=\"12eealy\" data-start=\"4895\" data-end=\"4942\">Cara Mencegah Eksploitasi Cloud Metadata API</h2>\n<p data-start=\"4944\" data-end=\"4999\">Perlindungan sebaiknya dilakukan pada beberapa lapisan.</p>\n<h3 data-section-id=\"3mgctx\" data-start=\"5001\" data-end=\"5032\">1. Cegah SSRF pada Aplikasi</h3>\n<p data-start=\"5034\" data-end=\"5070\">Validasi URL yang diterima aplikasi.</p>\n<p data-start=\"5072\" data-end=\"5220\">Hindari membiarkan pengguna menentukan tujuan request secara bebas. Selain itu, gunakan allowlist untuk domain atau endpoint yang memang diperlukan.</p>\n<h3 data-section-id=\"i971mc\" data-start=\"5222\" data-end=\"5243\">2. Gunakan IMDSv2</h3>\n<p data-start=\"5245\" data-end=\"5300\">Pada EC2, konfigurasi instance agar membutuhkan IMDSv2.</p>\n<p data-start=\"5302\" data-end=\"5651\">AWS menyediakan pengaturan <code data-start=\"5329\" data-end=\"5341\">HttpTokens</code> untuk membuat token menjadi wajib. Konfigurasi tersebut membantu mengurangi risiko akses metadata melalui request yang tidak memenuhi mekanisme IMDSv2. (dikutip dari: <a class=\"decorated-link\" href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html?utm_source=chatgpt.com\" target=\"_new\" rel=\"noopener\" data-start=\"5509\" data-end=\"5648\">AWS – Configure Instance Metadata Options</a>)</p>\n<h3 data-section-id=\"189cgt9\" data-start=\"5653\" data-end=\"5684\">3. Terapkan Least Privilege</h3>\n<p data-start=\"5686\" data-end=\"5785\">Credential yang digunakan instance sebaiknya hanya memiliki permission yang benar-benar diperlukan.</p>\n<p data-start=\"5787\" data-end=\"5881\">Jika credential berhasil terekspos, permission yang terbatas dapat mengurangi dampak serangan.</p>\n<h3 data-section-id=\"1gttd02\" data-start=\"5883\" data-end=\"5911\">4. Batasi Akses Metadata</h3>\n<p data-start=\"5913\" data-end=\"6012\">Jika aplikasi tidak membutuhkan metadata service, pertimbangkan untuk menonaktifkan akses tersebut.</p>\n<h3 data-section-id=\"1xmr79q\" data-start=\"6256\" data-end=\"6286\">5. Monitor Aktivitas Cloud</h3>\n<p data-start=\"6288\" data-end=\"6335\">Pantau aktivitas API dan penggunaan credential.</p>\n<p data-start=\"6337\" data-end=\"6432\">Aktivitas yang tiba-tiba berubah dapat menjadi indikator adanya credential yang disalahgunakan.</p>\n<blockquote>\n<p data-start=\"6337\" data-end=\"6432\">baca juga : <a href=\"https://buletinsiber.com/kerberos-golden-ticket-attack-ancaman-serius-yang-dapat-menguasai-active-directory/\">Kerberos Golden Ticket Attack: Ancaman Serius yang Dapat Menguasai Active Directory</a></p>\n</blockquote>\n<hr data-start=\"6434\" data-end=\"6437\" />\n<h2 data-section-id=\"1806px6\" data-start=\"6439\" data-end=\"6452\">Kesimpulan</h2>\n<p data-start=\"6454\" data-end=\"6573\"><strong data-start=\"6454\" data-end=\"6488\">Eksploitasi Cloud Metadata API</strong> merupakan salah satu risiko keamanan yang perlu diperhatikan dalam lingkungan cloud.</p>\n<p data-start=\"6575\" data-end=\"6815\">Serangan sering berkaitan dengan <strong data-start=\"6608\" data-end=\"6616\">SSRF</strong>, ketika aplikasi yang rentan digunakan untuk mengakses resource internal. Jika metadata berisi informasi sensitif atau dapat memberikan akses ke credential sementara, dampaknya dapat menjadi serius.</p>\n<p data-start=\"6817\" data-end=\"6947\">Penggunaan <strong data-start=\"6828\" data-end=\"6838\">IMDSv2</strong>, validasi URL, prinsip <strong data-start=\"6862\" data-end=\"6881\">least privilege</strong>, dan monitoring aktivitas cloud dapat membantu mengurangi risiko.</p>\n<p data-start=\"6949\" data-end=\"7141\">Karena itu, keamanan metadata tidak boleh dipisahkan dari keamanan aplikasi. <strong data-start=\"7026\" data-end=\"7141\">Celah kecil pada aplikasi dapat menjadi pintu menuju resource internal cloud jika tidak ditangani dengan tepat.</strong></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Cloud Metadata API menyediakan informasi penting yang digunakan oleh instance cloud untuk mengetahui identitas, konfigurasi, dan kredensial sementara. Layanan ini berjalan secara lokal pada instance dan biasanya tidak ditujukan untuk diakses dari internet. Masalah muncul ketika aplikasi memiliki celah Server-Side Request Forgery (SSRF). Attacker dapat mencoba memanfaatkan server yang rentan untuk mengirim request menuju metadata service. Jika berhasil, informasi sensitif dari lingkungan cloud dapat terekspos. AWS sendiri menyebut SSRF sebagai salah satu risiko yang dapat digunakan untuk mencoba mengakses Instance Metadata Service (IMDS). (dikutip dari: AWS – Security Hub EC2 Controls) Apa Itu Cloud Metadata API? Cloud Metadata API&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8635,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Eksploitasi Cloud Metadata API",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      137,
+      905,
+      343
+    ],
+    "class_list": [
+      "post-22901",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-api",
+      "tag-metadata",
+      "tag-ssrf"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Eksploitasi Cloud Metadata API: Ancaman Tersembunyi di Balik SSRF - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Eksploitasi Cloud Metadata API: Ancaman Tersembunyi di Balik SSRF - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Cloud Metadata API menyediakan informasi penting yang digunakan oleh instance cloud untuk mengetahui identitas, konfigurasi, dan kredensial sementara. Layanan ini berjalan secara lokal pada instance dan biasanya tidak ditujukan untuk diakses dari internet. Masalah muncul ketika aplikasi memiliki celah Server-Side Request Forgery (SSRF). Attacker dapat mencoba memanfaatkan server yang rentan untuk mengirim request menuju metadata service. Jika berhasil, informasi sensitif dari lingkungan cloud dapat terekspos. AWS sendiri menyebut SSRF sebagai salah satu risiko yang dapat digunakan untuk mencoba mengakses Instance Metadata Service (IMDS). (dikutip dari: AWS – Security Hub EC2 Controls) Apa Itu Cloud Metadata API? Cloud Metadata API...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-08-21T00:38:14+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/12/close-up-programmer-desk-with-laptop.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1\" />\n\t<meta property=\"og:image:height\" content=\"1\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/\",\"url\":\"https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/\",\"name\":\"Eksploitasi Cloud Metadata API: Ancaman Tersembunyi di Balik SSRF - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/close-up-programmer-desk-with-laptop.jpg\",\"datePublished\":\"2026-08-21T00:38:14+00:00\",\"dateModified\":\"2026-08-21T00:38:14+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/12/close-up-programmer-desk-with-laptop.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/close-up-programmer-desk-with-laptop.jpg\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Eksploitasi Cloud Metadata API: Ancaman Tersembunyi di Balik SSRF\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Eksploitasi Cloud Metadata API: Ancaman Tersembunyi di Balik SSRF - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Eksploitasi Cloud Metadata API: Ancaman Tersembunyi di Balik SSRF - buletinsiber.com",
+      "og_description": "Pengantar Cloud Metadata API menyediakan informasi penting yang digunakan oleh instance cloud untuk mengetahui identitas, konfigurasi, dan kredensial sementara. Layanan ini berjalan secara lokal pada instance dan biasanya tidak ditujukan untuk diakses dari internet. Masalah muncul ketika aplikasi memiliki celah Server-Side Request Forgery (SSRF). Attacker dapat mencoba memanfaatkan server yang rentan untuk mengirim request menuju metadata service. Jika berhasil, informasi sensitif dari lingkungan cloud dapat terekspos. AWS sendiri menyebut SSRF sebagai salah satu risiko yang dapat digunakan untuk mencoba mengakses Instance Metadata Service (IMDS). (dikutip dari: AWS – Security Hub EC2 Controls) Apa Itu Cloud Metadata API? Cloud Metadata API...",
+      "og_url": "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-08-21T00:38:14+00:00",
+      "og_image": [
+        {
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/12/close-up-programmer-desk-with-laptop.jpg",
+          "width": 1,
+          "height": 1,
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/",
+            "url": "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/",
+            "name": "Eksploitasi Cloud Metadata API: Ancaman Tersembunyi di Balik SSRF - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/close-up-programmer-desk-with-laptop.jpg",
+            "datePublished": "2026-08-21T00:38:14+00:00",
+            "dateModified": "2026-08-21T00:38:14+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/12/close-up-programmer-desk-with-laptop.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/close-up-programmer-desk-with-laptop.jpg"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/eksploitasi-cloud-metadata-api-ancaman-tersembunyi-di-balik-ssrf/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Eksploitasi Cloud Metadata API: Ancaman Tersembunyi di Balik SSRF"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22901",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=22901"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22901/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 22902,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22901/revisions/22902"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8635"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=22901"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=22901"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=22901"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

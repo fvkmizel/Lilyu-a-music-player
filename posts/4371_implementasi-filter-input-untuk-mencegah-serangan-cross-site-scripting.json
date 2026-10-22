@@ -1,0 +1,313 @@
+{
+  "id": 4371,
+  "title": "Implementasi Filter Input untuk Mencegah Serangan Cross Site Scripting",
+  "slug": "implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting",
+  "url": "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/",
+  "date": "2025-07-09T06:51:21",
+  "date_gmt": "2025-07-09T06:51:21",
+  "modified": "2025-07-09T06:51:21",
+  "modified_gmt": "2025-07-09T06:51:21",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    333
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/apa-itu-cross-site-scripting.jpg",
+  "excerpt": "PendahuluanCross Site Scripting atau XSS adalah salah satu serangan paling umum di dunia web. Serangan ini terjadi ketika penyerang berhasil memasukkan skrip berbahaya ke dalam halaman web, biasanya melalui input dari pengguna. Jika input ini tidak difilter dengan benar, maka skrip bisa dijalankan langsung di browser korban. Untuk mencegah hal ini, salah satu langkah penting yang harus dilakukan oleh pengembang adalah menerapkan filter input secara tepat. Apa Itu Serangan XSS?XSS adalah teknik serangan yang memanfaatkan celah pada situs web untuk menjalankan skrip berbahaya di browser pengguna. Biasanya, skrip tersebut dimasukkan lewat kolom input seperti komentar, pencarian, atau formulir lainnya. Ada…",
+  "content_html": "<p data-start=\"76\" data-end=\"542\"><strong data-start=\"76\" data-end=\"91\">Pendahuluan</strong><br data-start=\"91\" data-end=\"94\" />Cross Site Scripting atau XSS adalah salah satu serangan paling umum di dunia web. Serangan ini terjadi ketika penyerang berhasil memasukkan skrip berbahaya ke dalam halaman web, biasanya melalui input dari pengguna. Jika input ini tidak difilter dengan benar, maka skrip bisa dijalankan langsung di browser korban. Untuk mencegah hal ini, salah satu langkah penting yang harus dilakukan oleh pengembang adalah menerapkan filter input secara tepat.</p>\n<p data-start=\"544\" data-end=\"798\"><strong data-start=\"544\" data-end=\"569\">Apa Itu Serangan XSS?</strong><br data-start=\"569\" data-end=\"572\" />XSS adalah teknik serangan yang memanfaatkan celah pada situs web untuk menjalankan skrip berbahaya di browser pengguna. Biasanya, skrip tersebut dimasukkan lewat kolom input seperti komentar, pencarian, atau formulir lainnya.</p>\n<p data-start=\"800\" data-end=\"1101\">Ada tiga jenis utama XSS. Stored XSS adalah jenis di mana skrip jahat disimpan di server dan dijalankan setiap kali halaman dibuka. Reflected XSS terjadi saat skrip langsung dijalankan melalui URL atau form. Sedangkan DOM-based XSS muncul dari manipulasi langsung pada elemen halaman di sisi pengguna.</p>\n<p data-start=\"1103\" data-end=\"1314\">Contohnya, jika seseorang mengetik <code data-start=\"1138\" data-end=\"1170\">&lt;script&gt;alert('XSS');&lt;/script&gt;</code> di kolom komentar dan komentar tersebut ditampilkan begitu saja tanpa filter, maka pesan itu akan muncul sebagai pop-up di layar pengguna lain.</p>\n<p data-start=\"1316\" data-end=\"1576\"><strong data-start=\"1316\" data-end=\"1368\">Mengapa Filter Input Penting dalam Mencegah XSS?</strong><br data-start=\"1368\" data-end=\"1371\" />Input dari pengguna tidak bisa dipercaya begitu saja. Penyerang bisa memasukkan kode berbahaya ke dalamnya. Filter input berfungsi untuk menyaring karakter atau pola tertentu yang bisa membahayakan sistem.</p>\n<p data-start=\"1578\" data-end=\"1872\">Jika tidak ada filter, skrip jahat bisa masuk dan dijalankan oleh browser. Hal ini bisa menyebabkan pencurian data, pengambilalihan akun, atau bahkan serangan ke sistem lain. Oleh karena itu, penting sekali memastikan bahwa semua input dari pengguna diperiksa dan dibersihkan sebelum digunakan.</p>\n<p data-start=\"1874\" data-end=\"2100\"><strong data-start=\"1874\" data-end=\"1910\">Teknik dan Strategi Filter Input</strong><br data-start=\"1910\" data-end=\"1913\" />Ada beberapa cara untuk memfilter input agar aman dari XSS. Pertama, validasi data berdasarkan tipe. Misalnya, jika kolom hanya menerima angka, pastikan tidak ada huruf atau simbol masuk.</p>\n<p data-start=\"2102\" data-end=\"2267\">Kedua, lakukan escaping terhadap karakter khusus seperti tanda &lt;, &gt;, &#8221; dan &#8216;. Ini karena karakter-karakter tersebut sering digunakan dalam skrip HTML dan JavaScript.</p>\n<p data-start=\"2269\" data-end=\"2471\">Ketiga, gunakan pendekatan whitelist, yaitu hanya mengizinkan karakter atau format tertentu. Cara ini lebih aman dibandingkan blacklist, karena daftar larangan bisa dengan mudah dibypass oleh penyerang.</p>\n<p data-start=\"2473\" data-end=\"2675\">Keempat, gunakan library atau framework yang sudah menyediakan perlindungan terhadap XSS. Banyak framework modern seperti React, Laravel, atau Django sudah memiliki sistem filter bawaan yang cukup aman.</p>\n<p data-start=\"2677\" data-end=\"3003\"><strong data-start=\"2677\" data-end=\"2740\">Implementasi Filter Input dalam Berbagai Bahasa Pemrograman</strong><br data-start=\"2740\" data-end=\"2743\" />Filter input bisa diterapkan dalam berbagai bahasa pemrograman. Di JavaScript, kita bisa menggunakan fungsi validasi di sisi klien untuk memeriksa data sebelum dikirim ke server. Namun, ini tidak cukup, karena penyerang bisa saja melewati validasi client-side.</p>\n<p data-start=\"3005\" data-end=\"3250\">Di PHP, kita bisa menggunakan fungsi seperti <code data-start=\"3050\" data-end=\"3070\">htmlspecialchars()</code> untuk mencegah karakter berbahaya dijalankan. Di Python, framework seperti Flask dan Django menyediakan filter XSS otomatis jika kita menggunakan template engine-nya dengan benar.</p>\n<p data-start=\"3252\" data-end=\"3439\">Penting untuk melakukan validasi di kedua sisi, baik di client (browser) maupun server. Validasi di sisi server adalah yang paling penting, karena lebih sulit dimanipulasi oleh penyerang.</p>\n<p data-start=\"3441\" data-end=\"3898\"><strong data-start=\"3441\" data-end=\"3464\">Studi Kasus Singkat</strong><br data-start=\"3464\" data-end=\"3467\" />Bayangkan ada kolom komentar yang tidak menggunakan filter input. Seorang penyerang memasukkan skrip jahat dan berhasil membuat pengguna lain menjalankan skrip itu saat membaca komentar. Namun, ketika filter input diterapkan, karakter dalam skrip tersebut diubah sehingga tidak bisa dijalankan. Hasilnya, serangan gagal dan halaman tetap aman. Ini menunjukkan bahwa filter input yang sederhana pun bisa mencegah XSS dengan efektif.</p>\n<p data-start=\"3900\" data-end=\"4441\" data-is-last-node=\"\" data-is-only-node=\"\"><strong data-start=\"3900\" data-end=\"3914\">Kesimpulan</strong><br data-start=\"3914\" data-end=\"3917\" />Filter input adalah langkah dasar tapi sangat penting dalam menjaga keamanan aplikasi web dari serangan XSS. Semua data dari pengguna harus dianggap berbahaya sampai dibuktikan sebaliknya. Dengan menerapkan validasi dan filter secara konsisten, kita bisa mencegah skrip jahat masuk ke sistem. Praktik ini juga merupakan bagian penting dari kebiasaan secure coding yang harus dijaga oleh setiap tim pengembang web. Keamanan web dimulai dari hal kecil seperti memfilter input, tapi dampaknya sangat besar dalam jangka panjang.</p>\n<p data-start=\"3900\" data-end=\"4441\" data-is-last-node=\"\" data-is-only-node=\"\">NAMA: AISYA</p>\n<p data-start=\"3900\" data-end=\"4441\" data-is-last-node=\"\" data-is-only-node=\"\">NIM: 23156201029</p>\n<p data-start=\"3900\" data-end=\"4441\" data-is-last-node=\"\" data-is-only-node=\"\">PRODI: SISTEM KOMPUTER</p>\n",
+  "content_text": "Pendahuluan\nCross Site Scripting atau XSS adalah salah satu serangan paling umum di dunia web. Serangan ini terjadi ketika penyerang berhasil memasukkan skrip berbahaya ke dalam halaman web, biasanya melalui input dari pengguna. Jika input ini tidak difilter dengan benar, maka skrip bisa dijalankan langsung di browser korban. Untuk mencegah hal ini, salah satu langkah penting yang harus dilakukan oleh pengembang adalah menerapkan filter input secara tepat.\nApa Itu Serangan XSS?\nXSS adalah teknik serangan yang memanfaatkan celah pada situs web untuk menjalankan skrip berbahaya di browser pengguna. Biasanya, skrip tersebut dimasukkan lewat kolom input seperti komentar, pencarian, atau formulir lainnya.\nAda tiga jenis utama XSS. Stored XSS adalah jenis di mana skrip jahat disimpan di server dan dijalankan setiap kali halaman dibuka. Reflected XSS terjadi saat skrip langsung dijalankan melalui URL atau form. Sedangkan DOM-based XSS muncul dari manipulasi langsung pada elemen halaman di sisi pengguna.\nContohnya, jika seseorang mengetik  <script>alert('XSS');</script>  di kolom komentar dan komentar tersebut ditampilkan begitu saja tanpa filter, maka pesan itu akan muncul sebagai pop-up di layar pengguna lain.\nMengapa Filter Input Penting dalam Mencegah XSS?\nInput dari pengguna tidak bisa dipercaya begitu saja. Penyerang bisa memasukkan kode berbahaya ke dalamnya. Filter input berfungsi untuk menyaring karakter atau pola tertentu yang bisa membahayakan sistem.\nJika tidak ada filter, skrip jahat bisa masuk dan dijalankan oleh browser. Hal ini bisa menyebabkan pencurian data, pengambilalihan akun, atau bahkan serangan ke sistem lain. Oleh karena itu, penting sekali memastikan bahwa semua input dari pengguna diperiksa dan dibersihkan sebelum digunakan.\nTeknik dan Strategi Filter Input\nAda beberapa cara untuk memfilter input agar aman dari XSS. Pertama, validasi data berdasarkan tipe. Misalnya, jika kolom hanya menerima angka, pastikan tidak ada huruf atau simbol masuk.\nKedua, lakukan escaping terhadap karakter khusus seperti tanda <, >, ” dan ‘. Ini karena karakter-karakter tersebut sering digunakan dalam skrip HTML dan JavaScript.\nKetiga, gunakan pendekatan whitelist, yaitu hanya mengizinkan karakter atau format tertentu. Cara ini lebih aman dibandingkan blacklist, karena daftar larangan bisa dengan mudah dibypass oleh penyerang.\nKeempat, gunakan library atau framework yang sudah menyediakan perlindungan terhadap XSS. Banyak framework modern seperti React, Laravel, atau Django sudah memiliki sistem filter bawaan yang cukup aman.\nImplementasi Filter Input dalam Berbagai Bahasa Pemrograman\nFilter input bisa diterapkan dalam berbagai bahasa pemrograman. Di JavaScript, kita bisa menggunakan fungsi validasi di sisi klien untuk memeriksa data sebelum dikirim ke server. Namun, ini tidak cukup, karena penyerang bisa saja melewati validasi client-side.\nDi PHP, kita bisa menggunakan fungsi seperti  htmlspecialchars()  untuk mencegah karakter berbahaya dijalankan. Di Python, framework seperti Flask dan Django menyediakan filter XSS otomatis jika kita menggunakan template engine-nya dengan benar.\nPenting untuk melakukan validasi di kedua sisi, baik di client (browser) maupun server. Validasi di sisi server adalah yang paling penting, karena lebih sulit dimanipulasi oleh penyerang.\nStudi Kasus Singkat\nBayangkan ada kolom komentar yang tidak menggunakan filter input. Seorang penyerang memasukkan skrip jahat dan berhasil membuat pengguna lain menjalankan skrip itu saat membaca komentar. Namun, ketika filter input diterapkan, karakter dalam skrip tersebut diubah sehingga tidak bisa dijalankan. Hasilnya, serangan gagal dan halaman tetap aman. Ini menunjukkan bahwa filter input yang sederhana pun bisa mencegah XSS dengan efektif.\nKesimpulan\nFilter input adalah langkah dasar tapi sangat penting dalam menjaga keamanan aplikasi web dari serangan XSS. Semua data dari pengguna harus dianggap berbahaya sampai dibuktikan sebaliknya. Dengan menerapkan validasi dan filter secara konsisten, kita bisa mencegah skrip jahat masuk ke sistem. Praktik ini juga merupakan bagian penting dari kebiasaan secure coding yang harus dijaga oleh setiap tim pengembang web. Keamanan web dimulai dari hal kecil seperti memfilter input, tapi dampaknya sangat besar dalam jangka panjang.\nNAMA: AISYA\nNIM: 23156201029\nPRODI: SISTEM KOMPUTER",
+  "raw": {
+    "id": 4371,
+    "date": "2025-07-09T06:51:21",
+    "date_gmt": "2025-07-09T06:51:21",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=4371"
+    },
+    "modified": "2025-07-09T06:51:21",
+    "modified_gmt": "2025-07-09T06:51:21",
+    "slug": "implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/",
+    "title": {
+      "rendered": "Implementasi Filter Input untuk Mencegah Serangan Cross Site Scripting"
+    },
+    "content": {
+      "rendered": "<p data-start=\"76\" data-end=\"542\"><strong data-start=\"76\" data-end=\"91\">Pendahuluan</strong><br data-start=\"91\" data-end=\"94\" />Cross Site Scripting atau XSS adalah salah satu serangan paling umum di dunia web. Serangan ini terjadi ketika penyerang berhasil memasukkan skrip berbahaya ke dalam halaman web, biasanya melalui input dari pengguna. Jika input ini tidak difilter dengan benar, maka skrip bisa dijalankan langsung di browser korban. Untuk mencegah hal ini, salah satu langkah penting yang harus dilakukan oleh pengembang adalah menerapkan filter input secara tepat.</p>\n<p data-start=\"544\" data-end=\"798\"><strong data-start=\"544\" data-end=\"569\">Apa Itu Serangan XSS?</strong><br data-start=\"569\" data-end=\"572\" />XSS adalah teknik serangan yang memanfaatkan celah pada situs web untuk menjalankan skrip berbahaya di browser pengguna. Biasanya, skrip tersebut dimasukkan lewat kolom input seperti komentar, pencarian, atau formulir lainnya.</p>\n<p data-start=\"800\" data-end=\"1101\">Ada tiga jenis utama XSS. Stored XSS adalah jenis di mana skrip jahat disimpan di server dan dijalankan setiap kali halaman dibuka. Reflected XSS terjadi saat skrip langsung dijalankan melalui URL atau form. Sedangkan DOM-based XSS muncul dari manipulasi langsung pada elemen halaman di sisi pengguna.</p>\n<p data-start=\"1103\" data-end=\"1314\">Contohnya, jika seseorang mengetik <code data-start=\"1138\" data-end=\"1170\">&lt;script&gt;alert('XSS');&lt;/script&gt;</code> di kolom komentar dan komentar tersebut ditampilkan begitu saja tanpa filter, maka pesan itu akan muncul sebagai pop-up di layar pengguna lain.</p>\n<p data-start=\"1316\" data-end=\"1576\"><strong data-start=\"1316\" data-end=\"1368\">Mengapa Filter Input Penting dalam Mencegah XSS?</strong><br data-start=\"1368\" data-end=\"1371\" />Input dari pengguna tidak bisa dipercaya begitu saja. Penyerang bisa memasukkan kode berbahaya ke dalamnya. Filter input berfungsi untuk menyaring karakter atau pola tertentu yang bisa membahayakan sistem.</p>\n<p data-start=\"1578\" data-end=\"1872\">Jika tidak ada filter, skrip jahat bisa masuk dan dijalankan oleh browser. Hal ini bisa menyebabkan pencurian data, pengambilalihan akun, atau bahkan serangan ke sistem lain. Oleh karena itu, penting sekali memastikan bahwa semua input dari pengguna diperiksa dan dibersihkan sebelum digunakan.</p>\n<p data-start=\"1874\" data-end=\"2100\"><strong data-start=\"1874\" data-end=\"1910\">Teknik dan Strategi Filter Input</strong><br data-start=\"1910\" data-end=\"1913\" />Ada beberapa cara untuk memfilter input agar aman dari XSS. Pertama, validasi data berdasarkan tipe. Misalnya, jika kolom hanya menerima angka, pastikan tidak ada huruf atau simbol masuk.</p>\n<p data-start=\"2102\" data-end=\"2267\">Kedua, lakukan escaping terhadap karakter khusus seperti tanda &lt;, &gt;, &#8221; dan &#8216;. Ini karena karakter-karakter tersebut sering digunakan dalam skrip HTML dan JavaScript.</p>\n<p data-start=\"2269\" data-end=\"2471\">Ketiga, gunakan pendekatan whitelist, yaitu hanya mengizinkan karakter atau format tertentu. Cara ini lebih aman dibandingkan blacklist, karena daftar larangan bisa dengan mudah dibypass oleh penyerang.</p>\n<p data-start=\"2473\" data-end=\"2675\">Keempat, gunakan library atau framework yang sudah menyediakan perlindungan terhadap XSS. Banyak framework modern seperti React, Laravel, atau Django sudah memiliki sistem filter bawaan yang cukup aman.</p>\n<p data-start=\"2677\" data-end=\"3003\"><strong data-start=\"2677\" data-end=\"2740\">Implementasi Filter Input dalam Berbagai Bahasa Pemrograman</strong><br data-start=\"2740\" data-end=\"2743\" />Filter input bisa diterapkan dalam berbagai bahasa pemrograman. Di JavaScript, kita bisa menggunakan fungsi validasi di sisi klien untuk memeriksa data sebelum dikirim ke server. Namun, ini tidak cukup, karena penyerang bisa saja melewati validasi client-side.</p>\n<p data-start=\"3005\" data-end=\"3250\">Di PHP, kita bisa menggunakan fungsi seperti <code data-start=\"3050\" data-end=\"3070\">htmlspecialchars()</code> untuk mencegah karakter berbahaya dijalankan. Di Python, framework seperti Flask dan Django menyediakan filter XSS otomatis jika kita menggunakan template engine-nya dengan benar.</p>\n<p data-start=\"3252\" data-end=\"3439\">Penting untuk melakukan validasi di kedua sisi, baik di client (browser) maupun server. Validasi di sisi server adalah yang paling penting, karena lebih sulit dimanipulasi oleh penyerang.</p>\n<p data-start=\"3441\" data-end=\"3898\"><strong data-start=\"3441\" data-end=\"3464\">Studi Kasus Singkat</strong><br data-start=\"3464\" data-end=\"3467\" />Bayangkan ada kolom komentar yang tidak menggunakan filter input. Seorang penyerang memasukkan skrip jahat dan berhasil membuat pengguna lain menjalankan skrip itu saat membaca komentar. Namun, ketika filter input diterapkan, karakter dalam skrip tersebut diubah sehingga tidak bisa dijalankan. Hasilnya, serangan gagal dan halaman tetap aman. Ini menunjukkan bahwa filter input yang sederhana pun bisa mencegah XSS dengan efektif.</p>\n<p data-start=\"3900\" data-end=\"4441\" data-is-last-node=\"\" data-is-only-node=\"\"><strong data-start=\"3900\" data-end=\"3914\">Kesimpulan</strong><br data-start=\"3914\" data-end=\"3917\" />Filter input adalah langkah dasar tapi sangat penting dalam menjaga keamanan aplikasi web dari serangan XSS. Semua data dari pengguna harus dianggap berbahaya sampai dibuktikan sebaliknya. Dengan menerapkan validasi dan filter secara konsisten, kita bisa mencegah skrip jahat masuk ke sistem. Praktik ini juga merupakan bagian penting dari kebiasaan secure coding yang harus dijaga oleh setiap tim pengembang web. Keamanan web dimulai dari hal kecil seperti memfilter input, tapi dampaknya sangat besar dalam jangka panjang.</p>\n<p data-start=\"3900\" data-end=\"4441\" data-is-last-node=\"\" data-is-only-node=\"\">NAMA: AISYA</p>\n<p data-start=\"3900\" data-end=\"4441\" data-is-last-node=\"\" data-is-only-node=\"\">NIM: 23156201029</p>\n<p data-start=\"3900\" data-end=\"4441\" data-is-last-node=\"\" data-is-only-node=\"\">PRODI: SISTEM KOMPUTER</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>PendahuluanCross Site Scripting atau XSS adalah salah satu serangan paling umum di dunia web. Serangan ini terjadi ketika penyerang berhasil memasukkan skrip berbahaya ke dalam halaman web, biasanya melalui input dari pengguna. Jika input ini tidak difilter dengan benar, maka skrip bisa dijalankan langsung di browser korban. Untuk mencegah hal ini, salah satu langkah penting yang harus dilakukan oleh pengembang adalah menerapkan filter input secara tepat. Apa Itu Serangan XSS?XSS adalah teknik serangan yang memanfaatkan celah pada situs web untuk menjalankan skrip berbahaya di browser pengguna. Biasanya, skrip tersebut dimasukkan lewat kolom input seperti komentar, pencarian, atau formulir lainnya. Ada&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 4374,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      333
+    ],
+    "class_list": [
+      "post-4371",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-artikel"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Implementasi Filter Input untuk Mencegah Serangan Cross Site Scripting - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Implementasi Filter Input untuk Mencegah Serangan Cross Site Scripting - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"PendahuluanCross Site Scripting atau XSS adalah salah satu serangan paling umum di dunia web. Serangan ini terjadi ketika penyerang berhasil memasukkan skrip berbahaya ke dalam halaman web, biasanya melalui input dari pengguna. Jika input ini tidak difilter dengan benar, maka skrip bisa dijalankan langsung di browser korban. Untuk mencegah hal ini, salah satu langkah penting yang harus dilakukan oleh pengembang adalah menerapkan filter input secara tepat. Apa Itu Serangan XSS?XSS adalah teknik serangan yang memanfaatkan celah pada situs web untuk menjalankan skrip berbahaya di browser pengguna. Biasanya, skrip tersebut dimasukkan lewat kolom input seperti komentar, pencarian, atau formulir lainnya. Ada...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-09T06:51:21+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/apa-itu-cross-site-scripting.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1200\" />\n\t<meta property=\"og:image:height\" content=\"630\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/\",\"url\":\"https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/\",\"name\":\"Implementasi Filter Input untuk Mencegah Serangan Cross Site Scripting - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/apa-itu-cross-site-scripting.jpg\",\"datePublished\":\"2025-07-09T06:51:21+00:00\",\"dateModified\":\"2025-07-09T06:51:21+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/apa-itu-cross-site-scripting.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/apa-itu-cross-site-scripting.jpg\",\"width\":1200,\"height\":630},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Implementasi Filter Input untuk Mencegah Serangan Cross Site Scripting\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Implementasi Filter Input untuk Mencegah Serangan Cross Site Scripting - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Implementasi Filter Input untuk Mencegah Serangan Cross Site Scripting - buletinsiber.com",
+      "og_description": "PendahuluanCross Site Scripting atau XSS adalah salah satu serangan paling umum di dunia web. Serangan ini terjadi ketika penyerang berhasil memasukkan skrip berbahaya ke dalam halaman web, biasanya melalui input dari pengguna. Jika input ini tidak difilter dengan benar, maka skrip bisa dijalankan langsung di browser korban. Untuk mencegah hal ini, salah satu langkah penting yang harus dilakukan oleh pengembang adalah menerapkan filter input secara tepat. Apa Itu Serangan XSS?XSS adalah teknik serangan yang memanfaatkan celah pada situs web untuk menjalankan skrip berbahaya di browser pengguna. Biasanya, skrip tersebut dimasukkan lewat kolom input seperti komentar, pencarian, atau formulir lainnya. Ada...",
+      "og_url": "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-09T06:51:21+00:00",
+      "og_image": [
+        {
+          "width": 1200,
+          "height": 630,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/apa-itu-cross-site-scripting.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/",
+            "url": "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/",
+            "name": "Implementasi Filter Input untuk Mencegah Serangan Cross Site Scripting - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/apa-itu-cross-site-scripting.jpg",
+            "datePublished": "2025-07-09T06:51:21+00:00",
+            "dateModified": "2025-07-09T06:51:21+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/apa-itu-cross-site-scripting.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/apa-itu-cross-site-scripting.jpg",
+            "width": 1200,
+            "height": 630
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/implementasi-filter-input-untuk-mencegah-serangan-cross-site-scripting/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Implementasi Filter Input untuk Mencegah Serangan Cross Site Scripting"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4371",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=4371"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4371/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 4375,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4371/revisions/4375"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4374"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=4371"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=4371"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=4371"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

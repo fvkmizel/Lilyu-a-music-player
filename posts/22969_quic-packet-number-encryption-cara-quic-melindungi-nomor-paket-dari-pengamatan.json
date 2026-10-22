@@ -1,0 +1,326 @@
+{
+  "id": 22969,
+  "title": "QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan",
+  "slug": "quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan",
+  "url": "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/",
+  "date": "2026-09-01T00:13:16",
+  "date_gmt": "2026-09-01T00:13:16",
+  "modified": "2026-09-01T00:13:16",
+  "modified_gmt": "2026-09-01T00:13:16",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    711,
+    81,
+    1073
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/12/device-protected-by-cyber-security.jpg",
+  "excerpt": "Pengantar QUIC Packet Number Encryption merupakan bagian dari mekanisme header protection pada protokol QUIC. Fitur ini membantu menyamarkan Packet Number sehingga nilainya tidak terlihat secara langsung oleh pihak yang mengamati lalu lintas jaringan. QUIC sendiri dibangun di atas UDP dan menggunakan TLS untuk keamanan koneksi. Dalam RFC 9001, IETF menjelaskan bahwa bagian tertentu dari header QUIC, termasuk Packet Number, dilindungi menggunakan key yang berbeda dari key untuk perlindungan payload (dikutip dari: RFC 9001 – Using TLS to Secure QUIC). Apa Itu QUIC Packet Number? Packet Number adalah nomor yang digunakan QUIC untuk mengidentifikasi urutan paket dalam sebuah packet number space….",
+  "content_html": "<h2>Pengantar</h2>\n<p class=\"isSelectedEnd\"><strong>QUIC Packet Number Encryption</strong> merupakan bagian dari mekanisme <em>header protection</em> pada protokol QUIC. Fitur ini membantu menyamarkan <strong>Packet Number</strong> sehingga nilainya tidak terlihat secara langsung oleh pihak yang mengamati lalu lintas jaringan.</p>\n<p class=\"isSelectedEnd\">QUIC sendiri dibangun di atas UDP dan menggunakan TLS untuk keamanan koneksi. Dalam RFC 9001, IETF menjelaskan bahwa bagian tertentu dari header QUIC, termasuk Packet Number, dilindungi menggunakan key yang berbeda dari key untuk perlindungan payload <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9001.html\"><strong>RFC 9001 – Using TLS to Secure QUIC</strong></a><strong>)</strong>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Itu QUIC Packet Number?</h2>\n<p class=\"isSelectedEnd\"><strong>Packet Number</strong> adalah nomor yang digunakan QUIC untuk mengidentifikasi urutan paket dalam sebuah <em>packet number space</em>.</p>\n<p class=\"isSelectedEnd\">Nomor tersebut memiliki fungsi penting dalam proses:</p>\n<ul data-spread=\"false\">\n<li>Deteksi paket yang hilang.</li>\n<li>Pengurutan paket.</li>\n<li>Acknowledgment.</li>\n<li>Rekonstruksi nonce kriptografi.</li>\n<li>Pencegahan pemrosesan paket duplikat.</li>\n</ul>\n<p class=\"isSelectedEnd\">Menurut RFC 9000, Packet Number QUIC dapat berada dalam rentang 0 hingga <code dir=\"ltr\">2^62-1</code>. Namun, nilai yang dikirim pada header hanya menggunakan 1 hingga 4 byte untuk mengurangi ukuran paket <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9000.html\"><strong>RFC 9000 – QUIC Transport Protocol</strong></a><strong>)</strong>.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/type-confusion-vulnerability-memahami-celah-yang-bisa-memicu-memory-corruption/\">Type Confusion Vulnerability: Memahami Celah yang Bisa Memicu Memory Corruption</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa Packet Number Perlu Dilindungi?</h2>\n<p class=\"isSelectedEnd\">Jika Packet Number dikirim tanpa perlindungan, pengamat jaringan dapat memperoleh informasi tambahan mengenai urutan paket yang sedang dikirim.</p>\n<p class=\"isSelectedEnd\">QUIC menggunakan <strong>header protection</strong> untuk menyamarkan bagian tertentu dari header. Perlindungan ini tidak dimaksudkan untuk mengenkripsi seluruh header. Tujuannya adalah menyembunyikan informasi tertentu yang tidak perlu diketahui oleh pihak di luar endpoint.</p>\n<p class=\"isSelectedEnd\">Dengan pendekatan tersebut, QUIC dapat mempertahankan informasi yang diperlukan protokol tanpa mengekspos Packet Number secara langsung.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Bagaimana Header Protection Bekerja?</h2>\n<h3>1. Payload Dilindungi</h3>\n<p class=\"isSelectedEnd\">Pertama, payload QUIC diproses menggunakan <strong>AEAD (Authenticated Encryption with Associated Data)</strong>. Key yang digunakan berasal dari secret yang diperoleh melalui proses TLS.</p>\n<p class=\"isSelectedEnd\">RFC 9001 menjelaskan bahwa QUIC menggunakan key yang berasal dari TLS untuk memberikan perlindungan terhadap paket <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9001.html\"><strong>RFC 9001 – Packet Protection</strong></a><strong>)</strong>.</p>\n<h3>2. Ciphertext Diambil sebagai Sample</h3>\n<p class=\"isSelectedEnd\">Setelah payload dilindungi, sebagian ciphertext digunakan sebagai <strong>sample</strong>.</p>\n<p class=\"isSelectedEnd\">Sample tersebut menjadi input untuk algoritma header protection.</p>\n<h3>3. Mask Dibuat</h3>\n<p class=\"isSelectedEnd\">QUIC menggunakan <strong>header protection key</strong> untuk menghasilkan sebuah mask.</p>\n<p class=\"isSelectedEnd\">Algoritmanya bergantung pada cipher suite yang digunakan. QUIC mendefinisikan mekanisme berbasis AES dan ChaCha20.</p>\n<h3>4. Packet Number Di-XOR</h3>\n<p class=\"isSelectedEnd\">Mask tersebut kemudian digunakan untuk melakukan operasi <strong>XOR</strong> terhadap Packet Number.</p>\n<p class=\"isSelectedEnd\">Akibatnya, nilai Packet Number yang berada di jaringan tidak menunjukkan nilai aslinya secara langsung.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Saja yang Dilindungi?</h2>\n<p class=\"isSelectedEnd\">Header protection tidak mengenkripsi seluruh header QUIC.</p>\n<p class=\"isSelectedEnd\">Pada <strong>long header</strong>, bagian yang dilindungi mencakup beberapa bit pada byte pertama serta Packet Number. Sementara itu, pada <strong>short header</strong>, perlindungan juga mencakup Key Phase bit dan Packet Number <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9001.html\"><strong>RFC 9001 – Header Protection</strong></a><strong>)</strong>.</p>\n<p class=\"isSelectedEnd\">Beberapa informasi lain tetap terlihat karena dibutuhkan untuk pemrosesan paket di jaringan.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"705\" height=\"470\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 705px) 100vw, 705px\" /></p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Packet Number Bukan Enkripsi Payload</h2>\n<p class=\"isSelectedEnd\">Hal penting yang perlu dipahami adalah <strong>Packet Number Encryption bukan pengganti enkripsi data</strong>.</p>\n<p class=\"isSelectedEnd\">Payload QUIC dilindungi menggunakan mekanisme packet protection berbasis AEAD. Sementara itu, header protection digunakan untuk menyamarkan bagian tertentu dari header.</p>\n<p class=\"isSelectedEnd\">Dengan demikian, kedua mekanisme memiliki fungsi berbeda:</p>\n<table>\n<tbody>\n<tr>\n<th>Mekanisme</th>\n<th>Fungsi</th>\n</tr>\n<tr>\n<td>Packet Protection</td>\n<td>Melindungi payload</td>\n</tr>\n<tr>\n<td>Header Protection</td>\n<td>Menyamarkan bagian tertentu dari header</td>\n</tr>\n<tr>\n<td>Packet Number Protection</td>\n<td>Menyamarkan Packet Number</td>\n</tr>\n<tr>\n<td>TLS 1.3</td>\n<td>Menyediakan key dan keamanan handshake</td>\n</tr>\n</tbody>\n</table>\n<p class=\"isSelectedEnd\">Pendekatan berlapis tersebut menjadi bagian penting dari desain keamanan QUIC.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Hubungan Packet Number dengan Nonce</h2>\n<p class=\"isSelectedEnd\">Packet Number memiliki peran kriptografi yang penting.</p>\n<p class=\"isSelectedEnd\">Dalam QUIC, Packet Number digunakan bersama <strong>packet protection IV</strong> untuk membentuk nonce AEAD. RFC 9001 menjelaskan bahwa Packet Number yang telah direkonstruksi digabungkan dengan IV untuk menghasilkan nonce yang digunakan dalam proses perlindungan paket <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9001.html\"><strong>RFC 9001 – Packet Protection Keys</strong></a><strong>)</strong>.</p>\n<p class=\"isSelectedEnd\">Karena itu, Packet Number tidak hanya berfungsi untuk mengurutkan paket. Nilainya juga berkaitan langsung dengan proses enkripsi.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/grpc-security-best-practice-cara-mengamankan-komunikasi-microservices-modern/\">gRPC Security Best Practice: Cara Mengamankan Komunikasi Microservices Modern</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Bagaimana Receiver Membaca Packet Number?</h2>\n<p class=\"isSelectedEnd\">Receiver menerima Packet Number yang masih terlindungi.</p>\n<p class=\"isSelectedEnd\">Pertama, receiver menentukan panjang Packet Number dari bagian header yang telah diproses. Selanjutnya, header protection dihapus menggunakan key yang sesuai.</p>\n<p class=\"isSelectedEnd\">Setelah itu, receiver dapat merekonstruksi Packet Number penuh berdasarkan informasi yang tersedia dan nomor paket terbesar yang telah diterima.</p>\n<p class=\"isSelectedEnd\">Proses ini memungkinkan QUIC menggunakan Packet Number yang relatif pendek di jaringan tanpa kehilangan konteks urutan paket.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Manfaat Header Protection</h2>\n<h3>Mengurangi Informasi yang Terlihat</h3>\n<p class=\"isSelectedEnd\">Header protection membuat pengamat pasif tidak dapat langsung membaca beberapa field penting dari header.</p>\n<h3>Memperkuat Privasi Protokol</h3>\n<p class=\"isSelectedEnd\">Tidak semua informasi transport perlu tersedia secara terbuka. Karena itu, QUIC membatasi bagian header yang dapat diamati.</p>\n<h3>Mendukung Keamanan Paket</h3>\n<p class=\"isSelectedEnd\">Header protection bekerja bersama packet protection. Kombinasi keduanya membuat paket QUIC lebih sulit dimanipulasi atau dianalisis hanya berdasarkan informasi header.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apakah Packet Number Benar-Benar Rahasia?</h2>\n<p class=\"isSelectedEnd\">Tidak tepat jika disebut bahwa Packet Number <strong>sepenuhnya rahasia</strong>.</p>\n<p class=\"isSelectedEnd\">Tujuan header protection adalah memberikan <strong>confidentiality terhadap field tertentu dari header</strong>, bukan membuat seluruh metadata jaringan menjadi tidak terlihat.</p>\n<p class=\"isSelectedEnd\">Connection ID, misalnya, tetap digunakan dalam proses routing dan dapat terlihat pada kondisi tertentu. Selain itu, ukuran paket, waktu pengiriman, dan pola traffic masih dapat diamati oleh pihak yang berada di jalur komunikasi.</p>\n<p class=\"isSelectedEnd\">Karena itu, header protection meningkatkan privasi protokol, tetapi tidak menghilangkan seluruh kemungkinan <em>traffic analysis</em>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>QUIC Packet Number Encryption vs TCP Sequence Number</h2>\n<p class=\"isSelectedEnd\">QUIC dan TCP sama-sama memiliki mekanisme untuk melacak urutan data. Namun, pendekatan keduanya berbeda.</p>\n<p class=\"isSelectedEnd\">TCP menggunakan <strong>Sequence Number</strong> yang berada pada header TCP. Sementara itu, QUIC menggunakan Packet Number dalam mekanisme transport yang sekaligus terintegrasi dengan perlindungan kriptografi.</p>\n<p class=\"isSelectedEnd\">QUIC juga memiliki beberapa <em>packet number space</em>, yaitu <strong>Initial, Handshake, dan Application Data</strong>. RFC 9000 menjelaskan bahwa pemisahan tersebut membantu memberikan pemisahan kriptografi antar jenis paket <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9000.html\"><strong>RFC 9000 – Packet Number Spaces</strong></a><strong>)</strong>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa Teknologi Ini Penting?</h2>\n<p class=\"isSelectedEnd\">QUIC dirancang untuk jaringan modern yang membutuhkan koneksi cepat, aman, dan dapat beradaptasi dengan perubahan jaringan.</p>\n<p class=\"isSelectedEnd\">Perlindungan Packet Number menjadi salah satu bagian kecil tetapi penting dari desain tersebut. Dengan menggabungkan <strong>TLS 1.3, AEAD, packet protection, dan header protection</strong>, QUIC dapat melindungi data sekaligus mengurangi informasi sensitif yang terlihat pada header.</p>\n<p class=\"isSelectedEnd\">Teknologi ini juga menjadi salah satu alasan QUIC memiliki desain keamanan yang berbeda dari protokol transport tradisional.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/bimi-brand-indicators-for-message-identification-cara-menampilkan-logo-brand-di-email-dengan-lebih-terpercaya/\">BIMI (Brand Indicators for Message Identification): Cara Menampilkan Logo Brand di Email dengan Lebih Terpercaya</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Kesimpulan</h2>\n<p class=\"isSelectedEnd\"><strong>QUIC Packet Number Encryption</strong> merupakan bagian dari mekanisme <strong>header protection</strong> yang digunakan QUIC untuk menyamarkan Packet Number pada header.</p>\n<p class=\"isSelectedEnd\">Mekanisme ini menggunakan header protection key dan sample dari ciphertext untuk menghasilkan mask. Mask tersebut kemudian digunakan untuk melindungi Packet Number tanpa mengenkripsi seluruh header.</p>\n<p class=\"isSelectedEnd\">Selain itu, Packet Number memiliki fungsi penting dalam <strong>loss detection, packet ordering, duplicate detection, dan pembentukan nonce AEAD</strong>.</p>\n<p>Dengan demikian, perlindungan Packet Number bukan sekadar fitur privasi. Mekanisme tersebut merupakan bagian dari desain keamanan QUIC yang bekerja bersama <strong>TLS 1.3 dan packet protection</strong>.</p>\n",
+  "content_text": "Pengantar\nQUIC Packet Number Encryption  merupakan bagian dari mekanisme  header protection  pada protokol QUIC. Fitur ini membantu menyamarkan  Packet Number  sehingga nilainya tidak terlihat secara langsung oleh pihak yang mengamati lalu lintas jaringan.\nQUIC sendiri dibangun di atas UDP dan menggunakan TLS untuk keamanan koneksi. Dalam RFC 9001, IETF menjelaskan bahwa bagian tertentu dari header QUIC, termasuk Packet Number, dilindungi menggunakan key yang berbeda dari key untuk perlindungan payload  (dikutip dari:    RFC 9001 – Using TLS to Secure QUIC   ) .\nApa Itu QUIC Packet Number?\nPacket Number  adalah nomor yang digunakan QUIC untuk mengidentifikasi urutan paket dalam sebuah  packet number space .\nNomor tersebut memiliki fungsi penting dalam proses:\nDeteksi paket yang hilang.\nPengurutan paket.\nAcknowledgment.\nRekonstruksi nonce kriptografi.\nPencegahan pemrosesan paket duplikat.\nMenurut RFC 9000, Packet Number QUIC dapat berada dalam rentang 0 hingga  2^62-1 . Namun, nilai yang dikirim pada header hanya menggunakan 1 hingga 4 byte untuk mengurangi ukuran paket  (dikutip dari:    RFC 9000 – QUIC Transport Protocol   ) .\nbaca juga :  Type Confusion Vulnerability: Memahami Celah yang Bisa Memicu Memory Corruption\nMengapa Packet Number Perlu Dilindungi?\nJika Packet Number dikirim tanpa perlindungan, pengamat jaringan dapat memperoleh informasi tambahan mengenai urutan paket yang sedang dikirim.\nQUIC menggunakan  header protection  untuk menyamarkan bagian tertentu dari header. Perlindungan ini tidak dimaksudkan untuk mengenkripsi seluruh header. Tujuannya adalah menyembunyikan informasi tertentu yang tidak perlu diketahui oleh pihak di luar endpoint.\nDengan pendekatan tersebut, QUIC dapat mempertahankan informasi yang diperlukan protokol tanpa mengekspos Packet Number secara langsung.\nBagaimana Header Protection Bekerja?\n1. Payload Dilindungi\nPertama, payload QUIC diproses menggunakan  AEAD (Authenticated Encryption with Associated Data) . Key yang digunakan berasal dari secret yang diperoleh melalui proses TLS.\nRFC 9001 menjelaskan bahwa QUIC menggunakan key yang berasal dari TLS untuk memberikan perlindungan terhadap paket  (dikutip dari:    RFC 9001 – Packet Protection   ) .\n2. Ciphertext Diambil sebagai Sample\nSetelah payload dilindungi, sebagian ciphertext digunakan sebagai  sample .\nSample tersebut menjadi input untuk algoritma header protection.\n3. Mask Dibuat\nQUIC menggunakan  header protection key  untuk menghasilkan sebuah mask.\nAlgoritmanya bergantung pada cipher suite yang digunakan. QUIC mendefinisikan mekanisme berbasis AES dan ChaCha20.\n4. Packet Number Di-XOR\nMask tersebut kemudian digunakan untuk melakukan operasi  XOR  terhadap Packet Number.\nAkibatnya, nilai Packet Number yang berada di jaringan tidak menunjukkan nilai aslinya secara langsung.\nApa Saja yang Dilindungi?\nHeader protection tidak mengenkripsi seluruh header QUIC.\nPada  long header , bagian yang dilindungi mencakup beberapa bit pada byte pertama serta Packet Number. Sementara itu, pada  short header , perlindungan juga mencakup Key Phase bit dan Packet Number  (dikutip dari:    RFC 9001 – Header Protection   ) .\nBeberapa informasi lain tetap terlihat karena dibutuhkan untuk pemrosesan paket di jaringan.\nPacket Number Bukan Enkripsi Payload\nHal penting yang perlu dipahami adalah  Packet Number Encryption bukan pengganti enkripsi data .\nPayload QUIC dilindungi menggunakan mekanisme packet protection berbasis AEAD. Sementara itu, header protection digunakan untuk menyamarkan bagian tertentu dari header.\nDengan demikian, kedua mekanisme memiliki fungsi berbeda:\nMekanisme\nFungsi\nPacket Protection\nMelindungi payload\nHeader Protection\nMenyamarkan bagian tertentu dari header\nPacket Number Protection\nMenyamarkan Packet Number\nTLS 1.3\nMenyediakan key dan keamanan handshake\nPendekatan berlapis tersebut menjadi bagian penting dari desain keamanan QUIC.\nHubungan Packet Number dengan Nonce\nPacket Number memiliki peran kriptografi yang penting.\nDalam QUIC, Packet Number digunakan bersama  packet protection IV  untuk membentuk nonce AEAD. RFC 9001 menjelaskan bahwa Packet Number yang telah direkonstruksi digabungkan dengan IV untuk menghasilkan nonce yang digunakan dalam proses perlindungan paket  (dikutip dari:    RFC 9001 – Packet Protection Keys   ) .\nKarena itu, Packet Number tidak hanya berfungsi untuk mengurutkan paket. Nilainya juga berkaitan langsung dengan proses enkripsi.\nbaca juga :  gRPC Security Best Practice: Cara Mengamankan Komunikasi Microservices Modern\nBagaimana Receiver Membaca Packet Number?\nReceiver menerima Packet Number yang masih terlindungi.\nPertama, receiver menentukan panjang Packet Number dari bagian header yang telah diproses. Selanjutnya, header protection dihapus menggunakan key yang sesuai.\nSetelah itu, receiver dapat merekonstruksi Packet Number penuh berdasarkan informasi yang tersedia dan nomor paket terbesar yang telah diterima.\nProses ini memungkinkan QUIC menggunakan Packet Number yang relatif pendek di jaringan tanpa kehilangan konteks urutan paket.\nManfaat Header Protection\nMengurangi Informasi yang Terlihat\nHeader protection membuat pengamat pasif tidak dapat langsung membaca beberapa field penting dari header.\nMemperkuat Privasi Protokol\nTidak semua informasi transport perlu tersedia secara terbuka. Karena itu, QUIC membatasi bagian header yang dapat diamati.\nMendukung Keamanan Paket\nHeader protection bekerja bersama packet protection. Kombinasi keduanya membuat paket QUIC lebih sulit dimanipulasi atau dianalisis hanya berdasarkan informasi header.\nApakah Packet Number Benar-Benar Rahasia?\nTidak tepat jika disebut bahwa Packet Number  sepenuhnya rahasia .\nTujuan header protection adalah memberikan  confidentiality terhadap field tertentu dari header , bukan membuat seluruh metadata jaringan menjadi tidak terlihat.\nConnection ID, misalnya, tetap digunakan dalam proses routing dan dapat terlihat pada kondisi tertentu. Selain itu, ukuran paket, waktu pengiriman, dan pola traffic masih dapat diamati oleh pihak yang berada di jalur komunikasi.\nKarena itu, header protection meningkatkan privasi protokol, tetapi tidak menghilangkan seluruh kemungkinan  traffic analysis .\nQUIC Packet Number Encryption vs TCP Sequence Number\nQUIC dan TCP sama-sama memiliki mekanisme untuk melacak urutan data. Namun, pendekatan keduanya berbeda.\nTCP menggunakan  Sequence Number  yang berada pada header TCP. Sementara itu, QUIC menggunakan Packet Number dalam mekanisme transport yang sekaligus terintegrasi dengan perlindungan kriptografi.\nQUIC juga memiliki beberapa  packet number space , yaitu  Initial, Handshake, dan Application Data . RFC 9000 menjelaskan bahwa pemisahan tersebut membantu memberikan pemisahan kriptografi antar jenis paket  (dikutip dari:    RFC 9000 – Packet Number Spaces   ) .\nMengapa Teknologi Ini Penting?\nQUIC dirancang untuk jaringan modern yang membutuhkan koneksi cepat, aman, dan dapat beradaptasi dengan perubahan jaringan.\nPerlindungan Packet Number menjadi salah satu bagian kecil tetapi penting dari desain tersebut. Dengan menggabungkan  TLS 1.3, AEAD, packet protection, dan header protection , QUIC dapat melindungi data sekaligus mengurangi informasi sensitif yang terlihat pada header.\nTeknologi ini juga menjadi salah satu alasan QUIC memiliki desain keamanan yang berbeda dari protokol transport tradisional.\nbaca juga :  BIMI (Brand Indicators for Message Identification): Cara Menampilkan Logo Brand di Email dengan Lebih Terpercaya\nKesimpulan\nQUIC Packet Number Encryption  merupakan bagian dari mekanisme  header protection  yang digunakan QUIC untuk menyamarkan Packet Number pada header.\nMekanisme ini menggunakan header protection key dan sample dari ciphertext untuk menghasilkan mask. Mask tersebut kemudian digunakan untuk melindungi Packet Number tanpa mengenkripsi seluruh header.\nSelain itu, Packet Number memiliki fungsi penting dalam  loss detection, packet ordering, duplicate detection, dan pembentukan nonce AEAD .\nDengan demikian, perlindungan Packet Number bukan sekadar fitur privasi. Mekanisme tersebut merupakan bagian dari desain keamanan QUIC yang bekerja bersama  TLS 1.3 dan packet protection .",
+  "raw": {
+    "id": 22969,
+    "date": "2026-09-01T00:13:16",
+    "date_gmt": "2026-09-01T00:13:16",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=22969"
+    },
+    "modified": "2026-09-01T00:13:16",
+    "modified_gmt": "2026-09-01T00:13:16",
+    "slug": "quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/",
+    "title": {
+      "rendered": "QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan"
+    },
+    "content": {
+      "rendered": "<h2>Pengantar</h2>\n<p class=\"isSelectedEnd\"><strong>QUIC Packet Number Encryption</strong> merupakan bagian dari mekanisme <em>header protection</em> pada protokol QUIC. Fitur ini membantu menyamarkan <strong>Packet Number</strong> sehingga nilainya tidak terlihat secara langsung oleh pihak yang mengamati lalu lintas jaringan.</p>\n<p class=\"isSelectedEnd\">QUIC sendiri dibangun di atas UDP dan menggunakan TLS untuk keamanan koneksi. Dalam RFC 9001, IETF menjelaskan bahwa bagian tertentu dari header QUIC, termasuk Packet Number, dilindungi menggunakan key yang berbeda dari key untuk perlindungan payload <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9001.html\"><strong>RFC 9001 – Using TLS to Secure QUIC</strong></a><strong>)</strong>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Itu QUIC Packet Number?</h2>\n<p class=\"isSelectedEnd\"><strong>Packet Number</strong> adalah nomor yang digunakan QUIC untuk mengidentifikasi urutan paket dalam sebuah <em>packet number space</em>.</p>\n<p class=\"isSelectedEnd\">Nomor tersebut memiliki fungsi penting dalam proses:</p>\n<ul data-spread=\"false\">\n<li>Deteksi paket yang hilang.</li>\n<li>Pengurutan paket.</li>\n<li>Acknowledgment.</li>\n<li>Rekonstruksi nonce kriptografi.</li>\n<li>Pencegahan pemrosesan paket duplikat.</li>\n</ul>\n<p class=\"isSelectedEnd\">Menurut RFC 9000, Packet Number QUIC dapat berada dalam rentang 0 hingga <code dir=\"ltr\">2^62-1</code>. Namun, nilai yang dikirim pada header hanya menggunakan 1 hingga 4 byte untuk mengurangi ukuran paket <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9000.html\"><strong>RFC 9000 – QUIC Transport Protocol</strong></a><strong>)</strong>.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/type-confusion-vulnerability-memahami-celah-yang-bisa-memicu-memory-corruption/\">Type Confusion Vulnerability: Memahami Celah yang Bisa Memicu Memory Corruption</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa Packet Number Perlu Dilindungi?</h2>\n<p class=\"isSelectedEnd\">Jika Packet Number dikirim tanpa perlindungan, pengamat jaringan dapat memperoleh informasi tambahan mengenai urutan paket yang sedang dikirim.</p>\n<p class=\"isSelectedEnd\">QUIC menggunakan <strong>header protection</strong> untuk menyamarkan bagian tertentu dari header. Perlindungan ini tidak dimaksudkan untuk mengenkripsi seluruh header. Tujuannya adalah menyembunyikan informasi tertentu yang tidak perlu diketahui oleh pihak di luar endpoint.</p>\n<p class=\"isSelectedEnd\">Dengan pendekatan tersebut, QUIC dapat mempertahankan informasi yang diperlukan protokol tanpa mengekspos Packet Number secara langsung.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Bagaimana Header Protection Bekerja?</h2>\n<h3>1. Payload Dilindungi</h3>\n<p class=\"isSelectedEnd\">Pertama, payload QUIC diproses menggunakan <strong>AEAD (Authenticated Encryption with Associated Data)</strong>. Key yang digunakan berasal dari secret yang diperoleh melalui proses TLS.</p>\n<p class=\"isSelectedEnd\">RFC 9001 menjelaskan bahwa QUIC menggunakan key yang berasal dari TLS untuk memberikan perlindungan terhadap paket <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9001.html\"><strong>RFC 9001 – Packet Protection</strong></a><strong>)</strong>.</p>\n<h3>2. Ciphertext Diambil sebagai Sample</h3>\n<p class=\"isSelectedEnd\">Setelah payload dilindungi, sebagian ciphertext digunakan sebagai <strong>sample</strong>.</p>\n<p class=\"isSelectedEnd\">Sample tersebut menjadi input untuk algoritma header protection.</p>\n<h3>3. Mask Dibuat</h3>\n<p class=\"isSelectedEnd\">QUIC menggunakan <strong>header protection key</strong> untuk menghasilkan sebuah mask.</p>\n<p class=\"isSelectedEnd\">Algoritmanya bergantung pada cipher suite yang digunakan. QUIC mendefinisikan mekanisme berbasis AES dan ChaCha20.</p>\n<h3>4. Packet Number Di-XOR</h3>\n<p class=\"isSelectedEnd\">Mask tersebut kemudian digunakan untuk melakukan operasi <strong>XOR</strong> terhadap Packet Number.</p>\n<p class=\"isSelectedEnd\">Akibatnya, nilai Packet Number yang berada di jaringan tidak menunjukkan nilai aslinya secara langsung.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Saja yang Dilindungi?</h2>\n<p class=\"isSelectedEnd\">Header protection tidak mengenkripsi seluruh header QUIC.</p>\n<p class=\"isSelectedEnd\">Pada <strong>long header</strong>, bagian yang dilindungi mencakup beberapa bit pada byte pertama serta Packet Number. Sementara itu, pada <strong>short header</strong>, perlindungan juga mencakup Key Phase bit dan Packet Number <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9001.html\"><strong>RFC 9001 – Header Protection</strong></a><strong>)</strong>.</p>\n<p class=\"isSelectedEnd\">Beberapa informasi lain tetap terlihat karena dibutuhkan untuk pemrosesan paket di jaringan.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"705\" height=\"470\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 705px) 100vw, 705px\" /></p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Packet Number Bukan Enkripsi Payload</h2>\n<p class=\"isSelectedEnd\">Hal penting yang perlu dipahami adalah <strong>Packet Number Encryption bukan pengganti enkripsi data</strong>.</p>\n<p class=\"isSelectedEnd\">Payload QUIC dilindungi menggunakan mekanisme packet protection berbasis AEAD. Sementara itu, header protection digunakan untuk menyamarkan bagian tertentu dari header.</p>\n<p class=\"isSelectedEnd\">Dengan demikian, kedua mekanisme memiliki fungsi berbeda:</p>\n<table>\n<tbody>\n<tr>\n<th>Mekanisme</th>\n<th>Fungsi</th>\n</tr>\n<tr>\n<td>Packet Protection</td>\n<td>Melindungi payload</td>\n</tr>\n<tr>\n<td>Header Protection</td>\n<td>Menyamarkan bagian tertentu dari header</td>\n</tr>\n<tr>\n<td>Packet Number Protection</td>\n<td>Menyamarkan Packet Number</td>\n</tr>\n<tr>\n<td>TLS 1.3</td>\n<td>Menyediakan key dan keamanan handshake</td>\n</tr>\n</tbody>\n</table>\n<p class=\"isSelectedEnd\">Pendekatan berlapis tersebut menjadi bagian penting dari desain keamanan QUIC.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Hubungan Packet Number dengan Nonce</h2>\n<p class=\"isSelectedEnd\">Packet Number memiliki peran kriptografi yang penting.</p>\n<p class=\"isSelectedEnd\">Dalam QUIC, Packet Number digunakan bersama <strong>packet protection IV</strong> untuk membentuk nonce AEAD. RFC 9001 menjelaskan bahwa Packet Number yang telah direkonstruksi digabungkan dengan IV untuk menghasilkan nonce yang digunakan dalam proses perlindungan paket <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9001.html\"><strong>RFC 9001 – Packet Protection Keys</strong></a><strong>)</strong>.</p>\n<p class=\"isSelectedEnd\">Karena itu, Packet Number tidak hanya berfungsi untuk mengurutkan paket. Nilainya juga berkaitan langsung dengan proses enkripsi.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/grpc-security-best-practice-cara-mengamankan-komunikasi-microservices-modern/\">gRPC Security Best Practice: Cara Mengamankan Komunikasi Microservices Modern</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Bagaimana Receiver Membaca Packet Number?</h2>\n<p class=\"isSelectedEnd\">Receiver menerima Packet Number yang masih terlindungi.</p>\n<p class=\"isSelectedEnd\">Pertama, receiver menentukan panjang Packet Number dari bagian header yang telah diproses. Selanjutnya, header protection dihapus menggunakan key yang sesuai.</p>\n<p class=\"isSelectedEnd\">Setelah itu, receiver dapat merekonstruksi Packet Number penuh berdasarkan informasi yang tersedia dan nomor paket terbesar yang telah diterima.</p>\n<p class=\"isSelectedEnd\">Proses ini memungkinkan QUIC menggunakan Packet Number yang relatif pendek di jaringan tanpa kehilangan konteks urutan paket.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Manfaat Header Protection</h2>\n<h3>Mengurangi Informasi yang Terlihat</h3>\n<p class=\"isSelectedEnd\">Header protection membuat pengamat pasif tidak dapat langsung membaca beberapa field penting dari header.</p>\n<h3>Memperkuat Privasi Protokol</h3>\n<p class=\"isSelectedEnd\">Tidak semua informasi transport perlu tersedia secara terbuka. Karena itu, QUIC membatasi bagian header yang dapat diamati.</p>\n<h3>Mendukung Keamanan Paket</h3>\n<p class=\"isSelectedEnd\">Header protection bekerja bersama packet protection. Kombinasi keduanya membuat paket QUIC lebih sulit dimanipulasi atau dianalisis hanya berdasarkan informasi header.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apakah Packet Number Benar-Benar Rahasia?</h2>\n<p class=\"isSelectedEnd\">Tidak tepat jika disebut bahwa Packet Number <strong>sepenuhnya rahasia</strong>.</p>\n<p class=\"isSelectedEnd\">Tujuan header protection adalah memberikan <strong>confidentiality terhadap field tertentu dari header</strong>, bukan membuat seluruh metadata jaringan menjadi tidak terlihat.</p>\n<p class=\"isSelectedEnd\">Connection ID, misalnya, tetap digunakan dalam proses routing dan dapat terlihat pada kondisi tertentu. Selain itu, ukuran paket, waktu pengiriman, dan pola traffic masih dapat diamati oleh pihak yang berada di jalur komunikasi.</p>\n<p class=\"isSelectedEnd\">Karena itu, header protection meningkatkan privasi protokol, tetapi tidak menghilangkan seluruh kemungkinan <em>traffic analysis</em>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>QUIC Packet Number Encryption vs TCP Sequence Number</h2>\n<p class=\"isSelectedEnd\">QUIC dan TCP sama-sama memiliki mekanisme untuk melacak urutan data. Namun, pendekatan keduanya berbeda.</p>\n<p class=\"isSelectedEnd\">TCP menggunakan <strong>Sequence Number</strong> yang berada pada header TCP. Sementara itu, QUIC menggunakan Packet Number dalam mekanisme transport yang sekaligus terintegrasi dengan perlindungan kriptografi.</p>\n<p class=\"isSelectedEnd\">QUIC juga memiliki beberapa <em>packet number space</em>, yaitu <strong>Initial, Handshake, dan Application Data</strong>. RFC 9000 menjelaskan bahwa pemisahan tersebut membantu memberikan pemisahan kriptografi antar jenis paket <strong>(dikutip dari: </strong><a href=\"https://www.rfc-editor.org/rfc/rfc9000.html\"><strong>RFC 9000 – Packet Number Spaces</strong></a><strong>)</strong>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa Teknologi Ini Penting?</h2>\n<p class=\"isSelectedEnd\">QUIC dirancang untuk jaringan modern yang membutuhkan koneksi cepat, aman, dan dapat beradaptasi dengan perubahan jaringan.</p>\n<p class=\"isSelectedEnd\">Perlindungan Packet Number menjadi salah satu bagian kecil tetapi penting dari desain tersebut. Dengan menggabungkan <strong>TLS 1.3, AEAD, packet protection, dan header protection</strong>, QUIC dapat melindungi data sekaligus mengurangi informasi sensitif yang terlihat pada header.</p>\n<p class=\"isSelectedEnd\">Teknologi ini juga menjadi salah satu alasan QUIC memiliki desain keamanan yang berbeda dari protokol transport tradisional.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/bimi-brand-indicators-for-message-identification-cara-menampilkan-logo-brand-di-email-dengan-lebih-terpercaya/\">BIMI (Brand Indicators for Message Identification): Cara Menampilkan Logo Brand di Email dengan Lebih Terpercaya</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Kesimpulan</h2>\n<p class=\"isSelectedEnd\"><strong>QUIC Packet Number Encryption</strong> merupakan bagian dari mekanisme <strong>header protection</strong> yang digunakan QUIC untuk menyamarkan Packet Number pada header.</p>\n<p class=\"isSelectedEnd\">Mekanisme ini menggunakan header protection key dan sample dari ciphertext untuk menghasilkan mask. Mask tersebut kemudian digunakan untuk melindungi Packet Number tanpa mengenkripsi seluruh header.</p>\n<p class=\"isSelectedEnd\">Selain itu, Packet Number memiliki fungsi penting dalam <strong>loss detection, packet ordering, duplicate detection, dan pembentukan nonce AEAD</strong>.</p>\n<p>Dengan demikian, perlindungan Packet Number bukan sekadar fitur privasi. Mekanisme tersebut merupakan bagian dari desain keamanan QUIC yang bekerja bersama <strong>TLS 1.3 dan packet protection</strong>.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar QUIC Packet Number Encryption merupakan bagian dari mekanisme header protection pada protokol QUIC. Fitur ini membantu menyamarkan Packet Number sehingga nilainya tidak terlihat secara langsung oleh pihak yang mengamati lalu lintas jaringan. QUIC sendiri dibangun di atas UDP dan menggunakan TLS untuk keamanan koneksi. Dalam RFC 9001, IETF menjelaskan bahwa bagian tertentu dari header QUIC, termasuk Packet Number, dilindungi menggunakan key yang berbeda dari key untuk perlindungan payload (dikutip dari: RFC 9001 – Using TLS to Secure QUIC). Apa Itu QUIC Packet Number? Packet Number adalah nomor yang digunakan QUIC untuk mengidentifikasi urutan paket dalam sebuah packet number space&#8230;.</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8737,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "QUIC Packet Number Encryption",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      711,
+      81,
+      1073
+    ],
+    "class_list": [
+      "post-22969",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-encryption",
+      "tag-enkripsi",
+      "tag-quic"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar QUIC Packet Number Encryption merupakan bagian dari mekanisme header protection pada protokol QUIC. Fitur ini membantu menyamarkan Packet Number sehingga nilainya tidak terlihat secara langsung oleh pihak yang mengamati lalu lintas jaringan. QUIC sendiri dibangun di atas UDP dan menggunakan TLS untuk keamanan koneksi. Dalam RFC 9001, IETF menjelaskan bahwa bagian tertentu dari header QUIC, termasuk Packet Number, dilindungi menggunakan key yang berbeda dari key untuk perlindungan payload (dikutip dari: RFC 9001 – Using TLS to Secure QUIC). Apa Itu QUIC Packet Number? Packet Number adalah nomor yang digunakan QUIC untuk mengidentifikasi urutan paket dalam sebuah packet number space....\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-09-01T00:13:16+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/12/device-protected-by-cyber-security.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1\" />\n\t<meta property=\"og:image:height\" content=\"1\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/\",\"url\":\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/\",\"name\":\"QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/device-protected-by-cyber-security.jpg\",\"datePublished\":\"2026-09-01T00:13:16+00:00\",\"dateModified\":\"2026-09-01T00:13:16+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/12/device-protected-by-cyber-security.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/device-protected-by-cyber-security.jpg\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan - buletinsiber.com",
+      "og_description": "Pengantar QUIC Packet Number Encryption merupakan bagian dari mekanisme header protection pada protokol QUIC. Fitur ini membantu menyamarkan Packet Number sehingga nilainya tidak terlihat secara langsung oleh pihak yang mengamati lalu lintas jaringan. QUIC sendiri dibangun di atas UDP dan menggunakan TLS untuk keamanan koneksi. Dalam RFC 9001, IETF menjelaskan bahwa bagian tertentu dari header QUIC, termasuk Packet Number, dilindungi menggunakan key yang berbeda dari key untuk perlindungan payload (dikutip dari: RFC 9001 – Using TLS to Secure QUIC). Apa Itu QUIC Packet Number? Packet Number adalah nomor yang digunakan QUIC untuk mengidentifikasi urutan paket dalam sebuah packet number space....",
+      "og_url": "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-09-01T00:13:16+00:00",
+      "og_image": [
+        {
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/12/device-protected-by-cyber-security.jpg",
+          "width": 1,
+          "height": 1,
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/",
+            "url": "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/",
+            "name": "QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/device-protected-by-cyber-security.jpg",
+            "datePublished": "2026-09-01T00:13:16+00:00",
+            "dateModified": "2026-09-01T00:13:16+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/12/device-protected-by-cyber-security.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/device-protected-by-cyber-security.jpg"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/quic-packet-number-encryption-cara-quic-melindungi-nomor-paket-dari-pengamatan/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "QUIC Packet Number Encryption: Cara QUIC Melindungi Nomor Paket dari Pengamatan"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22969",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=22969"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22969/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 22970,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22969/revisions/22970"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8737"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=22969"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=22969"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=22969"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

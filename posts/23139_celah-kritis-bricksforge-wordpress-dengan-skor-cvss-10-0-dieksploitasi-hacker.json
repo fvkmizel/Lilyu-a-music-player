@@ -1,0 +1,318 @@
+{
+  "id": 23139,
+  "title": "Celah Kritis Bricksforge WordPress dengan Skor CVSS 10.0 Dieksploitasi Hacker",
+  "slug": "celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker",
+  "url": "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/",
+  "date": "2026-10-13T17:05:07",
+  "date_gmt": "2026-10-13T10:05:07",
+  "modified": "2026-10-13T17:09:58",
+  "modified_gmt": "2026-10-13T10:09:58",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Uncategorized"
+    }
+  ],
+  "tags": [],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg",
+  "excerpt": "Pengantar Jakarta, 13 Oktober 2026 — Pengguna WordPress yang menggunakan plugin Bricksforge perlu segera memeriksa keamanan situs mereka. Sebuah kerentanan kritis dengan kode CVE-2026-85097 dilaporkan telah dieksploitasi secara aktif oleh penyerang. Kerentanan ini memiliki skor CVSS 10.0, yang menunjukkan tingkat keparahan maksimum, dan memungkinkan penyerang menjalankan kode PHP pada server tanpa harus login terlebih dahulu. Informasi tersebut dilaporkan oleh The Hacker News pada 12 Oktober 2026, berdasarkan temuan perusahaan keamanan WordPress Patchstack. Versi Bricksforge hingga 3.1.8.9 terdampak, sedangkan perbaikannya tersedia pada versi 3.1.8.10. Apa Itu Bricksforge? Bricksforge merupakan plugin tambahan untuk Bricks Builder, sebuah alat untuk membangun situs WordPress secara…",
+  "content_html": "<h1>Pengantar</h1>\n<p><strong>Jakarta, 13 Oktober 2026</strong> — Pengguna WordPress yang menggunakan plugin Bricksforge perlu segera memeriksa keamanan situs mereka. Sebuah kerentanan kritis dengan kode <strong>CVE-2026-85097</strong> dilaporkan telah dieksploitasi secara aktif oleh penyerang. Kerentanan ini memiliki skor CVSS 10.0, yang menunjukkan tingkat keparahan maksimum, dan memungkinkan penyerang menjalankan kode PHP pada server tanpa harus login terlebih dahulu.</p>\n<p>Informasi tersebut dilaporkan oleh The Hacker News pada 12 Oktober 2026, berdasarkan temuan perusahaan keamanan WordPress Patchstack. Versi Bricksforge hingga 3.1.8.9 terdampak, sedangkan perbaikannya tersedia pada versi 3.1.8.10.</p>\n<h2>Apa Itu Bricksforge?</h2>\n<p>Bricksforge merupakan plugin tambahan untuk Bricks Builder, sebuah alat untuk membangun situs WordPress secara visual. Plugin ini menyediakan berbagai fitur, seperti formulir tingkat lanjut, animasi, interaksi halaman, dan pengelolaan konten dinamis.</p>\n<p>Namun, kerentanan pada fitur pengunggahan file dan pemrosesan formulir dapat membuka jalan bagi penyerang untuk mengambil alih situs yang menggunakan versi rentan.</p>\n<h2>Mengenal Kerentanan CVE-2026-85097</h2>\n<p>Kerentanan CVE-2026-85097 berkaitan dengan pengunggahan file berbahaya yang dapat berujung pada <em>Remote Code Execution</em> (RCE).</p>\n<p>RCE adalah kondisi ketika seseorang dapat menjalankan perintah atau kode pada komputer maupun server dari jarak jauh. Jika berhasil mengeksploitasi celah ini, penyerang berpotensi menjalankan kode PHP dengan hak akses yang dimiliki proses server web.</p>\n<p>Berikut informasi utamanya:</p>\n<ul>\n<li><strong>CVE:</strong> CVE-2026-85097</li>\n<li><strong>Skor CVSS:</strong> 10.0 menurut laporan Patchstack</li>\n<li><strong>Produk terdampak:</strong> Plugin Bricksforge untuk WordPress</li>\n<li><strong>Versi rentan:</strong> 3.1.8.9 dan versi sebelumnya</li>\n<li><strong>Versi perbaikan:</strong> 3.1.8.10</li>\n<li><strong>Autentikasi:</strong> Tidak diperlukan untuk melakukan eksploitasi</li>\n</ul>\n<p>Artinya, penyerang tidak harus memiliki akun WordPress untuk mencoba memanfaatkan kerentanan ini. &lt;Cite refs={[&#8220;turn235290search1&#8243;,&#8221;turn235290search3&#8221;]}/&gt;</p>\n<h2>Bagaimana Hacker Mengeksploitasi Celah Ini?</h2>\n<p>Masalah utama terletak pada cara Bricksforge memproses informasi file ketika formulir dikirimkan.</p>\n<p>Pada awal pengunggahan, plugin memeriksa tipe file melalui MIME type. Pemeriksaan ini bertujuan memastikan file sesuai dengan jenis yang diizinkan. Namun, ketika formulir dikirimkan, plugin mempercayai metadata yang dikirim oleh pengguna, termasuk informasi URL tujuan file, tanpa melakukan validasi yang memadai.</p>\n<p>Penyerang dapat memanfaatkan perbedaan tersebut melalui beberapa tahap.</p>\n<h3>1. Memperoleh nonce tanpa login</h3>\n<p>Penyerang memanfaatkan endpoint AJAX yang dapat diakses tanpa autentikasi untuk mendapatkan nonce yang dibutuhkan dalam proses permintaan. Nonce merupakan nilai yang biasanya digunakan aplikasi untuk membantu memvalidasi permintaan tertentu.</p>\n<h3>2. Mengunggah file yang tampak seperti gambar</h3>\n<p>Penyerang menyiapkan file yang terlihat seperti gambar GIF atau PNG, tetapi juga mengandung kode PHP. Teknik ini dikenal sebagai <em>polyglot file</em>, yaitu file yang dibuat agar dapat dikenali sebagai lebih dari satu jenis format.</p>\n<p>Karena pemeriksaan awal tidak cukup untuk mencegah skenario ini, file dapat masuk ke direktori sementara plugin.</p>\n<h3>3. Memanipulasi metadata file</h3>\n<p>Ketika formulir dikirimkan, penyerang memanipulasi informasi URL tujuan file sehingga mengarah ke lokasi dengan ekstensi PHP. Sementara itu, metadata file yang lain masih menunjukkan bahwa file tersebut merupakan gambar.</p>\n<h3>4. Menjalankan kode PHP</h3>\n<p>Jika server menerima dan memproses file tersebut dengan cara yang rentan, kode PHP di dalamnya berpotensi dieksekusi ketika file diakses.</p>\n<p>Rangkaian ini dapat memberikan kemampuan eksekusi kode jarak jauh kepada penyerang tanpa autentikasi.</p>\n<h2>Eksploitasi Aktif Telah Terdeteksi</h2>\n<p>Patchstack melaporkan bahwa aktivitas eksploitasi mulai terdeteksi pada 7 Oktober 2026 pukul 21.47 UTC.</p>\n<p>Dalam pengamatannya, Patchstack menemukan aktivitas dari 63 alamat IP sumber. Dua pola aktivitas yang menonjol adalah:</p>\n<ul>\n<li>Sebanyak 44 alamat IP mengirimkan 56 permintaan dengan payload identik dalam waktu berdekatan.</li>\n<li>Tiga alamat IP lainnya menguji 25 variasi ekstensi file dan encoding terhadap file sementara yang sama.</li>\n</ul>\n<p>Pola tersebut mengindikasikan penggunaan otomatisasi dan kemungkinan infrastruktur terdistribusi atau proxy untuk mengirimkan permintaan. Namun, data ini tidak cukup untuk memastikan bahwa seluruh aktivitas berasal dari satu kelompok penyerang.</p>\n<p>Aktivitas tersebut juga menunjukkan bahwa kerentanan ini bukan sekadar risiko teoretis. Situs yang masih menggunakan versi rentan berpotensi menjadi sasaran pemindaian dan percobaan eksploitasi otomatis.</p>\n<h2>Apa Dampaknya bagi Pemilik Situs WordPress?</h2>\n<p>Jika eksploitasi berhasil, dampaknya dapat meluas melampaui fitur formulir yang bermasalah.</p>\n<p><strong>Pertama, pengambilalihan situs.</strong> Penyerang dapat menjalankan kode dengan hak akses proses server web dan memanfaatkan akses tersebut untuk melakukan tindakan lanjutan.</p>\n<p><strong>Kedua, pemasangan backdoor.</strong> Penyerang dapat menanamkan mekanisme akses tersembunyi agar dapat kembali masuk ke sistem setelah serangan awal.</p>\n<p><strong>Ketiga, pencurian data.</strong> Informasi yang dapat dijangkau oleh hak akses server, termasuk data aplikasi atau konfigurasi sensitif, berpotensi terekspos.</p>\n<p><strong>Keempat, perubahan konten situs.</strong> Situs dapat digunakan untuk menyebarkan konten berbahaya, mengarahkan pengunjung ke halaman lain, atau menjalankan aktivitas yang merugikan pemiliknya.</p>\n<p>Dampak sebenarnya bergantung pada konfigurasi server, hak akses proses web, dan data yang dapat dijangkau oleh penyerang.</p>\n<h2>Cara Mendeteksi Kemungkinan Serangan</h2>\n<p>Administrator sebaiknya tidak hanya memeriksa versi plugin, tetapi juga meninjau aktivitas situs untuk mengetahui apakah eksploitasi pernah berhasil dilakukan.</p>\n<p>Beberapa hal yang perlu diperiksa meliputi:</p>\n<ul>\n<li>Log HTTP yang menunjukkan permintaan mencurigakan ke endpoint <code>/wp-json/bricksforge/v1/form_submit</code>.</li>\n<li>Permintaan ke <code>admin-ajax.php</code> dengan aksi <code>bricksforge_form_submit</code> atau <code>bricksforge_regenerate_nonce</code> yang diikuti aktivitas unggah file mencurigakan.</li>\n<li>Metadata yang menunjukkan file gambar, tetapi URL tujuannya menggunakan ekstensi PHP.</li>\n<li>File PHP yang tidak dikenal di direktori <code>wp-content/uploads/bricksforge/tmp/</code> atau direktori unggahan lainnya.</li>\n<li>Perubahan file WordPress yang tidak dapat dijelaskan, akun administrator asing, serta aktivitas server yang tidak biasa.</li>\n</ul>\n<p>Pemeriksaan perlu mencakup log historis, bukan hanya aktivitas setelah plugin diperbarui. Pembaruan menutup celah yang diketahui, tetapi tidak otomatis menghapus file berbahaya atau akses tersembunyi yang mungkin telah ditanamkan sebelumnya.</p>\n<h2>Langkah Mitigasi dan Pencegahan</h2>\n<h3>1. Perbarui Bricksforge</h3>\n<p>Langkah terpenting adalah memperbarui plugin ke versi <strong>3.1.8.10 atau lebih baru yang telah memperbaiki kerentanan ini</strong>. Periksa versi yang terpasang melalui dashboard WordPress atau mekanisme pembaruan resmi.</p>\n<p>Jika pembaruan belum dapat dilakukan, pertimbangkan menonaktifkan plugin sementara apabila tidak mengganggu kebutuhan penting situs. Perlindungan WAF yang memiliki aturan mitigasi khusus juga dapat membantu mengurangi risiko selama proses penanganan.</p>\n<h3>2. Periksa file dan akun pengguna</h3>\n<p>Lakukan pemindaian terhadap file WordPress, terutama direktori unggahan dan direktori sementara Bricksforge. Periksa juga akun administrator, plugin, tema, serta perubahan konfigurasi yang tidak dikenal.</p>\n<p>Jika ditemukan indikasi kompromi, jangan hanya menghapus satu file mencurigakan. Lakukan investigasi untuk mengetahui apakah penyerang telah memasang backdoor atau mengubah komponen lainnya.</p>\n<h3>3. Batasi eksekusi PHP di direktori unggahan</h3>\n<p>Direktori unggahan umumnya digunakan untuk menyimpan gambar, dokumen, dan media lainnya. Jika aplikasi tidak membutuhkan eksekusi PHP di direktori tersebut, administrator dapat menerapkan aturan server untuk melarangnya.</p>\n<p>Penerapan harus disesuaikan dengan konfigurasi Apache atau Nginx dan diuji agar tidak merusak fungsi situs.</p>\n<h3>4. Perkuat validasi unggahan file</h3>\n<p>Pengembang perlu melakukan validasi di sisi server terhadap isi file, tipe file, nama file, metadata, dan lokasi penyimpanannya. Jangan hanya mengandalkan informasi yang dikirimkan oleh browser atau aplikasi klien.</p>\n<p>File yang diunggah sebaiknya disimpan di lokasi yang tidak memungkinkan eksekusi kode, dengan hak akses minimum yang diperlukan.</p>\n<h3>5. Tingkatkan pemantauan keamanan</h3>\n<p>Gunakan WAF, pemantauan log, pemindaian malware, serta pemantauan perubahan file untuk mendeteksi aktivitas mencurigakan lebih awal. Pastikan pula pencadangan dilakukan secara berkala dan dapat dipulihkan.</p>\n<p>Jika terdapat bukti bahwa situs telah diambil alih, lakukan penanganan insiden secara menyeluruh, termasuk mengganti kredensial yang berpotensi terekspos dan mencabut sesi yang mencurigakan.</p>\n<h2>Kesimpulan</h2>\n<p>Kerentanan CVE-2026-85097 pada plugin Bricksforge menunjukkan bahwa kesalahan dalam memvalidasi metadata file dapat membuka jalan bagi serangan serius terhadap situs WordPress.</p>\n<p>Dengan skor CVSS 10.0 menurut Patchstack dan adanya laporan eksploitasi aktif, administrator sebaiknya segera memperbarui plugin ke versi yang telah diperbaiki. Pemeriksaan log, file, akun pengguna, dan konfigurasi server juga penting untuk memastikan bahwa situs tidak telanjur disusupi.</p>\n<p><strong>Pesan penting bagi administrator WordPress:</strong> memperbarui plugin merupakan langkah awal, bukan akhir. Jika situs pernah menjalankan versi rentan selama periode eksploitasi, tetap lakukan pemeriksaan keamanan untuk memastikan tidak ada backdoor atau perubahan tidak sah yang tertinggal.</p>\n",
+  "content_text": "Pengantar\nJakarta, 13 Oktober 2026  — Pengguna WordPress yang menggunakan plugin Bricksforge perlu segera memeriksa keamanan situs mereka. Sebuah kerentanan kritis dengan kode  CVE-2026-85097  dilaporkan telah dieksploitasi secara aktif oleh penyerang. Kerentanan ini memiliki skor CVSS 10.0, yang menunjukkan tingkat keparahan maksimum, dan memungkinkan penyerang menjalankan kode PHP pada server tanpa harus login terlebih dahulu.\nInformasi tersebut dilaporkan oleh The Hacker News pada 12 Oktober 2026, berdasarkan temuan perusahaan keamanan WordPress Patchstack. Versi Bricksforge hingga 3.1.8.9 terdampak, sedangkan perbaikannya tersedia pada versi 3.1.8.10.\nApa Itu Bricksforge?\nBricksforge merupakan plugin tambahan untuk Bricks Builder, sebuah alat untuk membangun situs WordPress secara visual. Plugin ini menyediakan berbagai fitur, seperti formulir tingkat lanjut, animasi, interaksi halaman, dan pengelolaan konten dinamis.\nNamun, kerentanan pada fitur pengunggahan file dan pemrosesan formulir dapat membuka jalan bagi penyerang untuk mengambil alih situs yang menggunakan versi rentan.\nMengenal Kerentanan CVE-2026-85097\nKerentanan CVE-2026-85097 berkaitan dengan pengunggahan file berbahaya yang dapat berujung pada  Remote Code Execution  (RCE).\nRCE adalah kondisi ketika seseorang dapat menjalankan perintah atau kode pada komputer maupun server dari jarak jauh. Jika berhasil mengeksploitasi celah ini, penyerang berpotensi menjalankan kode PHP dengan hak akses yang dimiliki proses server web.\nBerikut informasi utamanya:\nCVE:  CVE-2026-85097\nSkor CVSS:  10.0 menurut laporan Patchstack\nProduk terdampak:  Plugin Bricksforge untuk WordPress\nVersi rentan:  3.1.8.9 dan versi sebelumnya\nVersi perbaikan:  3.1.8.10\nAutentikasi:  Tidak diperlukan untuk melakukan eksploitasi\nArtinya, penyerang tidak harus memiliki akun WordPress untuk mencoba memanfaatkan kerentanan ini. <Cite refs={[“turn235290search1″,”turn235290search3”]}/>\nBagaimana Hacker Mengeksploitasi Celah Ini?\nMasalah utama terletak pada cara Bricksforge memproses informasi file ketika formulir dikirimkan.\nPada awal pengunggahan, plugin memeriksa tipe file melalui MIME type. Pemeriksaan ini bertujuan memastikan file sesuai dengan jenis yang diizinkan. Namun, ketika formulir dikirimkan, plugin mempercayai metadata yang dikirim oleh pengguna, termasuk informasi URL tujuan file, tanpa melakukan validasi yang memadai.\nPenyerang dapat memanfaatkan perbedaan tersebut melalui beberapa tahap.\n1. Memperoleh nonce tanpa login\nPenyerang memanfaatkan endpoint AJAX yang dapat diakses tanpa autentikasi untuk mendapatkan nonce yang dibutuhkan dalam proses permintaan. Nonce merupakan nilai yang biasanya digunakan aplikasi untuk membantu memvalidasi permintaan tertentu.\n2. Mengunggah file yang tampak seperti gambar\nPenyerang menyiapkan file yang terlihat seperti gambar GIF atau PNG, tetapi juga mengandung kode PHP. Teknik ini dikenal sebagai  polyglot file , yaitu file yang dibuat agar dapat dikenali sebagai lebih dari satu jenis format.\nKarena pemeriksaan awal tidak cukup untuk mencegah skenario ini, file dapat masuk ke direktori sementara plugin.\n3. Memanipulasi metadata file\nKetika formulir dikirimkan, penyerang memanipulasi informasi URL tujuan file sehingga mengarah ke lokasi dengan ekstensi PHP. Sementara itu, metadata file yang lain masih menunjukkan bahwa file tersebut merupakan gambar.\n4. Menjalankan kode PHP\nJika server menerima dan memproses file tersebut dengan cara yang rentan, kode PHP di dalamnya berpotensi dieksekusi ketika file diakses.\nRangkaian ini dapat memberikan kemampuan eksekusi kode jarak jauh kepada penyerang tanpa autentikasi.\nEksploitasi Aktif Telah Terdeteksi\nPatchstack melaporkan bahwa aktivitas eksploitasi mulai terdeteksi pada 7 Oktober 2026 pukul 21.47 UTC.\nDalam pengamatannya, Patchstack menemukan aktivitas dari 63 alamat IP sumber. Dua pola aktivitas yang menonjol adalah:\nSebanyak 44 alamat IP mengirimkan 56 permintaan dengan payload identik dalam waktu berdekatan.\nTiga alamat IP lainnya menguji 25 variasi ekstensi file dan encoding terhadap file sementara yang sama.\nPola tersebut mengindikasikan penggunaan otomatisasi dan kemungkinan infrastruktur terdistribusi atau proxy untuk mengirimkan permintaan. Namun, data ini tidak cukup untuk memastikan bahwa seluruh aktivitas berasal dari satu kelompok penyerang.\nAktivitas tersebut juga menunjukkan bahwa kerentanan ini bukan sekadar risiko teoretis. Situs yang masih menggunakan versi rentan berpotensi menjadi sasaran pemindaian dan percobaan eksploitasi otomatis.\nApa Dampaknya bagi Pemilik Situs WordPress?\nJika eksploitasi berhasil, dampaknya dapat meluas melampaui fitur formulir yang bermasalah.\nPertama, pengambilalihan situs.  Penyerang dapat menjalankan kode dengan hak akses proses server web dan memanfaatkan akses tersebut untuk melakukan tindakan lanjutan.\nKedua, pemasangan backdoor.  Penyerang dapat menanamkan mekanisme akses tersembunyi agar dapat kembali masuk ke sistem setelah serangan awal.\nKetiga, pencurian data.  Informasi yang dapat dijangkau oleh hak akses server, termasuk data aplikasi atau konfigurasi sensitif, berpotensi terekspos.\nKeempat, perubahan konten situs.  Situs dapat digunakan untuk menyebarkan konten berbahaya, mengarahkan pengunjung ke halaman lain, atau menjalankan aktivitas yang merugikan pemiliknya.\nDampak sebenarnya bergantung pada konfigurasi server, hak akses proses web, dan data yang dapat dijangkau oleh penyerang.\nCara Mendeteksi Kemungkinan Serangan\nAdministrator sebaiknya tidak hanya memeriksa versi plugin, tetapi juga meninjau aktivitas situs untuk mengetahui apakah eksploitasi pernah berhasil dilakukan.\nBeberapa hal yang perlu diperiksa meliputi:\nLog HTTP yang menunjukkan permintaan mencurigakan ke endpoint  /wp-json/bricksforge/v1/form_submit .\nPermintaan ke  admin-ajax.php  dengan aksi  bricksforge_form_submit  atau  bricksforge_regenerate_nonce  yang diikuti aktivitas unggah file mencurigakan.\nMetadata yang menunjukkan file gambar, tetapi URL tujuannya menggunakan ekstensi PHP.\nFile PHP yang tidak dikenal di direktori  wp-content/uploads/bricksforge/tmp/  atau direktori unggahan lainnya.\nPerubahan file WordPress yang tidak dapat dijelaskan, akun administrator asing, serta aktivitas server yang tidak biasa.\nPemeriksaan perlu mencakup log historis, bukan hanya aktivitas setelah plugin diperbarui. Pembaruan menutup celah yang diketahui, tetapi tidak otomatis menghapus file berbahaya atau akses tersembunyi yang mungkin telah ditanamkan sebelumnya.\nLangkah Mitigasi dan Pencegahan\n1. Perbarui Bricksforge\nLangkah terpenting adalah memperbarui plugin ke versi  3.1.8.10 atau lebih baru yang telah memperbaiki kerentanan ini . Periksa versi yang terpasang melalui dashboard WordPress atau mekanisme pembaruan resmi.\nJika pembaruan belum dapat dilakukan, pertimbangkan menonaktifkan plugin sementara apabila tidak mengganggu kebutuhan penting situs. Perlindungan WAF yang memiliki aturan mitigasi khusus juga dapat membantu mengurangi risiko selama proses penanganan.\n2. Periksa file dan akun pengguna\nLakukan pemindaian terhadap file WordPress, terutama direktori unggahan dan direktori sementara Bricksforge. Periksa juga akun administrator, plugin, tema, serta perubahan konfigurasi yang tidak dikenal.\nJika ditemukan indikasi kompromi, jangan hanya menghapus satu file mencurigakan. Lakukan investigasi untuk mengetahui apakah penyerang telah memasang backdoor atau mengubah komponen lainnya.\n3. Batasi eksekusi PHP di direktori unggahan\nDirektori unggahan umumnya digunakan untuk menyimpan gambar, dokumen, dan media lainnya. Jika aplikasi tidak membutuhkan eksekusi PHP di direktori tersebut, administrator dapat menerapkan aturan server untuk melarangnya.\nPenerapan harus disesuaikan dengan konfigurasi Apache atau Nginx dan diuji agar tidak merusak fungsi situs.\n4. Perkuat validasi unggahan file\nPengembang perlu melakukan validasi di sisi server terhadap isi file, tipe file, nama file, metadata, dan lokasi penyimpanannya. Jangan hanya mengandalkan informasi yang dikirimkan oleh browser atau aplikasi klien.\nFile yang diunggah sebaiknya disimpan di lokasi yang tidak memungkinkan eksekusi kode, dengan hak akses minimum yang diperlukan.\n5. Tingkatkan pemantauan keamanan\nGunakan WAF, pemantauan log, pemindaian malware, serta pemantauan perubahan file untuk mendeteksi aktivitas mencurigakan lebih awal. Pastikan pula pencadangan dilakukan secara berkala dan dapat dipulihkan.\nJika terdapat bukti bahwa situs telah diambil alih, lakukan penanganan insiden secara menyeluruh, termasuk mengganti kredensial yang berpotensi terekspos dan mencabut sesi yang mencurigakan.\nKesimpulan\nKerentanan CVE-2026-85097 pada plugin Bricksforge menunjukkan bahwa kesalahan dalam memvalidasi metadata file dapat membuka jalan bagi serangan serius terhadap situs WordPress.\nDengan skor CVSS 10.0 menurut Patchstack dan adanya laporan eksploitasi aktif, administrator sebaiknya segera memperbarui plugin ke versi yang telah diperbaiki. Pemeriksaan log, file, akun pengguna, dan konfigurasi server juga penting untuk memastikan bahwa situs tidak telanjur disusupi.\nPesan penting bagi administrator WordPress:  memperbarui plugin merupakan langkah awal, bukan akhir. Jika situs pernah menjalankan versi rentan selama periode eksploitasi, tetap lakukan pemeriksaan keamanan untuk memastikan tidak ada backdoor atau perubahan tidak sah yang tertinggal.",
+  "raw": {
+    "id": 23139,
+    "date": "2026-10-13T17:05:07",
+    "date_gmt": "2026-10-13T10:05:07",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=23139"
+    },
+    "modified": "2026-10-13T17:09:58",
+    "modified_gmt": "2026-10-13T10:09:58",
+    "slug": "celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/",
+    "title": {
+      "rendered": "Celah Kritis Bricksforge WordPress dengan Skor CVSS 10.0 Dieksploitasi Hacker"
+    },
+    "content": {
+      "rendered": "<h1>Pengantar</h1>\n<p><strong>Jakarta, 13 Oktober 2026</strong> — Pengguna WordPress yang menggunakan plugin Bricksforge perlu segera memeriksa keamanan situs mereka. Sebuah kerentanan kritis dengan kode <strong>CVE-2026-85097</strong> dilaporkan telah dieksploitasi secara aktif oleh penyerang. Kerentanan ini memiliki skor CVSS 10.0, yang menunjukkan tingkat keparahan maksimum, dan memungkinkan penyerang menjalankan kode PHP pada server tanpa harus login terlebih dahulu.</p>\n<p>Informasi tersebut dilaporkan oleh The Hacker News pada 12 Oktober 2026, berdasarkan temuan perusahaan keamanan WordPress Patchstack. Versi Bricksforge hingga 3.1.8.9 terdampak, sedangkan perbaikannya tersedia pada versi 3.1.8.10.</p>\n<h2>Apa Itu Bricksforge?</h2>\n<p>Bricksforge merupakan plugin tambahan untuk Bricks Builder, sebuah alat untuk membangun situs WordPress secara visual. Plugin ini menyediakan berbagai fitur, seperti formulir tingkat lanjut, animasi, interaksi halaman, dan pengelolaan konten dinamis.</p>\n<p>Namun, kerentanan pada fitur pengunggahan file dan pemrosesan formulir dapat membuka jalan bagi penyerang untuk mengambil alih situs yang menggunakan versi rentan.</p>\n<h2>Mengenal Kerentanan CVE-2026-85097</h2>\n<p>Kerentanan CVE-2026-85097 berkaitan dengan pengunggahan file berbahaya yang dapat berujung pada <em>Remote Code Execution</em> (RCE).</p>\n<p>RCE adalah kondisi ketika seseorang dapat menjalankan perintah atau kode pada komputer maupun server dari jarak jauh. Jika berhasil mengeksploitasi celah ini, penyerang berpotensi menjalankan kode PHP dengan hak akses yang dimiliki proses server web.</p>\n<p>Berikut informasi utamanya:</p>\n<ul>\n<li><strong>CVE:</strong> CVE-2026-85097</li>\n<li><strong>Skor CVSS:</strong> 10.0 menurut laporan Patchstack</li>\n<li><strong>Produk terdampak:</strong> Plugin Bricksforge untuk WordPress</li>\n<li><strong>Versi rentan:</strong> 3.1.8.9 dan versi sebelumnya</li>\n<li><strong>Versi perbaikan:</strong> 3.1.8.10</li>\n<li><strong>Autentikasi:</strong> Tidak diperlukan untuk melakukan eksploitasi</li>\n</ul>\n<p>Artinya, penyerang tidak harus memiliki akun WordPress untuk mencoba memanfaatkan kerentanan ini. &lt;Cite refs={[&#8220;turn235290search1&#8243;,&#8221;turn235290search3&#8221;]}/&gt;</p>\n<h2>Bagaimana Hacker Mengeksploitasi Celah Ini?</h2>\n<p>Masalah utama terletak pada cara Bricksforge memproses informasi file ketika formulir dikirimkan.</p>\n<p>Pada awal pengunggahan, plugin memeriksa tipe file melalui MIME type. Pemeriksaan ini bertujuan memastikan file sesuai dengan jenis yang diizinkan. Namun, ketika formulir dikirimkan, plugin mempercayai metadata yang dikirim oleh pengguna, termasuk informasi URL tujuan file, tanpa melakukan validasi yang memadai.</p>\n<p>Penyerang dapat memanfaatkan perbedaan tersebut melalui beberapa tahap.</p>\n<h3>1. Memperoleh nonce tanpa login</h3>\n<p>Penyerang memanfaatkan endpoint AJAX yang dapat diakses tanpa autentikasi untuk mendapatkan nonce yang dibutuhkan dalam proses permintaan. Nonce merupakan nilai yang biasanya digunakan aplikasi untuk membantu memvalidasi permintaan tertentu.</p>\n<h3>2. Mengunggah file yang tampak seperti gambar</h3>\n<p>Penyerang menyiapkan file yang terlihat seperti gambar GIF atau PNG, tetapi juga mengandung kode PHP. Teknik ini dikenal sebagai <em>polyglot file</em>, yaitu file yang dibuat agar dapat dikenali sebagai lebih dari satu jenis format.</p>\n<p>Karena pemeriksaan awal tidak cukup untuk mencegah skenario ini, file dapat masuk ke direktori sementara plugin.</p>\n<h3>3. Memanipulasi metadata file</h3>\n<p>Ketika formulir dikirimkan, penyerang memanipulasi informasi URL tujuan file sehingga mengarah ke lokasi dengan ekstensi PHP. Sementara itu, metadata file yang lain masih menunjukkan bahwa file tersebut merupakan gambar.</p>\n<h3>4. Menjalankan kode PHP</h3>\n<p>Jika server menerima dan memproses file tersebut dengan cara yang rentan, kode PHP di dalamnya berpotensi dieksekusi ketika file diakses.</p>\n<p>Rangkaian ini dapat memberikan kemampuan eksekusi kode jarak jauh kepada penyerang tanpa autentikasi.</p>\n<h2>Eksploitasi Aktif Telah Terdeteksi</h2>\n<p>Patchstack melaporkan bahwa aktivitas eksploitasi mulai terdeteksi pada 7 Oktober 2026 pukul 21.47 UTC.</p>\n<p>Dalam pengamatannya, Patchstack menemukan aktivitas dari 63 alamat IP sumber. Dua pola aktivitas yang menonjol adalah:</p>\n<ul>\n<li>Sebanyak 44 alamat IP mengirimkan 56 permintaan dengan payload identik dalam waktu berdekatan.</li>\n<li>Tiga alamat IP lainnya menguji 25 variasi ekstensi file dan encoding terhadap file sementara yang sama.</li>\n</ul>\n<p>Pola tersebut mengindikasikan penggunaan otomatisasi dan kemungkinan infrastruktur terdistribusi atau proxy untuk mengirimkan permintaan. Namun, data ini tidak cukup untuk memastikan bahwa seluruh aktivitas berasal dari satu kelompok penyerang.</p>\n<p>Aktivitas tersebut juga menunjukkan bahwa kerentanan ini bukan sekadar risiko teoretis. Situs yang masih menggunakan versi rentan berpotensi menjadi sasaran pemindaian dan percobaan eksploitasi otomatis.</p>\n<h2>Apa Dampaknya bagi Pemilik Situs WordPress?</h2>\n<p>Jika eksploitasi berhasil, dampaknya dapat meluas melampaui fitur formulir yang bermasalah.</p>\n<p><strong>Pertama, pengambilalihan situs.</strong> Penyerang dapat menjalankan kode dengan hak akses proses server web dan memanfaatkan akses tersebut untuk melakukan tindakan lanjutan.</p>\n<p><strong>Kedua, pemasangan backdoor.</strong> Penyerang dapat menanamkan mekanisme akses tersembunyi agar dapat kembali masuk ke sistem setelah serangan awal.</p>\n<p><strong>Ketiga, pencurian data.</strong> Informasi yang dapat dijangkau oleh hak akses server, termasuk data aplikasi atau konfigurasi sensitif, berpotensi terekspos.</p>\n<p><strong>Keempat, perubahan konten situs.</strong> Situs dapat digunakan untuk menyebarkan konten berbahaya, mengarahkan pengunjung ke halaman lain, atau menjalankan aktivitas yang merugikan pemiliknya.</p>\n<p>Dampak sebenarnya bergantung pada konfigurasi server, hak akses proses web, dan data yang dapat dijangkau oleh penyerang.</p>\n<h2>Cara Mendeteksi Kemungkinan Serangan</h2>\n<p>Administrator sebaiknya tidak hanya memeriksa versi plugin, tetapi juga meninjau aktivitas situs untuk mengetahui apakah eksploitasi pernah berhasil dilakukan.</p>\n<p>Beberapa hal yang perlu diperiksa meliputi:</p>\n<ul>\n<li>Log HTTP yang menunjukkan permintaan mencurigakan ke endpoint <code>/wp-json/bricksforge/v1/form_submit</code>.</li>\n<li>Permintaan ke <code>admin-ajax.php</code> dengan aksi <code>bricksforge_form_submit</code> atau <code>bricksforge_regenerate_nonce</code> yang diikuti aktivitas unggah file mencurigakan.</li>\n<li>Metadata yang menunjukkan file gambar, tetapi URL tujuannya menggunakan ekstensi PHP.</li>\n<li>File PHP yang tidak dikenal di direktori <code>wp-content/uploads/bricksforge/tmp/</code> atau direktori unggahan lainnya.</li>\n<li>Perubahan file WordPress yang tidak dapat dijelaskan, akun administrator asing, serta aktivitas server yang tidak biasa.</li>\n</ul>\n<p>Pemeriksaan perlu mencakup log historis, bukan hanya aktivitas setelah plugin diperbarui. Pembaruan menutup celah yang diketahui, tetapi tidak otomatis menghapus file berbahaya atau akses tersembunyi yang mungkin telah ditanamkan sebelumnya.</p>\n<h2>Langkah Mitigasi dan Pencegahan</h2>\n<h3>1. Perbarui Bricksforge</h3>\n<p>Langkah terpenting adalah memperbarui plugin ke versi <strong>3.1.8.10 atau lebih baru yang telah memperbaiki kerentanan ini</strong>. Periksa versi yang terpasang melalui dashboard WordPress atau mekanisme pembaruan resmi.</p>\n<p>Jika pembaruan belum dapat dilakukan, pertimbangkan menonaktifkan plugin sementara apabila tidak mengganggu kebutuhan penting situs. Perlindungan WAF yang memiliki aturan mitigasi khusus juga dapat membantu mengurangi risiko selama proses penanganan.</p>\n<h3>2. Periksa file dan akun pengguna</h3>\n<p>Lakukan pemindaian terhadap file WordPress, terutama direktori unggahan dan direktori sementara Bricksforge. Periksa juga akun administrator, plugin, tema, serta perubahan konfigurasi yang tidak dikenal.</p>\n<p>Jika ditemukan indikasi kompromi, jangan hanya menghapus satu file mencurigakan. Lakukan investigasi untuk mengetahui apakah penyerang telah memasang backdoor atau mengubah komponen lainnya.</p>\n<h3>3. Batasi eksekusi PHP di direktori unggahan</h3>\n<p>Direktori unggahan umumnya digunakan untuk menyimpan gambar, dokumen, dan media lainnya. Jika aplikasi tidak membutuhkan eksekusi PHP di direktori tersebut, administrator dapat menerapkan aturan server untuk melarangnya.</p>\n<p>Penerapan harus disesuaikan dengan konfigurasi Apache atau Nginx dan diuji agar tidak merusak fungsi situs.</p>\n<h3>4. Perkuat validasi unggahan file</h3>\n<p>Pengembang perlu melakukan validasi di sisi server terhadap isi file, tipe file, nama file, metadata, dan lokasi penyimpanannya. Jangan hanya mengandalkan informasi yang dikirimkan oleh browser atau aplikasi klien.</p>\n<p>File yang diunggah sebaiknya disimpan di lokasi yang tidak memungkinkan eksekusi kode, dengan hak akses minimum yang diperlukan.</p>\n<h3>5. Tingkatkan pemantauan keamanan</h3>\n<p>Gunakan WAF, pemantauan log, pemindaian malware, serta pemantauan perubahan file untuk mendeteksi aktivitas mencurigakan lebih awal. Pastikan pula pencadangan dilakukan secara berkala dan dapat dipulihkan.</p>\n<p>Jika terdapat bukti bahwa situs telah diambil alih, lakukan penanganan insiden secara menyeluruh, termasuk mengganti kredensial yang berpotensi terekspos dan mencabut sesi yang mencurigakan.</p>\n<h2>Kesimpulan</h2>\n<p>Kerentanan CVE-2026-85097 pada plugin Bricksforge menunjukkan bahwa kesalahan dalam memvalidasi metadata file dapat membuka jalan bagi serangan serius terhadap situs WordPress.</p>\n<p>Dengan skor CVSS 10.0 menurut Patchstack dan adanya laporan eksploitasi aktif, administrator sebaiknya segera memperbarui plugin ke versi yang telah diperbaiki. Pemeriksaan log, file, akun pengguna, dan konfigurasi server juga penting untuk memastikan bahwa situs tidak telanjur disusupi.</p>\n<p><strong>Pesan penting bagi administrator WordPress:</strong> memperbarui plugin merupakan langkah awal, bukan akhir. Jika situs pernah menjalankan versi rentan selama periode eksploitasi, tetap lakukan pemeriksaan keamanan untuk memastikan tidak ada backdoor atau perubahan tidak sah yang tertinggal.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Jakarta, 13 Oktober 2026 — Pengguna WordPress yang menggunakan plugin Bricksforge perlu segera memeriksa keamanan situs mereka. Sebuah kerentanan kritis dengan kode CVE-2026-85097 dilaporkan telah dieksploitasi secara aktif oleh penyerang. Kerentanan ini memiliki skor CVSS 10.0, yang menunjukkan tingkat keparahan maksimum, dan memungkinkan penyerang menjalankan kode PHP pada server tanpa harus login terlebih dahulu. Informasi tersebut dilaporkan oleh The Hacker News pada 12 Oktober 2026, berdasarkan temuan perusahaan keamanan WordPress Patchstack. Versi Bricksforge hingga 3.1.8.9 terdampak, sedangkan perbaikannya tersedia pada versi 3.1.8.10. Apa Itu Bricksforge? Bricksforge merupakan plugin tambahan untuk Bricks Builder, sebuah alat untuk membangun situs WordPress secara&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 10229,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1
+    ],
+    "tags": [],
+    "class_list": [
+      "post-23139",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-uncategorized"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Celah Kritis Bricksforge WordPress dengan Skor CVSS 10.0 Dieksploitasi Hacker - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Celah Kritis Bricksforge WordPress dengan Skor CVSS 10.0 Dieksploitasi Hacker - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Jakarta, 13 Oktober 2026 — Pengguna WordPress yang menggunakan plugin Bricksforge perlu segera memeriksa keamanan situs mereka. Sebuah kerentanan kritis dengan kode CVE-2026-85097 dilaporkan telah dieksploitasi secara aktif oleh penyerang. Kerentanan ini memiliki skor CVSS 10.0, yang menunjukkan tingkat keparahan maksimum, dan memungkinkan penyerang menjalankan kode PHP pada server tanpa harus login terlebih dahulu. Informasi tersebut dilaporkan oleh The Hacker News pada 12 Oktober 2026, berdasarkan temuan perusahaan keamanan WordPress Patchstack. Versi Bricksforge hingga 3.1.8.9 terdampak, sedangkan perbaikannya tersedia pada versi 3.1.8.10. Apa Itu Bricksforge? Bricksforge merupakan plugin tambahan untuk Bricks Builder, sebuah alat untuk membangun situs WordPress secara...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-10-13T10:05:07+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-10-13T10:09:58+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1600\" />\n\t<meta property=\"og:image:height\" content=\"900\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"6 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/\",\"url\":\"https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/\",\"name\":\"Celah Kritis Bricksforge WordPress dengan Skor CVSS 10.0 Dieksploitasi Hacker - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg\",\"datePublished\":\"2026-10-13T10:05:07+00:00\",\"dateModified\":\"2026-10-13T10:09:58+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg\",\"width\":1600,\"height\":900},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Celah Kritis Bricksforge WordPress dengan Skor CVSS 10.0 Dieksploitasi Hacker\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Celah Kritis Bricksforge WordPress dengan Skor CVSS 10.0 Dieksploitasi Hacker - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Celah Kritis Bricksforge WordPress dengan Skor CVSS 10.0 Dieksploitasi Hacker - buletinsiber.com",
+      "og_description": "Pengantar Jakarta, 13 Oktober 2026 — Pengguna WordPress yang menggunakan plugin Bricksforge perlu segera memeriksa keamanan situs mereka. Sebuah kerentanan kritis dengan kode CVE-2026-85097 dilaporkan telah dieksploitasi secara aktif oleh penyerang. Kerentanan ini memiliki skor CVSS 10.0, yang menunjukkan tingkat keparahan maksimum, dan memungkinkan penyerang menjalankan kode PHP pada server tanpa harus login terlebih dahulu. Informasi tersebut dilaporkan oleh The Hacker News pada 12 Oktober 2026, berdasarkan temuan perusahaan keamanan WordPress Patchstack. Versi Bricksforge hingga 3.1.8.9 terdampak, sedangkan perbaikannya tersedia pada versi 3.1.8.10. Apa Itu Bricksforge? Bricksforge merupakan plugin tambahan untuk Bricks Builder, sebuah alat untuk membangun situs WordPress secara...",
+      "og_url": "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-10-13T10:05:07+00:00",
+      "article_modified_time": "2026-10-13T10:09:58+00:00",
+      "og_image": [
+        {
+          "width": 1600,
+          "height": 900,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "6 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/",
+            "url": "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/",
+            "name": "Celah Kritis Bricksforge WordPress dengan Skor CVSS 10.0 Dieksploitasi Hacker - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg",
+            "datePublished": "2026-10-13T10:05:07+00:00",
+            "dateModified": "2026-10-13T10:09:58+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/06/WordPress.jpg",
+            "width": 1600,
+            "height": 900
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/celah-kritis-bricksforge-wordpress-dengan-skor-cvss-10-0-dieksploitasi-hacker/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Celah Kritis Bricksforge WordPress dengan Skor CVSS 10.0 Dieksploitasi Hacker"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23139",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=23139"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23139/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 23141,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/23139/revisions/23141"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/10229"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=23139"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=23139"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=23139"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

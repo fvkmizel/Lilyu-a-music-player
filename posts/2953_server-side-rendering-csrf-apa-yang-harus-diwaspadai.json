@@ -1,0 +1,313 @@
+{
+  "id": 2953,
+  "title": "Server-Side Rendering & CSRF: Apa yang Harus Diwaspadai?",
+  "slug": "server-side-rendering-csrf-apa-yang-harus-diwaspadai",
+  "url": "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/",
+  "date": "2025-07-07T08:35:56",
+  "date_gmt": "2025-07-07T08:35:56",
+  "modified": "2025-07-07T08:35:56",
+  "modified_gmt": "2025-07-07T08:35:56",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/1_CgrMqqxMCltl4BVjGgFRKA.png",
+  "excerpt": "Server-Side Rendering (SSR) adalah teknik untuk menampilkan halaman web dari sisi server sebelum dikirim ke browser. Banyak framework modern seperti Next.js, Nuxt.js, atau bahkan Laravel Blade, memakai SSR untuk performa dan SEO yang lebih baik. Tapi ada satu hal yang sering luput: keamanan dari serangan CSRF (Cross-Site Request Forgery). Yuk, kita bahas apa yang perlu diwaspadai saat memakai SSR dan bagaimana mengamankannya dari CSRF, dengan bahasa yang sederhana. 🧠 Apa Itu SSR? Server-Side Rendering (SSR) artinya halaman HTML dibuat di server, bukan di browser. Contoh: Kamu buka halaman /profil Server langsung kirim HTML lengkap dengan isi datanya Browser hanya menampilkan…",
+  "content_html": "<h1 data-start=\"91\" data-end=\"152\"></h1>\n<p data-start=\"154\" data-end=\"411\"><strong data-start=\"154\" data-end=\"185\">Server-Side Rendering (SSR)</strong> adalah teknik untuk menampilkan halaman web dari sisi server sebelum dikirim ke browser. Banyak framework modern seperti <strong data-start=\"307\" data-end=\"318\">Next.js</strong>, <strong data-start=\"320\" data-end=\"331\">Nuxt.js</strong>, atau bahkan Laravel Blade, memakai SSR untuk performa dan SEO yang lebih baik.</p>\n<p data-start=\"413\" data-end=\"511\">Tapi ada satu hal yang sering luput: <strong data-start=\"450\" data-end=\"510\">keamanan dari serangan CSRF (Cross-Site Request Forgery)</strong>.</p>\n<p data-start=\"513\" data-end=\"645\">Yuk, kita bahas <strong data-start=\"529\" data-end=\"614\">apa yang perlu diwaspadai saat memakai SSR dan bagaimana mengamankannya dari CSRF</strong>, dengan bahasa yang sederhana.</p>\n<hr data-start=\"647\" data-end=\"650\" />\n<h2 data-start=\"652\" data-end=\"670\">🧠 Apa Itu SSR?</h2>\n<p data-start=\"672\" data-end=\"760\"><strong data-start=\"672\" data-end=\"703\">Server-Side Rendering (SSR)</strong> artinya halaman HTML dibuat di server, bukan di browser.</p>\n<p data-start=\"762\" data-end=\"769\">Contoh:</p>\n<ul data-start=\"770\" data-end=\"892\">\n<li data-start=\"770\" data-end=\"799\">\n<p data-start=\"772\" data-end=\"799\">Kamu buka halaman <code data-start=\"790\" data-end=\"799\">/profil</code></p>\n</li>\n<li data-start=\"800\" data-end=\"855\">\n<p data-start=\"802\" data-end=\"855\">Server langsung kirim HTML lengkap dengan isi datanya</p>\n</li>\n<li data-start=\"856\" data-end=\"892\">\n<p data-start=\"858\" data-end=\"892\">Browser hanya menampilkan hasilnya</p>\n</li>\n</ul>\n<p data-start=\"894\" data-end=\"920\">SSR membantu website jadi:</p>\n<ul data-start=\"921\" data-end=\"1032\">\n<li data-start=\"921\" data-end=\"946\">\n<p data-start=\"923\" data-end=\"946\">Lebih cepat ditampilkan</p>\n</li>\n<li data-start=\"947\" data-end=\"980\">\n<p data-start=\"949\" data-end=\"980\">Lebih ramah mesin pencari (SEO)</p>\n</li>\n<li data-start=\"981\" data-end=\"1032\">\n<p data-start=\"983\" data-end=\"1032\">Lebih siap diakses pengguna dengan koneksi lambat</p>\n</li>\n</ul>\n<hr data-start=\"1034\" data-end=\"1037\" />\n<h2 data-start=\"1039\" data-end=\"1074\">🎯 Apa Hubungannya SSR dan CSRF?</h2>\n<p data-start=\"1076\" data-end=\"1151\">Karena SSR bekerja di <strong data-start=\"1098\" data-end=\"1108\">server</strong> dan langsung merender data pengguna, maka:</p>\n<ul data-start=\"1153\" data-end=\"1304\">\n<li data-start=\"1153\" data-end=\"1218\">\n<p data-start=\"1155\" data-end=\"1218\">SSR <strong data-start=\"1159\" data-end=\"1218\">sering mengakses data sensitif dari cookie atau session</strong></p>\n</li>\n<li data-start=\"1219\" data-end=\"1304\">\n<p data-start=\"1221\" data-end=\"1304\">Halaman yang di-render bisa berisi <strong data-start=\"1256\" data-end=\"1264\">form</strong> atau <strong data-start=\"1270\" data-end=\"1285\">AJAX script</strong> yang mengubah data</p>\n</li>\n</ul>\n<p data-start=\"1306\" data-end=\"1419\">Nah, di sinilah <strong data-start=\"1322\" data-end=\"1344\">CSRF bisa menyusup</strong>, kalau <strong data-start=\"1352\" data-end=\"1395\">token CSRF tidak disiapkan dengan benar</strong> dalam proses rendering.</p>\n<hr data-start=\"1421\" data-end=\"1424\" />\n<h2 data-start=\"1426\" data-end=\"1461\">⚠️ Hal-Hal yang Harus Diwaspadai</h2>\n<h3 data-start=\"1463\" data-end=\"1514\">1. <strong data-start=\"1470\" data-end=\"1514\">Lupa Menyisipkan CSRF Token di Form HTML</strong></h3>\n<p data-start=\"1516\" data-end=\"1612\">Dalam SSR, form biasanya dirender langsung sebagai HTML. Kalau kamu lupa menambahkan token CSRF:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"/ubah-password\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"password\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"baru\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span></span>&gt;Ubah<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1742\" data-end=\"1785\">Maka halaman jadi <strong data-start=\"1760\" data-end=\"1784\">rentan diserang CSRF</strong>.</p>\n<p data-start=\"1787\" data-end=\"1823\"><strong data-start=\"1787\" data-end=\"1798\">Solusi:</strong> Tambahkan token di form:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"/ubah-password\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"_csrf\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"{{ csrfToken }}\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"password\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"baru\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span></span>&gt;Ubah<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n</code></div>\n</div>\n<hr data-start=\"2014\" data-end=\"2017\" />\n<h3 data-start=\"2019\" data-end=\"2064\">2. <strong data-start=\"2026\" data-end=\"2064\">Tidak Menyediakan Token untuk AJAX</strong></h3>\n<p data-start=\"2066\" data-end=\"2142\">Kadang SSR menyisipkan JavaScript di halaman untuk aksi seperti delete/edit.</p>\n<p data-start=\"2144\" data-end=\"2253\">Masalahnya, script ini bisa mengirim request POST tanpa CSRF token jika token tidak diberikan saat rendering.</p>\n<p data-start=\"2255\" data-end=\"2325\"><strong data-start=\"2255\" data-end=\"2266\">Solusi:</strong> Sertakan token di dalam meta tag atau variabel JavaScript:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">meta</span></span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"csrf-token\"</span> <span class=\"hljs-attr\">content</span>=<span class=\"hljs-string\">\"{{ csrfToken }}\"</span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"2391\" data-end=\"2396\">Atau:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">js</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-js\"><span class=\"hljs-variable language_\">window</span>.<span class=\"hljs-property\">csrfToken</span> = <span class=\"hljs-string\">\"{{ csrfToken }}\"</span>;<br />\n</code></div>\n</div>\n<hr data-start=\"2447\" data-end=\"2450\" />\n<h3 data-start=\"2452\" data-end=\"2501\">3. <strong data-start=\"2459\" data-end=\"2501\">Data Pribadi Terekspose di View Source</strong></h3>\n<p data-start=\"2503\" data-end=\"2676\">SSR bisa menyisipkan data pengguna langsung di HTML. Kalau kamu menampilkan informasi sensitif (misalnya saldo, token login, dsb.) <strong data-start=\"2634\" data-end=\"2654\">tanpa pengamanan</strong>, bisa disalahgunakan.</p>\n<p data-start=\"2678\" data-end=\"2689\"><strong data-start=\"2678\" data-end=\"2689\">Solusi:</strong></p>\n<ul data-start=\"2690\" data-end=\"2846\">\n<li data-start=\"2690\" data-end=\"2734\">\n<p data-start=\"2692\" data-end=\"2734\">Jangan tampilkan data sensitif sembarangan</p>\n</li>\n<li data-start=\"2735\" data-end=\"2789\">\n<p data-start=\"2737\" data-end=\"2789\">Gunakan encoding untuk mencegah script injeksi (XSS)</p>\n</li>\n<li data-start=\"2790\" data-end=\"2846\">\n<p data-start=\"2792\" data-end=\"2846\">Gunakan hanya token CSRF, bukan token login atau akses</p>\n</li>\n</ul>\n<hr data-start=\"2848\" data-end=\"2851\" />\n<h3 data-start=\"2853\" data-end=\"2895\">4. <strong data-start=\"2860\" data-end=\"2895\">Form Bisa Diserang Lewat Iframe</strong></h3>\n<p data-start=\"2897\" data-end=\"3051\">Kalau halaman SSR bisa dibuka dalam iframe (misalnya dari domain lain), penyerang bisa memanfaatkan itu untuk membuat <strong data-start=\"3015\" data-end=\"3040\">serangan clickjacking</strong> atau CSRF.</p>\n<p data-start=\"3053\" data-end=\"3080\"><strong data-start=\"3053\" data-end=\"3064\">Solusi:</strong> Gunakan header:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">http</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-http\">X-Frame-Options: DENY<br />\n</code></div>\n</div>\n<hr data-start=\"3117\" data-end=\"3120\" />\n<h2 data-start=\"3122\" data-end=\"3160\">🛡️ Praktik Terbaik SSR + Anti-CSRF</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"3162\" data-end=\"3757\">\n<thead data-start=\"3162\" data-end=\"3247\">\n<tr data-start=\"3162\" data-end=\"3247\">\n<th data-start=\"3162\" data-end=\"3194\" data-col-size=\"sm\">Langkah</th>\n<th data-start=\"3194\" data-end=\"3247\" data-col-size=\"md\">Penjelasan Singkat</th>\n</tr>\n</thead>\n<tbody data-start=\"3333\" data-end=\"3757\">\n<tr data-start=\"3333\" data-end=\"3416\">\n<td data-start=\"3333\" data-end=\"3364\" data-col-size=\"sm\">Sisipkan token di semua form</td>\n<td data-col-size=\"md\" data-start=\"3364\" data-end=\"3416\">Gunakan <code data-start=\"3374\" data-end=\"3385\">csrfToken</code> dari server</td>\n</tr>\n<tr data-start=\"3417\" data-end=\"3501\">\n<td data-start=\"3417\" data-end=\"3448\" data-col-size=\"sm\">Sertakan token di JavaScript</td>\n<td data-col-size=\"md\" data-start=\"3448\" data-end=\"3501\">Pakai <code data-start=\"3456\" data-end=\"3466\">meta tag</code> atau variabel global</td>\n</tr>\n<tr data-start=\"3502\" data-end=\"3586\">\n<td data-start=\"3502\" data-end=\"3533\" data-col-size=\"sm\">Validasi token di server</td>\n<td data-col-size=\"md\" data-start=\"3533\" data-end=\"3586\">Jangan hanya cek cookie, cek token juga</td>\n</tr>\n<tr data-start=\"3587\" data-end=\"3671\">\n<td data-start=\"3587\" data-end=\"3618\" data-col-size=\"sm\">Gunakan cookie <code data-start=\"3604\" data-end=\"3614\">SameSite</code></td>\n<td data-col-size=\"md\" data-start=\"3618\" data-end=\"3671\">Tambah proteksi dari pengiriman antar situs</td>\n</tr>\n<tr data-start=\"3672\" data-end=\"3757\">\n<td data-start=\"3672\" data-end=\"3703\" data-col-size=\"sm\">Tambah <code data-start=\"3681\" data-end=\"3698\">X-Frame-Options</code></td>\n<td data-col-size=\"md\" data-start=\"3703\" data-end=\"3757\">Cegah halaman dimuat di iframe (anti clickjacking)</td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"3759\" data-end=\"3762\" />\n<h2 data-start=\"3764\" data-end=\"3780\">🧾 Kesimpulan</h2>\n<p data-start=\"3782\" data-end=\"3896\">Server-Side Rendering memang bikin website lebih cepat dan SEO-friendly,<br data-start=\"3854\" data-end=\"3857\" />tapi kamu juga harus hati-hati, karena:</p>\n<blockquote data-start=\"3898\" data-end=\"3976\">\n<p data-start=\"3900\" data-end=\"3976\"><strong data-start=\"3900\" data-end=\"3976\">SSR tetap bisa diserang CSRF, jika tidak menambahkan token dengan benar.</strong></p>\n</blockquote>\n<p data-start=\"3978\" data-end=\"3983\">Jadi:</p>\n<ul data-start=\"3984\" data-end=\"4103\">\n<li data-start=\"3984\" data-end=\"4021\">\n<p data-start=\"3986\" data-end=\"4021\"><strong data-start=\"3986\" data-end=\"4021\">Jangan lupa sisipkan CSRF token</strong></p>\n</li>\n<li data-start=\"4022\" data-end=\"4055\">\n<p data-start=\"4024\" data-end=\"4055\"><strong data-start=\"4024\" data-end=\"4055\">Jangan andalkan cookie saja</strong></p>\n</li>\n<li data-start=\"4056\" data-end=\"4103\">\n<p data-start=\"4058\" data-end=\"4103\"><strong data-start=\"4058\" data-end=\"4103\">Lindungi form dan AJAX script dengan baik</strong></p>\n</li>\n</ul>\n<p data-start=\"4105\" data-end=\"4175\">Dengan pengamanan yang tepat, SSR bisa <strong data-start=\"4144\" data-end=\"4171\">cepat, aman, dan nyaman</strong>! 🚀</p>\n<p data-start=\"4105\" data-end=\"4175\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n<p>&nbsp;</p>\n",
+  "content_text": "Server-Side Rendering (SSR)  adalah teknik untuk menampilkan halaman web dari sisi server sebelum dikirim ke browser. Banyak framework modern seperti  Next.js ,  Nuxt.js , atau bahkan Laravel Blade, memakai SSR untuk performa dan SEO yang lebih baik.\nTapi ada satu hal yang sering luput:  keamanan dari serangan CSRF (Cross-Site Request Forgery) .\nYuk, kita bahas  apa yang perlu diwaspadai saat memakai SSR dan bagaimana mengamankannya dari CSRF , dengan bahasa yang sederhana.\n🧠 Apa Itu SSR?\nServer-Side Rendering (SSR)  artinya halaman HTML dibuat di server, bukan di browser.\nContoh:\nKamu buka halaman  /profil\nServer langsung kirim HTML lengkap dengan isi datanya\nBrowser hanya menampilkan hasilnya\nSSR membantu website jadi:\nLebih cepat ditampilkan\nLebih ramah mesin pencari (SEO)\nLebih siap diakses pengguna dengan koneksi lambat\n🎯 Apa Hubungannya SSR dan CSRF?\nKarena SSR bekerja di  server  dan langsung merender data pengguna, maka:\nSSR  sering mengakses data sensitif dari cookie atau session\nHalaman yang di-render bisa berisi  form  atau  AJAX script  yang mengubah data\nNah, di sinilah  CSRF bisa menyusup , kalau  token CSRF tidak disiapkan dengan benar  dalam proses rendering.\n⚠️ Hal-Hal yang Harus Diwaspadai\n1.  Lupa Menyisipkan CSRF Token di Form HTML\nDalam SSR, form biasanya dirender langsung sebagai HTML. Kalau kamu lupa menambahkan token CSRF:\nhtml\nCopy   Edit\n< form    method = \"POST\"   action = \"/ubah-password\" >\n< input    type = \"password\"   name = \"baru\" >\n< button  >Ubah </ button  >\n</ form  >\nMaka halaman jadi  rentan diserang CSRF .\nSolusi:  Tambahkan token di form:\nhtml\nCopy   Edit\n< form    method = \"POST\"   action = \"/ubah-password\" >\n< input    type = \"hidden\"   name = \"_csrf\"   value = \"{{ csrfToken }}\" >\n< input    type = \"password\"   name = \"baru\" >\n< button  >Ubah </ button  >\n</ form  >\n2.  Tidak Menyediakan Token untuk AJAX\nKadang SSR menyisipkan JavaScript di halaman untuk aksi seperti delete/edit.\nMasalahnya, script ini bisa mengirim request POST tanpa CSRF token jika token tidak diberikan saat rendering.\nSolusi:  Sertakan token di dalam meta tag atau variabel JavaScript:\nhtml\nCopy   Edit\n< meta    name = \"csrf-token\"   content = \"{{ csrfToken }}\" >\nAtau:\njs\nCopy   Edit\nwindow . csrfToken  =  \"{{ csrfToken }}\" ;\n3.  Data Pribadi Terekspose di View Source\nSSR bisa menyisipkan data pengguna langsung di HTML. Kalau kamu menampilkan informasi sensitif (misalnya saldo, token login, dsb.)  tanpa pengamanan , bisa disalahgunakan.\nSolusi:\nJangan tampilkan data sensitif sembarangan\nGunakan encoding untuk mencegah script injeksi (XSS)\nGunakan hanya token CSRF, bukan token login atau akses\n4.  Form Bisa Diserang Lewat Iframe\nKalau halaman SSR bisa dibuka dalam iframe (misalnya dari domain lain), penyerang bisa memanfaatkan itu untuk membuat  serangan clickjacking  atau CSRF.\nSolusi:  Gunakan header:\nhttp\nCopy   Edit\nX-Frame-Options: DENY\n🛡️ Praktik Terbaik SSR + Anti-CSRF\nLangkah\nPenjelasan Singkat\nSisipkan token di semua form\nGunakan  csrfToken  dari server\nSertakan token di JavaScript\nPakai  meta tag  atau variabel global\nValidasi token di server\nJangan hanya cek cookie, cek token juga\nGunakan cookie  SameSite\nTambah proteksi dari pengiriman antar situs\nTambah  X-Frame-Options\nCegah halaman dimuat di iframe (anti clickjacking)\n🧾 Kesimpulan\nServer-Side Rendering memang bikin website lebih cepat dan SEO-friendly,\ntapi kamu juga harus hati-hati, karena:\nSSR tetap bisa diserang CSRF, jika tidak menambahkan token dengan benar.\nJadi:\nJangan lupa sisipkan CSRF token\nJangan andalkan cookie saja\nLindungi form dan AJAX script dengan baik\nDengan pengamanan yang tepat, SSR bisa  cepat, aman, dan nyaman ! 🚀\nPenulias : Muhammad Aditya Alkhawarizmi\nNim : 23156201023\njurusan : Sistem Komputer",
+  "raw": {
+    "id": 2953,
+    "date": "2025-07-07T08:35:56",
+    "date_gmt": "2025-07-07T08:35:56",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2953"
+    },
+    "modified": "2025-07-07T08:35:56",
+    "modified_gmt": "2025-07-07T08:35:56",
+    "slug": "server-side-rendering-csrf-apa-yang-harus-diwaspadai",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/",
+    "title": {
+      "rendered": "Server-Side Rendering &#038; CSRF: Apa yang Harus Diwaspadai?"
+    },
+    "content": {
+      "rendered": "<h1 data-start=\"91\" data-end=\"152\"></h1>\n<p data-start=\"154\" data-end=\"411\"><strong data-start=\"154\" data-end=\"185\">Server-Side Rendering (SSR)</strong> adalah teknik untuk menampilkan halaman web dari sisi server sebelum dikirim ke browser. Banyak framework modern seperti <strong data-start=\"307\" data-end=\"318\">Next.js</strong>, <strong data-start=\"320\" data-end=\"331\">Nuxt.js</strong>, atau bahkan Laravel Blade, memakai SSR untuk performa dan SEO yang lebih baik.</p>\n<p data-start=\"413\" data-end=\"511\">Tapi ada satu hal yang sering luput: <strong data-start=\"450\" data-end=\"510\">keamanan dari serangan CSRF (Cross-Site Request Forgery)</strong>.</p>\n<p data-start=\"513\" data-end=\"645\">Yuk, kita bahas <strong data-start=\"529\" data-end=\"614\">apa yang perlu diwaspadai saat memakai SSR dan bagaimana mengamankannya dari CSRF</strong>, dengan bahasa yang sederhana.</p>\n<hr data-start=\"647\" data-end=\"650\" />\n<h2 data-start=\"652\" data-end=\"670\">🧠 Apa Itu SSR?</h2>\n<p data-start=\"672\" data-end=\"760\"><strong data-start=\"672\" data-end=\"703\">Server-Side Rendering (SSR)</strong> artinya halaman HTML dibuat di server, bukan di browser.</p>\n<p data-start=\"762\" data-end=\"769\">Contoh:</p>\n<ul data-start=\"770\" data-end=\"892\">\n<li data-start=\"770\" data-end=\"799\">\n<p data-start=\"772\" data-end=\"799\">Kamu buka halaman <code data-start=\"790\" data-end=\"799\">/profil</code></p>\n</li>\n<li data-start=\"800\" data-end=\"855\">\n<p data-start=\"802\" data-end=\"855\">Server langsung kirim HTML lengkap dengan isi datanya</p>\n</li>\n<li data-start=\"856\" data-end=\"892\">\n<p data-start=\"858\" data-end=\"892\">Browser hanya menampilkan hasilnya</p>\n</li>\n</ul>\n<p data-start=\"894\" data-end=\"920\">SSR membantu website jadi:</p>\n<ul data-start=\"921\" data-end=\"1032\">\n<li data-start=\"921\" data-end=\"946\">\n<p data-start=\"923\" data-end=\"946\">Lebih cepat ditampilkan</p>\n</li>\n<li data-start=\"947\" data-end=\"980\">\n<p data-start=\"949\" data-end=\"980\">Lebih ramah mesin pencari (SEO)</p>\n</li>\n<li data-start=\"981\" data-end=\"1032\">\n<p data-start=\"983\" data-end=\"1032\">Lebih siap diakses pengguna dengan koneksi lambat</p>\n</li>\n</ul>\n<hr data-start=\"1034\" data-end=\"1037\" />\n<h2 data-start=\"1039\" data-end=\"1074\">🎯 Apa Hubungannya SSR dan CSRF?</h2>\n<p data-start=\"1076\" data-end=\"1151\">Karena SSR bekerja di <strong data-start=\"1098\" data-end=\"1108\">server</strong> dan langsung merender data pengguna, maka:</p>\n<ul data-start=\"1153\" data-end=\"1304\">\n<li data-start=\"1153\" data-end=\"1218\">\n<p data-start=\"1155\" data-end=\"1218\">SSR <strong data-start=\"1159\" data-end=\"1218\">sering mengakses data sensitif dari cookie atau session</strong></p>\n</li>\n<li data-start=\"1219\" data-end=\"1304\">\n<p data-start=\"1221\" data-end=\"1304\">Halaman yang di-render bisa berisi <strong data-start=\"1256\" data-end=\"1264\">form</strong> atau <strong data-start=\"1270\" data-end=\"1285\">AJAX script</strong> yang mengubah data</p>\n</li>\n</ul>\n<p data-start=\"1306\" data-end=\"1419\">Nah, di sinilah <strong data-start=\"1322\" data-end=\"1344\">CSRF bisa menyusup</strong>, kalau <strong data-start=\"1352\" data-end=\"1395\">token CSRF tidak disiapkan dengan benar</strong> dalam proses rendering.</p>\n<hr data-start=\"1421\" data-end=\"1424\" />\n<h2 data-start=\"1426\" data-end=\"1461\">⚠️ Hal-Hal yang Harus Diwaspadai</h2>\n<h3 data-start=\"1463\" data-end=\"1514\">1. <strong data-start=\"1470\" data-end=\"1514\">Lupa Menyisipkan CSRF Token di Form HTML</strong></h3>\n<p data-start=\"1516\" data-end=\"1612\">Dalam SSR, form biasanya dirender langsung sebagai HTML. Kalau kamu lupa menambahkan token CSRF:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"/ubah-password\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"password\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"baru\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span></span>&gt;Ubah<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1742\" data-end=\"1785\">Maka halaman jadi <strong data-start=\"1760\" data-end=\"1784\">rentan diserang CSRF</strong>.</p>\n<p data-start=\"1787\" data-end=\"1823\"><strong data-start=\"1787\" data-end=\"1798\">Solusi:</strong> Tambahkan token di form:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"/ubah-password\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"_csrf\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"{{ csrfToken }}\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"password\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"baru\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span></span>&gt;Ubah<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n</code></div>\n</div>\n<hr data-start=\"2014\" data-end=\"2017\" />\n<h3 data-start=\"2019\" data-end=\"2064\">2. <strong data-start=\"2026\" data-end=\"2064\">Tidak Menyediakan Token untuk AJAX</strong></h3>\n<p data-start=\"2066\" data-end=\"2142\">Kadang SSR menyisipkan JavaScript di halaman untuk aksi seperti delete/edit.</p>\n<p data-start=\"2144\" data-end=\"2253\">Masalahnya, script ini bisa mengirim request POST tanpa CSRF token jika token tidak diberikan saat rendering.</p>\n<p data-start=\"2255\" data-end=\"2325\"><strong data-start=\"2255\" data-end=\"2266\">Solusi:</strong> Sertakan token di dalam meta tag atau variabel JavaScript:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">meta</span></span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"csrf-token\"</span> <span class=\"hljs-attr\">content</span>=<span class=\"hljs-string\">\"{{ csrfToken }}\"</span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"2391\" data-end=\"2396\">Atau:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">js</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-js\"><span class=\"hljs-variable language_\">window</span>.<span class=\"hljs-property\">csrfToken</span> = <span class=\"hljs-string\">\"{{ csrfToken }}\"</span>;<br />\n</code></div>\n</div>\n<hr data-start=\"2447\" data-end=\"2450\" />\n<h3 data-start=\"2452\" data-end=\"2501\">3. <strong data-start=\"2459\" data-end=\"2501\">Data Pribadi Terekspose di View Source</strong></h3>\n<p data-start=\"2503\" data-end=\"2676\">SSR bisa menyisipkan data pengguna langsung di HTML. Kalau kamu menampilkan informasi sensitif (misalnya saldo, token login, dsb.) <strong data-start=\"2634\" data-end=\"2654\">tanpa pengamanan</strong>, bisa disalahgunakan.</p>\n<p data-start=\"2678\" data-end=\"2689\"><strong data-start=\"2678\" data-end=\"2689\">Solusi:</strong></p>\n<ul data-start=\"2690\" data-end=\"2846\">\n<li data-start=\"2690\" data-end=\"2734\">\n<p data-start=\"2692\" data-end=\"2734\">Jangan tampilkan data sensitif sembarangan</p>\n</li>\n<li data-start=\"2735\" data-end=\"2789\">\n<p data-start=\"2737\" data-end=\"2789\">Gunakan encoding untuk mencegah script injeksi (XSS)</p>\n</li>\n<li data-start=\"2790\" data-end=\"2846\">\n<p data-start=\"2792\" data-end=\"2846\">Gunakan hanya token CSRF, bukan token login atau akses</p>\n</li>\n</ul>\n<hr data-start=\"2848\" data-end=\"2851\" />\n<h3 data-start=\"2853\" data-end=\"2895\">4. <strong data-start=\"2860\" data-end=\"2895\">Form Bisa Diserang Lewat Iframe</strong></h3>\n<p data-start=\"2897\" data-end=\"3051\">Kalau halaman SSR bisa dibuka dalam iframe (misalnya dari domain lain), penyerang bisa memanfaatkan itu untuk membuat <strong data-start=\"3015\" data-end=\"3040\">serangan clickjacking</strong> atau CSRF.</p>\n<p data-start=\"3053\" data-end=\"3080\"><strong data-start=\"3053\" data-end=\"3064\">Solusi:</strong> Gunakan header:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">http</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-http\">X-Frame-Options: DENY<br />\n</code></div>\n</div>\n<hr data-start=\"3117\" data-end=\"3120\" />\n<h2 data-start=\"3122\" data-end=\"3160\">🛡️ Praktik Terbaik SSR + Anti-CSRF</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"3162\" data-end=\"3757\">\n<thead data-start=\"3162\" data-end=\"3247\">\n<tr data-start=\"3162\" data-end=\"3247\">\n<th data-start=\"3162\" data-end=\"3194\" data-col-size=\"sm\">Langkah</th>\n<th data-start=\"3194\" data-end=\"3247\" data-col-size=\"md\">Penjelasan Singkat</th>\n</tr>\n</thead>\n<tbody data-start=\"3333\" data-end=\"3757\">\n<tr data-start=\"3333\" data-end=\"3416\">\n<td data-start=\"3333\" data-end=\"3364\" data-col-size=\"sm\">Sisipkan token di semua form</td>\n<td data-col-size=\"md\" data-start=\"3364\" data-end=\"3416\">Gunakan <code data-start=\"3374\" data-end=\"3385\">csrfToken</code> dari server</td>\n</tr>\n<tr data-start=\"3417\" data-end=\"3501\">\n<td data-start=\"3417\" data-end=\"3448\" data-col-size=\"sm\">Sertakan token di JavaScript</td>\n<td data-col-size=\"md\" data-start=\"3448\" data-end=\"3501\">Pakai <code data-start=\"3456\" data-end=\"3466\">meta tag</code> atau variabel global</td>\n</tr>\n<tr data-start=\"3502\" data-end=\"3586\">\n<td data-start=\"3502\" data-end=\"3533\" data-col-size=\"sm\">Validasi token di server</td>\n<td data-col-size=\"md\" data-start=\"3533\" data-end=\"3586\">Jangan hanya cek cookie, cek token juga</td>\n</tr>\n<tr data-start=\"3587\" data-end=\"3671\">\n<td data-start=\"3587\" data-end=\"3618\" data-col-size=\"sm\">Gunakan cookie <code data-start=\"3604\" data-end=\"3614\">SameSite</code></td>\n<td data-col-size=\"md\" data-start=\"3618\" data-end=\"3671\">Tambah proteksi dari pengiriman antar situs</td>\n</tr>\n<tr data-start=\"3672\" data-end=\"3757\">\n<td data-start=\"3672\" data-end=\"3703\" data-col-size=\"sm\">Tambah <code data-start=\"3681\" data-end=\"3698\">X-Frame-Options</code></td>\n<td data-col-size=\"md\" data-start=\"3703\" data-end=\"3757\">Cegah halaman dimuat di iframe (anti clickjacking)</td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"3759\" data-end=\"3762\" />\n<h2 data-start=\"3764\" data-end=\"3780\">🧾 Kesimpulan</h2>\n<p data-start=\"3782\" data-end=\"3896\">Server-Side Rendering memang bikin website lebih cepat dan SEO-friendly,<br data-start=\"3854\" data-end=\"3857\" />tapi kamu juga harus hati-hati, karena:</p>\n<blockquote data-start=\"3898\" data-end=\"3976\">\n<p data-start=\"3900\" data-end=\"3976\"><strong data-start=\"3900\" data-end=\"3976\">SSR tetap bisa diserang CSRF, jika tidak menambahkan token dengan benar.</strong></p>\n</blockquote>\n<p data-start=\"3978\" data-end=\"3983\">Jadi:</p>\n<ul data-start=\"3984\" data-end=\"4103\">\n<li data-start=\"3984\" data-end=\"4021\">\n<p data-start=\"3986\" data-end=\"4021\"><strong data-start=\"3986\" data-end=\"4021\">Jangan lupa sisipkan CSRF token</strong></p>\n</li>\n<li data-start=\"4022\" data-end=\"4055\">\n<p data-start=\"4024\" data-end=\"4055\"><strong data-start=\"4024\" data-end=\"4055\">Jangan andalkan cookie saja</strong></p>\n</li>\n<li data-start=\"4056\" data-end=\"4103\">\n<p data-start=\"4058\" data-end=\"4103\"><strong data-start=\"4058\" data-end=\"4103\">Lindungi form dan AJAX script dengan baik</strong></p>\n</li>\n</ul>\n<p data-start=\"4105\" data-end=\"4175\">Dengan pengamanan yang tepat, SSR bisa <strong data-start=\"4144\" data-end=\"4171\">cepat, aman, dan nyaman</strong>! 🚀</p>\n<p data-start=\"4105\" data-end=\"4175\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n<p>&nbsp;</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Server-Side Rendering (SSR) adalah teknik untuk menampilkan halaman web dari sisi server sebelum dikirim ke browser. Banyak framework modern seperti Next.js, Nuxt.js, atau bahkan Laravel Blade, memakai SSR untuk performa dan SEO yang lebih baik. Tapi ada satu hal yang sering luput: keamanan dari serangan CSRF (Cross-Site Request Forgery). Yuk, kita bahas apa yang perlu diwaspadai saat memakai SSR dan bagaimana mengamankannya dari CSRF, dengan bahasa yang sederhana. 🧠 Apa Itu SSR? Server-Side Rendering (SSR) artinya halaman HTML dibuat di server, bukan di browser. Contoh: Kamu buka halaman /profil Server langsung kirim HTML lengkap dengan isi datanya Browser hanya menampilkan&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 2954,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      385
+    ],
+    "class_list": [
+      "post-2953",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-cross-site-request-forgery-csrf"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Server-Side Rendering &amp; CSRF: Apa yang Harus Diwaspadai? - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Server-Side Rendering &amp; CSRF: Apa yang Harus Diwaspadai? - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Server-Side Rendering (SSR) adalah teknik untuk menampilkan halaman web dari sisi server sebelum dikirim ke browser. Banyak framework modern seperti Next.js, Nuxt.js, atau bahkan Laravel Blade, memakai SSR untuk performa dan SEO yang lebih baik. Tapi ada satu hal yang sering luput: keamanan dari serangan CSRF (Cross-Site Request Forgery). Yuk, kita bahas apa yang perlu diwaspadai saat memakai SSR dan bagaimana mengamankannya dari CSRF, dengan bahasa yang sederhana. 🧠 Apa Itu SSR? Server-Side Rendering (SSR) artinya halaman HTML dibuat di server, bukan di browser. Contoh: Kamu buka halaman /profil Server langsung kirim HTML lengkap dengan isi datanya Browser hanya menampilkan...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-07T08:35:56+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/1_CgrMqqxMCltl4BVjGgFRKA.png\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"768\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/\",\"url\":\"https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/\",\"name\":\"Server-Side Rendering & CSRF: Apa yang Harus Diwaspadai? - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1_CgrMqqxMCltl4BVjGgFRKA.png\",\"datePublished\":\"2025-07-07T08:35:56+00:00\",\"dateModified\":\"2025-07-07T08:35:56+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1_CgrMqqxMCltl4BVjGgFRKA.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1_CgrMqqxMCltl4BVjGgFRKA.png\",\"width\":1024,\"height\":768},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Server-Side Rendering &#038; CSRF: Apa yang Harus Diwaspadai?\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Server-Side Rendering & CSRF: Apa yang Harus Diwaspadai? - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Server-Side Rendering & CSRF: Apa yang Harus Diwaspadai? - buletinsiber.com",
+      "og_description": "Server-Side Rendering (SSR) adalah teknik untuk menampilkan halaman web dari sisi server sebelum dikirim ke browser. Banyak framework modern seperti Next.js, Nuxt.js, atau bahkan Laravel Blade, memakai SSR untuk performa dan SEO yang lebih baik. Tapi ada satu hal yang sering luput: keamanan dari serangan CSRF (Cross-Site Request Forgery). Yuk, kita bahas apa yang perlu diwaspadai saat memakai SSR dan bagaimana mengamankannya dari CSRF, dengan bahasa yang sederhana. 🧠 Apa Itu SSR? Server-Side Rendering (SSR) artinya halaman HTML dibuat di server, bukan di browser. Contoh: Kamu buka halaman /profil Server langsung kirim HTML lengkap dengan isi datanya Browser hanya menampilkan...",
+      "og_url": "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-07T08:35:56+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 768,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1_CgrMqqxMCltl4BVjGgFRKA.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/",
+            "url": "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/",
+            "name": "Server-Side Rendering & CSRF: Apa yang Harus Diwaspadai? - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1_CgrMqqxMCltl4BVjGgFRKA.png",
+            "datePublished": "2025-07-07T08:35:56+00:00",
+            "dateModified": "2025-07-07T08:35:56+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1_CgrMqqxMCltl4BVjGgFRKA.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1_CgrMqqxMCltl4BVjGgFRKA.png",
+            "width": 1024,
+            "height": 768
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/server-side-rendering-csrf-apa-yang-harus-diwaspadai/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Server-Side Rendering &#038; CSRF: Apa yang Harus Diwaspadai?"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2953",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2953"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2953/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 3701,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2953/revisions/3701"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2954"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2953"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2953"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2953"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

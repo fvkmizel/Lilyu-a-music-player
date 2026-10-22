@@ -1,0 +1,325 @@
+{
+  "id": 22993,
+  "title": "PCIe DMA (Direct Memory Access) Attack: Ancaman Akses Memori yang Bisa Membobol Keamanan Sistem",
+  "slug": "pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem",
+  "url": "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/",
+  "date": "2026-09-02T00:50:37",
+  "date_gmt": "2026-09-02T00:50:37",
+  "modified": "2026-09-02T00:50:37",
+  "modified_gmt": "2026-09-02T00:50:37",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    3991,
+    1235
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg",
+  "excerpt": "Pengantar Keamanan komputer tidak hanya bergantung pada software. Perangkat keras juga dapat menjadi jalur serangan, salah satunya melalui PCIe DMA (Direct Memory Access) Attack. DMA memungkinkan perangkat tertentu mengakses memori utama tanpa harus melibatkan CPU untuk setiap proses transfer data. Kemampuan ini meningkatkan performa, tetapi juga dapat menjadi risiko keamanan jika perangkat DMA yang tidak terpercaya memperoleh akses ke memori sistem. Dalam kondisi tertentu, serangan DMA dapat dimanfaatkan untuk membaca atau memodifikasi data penting di RAM. Karena itu, perlindungan terhadap akses DMA menjadi bagian penting dari keamanan perangkat modern. Apa Itu PCIe DMA Attack? PCIe DMA Attack adalah serangan yang…",
+  "content_html": "<h2>Pengantar</h2>\n<p class=\"isSelectedEnd\">Keamanan komputer tidak hanya bergantung pada software. Perangkat keras juga dapat menjadi jalur serangan, salah satunya melalui <strong>PCIe DMA (Direct Memory Access) Attack</strong>.</p>\n<p class=\"isSelectedEnd\">DMA memungkinkan perangkat tertentu mengakses memori utama tanpa harus melibatkan CPU untuk setiap proses transfer data. Kemampuan ini meningkatkan performa, tetapi juga dapat menjadi risiko keamanan jika perangkat DMA yang tidak terpercaya memperoleh akses ke memori sistem.</p>\n<p class=\"isSelectedEnd\">Dalam kondisi tertentu, serangan DMA dapat dimanfaatkan untuk membaca atau memodifikasi data penting di RAM. Karena itu, perlindungan terhadap akses DMA menjadi bagian penting dari keamanan perangkat modern.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h3>Apa Itu PCIe DMA Attack?</h3>\n<p class=\"isSelectedEnd\"><strong>PCIe DMA Attack</strong> adalah serangan yang memanfaatkan kemampuan perangkat PCI Express untuk melakukan akses langsung ke memori sistem.</p>\n<p class=\"isSelectedEnd\">Berbeda dari serangan berbasis aplikasi, teknik ini bekerja pada lapisan perangkat keras. Perangkat yang memiliki kemampuan DMA dapat melakukan operasi baca atau tulis ke area memori tertentu tanpa melalui mekanisme akses CPU secara langsung.</p>\n<p class=\"isSelectedEnd\">Risikonya semakin besar ketika perangkat tersebut terhubung melalui port PCIe yang dapat diakses secara eksternal. Microsoft menjelaskan bahwa perangkat PCIe hot-plug seperti Thunderbolt dan USB4 dapat menjadi jalur <strong>drive-by DMA attack</strong> jika akses memorinya tidak dibatasi (dikutip dari: <a href=\"https://learn.microsoft.com/en-us/windows/security/hardware-security/kernel-dma-protection-for-thunderbolt?utm_source=chatgpt.com\">Microsoft Learn – Kernel DMA Protection</a>).</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/radius-tacacs-protocol-memahami-perbedaan-dua-protokol-aaa-untuk-keamanan-jaringan/\">RADIUS &amp; TACACS+ Protocol: Memahami Perbedaan Dua Protokol AAA untuk Keamanan Jaringan</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h3>Bagaimana PCIe DMA Attack Bekerja?</h3>\n<p class=\"isSelectedEnd\">Secara sederhana, serangan dapat terjadi ketika perangkat DMA yang berbahaya memperoleh akses ke sistem.</p>\n<p class=\"isSelectedEnd\">Beberapa tahapan umumnya meliputi:</p>\n<ol start=\"1\" data-spread=\"false\">\n<li><strong>Perangkat DMA terhubung</strong> ke sistem melalui antarmuka PCIe atau teknologi yang menyediakan akses PCIe.</li>\n<li><strong>Perangkat mencoba mengakses memori</strong> yang seharusnya tidak dapat diakses secara bebas.</li>\n<li><strong>Data dalam RAM dapat dibaca atau dimodifikasi</strong> jika tidak terdapat mekanisme isolasi yang memadai.</li>\n<li><strong>Informasi sensitif berpotensi terekspos</strong>, tergantung pada kondisi sistem dan data yang berada di memori.</li>\n</ol>\n<p class=\"isSelectedEnd\">Dengan demikian, serangan DMA dapat menjadi berbahaya karena bekerja di bawah lapisan aplikasi yang biasanya menjadi fokus sistem keamanan.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h3>Mengapa Akses RAM Menjadi Risiko?</h3>\n<p class=\"isSelectedEnd\">RAM dapat menyimpan berbagai data yang sedang digunakan sistem. Contohnya adalah informasi proses, struktur kernel, kredensial sementara, maupun material kriptografi yang sedang digunakan.</p>\n<p class=\"isSelectedEnd\">Jika penyerang berhasil mendapatkan akses DMA tanpa pembatasan, data tersebut berpotensi dibaca atau dimodifikasi. Bahkan, kemampuan menulis ke memori dapat menimbulkan risiko yang lebih serius karena dapat memengaruhi proses yang sedang berjalan.</p>\n<p class=\"isSelectedEnd\">Namun, dampak sebenarnya tetap bergantung pada konfigurasi perangkat keras, firmware, sistem operasi, serta mekanisme perlindungan DMA yang tersedia.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Peran IOMMU dalam Mencegah PCIe DMA Attack</h2>\n<p class=\"isSelectedEnd\">Salah satu mekanisme penting untuk menghadapi serangan DMA adalah <strong>IOMMU (Input/Output Memory Management Unit)</strong>.</p>\n<p class=\"isSelectedEnd\">IOMMU berfungsi mengatur dan membatasi alamat memori yang boleh diakses oleh perangkat tertentu. Dengan begitu, perangkat DMA tidak otomatis memiliki kebebasan untuk membaca atau menulis seluruh memori sistem.</p>\n<p class=\"isSelectedEnd\">Teknologi ini juga memungkinkan penerapan <strong>DMA remapping</strong>. NIST menjelaskan bahwa DMA remapping pada IOMMU dapat membantu membatasi akses perangkat terhadap area memori tertentu sehingga memberikan isolasi yang lebih baik (dikutip dari: <a href=\"https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-125Ar1.pdf?utm_source=chatgpt.com\">NIST SP 800-125A Rev. 1</a>).<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"801\" height=\"534\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 801px) 100vw, 801px\" /></p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h3>DMA Remapping dan Memory Isolation</h3>\n<p class=\"isSelectedEnd\">DMA remapping memungkinkan sistem memberikan wilayah memori tertentu kepada sebuah perangkat.</p>\n<p class=\"isSelectedEnd\">Jika perangkat mencoba mengakses area di luar wilayah tersebut, IOMMU dapat memblokir aksesnya. Oleh sebab itu, mekanisme ini menjadi salah satu lapisan pertahanan penting terhadap akses DMA yang tidak sah.</p>\n<p class=\"isSelectedEnd\">Pada perangkat Windows modern, mekanisme tersebut digunakan melalui <strong>Kernel DMA Protection</strong> untuk membantu membatasi perangkat eksternal yang memiliki kemampuan DMA.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Cara Mengurangi Risiko PCIe DMA Attack</h2>\n<p class=\"isSelectedEnd\">Perlindungan terhadap DMA sebaiknya dilakukan pada beberapa lapisan. Beberapa langkah yang dapat diterapkan antara lain:</p>\n<h3>1. Aktifkan IOMMU</h3>\n<p class=\"isSelectedEnd\">Pastikan fitur IOMMU tersedia dan aktif pada firmware perangkat. Pada platform tertentu, fitur ini dapat menggunakan teknologi seperti <strong>Intel VT-d</strong> atau <strong>AMD-Vi</strong>.</p>\n<p class=\"isSelectedEnd\">IOMMU membantu sistem melakukan isolasi serta remapping akses DMA dari perangkat.</p>\n<h3>2. Gunakan Kernel DMA Protection</h3>\n<p class=\"isSelectedEnd\">Pada perangkat Windows yang kompatibel, <strong>Kernel DMA Protection</strong> dapat membantu mencegah perangkat eksternal memperoleh akses langsung ke memori secara tidak sah.</p>\n<p class=\"isSelectedEnd\">Fitur tersebut memanfaatkan IOMMU dan DMA remapping untuk mengontrol akses perangkat terhadap memori sistem.</p>\n<h3>3. Perbarui Firmware dan Driver</h3>\n<p class=\"isSelectedEnd\">Firmware, BIOS/UEFI, sistem operasi, dan driver perangkat sebaiknya selalu diperbarui.</p>\n<p class=\"isSelectedEnd\">Pembaruan dapat memperbaiki masalah keamanan sekaligus meningkatkan dukungan terhadap mekanisme isolasi DMA.</p>\n<h3>4. Batasi Akses Fisik</h3>\n<p class=\"isSelectedEnd\">Serangan DMA memiliki hubungan erat dengan keamanan fisik perangkat. Karena itu, jangan sembarangan menghubungkan perangkat PCIe atau periferal berkemampuan DMA yang tidak dikenal.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/\">Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory</a></p></blockquote>\n<p class=\"isSelectedEnd\">Untuk lingkungan perusahaan, akses ke perangkat dan port yang mendukung DMA sebaiknya dikontrol berdasarkan kebijakan keamanan organisasi.</p>\n<h3>5. Gunakan Perangkat dengan Dukungan DMA Remapping</h3>\n<p class=\"isSelectedEnd\">Perangkat dan driver yang mendukung DMA remapping memberikan lapisan perlindungan tambahan. Sistem dapat membatasi wilayah memori yang boleh digunakan oleh perangkat tersebut.</p>\n<p class=\"isSelectedEnd\">Pendekatan ini lebih aman dibandingkan membiarkan perangkat DMA memiliki akses memori yang terlalu luas.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>PCIe DMA Attack vs Serangan Software</h2>\n<p class=\"isSelectedEnd\">PCIe DMA Attack memiliki karakteristik berbeda dari serangan software biasa.</p>\n<p class=\"isSelectedEnd\">Serangan software umumnya memanfaatkan kerentanan pada aplikasi, layanan, sistem operasi, atau konfigurasi. Sementara itu, serangan DMA mengeksploitasi kemampuan perangkat keras untuk berinteraksi langsung dengan memori.</p>\n<p class=\"isSelectedEnd\">Perbedaan tersebut membuat keamanan DMA membutuhkan kombinasi antara <strong>hardware security, firmware security, operating system protection, dan physical security</strong>.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/windows-event-log-tampering-cara-mendeteksi-manipulasi-jejak-aktivitas-di-windows/\">Windows Event Log Tampering: Cara Mendeteksi Manipulasi Jejak Aktivitas di Windows</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Kesimpulan</h2>\n<p class=\"isSelectedEnd\"><strong>PCIe DMA (Direct Memory Access) Attack</strong> merupakan ancaman yang memanfaatkan kemampuan perangkat DMA untuk mengakses memori sistem secara langsung. Jika tidak dikontrol, akses tersebut dapat membuka peluang pencurian atau manipulasi data yang berada di RAM.</p>\n<p class=\"isSelectedEnd\">IOMMU dan DMA remapping menjadi mekanisme penting untuk membatasi akses tersebut. Selain itu, fitur seperti Kernel DMA Protection, pembaruan firmware, driver yang kompatibel, serta pengamanan fisik perangkat dapat memperkuat pertahanan.</p>\n<p>Dengan demikian, keamanan DMA tidak boleh dipandang hanya sebagai masalah perangkat keras. Perlindungan yang efektif membutuhkan kombinasi antara <strong>hardware, firmware, sistem operasi, driver, dan kontrol akses fisik</strong>.</p>\n",
+  "content_text": "Pengantar\nKeamanan komputer tidak hanya bergantung pada software. Perangkat keras juga dapat menjadi jalur serangan, salah satunya melalui  PCIe DMA (Direct Memory Access) Attack .\nDMA memungkinkan perangkat tertentu mengakses memori utama tanpa harus melibatkan CPU untuk setiap proses transfer data. Kemampuan ini meningkatkan performa, tetapi juga dapat menjadi risiko keamanan jika perangkat DMA yang tidak terpercaya memperoleh akses ke memori sistem.\nDalam kondisi tertentu, serangan DMA dapat dimanfaatkan untuk membaca atau memodifikasi data penting di RAM. Karena itu, perlindungan terhadap akses DMA menjadi bagian penting dari keamanan perangkat modern.\nApa Itu PCIe DMA Attack?\nPCIe DMA Attack  adalah serangan yang memanfaatkan kemampuan perangkat PCI Express untuk melakukan akses langsung ke memori sistem.\nBerbeda dari serangan berbasis aplikasi, teknik ini bekerja pada lapisan perangkat keras. Perangkat yang memiliki kemampuan DMA dapat melakukan operasi baca atau tulis ke area memori tertentu tanpa melalui mekanisme akses CPU secara langsung.\nRisikonya semakin besar ketika perangkat tersebut terhubung melalui port PCIe yang dapat diakses secara eksternal. Microsoft menjelaskan bahwa perangkat PCIe hot-plug seperti Thunderbolt dan USB4 dapat menjadi jalur  drive-by DMA attack  jika akses memorinya tidak dibatasi (dikutip dari:  Microsoft Learn – Kernel DMA Protection ).\nbaca juga :  RADIUS & TACACS+ Protocol: Memahami Perbedaan Dua Protokol AAA untuk Keamanan Jaringan\nBagaimana PCIe DMA Attack Bekerja?\nSecara sederhana, serangan dapat terjadi ketika perangkat DMA yang berbahaya memperoleh akses ke sistem.\nBeberapa tahapan umumnya meliputi:\nPerangkat DMA terhubung  ke sistem melalui antarmuka PCIe atau teknologi yang menyediakan akses PCIe.\nPerangkat mencoba mengakses memori  yang seharusnya tidak dapat diakses secara bebas.\nData dalam RAM dapat dibaca atau dimodifikasi  jika tidak terdapat mekanisme isolasi yang memadai.\nInformasi sensitif berpotensi terekspos , tergantung pada kondisi sistem dan data yang berada di memori.\nDengan demikian, serangan DMA dapat menjadi berbahaya karena bekerja di bawah lapisan aplikasi yang biasanya menjadi fokus sistem keamanan.\nMengapa Akses RAM Menjadi Risiko?\nRAM dapat menyimpan berbagai data yang sedang digunakan sistem. Contohnya adalah informasi proses, struktur kernel, kredensial sementara, maupun material kriptografi yang sedang digunakan.\nJika penyerang berhasil mendapatkan akses DMA tanpa pembatasan, data tersebut berpotensi dibaca atau dimodifikasi. Bahkan, kemampuan menulis ke memori dapat menimbulkan risiko yang lebih serius karena dapat memengaruhi proses yang sedang berjalan.\nNamun, dampak sebenarnya tetap bergantung pada konfigurasi perangkat keras, firmware, sistem operasi, serta mekanisme perlindungan DMA yang tersedia.\nPeran IOMMU dalam Mencegah PCIe DMA Attack\nSalah satu mekanisme penting untuk menghadapi serangan DMA adalah  IOMMU (Input/Output Memory Management Unit) .\nIOMMU berfungsi mengatur dan membatasi alamat memori yang boleh diakses oleh perangkat tertentu. Dengan begitu, perangkat DMA tidak otomatis memiliki kebebasan untuk membaca atau menulis seluruh memori sistem.\nTeknologi ini juga memungkinkan penerapan  DMA remapping . NIST menjelaskan bahwa DMA remapping pada IOMMU dapat membantu membatasi akses perangkat terhadap area memori tertentu sehingga memberikan isolasi yang lebih baik (dikutip dari:  NIST SP 800-125A Rev. 1 ).\nDMA Remapping dan Memory Isolation\nDMA remapping memungkinkan sistem memberikan wilayah memori tertentu kepada sebuah perangkat.\nJika perangkat mencoba mengakses area di luar wilayah tersebut, IOMMU dapat memblokir aksesnya. Oleh sebab itu, mekanisme ini menjadi salah satu lapisan pertahanan penting terhadap akses DMA yang tidak sah.\nPada perangkat Windows modern, mekanisme tersebut digunakan melalui  Kernel DMA Protection  untuk membantu membatasi perangkat eksternal yang memiliki kemampuan DMA.\nCara Mengurangi Risiko PCIe DMA Attack\nPerlindungan terhadap DMA sebaiknya dilakukan pada beberapa lapisan. Beberapa langkah yang dapat diterapkan antara lain:\n1. Aktifkan IOMMU\nPastikan fitur IOMMU tersedia dan aktif pada firmware perangkat. Pada platform tertentu, fitur ini dapat menggunakan teknologi seperti  Intel VT-d  atau  AMD-Vi .\nIOMMU membantu sistem melakukan isolasi serta remapping akses DMA dari perangkat.\n2. Gunakan Kernel DMA Protection\nPada perangkat Windows yang kompatibel,  Kernel DMA Protection  dapat membantu mencegah perangkat eksternal memperoleh akses langsung ke memori secara tidak sah.\nFitur tersebut memanfaatkan IOMMU dan DMA remapping untuk mengontrol akses perangkat terhadap memori sistem.\n3. Perbarui Firmware dan Driver\nFirmware, BIOS/UEFI, sistem operasi, dan driver perangkat sebaiknya selalu diperbarui.\nPembaruan dapat memperbaiki masalah keamanan sekaligus meningkatkan dukungan terhadap mekanisme isolasi DMA.\n4. Batasi Akses Fisik\nSerangan DMA memiliki hubungan erat dengan keamanan fisik perangkat. Karena itu, jangan sembarangan menghubungkan perangkat PCIe atau periferal berkemampuan DMA yang tidak dikenal.\nbaca juga :  Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory\nUntuk lingkungan perusahaan, akses ke perangkat dan port yang mendukung DMA sebaiknya dikontrol berdasarkan kebijakan keamanan organisasi.\n5. Gunakan Perangkat dengan Dukungan DMA Remapping\nPerangkat dan driver yang mendukung DMA remapping memberikan lapisan perlindungan tambahan. Sistem dapat membatasi wilayah memori yang boleh digunakan oleh perangkat tersebut.\nPendekatan ini lebih aman dibandingkan membiarkan perangkat DMA memiliki akses memori yang terlalu luas.\nPCIe DMA Attack vs Serangan Software\nPCIe DMA Attack memiliki karakteristik berbeda dari serangan software biasa.\nSerangan software umumnya memanfaatkan kerentanan pada aplikasi, layanan, sistem operasi, atau konfigurasi. Sementara itu, serangan DMA mengeksploitasi kemampuan perangkat keras untuk berinteraksi langsung dengan memori.\nPerbedaan tersebut membuat keamanan DMA membutuhkan kombinasi antara  hardware security, firmware security, operating system protection, dan physical security .\nbaca juga :  Windows Event Log Tampering: Cara Mendeteksi Manipulasi Jejak Aktivitas di Windows\nKesimpulan\nPCIe DMA (Direct Memory Access) Attack  merupakan ancaman yang memanfaatkan kemampuan perangkat DMA untuk mengakses memori sistem secara langsung. Jika tidak dikontrol, akses tersebut dapat membuka peluang pencurian atau manipulasi data yang berada di RAM.\nIOMMU dan DMA remapping menjadi mekanisme penting untuk membatasi akses tersebut. Selain itu, fitur seperti Kernel DMA Protection, pembaruan firmware, driver yang kompatibel, serta pengamanan fisik perangkat dapat memperkuat pertahanan.\nDengan demikian, keamanan DMA tidak boleh dipandang hanya sebagai masalah perangkat keras. Perlindungan yang efektif membutuhkan kombinasi antara  hardware, firmware, sistem operasi, driver, dan kontrol akses fisik .",
+  "raw": {
+    "id": 22993,
+    "date": "2026-09-02T00:50:37",
+    "date_gmt": "2026-09-02T00:50:37",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=22993"
+    },
+    "modified": "2026-09-02T00:50:37",
+    "modified_gmt": "2026-09-02T00:50:37",
+    "slug": "pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/",
+    "title": {
+      "rendered": "PCIe DMA (Direct Memory Access) Attack: Ancaman Akses Memori yang Bisa Membobol Keamanan Sistem"
+    },
+    "content": {
+      "rendered": "<h2>Pengantar</h2>\n<p class=\"isSelectedEnd\">Keamanan komputer tidak hanya bergantung pada software. Perangkat keras juga dapat menjadi jalur serangan, salah satunya melalui <strong>PCIe DMA (Direct Memory Access) Attack</strong>.</p>\n<p class=\"isSelectedEnd\">DMA memungkinkan perangkat tertentu mengakses memori utama tanpa harus melibatkan CPU untuk setiap proses transfer data. Kemampuan ini meningkatkan performa, tetapi juga dapat menjadi risiko keamanan jika perangkat DMA yang tidak terpercaya memperoleh akses ke memori sistem.</p>\n<p class=\"isSelectedEnd\">Dalam kondisi tertentu, serangan DMA dapat dimanfaatkan untuk membaca atau memodifikasi data penting di RAM. Karena itu, perlindungan terhadap akses DMA menjadi bagian penting dari keamanan perangkat modern.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h3>Apa Itu PCIe DMA Attack?</h3>\n<p class=\"isSelectedEnd\"><strong>PCIe DMA Attack</strong> adalah serangan yang memanfaatkan kemampuan perangkat PCI Express untuk melakukan akses langsung ke memori sistem.</p>\n<p class=\"isSelectedEnd\">Berbeda dari serangan berbasis aplikasi, teknik ini bekerja pada lapisan perangkat keras. Perangkat yang memiliki kemampuan DMA dapat melakukan operasi baca atau tulis ke area memori tertentu tanpa melalui mekanisme akses CPU secara langsung.</p>\n<p class=\"isSelectedEnd\">Risikonya semakin besar ketika perangkat tersebut terhubung melalui port PCIe yang dapat diakses secara eksternal. Microsoft menjelaskan bahwa perangkat PCIe hot-plug seperti Thunderbolt dan USB4 dapat menjadi jalur <strong>drive-by DMA attack</strong> jika akses memorinya tidak dibatasi (dikutip dari: <a href=\"https://learn.microsoft.com/en-us/windows/security/hardware-security/kernel-dma-protection-for-thunderbolt?utm_source=chatgpt.com\">Microsoft Learn – Kernel DMA Protection</a>).</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/radius-tacacs-protocol-memahami-perbedaan-dua-protokol-aaa-untuk-keamanan-jaringan/\">RADIUS &amp; TACACS+ Protocol: Memahami Perbedaan Dua Protokol AAA untuk Keamanan Jaringan</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h3>Bagaimana PCIe DMA Attack Bekerja?</h3>\n<p class=\"isSelectedEnd\">Secara sederhana, serangan dapat terjadi ketika perangkat DMA yang berbahaya memperoleh akses ke sistem.</p>\n<p class=\"isSelectedEnd\">Beberapa tahapan umumnya meliputi:</p>\n<ol start=\"1\" data-spread=\"false\">\n<li><strong>Perangkat DMA terhubung</strong> ke sistem melalui antarmuka PCIe atau teknologi yang menyediakan akses PCIe.</li>\n<li><strong>Perangkat mencoba mengakses memori</strong> yang seharusnya tidak dapat diakses secara bebas.</li>\n<li><strong>Data dalam RAM dapat dibaca atau dimodifikasi</strong> jika tidak terdapat mekanisme isolasi yang memadai.</li>\n<li><strong>Informasi sensitif berpotensi terekspos</strong>, tergantung pada kondisi sistem dan data yang berada di memori.</li>\n</ol>\n<p class=\"isSelectedEnd\">Dengan demikian, serangan DMA dapat menjadi berbahaya karena bekerja di bawah lapisan aplikasi yang biasanya menjadi fokus sistem keamanan.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h3>Mengapa Akses RAM Menjadi Risiko?</h3>\n<p class=\"isSelectedEnd\">RAM dapat menyimpan berbagai data yang sedang digunakan sistem. Contohnya adalah informasi proses, struktur kernel, kredensial sementara, maupun material kriptografi yang sedang digunakan.</p>\n<p class=\"isSelectedEnd\">Jika penyerang berhasil mendapatkan akses DMA tanpa pembatasan, data tersebut berpotensi dibaca atau dimodifikasi. Bahkan, kemampuan menulis ke memori dapat menimbulkan risiko yang lebih serius karena dapat memengaruhi proses yang sedang berjalan.</p>\n<p class=\"isSelectedEnd\">Namun, dampak sebenarnya tetap bergantung pada konfigurasi perangkat keras, firmware, sistem operasi, serta mekanisme perlindungan DMA yang tersedia.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Peran IOMMU dalam Mencegah PCIe DMA Attack</h2>\n<p class=\"isSelectedEnd\">Salah satu mekanisme penting untuk menghadapi serangan DMA adalah <strong>IOMMU (Input/Output Memory Management Unit)</strong>.</p>\n<p class=\"isSelectedEnd\">IOMMU berfungsi mengatur dan membatasi alamat memori yang boleh diakses oleh perangkat tertentu. Dengan begitu, perangkat DMA tidak otomatis memiliki kebebasan untuk membaca atau menulis seluruh memori sistem.</p>\n<p class=\"isSelectedEnd\">Teknologi ini juga memungkinkan penerapan <strong>DMA remapping</strong>. NIST menjelaskan bahwa DMA remapping pada IOMMU dapat membantu membatasi akses perangkat terhadap area memori tertentu sehingga memberikan isolasi yang lebih baik (dikutip dari: <a href=\"https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-125Ar1.pdf?utm_source=chatgpt.com\">NIST SP 800-125A Rev. 1</a>).<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"801\" height=\"534\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 801px) 100vw, 801px\" /></p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h3>DMA Remapping dan Memory Isolation</h3>\n<p class=\"isSelectedEnd\">DMA remapping memungkinkan sistem memberikan wilayah memori tertentu kepada sebuah perangkat.</p>\n<p class=\"isSelectedEnd\">Jika perangkat mencoba mengakses area di luar wilayah tersebut, IOMMU dapat memblokir aksesnya. Oleh sebab itu, mekanisme ini menjadi salah satu lapisan pertahanan penting terhadap akses DMA yang tidak sah.</p>\n<p class=\"isSelectedEnd\">Pada perangkat Windows modern, mekanisme tersebut digunakan melalui <strong>Kernel DMA Protection</strong> untuk membantu membatasi perangkat eksternal yang memiliki kemampuan DMA.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Cara Mengurangi Risiko PCIe DMA Attack</h2>\n<p class=\"isSelectedEnd\">Perlindungan terhadap DMA sebaiknya dilakukan pada beberapa lapisan. Beberapa langkah yang dapat diterapkan antara lain:</p>\n<h3>1. Aktifkan IOMMU</h3>\n<p class=\"isSelectedEnd\">Pastikan fitur IOMMU tersedia dan aktif pada firmware perangkat. Pada platform tertentu, fitur ini dapat menggunakan teknologi seperti <strong>Intel VT-d</strong> atau <strong>AMD-Vi</strong>.</p>\n<p class=\"isSelectedEnd\">IOMMU membantu sistem melakukan isolasi serta remapping akses DMA dari perangkat.</p>\n<h3>2. Gunakan Kernel DMA Protection</h3>\n<p class=\"isSelectedEnd\">Pada perangkat Windows yang kompatibel, <strong>Kernel DMA Protection</strong> dapat membantu mencegah perangkat eksternal memperoleh akses langsung ke memori secara tidak sah.</p>\n<p class=\"isSelectedEnd\">Fitur tersebut memanfaatkan IOMMU dan DMA remapping untuk mengontrol akses perangkat terhadap memori sistem.</p>\n<h3>3. Perbarui Firmware dan Driver</h3>\n<p class=\"isSelectedEnd\">Firmware, BIOS/UEFI, sistem operasi, dan driver perangkat sebaiknya selalu diperbarui.</p>\n<p class=\"isSelectedEnd\">Pembaruan dapat memperbaiki masalah keamanan sekaligus meningkatkan dukungan terhadap mekanisme isolasi DMA.</p>\n<h3>4. Batasi Akses Fisik</h3>\n<p class=\"isSelectedEnd\">Serangan DMA memiliki hubungan erat dengan keamanan fisik perangkat. Karena itu, jangan sembarangan menghubungkan perangkat PCIe atau periferal berkemampuan DMA yang tidak dikenal.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/resource-based-constrained-delegation-rbcd-celah-delegasi-kerberos-yang-mengancam-active-directory/\">Resource-Based Constrained Delegation (RBCD): Celah Delegasi Kerberos yang Mengancam Active Directory</a></p></blockquote>\n<p class=\"isSelectedEnd\">Untuk lingkungan perusahaan, akses ke perangkat dan port yang mendukung DMA sebaiknya dikontrol berdasarkan kebijakan keamanan organisasi.</p>\n<h3>5. Gunakan Perangkat dengan Dukungan DMA Remapping</h3>\n<p class=\"isSelectedEnd\">Perangkat dan driver yang mendukung DMA remapping memberikan lapisan perlindungan tambahan. Sistem dapat membatasi wilayah memori yang boleh digunakan oleh perangkat tersebut.</p>\n<p class=\"isSelectedEnd\">Pendekatan ini lebih aman dibandingkan membiarkan perangkat DMA memiliki akses memori yang terlalu luas.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>PCIe DMA Attack vs Serangan Software</h2>\n<p class=\"isSelectedEnd\">PCIe DMA Attack memiliki karakteristik berbeda dari serangan software biasa.</p>\n<p class=\"isSelectedEnd\">Serangan software umumnya memanfaatkan kerentanan pada aplikasi, layanan, sistem operasi, atau konfigurasi. Sementara itu, serangan DMA mengeksploitasi kemampuan perangkat keras untuk berinteraksi langsung dengan memori.</p>\n<p class=\"isSelectedEnd\">Perbedaan tersebut membuat keamanan DMA membutuhkan kombinasi antara <strong>hardware security, firmware security, operating system protection, dan physical security</strong>.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/windows-event-log-tampering-cara-mendeteksi-manipulasi-jejak-aktivitas-di-windows/\">Windows Event Log Tampering: Cara Mendeteksi Manipulasi Jejak Aktivitas di Windows</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Kesimpulan</h2>\n<p class=\"isSelectedEnd\"><strong>PCIe DMA (Direct Memory Access) Attack</strong> merupakan ancaman yang memanfaatkan kemampuan perangkat DMA untuk mengakses memori sistem secara langsung. Jika tidak dikontrol, akses tersebut dapat membuka peluang pencurian atau manipulasi data yang berada di RAM.</p>\n<p class=\"isSelectedEnd\">IOMMU dan DMA remapping menjadi mekanisme penting untuk membatasi akses tersebut. Selain itu, fitur seperti Kernel DMA Protection, pembaruan firmware, driver yang kompatibel, serta pengamanan fisik perangkat dapat memperkuat pertahanan.</p>\n<p>Dengan demikian, keamanan DMA tidak boleh dipandang hanya sebagai masalah perangkat keras. Perlindungan yang efektif membutuhkan kombinasi antara <strong>hardware, firmware, sistem operasi, driver, dan kontrol akses fisik</strong>.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Keamanan komputer tidak hanya bergantung pada software. Perangkat keras juga dapat menjadi jalur serangan, salah satunya melalui PCIe DMA (Direct Memory Access) Attack. DMA memungkinkan perangkat tertentu mengakses memori utama tanpa harus melibatkan CPU untuk setiap proses transfer data. Kemampuan ini meningkatkan performa, tetapi juga dapat menjadi risiko keamanan jika perangkat DMA yang tidak terpercaya memperoleh akses ke memori sistem. Dalam kondisi tertentu, serangan DMA dapat dimanfaatkan untuk membaca atau memodifikasi data penting di RAM. Karena itu, perlindungan terhadap akses DMA menjadi bagian penting dari keamanan perangkat modern. Apa Itu PCIe DMA Attack? PCIe DMA Attack adalah serangan yang&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 22863,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "PCIe DMA Attack",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      3991,
+      1235
+    ],
+    "class_list": [
+      "post-22993",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-dma",
+      "tag-pcle"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>PCIe DMA (Direct Memory Access) Attack: Ancaman Akses Memori yang Bisa Membobol Keamanan Sistem - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"PCIe DMA (Direct Memory Access) Attack: Ancaman Akses Memori yang Bisa Membobol Keamanan Sistem - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Keamanan komputer tidak hanya bergantung pada software. Perangkat keras juga dapat menjadi jalur serangan, salah satunya melalui PCIe DMA (Direct Memory Access) Attack. DMA memungkinkan perangkat tertentu mengakses memori utama tanpa harus melibatkan CPU untuk setiap proses transfer data. Kemampuan ini meningkatkan performa, tetapi juga dapat menjadi risiko keamanan jika perangkat DMA yang tidak terpercaya memperoleh akses ke memori sistem. Dalam kondisi tertentu, serangan DMA dapat dimanfaatkan untuk membaca atau memodifikasi data penting di RAM. Karena itu, perlindungan terhadap akses DMA menjadi bagian penting dari keamanan perangkat modern. Apa Itu PCIe DMA Attack? PCIe DMA Attack adalah serangan yang...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-09-02T00:50:37+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg\" />\n\t<meta property=\"og:image:width\" content=\"540\" />\n\t<meta property=\"og:image:height\" content=\"304\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/\",\"url\":\"https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/\",\"name\":\"PCIe DMA (Direct Memory Access) Attack: Ancaman Akses Memori yang Bisa Membobol Keamanan Sistem - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg\",\"datePublished\":\"2026-09-02T00:50:37+00:00\",\"dateModified\":\"2026-09-02T00:50:37+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg\",\"width\":540,\"height\":304},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"PCIe DMA (Direct Memory Access) Attack: Ancaman Akses Memori yang Bisa Membobol Keamanan Sistem\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "PCIe DMA (Direct Memory Access) Attack: Ancaman Akses Memori yang Bisa Membobol Keamanan Sistem - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "PCIe DMA (Direct Memory Access) Attack: Ancaman Akses Memori yang Bisa Membobol Keamanan Sistem - buletinsiber.com",
+      "og_description": "Pengantar Keamanan komputer tidak hanya bergantung pada software. Perangkat keras juga dapat menjadi jalur serangan, salah satunya melalui PCIe DMA (Direct Memory Access) Attack. DMA memungkinkan perangkat tertentu mengakses memori utama tanpa harus melibatkan CPU untuk setiap proses transfer data. Kemampuan ini meningkatkan performa, tetapi juga dapat menjadi risiko keamanan jika perangkat DMA yang tidak terpercaya memperoleh akses ke memori sistem. Dalam kondisi tertentu, serangan DMA dapat dimanfaatkan untuk membaca atau memodifikasi data penting di RAM. Karena itu, perlindungan terhadap akses DMA menjadi bagian penting dari keamanan perangkat modern. Apa Itu PCIe DMA Attack? PCIe DMA Attack adalah serangan yang...",
+      "og_url": "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-09-02T00:50:37+00:00",
+      "og_image": [
+        {
+          "width": 540,
+          "height": 304,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/",
+            "url": "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/",
+            "name": "PCIe DMA (Direct Memory Access) Attack: Ancaman Akses Memori yang Bisa Membobol Keamanan Sistem - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg",
+            "datePublished": "2026-09-02T00:50:37+00:00",
+            "dateModified": "2026-09-02T00:50:37+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/08/887068457845450191.jpg",
+            "width": 540,
+            "height": 304
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/pcie-dma-direct-memory-access-attack-ancaman-akses-memori-yang-bisa-membobol-keamanan-sistem/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "PCIe DMA (Direct Memory Access) Attack: Ancaman Akses Memori yang Bisa Membobol Keamanan Sistem"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22993",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=22993"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22993/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 22994,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22993/revisions/22994"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/22863"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=22993"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=22993"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=22993"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

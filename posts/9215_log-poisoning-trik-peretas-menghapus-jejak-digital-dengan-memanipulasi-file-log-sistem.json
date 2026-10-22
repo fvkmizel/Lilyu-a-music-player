@@ -1,0 +1,329 @@
+{
+  "id": 9215,
+  "title": "Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem",
+  "slug": "log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem",
+  "url": "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/",
+  "date": "2026-01-12T11:10:30",
+  "date_gmt": "2026-01-12T11:10:30",
+  "modified": "2026-07-06T21:31:49",
+  "modified_gmt": "2026-07-06T21:31:49",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    185,
+    576
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/CLBT_Training_Why-Your-Digital-Forensics-Credibility-Matters-More-Than-Ever-scaled-1.jpg",
+  "excerpt": "Pengantar Dalam setiap sistem modern, file log berfungsi sebagai saksi digital—mencatat aktivitas pengguna, error aplikasi, hingga indikasi serangan. Namun, justru karena perannya yang krusial, log sering menjadi target manipulasi oleh peretas. Salah satu teknik yang kerap digunakan adalah log poisoning. Log poisoning memungkinkan penyerang mengaburkan, memalsukan, atau merusak jejak aktivitas sehingga proses investigasi dan forensik menjadi sulit, bahkan menyesatkan. Apa Itu Log Poisoning? Log poisoning adalah teknik di mana penyerang menyuntikkan data berbahaya atau palsu ke dalam file log dengan tujuan: Menghapus atau menyamarkan jejak serangan Menyesatkan analis keamanan Menyisipkan payload lanjutan (pada kasus tertentu) OWASP mengategorikan teknik ini sebagai…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"362\" data-end=\"374\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"375\" data-end=\"678\"><span style=\"color: #000000;\">Dalam setiap sistem modern, file log berfungsi sebagai saksi digital—mencatat aktivitas pengguna, error aplikasi, hingga indikasi serangan. Namun, justru karena perannya yang krusial, log sering menjadi target manipulasi oleh peretas. Salah satu teknik yang kerap digunakan adalah log poisoning.</span></p>\n<p style=\"text-align: justify;\" data-start=\"680\" data-end=\"850\"><span style=\"color: #000000;\">Log poisoning memungkinkan penyerang mengaburkan, memalsukan, atau merusak jejak aktivitas sehingga proses investigasi dan forensik menjadi sulit, bahkan menyesatkan.</span></p>\n<hr data-start=\"852\" data-end=\"855\" />\n<h3 style=\"text-align: justify;\" data-start=\"857\" data-end=\"882\"><span style=\"color: #000000;\">Apa Itu Log Poisoning?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"883\" data-end=\"1004\"><span style=\"color: #000000;\">Log poisoning adalah teknik di mana penyerang <strong data-start=\"929\" data-end=\"989\">menyuntikkan data berbahaya atau palsu ke dalam file log</strong> dengan tujuan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1005\" data-end=\"1131\">\n<li data-start=\"1005\" data-end=\"1048\">\n<p data-start=\"1007\" data-end=\"1048\"><span style=\"color: #000000;\">Menghapus atau menyamarkan jejak serangan</span></p>\n</li>\n<li data-start=\"1049\" data-end=\"1078\">\n<p data-start=\"1051\" data-end=\"1078\"><span style=\"color: #000000;\">Menyesatkan analis keamanan</span></p>\n</li>\n<li data-start=\"1079\" data-end=\"1131\">\n<p data-start=\"1081\" data-end=\"1131\"><span style=\"color: #000000;\">Menyisipkan payload lanjutan (pada kasus tertentu)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1133\" data-end=\"1349\"><span style=\"color: #000000;\">OWASP mengategorikan teknik ini sebagai bagian dari <strong data-start=\"1185\" data-end=\"1202\">log injection</strong>, yang terjadi ketika input tidak tervalidasi dicatat langsung ke dalam log <em data-start=\"1278\" data-end=\"1348\">(dikutip dari <a href=\"https://owasp.org/www-community/attacks/Log_Injection\">OWASP</a>)</em>.</span></p>\n<blockquote>\n<p data-start=\"1133\" data-end=\"1349\">baca juga : <a href=\"https://buletinsiber.com/bypass-firewall-bagaimana-teknik-dns-tunneling-menyundupkan-data-keluar-dari-jaringan-perusahaan/\">Bypass Firewall: Bagaimana Teknik DNS Tunneling Menyundupkan Data Keluar dari Jaringan Perusahaan</a></p>\n</blockquote>\n<hr data-start=\"1351\" data-end=\"1354\" />\n<h3 style=\"text-align: justify;\" data-start=\"1356\" data-end=\"1399\"><span style=\"color: #000000;\">Mengapa File Log Menjadi Target Menarik?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1400\" data-end=\"1500\"><span style=\"color: #000000;\">Banyak organisasi mengandalkan log sebagai sumber utama deteksi insiden. Ironisnya, log sering kali:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1501\" data-end=\"1609\">\n<li data-start=\"1501\" data-end=\"1540\">\n<p data-start=\"1503\" data-end=\"1540\"><span style=\"color: #000000;\">Ditulis otomatis tanpa validasi input</span></p>\n</li>\n<li data-start=\"1541\" data-end=\"1579\">\n<p data-start=\"1543\" data-end=\"1579\"><span style=\"color: #000000;\">Dipercaya sebagai sumber “kebenaran”</span></p>\n</li>\n<li data-start=\"1580\" data-end=\"1609\">\n<p data-start=\"1582\" data-end=\"1609\"><span style=\"color: #000000;\">Jarang diaudit secara ketat</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1611\" data-end=\"1706\"><span style=\"color: #000000;\">Kondisi ini menciptakan peluang bagi penyerang untuk <strong data-start=\"1664\" data-end=\"1705\">mengendalikan narasi aktivitas sistem</strong>.</span></p>\n<hr data-start=\"1708\" data-end=\"1711\" />\n<h3 style=\"text-align: justify;\" data-start=\"1713\" data-end=\"1741\"><span style=\"color: #000000;\">Teknik Umum Log Poisoning</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1742\" data-end=\"1840\"><span style=\"color: #000000;\">Log poisoning tidak selalu menghapus log secara langsung. Sering kali, tekniknya jauh lebih halus.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"1847\" data-end=\"1879\"><span style=\"color: #000000;\">1. Injection Karakter Khusus</span></h4>\n<p style=\"text-align: justify;\" data-start=\"1880\" data-end=\"1902\"><span style=\"color: #000000;\">Penyerang menyisipkan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1903\" data-end=\"1943\">\n<li data-start=\"1903\" data-end=\"1919\">\n<p data-start=\"1905\" data-end=\"1919\"><span style=\"color: #000000;\">Newline (<code data-start=\"1914\" data-end=\"1918\">\\n</code>)</span></p>\n</li>\n<li data-start=\"1920\" data-end=\"1925\">\n<p data-start=\"1922\" data-end=\"1925\"><span style=\"color: #000000;\">Tab</span></p>\n</li>\n<li data-start=\"1926\" data-end=\"1943\">\n<p data-start=\"1928\" data-end=\"1943\"><span style=\"color: #000000;\">Karakter escape</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1945\" data-end=\"2045\"><span style=\"color: #000000;\">Tujuannya adalah memecah struktur log sehingga entri berbahaya tampak seperti pesan sistem yang sah.</span></p>\n<hr data-start=\"2047\" data-end=\"2050\" />\n<h4 style=\"text-align: justify;\" data-start=\"2052\" data-end=\"2082\"><span style=\"color: #000000;\">2. Pemalsuan Identitas Log</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2083\" data-end=\"2113\"><span style=\"color: #000000;\">Dengan mengatur input seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2114\" data-end=\"2156\">\n<li data-start=\"2114\" data-end=\"2126\">\n<p data-start=\"2116\" data-end=\"2126\"><span style=\"color: #000000;\">User-Agent</span></p>\n</li>\n<li data-start=\"2127\" data-end=\"2140\">\n<p data-start=\"2129\" data-end=\"2140\"><span style=\"color: #000000;\">Header HTTP</span></p>\n</li>\n<li data-start=\"2141\" data-end=\"2156\">\n<p data-start=\"2143\" data-end=\"2156\"><span style=\"color: #000000;\">Parameter URL</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2158\" data-end=\"2258\"><span style=\"color: #000000;\">Penyerang dapat membuat log seolah-olah aktivitas berasal dari sistem internal atau user terpercaya.</span></p>\n<hr data-start=\"2260\" data-end=\"2263\" />\n<h4 style=\"text-align: justify;\" data-start=\"2265\" data-end=\"2284\"><span style=\"color: #000000;\">3. Log Flooding</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2285\" data-end=\"2354\"><span style=\"color: #000000;\">Penyerang membanjiri sistem dengan log palsu dalam jumlah besar agar:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2355\" data-end=\"2451\">\n<li data-start=\"2355\" data-end=\"2386\">\n<p data-start=\"2357\" data-end=\"2386\"><span style=\"color: #000000;\">Aktivitas berbahaya tenggelam</span></p>\n</li>\n<li data-start=\"2387\" data-end=\"2412\">\n<p data-start=\"2389\" data-end=\"2412\"><span style=\"color: #000000;\">Anomali sulit dibedakan</span></p>\n</li>\n<li data-start=\"2413\" data-end=\"2451\">\n<p data-start=\"2415\" data-end=\"2451\"><span style=\"color: #000000;\">Sistem SIEM kewalahan memproses data</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/docker-escape-membedah-celah-keamanan-yang-memungkinkan-kontainer-membobol-host-os/\">Docker Escape: Membedah Celah Keamanan yang Memungkinkan Kontainer Membobol Host OS</a></p></blockquote>\n<hr data-start=\"2453\" data-end=\"2456\" />\n<h4 style=\"text-align: justify;\" data-start=\"2458\" data-end=\"2492\"><span style=\"color: #000000;\">4. Indikator Penghapusan Jejak</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2493\" data-end=\"2706\"><span style=\"color: #000000;\">manipulasi log termasuk kategori Indicator Removal on Host, yaitu teknik untuk menghilangkan bukti aktivitas berbahaya.</span></p>\n<hr data-start=\"2708\" data-end=\"2711\" />\n<h3 style=\"text-align: justify;\" data-start=\"2713\" data-end=\"2761\"><span style=\"color: #000000;\">Dampak Log Poisoning terhadap Keamanan Sistem</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2762\" data-end=\"2857\"><span style=\"color: #000000;\">Log poisoning jarang berdiri sendiri. Biasanya menjadi bagian dari rangkaian serangan lanjutan.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2864\" data-end=\"2891\"><span style=\"color: #000000;\">Risiko yang Ditimbulkan</span></h4>\n<ul style=\"text-align: justify;\" data-start=\"2892\" data-end=\"3083\">\n<li data-start=\"2892\" data-end=\"2934\">\n<p data-start=\"2894\" data-end=\"2934\"><span style=\"color: #000000;\">Investigasi insiden menjadi tidak akurat</span></p>\n</li>\n<li data-start=\"2935\" data-end=\"2994\">\n<p data-start=\"2937\" data-end=\"2994\"><span style=\"color: #000000;\">False positive atau false negative pada sistem monitoring</span></p>\n</li>\n<li data-start=\"2995\" data-end=\"3027\">\n<p data-start=\"2997\" data-end=\"3027\"><span style=\"color: #000000;\">Kegagalan audit dan compliance</span></p>\n</li>\n<li data-start=\"3028\" data-end=\"3083\">\n<p data-start=\"3030\" data-end=\"3083\"><span style=\"color: #000000;\">Penyerang bertahan lebih lama di sistem (persistence)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3085\" data-end=\"3198\"><span style=\"color: #000000;\">Dalam skenario terburuk, organisasi <strong data-start=\"3121\" data-end=\"3150\">salah mengambil keputusan</strong> karena mempercayai log yang telah dimanipulasi.</span></p>\n<hr data-start=\"3200\" data-end=\"3203\" />\n<h3 style=\"text-align: justify;\" data-start=\"3205\" data-end=\"3250\"><span style=\"color: #000000;\">Cara Mencegah dan Mendeteksi Log Poisoning</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3251\" data-end=\"3331\"><span style=\"color: #000000;\">Pencegahan log poisoning membutuhkan kombinasi kontrol aplikasi dan operasional.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3338\" data-end=\"3380\"><span style=\"color: #000000;\">Praktik Keamanan yang Direkomendasikan</span></h4>\n<ul style=\"text-align: justify;\" data-start=\"3381\" data-end=\"3605\">\n<li data-start=\"3381\" data-end=\"3432\">\n<p data-start=\"3383\" data-end=\"3432\"><span style=\"color: #000000;\">Validasi dan sanitasi semua input sebelum logging</span></p>\n</li>\n<li data-start=\"3433\" data-end=\"3472\">\n<p data-start=\"3435\" data-end=\"3472\"><span style=\"color: #000000;\">Gunakan format log terstruktur (JSON)</span></p>\n</li>\n<li data-start=\"3473\" data-end=\"3505\">\n<p data-start=\"3475\" data-end=\"3505\"><span style=\"color: #000000;\">Batasi akses tulis ke file log</span></p>\n</li>\n<li data-start=\"3506\" data-end=\"3556\">\n<p data-start=\"3508\" data-end=\"3556\"><span style=\"color: #000000;\">Terapkan integrity checking (hash, immutability)</span></p>\n</li>\n<li data-start=\"3557\" data-end=\"3605\">\n<p data-start=\"3559\" data-end=\"3605\"><span style=\"color: #000000;\">Monitor anomali pola log secara behavior-based</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3607\" data-end=\"3688\"><span style=\"color: #000000;\">Log seharusnya tidak hanya dikumpulkan, tetapi juga diverifikasi keasliannya.</span></p>\n<blockquote>\n<p data-start=\"3607\" data-end=\"3688\">baca juga : <a href=\"https://buletinsiber.com/egress-filtering-mengapa-membatasi-koneksi-keluar-outbound-sama-pentingnya-dengan-menghalau-serangan-masuk-inbound/\">Egress Filtering: Mengapa Membatasi Koneksi Keluar (Outbound) Sama Pentingnya dengan Menghalau Serangan Masuk (Inbound)</a></p>\n</blockquote>\n<hr data-start=\"3690\" data-end=\"3693\" />\n<h2 style=\"text-align: justify;\" data-start=\"3695\" data-end=\"3708\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"3709\" data-end=\"3950\"><span style=\"color: #000000;\">Log poisoning menunjukkan bahwa keamanan tidak berhenti pada pencegahan serangan awal. Dengan memanipulasi file log, penyerang dapat menghapus jejak digital dan mengaburkan fakta, membuat sistem tampak normal padahal telah dikompromikan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3952\" data-end=\"4030\"><span style=\"color: #000000;\">Bagi tim keamanan, memahami teknik log poisoning adalah langkah penting untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4031\" data-end=\"4123\">\n<li data-start=\"4031\" data-end=\"4062\">\n<p data-start=\"4033\" data-end=\"4062\"><span style=\"color: #000000;\">Meningkatkan kualitas logging</span></p>\n</li>\n<li data-start=\"4063\" data-end=\"4092\">\n<p data-start=\"4065\" data-end=\"4092\"><span style=\"color: #000000;\">Memperkuat forensik digital</span></p>\n</li>\n<li data-start=\"4093\" data-end=\"4123\">\n<p data-start=\"4095\" data-end=\"4123\"><span style=\"color: #000000;\">Menjaga keandalan data audit</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4125\" data-end=\"4237\"><span style=\"color: #000000;\">Dalam dunia keamanan siber, log yang tidak terpercaya sama berbahayanya dengan sistem tanpa log sama sekali.</span></p>\n",
+  "content_text": "Pengantar\nDalam setiap sistem modern, file log berfungsi sebagai saksi digital—mencatat aktivitas pengguna, error aplikasi, hingga indikasi serangan. Namun, justru karena perannya yang krusial, log sering menjadi target manipulasi oleh peretas. Salah satu teknik yang kerap digunakan adalah log poisoning.\nLog poisoning memungkinkan penyerang mengaburkan, memalsukan, atau merusak jejak aktivitas sehingga proses investigasi dan forensik menjadi sulit, bahkan menyesatkan.\nApa Itu Log Poisoning?\nLog poisoning adalah teknik di mana penyerang  menyuntikkan data berbahaya atau palsu ke dalam file log  dengan tujuan:\nMenghapus atau menyamarkan jejak serangan\nMenyesatkan analis keamanan\nMenyisipkan payload lanjutan (pada kasus tertentu)\nOWASP mengategorikan teknik ini sebagai bagian dari  log injection , yang terjadi ketika input tidak tervalidasi dicatat langsung ke dalam log  (dikutip dari  OWASP ) .\nbaca juga :  Bypass Firewall: Bagaimana Teknik DNS Tunneling Menyundupkan Data Keluar dari Jaringan Perusahaan\nMengapa File Log Menjadi Target Menarik?\nBanyak organisasi mengandalkan log sebagai sumber utama deteksi insiden. Ironisnya, log sering kali:\nDitulis otomatis tanpa validasi input\nDipercaya sebagai sumber “kebenaran”\nJarang diaudit secara ketat\nKondisi ini menciptakan peluang bagi penyerang untuk  mengendalikan narasi aktivitas sistem .\nTeknik Umum Log Poisoning\nLog poisoning tidak selalu menghapus log secara langsung. Sering kali, tekniknya jauh lebih halus.\n1. Injection Karakter Khusus\nPenyerang menyisipkan:\nNewline ( \\n )\nTab\nKarakter escape\nTujuannya adalah memecah struktur log sehingga entri berbahaya tampak seperti pesan sistem yang sah.\n2. Pemalsuan Identitas Log\nDengan mengatur input seperti:\nUser-Agent\nHeader HTTP\nParameter URL\nPenyerang dapat membuat log seolah-olah aktivitas berasal dari sistem internal atau user terpercaya.\n3. Log Flooding\nPenyerang membanjiri sistem dengan log palsu dalam jumlah besar agar:\nAktivitas berbahaya tenggelam\nAnomali sulit dibedakan\nSistem SIEM kewalahan memproses data\nbaca juga :  Docker Escape: Membedah Celah Keamanan yang Memungkinkan Kontainer Membobol Host OS\n4. Indikator Penghapusan Jejak\nmanipulasi log termasuk kategori Indicator Removal on Host, yaitu teknik untuk menghilangkan bukti aktivitas berbahaya.\nDampak Log Poisoning terhadap Keamanan Sistem\nLog poisoning jarang berdiri sendiri. Biasanya menjadi bagian dari rangkaian serangan lanjutan.\nRisiko yang Ditimbulkan\nInvestigasi insiden menjadi tidak akurat\nFalse positive atau false negative pada sistem monitoring\nKegagalan audit dan compliance\nPenyerang bertahan lebih lama di sistem (persistence)\nDalam skenario terburuk, organisasi  salah mengambil keputusan  karena mempercayai log yang telah dimanipulasi.\nCara Mencegah dan Mendeteksi Log Poisoning\nPencegahan log poisoning membutuhkan kombinasi kontrol aplikasi dan operasional.\nPraktik Keamanan yang Direkomendasikan\nValidasi dan sanitasi semua input sebelum logging\nGunakan format log terstruktur (JSON)\nBatasi akses tulis ke file log\nTerapkan integrity checking (hash, immutability)\nMonitor anomali pola log secara behavior-based\nLog seharusnya tidak hanya dikumpulkan, tetapi juga diverifikasi keasliannya.\nbaca juga :  Egress Filtering: Mengapa Membatasi Koneksi Keluar (Outbound) Sama Pentingnya dengan Menghalau Serangan Masuk (Inbound)\nKesimpulan\nLog poisoning menunjukkan bahwa keamanan tidak berhenti pada pencegahan serangan awal. Dengan memanipulasi file log, penyerang dapat menghapus jejak digital dan mengaburkan fakta, membuat sistem tampak normal padahal telah dikompromikan.\nBagi tim keamanan, memahami teknik log poisoning adalah langkah penting untuk:\nMeningkatkan kualitas logging\nMemperkuat forensik digital\nMenjaga keandalan data audit\nDalam dunia keamanan siber, log yang tidak terpercaya sama berbahayanya dengan sistem tanpa log sama sekali.",
+  "raw": {
+    "id": 9215,
+    "date": "2026-01-12T11:10:30",
+    "date_gmt": "2026-01-12T11:10:30",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9215"
+    },
+    "modified": "2026-07-06T21:31:49",
+    "modified_gmt": "2026-07-06T21:31:49",
+    "slug": "log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/",
+    "title": {
+      "rendered": "Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"362\" data-end=\"374\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"375\" data-end=\"678\"><span style=\"color: #000000;\">Dalam setiap sistem modern, file log berfungsi sebagai saksi digital—mencatat aktivitas pengguna, error aplikasi, hingga indikasi serangan. Namun, justru karena perannya yang krusial, log sering menjadi target manipulasi oleh peretas. Salah satu teknik yang kerap digunakan adalah log poisoning.</span></p>\n<p style=\"text-align: justify;\" data-start=\"680\" data-end=\"850\"><span style=\"color: #000000;\">Log poisoning memungkinkan penyerang mengaburkan, memalsukan, atau merusak jejak aktivitas sehingga proses investigasi dan forensik menjadi sulit, bahkan menyesatkan.</span></p>\n<hr data-start=\"852\" data-end=\"855\" />\n<h3 style=\"text-align: justify;\" data-start=\"857\" data-end=\"882\"><span style=\"color: #000000;\">Apa Itu Log Poisoning?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"883\" data-end=\"1004\"><span style=\"color: #000000;\">Log poisoning adalah teknik di mana penyerang <strong data-start=\"929\" data-end=\"989\">menyuntikkan data berbahaya atau palsu ke dalam file log</strong> dengan tujuan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1005\" data-end=\"1131\">\n<li data-start=\"1005\" data-end=\"1048\">\n<p data-start=\"1007\" data-end=\"1048\"><span style=\"color: #000000;\">Menghapus atau menyamarkan jejak serangan</span></p>\n</li>\n<li data-start=\"1049\" data-end=\"1078\">\n<p data-start=\"1051\" data-end=\"1078\"><span style=\"color: #000000;\">Menyesatkan analis keamanan</span></p>\n</li>\n<li data-start=\"1079\" data-end=\"1131\">\n<p data-start=\"1081\" data-end=\"1131\"><span style=\"color: #000000;\">Menyisipkan payload lanjutan (pada kasus tertentu)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1133\" data-end=\"1349\"><span style=\"color: #000000;\">OWASP mengategorikan teknik ini sebagai bagian dari <strong data-start=\"1185\" data-end=\"1202\">log injection</strong>, yang terjadi ketika input tidak tervalidasi dicatat langsung ke dalam log <em data-start=\"1278\" data-end=\"1348\">(dikutip dari <a href=\"https://owasp.org/www-community/attacks/Log_Injection\">OWASP</a>)</em>.</span></p>\n<blockquote>\n<p data-start=\"1133\" data-end=\"1349\">baca juga : <a href=\"https://buletinsiber.com/bypass-firewall-bagaimana-teknik-dns-tunneling-menyundupkan-data-keluar-dari-jaringan-perusahaan/\">Bypass Firewall: Bagaimana Teknik DNS Tunneling Menyundupkan Data Keluar dari Jaringan Perusahaan</a></p>\n</blockquote>\n<hr data-start=\"1351\" data-end=\"1354\" />\n<h3 style=\"text-align: justify;\" data-start=\"1356\" data-end=\"1399\"><span style=\"color: #000000;\">Mengapa File Log Menjadi Target Menarik?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1400\" data-end=\"1500\"><span style=\"color: #000000;\">Banyak organisasi mengandalkan log sebagai sumber utama deteksi insiden. Ironisnya, log sering kali:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1501\" data-end=\"1609\">\n<li data-start=\"1501\" data-end=\"1540\">\n<p data-start=\"1503\" data-end=\"1540\"><span style=\"color: #000000;\">Ditulis otomatis tanpa validasi input</span></p>\n</li>\n<li data-start=\"1541\" data-end=\"1579\">\n<p data-start=\"1543\" data-end=\"1579\"><span style=\"color: #000000;\">Dipercaya sebagai sumber “kebenaran”</span></p>\n</li>\n<li data-start=\"1580\" data-end=\"1609\">\n<p data-start=\"1582\" data-end=\"1609\"><span style=\"color: #000000;\">Jarang diaudit secara ketat</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1611\" data-end=\"1706\"><span style=\"color: #000000;\">Kondisi ini menciptakan peluang bagi penyerang untuk <strong data-start=\"1664\" data-end=\"1705\">mengendalikan narasi aktivitas sistem</strong>.</span></p>\n<hr data-start=\"1708\" data-end=\"1711\" />\n<h3 style=\"text-align: justify;\" data-start=\"1713\" data-end=\"1741\"><span style=\"color: #000000;\">Teknik Umum Log Poisoning</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1742\" data-end=\"1840\"><span style=\"color: #000000;\">Log poisoning tidak selalu menghapus log secara langsung. Sering kali, tekniknya jauh lebih halus.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"1847\" data-end=\"1879\"><span style=\"color: #000000;\">1. Injection Karakter Khusus</span></h4>\n<p style=\"text-align: justify;\" data-start=\"1880\" data-end=\"1902\"><span style=\"color: #000000;\">Penyerang menyisipkan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1903\" data-end=\"1943\">\n<li data-start=\"1903\" data-end=\"1919\">\n<p data-start=\"1905\" data-end=\"1919\"><span style=\"color: #000000;\">Newline (<code data-start=\"1914\" data-end=\"1918\">\\n</code>)</span></p>\n</li>\n<li data-start=\"1920\" data-end=\"1925\">\n<p data-start=\"1922\" data-end=\"1925\"><span style=\"color: #000000;\">Tab</span></p>\n</li>\n<li data-start=\"1926\" data-end=\"1943\">\n<p data-start=\"1928\" data-end=\"1943\"><span style=\"color: #000000;\">Karakter escape</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1945\" data-end=\"2045\"><span style=\"color: #000000;\">Tujuannya adalah memecah struktur log sehingga entri berbahaya tampak seperti pesan sistem yang sah.</span></p>\n<hr data-start=\"2047\" data-end=\"2050\" />\n<h4 style=\"text-align: justify;\" data-start=\"2052\" data-end=\"2082\"><span style=\"color: #000000;\">2. Pemalsuan Identitas Log</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2083\" data-end=\"2113\"><span style=\"color: #000000;\">Dengan mengatur input seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2114\" data-end=\"2156\">\n<li data-start=\"2114\" data-end=\"2126\">\n<p data-start=\"2116\" data-end=\"2126\"><span style=\"color: #000000;\">User-Agent</span></p>\n</li>\n<li data-start=\"2127\" data-end=\"2140\">\n<p data-start=\"2129\" data-end=\"2140\"><span style=\"color: #000000;\">Header HTTP</span></p>\n</li>\n<li data-start=\"2141\" data-end=\"2156\">\n<p data-start=\"2143\" data-end=\"2156\"><span style=\"color: #000000;\">Parameter URL</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2158\" data-end=\"2258\"><span style=\"color: #000000;\">Penyerang dapat membuat log seolah-olah aktivitas berasal dari sistem internal atau user terpercaya.</span></p>\n<hr data-start=\"2260\" data-end=\"2263\" />\n<h4 style=\"text-align: justify;\" data-start=\"2265\" data-end=\"2284\"><span style=\"color: #000000;\">3. Log Flooding</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2285\" data-end=\"2354\"><span style=\"color: #000000;\">Penyerang membanjiri sistem dengan log palsu dalam jumlah besar agar:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2355\" data-end=\"2451\">\n<li data-start=\"2355\" data-end=\"2386\">\n<p data-start=\"2357\" data-end=\"2386\"><span style=\"color: #000000;\">Aktivitas berbahaya tenggelam</span></p>\n</li>\n<li data-start=\"2387\" data-end=\"2412\">\n<p data-start=\"2389\" data-end=\"2412\"><span style=\"color: #000000;\">Anomali sulit dibedakan</span></p>\n</li>\n<li data-start=\"2413\" data-end=\"2451\">\n<p data-start=\"2415\" data-end=\"2451\"><span style=\"color: #000000;\">Sistem SIEM kewalahan memproses data</span></p>\n</li>\n</ul>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/docker-escape-membedah-celah-keamanan-yang-memungkinkan-kontainer-membobol-host-os/\">Docker Escape: Membedah Celah Keamanan yang Memungkinkan Kontainer Membobol Host OS</a></p></blockquote>\n<hr data-start=\"2453\" data-end=\"2456\" />\n<h4 style=\"text-align: justify;\" data-start=\"2458\" data-end=\"2492\"><span style=\"color: #000000;\">4. Indikator Penghapusan Jejak</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2493\" data-end=\"2706\"><span style=\"color: #000000;\">manipulasi log termasuk kategori Indicator Removal on Host, yaitu teknik untuk menghilangkan bukti aktivitas berbahaya.</span></p>\n<hr data-start=\"2708\" data-end=\"2711\" />\n<h3 style=\"text-align: justify;\" data-start=\"2713\" data-end=\"2761\"><span style=\"color: #000000;\">Dampak Log Poisoning terhadap Keamanan Sistem</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2762\" data-end=\"2857\"><span style=\"color: #000000;\">Log poisoning jarang berdiri sendiri. Biasanya menjadi bagian dari rangkaian serangan lanjutan.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2864\" data-end=\"2891\"><span style=\"color: #000000;\">Risiko yang Ditimbulkan</span></h4>\n<ul style=\"text-align: justify;\" data-start=\"2892\" data-end=\"3083\">\n<li data-start=\"2892\" data-end=\"2934\">\n<p data-start=\"2894\" data-end=\"2934\"><span style=\"color: #000000;\">Investigasi insiden menjadi tidak akurat</span></p>\n</li>\n<li data-start=\"2935\" data-end=\"2994\">\n<p data-start=\"2937\" data-end=\"2994\"><span style=\"color: #000000;\">False positive atau false negative pada sistem monitoring</span></p>\n</li>\n<li data-start=\"2995\" data-end=\"3027\">\n<p data-start=\"2997\" data-end=\"3027\"><span style=\"color: #000000;\">Kegagalan audit dan compliance</span></p>\n</li>\n<li data-start=\"3028\" data-end=\"3083\">\n<p data-start=\"3030\" data-end=\"3083\"><span style=\"color: #000000;\">Penyerang bertahan lebih lama di sistem (persistence)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3085\" data-end=\"3198\"><span style=\"color: #000000;\">Dalam skenario terburuk, organisasi <strong data-start=\"3121\" data-end=\"3150\">salah mengambil keputusan</strong> karena mempercayai log yang telah dimanipulasi.</span></p>\n<hr data-start=\"3200\" data-end=\"3203\" />\n<h3 style=\"text-align: justify;\" data-start=\"3205\" data-end=\"3250\"><span style=\"color: #000000;\">Cara Mencegah dan Mendeteksi Log Poisoning</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3251\" data-end=\"3331\"><span style=\"color: #000000;\">Pencegahan log poisoning membutuhkan kombinasi kontrol aplikasi dan operasional.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3338\" data-end=\"3380\"><span style=\"color: #000000;\">Praktik Keamanan yang Direkomendasikan</span></h4>\n<ul style=\"text-align: justify;\" data-start=\"3381\" data-end=\"3605\">\n<li data-start=\"3381\" data-end=\"3432\">\n<p data-start=\"3383\" data-end=\"3432\"><span style=\"color: #000000;\">Validasi dan sanitasi semua input sebelum logging</span></p>\n</li>\n<li data-start=\"3433\" data-end=\"3472\">\n<p data-start=\"3435\" data-end=\"3472\"><span style=\"color: #000000;\">Gunakan format log terstruktur (JSON)</span></p>\n</li>\n<li data-start=\"3473\" data-end=\"3505\">\n<p data-start=\"3475\" data-end=\"3505\"><span style=\"color: #000000;\">Batasi akses tulis ke file log</span></p>\n</li>\n<li data-start=\"3506\" data-end=\"3556\">\n<p data-start=\"3508\" data-end=\"3556\"><span style=\"color: #000000;\">Terapkan integrity checking (hash, immutability)</span></p>\n</li>\n<li data-start=\"3557\" data-end=\"3605\">\n<p data-start=\"3559\" data-end=\"3605\"><span style=\"color: #000000;\">Monitor anomali pola log secara behavior-based</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3607\" data-end=\"3688\"><span style=\"color: #000000;\">Log seharusnya tidak hanya dikumpulkan, tetapi juga diverifikasi keasliannya.</span></p>\n<blockquote>\n<p data-start=\"3607\" data-end=\"3688\">baca juga : <a href=\"https://buletinsiber.com/egress-filtering-mengapa-membatasi-koneksi-keluar-outbound-sama-pentingnya-dengan-menghalau-serangan-masuk-inbound/\">Egress Filtering: Mengapa Membatasi Koneksi Keluar (Outbound) Sama Pentingnya dengan Menghalau Serangan Masuk (Inbound)</a></p>\n</blockquote>\n<hr data-start=\"3690\" data-end=\"3693\" />\n<h2 style=\"text-align: justify;\" data-start=\"3695\" data-end=\"3708\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"3709\" data-end=\"3950\"><span style=\"color: #000000;\">Log poisoning menunjukkan bahwa keamanan tidak berhenti pada pencegahan serangan awal. Dengan memanipulasi file log, penyerang dapat menghapus jejak digital dan mengaburkan fakta, membuat sistem tampak normal padahal telah dikompromikan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3952\" data-end=\"4030\"><span style=\"color: #000000;\">Bagi tim keamanan, memahami teknik log poisoning adalah langkah penting untuk:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"4031\" data-end=\"4123\">\n<li data-start=\"4031\" data-end=\"4062\">\n<p data-start=\"4033\" data-end=\"4062\"><span style=\"color: #000000;\">Meningkatkan kualitas logging</span></p>\n</li>\n<li data-start=\"4063\" data-end=\"4092\">\n<p data-start=\"4065\" data-end=\"4092\"><span style=\"color: #000000;\">Memperkuat forensik digital</span></p>\n</li>\n<li data-start=\"4093\" data-end=\"4123\">\n<p data-start=\"4095\" data-end=\"4123\"><span style=\"color: #000000;\">Menjaga keandalan data audit</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"4125\" data-end=\"4237\"><span style=\"color: #000000;\">Dalam dunia keamanan siber, log yang tidak terpercaya sama berbahayanya dengan sistem tanpa log sama sekali.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dalam setiap sistem modern, file log berfungsi sebagai saksi digital—mencatat aktivitas pengguna, error aplikasi, hingga indikasi serangan. Namun, justru karena perannya yang krusial, log sering menjadi target manipulasi oleh peretas. Salah satu teknik yang kerap digunakan adalah log poisoning. Log poisoning memungkinkan penyerang mengaburkan, memalsukan, atau merusak jejak aktivitas sehingga proses investigasi dan forensik menjadi sulit, bahkan menyesatkan. Apa Itu Log Poisoning? Log poisoning adalah teknik di mana penyerang menyuntikkan data berbahaya atau palsu ke dalam file log dengan tujuan: Menghapus atau menyamarkan jejak serangan Menyesatkan analis keamanan Menyisipkan payload lanjutan (pada kasus tertentu) OWASP mengategorikan teknik ini sebagai&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 4014,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "log poisoning",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      185,
+      576
+    ],
+    "class_list": [
+      "post-9215",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-cybersecurity",
+      "tag-log"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dalam setiap sistem modern, file log berfungsi sebagai saksi digital—mencatat aktivitas pengguna, error aplikasi, hingga indikasi serangan. Namun, justru karena perannya yang krusial, log sering menjadi target manipulasi oleh peretas. Salah satu teknik yang kerap digunakan adalah log poisoning. Log poisoning memungkinkan penyerang mengaburkan, memalsukan, atau merusak jejak aktivitas sehingga proses investigasi dan forensik menjadi sulit, bahkan menyesatkan. Apa Itu Log Poisoning? Log poisoning adalah teknik di mana penyerang menyuntikkan data berbahaya atau palsu ke dalam file log dengan tujuan: Menghapus atau menyamarkan jejak serangan Menyesatkan analis keamanan Menyisipkan payload lanjutan (pada kasus tertentu) OWASP mengategorikan teknik ini sebagai...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-01-12T11:10:30+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T21:31:49+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/CLBT_Training_Why-Your-Digital-Forensics-Credibility-Matters-More-Than-Ever-scaled-1.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2560\" />\n\t<meta property=\"og:image:height\" content=\"1435\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/\",\"url\":\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/\",\"name\":\"Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/CLBT_Training_Why-Your-Digital-Forensics-Credibility-Matters-More-Than-Ever-scaled-1.jpg\",\"datePublished\":\"2026-01-12T11:10:30+00:00\",\"dateModified\":\"2026-07-06T21:31:49+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/CLBT_Training_Why-Your-Digital-Forensics-Credibility-Matters-More-Than-Ever-scaled-1.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/CLBT_Training_Why-Your-Digital-Forensics-Credibility-Matters-More-Than-Ever-scaled-1.jpg\",\"width\":2560,\"height\":1435},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem - buletinsiber.com",
+      "og_description": "Pengantar Dalam setiap sistem modern, file log berfungsi sebagai saksi digital—mencatat aktivitas pengguna, error aplikasi, hingga indikasi serangan. Namun, justru karena perannya yang krusial, log sering menjadi target manipulasi oleh peretas. Salah satu teknik yang kerap digunakan adalah log poisoning. Log poisoning memungkinkan penyerang mengaburkan, memalsukan, atau merusak jejak aktivitas sehingga proses investigasi dan forensik menjadi sulit, bahkan menyesatkan. Apa Itu Log Poisoning? Log poisoning adalah teknik di mana penyerang menyuntikkan data berbahaya atau palsu ke dalam file log dengan tujuan: Menghapus atau menyamarkan jejak serangan Menyesatkan analis keamanan Menyisipkan payload lanjutan (pada kasus tertentu) OWASP mengategorikan teknik ini sebagai...",
+      "og_url": "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-01-12T11:10:30+00:00",
+      "article_modified_time": "2026-07-06T21:31:49+00:00",
+      "og_image": [
+        {
+          "width": 2560,
+          "height": 1435,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/CLBT_Training_Why-Your-Digital-Forensics-Credibility-Matters-More-Than-Ever-scaled-1.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/",
+            "url": "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/",
+            "name": "Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/CLBT_Training_Why-Your-Digital-Forensics-Credibility-Matters-More-Than-Ever-scaled-1.jpg",
+            "datePublished": "2026-01-12T11:10:30+00:00",
+            "dateModified": "2026-07-06T21:31:49+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/CLBT_Training_Why-Your-Digital-Forensics-Credibility-Matters-More-Than-Ever-scaled-1.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/CLBT_Training_Why-Your-Digital-Forensics-Credibility-Matters-More-Than-Ever-scaled-1.jpg",
+            "width": 2560,
+            "height": 1435
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9215",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9215"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9215/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9216,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9215/revisions/9216"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4014"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9215"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9215"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9215"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

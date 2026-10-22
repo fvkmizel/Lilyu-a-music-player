@@ -1,0 +1,332 @@
+{
+  "id": 6234,
+  "title": "Golden Ticket: Kunci Rahasia yang Menguasai Active Directory",
+  "slug": "golden-ticket-kunci-rahasia-yang-menguasai-active-directory",
+  "url": "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/",
+  "date": "2025-09-26T15:17:41",
+  "date_gmt": "2025-09-26T15:17:41",
+  "modified": "2026-07-12T16:43:40",
+  "modified_gmt": "2026-07-12T16:43:40",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    472,
+    1385,
+    471,
+    470
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762.jpeg",
+  "excerpt": "Pendahuluan Bayangkan ada sebuah tiket yang — jika dipalsukan — memberi pelakunya akses penuh ke seluruh sistem organisasi. Itulah inti dari yang disebut Golden Ticket dalam konteks Active Directory. Serangan ini sangat berbahaya karena memberi penyerang kemampuan bertindak seolah-olah mereka adalah pengguna atau administrator yang sah. Artikel ini menjelaskan konsepnya dengan bahasa sederhana: apa itu, bagaimana prinsip kerjanya secara umum, tanda-tanda, dan langkah pencegahannya. Latar Belakang Active Directory & Kerberos Sebelum masuk ke Golden Ticket, perlu paham dua hal dasar: Active Directory (AD)AD adalah layanan direktori yang dipakai banyak organisasi untuk mengelola pengguna, komputer, grup, dan kebijakan jaringan. Ia mengatur…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"64\" data-end=\"81\">Pendahuluan</h2>\n<p style=\"text-align: justify;\" data-start=\"82\" data-end=\"560\">Bayangkan ada sebuah tiket yang — jika dipalsukan — memberi pelakunya akses penuh ke seluruh sistem organisasi. Itulah inti dari yang disebut <strong data-start=\"224\" data-end=\"241\">Golden Ticket</strong> dalam konteks Active Directory. Serangan ini sangat berbahaya karena memberi penyerang kemampuan bertindak seolah-olah mereka adalah pengguna atau administrator yang sah. Artikel ini menjelaskan konsepnya dengan bahasa sederhana: apa itu, bagaimana prinsip kerjanya secara umum, tanda-tanda, dan langkah pencegahannya.</p>\n<h2 style=\"text-align: justify;\" data-start=\"567\" data-end=\"616\">Latar Belakang Active Directory &amp; Kerberos</h2>\n<p style=\"text-align: justify;\" data-start=\"617\" data-end=\"675\">Sebelum masuk ke Golden Ticket, perlu paham dua hal dasar:</p>\n<ol style=\"text-align: justify;\" data-start=\"677\" data-end=\"1328\">\n<li data-start=\"677\" data-end=\"897\">\n<p data-start=\"680\" data-end=\"897\"><strong data-start=\"680\" data-end=\"705\">Active Directory (AD)</strong><br data-start=\"705\" data-end=\"708\" />AD adalah layanan direktori yang dipakai banyak organisasi untuk mengelola pengguna, komputer, grup, dan kebijakan jaringan. Ia mengatur siapa boleh mengakses apa di jaringan perusahaan.</p>\n</li>\n<li data-start=\"899\" data-end=\"1328\">\n<p data-start=\"902\" data-end=\"1328\"><strong data-start=\"902\" data-end=\"935\">Kerberos (sistem autentikasi)</strong><br data-start=\"935\" data-end=\"938\" />Kerberos adalah protokol yang dipakai AD untuk mengautentikasi (memastikan identitas) pengguna dan layanan. Salah satu konsep penting di Kerberos adalah <strong data-start=\"1094\" data-end=\"1126\">TGT (Ticket Granting Ticket)</strong> — tiket yang memberi hak untuk meminta tiket lain ketika mengakses layanan. Ada juga akun khusus di AD bernama <strong data-start=\"1238\" data-end=\"1248\">KRBTGT</strong> yang peran kuncinya sangat penting dalam pembuatan dan validasi tiket Kerberos.</p>\n</li>\n</ol>\n<h2 style=\"text-align: justify;\" data-start=\"1335\" data-end=\"1372\">Apa itu Golden Ticket Attack?</h2>\n<p style=\"text-align: justify;\" data-start=\"1373\" data-end=\"1789\"><strong data-start=\"1373\" data-end=\"1390\">Golden Ticket</strong> adalah bentuk serangan di mana penyerang membuat (memalsukan) TGT yang sah sehingga bisa mengakses layanan dan sumber daya di domain seolah-olah mereka adalah pengguna/domain admin yang sah. Tiket palsu ini ditandatangani menggunakan kunci yang hanya diketahui oleh sistem — dan kalau penyerang berhasil mendapatkan kunci tersebut (atau hash-nya), mereka bisa membuat tiket palsu yang tampak legit.</p>\n<p style=\"text-align: justify;\" data-start=\"1791\" data-end=\"1911\">Intinya: Golden Ticket membuat penyerang “berpura-pura” jadi siapa pun di domain, seringkali dengan hak istimewa tinggi.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1918\" data-end=\"1968\">Proses Serangan Golden Ticket (secara umum)</h2>\n<p style=\"text-align: justify;\" data-start=\"1969\" data-end=\"2055\">Berikut alur tinggi dari attack chain Golden Ticket — tanpa detail teknis eksploitasi:</p>\n<ol style=\"text-align: justify;\" data-start=\"2057\" data-end=\"2955\">\n<li data-start=\"2057\" data-end=\"2226\">\n<p data-start=\"2060\" data-end=\"2226\"><strong data-start=\"2060\" data-end=\"2082\">Entry / Akses awal</strong><br data-start=\"2082\" data-end=\"2085\" />Penyerang biasanya memulai dengan mendapatkan akses ke mesin di jaringan (mis. lewat phishing, kelemahan aplikasi, atau kredensial bocor).</p>\n</li>\n<li data-start=\"2228\" data-end=\"2469\">\n<p data-start=\"2231\" data-end=\"2469\"><strong data-start=\"2231\" data-end=\"2267\">Pengumpulan kredensial atau hash</strong><br data-start=\"2267\" data-end=\"2270\" />Dari mesin yang sudah dikompromikan, penyerang mencari cara untuk mendapatkan hash dari akun penting di domain — terutama hash akun <strong data-start=\"2405\" data-end=\"2415\">KRBTGT</strong>. Hash inilah yang dipakai untuk menandatangani tiket.</p>\n</li>\n<li data-start=\"2471\" data-end=\"2670\">\n<p data-start=\"2474\" data-end=\"2670\"><strong data-start=\"2474\" data-end=\"2515\">Pembuatan tiket palsu (Golden Ticket)</strong><br data-start=\"2515\" data-end=\"2518\" />Dengan hash/kunci tersebut, penyerang dapat membuat TGT yang tampak valid. Tiket ini memberi akses ke banyak sumber daya tanpa perlu kredensial lain.</p>\n</li>\n<li data-start=\"2672\" data-end=\"2955\">\n<p data-start=\"2675\" data-end=\"2955\"><strong data-start=\"2675\" data-end=\"2704\">Eksploitasi &amp; persistence</strong><br data-start=\"2704\" data-end=\"2707\" />Setelah memiliki tiket, penyerang bisa mengakses server, mencuri data, memasang backdoor, atau bergerak lateral ke sistem lain. Golden Ticket juga bisa memberi akses berkelanjutan, bahkan ketika password diubah—kecuali mitigasi khusus dilakukan.</p>\n</li>\n</ol>\n<blockquote data-start=\"2957\" data-end=\"3091\">\n<p data-start=\"2959\" data-end=\"3091\">Catatan etika: penjelasan di atas bersifat konseptual agar pembaca memahami bahaya. Tidak diberikan langkah operasional eksploitasi.</p>\n</blockquote>\n<h2 style=\"text-align: justify;\" data-start=\"3098\" data-end=\"3121\">Dampak dan Risiko</h2>\n<p style=\"text-align: justify;\" data-start=\"3122\" data-end=\"3225\">Golden Ticket adalah salah satu ancaman paling serius terhadap Active Directory karena beberapa alasan:</p>\n<ul style=\"text-align: justify;\" data-start=\"3227\" data-end=\"3743\">\n<li data-start=\"3227\" data-end=\"3348\">\n<p data-start=\"3229\" data-end=\"3348\"><strong data-start=\"3229\" data-end=\"3254\">Kontrol domain penuh:</strong> Penyerang bisa bertindak sebagai administrator domain dan mengakses hampir semua sumber daya.</p>\n</li>\n<li data-start=\"3349\" data-end=\"3472\">\n<p data-start=\"3351\" data-end=\"3472\"><strong data-start=\"3351\" data-end=\"3381\">Persistence sulit dihapus:</strong> Golden Ticket dapat memberi akses berkepanjangan, bahkan saat password user biasa direset.</p>\n</li>\n<li data-start=\"3473\" data-end=\"3594\">\n<p data-start=\"3475\" data-end=\"3594\"><strong data-start=\"3475\" data-end=\"3496\">Sulit terdeteksi:</strong> Karena tiket terlihat valid menurut protokol Kerberos, sistem mungkin tidak segera mencurigainya.</p>\n</li>\n<li data-start=\"3595\" data-end=\"3743\">\n<p data-start=\"3597\" data-end=\"3743\"><strong data-start=\"3597\" data-end=\"3616\">Kerusakan luas:</strong> Dengan akses domain admin, penyerang bisa mengubah kebijakan, mematikan monitoring, atau menyebarkan malware ke banyak server.</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"3750\" data-end=\"3778\">Deteksi Golden Ticket</h2>\n<p style=\"text-align: justify;\" data-start=\"3779\" data-end=\"3859\">Mendeteksi Golden Ticket bukan hal mudah, tapi ada tanda-tanda yang bisa dicari:</p>\n<ul style=\"text-align: justify;\" data-start=\"3861\" data-end=\"4577\">\n<li data-start=\"3861\" data-end=\"4049\">\n<p data-start=\"3863\" data-end=\"4049\"><strong data-start=\"3863\" data-end=\"3891\">Anomali di log Kerberos:</strong> Contoh, tiket dengan masa berlaku yang tidak biasa, tiket yang diterbitkan untuk akun yang jarang dipakai, atau event Kerberos yang tidak sesuai pola normal.</p>\n</li>\n<li data-start=\"4050\" data-end=\"4187\">\n<p data-start=\"4052\" data-end=\"4187\"><strong data-start=\"4052\" data-end=\"4096\">Login dari lokasi/host yang tidak biasa:</strong> Jika user admin tercatat login dari mesin yang bukan tempat biasanya, itu patut dicurigai.</p>\n</li>\n<li data-start=\"4188\" data-end=\"4315\">\n<p data-start=\"4190\" data-end=\"4315\"><strong data-start=\"4190\" data-end=\"4221\">Perubahan pada akun KRBTGT:</strong> Aksi dump kredensial di domain controller atau aktivitas mencurigakan yang menarget akun ini.</p>\n</li>\n<li data-start=\"4316\" data-end=\"4444\">\n<p data-start=\"4318\" data-end=\"4444\"><strong data-start=\"4318\" data-end=\"4356\">Perilaku layanan yang tidak biasa:</strong> Akses ke banyak server dalam waktu singkat, atau permintaan tiket yang tidak konsisten.</p>\n</li>\n<li data-start=\"4445\" data-end=\"4577\">\n<p data-start=\"4447\" data-end=\"4577\"><strong data-start=\"4447\" data-end=\"4471\">SIEM &amp; korelasi log:</strong> Menggabungkan event dari domain controller, DNS, dan endpoint detection dapat membantu menemukan anomali.</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"4584\" data-end=\"4613\">Mitigasi &amp; Pencegahan</h2>\n<p style=\"text-align: justify;\" data-start=\"4614\" data-end=\"4710\">Untuk melindungi AD dari Golden Ticket, organisasi perlu kombinasi kontrol teknis dan kebijakan:</p>\n<ol style=\"text-align: justify;\" data-start=\"4712\" data-end=\"5888\">\n<li data-start=\"4712\" data-end=\"4942\">\n<p data-start=\"4715\" data-end=\"4942\"><strong data-start=\"4715\" data-end=\"4756\">Rotasi password KRBTGT secara berkala</strong><br data-start=\"4756\" data-end=\"4759\" />Mengganti password (hash) akun KRBTGT dua kali dengan jeda yang sesuai adalah praktik yang direkomendasikan untuk meminimalkan risiko tiket palsu yang dibuat menggunakan hash lama.</p>\n</li>\n<li data-start=\"4944\" data-end=\"5141\">\n<p data-start=\"4947\" data-end=\"5141\"><strong data-start=\"4947\" data-end=\"4980\">Least privilege (hak minimal)</strong><br data-start=\"4980\" data-end=\"4983\" />Batasi jumlah akun dengan hak tinggi. Gunakan admin tiering (pemisahan akun admin untuk tugas berbeda) sehingga tidak semua admin memiliki hak domain-wide.</p>\n</li>\n<li data-start=\"5143\" data-end=\"5348\">\n<p data-start=\"5146\" data-end=\"5348\"><strong data-start=\"5146\" data-end=\"5198\">Segmentasi jaringan &amp; proteksi domain controller</strong><br data-start=\"5198\" data-end=\"5201\" />Lindungi domain controller secara ketat: hanya akses administratif yang sangat terbatas, network segmentation, dan kontrol akses berbasis peran.</p>\n</li>\n<li data-start=\"5350\" data-end=\"5510\">\n<p data-start=\"5353\" data-end=\"5510\"><strong data-start=\"5353\" data-end=\"5387\">Monitoring &amp; logging yang baik</strong><br data-start=\"5387\" data-end=\"5390\" />Aktifkan logging Kerberos, audit log di domain controller, dan korelasikan dengan SIEM untuk deteksi cepat pola aneh.</p>\n</li>\n<li data-start=\"5512\" data-end=\"5634\">\n<p data-start=\"5515\" data-end=\"5634\"><strong data-start=\"5515\" data-end=\"5541\">Hardening dan patching</strong><br data-start=\"5541\" data-end=\"5544\" />Pastikan semua server dan layanan terpatch, serta nonaktifkan layanan yang tidak perlu.</p>\n</li>\n<li data-start=\"5636\" data-end=\"5765\">\n<p data-start=\"5639\" data-end=\"5765\"><strong data-start=\"5639\" data-end=\"5657\">Penggunaan MFA</strong><br data-start=\"5657\" data-end=\"5660\" />Terapkan multi-factor authentication untuk akses administratif dan layanan kritikal bila memungkinkan.</p>\n</li>\n<li data-start=\"5767\" data-end=\"5888\">\n<p data-start=\"5770\" data-end=\"5888\"><strong data-start=\"5770\" data-end=\"5800\">Routine security exercises</strong><br data-start=\"5800\" data-end=\"5803\" />Lakukan latihan red-team/blue-team dan simulasi untuk menguji deteksi dan respons.</p>\n</li>\n</ol>\n<h2 style=\"text-align: justify;\" data-start=\"5895\" data-end=\"5937\">Studi Kasus / Ilustrasi (Singkat)</h2>\n<p style=\"text-align: justify;\" data-start=\"5938\" data-end=\"6468\">Dalam skenario lab atau insiden nyata, jalannya sering seperti ini: attacker mendapatkan akses ke sebuah workstation lewat phishing → dari situ mereka mengekstrak kredensial dan akhirnya mendapatkan akses ke domain controller → mereka mengekstrak hash KRBTGT → membuat Golden Ticket → menggunakan tiket itu untuk login sebagai admin ke banyak server → memasang backdoor dan mengakses data sensitif. Organisasi yang tidak memonitor log Kerberos atau tidak melakukan rotasi KRBTGT biasanya baru sadar ketika data besar sudah dicuri.</p>\n<h2 style=\"text-align: justify;\" data-start=\"6475\" data-end=\"6492\">Kesimpulan</h2>\n<p style=\"text-align: justify;\" data-start=\"6493\" data-end=\"7042\">Golden Ticket adalah ancaman serius terhadap keamanan Active Directory karena memungkinkan akses yang luas dan sulit dideteksi. Untuk mengurangi risikonya, organisasi harus menerapkan prinsip pertahanan berlapis: pembatasan hak, proteksi domain controller, monitoring intensif, rotasi kunci penting seperti KRBTGT, dan latihan keamanan berkala. Memahami ancaman ini secara konseptual membantu tim keamanan merancang kontrol yang efektif — tujuan akhirnya adalah membuat serangan seperti ini menjadi sulit dilakukan dan cepat terdeteksi jika terjadi.</p>\n",
+  "content_text": "Pendahuluan\nBayangkan ada sebuah tiket yang — jika dipalsukan — memberi pelakunya akses penuh ke seluruh sistem organisasi. Itulah inti dari yang disebut  Golden Ticket  dalam konteks Active Directory. Serangan ini sangat berbahaya karena memberi penyerang kemampuan bertindak seolah-olah mereka adalah pengguna atau administrator yang sah. Artikel ini menjelaskan konsepnya dengan bahasa sederhana: apa itu, bagaimana prinsip kerjanya secara umum, tanda-tanda, dan langkah pencegahannya.\nLatar Belakang Active Directory & Kerberos\nSebelum masuk ke Golden Ticket, perlu paham dua hal dasar:\nActive Directory (AD)\nAD adalah layanan direktori yang dipakai banyak organisasi untuk mengelola pengguna, komputer, grup, dan kebijakan jaringan. Ia mengatur siapa boleh mengakses apa di jaringan perusahaan.\nKerberos (sistem autentikasi)\nKerberos adalah protokol yang dipakai AD untuk mengautentikasi (memastikan identitas) pengguna dan layanan. Salah satu konsep penting di Kerberos adalah  TGT (Ticket Granting Ticket)  — tiket yang memberi hak untuk meminta tiket lain ketika mengakses layanan. Ada juga akun khusus di AD bernama  KRBTGT  yang peran kuncinya sangat penting dalam pembuatan dan validasi tiket Kerberos.\nApa itu Golden Ticket Attack?\nGolden Ticket  adalah bentuk serangan di mana penyerang membuat (memalsukan) TGT yang sah sehingga bisa mengakses layanan dan sumber daya di domain seolah-olah mereka adalah pengguna/domain admin yang sah. Tiket palsu ini ditandatangani menggunakan kunci yang hanya diketahui oleh sistem — dan kalau penyerang berhasil mendapatkan kunci tersebut (atau hash-nya), mereka bisa membuat tiket palsu yang tampak legit.\nIntinya: Golden Ticket membuat penyerang “berpura-pura” jadi siapa pun di domain, seringkali dengan hak istimewa tinggi.\nProses Serangan Golden Ticket (secara umum)\nBerikut alur tinggi dari attack chain Golden Ticket — tanpa detail teknis eksploitasi:\nEntry / Akses awal\nPenyerang biasanya memulai dengan mendapatkan akses ke mesin di jaringan (mis. lewat phishing, kelemahan aplikasi, atau kredensial bocor).\nPengumpulan kredensial atau hash\nDari mesin yang sudah dikompromikan, penyerang mencari cara untuk mendapatkan hash dari akun penting di domain — terutama hash akun  KRBTGT . Hash inilah yang dipakai untuk menandatangani tiket.\nPembuatan tiket palsu (Golden Ticket)\nDengan hash/kunci tersebut, penyerang dapat membuat TGT yang tampak valid. Tiket ini memberi akses ke banyak sumber daya tanpa perlu kredensial lain.\nEksploitasi & persistence\nSetelah memiliki tiket, penyerang bisa mengakses server, mencuri data, memasang backdoor, atau bergerak lateral ke sistem lain. Golden Ticket juga bisa memberi akses berkelanjutan, bahkan ketika password diubah—kecuali mitigasi khusus dilakukan.\nCatatan etika: penjelasan di atas bersifat konseptual agar pembaca memahami bahaya. Tidak diberikan langkah operasional eksploitasi.\nDampak dan Risiko\nGolden Ticket adalah salah satu ancaman paling serius terhadap Active Directory karena beberapa alasan:\nKontrol domain penuh:  Penyerang bisa bertindak sebagai administrator domain dan mengakses hampir semua sumber daya.\nPersistence sulit dihapus:  Golden Ticket dapat memberi akses berkepanjangan, bahkan saat password user biasa direset.\nSulit terdeteksi:  Karena tiket terlihat valid menurut protokol Kerberos, sistem mungkin tidak segera mencurigainya.\nKerusakan luas:  Dengan akses domain admin, penyerang bisa mengubah kebijakan, mematikan monitoring, atau menyebarkan malware ke banyak server.\nDeteksi Golden Ticket\nMendeteksi Golden Ticket bukan hal mudah, tapi ada tanda-tanda yang bisa dicari:\nAnomali di log Kerberos:  Contoh, tiket dengan masa berlaku yang tidak biasa, tiket yang diterbitkan untuk akun yang jarang dipakai, atau event Kerberos yang tidak sesuai pola normal.\nLogin dari lokasi/host yang tidak biasa:  Jika user admin tercatat login dari mesin yang bukan tempat biasanya, itu patut dicurigai.\nPerubahan pada akun KRBTGT:  Aksi dump kredensial di domain controller atau aktivitas mencurigakan yang menarget akun ini.\nPerilaku layanan yang tidak biasa:  Akses ke banyak server dalam waktu singkat, atau permintaan tiket yang tidak konsisten.\nSIEM & korelasi log:  Menggabungkan event dari domain controller, DNS, dan endpoint detection dapat membantu menemukan anomali.\nMitigasi & Pencegahan\nUntuk melindungi AD dari Golden Ticket, organisasi perlu kombinasi kontrol teknis dan kebijakan:\nRotasi password KRBTGT secara berkala\nMengganti password (hash) akun KRBTGT dua kali dengan jeda yang sesuai adalah praktik yang direkomendasikan untuk meminimalkan risiko tiket palsu yang dibuat menggunakan hash lama.\nLeast privilege (hak minimal)\nBatasi jumlah akun dengan hak tinggi. Gunakan admin tiering (pemisahan akun admin untuk tugas berbeda) sehingga tidak semua admin memiliki hak domain-wide.\nSegmentasi jaringan & proteksi domain controller\nLindungi domain controller secara ketat: hanya akses administratif yang sangat terbatas, network segmentation, dan kontrol akses berbasis peran.\nMonitoring & logging yang baik\nAktifkan logging Kerberos, audit log di domain controller, dan korelasikan dengan SIEM untuk deteksi cepat pola aneh.\nHardening dan patching\nPastikan semua server dan layanan terpatch, serta nonaktifkan layanan yang tidak perlu.\nPenggunaan MFA\nTerapkan multi-factor authentication untuk akses administratif dan layanan kritikal bila memungkinkan.\nRoutine security exercises\nLakukan latihan red-team/blue-team dan simulasi untuk menguji deteksi dan respons.\nStudi Kasus / Ilustrasi (Singkat)\nDalam skenario lab atau insiden nyata, jalannya sering seperti ini: attacker mendapatkan akses ke sebuah workstation lewat phishing → dari situ mereka mengekstrak kredensial dan akhirnya mendapatkan akses ke domain controller → mereka mengekstrak hash KRBTGT → membuat Golden Ticket → menggunakan tiket itu untuk login sebagai admin ke banyak server → memasang backdoor dan mengakses data sensitif. Organisasi yang tidak memonitor log Kerberos atau tidak melakukan rotasi KRBTGT biasanya baru sadar ketika data besar sudah dicuri.\nKesimpulan\nGolden Ticket adalah ancaman serius terhadap keamanan Active Directory karena memungkinkan akses yang luas dan sulit dideteksi. Untuk mengurangi risikonya, organisasi harus menerapkan prinsip pertahanan berlapis: pembatasan hak, proteksi domain controller, monitoring intensif, rotasi kunci penting seperti KRBTGT, dan latihan keamanan berkala. Memahami ancaman ini secara konseptual membantu tim keamanan merancang kontrol yang efektif — tujuan akhirnya adalah membuat serangan seperti ini menjadi sulit dilakukan dan cepat terdeteksi jika terjadi.",
+  "raw": {
+    "id": 6234,
+    "date": "2025-09-26T15:17:41",
+    "date_gmt": "2025-09-26T15:17:41",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=6234"
+    },
+    "modified": "2026-07-12T16:43:40",
+    "modified_gmt": "2026-07-12T16:43:40",
+    "slug": "golden-ticket-kunci-rahasia-yang-menguasai-active-directory",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/",
+    "title": {
+      "rendered": "Golden Ticket: Kunci Rahasia yang Menguasai Active Directory"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"64\" data-end=\"81\">Pendahuluan</h2>\n<p style=\"text-align: justify;\" data-start=\"82\" data-end=\"560\">Bayangkan ada sebuah tiket yang — jika dipalsukan — memberi pelakunya akses penuh ke seluruh sistem organisasi. Itulah inti dari yang disebut <strong data-start=\"224\" data-end=\"241\">Golden Ticket</strong> dalam konteks Active Directory. Serangan ini sangat berbahaya karena memberi penyerang kemampuan bertindak seolah-olah mereka adalah pengguna atau administrator yang sah. Artikel ini menjelaskan konsepnya dengan bahasa sederhana: apa itu, bagaimana prinsip kerjanya secara umum, tanda-tanda, dan langkah pencegahannya.</p>\n<h2 style=\"text-align: justify;\" data-start=\"567\" data-end=\"616\">Latar Belakang Active Directory &amp; Kerberos</h2>\n<p style=\"text-align: justify;\" data-start=\"617\" data-end=\"675\">Sebelum masuk ke Golden Ticket, perlu paham dua hal dasar:</p>\n<ol style=\"text-align: justify;\" data-start=\"677\" data-end=\"1328\">\n<li data-start=\"677\" data-end=\"897\">\n<p data-start=\"680\" data-end=\"897\"><strong data-start=\"680\" data-end=\"705\">Active Directory (AD)</strong><br data-start=\"705\" data-end=\"708\" />AD adalah layanan direktori yang dipakai banyak organisasi untuk mengelola pengguna, komputer, grup, dan kebijakan jaringan. Ia mengatur siapa boleh mengakses apa di jaringan perusahaan.</p>\n</li>\n<li data-start=\"899\" data-end=\"1328\">\n<p data-start=\"902\" data-end=\"1328\"><strong data-start=\"902\" data-end=\"935\">Kerberos (sistem autentikasi)</strong><br data-start=\"935\" data-end=\"938\" />Kerberos adalah protokol yang dipakai AD untuk mengautentikasi (memastikan identitas) pengguna dan layanan. Salah satu konsep penting di Kerberos adalah <strong data-start=\"1094\" data-end=\"1126\">TGT (Ticket Granting Ticket)</strong> — tiket yang memberi hak untuk meminta tiket lain ketika mengakses layanan. Ada juga akun khusus di AD bernama <strong data-start=\"1238\" data-end=\"1248\">KRBTGT</strong> yang peran kuncinya sangat penting dalam pembuatan dan validasi tiket Kerberos.</p>\n</li>\n</ol>\n<h2 style=\"text-align: justify;\" data-start=\"1335\" data-end=\"1372\">Apa itu Golden Ticket Attack?</h2>\n<p style=\"text-align: justify;\" data-start=\"1373\" data-end=\"1789\"><strong data-start=\"1373\" data-end=\"1390\">Golden Ticket</strong> adalah bentuk serangan di mana penyerang membuat (memalsukan) TGT yang sah sehingga bisa mengakses layanan dan sumber daya di domain seolah-olah mereka adalah pengguna/domain admin yang sah. Tiket palsu ini ditandatangani menggunakan kunci yang hanya diketahui oleh sistem — dan kalau penyerang berhasil mendapatkan kunci tersebut (atau hash-nya), mereka bisa membuat tiket palsu yang tampak legit.</p>\n<p style=\"text-align: justify;\" data-start=\"1791\" data-end=\"1911\">Intinya: Golden Ticket membuat penyerang “berpura-pura” jadi siapa pun di domain, seringkali dengan hak istimewa tinggi.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1918\" data-end=\"1968\">Proses Serangan Golden Ticket (secara umum)</h2>\n<p style=\"text-align: justify;\" data-start=\"1969\" data-end=\"2055\">Berikut alur tinggi dari attack chain Golden Ticket — tanpa detail teknis eksploitasi:</p>\n<ol style=\"text-align: justify;\" data-start=\"2057\" data-end=\"2955\">\n<li data-start=\"2057\" data-end=\"2226\">\n<p data-start=\"2060\" data-end=\"2226\"><strong data-start=\"2060\" data-end=\"2082\">Entry / Akses awal</strong><br data-start=\"2082\" data-end=\"2085\" />Penyerang biasanya memulai dengan mendapatkan akses ke mesin di jaringan (mis. lewat phishing, kelemahan aplikasi, atau kredensial bocor).</p>\n</li>\n<li data-start=\"2228\" data-end=\"2469\">\n<p data-start=\"2231\" data-end=\"2469\"><strong data-start=\"2231\" data-end=\"2267\">Pengumpulan kredensial atau hash</strong><br data-start=\"2267\" data-end=\"2270\" />Dari mesin yang sudah dikompromikan, penyerang mencari cara untuk mendapatkan hash dari akun penting di domain — terutama hash akun <strong data-start=\"2405\" data-end=\"2415\">KRBTGT</strong>. Hash inilah yang dipakai untuk menandatangani tiket.</p>\n</li>\n<li data-start=\"2471\" data-end=\"2670\">\n<p data-start=\"2474\" data-end=\"2670\"><strong data-start=\"2474\" data-end=\"2515\">Pembuatan tiket palsu (Golden Ticket)</strong><br data-start=\"2515\" data-end=\"2518\" />Dengan hash/kunci tersebut, penyerang dapat membuat TGT yang tampak valid. Tiket ini memberi akses ke banyak sumber daya tanpa perlu kredensial lain.</p>\n</li>\n<li data-start=\"2672\" data-end=\"2955\">\n<p data-start=\"2675\" data-end=\"2955\"><strong data-start=\"2675\" data-end=\"2704\">Eksploitasi &amp; persistence</strong><br data-start=\"2704\" data-end=\"2707\" />Setelah memiliki tiket, penyerang bisa mengakses server, mencuri data, memasang backdoor, atau bergerak lateral ke sistem lain. Golden Ticket juga bisa memberi akses berkelanjutan, bahkan ketika password diubah—kecuali mitigasi khusus dilakukan.</p>\n</li>\n</ol>\n<blockquote data-start=\"2957\" data-end=\"3091\">\n<p data-start=\"2959\" data-end=\"3091\">Catatan etika: penjelasan di atas bersifat konseptual agar pembaca memahami bahaya. Tidak diberikan langkah operasional eksploitasi.</p>\n</blockquote>\n<h2 style=\"text-align: justify;\" data-start=\"3098\" data-end=\"3121\">Dampak dan Risiko</h2>\n<p style=\"text-align: justify;\" data-start=\"3122\" data-end=\"3225\">Golden Ticket adalah salah satu ancaman paling serius terhadap Active Directory karena beberapa alasan:</p>\n<ul style=\"text-align: justify;\" data-start=\"3227\" data-end=\"3743\">\n<li data-start=\"3227\" data-end=\"3348\">\n<p data-start=\"3229\" data-end=\"3348\"><strong data-start=\"3229\" data-end=\"3254\">Kontrol domain penuh:</strong> Penyerang bisa bertindak sebagai administrator domain dan mengakses hampir semua sumber daya.</p>\n</li>\n<li data-start=\"3349\" data-end=\"3472\">\n<p data-start=\"3351\" data-end=\"3472\"><strong data-start=\"3351\" data-end=\"3381\">Persistence sulit dihapus:</strong> Golden Ticket dapat memberi akses berkepanjangan, bahkan saat password user biasa direset.</p>\n</li>\n<li data-start=\"3473\" data-end=\"3594\">\n<p data-start=\"3475\" data-end=\"3594\"><strong data-start=\"3475\" data-end=\"3496\">Sulit terdeteksi:</strong> Karena tiket terlihat valid menurut protokol Kerberos, sistem mungkin tidak segera mencurigainya.</p>\n</li>\n<li data-start=\"3595\" data-end=\"3743\">\n<p data-start=\"3597\" data-end=\"3743\"><strong data-start=\"3597\" data-end=\"3616\">Kerusakan luas:</strong> Dengan akses domain admin, penyerang bisa mengubah kebijakan, mematikan monitoring, atau menyebarkan malware ke banyak server.</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"3750\" data-end=\"3778\">Deteksi Golden Ticket</h2>\n<p style=\"text-align: justify;\" data-start=\"3779\" data-end=\"3859\">Mendeteksi Golden Ticket bukan hal mudah, tapi ada tanda-tanda yang bisa dicari:</p>\n<ul style=\"text-align: justify;\" data-start=\"3861\" data-end=\"4577\">\n<li data-start=\"3861\" data-end=\"4049\">\n<p data-start=\"3863\" data-end=\"4049\"><strong data-start=\"3863\" data-end=\"3891\">Anomali di log Kerberos:</strong> Contoh, tiket dengan masa berlaku yang tidak biasa, tiket yang diterbitkan untuk akun yang jarang dipakai, atau event Kerberos yang tidak sesuai pola normal.</p>\n</li>\n<li data-start=\"4050\" data-end=\"4187\">\n<p data-start=\"4052\" data-end=\"4187\"><strong data-start=\"4052\" data-end=\"4096\">Login dari lokasi/host yang tidak biasa:</strong> Jika user admin tercatat login dari mesin yang bukan tempat biasanya, itu patut dicurigai.</p>\n</li>\n<li data-start=\"4188\" data-end=\"4315\">\n<p data-start=\"4190\" data-end=\"4315\"><strong data-start=\"4190\" data-end=\"4221\">Perubahan pada akun KRBTGT:</strong> Aksi dump kredensial di domain controller atau aktivitas mencurigakan yang menarget akun ini.</p>\n</li>\n<li data-start=\"4316\" data-end=\"4444\">\n<p data-start=\"4318\" data-end=\"4444\"><strong data-start=\"4318\" data-end=\"4356\">Perilaku layanan yang tidak biasa:</strong> Akses ke banyak server dalam waktu singkat, atau permintaan tiket yang tidak konsisten.</p>\n</li>\n<li data-start=\"4445\" data-end=\"4577\">\n<p data-start=\"4447\" data-end=\"4577\"><strong data-start=\"4447\" data-end=\"4471\">SIEM &amp; korelasi log:</strong> Menggabungkan event dari domain controller, DNS, dan endpoint detection dapat membantu menemukan anomali.</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"4584\" data-end=\"4613\">Mitigasi &amp; Pencegahan</h2>\n<p style=\"text-align: justify;\" data-start=\"4614\" data-end=\"4710\">Untuk melindungi AD dari Golden Ticket, organisasi perlu kombinasi kontrol teknis dan kebijakan:</p>\n<ol style=\"text-align: justify;\" data-start=\"4712\" data-end=\"5888\">\n<li data-start=\"4712\" data-end=\"4942\">\n<p data-start=\"4715\" data-end=\"4942\"><strong data-start=\"4715\" data-end=\"4756\">Rotasi password KRBTGT secara berkala</strong><br data-start=\"4756\" data-end=\"4759\" />Mengganti password (hash) akun KRBTGT dua kali dengan jeda yang sesuai adalah praktik yang direkomendasikan untuk meminimalkan risiko tiket palsu yang dibuat menggunakan hash lama.</p>\n</li>\n<li data-start=\"4944\" data-end=\"5141\">\n<p data-start=\"4947\" data-end=\"5141\"><strong data-start=\"4947\" data-end=\"4980\">Least privilege (hak minimal)</strong><br data-start=\"4980\" data-end=\"4983\" />Batasi jumlah akun dengan hak tinggi. Gunakan admin tiering (pemisahan akun admin untuk tugas berbeda) sehingga tidak semua admin memiliki hak domain-wide.</p>\n</li>\n<li data-start=\"5143\" data-end=\"5348\">\n<p data-start=\"5146\" data-end=\"5348\"><strong data-start=\"5146\" data-end=\"5198\">Segmentasi jaringan &amp; proteksi domain controller</strong><br data-start=\"5198\" data-end=\"5201\" />Lindungi domain controller secara ketat: hanya akses administratif yang sangat terbatas, network segmentation, dan kontrol akses berbasis peran.</p>\n</li>\n<li data-start=\"5350\" data-end=\"5510\">\n<p data-start=\"5353\" data-end=\"5510\"><strong data-start=\"5353\" data-end=\"5387\">Monitoring &amp; logging yang baik</strong><br data-start=\"5387\" data-end=\"5390\" />Aktifkan logging Kerberos, audit log di domain controller, dan korelasikan dengan SIEM untuk deteksi cepat pola aneh.</p>\n</li>\n<li data-start=\"5512\" data-end=\"5634\">\n<p data-start=\"5515\" data-end=\"5634\"><strong data-start=\"5515\" data-end=\"5541\">Hardening dan patching</strong><br data-start=\"5541\" data-end=\"5544\" />Pastikan semua server dan layanan terpatch, serta nonaktifkan layanan yang tidak perlu.</p>\n</li>\n<li data-start=\"5636\" data-end=\"5765\">\n<p data-start=\"5639\" data-end=\"5765\"><strong data-start=\"5639\" data-end=\"5657\">Penggunaan MFA</strong><br data-start=\"5657\" data-end=\"5660\" />Terapkan multi-factor authentication untuk akses administratif dan layanan kritikal bila memungkinkan.</p>\n</li>\n<li data-start=\"5767\" data-end=\"5888\">\n<p data-start=\"5770\" data-end=\"5888\"><strong data-start=\"5770\" data-end=\"5800\">Routine security exercises</strong><br data-start=\"5800\" data-end=\"5803\" />Lakukan latihan red-team/blue-team dan simulasi untuk menguji deteksi dan respons.</p>\n</li>\n</ol>\n<h2 style=\"text-align: justify;\" data-start=\"5895\" data-end=\"5937\">Studi Kasus / Ilustrasi (Singkat)</h2>\n<p style=\"text-align: justify;\" data-start=\"5938\" data-end=\"6468\">Dalam skenario lab atau insiden nyata, jalannya sering seperti ini: attacker mendapatkan akses ke sebuah workstation lewat phishing → dari situ mereka mengekstrak kredensial dan akhirnya mendapatkan akses ke domain controller → mereka mengekstrak hash KRBTGT → membuat Golden Ticket → menggunakan tiket itu untuk login sebagai admin ke banyak server → memasang backdoor dan mengakses data sensitif. Organisasi yang tidak memonitor log Kerberos atau tidak melakukan rotasi KRBTGT biasanya baru sadar ketika data besar sudah dicuri.</p>\n<h2 style=\"text-align: justify;\" data-start=\"6475\" data-end=\"6492\">Kesimpulan</h2>\n<p style=\"text-align: justify;\" data-start=\"6493\" data-end=\"7042\">Golden Ticket adalah ancaman serius terhadap keamanan Active Directory karena memungkinkan akses yang luas dan sulit dideteksi. Untuk mengurangi risikonya, organisasi harus menerapkan prinsip pertahanan berlapis: pembatasan hak, proteksi domain controller, monitoring intensif, rotasi kunci penting seperti KRBTGT, dan latihan keamanan berkala. Memahami ancaman ini secara konseptual membantu tim keamanan merancang kontrol yang efektif — tujuan akhirnya adalah membuat serangan seperti ini menjadi sulit dilakukan dan cepat terdeteksi jika terjadi.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Bayangkan ada sebuah tiket yang — jika dipalsukan — memberi pelakunya akses penuh ke seluruh sistem organisasi. Itulah inti dari yang disebut Golden Ticket dalam konteks Active Directory. Serangan ini sangat berbahaya karena memberi penyerang kemampuan bertindak seolah-olah mereka adalah pengguna atau administrator yang sah. Artikel ini menjelaskan konsepnya dengan bahasa sederhana: apa itu, bagaimana prinsip kerjanya secara umum, tanda-tanda, dan langkah pencegahannya. Latar Belakang Active Directory &amp; Kerberos Sebelum masuk ke Golden Ticket, perlu paham dua hal dasar: Active Directory (AD)AD adalah layanan direktori yang dipakai banyak organisasi untuk mengelola pengguna, komputer, grup, dan kebijakan jaringan. Ia mengatur&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 5352,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      472,
+      1385,
+      471,
+      470
+    ],
+    "class_list": [
+      "post-6234",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-active-directory",
+      "tag-buletin-siber",
+      "tag-golden-ticket",
+      "tag-pass-the-hash"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Golden Ticket: Kunci Rahasia yang Menguasai Active Directory - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Golden Ticket: Kunci Rahasia yang Menguasai Active Directory - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Bayangkan ada sebuah tiket yang — jika dipalsukan — memberi pelakunya akses penuh ke seluruh sistem organisasi. Itulah inti dari yang disebut Golden Ticket dalam konteks Active Directory. Serangan ini sangat berbahaya karena memberi penyerang kemampuan bertindak seolah-olah mereka adalah pengguna atau administrator yang sah. Artikel ini menjelaskan konsepnya dengan bahasa sederhana: apa itu, bagaimana prinsip kerjanya secara umum, tanda-tanda, dan langkah pencegahannya. Latar Belakang Active Directory &amp; Kerberos Sebelum masuk ke Golden Ticket, perlu paham dua hal dasar: Active Directory (AD)AD adalah layanan direktori yang dipakai banyak organisasi untuk mengelola pengguna, komputer, grup, dan kebijakan jaringan. Ia mengatur...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2025-09-26T15:17:41+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-12T16:43:40+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762.jpeg\" />\n\t<meta property=\"og:image:width\" content=\"1079\" />\n\t<meta property=\"og:image:height\" content=\"720\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/\",\"url\":\"https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/\",\"name\":\"Golden Ticket: Kunci Rahasia yang Menguasai Active Directory - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762.jpeg\",\"datePublished\":\"2025-09-26T15:17:41+00:00\",\"dateModified\":\"2026-07-12T16:43:40+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762.jpeg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762.jpeg\",\"width\":1079,\"height\":720},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Golden Ticket: Kunci Rahasia yang Menguasai Active Directory\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Golden Ticket: Kunci Rahasia yang Menguasai Active Directory - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Golden Ticket: Kunci Rahasia yang Menguasai Active Directory - buletinsiber.com",
+      "og_description": "Pendahuluan Bayangkan ada sebuah tiket yang — jika dipalsukan — memberi pelakunya akses penuh ke seluruh sistem organisasi. Itulah inti dari yang disebut Golden Ticket dalam konteks Active Directory. Serangan ini sangat berbahaya karena memberi penyerang kemampuan bertindak seolah-olah mereka adalah pengguna atau administrator yang sah. Artikel ini menjelaskan konsepnya dengan bahasa sederhana: apa itu, bagaimana prinsip kerjanya secara umum, tanda-tanda, dan langkah pencegahannya. Latar Belakang Active Directory &amp; Kerberos Sebelum masuk ke Golden Ticket, perlu paham dua hal dasar: Active Directory (AD)AD adalah layanan direktori yang dipakai banyak organisasi untuk mengelola pengguna, komputer, grup, dan kebijakan jaringan. Ia mengatur...",
+      "og_url": "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2025-09-26T15:17:41+00:00",
+      "article_modified_time": "2026-07-12T16:43:40+00:00",
+      "og_image": [
+        {
+          "width": 1079,
+          "height": 720,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762.jpeg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/",
+            "url": "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/",
+            "name": "Golden Ticket: Kunci Rahasia yang Menguasai Active Directory - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762.jpeg",
+            "datePublished": "2025-09-26T15:17:41+00:00",
+            "dateModified": "2026-07-12T16:43:40+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762.jpeg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1701956212762.jpeg",
+            "width": 1079,
+            "height": 720
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/golden-ticket-kunci-rahasia-yang-menguasai-active-directory/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Golden Ticket: Kunci Rahasia yang Menguasai Active Directory"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/6234",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=6234"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/6234/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 6235,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/6234/revisions/6235"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/5352"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=6234"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=6234"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=6234"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

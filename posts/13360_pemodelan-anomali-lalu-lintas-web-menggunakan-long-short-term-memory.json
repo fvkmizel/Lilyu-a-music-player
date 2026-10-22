@@ -1,0 +1,324 @@
+{
+  "id": 13360,
+  "title": "Pemodelan Anomali Lalu Lintas Web Menggunakan Long Short-Term Memory",
+  "slug": "pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory",
+  "url": "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/",
+  "date": "2026-07-28T11:56:38",
+  "date_gmt": "2026-07-28T11:56:38",
+  "modified": "2026-07-28T11:56:38",
+  "modified_gmt": "2026-07-28T11:56:38",
+  "author": {
+    "id": 18,
+    "name": "Putri Adinda"
+  },
+  "categories": [
+    {
+      "id": 2237,
+      "name": "Cybersecurity"
+    }
+  ],
+  "tags": [
+    185,
+    186,
+    2408,
+    2409
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/20.jpg",
+  "excerpt": "Pendahuluan Website modern menerima ribuan hingga jutaan permintaan setiap hari, mulai dari kunjungan pengguna, akses API, hingga komunikasi antar layanan. Di balik aktivitas tersebut, terdapat berbagai ancaman seperti serangan Distributed Denial of Service (DDoS), bot berbahaya, pemindaian celah keamanan, hingga upaya login secara berulang. Metode keamanan tradisional umumnya menggunakan aturan atau signature tertentu untuk mengenali ancaman. Pendekatan ini cukup efektif untuk serangan yang sudah dikenal, tetapi sering kesulitan mendeteksi pola baru yang belum pernah muncul sebelumnya. Salah satu solusi yang semakin banyak diterapkan adalah Long Short-Term Memory (LSTM), yaitu jenis jaringan saraf tiruan yang dirancang untuk mempelajari pola data berurutan…",
+  "content_html": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-start=\"114\" data-end=\"128\">Pendahuluan</h2>\n<p data-start=\"130\" data-end=\"465\">Website modern menerima ribuan hingga jutaan permintaan setiap hari, mulai dari kunjungan pengguna, akses API, hingga komunikasi antar layanan. Di balik aktivitas tersebut, terdapat berbagai ancaman seperti serangan <strong data-start=\"346\" data-end=\"386\">Distributed Denial of Service (DDoS)</strong>, bot berbahaya, pemindaian celah keamanan, hingga upaya login secara berulang.</p>\n<p data-start=\"467\" data-end=\"718\">Metode keamanan tradisional umumnya menggunakan aturan atau <em data-start=\"527\" data-end=\"538\">signature</em> tertentu untuk mengenali ancaman. Pendekatan ini cukup efektif untuk serangan yang sudah dikenal, tetapi sering kesulitan mendeteksi pola baru yang belum pernah muncul sebelumnya.</p>\n<p data-start=\"720\" data-end=\"1041\">Salah satu solusi yang semakin banyak diterapkan adalah <strong data-start=\"776\" data-end=\"809\">Long Short-Term Memory (LSTM)</strong>, yaitu jenis jaringan saraf tiruan yang dirancang untuk mempelajari pola data berurutan (<em data-start=\"899\" data-end=\"912\">time series</em>). Dengan kemampuan tersebut, LSTM dapat mengenali perubahan perilaku lalu lintas web dan mendeteksi anomali secara lebih akurat.</p>\n<h2 data-start=\"1043\" data-end=\"1084\">Mengenal Long Short-Term Memory (LSTM)</h2>\n<p data-start=\"1086\" data-end=\"1247\">Long Short-Term Memory merupakan pengembangan dari <strong data-start=\"1137\" data-end=\"1171\">Recurrent Neural Network (RNN)</strong> yang dirancang untuk memahami hubungan antar data berdasarkan urutan waktu.</p>\n<p data-start=\"1249\" data-end=\"1518\">Keunggulan utama LSTM adalah kemampuannya mengingat informasi penting dalam jangka panjang dan mengabaikan data yang tidak relevan. Hal ini membuat LSTM sangat cocok digunakan untuk menganalisis perubahan pola lalu lintas web yang terus berlangsung dari waktu ke waktu.</p>\n<p data-start=\"1520\" data-end=\"1598\">Dalam keamanan website, LSTM dapat mempelajari berbagai karakteristik seperti:</p>\n<ul data-start=\"1600\" data-end=\"1764\">\n<li data-start=\"1600\" data-end=\"1630\">Jumlah permintaan ke server.</li>\n<li data-start=\"1631\" data-end=\"1652\">Pola akses halaman.</li>\n<li data-start=\"1653\" data-end=\"1680\">Frekuensi login pengguna.</li>\n<li data-start=\"1681\" data-end=\"1697\">Aktivitas API.</li>\n<li data-start=\"1698\" data-end=\"1733\">Alamat IP yang mengakses layanan.</li>\n<li data-start=\"1734\" data-end=\"1764\">Waktu terjadinya permintaan.</li>\n</ul>\n<h2 data-start=\"1766\" data-end=\"1817\">Mengapa Anomali Lalu Lintas Web Perlu Dideteksi?</h2>\n<p data-start=\"1819\" data-end=\"2001\">Tidak semua lonjakan trafik menunjukkan adanya serangan. Sebuah promosi, peluncuran produk, atau konten yang sedang viral juga dapat meningkatkan jumlah pengunjung secara signifikan.</p>\n<p data-start=\"2003\" data-end=\"2132\">Karena itu, sistem keamanan perlu mampu membedakan antara peningkatan trafik yang normal dan aktivitas yang berpotensi berbahaya.</p>\n<p data-start=\"2134\" data-end=\"2189\">Beberapa contoh anomali yang perlu diwaspadai meliputi:</p>\n<ul data-start=\"2191\" data-end=\"2412\">\n<li data-start=\"2191\" data-end=\"2233\">Lonjakan permintaan dalam waktu singkat.</li>\n<li data-start=\"2234\" data-end=\"2285\">Percobaan login berulang dari alamat IP tertentu.</li>\n<li data-start=\"2286\" data-end=\"2311\">Aktivitas bot otomatis.</li>\n<li data-start=\"2312\" data-end=\"2361\">Pemindaian halaman atau direktori secara masif.</li>\n<li data-start=\"2362\" data-end=\"2412\">Pola akses yang berbeda dari kebiasaan pengguna.</li>\n</ul>\n<h2 data-start=\"2414\" data-end=\"2457\">Cara Kerja LSTM dalam Mendeteksi Anomali</h2>\n<p data-start=\"2459\" data-end=\"2521\">Sistem deteksi berbasis LSTM bekerja melalui beberapa tahapan.</p>\n<h3 data-start=\"2523\" data-end=\"2543\">Pengumpulan Data</h3>\n<p data-start=\"2545\" data-end=\"2611\">Tahap pertama adalah mengumpulkan data aktivitas website, seperti:</p>\n<ul data-start=\"2613\" data-end=\"2699\">\n<li data-start=\"2613\" data-end=\"2626\">Log server.</li>\n<li data-start=\"2627\" data-end=\"2647\">Data HTTP request.</li>\n<li data-start=\"2648\" data-end=\"2664\">Aktivitas API.</li>\n<li data-start=\"2665\" data-end=\"2679\">Waktu akses.</li>\n<li data-start=\"2680\" data-end=\"2699\">Statistik trafik.</li>\n</ul>\n<p data-start=\"2701\" data-end=\"2748\">Data tersebut menjadi dasar pembelajaran model.</p>\n<h3 data-start=\"2750\" data-end=\"2778\">Pembelajaran Pola Normal</h3>\n<p data-start=\"2780\" data-end=\"2853\">Model LSTM mempelajari pola lalu lintas normal berdasarkan data historis.</p>\n<p data-start=\"2855\" data-end=\"2865\">Contohnya:</p>\n<ul data-start=\"2867\" data-end=\"2976\">\n<li data-start=\"2867\" data-end=\"2890\">Jam sibuk pengunjung.</li>\n<li data-start=\"2891\" data-end=\"2913\">Jumlah akses harian.</li>\n<li data-start=\"2914\" data-end=\"2936\">Pola penggunaan API.</li>\n<li data-start=\"2937\" data-end=\"2976\">Aktivitas pengguna yang umum terjadi.</li>\n</ul>\n<h3 data-start=\"2978\" data-end=\"3005\">Analisis Aktivitas Baru</h3>\n<p data-start=\"3007\" data-end=\"3089\">Ketika trafik baru masuk, LSTM membandingkannya dengan pola yang telah dipelajari.</p>\n<p data-start=\"3091\" data-end=\"3199\">Jika terdapat penyimpangan yang signifikan, sistem akan memberikan nilai risiko terhadap aktivitas tersebut.</p>\n<h3 data-start=\"3201\" data-end=\"3227\">Peringatan dan Respons</h3>\n<p data-start=\"3229\" data-end=\"3307\">Apabila anomali terdeteksi, sistem dapat melakukan berbagai tindakan, seperti:</p>\n<ul data-start=\"3309\" data-end=\"3475\">\n<li data-start=\"3309\" data-end=\"3352\">Mengirim notifikasi kepada administrator.</li>\n<li data-start=\"3353\" data-end=\"3395\">Membatasi akses dari alamat IP tertentu.</li>\n<li data-start=\"3396\" data-end=\"3433\">Mengaktifkan perlindungan tambahan.</li>\n<li data-start=\"3434\" data-end=\"3475\">Menyimpan log untuk proses investigasi.</li>\n</ul>\n<h2 data-start=\"3477\" data-end=\"3517\">Penerapan LSTM dalam Keamanan Website</h2>\n<p data-start=\"3519\" data-end=\"3594\">Teknologi LSTM dapat digunakan dalam berbagai sistem keamanan berbasis web.</p>\n<p data-start=\"3596\" data-end=\"3621\"><strong data-start=\"3596\" data-end=\"3621\">Deteksi Serangan DDoS</strong></p>\n<p data-start=\"3623\" data-end=\"3700\">Mengidentifikasi lonjakan trafik yang tidak wajar sebelum mengganggu layanan.</p>\n<p data-start=\"3702\" data-end=\"3736\"><strong data-start=\"3702\" data-end=\"3736\">Web Application Firewall (WAF)</strong></p>\n<p data-start=\"3738\" data-end=\"3837\">Membantu WAF mengenali pola akses yang mencurigakan berdasarkan perilaku, bukan hanya aturan tetap.</p>\n<p data-start=\"3839\" data-end=\"3856\"><strong data-start=\"3839\" data-end=\"3856\">Bot Detection</strong></p>\n<p data-start=\"3858\" data-end=\"3913\">Membedakan aktivitas pengguna asli dengan bot otomatis.</p>\n<p data-start=\"3915\" data-end=\"3931\"><strong data-start=\"3915\" data-end=\"3931\">API Security</strong></p>\n<p data-start=\"3933\" data-end=\"4024\">Menganalisis pola penggunaan API untuk menemukan penyalahgunaan atau percobaan eksploitasi.</p>\n<h2 data-start=\"4026\" data-end=\"4056\">Keunggulan Menggunakan LSTM</h2>\n<h3 data-start=\"4058\" data-end=\"4093\">Memahami Pola Berdasarkan Waktu</h3>\n<p data-start=\"4095\" data-end=\"4180\">LSTM mampu mengenali perubahan perilaku lalu lintas web yang terjadi secara bertahap.</p>\n<h3 data-start=\"4182\" data-end=\"4207\">Deteksi Lebih Adaptif</h3>\n<p data-start=\"4209\" data-end=\"4289\">Model dapat mengenali pola baru yang belum terdapat dalam basis aturan keamanan.</p>\n<h3 data-start=\"4291\" data-end=\"4320\">Mengurangi False Positive</h3>\n<p data-start=\"4322\" data-end=\"4425\">Karena memahami pola historis, LSTM lebih mampu membedakan aktivitas normal dan aktivitas mencurigakan.</p>\n<h3 data-start=\"4427\" data-end=\"4470\">Cocok untuk Analisis Data Berkelanjutan</h3>\n<p data-start=\"4472\" data-end=\"4578\">LSTM dirancang untuk memproses data yang terus bertambah sehingga ideal untuk sistem pemantauan real-time.</p>\n<h2 data-start=\"4580\" data-end=\"4605\">Tantangan Implementasi</h2>\n<p data-start=\"4607\" data-end=\"4695\">Walaupun menawarkan banyak keunggulan, penggunaan LSTM juga memiliki beberapa tantangan.</p>\n<p data-start=\"4697\" data-end=\"4719\">Beberapa di antaranya:</p>\n<ul data-start=\"4721\" data-end=\"4974\">\n<li data-start=\"4721\" data-end=\"4767\">Membutuhkan data historis yang cukup banyak.</li>\n<li data-start=\"4768\" data-end=\"4837\">Proses pelatihan model membutuhkan waktu dan sumber daya komputasi.</li>\n<li data-start=\"4838\" data-end=\"4890\">Kualitas data sangat memengaruhi akurasi prediksi.</li>\n<li data-start=\"4891\" data-end=\"4974\">Model perlu diperbarui secara berkala agar tetap mengikuti perubahan pola trafik.</li>\n</ul>\n<p data-start=\"4976\" data-end=\"5124\">Karena itu, implementasi LSTM sebaiknya dipadukan dengan sistem keamanan lain seperti WAF, IDS, dan SIEM agar perlindungan menjadi lebih menyeluruh.</p>\n<h2 data-start=\"5126\" data-end=\"5139\">Kesimpulan</h2>\n<p data-start=\"5141\" data-end=\"5465\">Long Short-Term Memory merupakan salah satu teknologi deep learning yang sangat efektif untuk memodelkan anomali lalu lintas web. Dengan kemampuannya memahami pola aktivitas berdasarkan urutan waktu, LSTM dapat membantu mendeteksi berbagai ancaman seperti serangan DDoS, bot berbahaya, maupun aktivitas mencurigakan lainnya.</p>\n<p data-start=\"5467\" data-end=\"5724\">Seiring meningkatnya kompleksitas serangan terhadap aplikasi web, penggunaan LSTM bersama teknologi keamanan modern akan menjadi solusi penting dalam membangun sistem pemantauan yang lebih cerdas, adaptif, dan mampu memberikan perlindungan secara real-time.</p>\n",
+  "content_text": "Pendahuluan\nWebsite modern menerima ribuan hingga jutaan permintaan setiap hari, mulai dari kunjungan pengguna, akses API, hingga komunikasi antar layanan. Di balik aktivitas tersebut, terdapat berbagai ancaman seperti serangan  Distributed Denial of Service (DDoS) , bot berbahaya, pemindaian celah keamanan, hingga upaya login secara berulang.\nMetode keamanan tradisional umumnya menggunakan aturan atau  signature  tertentu untuk mengenali ancaman. Pendekatan ini cukup efektif untuk serangan yang sudah dikenal, tetapi sering kesulitan mendeteksi pola baru yang belum pernah muncul sebelumnya.\nSalah satu solusi yang semakin banyak diterapkan adalah  Long Short-Term Memory (LSTM) , yaitu jenis jaringan saraf tiruan yang dirancang untuk mempelajari pola data berurutan ( time series ). Dengan kemampuan tersebut, LSTM dapat mengenali perubahan perilaku lalu lintas web dan mendeteksi anomali secara lebih akurat.\nMengenal Long Short-Term Memory (LSTM)\nLong Short-Term Memory merupakan pengembangan dari  Recurrent Neural Network (RNN)  yang dirancang untuk memahami hubungan antar data berdasarkan urutan waktu.\nKeunggulan utama LSTM adalah kemampuannya mengingat informasi penting dalam jangka panjang dan mengabaikan data yang tidak relevan. Hal ini membuat LSTM sangat cocok digunakan untuk menganalisis perubahan pola lalu lintas web yang terus berlangsung dari waktu ke waktu.\nDalam keamanan website, LSTM dapat mempelajari berbagai karakteristik seperti:\nJumlah permintaan ke server.\nPola akses halaman.\nFrekuensi login pengguna.\nAktivitas API.\nAlamat IP yang mengakses layanan.\nWaktu terjadinya permintaan.\nMengapa Anomali Lalu Lintas Web Perlu Dideteksi?\nTidak semua lonjakan trafik menunjukkan adanya serangan. Sebuah promosi, peluncuran produk, atau konten yang sedang viral juga dapat meningkatkan jumlah pengunjung secara signifikan.\nKarena itu, sistem keamanan perlu mampu membedakan antara peningkatan trafik yang normal dan aktivitas yang berpotensi berbahaya.\nBeberapa contoh anomali yang perlu diwaspadai meliputi:\nLonjakan permintaan dalam waktu singkat.\nPercobaan login berulang dari alamat IP tertentu.\nAktivitas bot otomatis.\nPemindaian halaman atau direktori secara masif.\nPola akses yang berbeda dari kebiasaan pengguna.\nCara Kerja LSTM dalam Mendeteksi Anomali\nSistem deteksi berbasis LSTM bekerja melalui beberapa tahapan.\nPengumpulan Data\nTahap pertama adalah mengumpulkan data aktivitas website, seperti:\nLog server.\nData HTTP request.\nAktivitas API.\nWaktu akses.\nStatistik trafik.\nData tersebut menjadi dasar pembelajaran model.\nPembelajaran Pola Normal\nModel LSTM mempelajari pola lalu lintas normal berdasarkan data historis.\nContohnya:\nJam sibuk pengunjung.\nJumlah akses harian.\nPola penggunaan API.\nAktivitas pengguna yang umum terjadi.\nAnalisis Aktivitas Baru\nKetika trafik baru masuk, LSTM membandingkannya dengan pola yang telah dipelajari.\nJika terdapat penyimpangan yang signifikan, sistem akan memberikan nilai risiko terhadap aktivitas tersebut.\nPeringatan dan Respons\nApabila anomali terdeteksi, sistem dapat melakukan berbagai tindakan, seperti:\nMengirim notifikasi kepada administrator.\nMembatasi akses dari alamat IP tertentu.\nMengaktifkan perlindungan tambahan.\nMenyimpan log untuk proses investigasi.\nPenerapan LSTM dalam Keamanan Website\nTeknologi LSTM dapat digunakan dalam berbagai sistem keamanan berbasis web.\nDeteksi Serangan DDoS\nMengidentifikasi lonjakan trafik yang tidak wajar sebelum mengganggu layanan.\nWeb Application Firewall (WAF)\nMembantu WAF mengenali pola akses yang mencurigakan berdasarkan perilaku, bukan hanya aturan tetap.\nBot Detection\nMembedakan aktivitas pengguna asli dengan bot otomatis.\nAPI Security\nMenganalisis pola penggunaan API untuk menemukan penyalahgunaan atau percobaan eksploitasi.\nKeunggulan Menggunakan LSTM\nMemahami Pola Berdasarkan Waktu\nLSTM mampu mengenali perubahan perilaku lalu lintas web yang terjadi secara bertahap.\nDeteksi Lebih Adaptif\nModel dapat mengenali pola baru yang belum terdapat dalam basis aturan keamanan.\nMengurangi False Positive\nKarena memahami pola historis, LSTM lebih mampu membedakan aktivitas normal dan aktivitas mencurigakan.\nCocok untuk Analisis Data Berkelanjutan\nLSTM dirancang untuk memproses data yang terus bertambah sehingga ideal untuk sistem pemantauan real-time.\nTantangan Implementasi\nWalaupun menawarkan banyak keunggulan, penggunaan LSTM juga memiliki beberapa tantangan.\nBeberapa di antaranya:\nMembutuhkan data historis yang cukup banyak.\nProses pelatihan model membutuhkan waktu dan sumber daya komputasi.\nKualitas data sangat memengaruhi akurasi prediksi.\nModel perlu diperbarui secara berkala agar tetap mengikuti perubahan pola trafik.\nKarena itu, implementasi LSTM sebaiknya dipadukan dengan sistem keamanan lain seperti WAF, IDS, dan SIEM agar perlindungan menjadi lebih menyeluruh.\nKesimpulan\nLong Short-Term Memory merupakan salah satu teknologi deep learning yang sangat efektif untuk memodelkan anomali lalu lintas web. Dengan kemampuannya memahami pola aktivitas berdasarkan urutan waktu, LSTM dapat membantu mendeteksi berbagai ancaman seperti serangan DDoS, bot berbahaya, maupun aktivitas mencurigakan lainnya.\nSeiring meningkatnya kompleksitas serangan terhadap aplikasi web, penggunaan LSTM bersama teknologi keamanan modern akan menjadi solusi penting dalam membangun sistem pemantauan yang lebih cerdas, adaptif, dan mampu memberikan perlindungan secara real-time.",
+  "raw": {
+    "id": 13360,
+    "date": "2026-07-28T11:56:38",
+    "date_gmt": "2026-07-28T11:56:38",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=13360"
+    },
+    "modified": "2026-07-28T11:56:38",
+    "modified_gmt": "2026-07-28T11:56:38",
+    "slug": "pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/",
+    "title": {
+      "rendered": "Pemodelan Anomali Lalu Lintas Web Menggunakan Long Short-Term Memory"
+    },
+    "content": {
+      "rendered": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-start=\"114\" data-end=\"128\">Pendahuluan</h2>\n<p data-start=\"130\" data-end=\"465\">Website modern menerima ribuan hingga jutaan permintaan setiap hari, mulai dari kunjungan pengguna, akses API, hingga komunikasi antar layanan. Di balik aktivitas tersebut, terdapat berbagai ancaman seperti serangan <strong data-start=\"346\" data-end=\"386\">Distributed Denial of Service (DDoS)</strong>, bot berbahaya, pemindaian celah keamanan, hingga upaya login secara berulang.</p>\n<p data-start=\"467\" data-end=\"718\">Metode keamanan tradisional umumnya menggunakan aturan atau <em data-start=\"527\" data-end=\"538\">signature</em> tertentu untuk mengenali ancaman. Pendekatan ini cukup efektif untuk serangan yang sudah dikenal, tetapi sering kesulitan mendeteksi pola baru yang belum pernah muncul sebelumnya.</p>\n<p data-start=\"720\" data-end=\"1041\">Salah satu solusi yang semakin banyak diterapkan adalah <strong data-start=\"776\" data-end=\"809\">Long Short-Term Memory (LSTM)</strong>, yaitu jenis jaringan saraf tiruan yang dirancang untuk mempelajari pola data berurutan (<em data-start=\"899\" data-end=\"912\">time series</em>). Dengan kemampuan tersebut, LSTM dapat mengenali perubahan perilaku lalu lintas web dan mendeteksi anomali secara lebih akurat.</p>\n<h2 data-start=\"1043\" data-end=\"1084\">Mengenal Long Short-Term Memory (LSTM)</h2>\n<p data-start=\"1086\" data-end=\"1247\">Long Short-Term Memory merupakan pengembangan dari <strong data-start=\"1137\" data-end=\"1171\">Recurrent Neural Network (RNN)</strong> yang dirancang untuk memahami hubungan antar data berdasarkan urutan waktu.</p>\n<p data-start=\"1249\" data-end=\"1518\">Keunggulan utama LSTM adalah kemampuannya mengingat informasi penting dalam jangka panjang dan mengabaikan data yang tidak relevan. Hal ini membuat LSTM sangat cocok digunakan untuk menganalisis perubahan pola lalu lintas web yang terus berlangsung dari waktu ke waktu.</p>\n<p data-start=\"1520\" data-end=\"1598\">Dalam keamanan website, LSTM dapat mempelajari berbagai karakteristik seperti:</p>\n<ul data-start=\"1600\" data-end=\"1764\">\n<li data-start=\"1600\" data-end=\"1630\">Jumlah permintaan ke server.</li>\n<li data-start=\"1631\" data-end=\"1652\">Pola akses halaman.</li>\n<li data-start=\"1653\" data-end=\"1680\">Frekuensi login pengguna.</li>\n<li data-start=\"1681\" data-end=\"1697\">Aktivitas API.</li>\n<li data-start=\"1698\" data-end=\"1733\">Alamat IP yang mengakses layanan.</li>\n<li data-start=\"1734\" data-end=\"1764\">Waktu terjadinya permintaan.</li>\n</ul>\n<h2 data-start=\"1766\" data-end=\"1817\">Mengapa Anomali Lalu Lintas Web Perlu Dideteksi?</h2>\n<p data-start=\"1819\" data-end=\"2001\">Tidak semua lonjakan trafik menunjukkan adanya serangan. Sebuah promosi, peluncuran produk, atau konten yang sedang viral juga dapat meningkatkan jumlah pengunjung secara signifikan.</p>\n<p data-start=\"2003\" data-end=\"2132\">Karena itu, sistem keamanan perlu mampu membedakan antara peningkatan trafik yang normal dan aktivitas yang berpotensi berbahaya.</p>\n<p data-start=\"2134\" data-end=\"2189\">Beberapa contoh anomali yang perlu diwaspadai meliputi:</p>\n<ul data-start=\"2191\" data-end=\"2412\">\n<li data-start=\"2191\" data-end=\"2233\">Lonjakan permintaan dalam waktu singkat.</li>\n<li data-start=\"2234\" data-end=\"2285\">Percobaan login berulang dari alamat IP tertentu.</li>\n<li data-start=\"2286\" data-end=\"2311\">Aktivitas bot otomatis.</li>\n<li data-start=\"2312\" data-end=\"2361\">Pemindaian halaman atau direktori secara masif.</li>\n<li data-start=\"2362\" data-end=\"2412\">Pola akses yang berbeda dari kebiasaan pengguna.</li>\n</ul>\n<h2 data-start=\"2414\" data-end=\"2457\">Cara Kerja LSTM dalam Mendeteksi Anomali</h2>\n<p data-start=\"2459\" data-end=\"2521\">Sistem deteksi berbasis LSTM bekerja melalui beberapa tahapan.</p>\n<h3 data-start=\"2523\" data-end=\"2543\">Pengumpulan Data</h3>\n<p data-start=\"2545\" data-end=\"2611\">Tahap pertama adalah mengumpulkan data aktivitas website, seperti:</p>\n<ul data-start=\"2613\" data-end=\"2699\">\n<li data-start=\"2613\" data-end=\"2626\">Log server.</li>\n<li data-start=\"2627\" data-end=\"2647\">Data HTTP request.</li>\n<li data-start=\"2648\" data-end=\"2664\">Aktivitas API.</li>\n<li data-start=\"2665\" data-end=\"2679\">Waktu akses.</li>\n<li data-start=\"2680\" data-end=\"2699\">Statistik trafik.</li>\n</ul>\n<p data-start=\"2701\" data-end=\"2748\">Data tersebut menjadi dasar pembelajaran model.</p>\n<h3 data-start=\"2750\" data-end=\"2778\">Pembelajaran Pola Normal</h3>\n<p data-start=\"2780\" data-end=\"2853\">Model LSTM mempelajari pola lalu lintas normal berdasarkan data historis.</p>\n<p data-start=\"2855\" data-end=\"2865\">Contohnya:</p>\n<ul data-start=\"2867\" data-end=\"2976\">\n<li data-start=\"2867\" data-end=\"2890\">Jam sibuk pengunjung.</li>\n<li data-start=\"2891\" data-end=\"2913\">Jumlah akses harian.</li>\n<li data-start=\"2914\" data-end=\"2936\">Pola penggunaan API.</li>\n<li data-start=\"2937\" data-end=\"2976\">Aktivitas pengguna yang umum terjadi.</li>\n</ul>\n<h3 data-start=\"2978\" data-end=\"3005\">Analisis Aktivitas Baru</h3>\n<p data-start=\"3007\" data-end=\"3089\">Ketika trafik baru masuk, LSTM membandingkannya dengan pola yang telah dipelajari.</p>\n<p data-start=\"3091\" data-end=\"3199\">Jika terdapat penyimpangan yang signifikan, sistem akan memberikan nilai risiko terhadap aktivitas tersebut.</p>\n<h3 data-start=\"3201\" data-end=\"3227\">Peringatan dan Respons</h3>\n<p data-start=\"3229\" data-end=\"3307\">Apabila anomali terdeteksi, sistem dapat melakukan berbagai tindakan, seperti:</p>\n<ul data-start=\"3309\" data-end=\"3475\">\n<li data-start=\"3309\" data-end=\"3352\">Mengirim notifikasi kepada administrator.</li>\n<li data-start=\"3353\" data-end=\"3395\">Membatasi akses dari alamat IP tertentu.</li>\n<li data-start=\"3396\" data-end=\"3433\">Mengaktifkan perlindungan tambahan.</li>\n<li data-start=\"3434\" data-end=\"3475\">Menyimpan log untuk proses investigasi.</li>\n</ul>\n<h2 data-start=\"3477\" data-end=\"3517\">Penerapan LSTM dalam Keamanan Website</h2>\n<p data-start=\"3519\" data-end=\"3594\">Teknologi LSTM dapat digunakan dalam berbagai sistem keamanan berbasis web.</p>\n<p data-start=\"3596\" data-end=\"3621\"><strong data-start=\"3596\" data-end=\"3621\">Deteksi Serangan DDoS</strong></p>\n<p data-start=\"3623\" data-end=\"3700\">Mengidentifikasi lonjakan trafik yang tidak wajar sebelum mengganggu layanan.</p>\n<p data-start=\"3702\" data-end=\"3736\"><strong data-start=\"3702\" data-end=\"3736\">Web Application Firewall (WAF)</strong></p>\n<p data-start=\"3738\" data-end=\"3837\">Membantu WAF mengenali pola akses yang mencurigakan berdasarkan perilaku, bukan hanya aturan tetap.</p>\n<p data-start=\"3839\" data-end=\"3856\"><strong data-start=\"3839\" data-end=\"3856\">Bot Detection</strong></p>\n<p data-start=\"3858\" data-end=\"3913\">Membedakan aktivitas pengguna asli dengan bot otomatis.</p>\n<p data-start=\"3915\" data-end=\"3931\"><strong data-start=\"3915\" data-end=\"3931\">API Security</strong></p>\n<p data-start=\"3933\" data-end=\"4024\">Menganalisis pola penggunaan API untuk menemukan penyalahgunaan atau percobaan eksploitasi.</p>\n<h2 data-start=\"4026\" data-end=\"4056\">Keunggulan Menggunakan LSTM</h2>\n<h3 data-start=\"4058\" data-end=\"4093\">Memahami Pola Berdasarkan Waktu</h3>\n<p data-start=\"4095\" data-end=\"4180\">LSTM mampu mengenali perubahan perilaku lalu lintas web yang terjadi secara bertahap.</p>\n<h3 data-start=\"4182\" data-end=\"4207\">Deteksi Lebih Adaptif</h3>\n<p data-start=\"4209\" data-end=\"4289\">Model dapat mengenali pola baru yang belum terdapat dalam basis aturan keamanan.</p>\n<h3 data-start=\"4291\" data-end=\"4320\">Mengurangi False Positive</h3>\n<p data-start=\"4322\" data-end=\"4425\">Karena memahami pola historis, LSTM lebih mampu membedakan aktivitas normal dan aktivitas mencurigakan.</p>\n<h3 data-start=\"4427\" data-end=\"4470\">Cocok untuk Analisis Data Berkelanjutan</h3>\n<p data-start=\"4472\" data-end=\"4578\">LSTM dirancang untuk memproses data yang terus bertambah sehingga ideal untuk sistem pemantauan real-time.</p>\n<h2 data-start=\"4580\" data-end=\"4605\">Tantangan Implementasi</h2>\n<p data-start=\"4607\" data-end=\"4695\">Walaupun menawarkan banyak keunggulan, penggunaan LSTM juga memiliki beberapa tantangan.</p>\n<p data-start=\"4697\" data-end=\"4719\">Beberapa di antaranya:</p>\n<ul data-start=\"4721\" data-end=\"4974\">\n<li data-start=\"4721\" data-end=\"4767\">Membutuhkan data historis yang cukup banyak.</li>\n<li data-start=\"4768\" data-end=\"4837\">Proses pelatihan model membutuhkan waktu dan sumber daya komputasi.</li>\n<li data-start=\"4838\" data-end=\"4890\">Kualitas data sangat memengaruhi akurasi prediksi.</li>\n<li data-start=\"4891\" data-end=\"4974\">Model perlu diperbarui secara berkala agar tetap mengikuti perubahan pola trafik.</li>\n</ul>\n<p data-start=\"4976\" data-end=\"5124\">Karena itu, implementasi LSTM sebaiknya dipadukan dengan sistem keamanan lain seperti WAF, IDS, dan SIEM agar perlindungan menjadi lebih menyeluruh.</p>\n<h2 data-start=\"5126\" data-end=\"5139\">Kesimpulan</h2>\n<p data-start=\"5141\" data-end=\"5465\">Long Short-Term Memory merupakan salah satu teknologi deep learning yang sangat efektif untuk memodelkan anomali lalu lintas web. Dengan kemampuannya memahami pola aktivitas berdasarkan urutan waktu, LSTM dapat membantu mendeteksi berbagai ancaman seperti serangan DDoS, bot berbahaya, maupun aktivitas mencurigakan lainnya.</p>\n<p data-start=\"5467\" data-end=\"5724\">Seiring meningkatnya kompleksitas serangan terhadap aplikasi web, penggunaan LSTM bersama teknologi keamanan modern akan menjadi solusi penting dalam membangun sistem pemantauan yang lebih cerdas, adaptif, dan mampu memberikan perlindungan secara real-time.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Website modern menerima ribuan hingga jutaan permintaan setiap hari, mulai dari kunjungan pengguna, akses API, hingga komunikasi antar layanan. Di balik aktivitas tersebut, terdapat berbagai ancaman seperti serangan Distributed Denial of Service (DDoS), bot berbahaya, pemindaian celah keamanan, hingga upaya login secara berulang. Metode keamanan tradisional umumnya menggunakan aturan atau signature tertentu untuk mengenali ancaman. Pendekatan ini cukup efektif untuk serangan yang sudah dikenal, tetapi sering kesulitan mendeteksi pola baru yang belum pernah muncul sebelumnya. Salah satu solusi yang semakin banyak diterapkan adalah Long Short-Term Memory (LSTM), yaitu jenis jaringan saraf tiruan yang dirancang untuk mempelajari pola data berurutan&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 18,
+    "featured_media": 13367,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "LSTM Analisis Lalu Lintas Web",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "Pelajari bagaimana Long Short-Term Memory (LSTM) digunakan untuk mendeteksi anomali lalu lintas web dan meningkatkan keamanan aplikasi berbasis internet.",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      2237
+    ],
+    "tags": [
+      185,
+      186,
+      2408,
+      2409
+    ],
+    "class_list": [
+      "post-13360",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-cybersecurity",
+      "tag-cybersecurity",
+      "tag-deep-learning",
+      "tag-long-short-term-memory",
+      "tag-lstm"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Pemodelan Anomali Lalu Lintas Web Menggunakan Long Short-Term Memory - buletinsiber.com</title>\n<meta name=\"description\" content=\"Pelajari bagaimana Long Short-Term Memory (LSTM) digunakan untuk mendeteksi anomali lalu lintas web dan meningkatkan keamanan aplikasi berbasis internet.\" />\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Pemodelan Anomali Lalu Lintas Web Menggunakan Long Short-Term Memory - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pelajari bagaimana Long Short-Term Memory (LSTM) digunakan untuk mendeteksi anomali lalu lintas web dan meningkatkan keamanan aplikasi berbasis internet.\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-28T11:56:38+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/20.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"572\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Putri Adinda\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Putri Adinda\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/\",\"url\":\"https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/\",\"name\":\"Pemodelan Anomali Lalu Lintas Web Menggunakan Long Short-Term Memory - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/20.jpg\",\"datePublished\":\"2026-07-28T11:56:38+00:00\",\"dateModified\":\"2026-07-28T11:56:38+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/79504360a1d6c45900d5ffe2d012137b\"},\"description\":\"Pelajari bagaimana Long Short-Term Memory (LSTM) digunakan untuk mendeteksi anomali lalu lintas web dan meningkatkan keamanan aplikasi berbasis internet.\",\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/20.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/20.jpg\",\"width\":1024,\"height\":572},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Pemodelan Anomali Lalu Lintas Web Menggunakan Long Short-Term Memory\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/79504360a1d6c45900d5ffe2d012137b\",\"name\":\"Putri Adinda\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/5eab85f21c2bd0ea32063f023e4cae8bc6fd950f6aa807e6720f64fab7b42c28?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/5eab85f21c2bd0ea32063f023e4cae8bc6fd950f6aa807e6720f64fab7b42c28?s=96&d=mm&r=g\",\"caption\":\"Putri Adinda\"},\"url\":\"https://buletinsiber.com/author/putri-adinda/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Pemodelan Anomali Lalu Lintas Web Menggunakan Long Short-Term Memory - buletinsiber.com",
+      "description": "Pelajari bagaimana Long Short-Term Memory (LSTM) digunakan untuk mendeteksi anomali lalu lintas web dan meningkatkan keamanan aplikasi berbasis internet.",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Pemodelan Anomali Lalu Lintas Web Menggunakan Long Short-Term Memory - buletinsiber.com",
+      "og_description": "Pelajari bagaimana Long Short-Term Memory (LSTM) digunakan untuk mendeteksi anomali lalu lintas web dan meningkatkan keamanan aplikasi berbasis internet.",
+      "og_url": "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-28T11:56:38+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 572,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/20.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Putri Adinda",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Putri Adinda",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/",
+            "url": "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/",
+            "name": "Pemodelan Anomali Lalu Lintas Web Menggunakan Long Short-Term Memory - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/20.jpg",
+            "datePublished": "2026-07-28T11:56:38+00:00",
+            "dateModified": "2026-07-28T11:56:38+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/79504360a1d6c45900d5ffe2d012137b"
+            },
+            "description": "Pelajari bagaimana Long Short-Term Memory (LSTM) digunakan untuk mendeteksi anomali lalu lintas web dan meningkatkan keamanan aplikasi berbasis internet.",
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/20.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/20.jpg",
+            "width": 1024,
+            "height": 572
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/pemodelan-anomali-lalu-lintas-web-menggunakan-long-short-term-memory/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Pemodelan Anomali Lalu Lintas Web Menggunakan Long Short-Term Memory"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/79504360a1d6c45900d5ffe2d012137b",
+            "name": "Putri Adinda",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/5eab85f21c2bd0ea32063f023e4cae8bc6fd950f6aa807e6720f64fab7b42c28?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/5eab85f21c2bd0ea32063f023e4cae8bc6fd950f6aa807e6720f64fab7b42c28?s=96&d=mm&r=g",
+              "caption": "Putri Adinda"
+            },
+            "url": "https://buletinsiber.com/author/putri-adinda/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/13360",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/18"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=13360"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/13360/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 13368,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/13360/revisions/13368"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/13367"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=13360"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=13360"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=13360"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

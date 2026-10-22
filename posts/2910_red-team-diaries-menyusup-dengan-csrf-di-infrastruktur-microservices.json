@@ -1,0 +1,313 @@
+{
+  "id": 2910,
+  "title": "Red Team Diaries: Menyusup dengan CSRF di Infrastruktur Microservices",
+  "slug": "red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices",
+  "url": "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/",
+  "date": "2025-07-07T08:43:49",
+  "date_gmt": "2025-07-07T08:43:49",
+  "modified": "2025-07-07T08:43:49",
+  "modified_gmt": "2025-07-07T08:43:49",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/nside-redteaming-EN.gif",
+  "excerpt": "CSRF (Cross-Site Request Forgery) dikenal sebagai serangan “jadul”. Tapi dalam dunia microservices modern, ternyata serangan ini masih bisa menyelinap masuk—bahkan tanpa terdeteksi. Artikel ini membagikan cerita dari sisi Red Team (tim penguji keamanan) tentang bagaimana celah kecil di sistem microservices bisa dimanfaatkan oleh CSRF untuk menyerang dari dalam. 🧱 Apa Itu Microservices? Microservices adalah pendekatan pengembangan sistem yang memecah aplikasi besar menjadi layanan-layanan kecil yang saling terhubung lewat API. Contoh layanan dalam sistem: Auth Service (login & token) User Service (profil & data) Payment Service (transaksi) Admin Dashboard Service (kontrol sistem) Microservices memudahkan pengembangan, tapi kompleksitas komunikasi antar layanan bisa…",
+  "content_html": "<h1 data-start=\"88\" data-end=\"166\"></h1>\n<p data-start=\"168\" data-end=\"357\"><strong data-start=\"168\" data-end=\"176\">CSRF</strong> (Cross-Site Request Forgery) dikenal sebagai serangan “jadul”. Tapi dalam dunia <strong data-start=\"257\" data-end=\"281\">microservices modern</strong>, ternyata serangan ini masih bisa menyelinap masuk—bahkan tanpa terdeteksi.</p>\n<p data-start=\"359\" data-end=\"548\">Artikel ini membagikan cerita dari sisi <strong data-start=\"399\" data-end=\"411\">Red Team</strong> (tim penguji keamanan) tentang bagaimana celah kecil di sistem microservices bisa dimanfaatkan oleh <strong data-start=\"512\" data-end=\"547\">CSRF untuk menyerang dari dalam</strong>.</p>\n<hr data-start=\"550\" data-end=\"553\" />\n<h2 data-start=\"555\" data-end=\"583\">🧱 Apa Itu Microservices?</h2>\n<p data-start=\"585\" data-end=\"735\"><strong data-start=\"585\" data-end=\"602\">Microservices</strong> adalah pendekatan pengembangan sistem yang memecah aplikasi besar menjadi <strong data-start=\"677\" data-end=\"702\">layanan-layanan kecil</strong> yang saling terhubung lewat API.</p>\n<p data-start=\"737\" data-end=\"765\">Contoh layanan dalam sistem:</p>\n<ul data-start=\"766\" data-end=\"900\">\n<li data-start=\"766\" data-end=\"796\">\n<p data-start=\"768\" data-end=\"796\">Auth Service (login &amp; token)</p>\n</li>\n<li data-start=\"797\" data-end=\"827\">\n<p data-start=\"799\" data-end=\"827\">User Service (profil &amp; data)</p>\n</li>\n<li data-start=\"828\" data-end=\"857\">\n<p data-start=\"830\" data-end=\"857\">Payment Service (transaksi)</p>\n</li>\n<li data-start=\"858\" data-end=\"900\">\n<p data-start=\"860\" data-end=\"900\">Admin Dashboard Service (kontrol sistem)</p>\n</li>\n</ul>\n<p data-start=\"902\" data-end=\"1037\">Microservices memudahkan pengembangan, tapi <strong data-start=\"946\" data-end=\"987\">kompleksitas komunikasi antar layanan</strong> bisa membuka banyak celah keamanan—termasuk CSRF.</p>\n<hr data-start=\"1039\" data-end=\"1042\" />\n<h2 data-start=\"1044\" data-end=\"1073\">🎯 Target: Admin Dashboard</h2>\n<p data-start=\"1075\" data-end=\"1118\">Dalam skenario ini, target Red Team adalah:</p>\n<ul data-start=\"1119\" data-end=\"1224\">\n<li data-start=\"1119\" data-end=\"1224\">\n<p data-start=\"1121\" data-end=\"1152\"><strong data-start=\"1121\" data-end=\"1140\">Admin Dashboard</strong>, yang bisa:</p>\n<ul data-start=\"1155\" data-end=\"1224\">\n<li data-start=\"1155\" data-end=\"1179\">\n<p data-start=\"1157\" data-end=\"1179\">Mengatur akun pengguna</p>\n</li>\n<li data-start=\"1182\" data-end=\"1205\">\n<p data-start=\"1184\" data-end=\"1205\">Transfer saldo manual</p>\n</li>\n<li data-start=\"1208\" data-end=\"1224\">\n<p data-start=\"1210\" data-end=\"1224\">Reset password</p>\n</li>\n</ul>\n</li>\n</ul>\n<p data-start=\"1226\" data-end=\"1315\">Dashboard ini mengakses layanan internal (User &amp; Payment Service) lewat <strong data-start=\"1298\" data-end=\"1314\">API internal</strong>.</p>\n<hr data-start=\"1317\" data-end=\"1320\" />\n<h2 data-start=\"1322\" data-end=\"1357\">🔍 Langkah-langkah Serangan CSRF</h2>\n<h3 data-start=\"1359\" data-end=\"1396\">1. 🧑‍💼 Admin Login ke Dashboard</h3>\n<p data-start=\"1397\" data-end=\"1512\">Seperti biasa, admin login ke dashboard melalui browser. Setelah berhasil login, browser menyimpan <strong data-start=\"1496\" data-end=\"1511\">cookie sesi</strong>.</p>\n<h3 data-start=\"1514\" data-end=\"1552\">2. 🎣 Penyerang Kirim Link Jebakan</h3>\n<p data-start=\"1553\" data-end=\"1609\">Red Team membuat email berisi link atau halaman jebakan:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"https://admin.perusahaan.com/api/user/delete\"</span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"user_id\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"999\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span></span>&gt;<span class=\"language-javascript\"><span class=\"hljs-variable language_\">document</span></span>.<span class=\"hljs-property\">forms</span>[<span class=\"hljs-number\">0</span>].<span class=\"hljs-title function_\">submit</span>();<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1803\" data-end=\"1889\">Link ini dikirim ke admin via email phishing, forum, atau bahkan komentar di aplikasi.</p>\n<h3 data-start=\"1891\" data-end=\"1949\">3. 💥 CSRF Aktif: Permintaan Masuk ke Layanan Internal</h3>\n<p data-start=\"1950\" data-end=\"1982\">Saat admin membuka link jebakan:</p>\n<ul data-start=\"1983\" data-end=\"2192\">\n<li data-start=\"1983\" data-end=\"2040\">\n<p data-start=\"1985\" data-end=\"2040\">Browser <strong data-start=\"1993\" data-end=\"2027\">otomatis mengirim cookie login</strong> ke dashboard</p>\n</li>\n<li data-start=\"2041\" data-end=\"2082\">\n<p data-start=\"2043\" data-end=\"2082\">Permintaan POST masuk ke endpoint admin</p>\n</li>\n<li data-start=\"2083\" data-end=\"2144\">\n<p data-start=\"2085\" data-end=\"2144\">Karena <strong data-start=\"2092\" data-end=\"2119\">tidak ada proteksi CSRF</strong>, permintaan dianggap sah</p>\n</li>\n<li data-start=\"2145\" data-end=\"2192\">\n<p data-start=\"2147\" data-end=\"2192\">Admin <strong data-start=\"2153\" data-end=\"2192\">tanpa sadar menghapus akun pengguna</strong></p>\n</li>\n</ul>\n<h3 data-start=\"2194\" data-end=\"2245\">4. 🚪 Dampak Lebih Jauh: Menembus Microservices</h3>\n<p data-start=\"2246\" data-end=\"2358\">Karena dashboard punya akses ke berbagai <strong data-start=\"2287\" data-end=\"2303\">API internal</strong>, CSRF tidak hanya memengaruhi satu layanan, tapi bisa:</p>\n<ul data-start=\"2359\" data-end=\"2483\">\n<li data-start=\"2359\" data-end=\"2395\">\n<p data-start=\"2361\" data-end=\"2395\">Menghapus data di <strong data-start=\"2379\" data-end=\"2395\">User Service</strong></p>\n</li>\n<li data-start=\"2396\" data-end=\"2442\">\n<p data-start=\"2398\" data-end=\"2442\">Melakukan transfer lewat <strong data-start=\"2423\" data-end=\"2442\">Payment Service</strong></p>\n</li>\n<li data-start=\"2443\" data-end=\"2483\">\n<p data-start=\"2445\" data-end=\"2483\">Mengubah peran pengguna (user → admin)</p>\n</li>\n</ul>\n<p data-start=\"2485\" data-end=\"2545\">➡️ <strong data-start=\"2488\" data-end=\"2545\">CSRF dari luar → Menyusup ke dalam jaringan internal!</strong></p>\n<hr data-start=\"2547\" data-end=\"2550\" />\n<h2 data-start=\"2552\" data-end=\"2595\">❌ Kesalahan Arsitektur yang Dimanfaatkan</h2>\n<ol data-start=\"2597\" data-end=\"2941\">\n<li data-start=\"2597\" data-end=\"2668\">\n<p data-start=\"2600\" data-end=\"2668\"><strong data-start=\"2600\" data-end=\"2624\">Tidak ada CSRF Token</strong><br data-start=\"2624\" data-end=\"2627\" />→ Semua form diterima tanpa verifikasi</p>\n</li>\n<li data-start=\"2670\" data-end=\"2742\">\n<p data-start=\"2673\" data-end=\"2742\"><strong data-start=\"2673\" data-end=\"2704\">Cookie tidak pakai SameSite</strong><br data-start=\"2704\" data-end=\"2707\" />→ Cookie dikirim dari situs luar</p>\n</li>\n<li data-start=\"2744\" data-end=\"2848\">\n<p data-start=\"2747\" data-end=\"2848\"><strong data-start=\"2747\" data-end=\"2795\">Terlalu percaya pada permintaan dari browser</strong><br data-start=\"2795\" data-end=\"2798\" />→ Server tidak mengecek <code data-start=\"2825\" data-end=\"2833\">Origin</code> atau <code data-start=\"2839\" data-end=\"2848\">Referer</code></p>\n</li>\n<li data-start=\"2850\" data-end=\"2941\">\n<p data-start=\"2853\" data-end=\"2941\"><strong data-start=\"2853\" data-end=\"2885\">API internal terlalu terbuka</strong><br data-start=\"2885\" data-end=\"2888\" />→ Asal ada cookie valid, semua permintaan diproses</p>\n</li>\n</ol>\n<hr data-start=\"2943\" data-end=\"2946\" />\n<h2 data-start=\"2948\" data-end=\"2986\">✅ Solusi untuk Developer dan DevOps</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2988\" data-end=\"3663\">\n<thead data-start=\"2988\" data-end=\"3084\">\n<tr data-start=\"2988\" data-end=\"3084\">\n<th data-start=\"2988\" data-end=\"3023\" data-col-size=\"sm\">Masalah</th>\n<th data-start=\"3023\" data-end=\"3084\" data-col-size=\"md\">Solusi Aman</th>\n</tr>\n</thead>\n<tbody data-start=\"3183\" data-end=\"3663\">\n<tr data-start=\"3183\" data-end=\"3278\">\n<td data-start=\"3183\" data-end=\"3217\" data-col-size=\"sm\">Cookie terkirim dari luar</td>\n<td data-col-size=\"md\" data-start=\"3217\" data-end=\"3278\">Gunakan <code data-start=\"3227\" data-end=\"3244\">SameSite=Strict</code> + <code data-start=\"3247\" data-end=\"3255\">Secure</code></td>\n</tr>\n<tr data-start=\"3279\" data-end=\"3375\">\n<td data-start=\"3279\" data-end=\"3313\" data-col-size=\"sm\">Tidak ada CSRF Token</td>\n<td data-col-size=\"md\" data-start=\"3313\" data-end=\"3375\">Tambahkan token unik di semua form &amp; API yang sensitif</td>\n</tr>\n<tr data-start=\"3376\" data-end=\"3471\">\n<td data-start=\"3376\" data-end=\"3410\" data-col-size=\"sm\">Server tidak validasi asal</td>\n<td data-col-size=\"md\" data-start=\"3410\" data-end=\"3471\">Cek <code data-start=\"3416\" data-end=\"3424\">Origin</code> dan <code data-start=\"3429\" data-end=\"3438\">Referer</code> header</td>\n</tr>\n<tr data-start=\"3472\" data-end=\"3567\">\n<td data-start=\"3472\" data-end=\"3506\" data-col-size=\"sm\">Microservice terlalu percaya</td>\n<td data-col-size=\"md\" data-start=\"3506\" data-end=\"3567\">Gunakan <strong data-start=\"3516\" data-end=\"3538\">auth antar layanan</strong>, jangan hanya cookie user</td>\n</tr>\n<tr data-start=\"3568\" data-end=\"3663\">\n<td data-start=\"3568\" data-end=\"3602\" data-col-size=\"sm\">Admin panel mudah diserang</td>\n<td data-col-size=\"md\" data-start=\"3602\" data-end=\"3663\">Batasi akses admin, gunakan <strong data-start=\"3632\" data-end=\"3643\">CAPTCHA</strong> dan <strong data-start=\"3648\" data-end=\"3661\">audit log</strong></td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"3665\" data-end=\"3668\" />\n<h2 data-start=\"3670\" data-end=\"3686\">🎬 Kesimpulan</h2>\n<p data-start=\"3688\" data-end=\"3932\">Meskipun CSRF terlihat seperti serangan lama, di era <strong data-start=\"3741\" data-end=\"3765\">microservices modern</strong>, ia tetap bisa menjadi senjata berbahaya. Jika dashboard internal tidak diproteksi dengan baik, satu klik jebakan bisa menjadi awal dari <strong data-start=\"3903\" data-end=\"3931\">runtuhnya seluruh sistem</strong>.</p>\n<blockquote data-start=\"3934\" data-end=\"4047\">\n<p data-start=\"3936\" data-end=\"4047\">💡 <strong data-start=\"3939\" data-end=\"3949\">Ingat:</strong> Dalam dunia microservices, keamanan <strong data-start=\"3986\" data-end=\"4024\">harus diterapkan di setiap lapisan</strong>, bukan hanya di depan.</p>\n</blockquote>\n<p data-start=\"3936\" data-end=\"4047\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-thumbnail wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-150x150.jpeg\" alt=\"\" width=\"150\" height=\"150\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-150x150.jpeg 150w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-80x80.jpeg 80w\" sizes=\"auto, (max-width: 150px) 100vw, 150px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n<p>&nbsp;</p>\n",
+  "content_text": "CSRF  (Cross-Site Request Forgery) dikenal sebagai serangan “jadul”. Tapi dalam dunia  microservices modern , ternyata serangan ini masih bisa menyelinap masuk—bahkan tanpa terdeteksi.\nArtikel ini membagikan cerita dari sisi  Red Team  (tim penguji keamanan) tentang bagaimana celah kecil di sistem microservices bisa dimanfaatkan oleh  CSRF untuk menyerang dari dalam .\n🧱 Apa Itu Microservices?\nMicroservices  adalah pendekatan pengembangan sistem yang memecah aplikasi besar menjadi  layanan-layanan kecil  yang saling terhubung lewat API.\nContoh layanan dalam sistem:\nAuth Service (login & token)\nUser Service (profil & data)\nPayment Service (transaksi)\nAdmin Dashboard Service (kontrol sistem)\nMicroservices memudahkan pengembangan, tapi  kompleksitas komunikasi antar layanan  bisa membuka banyak celah keamanan—termasuk CSRF.\n🎯 Target: Admin Dashboard\nDalam skenario ini, target Red Team adalah:\nAdmin Dashboard , yang bisa:\nMengatur akun pengguna\nTransfer saldo manual\nReset password\nDashboard ini mengakses layanan internal (User & Payment Service) lewat  API internal .\n🔍 Langkah-langkah Serangan CSRF\n1. 🧑‍💼 Admin Login ke Dashboard\nSeperti biasa, admin login ke dashboard melalui browser. Setelah berhasil login, browser menyimpan  cookie sesi .\n2. 🎣 Penyerang Kirim Link Jebakan\nRed Team membuat email berisi link atau halaman jebakan:\nhtml\nCopy   Edit\n< form    action = \"https://admin.perusahaan.com/api/user/delete\"   method = \"POST\" >\n< input    type = \"hidden\"   name = \"user_id\"   value = \"999\" >\n</ form  >\n< script  >  document  . forms [ 0 ]. submit (); </ script  >\nLink ini dikirim ke admin via email phishing, forum, atau bahkan komentar di aplikasi.\n3. 💥 CSRF Aktif: Permintaan Masuk ke Layanan Internal\nSaat admin membuka link jebakan:\nBrowser  otomatis mengirim cookie login  ke dashboard\nPermintaan POST masuk ke endpoint admin\nKarena  tidak ada proteksi CSRF , permintaan dianggap sah\nAdmin  tanpa sadar menghapus akun pengguna\n4. 🚪 Dampak Lebih Jauh: Menembus Microservices\nKarena dashboard punya akses ke berbagai  API internal , CSRF tidak hanya memengaruhi satu layanan, tapi bisa:\nMenghapus data di  User Service\nMelakukan transfer lewat  Payment Service\nMengubah peran pengguna (user → admin)\n➡️  CSRF dari luar → Menyusup ke dalam jaringan internal!\n❌ Kesalahan Arsitektur yang Dimanfaatkan\nTidak ada CSRF Token\n→ Semua form diterima tanpa verifikasi\nCookie tidak pakai SameSite\n→ Cookie dikirim dari situs luar\nTerlalu percaya pada permintaan dari browser\n→ Server tidak mengecek  Origin  atau  Referer\nAPI internal terlalu terbuka\n→ Asal ada cookie valid, semua permintaan diproses\n✅ Solusi untuk Developer dan DevOps\nMasalah\nSolusi Aman\nCookie terkirim dari luar\nGunakan  SameSite=Strict  +  Secure\nTidak ada CSRF Token\nTambahkan token unik di semua form & API yang sensitif\nServer tidak validasi asal\nCek  Origin  dan  Referer  header\nMicroservice terlalu percaya\nGunakan  auth antar layanan , jangan hanya cookie user\nAdmin panel mudah diserang\nBatasi akses admin, gunakan  CAPTCHA  dan  audit log\n🎬 Kesimpulan\nMeskipun CSRF terlihat seperti serangan lama, di era  microservices modern , ia tetap bisa menjadi senjata berbahaya. Jika dashboard internal tidak diproteksi dengan baik, satu klik jebakan bisa menjadi awal dari  runtuhnya seluruh sistem .\n💡  Ingat:  Dalam dunia microservices, keamanan  harus diterapkan di setiap lapisan , bukan hanya di depan.\nPenulias : Muhammad Aditya Alkhawarizmi\nNim : 23156201023\njurusan : Sistem Komputer",
+  "raw": {
+    "id": 2910,
+    "date": "2025-07-07T08:43:49",
+    "date_gmt": "2025-07-07T08:43:49",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2910"
+    },
+    "modified": "2025-07-07T08:43:49",
+    "modified_gmt": "2025-07-07T08:43:49",
+    "slug": "red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/",
+    "title": {
+      "rendered": "Red Team Diaries: Menyusup dengan CSRF di Infrastruktur Microservices"
+    },
+    "content": {
+      "rendered": "<h1 data-start=\"88\" data-end=\"166\"></h1>\n<p data-start=\"168\" data-end=\"357\"><strong data-start=\"168\" data-end=\"176\">CSRF</strong> (Cross-Site Request Forgery) dikenal sebagai serangan “jadul”. Tapi dalam dunia <strong data-start=\"257\" data-end=\"281\">microservices modern</strong>, ternyata serangan ini masih bisa menyelinap masuk—bahkan tanpa terdeteksi.</p>\n<p data-start=\"359\" data-end=\"548\">Artikel ini membagikan cerita dari sisi <strong data-start=\"399\" data-end=\"411\">Red Team</strong> (tim penguji keamanan) tentang bagaimana celah kecil di sistem microservices bisa dimanfaatkan oleh <strong data-start=\"512\" data-end=\"547\">CSRF untuk menyerang dari dalam</strong>.</p>\n<hr data-start=\"550\" data-end=\"553\" />\n<h2 data-start=\"555\" data-end=\"583\">🧱 Apa Itu Microservices?</h2>\n<p data-start=\"585\" data-end=\"735\"><strong data-start=\"585\" data-end=\"602\">Microservices</strong> adalah pendekatan pengembangan sistem yang memecah aplikasi besar menjadi <strong data-start=\"677\" data-end=\"702\">layanan-layanan kecil</strong> yang saling terhubung lewat API.</p>\n<p data-start=\"737\" data-end=\"765\">Contoh layanan dalam sistem:</p>\n<ul data-start=\"766\" data-end=\"900\">\n<li data-start=\"766\" data-end=\"796\">\n<p data-start=\"768\" data-end=\"796\">Auth Service (login &amp; token)</p>\n</li>\n<li data-start=\"797\" data-end=\"827\">\n<p data-start=\"799\" data-end=\"827\">User Service (profil &amp; data)</p>\n</li>\n<li data-start=\"828\" data-end=\"857\">\n<p data-start=\"830\" data-end=\"857\">Payment Service (transaksi)</p>\n</li>\n<li data-start=\"858\" data-end=\"900\">\n<p data-start=\"860\" data-end=\"900\">Admin Dashboard Service (kontrol sistem)</p>\n</li>\n</ul>\n<p data-start=\"902\" data-end=\"1037\">Microservices memudahkan pengembangan, tapi <strong data-start=\"946\" data-end=\"987\">kompleksitas komunikasi antar layanan</strong> bisa membuka banyak celah keamanan—termasuk CSRF.</p>\n<hr data-start=\"1039\" data-end=\"1042\" />\n<h2 data-start=\"1044\" data-end=\"1073\">🎯 Target: Admin Dashboard</h2>\n<p data-start=\"1075\" data-end=\"1118\">Dalam skenario ini, target Red Team adalah:</p>\n<ul data-start=\"1119\" data-end=\"1224\">\n<li data-start=\"1119\" data-end=\"1224\">\n<p data-start=\"1121\" data-end=\"1152\"><strong data-start=\"1121\" data-end=\"1140\">Admin Dashboard</strong>, yang bisa:</p>\n<ul data-start=\"1155\" data-end=\"1224\">\n<li data-start=\"1155\" data-end=\"1179\">\n<p data-start=\"1157\" data-end=\"1179\">Mengatur akun pengguna</p>\n</li>\n<li data-start=\"1182\" data-end=\"1205\">\n<p data-start=\"1184\" data-end=\"1205\">Transfer saldo manual</p>\n</li>\n<li data-start=\"1208\" data-end=\"1224\">\n<p data-start=\"1210\" data-end=\"1224\">Reset password</p>\n</li>\n</ul>\n</li>\n</ul>\n<p data-start=\"1226\" data-end=\"1315\">Dashboard ini mengakses layanan internal (User &amp; Payment Service) lewat <strong data-start=\"1298\" data-end=\"1314\">API internal</strong>.</p>\n<hr data-start=\"1317\" data-end=\"1320\" />\n<h2 data-start=\"1322\" data-end=\"1357\">🔍 Langkah-langkah Serangan CSRF</h2>\n<h3 data-start=\"1359\" data-end=\"1396\">1. 🧑‍💼 Admin Login ke Dashboard</h3>\n<p data-start=\"1397\" data-end=\"1512\">Seperti biasa, admin login ke dashboard melalui browser. Setelah berhasil login, browser menyimpan <strong data-start=\"1496\" data-end=\"1511\">cookie sesi</strong>.</p>\n<h3 data-start=\"1514\" data-end=\"1552\">2. 🎣 Penyerang Kirim Link Jebakan</h3>\n<p data-start=\"1553\" data-end=\"1609\">Red Team membuat email berisi link atau halaman jebakan:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"https://admin.perusahaan.com/api/user/delete\"</span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"user_id\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"999\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span></span>&gt;<span class=\"language-javascript\"><span class=\"hljs-variable language_\">document</span></span>.<span class=\"hljs-property\">forms</span>[<span class=\"hljs-number\">0</span>].<span class=\"hljs-title function_\">submit</span>();<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1803\" data-end=\"1889\">Link ini dikirim ke admin via email phishing, forum, atau bahkan komentar di aplikasi.</p>\n<h3 data-start=\"1891\" data-end=\"1949\">3. 💥 CSRF Aktif: Permintaan Masuk ke Layanan Internal</h3>\n<p data-start=\"1950\" data-end=\"1982\">Saat admin membuka link jebakan:</p>\n<ul data-start=\"1983\" data-end=\"2192\">\n<li data-start=\"1983\" data-end=\"2040\">\n<p data-start=\"1985\" data-end=\"2040\">Browser <strong data-start=\"1993\" data-end=\"2027\">otomatis mengirim cookie login</strong> ke dashboard</p>\n</li>\n<li data-start=\"2041\" data-end=\"2082\">\n<p data-start=\"2043\" data-end=\"2082\">Permintaan POST masuk ke endpoint admin</p>\n</li>\n<li data-start=\"2083\" data-end=\"2144\">\n<p data-start=\"2085\" data-end=\"2144\">Karena <strong data-start=\"2092\" data-end=\"2119\">tidak ada proteksi CSRF</strong>, permintaan dianggap sah</p>\n</li>\n<li data-start=\"2145\" data-end=\"2192\">\n<p data-start=\"2147\" data-end=\"2192\">Admin <strong data-start=\"2153\" data-end=\"2192\">tanpa sadar menghapus akun pengguna</strong></p>\n</li>\n</ul>\n<h3 data-start=\"2194\" data-end=\"2245\">4. 🚪 Dampak Lebih Jauh: Menembus Microservices</h3>\n<p data-start=\"2246\" data-end=\"2358\">Karena dashboard punya akses ke berbagai <strong data-start=\"2287\" data-end=\"2303\">API internal</strong>, CSRF tidak hanya memengaruhi satu layanan, tapi bisa:</p>\n<ul data-start=\"2359\" data-end=\"2483\">\n<li data-start=\"2359\" data-end=\"2395\">\n<p data-start=\"2361\" data-end=\"2395\">Menghapus data di <strong data-start=\"2379\" data-end=\"2395\">User Service</strong></p>\n</li>\n<li data-start=\"2396\" data-end=\"2442\">\n<p data-start=\"2398\" data-end=\"2442\">Melakukan transfer lewat <strong data-start=\"2423\" data-end=\"2442\">Payment Service</strong></p>\n</li>\n<li data-start=\"2443\" data-end=\"2483\">\n<p data-start=\"2445\" data-end=\"2483\">Mengubah peran pengguna (user → admin)</p>\n</li>\n</ul>\n<p data-start=\"2485\" data-end=\"2545\">➡️ <strong data-start=\"2488\" data-end=\"2545\">CSRF dari luar → Menyusup ke dalam jaringan internal!</strong></p>\n<hr data-start=\"2547\" data-end=\"2550\" />\n<h2 data-start=\"2552\" data-end=\"2595\">❌ Kesalahan Arsitektur yang Dimanfaatkan</h2>\n<ol data-start=\"2597\" data-end=\"2941\">\n<li data-start=\"2597\" data-end=\"2668\">\n<p data-start=\"2600\" data-end=\"2668\"><strong data-start=\"2600\" data-end=\"2624\">Tidak ada CSRF Token</strong><br data-start=\"2624\" data-end=\"2627\" />→ Semua form diterima tanpa verifikasi</p>\n</li>\n<li data-start=\"2670\" data-end=\"2742\">\n<p data-start=\"2673\" data-end=\"2742\"><strong data-start=\"2673\" data-end=\"2704\">Cookie tidak pakai SameSite</strong><br data-start=\"2704\" data-end=\"2707\" />→ Cookie dikirim dari situs luar</p>\n</li>\n<li data-start=\"2744\" data-end=\"2848\">\n<p data-start=\"2747\" data-end=\"2848\"><strong data-start=\"2747\" data-end=\"2795\">Terlalu percaya pada permintaan dari browser</strong><br data-start=\"2795\" data-end=\"2798\" />→ Server tidak mengecek <code data-start=\"2825\" data-end=\"2833\">Origin</code> atau <code data-start=\"2839\" data-end=\"2848\">Referer</code></p>\n</li>\n<li data-start=\"2850\" data-end=\"2941\">\n<p data-start=\"2853\" data-end=\"2941\"><strong data-start=\"2853\" data-end=\"2885\">API internal terlalu terbuka</strong><br data-start=\"2885\" data-end=\"2888\" />→ Asal ada cookie valid, semua permintaan diproses</p>\n</li>\n</ol>\n<hr data-start=\"2943\" data-end=\"2946\" />\n<h2 data-start=\"2948\" data-end=\"2986\">✅ Solusi untuk Developer dan DevOps</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2988\" data-end=\"3663\">\n<thead data-start=\"2988\" data-end=\"3084\">\n<tr data-start=\"2988\" data-end=\"3084\">\n<th data-start=\"2988\" data-end=\"3023\" data-col-size=\"sm\">Masalah</th>\n<th data-start=\"3023\" data-end=\"3084\" data-col-size=\"md\">Solusi Aman</th>\n</tr>\n</thead>\n<tbody data-start=\"3183\" data-end=\"3663\">\n<tr data-start=\"3183\" data-end=\"3278\">\n<td data-start=\"3183\" data-end=\"3217\" data-col-size=\"sm\">Cookie terkirim dari luar</td>\n<td data-col-size=\"md\" data-start=\"3217\" data-end=\"3278\">Gunakan <code data-start=\"3227\" data-end=\"3244\">SameSite=Strict</code> + <code data-start=\"3247\" data-end=\"3255\">Secure</code></td>\n</tr>\n<tr data-start=\"3279\" data-end=\"3375\">\n<td data-start=\"3279\" data-end=\"3313\" data-col-size=\"sm\">Tidak ada CSRF Token</td>\n<td data-col-size=\"md\" data-start=\"3313\" data-end=\"3375\">Tambahkan token unik di semua form &amp; API yang sensitif</td>\n</tr>\n<tr data-start=\"3376\" data-end=\"3471\">\n<td data-start=\"3376\" data-end=\"3410\" data-col-size=\"sm\">Server tidak validasi asal</td>\n<td data-col-size=\"md\" data-start=\"3410\" data-end=\"3471\">Cek <code data-start=\"3416\" data-end=\"3424\">Origin</code> dan <code data-start=\"3429\" data-end=\"3438\">Referer</code> header</td>\n</tr>\n<tr data-start=\"3472\" data-end=\"3567\">\n<td data-start=\"3472\" data-end=\"3506\" data-col-size=\"sm\">Microservice terlalu percaya</td>\n<td data-col-size=\"md\" data-start=\"3506\" data-end=\"3567\">Gunakan <strong data-start=\"3516\" data-end=\"3538\">auth antar layanan</strong>, jangan hanya cookie user</td>\n</tr>\n<tr data-start=\"3568\" data-end=\"3663\">\n<td data-start=\"3568\" data-end=\"3602\" data-col-size=\"sm\">Admin panel mudah diserang</td>\n<td data-col-size=\"md\" data-start=\"3602\" data-end=\"3663\">Batasi akses admin, gunakan <strong data-start=\"3632\" data-end=\"3643\">CAPTCHA</strong> dan <strong data-start=\"3648\" data-end=\"3661\">audit log</strong></td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"3665\" data-end=\"3668\" />\n<h2 data-start=\"3670\" data-end=\"3686\">🎬 Kesimpulan</h2>\n<p data-start=\"3688\" data-end=\"3932\">Meskipun CSRF terlihat seperti serangan lama, di era <strong data-start=\"3741\" data-end=\"3765\">microservices modern</strong>, ia tetap bisa menjadi senjata berbahaya. Jika dashboard internal tidak diproteksi dengan baik, satu klik jebakan bisa menjadi awal dari <strong data-start=\"3903\" data-end=\"3931\">runtuhnya seluruh sistem</strong>.</p>\n<blockquote data-start=\"3934\" data-end=\"4047\">\n<p data-start=\"3936\" data-end=\"4047\">💡 <strong data-start=\"3939\" data-end=\"3949\">Ingat:</strong> Dalam dunia microservices, keamanan <strong data-start=\"3986\" data-end=\"4024\">harus diterapkan di setiap lapisan</strong>, bukan hanya di depan.</p>\n</blockquote>\n<p data-start=\"3936\" data-end=\"4047\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-thumbnail wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-150x150.jpeg\" alt=\"\" width=\"150\" height=\"150\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-150x150.jpeg 150w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-80x80.jpeg 80w\" sizes=\"auto, (max-width: 150px) 100vw, 150px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n<p>&nbsp;</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>CSRF (Cross-Site Request Forgery) dikenal sebagai serangan “jadul”. Tapi dalam dunia microservices modern, ternyata serangan ini masih bisa menyelinap masuk—bahkan tanpa terdeteksi. Artikel ini membagikan cerita dari sisi Red Team (tim penguji keamanan) tentang bagaimana celah kecil di sistem microservices bisa dimanfaatkan oleh CSRF untuk menyerang dari dalam. 🧱 Apa Itu Microservices? Microservices adalah pendekatan pengembangan sistem yang memecah aplikasi besar menjadi layanan-layanan kecil yang saling terhubung lewat API. Contoh layanan dalam sistem: Auth Service (login &amp; token) User Service (profil &amp; data) Payment Service (transaksi) Admin Dashboard Service (kontrol sistem) Microservices memudahkan pengembangan, tapi kompleksitas komunikasi antar layanan bisa&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 2911,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      385
+    ],
+    "class_list": [
+      "post-2910",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-cross-site-request-forgery-csrf"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Red Team Diaries: Menyusup dengan CSRF di Infrastruktur Microservices - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Red Team Diaries: Menyusup dengan CSRF di Infrastruktur Microservices - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"CSRF (Cross-Site Request Forgery) dikenal sebagai serangan “jadul”. Tapi dalam dunia microservices modern, ternyata serangan ini masih bisa menyelinap masuk—bahkan tanpa terdeteksi. Artikel ini membagikan cerita dari sisi Red Team (tim penguji keamanan) tentang bagaimana celah kecil di sistem microservices bisa dimanfaatkan oleh CSRF untuk menyerang dari dalam. 🧱 Apa Itu Microservices? Microservices adalah pendekatan pengembangan sistem yang memecah aplikasi besar menjadi layanan-layanan kecil yang saling terhubung lewat API. Contoh layanan dalam sistem: Auth Service (login &amp; token) User Service (profil &amp; data) Payment Service (transaksi) Admin Dashboard Service (kontrol sistem) Microservices memudahkan pengembangan, tapi kompleksitas komunikasi antar layanan bisa...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-07T08:43:49+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/nside-redteaming-EN.gif\" />\n\t<meta property=\"og:image:width\" content=\"2062\" />\n\t<meta property=\"og:image:height\" content=\"1649\" />\n\t<meta property=\"og:image:type\" content=\"image/gif\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/\",\"url\":\"https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/\",\"name\":\"Red Team Diaries: Menyusup dengan CSRF di Infrastruktur Microservices - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/nside-redteaming-EN.gif\",\"datePublished\":\"2025-07-07T08:43:49+00:00\",\"dateModified\":\"2025-07-07T08:43:49+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/nside-redteaming-EN.gif\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/nside-redteaming-EN.gif\",\"width\":2062,\"height\":1649},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Red Team Diaries: Menyusup dengan CSRF di Infrastruktur Microservices\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Red Team Diaries: Menyusup dengan CSRF di Infrastruktur Microservices - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Red Team Diaries: Menyusup dengan CSRF di Infrastruktur Microservices - buletinsiber.com",
+      "og_description": "CSRF (Cross-Site Request Forgery) dikenal sebagai serangan “jadul”. Tapi dalam dunia microservices modern, ternyata serangan ini masih bisa menyelinap masuk—bahkan tanpa terdeteksi. Artikel ini membagikan cerita dari sisi Red Team (tim penguji keamanan) tentang bagaimana celah kecil di sistem microservices bisa dimanfaatkan oleh CSRF untuk menyerang dari dalam. 🧱 Apa Itu Microservices? Microservices adalah pendekatan pengembangan sistem yang memecah aplikasi besar menjadi layanan-layanan kecil yang saling terhubung lewat API. Contoh layanan dalam sistem: Auth Service (login &amp; token) User Service (profil &amp; data) Payment Service (transaksi) Admin Dashboard Service (kontrol sistem) Microservices memudahkan pengembangan, tapi kompleksitas komunikasi antar layanan bisa...",
+      "og_url": "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-07T08:43:49+00:00",
+      "og_image": [
+        {
+          "width": 2062,
+          "height": 1649,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/nside-redteaming-EN.gif",
+          "type": "image/gif"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/",
+            "url": "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/",
+            "name": "Red Team Diaries: Menyusup dengan CSRF di Infrastruktur Microservices - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/nside-redteaming-EN.gif",
+            "datePublished": "2025-07-07T08:43:49+00:00",
+            "dateModified": "2025-07-07T08:43:49+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/nside-redteaming-EN.gif",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/nside-redteaming-EN.gif",
+            "width": 2062,
+            "height": 1649
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/red-team-diaries-menyusup-dengan-csrf-di-infrastruktur-microservices/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Red Team Diaries: Menyusup dengan CSRF di Infrastruktur Microservices"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2910",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2910"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2910/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 3718,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2910/revisions/3718"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2911"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2910"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2910"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2910"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

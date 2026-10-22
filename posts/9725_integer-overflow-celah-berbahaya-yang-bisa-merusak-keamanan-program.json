@@ -1,0 +1,332 @@
+{
+  "id": 9725,
+  "title": "Integer Overflow: Celah Berbahaya yang Bisa Merusak Keamanan Program",
+  "slug": "integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program",
+  "url": "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/",
+  "date": "2026-03-12T01:34:29",
+  "date_gmt": "2026-03-12T01:34:29",
+  "modified": "2026-07-06T20:55:14",
+  "modified_gmt": "2026-07-06T20:55:14",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    1150,
+    682,
+    1151
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/06/program_mobile_46eda2872d.jpeg",
+  "excerpt": "Pengantar Dalam pengembangan perangkat lunak, pengelolaan data numerik merupakan hal yang sangat umum. Program sering menggunakan tipe data seperti integer untuk menyimpan angka, menghitung ukuran memori, atau memproses berbagai operasi matematika. Namun, jika tidak ditangani dengan benar, operasi ini dapat memunculkan kerentanan yang dikenal sebagai Integer Overflow. Integer Overflow terjadi ketika sebuah operasi aritmatika menghasilkan nilai yang melebihi batas maksimum atau minimum yang dapat disimpan oleh tipe data integer. Ketika hal ini terjadi, nilai tersebut akan “berputar” kembali ke nilai lain yang tidak diharapkan, sehingga menyebabkan kesalahan logika pada program. Kerentanan ini tidak hanya menyebabkan bug pada aplikasi, tetapi juga…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"72\" data-end=\"84\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"86\" data-end=\"454\"><span style=\"color: #000000;\">Dalam pengembangan perangkat lunak, pengelolaan data numerik merupakan hal yang sangat umum. Program sering menggunakan tipe data seperti integer untuk menyimpan angka, menghitung ukuran memori, atau memproses berbagai operasi matematika. Namun, jika tidak ditangani dengan benar, operasi ini dapat memunculkan kerentanan yang dikenal sebagai Integer Overflow.</span></p>\n<p style=\"text-align: justify;\" data-start=\"456\" data-end=\"774\"><span style=\"color: #000000;\">Integer Overflow terjadi ketika sebuah operasi aritmatika menghasilkan nilai yang melebihi batas maksimum atau minimum yang dapat disimpan oleh tipe data integer. Ketika hal ini terjadi, nilai tersebut akan “berputar” kembali ke nilai lain yang tidak diharapkan, sehingga menyebabkan kesalahan logika pada program.</span></p>\n<p style=\"text-align: justify;\" data-start=\"776\" data-end=\"1114\"><span style=\"color: #000000;\">Kerentanan ini tidak hanya menyebabkan bug pada aplikasi, tetapi juga dapat dimanfaatkan oleh penyerang untuk melakukan eksploitasi keamanan seperti buffer overflow, bypass validasi, hingga eksekusi kode berbahaya. Oleh karena itu, memahami konsep Integer Overflow menjadi hal penting bagi developer maupun profesional keamanan siber.</span></p>\n<hr data-start=\"1116\" data-end=\"1119\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"pyqxg8\" data-start=\"1121\" data-end=\"1149\"><span style=\"color: #000000;\">Apa Itu Integer Overflow?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1151\" data-end=\"1334\"><span style=\"color: #000000;\">Integer Overflow adalah kondisi ketika hasil dari operasi matematika pada tipe data integer melebihi batas nilai maksimum atau minimum yang dapat disimpan oleh tipe data tersebut.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1336\" data-end=\"1580\"><span style=\"color: #000000;\">Sebagai contoh, tipe data 8-bit unsigned integer hanya dapat menyimpan nilai dari 0 hingga 255. Jika sebuah operasi menghasilkan nilai 256, maka sistem tidak dapat menyimpannya secara normal dan nilai tersebut akan kembali ke 0.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1582\" data-end=\"1661\"><span style=\"color: #000000;\">Kondisi ini dapat menyebabkan program menghasilkan perilaku yang tidak terduga.</span></p>\n<blockquote>\n<p data-start=\"1582\" data-end=\"1661\">baca juga : <a href=\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/\">DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows</a></p>\n</blockquote>\n<hr data-start=\"1992\" data-end=\"1995\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1otxbe\" data-start=\"1997\" data-end=\"2035\"><span style=\"color: #000000;\">Bagaimana Integer Overflow Terjadi?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2037\" data-end=\"2151\"><span style=\"color: #000000;\">Integer Overflow biasanya terjadi karena program tidak memeriksa batas nilai sebelum melakukan operasi aritmatika.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2153\" data-end=\"2210\"><span style=\"color: #000000;\">Beberapa operasi yang sering memicu overflow antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2212\" data-end=\"2370\">\n<li data-section-id=\"1cpzb2g\" data-start=\"2212\" data-end=\"2252\">\n<p data-start=\"2214\" data-end=\"2252\"><span style=\"color: #000000;\">Penjumlahan angka yang terlalu besar</span></p>\n</li>\n<li data-section-id=\"ndwjfr\" data-start=\"2253\" data-end=\"2307\">\n<p data-start=\"2255\" data-end=\"2307\"><span style=\"color: #000000;\">Perkalian nilai yang melampaui kapasitas tipe data</span></p>\n</li>\n<li data-section-id=\"1gl54an\" data-start=\"2308\" data-end=\"2370\">\n<p data-start=\"2310\" data-end=\"2370\"><span style=\"color: #000000;\">Pengurangan yang menghasilkan nilai di bawah batas minimum</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2372\" data-end=\"2510\"><span style=\"color: #000000;\">Ketika operasi tersebut melebihi batas yang diizinkan, nilai integer akan <strong data-start=\"2446\" data-end=\"2482\">membungkus kembali (wrap around)</strong> ke nilai yang tidak sesuai.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2512\" data-end=\"2669\"><span style=\"color: #000000;\">Dalam beberapa bahasa pemrograman seperti C atau C++, kondisi ini dapat terjadi tanpa menghasilkan error sehingga sulit dideteksi selama proses pengembangan.</span></p>\n<hr data-start=\"2671\" data-end=\"2674\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"gflgzx\" data-start=\"2676\" data-end=\"2712\"><span style=\"color: #000000;\">Contoh Sederhana Integer Overflow</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2714\" data-end=\"2786\"><span style=\"color: #000000;\">Untuk memahami konsep ini dengan lebih jelas, perhatikan contoh berikut.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2788\" data-end=\"2898\"><span style=\"color: #000000;\">Misalnya sebuah program menggunakan <strong data-start=\"2824\" data-end=\"2842\">integer 32-bit</strong> yang memiliki batas maksimum sekitar <strong data-start=\"2880\" data-end=\"2897\">2.147.483.647</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2900\" data-end=\"2947\"><span style=\"color: #000000;\">Jika program mencoba menambahkan nilai berikut:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">2147483647 + 1</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"2973\" data-end=\"3105\"><span style=\"color: #000000;\">Maka hasilnya tidak akan menjadi <strong data-start=\"3006\" data-end=\"3020\">2147483648</strong>, melainkan berubah menjadi nilai negatif karena terjadi overflow pada batas integer.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3107\" data-end=\"3132\"><span style=\"color: #000000;\">Dampak dalam Program</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3134\" data-end=\"3190\"><span style=\"color: #000000;\">Dalam konteks keamanan, kesalahan ini dapat menyebabkan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3192\" data-end=\"3289\">\n<li data-section-id=\"13j99vt\" data-start=\"3192\" data-end=\"3231\">\n<p data-start=\"3194\" data-end=\"3231\"><span style=\"color: #000000;\">kesalahan perhitungan ukuran buffer</span></p>\n</li>\n<li data-section-id=\"1pq79h9\" data-start=\"3232\" data-end=\"3260\">\n<p data-start=\"3234\" data-end=\"3260\"><span style=\"color: #000000;\">kesalahan alokasi memori</span></p>\n</li>\n<li data-section-id=\"7v1olp\" data-start=\"3261\" data-end=\"3289\">\n<p data-start=\"3263\" data-end=\"3289\"><span style=\"color: #000000;\">bypass validasi keamanan</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3291\" data-end=\"3369\"><span style=\"color: #000000;\">Hal ini dapat membuka jalan bagi eksploitasi lain seperti <strong data-start=\"3349\" data-end=\"3368\">buffer overflow</strong>.</span></p>\n<hr data-start=\"3371\" data-end=\"3374\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1ocoypc\" data-start=\"3376\" data-end=\"3420\"><span style=\"color: #000000;\">Dampak Integer Overflow terhadap Keamanan</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3422\" data-end=\"3524\"><span style=\"color: #000000;\">Kerentanan Integer Overflow dapat menimbulkan berbagai dampak serius jika dimanfaatkan oleh penyerang.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"12o3rqd\" data-start=\"3526\" data-end=\"3548\"><span style=\"color: #000000;\">1. Buffer Overflow</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3550\" data-end=\"3739\"><span style=\"color: #000000;\">Integer Overflow sering menjadi tahap awal sebelum terjadinya <strong data-start=\"3612\" data-end=\"3631\">buffer overflow</strong>. Jika ukuran memori dihitung secara salah karena overflow, program dapat menulis data di luar batas buffer.</span></p>\n<hr data-start=\"3741\" data-end=\"3744\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"7l81c8\" data-start=\"3746\" data-end=\"3775\"><span style=\"color: #000000;\">2. Bypass Validasi Sistem</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3777\" data-end=\"3902\"><span style=\"color: #000000;\">Dalam beberapa kasus, overflow dapat membuat nilai yang besar berubah menjadi kecil sehingga lolos dari pemeriksaan keamanan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3904\" data-end=\"3975\"><span style=\"color: #000000;\">Contohnya pada sistem yang membatasi ukuran file atau jumlah transaksi.</span></p>\n<hr data-start=\"3977\" data-end=\"3980\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1ufal45\" data-start=\"3982\" data-end=\"4012\"><span style=\"color: #000000;\">3. Eksekusi Kode Berbahaya</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4014\" data-end=\"4158\"><span style=\"color: #000000;\">Jika overflow memengaruhi pengelolaan memori, penyerang dapat memanfaatkan kondisi tersebut untuk menjalankan kode berbahaya pada sistem target.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4160\" data-end=\"4364\"><span style=\"color: #000000;\">Menurut MITRE, Integer Overflow dapat menyebabkan kesalahan alokasi memori yang berpotensi mengarah pada eksekusi kode atau gangguan layanan (dikutip dari<a href=\"https://cwe.mitre.org/data/definitions/190.html\"> MITRE</a>).</span></p>\n<blockquote>\n<p data-start=\"4160\" data-end=\"4364\">baca juga : <a href=\"https://buletinsiber.com/reentrancy-attack-celah-berbahaya-dalam-smart-contract-blockchain/\">Reentrancy Attack: Celah Berbahaya dalam Smart Contract Blockchain</a></p>\n</blockquote>\n<hr data-start=\"4366\" data-end=\"4369\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1kto1j4\" data-start=\"4371\" data-end=\"4404\"><span style=\"color: #000000;\">Cara Mencegah Integer Overflow</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4406\" data-end=\"4534\"><span style=\"color: #000000;\">Untuk mengurangi risiko kerentanan ini, developer perlu menerapkan beberapa praktik keamanan dalam pengembangan perangkat lunak.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"384djh\" data-start=\"4536\" data-end=\"4560\"><span style=\"color: #000000;\">Validasi Batas Nilai</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4562\" data-end=\"4691\"><span style=\"color: #000000;\">Program harus memeriksa apakah suatu operasi akan menghasilkan nilai yang melebihi batas tipe data sebelum melakukan perhitungan.</span></p>\n<hr data-start=\"4693\" data-end=\"4696\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"13hc7ne\" data-start=\"4698\" data-end=\"4740\"><span style=\"color: #000000;\">Menggunakan Tipe Data yang Lebih Besar</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4742\" data-end=\"4846\"><span style=\"color: #000000;\">Jika memungkinkan, gunakan tipe data dengan kapasitas lebih besar untuk mengurangi kemungkinan overflow.</span></p>\n<hr data-start=\"4848\" data-end=\"4851\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"pskvrb\" data-start=\"4853\" data-end=\"4886\"><span style=\"color: #000000;\">Memanfaatkan Library Keamanan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4888\" data-end=\"5013\"><span style=\"color: #000000;\">Beberapa bahasa pemrograman modern menyediakan <strong data-start=\"4935\" data-end=\"4965\">library atau fungsi khusus</strong> yang dapat mendeteksi overflow secara otomatis.</span></p>\n<hr data-start=\"5015\" data-end=\"5018\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1owesnn\" data-start=\"5020\" data-end=\"5057\"><span style=\"color: #000000;\">Melakukan Code Review dan Testing</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5059\" data-end=\"5208\"><span style=\"color: #000000;\">Pengujian keamanan seperti <strong data-start=\"5086\" data-end=\"5102\">fuzz testing</strong> dan <strong data-start=\"5107\" data-end=\"5131\">static code analysis</strong> dapat membantu mendeteksi potensi Integer Overflow sebelum aplikasi dirilis.</span></p>\n<blockquote>\n<p data-start=\"5059\" data-end=\"5208\">baca juga : <a href=\"https://buletinsiber.com/port-security-cara-melindungi-jaringan-dari-akses-tidak-sah/\">Port Security: Cara Melindungi Jaringan dari Akses Tidak Sah</a></p>\n</blockquote>\n<hr data-start=\"5210\" data-end=\"5213\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"5215\" data-end=\"5228\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5230\" data-end=\"5484\"><span style=\"color: #000000;\">Integer Overflow merupakan kerentanan yang terjadi ketika operasi aritmatika menghasilkan nilai yang melebihi kapasitas tipe data integer. Kondisi ini dapat menyebabkan kesalahan logika pada program dan membuka peluang bagi berbagai eksploitasi keamanan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5486\" data-end=\"5824\"><span style=\"color: #000000;\">Dalam beberapa kasus, Integer Overflow dapat digunakan sebagai langkah awal untuk serangan yang lebih serius seperti buffer overflow atau eksekusi kode berbahaya. Oleh karena itu, pengembang perangkat lunak perlu memperhatikan validasi nilai numerik, menggunakan tipe data yang tepat, serta melakukan pengujian keamanan secara menyeluruh.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5826\" data-end=\"5967\"><span style=\"color: #000000;\">Dengan memahami dan mencegah kerentanan ini sejak tahap pengembangan, risiko eksploitasi terhadap aplikasi dapat dikurangi secara signifikan.</span></p>\n",
+  "content_text": "Pengantar\nDalam pengembangan perangkat lunak, pengelolaan data numerik merupakan hal yang sangat umum. Program sering menggunakan tipe data seperti integer untuk menyimpan angka, menghitung ukuran memori, atau memproses berbagai operasi matematika. Namun, jika tidak ditangani dengan benar, operasi ini dapat memunculkan kerentanan yang dikenal sebagai Integer Overflow.\nInteger Overflow terjadi ketika sebuah operasi aritmatika menghasilkan nilai yang melebihi batas maksimum atau minimum yang dapat disimpan oleh tipe data integer. Ketika hal ini terjadi, nilai tersebut akan “berputar” kembali ke nilai lain yang tidak diharapkan, sehingga menyebabkan kesalahan logika pada program.\nKerentanan ini tidak hanya menyebabkan bug pada aplikasi, tetapi juga dapat dimanfaatkan oleh penyerang untuk melakukan eksploitasi keamanan seperti buffer overflow, bypass validasi, hingga eksekusi kode berbahaya. Oleh karena itu, memahami konsep Integer Overflow menjadi hal penting bagi developer maupun profesional keamanan siber.\nApa Itu Integer Overflow?\nInteger Overflow adalah kondisi ketika hasil dari operasi matematika pada tipe data integer melebihi batas nilai maksimum atau minimum yang dapat disimpan oleh tipe data tersebut.\nSebagai contoh, tipe data 8-bit unsigned integer hanya dapat menyimpan nilai dari 0 hingga 255. Jika sebuah operasi menghasilkan nilai 256, maka sistem tidak dapat menyimpannya secara normal dan nilai tersebut akan kembali ke 0.\nKondisi ini dapat menyebabkan program menghasilkan perilaku yang tidak terduga.\nbaca juga :  DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows\nBagaimana Integer Overflow Terjadi?\nInteger Overflow biasanya terjadi karena program tidak memeriksa batas nilai sebelum melakukan operasi aritmatika.\nBeberapa operasi yang sering memicu overflow antara lain:\nPenjumlahan angka yang terlalu besar\nPerkalian nilai yang melampaui kapasitas tipe data\nPengurangan yang menghasilkan nilai di bawah batas minimum\nKetika operasi tersebut melebihi batas yang diizinkan, nilai integer akan  membungkus kembali (wrap around)  ke nilai yang tidak sesuai.\nDalam beberapa bahasa pemrograman seperti C atau C++, kondisi ini dapat terjadi tanpa menghasilkan error sehingga sulit dideteksi selama proses pengembangan.\nContoh Sederhana Integer Overflow\nUntuk memahami konsep ini dengan lebih jelas, perhatikan contoh berikut.\nMisalnya sebuah program menggunakan  integer 32-bit  yang memiliki batas maksimum sekitar  2.147.483.647 .\nJika program mencoba menambahkan nilai berikut:\n2147483647 + 1\nMaka hasilnya tidak akan menjadi  2147483648 , melainkan berubah menjadi nilai negatif karena terjadi overflow pada batas integer.\nDampak dalam Program\nDalam konteks keamanan, kesalahan ini dapat menyebabkan:\nkesalahan perhitungan ukuran buffer\nkesalahan alokasi memori\nbypass validasi keamanan\nHal ini dapat membuka jalan bagi eksploitasi lain seperti  buffer overflow .\nDampak Integer Overflow terhadap Keamanan\nKerentanan Integer Overflow dapat menimbulkan berbagai dampak serius jika dimanfaatkan oleh penyerang.\n1. Buffer Overflow\nInteger Overflow sering menjadi tahap awal sebelum terjadinya  buffer overflow . Jika ukuran memori dihitung secara salah karena overflow, program dapat menulis data di luar batas buffer.\n2. Bypass Validasi Sistem\nDalam beberapa kasus, overflow dapat membuat nilai yang besar berubah menjadi kecil sehingga lolos dari pemeriksaan keamanan.\nContohnya pada sistem yang membatasi ukuran file atau jumlah transaksi.\n3. Eksekusi Kode Berbahaya\nJika overflow memengaruhi pengelolaan memori, penyerang dapat memanfaatkan kondisi tersebut untuk menjalankan kode berbahaya pada sistem target.\nMenurut MITRE, Integer Overflow dapat menyebabkan kesalahan alokasi memori yang berpotensi mengarah pada eksekusi kode atau gangguan layanan (dikutip dari  MITRE ).\nbaca juga :  Reentrancy Attack: Celah Berbahaya dalam Smart Contract Blockchain\nCara Mencegah Integer Overflow\nUntuk mengurangi risiko kerentanan ini, developer perlu menerapkan beberapa praktik keamanan dalam pengembangan perangkat lunak.\nValidasi Batas Nilai\nProgram harus memeriksa apakah suatu operasi akan menghasilkan nilai yang melebihi batas tipe data sebelum melakukan perhitungan.\nMenggunakan Tipe Data yang Lebih Besar\nJika memungkinkan, gunakan tipe data dengan kapasitas lebih besar untuk mengurangi kemungkinan overflow.\nMemanfaatkan Library Keamanan\nBeberapa bahasa pemrograman modern menyediakan  library atau fungsi khusus  yang dapat mendeteksi overflow secara otomatis.\nMelakukan Code Review dan Testing\nPengujian keamanan seperti  fuzz testing  dan  static code analysis  dapat membantu mendeteksi potensi Integer Overflow sebelum aplikasi dirilis.\nbaca juga :  Port Security: Cara Melindungi Jaringan dari Akses Tidak Sah\nKesimpulan\nInteger Overflow merupakan kerentanan yang terjadi ketika operasi aritmatika menghasilkan nilai yang melebihi kapasitas tipe data integer. Kondisi ini dapat menyebabkan kesalahan logika pada program dan membuka peluang bagi berbagai eksploitasi keamanan.\nDalam beberapa kasus, Integer Overflow dapat digunakan sebagai langkah awal untuk serangan yang lebih serius seperti buffer overflow atau eksekusi kode berbahaya. Oleh karena itu, pengembang perangkat lunak perlu memperhatikan validasi nilai numerik, menggunakan tipe data yang tepat, serta melakukan pengujian keamanan secara menyeluruh.\nDengan memahami dan mencegah kerentanan ini sejak tahap pengembangan, risiko eksploitasi terhadap aplikasi dapat dikurangi secara signifikan.",
+  "raw": {
+    "id": 9725,
+    "date": "2026-03-12T01:34:29",
+    "date_gmt": "2026-03-12T01:34:29",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9725"
+    },
+    "modified": "2026-07-06T20:55:14",
+    "modified_gmt": "2026-07-06T20:55:14",
+    "slug": "integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/",
+    "title": {
+      "rendered": "Integer Overflow: Celah Berbahaya yang Bisa Merusak Keamanan Program"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"72\" data-end=\"84\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"86\" data-end=\"454\"><span style=\"color: #000000;\">Dalam pengembangan perangkat lunak, pengelolaan data numerik merupakan hal yang sangat umum. Program sering menggunakan tipe data seperti integer untuk menyimpan angka, menghitung ukuran memori, atau memproses berbagai operasi matematika. Namun, jika tidak ditangani dengan benar, operasi ini dapat memunculkan kerentanan yang dikenal sebagai Integer Overflow.</span></p>\n<p style=\"text-align: justify;\" data-start=\"456\" data-end=\"774\"><span style=\"color: #000000;\">Integer Overflow terjadi ketika sebuah operasi aritmatika menghasilkan nilai yang melebihi batas maksimum atau minimum yang dapat disimpan oleh tipe data integer. Ketika hal ini terjadi, nilai tersebut akan “berputar” kembali ke nilai lain yang tidak diharapkan, sehingga menyebabkan kesalahan logika pada program.</span></p>\n<p style=\"text-align: justify;\" data-start=\"776\" data-end=\"1114\"><span style=\"color: #000000;\">Kerentanan ini tidak hanya menyebabkan bug pada aplikasi, tetapi juga dapat dimanfaatkan oleh penyerang untuk melakukan eksploitasi keamanan seperti buffer overflow, bypass validasi, hingga eksekusi kode berbahaya. Oleh karena itu, memahami konsep Integer Overflow menjadi hal penting bagi developer maupun profesional keamanan siber.</span></p>\n<hr data-start=\"1116\" data-end=\"1119\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"pyqxg8\" data-start=\"1121\" data-end=\"1149\"><span style=\"color: #000000;\">Apa Itu Integer Overflow?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1151\" data-end=\"1334\"><span style=\"color: #000000;\">Integer Overflow adalah kondisi ketika hasil dari operasi matematika pada tipe data integer melebihi batas nilai maksimum atau minimum yang dapat disimpan oleh tipe data tersebut.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1336\" data-end=\"1580\"><span style=\"color: #000000;\">Sebagai contoh, tipe data 8-bit unsigned integer hanya dapat menyimpan nilai dari 0 hingga 255. Jika sebuah operasi menghasilkan nilai 256, maka sistem tidak dapat menyimpannya secara normal dan nilai tersebut akan kembali ke 0.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1582\" data-end=\"1661\"><span style=\"color: #000000;\">Kondisi ini dapat menyebabkan program menghasilkan perilaku yang tidak terduga.</span></p>\n<blockquote>\n<p data-start=\"1582\" data-end=\"1661\">baca juga : <a href=\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/\">DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows</a></p>\n</blockquote>\n<hr data-start=\"1992\" data-end=\"1995\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1otxbe\" data-start=\"1997\" data-end=\"2035\"><span style=\"color: #000000;\">Bagaimana Integer Overflow Terjadi?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2037\" data-end=\"2151\"><span style=\"color: #000000;\">Integer Overflow biasanya terjadi karena program tidak memeriksa batas nilai sebelum melakukan operasi aritmatika.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2153\" data-end=\"2210\"><span style=\"color: #000000;\">Beberapa operasi yang sering memicu overflow antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2212\" data-end=\"2370\">\n<li data-section-id=\"1cpzb2g\" data-start=\"2212\" data-end=\"2252\">\n<p data-start=\"2214\" data-end=\"2252\"><span style=\"color: #000000;\">Penjumlahan angka yang terlalu besar</span></p>\n</li>\n<li data-section-id=\"ndwjfr\" data-start=\"2253\" data-end=\"2307\">\n<p data-start=\"2255\" data-end=\"2307\"><span style=\"color: #000000;\">Perkalian nilai yang melampaui kapasitas tipe data</span></p>\n</li>\n<li data-section-id=\"1gl54an\" data-start=\"2308\" data-end=\"2370\">\n<p data-start=\"2310\" data-end=\"2370\"><span style=\"color: #000000;\">Pengurangan yang menghasilkan nilai di bawah batas minimum</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2372\" data-end=\"2510\"><span style=\"color: #000000;\">Ketika operasi tersebut melebihi batas yang diizinkan, nilai integer akan <strong data-start=\"2446\" data-end=\"2482\">membungkus kembali (wrap around)</strong> ke nilai yang tidak sesuai.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2512\" data-end=\"2669\"><span style=\"color: #000000;\">Dalam beberapa bahasa pemrograman seperti C atau C++, kondisi ini dapat terjadi tanpa menghasilkan error sehingga sulit dideteksi selama proses pengembangan.</span></p>\n<hr data-start=\"2671\" data-end=\"2674\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"gflgzx\" data-start=\"2676\" data-end=\"2712\"><span style=\"color: #000000;\">Contoh Sederhana Integer Overflow</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2714\" data-end=\"2786\"><span style=\"color: #000000;\">Untuk memahami konsep ini dengan lebih jelas, perhatikan contoh berikut.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2788\" data-end=\"2898\"><span style=\"color: #000000;\">Misalnya sebuah program menggunakan <strong data-start=\"2824\" data-end=\"2842\">integer 32-bit</strong> yang memiliki batas maksimum sekitar <strong data-start=\"2880\" data-end=\"2897\">2.147.483.647</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2900\" data-end=\"2947\"><span style=\"color: #000000;\">Jika program mencoba menambahkan nilai berikut:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">2147483647 + 1</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"2973\" data-end=\"3105\"><span style=\"color: #000000;\">Maka hasilnya tidak akan menjadi <strong data-start=\"3006\" data-end=\"3020\">2147483648</strong>, melainkan berubah menjadi nilai negatif karena terjadi overflow pada batas integer.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3107\" data-end=\"3132\"><span style=\"color: #000000;\">Dampak dalam Program</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3134\" data-end=\"3190\"><span style=\"color: #000000;\">Dalam konteks keamanan, kesalahan ini dapat menyebabkan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3192\" data-end=\"3289\">\n<li data-section-id=\"13j99vt\" data-start=\"3192\" data-end=\"3231\">\n<p data-start=\"3194\" data-end=\"3231\"><span style=\"color: #000000;\">kesalahan perhitungan ukuran buffer</span></p>\n</li>\n<li data-section-id=\"1pq79h9\" data-start=\"3232\" data-end=\"3260\">\n<p data-start=\"3234\" data-end=\"3260\"><span style=\"color: #000000;\">kesalahan alokasi memori</span></p>\n</li>\n<li data-section-id=\"7v1olp\" data-start=\"3261\" data-end=\"3289\">\n<p data-start=\"3263\" data-end=\"3289\"><span style=\"color: #000000;\">bypass validasi keamanan</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3291\" data-end=\"3369\"><span style=\"color: #000000;\">Hal ini dapat membuka jalan bagi eksploitasi lain seperti <strong data-start=\"3349\" data-end=\"3368\">buffer overflow</strong>.</span></p>\n<hr data-start=\"3371\" data-end=\"3374\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1ocoypc\" data-start=\"3376\" data-end=\"3420\"><span style=\"color: #000000;\">Dampak Integer Overflow terhadap Keamanan</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3422\" data-end=\"3524\"><span style=\"color: #000000;\">Kerentanan Integer Overflow dapat menimbulkan berbagai dampak serius jika dimanfaatkan oleh penyerang.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"12o3rqd\" data-start=\"3526\" data-end=\"3548\"><span style=\"color: #000000;\">1. Buffer Overflow</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3550\" data-end=\"3739\"><span style=\"color: #000000;\">Integer Overflow sering menjadi tahap awal sebelum terjadinya <strong data-start=\"3612\" data-end=\"3631\">buffer overflow</strong>. Jika ukuran memori dihitung secara salah karena overflow, program dapat menulis data di luar batas buffer.</span></p>\n<hr data-start=\"3741\" data-end=\"3744\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"7l81c8\" data-start=\"3746\" data-end=\"3775\"><span style=\"color: #000000;\">2. Bypass Validasi Sistem</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3777\" data-end=\"3902\"><span style=\"color: #000000;\">Dalam beberapa kasus, overflow dapat membuat nilai yang besar berubah menjadi kecil sehingga lolos dari pemeriksaan keamanan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3904\" data-end=\"3975\"><span style=\"color: #000000;\">Contohnya pada sistem yang membatasi ukuran file atau jumlah transaksi.</span></p>\n<hr data-start=\"3977\" data-end=\"3980\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1ufal45\" data-start=\"3982\" data-end=\"4012\"><span style=\"color: #000000;\">3. Eksekusi Kode Berbahaya</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4014\" data-end=\"4158\"><span style=\"color: #000000;\">Jika overflow memengaruhi pengelolaan memori, penyerang dapat memanfaatkan kondisi tersebut untuk menjalankan kode berbahaya pada sistem target.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4160\" data-end=\"4364\"><span style=\"color: #000000;\">Menurut MITRE, Integer Overflow dapat menyebabkan kesalahan alokasi memori yang berpotensi mengarah pada eksekusi kode atau gangguan layanan (dikutip dari<a href=\"https://cwe.mitre.org/data/definitions/190.html\"> MITRE</a>).</span></p>\n<blockquote>\n<p data-start=\"4160\" data-end=\"4364\">baca juga : <a href=\"https://buletinsiber.com/reentrancy-attack-celah-berbahaya-dalam-smart-contract-blockchain/\">Reentrancy Attack: Celah Berbahaya dalam Smart Contract Blockchain</a></p>\n</blockquote>\n<hr data-start=\"4366\" data-end=\"4369\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1kto1j4\" data-start=\"4371\" data-end=\"4404\"><span style=\"color: #000000;\">Cara Mencegah Integer Overflow</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4406\" data-end=\"4534\"><span style=\"color: #000000;\">Untuk mengurangi risiko kerentanan ini, developer perlu menerapkan beberapa praktik keamanan dalam pengembangan perangkat lunak.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"384djh\" data-start=\"4536\" data-end=\"4560\"><span style=\"color: #000000;\">Validasi Batas Nilai</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4562\" data-end=\"4691\"><span style=\"color: #000000;\">Program harus memeriksa apakah suatu operasi akan menghasilkan nilai yang melebihi batas tipe data sebelum melakukan perhitungan.</span></p>\n<hr data-start=\"4693\" data-end=\"4696\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"13hc7ne\" data-start=\"4698\" data-end=\"4740\"><span style=\"color: #000000;\">Menggunakan Tipe Data yang Lebih Besar</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4742\" data-end=\"4846\"><span style=\"color: #000000;\">Jika memungkinkan, gunakan tipe data dengan kapasitas lebih besar untuk mengurangi kemungkinan overflow.</span></p>\n<hr data-start=\"4848\" data-end=\"4851\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"pskvrb\" data-start=\"4853\" data-end=\"4886\"><span style=\"color: #000000;\">Memanfaatkan Library Keamanan</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4888\" data-end=\"5013\"><span style=\"color: #000000;\">Beberapa bahasa pemrograman modern menyediakan <strong data-start=\"4935\" data-end=\"4965\">library atau fungsi khusus</strong> yang dapat mendeteksi overflow secara otomatis.</span></p>\n<hr data-start=\"5015\" data-end=\"5018\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1owesnn\" data-start=\"5020\" data-end=\"5057\"><span style=\"color: #000000;\">Melakukan Code Review dan Testing</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5059\" data-end=\"5208\"><span style=\"color: #000000;\">Pengujian keamanan seperti <strong data-start=\"5086\" data-end=\"5102\">fuzz testing</strong> dan <strong data-start=\"5107\" data-end=\"5131\">static code analysis</strong> dapat membantu mendeteksi potensi Integer Overflow sebelum aplikasi dirilis.</span></p>\n<blockquote>\n<p data-start=\"5059\" data-end=\"5208\">baca juga : <a href=\"https://buletinsiber.com/port-security-cara-melindungi-jaringan-dari-akses-tidak-sah/\">Port Security: Cara Melindungi Jaringan dari Akses Tidak Sah</a></p>\n</blockquote>\n<hr data-start=\"5210\" data-end=\"5213\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"5215\" data-end=\"5228\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5230\" data-end=\"5484\"><span style=\"color: #000000;\">Integer Overflow merupakan kerentanan yang terjadi ketika operasi aritmatika menghasilkan nilai yang melebihi kapasitas tipe data integer. Kondisi ini dapat menyebabkan kesalahan logika pada program dan membuka peluang bagi berbagai eksploitasi keamanan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5486\" data-end=\"5824\"><span style=\"color: #000000;\">Dalam beberapa kasus, Integer Overflow dapat digunakan sebagai langkah awal untuk serangan yang lebih serius seperti buffer overflow atau eksekusi kode berbahaya. Oleh karena itu, pengembang perangkat lunak perlu memperhatikan validasi nilai numerik, menggunakan tipe data yang tepat, serta melakukan pengujian keamanan secara menyeluruh.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5826\" data-end=\"5967\"><span style=\"color: #000000;\">Dengan memahami dan mencegah kerentanan ini sejak tahap pengembangan, risiko eksploitasi terhadap aplikasi dapat dikurangi secara signifikan.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dalam pengembangan perangkat lunak, pengelolaan data numerik merupakan hal yang sangat umum. Program sering menggunakan tipe data seperti integer untuk menyimpan angka, menghitung ukuran memori, atau memproses berbagai operasi matematika. Namun, jika tidak ditangani dengan benar, operasi ini dapat memunculkan kerentanan yang dikenal sebagai Integer Overflow. Integer Overflow terjadi ketika sebuah operasi aritmatika menghasilkan nilai yang melebihi batas maksimum atau minimum yang dapat disimpan oleh tipe data integer. Ketika hal ini terjadi, nilai tersebut akan “berputar” kembali ke nilai lain yang tidak diharapkan, sehingga menyebabkan kesalahan logika pada program. Kerentanan ini tidak hanya menyebabkan bug pada aplikasi, tetapi juga&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 2586,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Integer Overflow",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      1150,
+      682,
+      1151
+    ],
+    "class_list": [
+      "post-9725",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-integer",
+      "tag-keamanan",
+      "tag-overflow"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Integer Overflow: Celah Berbahaya yang Bisa Merusak Keamanan Program - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Integer Overflow: Celah Berbahaya yang Bisa Merusak Keamanan Program - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dalam pengembangan perangkat lunak, pengelolaan data numerik merupakan hal yang sangat umum. Program sering menggunakan tipe data seperti integer untuk menyimpan angka, menghitung ukuran memori, atau memproses berbagai operasi matematika. Namun, jika tidak ditangani dengan benar, operasi ini dapat memunculkan kerentanan yang dikenal sebagai Integer Overflow. Integer Overflow terjadi ketika sebuah operasi aritmatika menghasilkan nilai yang melebihi batas maksimum atau minimum yang dapat disimpan oleh tipe data integer. Ketika hal ini terjadi, nilai tersebut akan “berputar” kembali ke nilai lain yang tidak diharapkan, sehingga menyebabkan kesalahan logika pada program. Kerentanan ini tidak hanya menyebabkan bug pada aplikasi, tetapi juga...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-03-12T01:34:29+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:55:14+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/06/program_mobile_46eda2872d.jpeg\" />\n\t<meta property=\"og:image:width\" content=\"1840\" />\n\t<meta property=\"og:image:height\" content=\"1228\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/\",\"url\":\"https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/\",\"name\":\"Integer Overflow: Celah Berbahaya yang Bisa Merusak Keamanan Program - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/program_mobile_46eda2872d.jpeg\",\"datePublished\":\"2026-03-12T01:34:29+00:00\",\"dateModified\":\"2026-07-06T20:55:14+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/06/program_mobile_46eda2872d.jpeg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/program_mobile_46eda2872d.jpeg\",\"width\":1840,\"height\":1228},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Integer Overflow: Celah Berbahaya yang Bisa Merusak Keamanan Program\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Integer Overflow: Celah Berbahaya yang Bisa Merusak Keamanan Program - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Integer Overflow: Celah Berbahaya yang Bisa Merusak Keamanan Program - buletinsiber.com",
+      "og_description": "Pengantar Dalam pengembangan perangkat lunak, pengelolaan data numerik merupakan hal yang sangat umum. Program sering menggunakan tipe data seperti integer untuk menyimpan angka, menghitung ukuran memori, atau memproses berbagai operasi matematika. Namun, jika tidak ditangani dengan benar, operasi ini dapat memunculkan kerentanan yang dikenal sebagai Integer Overflow. Integer Overflow terjadi ketika sebuah operasi aritmatika menghasilkan nilai yang melebihi batas maksimum atau minimum yang dapat disimpan oleh tipe data integer. Ketika hal ini terjadi, nilai tersebut akan “berputar” kembali ke nilai lain yang tidak diharapkan, sehingga menyebabkan kesalahan logika pada program. Kerentanan ini tidak hanya menyebabkan bug pada aplikasi, tetapi juga...",
+      "og_url": "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-03-12T01:34:29+00:00",
+      "article_modified_time": "2026-07-06T20:55:14+00:00",
+      "og_image": [
+        {
+          "width": 1840,
+          "height": 1228,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/06/program_mobile_46eda2872d.jpeg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/",
+            "url": "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/",
+            "name": "Integer Overflow: Celah Berbahaya yang Bisa Merusak Keamanan Program - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/program_mobile_46eda2872d.jpeg",
+            "datePublished": "2026-03-12T01:34:29+00:00",
+            "dateModified": "2026-07-06T20:55:14+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/06/program_mobile_46eda2872d.jpeg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/program_mobile_46eda2872d.jpeg",
+            "width": 1840,
+            "height": 1228
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/integer-overflow-celah-berbahaya-yang-bisa-merusak-keamanan-program/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Integer Overflow: Celah Berbahaya yang Bisa Merusak Keamanan Program"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9725",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9725"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9725/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9726,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9725/revisions/9726"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2586"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9725"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9725"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9725"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

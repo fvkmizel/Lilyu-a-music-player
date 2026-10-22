@@ -1,0 +1,313 @@
+{
+  "id": 5499,
+  "title": "Defensive Programming untuk Mencegah Privilege Escalation",
+  "slug": "defensive-programming-untuk-mencegah-privilege-escalation",
+  "url": "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/",
+  "date": "2025-07-09T19:10:37",
+  "date_gmt": "2025-07-09T19:10:37",
+  "modified": "2025-07-09T19:10:37",
+  "modified_gmt": "2025-07-09T19:10:37",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    149
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-13.webp",
+  "excerpt": "Dalam dunia keamanan komputer, privilege escalation adalah salah satu teknik berbahaya yang sering digunakan oleh hacker. Dengan teknik ini, seorang pengguna biasa bisa mendapatkan hak akses lebih tinggi, misalnya menjadi admin atau root. Hal ini tentu sangat berbahaya karena mereka bisa mengendalikan seluruh sistem. Untuk mencegah hal ini terjadi, salah satu cara yang bisa dilakukan adalah dengan menerapkan defensive programming. Teknik ini digunakan sejak tahap awal pembuatan program agar kode lebih aman dan tidak mudah disalahgunakan.   Apa Itu Defensive Programming? Defensive programming adalah cara menulis program dengan mengantisipasi kemungkinan kesalahan sejak awal. Artinya, programmer menulis kode dengan asumsi bahwa…",
+  "content_html": "<p>Dalam dunia keamanan komputer, <strong>privilege escalation</strong> adalah salah satu teknik berbahaya yang sering digunakan oleh hacker. Dengan teknik ini, seorang pengguna biasa bisa mendapatkan hak akses lebih tinggi, misalnya menjadi admin atau root. Hal ini tentu sangat berbahaya karena mereka bisa mengendalikan seluruh sistem.</p>\n<p>Untuk mencegah hal ini terjadi, salah satu cara yang bisa dilakukan adalah dengan menerapkan <strong>defensive programming</strong>. Teknik ini digunakan sejak tahap awal pembuatan program agar kode lebih aman dan tidak mudah disalahgunakan.</p>\n<p>&nbsp;</p>\n<h3>Apa Itu Defensive Programming?</h3>\n<p><strong>Defensive programming</strong> adalah cara menulis program dengan mengantisipasi kemungkinan kesalahan sejak awal. Artinya, programmer menulis kode dengan asumsi bahwa kesalahan bisa saja terjadi—baik karena input pengguna yang tidak valid, sistem yang tidak stabil, atau bahkan serangan dari luar.</p>\n<p>Tujuan dari teknik ini adalah agar program tetap berjalan dengan aman meskipun ada kesalahan, dan tidak membuka celah bagi hacker untuk masuk.</p>\n<p>&nbsp;</p>\n<h3>Bagaimana Privilege Escalation Bisa Terjadi dari Kode?</h3>\n<p>Privilege escalation seringkali terjadi bukan karena sistem operasi yang lemah, tapi karena kesalahan dalam pembuatan kode. Berikut beberapa contoh:</p>\n<ul>\n<li><strong>Input tidak dicek dengan baik</strong>: Misalnya, program menerima perintah dari user tanpa validasi.</li>\n<li><strong>File permission yang salah</strong>: File yang harusnya hanya dibaca oleh admin malah bisa ditulis oleh semua user.</li>\n<li><strong>Menggunakan fungsi berbahaya seperti <code>exec()</code></strong>: Fungsi ini bisa mengeksekusi perintah sistem, dan jika disalahgunakan bisa jadi pintu masuk hacker.</li>\n<li><strong>Password disimpan di dalam kode (hardcoded)</strong>: Jika ada yang membongkar kode program, maka password bisa diketahui dengan mudah.</li>\n</ul>\n<p>Contoh nyata: Ada sebuah skrip admin di Linux yang bisa dijalankan oleh siapa saja karena permission-nya salah. Seorang user biasa bisa menjalankan skrip itu dan mendapatkan akses root. Ini adalah privilege escalation karena kesalahan kecil dalam pengaturan file.</p>\n<p>&nbsp;</p>\n<h3>Prinsip-Prinsip Defensive Programming untuk Mencegah Privilege Escalation</h3>\n<p>Berikut beberapa prinsip sederhana yang bisa dilakukan saat menulis kode:</p>\n<h4>✅ Validasi Input</h4>\n<p>Jangan pernah percaya begitu saja pada input dari pengguna. Selalu periksa apakah input tersebut sesuai format, panjang, dan tidak mengandung karakter berbahaya. Gunakan <strong>whitelist</strong> (hanya menerima input yang dikenal aman), bukan blacklist.</p>\n<h4>🔐 Batasi Hak Akses</h4>\n<p>Jalankan program atau service dengan hak akses paling rendah yang dibutuhkan. Jangan menjalankan semua hal sebagai admin. Jika hanya perlu baca file, cukup beri izin baca saja.</p>\n<h4>⚠️ Tangani Error dengan Baik</h4>\n<p>Jangan biarkan program berhenti tiba-tiba saat ada error. Tangani semua kemungkinan error dengan aman agar hacker tidak bisa mengeksploitasi celah tersebut.</p>\n<h4>📋 Logging dan Audit</h4>\n<p>Catat semua aktivitas penting, terutama yang berkaitan dengan akses atau perubahan file. Log bisa membantu mendeteksi upaya privilege escalation lebih awal.</p>\n<h4>🔍 Lakukan Review dan Pengujian</h4>\n<p>Sebelum program digunakan, cek ulang kode bersama tim (code review) dan lakukan pengujian keamanan seperti <strong>penetration testing</strong> atau menggunakan <strong>static analysis tools</strong>.</p>\n<p>&nbsp;</p>\n<h3>Alat dan Praktik Tambahan</h3>\n<p>Selain prinsip di atas, ada beberapa alat dan metode tambahan untuk membantu:</p>\n<ul>\n<li><strong>AppArmor</strong> dan <strong>SELinux</strong>: Alat untuk membatasi apa yang boleh dilakukan oleh program di sistem Linux.</li>\n<li><strong>Sandboxing</strong>: Jalankan program di lingkungan yang terisolasi, sehingga jika ada yang rusak tidak merusak sistem utama.</li>\n<li>Gunakan <strong>compiler flags</strong> untuk melindungi program dari buffer overflow dan celah keamanan lain.</li>\n<li>Pilih framework yang sudah dirancang aman, seperti Laravel untuk PHP atau Django untuk Python.</li>\n</ul>\n<p>&nbsp;</p>\n<h3>Kesimpulan</h3>\n<p>Privilege escalation bisa terjadi karena kesalahan kecil dalam kode. Oleh karena itu, penting bagi developer untuk menerapkan <strong>defensive programming</strong> sejak awal.</p>\n<p>Dengan menulis kode yang aman dan waspada terhadap kemungkinan kesalahan, kita bisa mencegah hacker “naik pangkat” dari user biasa menjadi penguasa sistem. Ingat, mencegah lebih baik daripada memperbaiki setelah sistem dibobol.</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>Nama: Damarudin<br />\nNIM: 23156201034<br />\nProdi: Sistem Komputer</p>\n",
+  "content_text": "Dalam dunia keamanan komputer,  privilege escalation  adalah salah satu teknik berbahaya yang sering digunakan oleh hacker. Dengan teknik ini, seorang pengguna biasa bisa mendapatkan hak akses lebih tinggi, misalnya menjadi admin atau root. Hal ini tentu sangat berbahaya karena mereka bisa mengendalikan seluruh sistem.\nUntuk mencegah hal ini terjadi, salah satu cara yang bisa dilakukan adalah dengan menerapkan  defensive programming . Teknik ini digunakan sejak tahap awal pembuatan program agar kode lebih aman dan tidak mudah disalahgunakan.\nApa Itu Defensive Programming?\nDefensive programming  adalah cara menulis program dengan mengantisipasi kemungkinan kesalahan sejak awal. Artinya, programmer menulis kode dengan asumsi bahwa kesalahan bisa saja terjadi—baik karena input pengguna yang tidak valid, sistem yang tidak stabil, atau bahkan serangan dari luar.\nTujuan dari teknik ini adalah agar program tetap berjalan dengan aman meskipun ada kesalahan, dan tidak membuka celah bagi hacker untuk masuk.\nBagaimana Privilege Escalation Bisa Terjadi dari Kode?\nPrivilege escalation seringkali terjadi bukan karena sistem operasi yang lemah, tapi karena kesalahan dalam pembuatan kode. Berikut beberapa contoh:\nInput tidak dicek dengan baik : Misalnya, program menerima perintah dari user tanpa validasi.\nFile permission yang salah : File yang harusnya hanya dibaca oleh admin malah bisa ditulis oleh semua user.\nMenggunakan fungsi berbahaya seperti  exec()  : Fungsi ini bisa mengeksekusi perintah sistem, dan jika disalahgunakan bisa jadi pintu masuk hacker.\nPassword disimpan di dalam kode (hardcoded) : Jika ada yang membongkar kode program, maka password bisa diketahui dengan mudah.\nContoh nyata: Ada sebuah skrip admin di Linux yang bisa dijalankan oleh siapa saja karena permission-nya salah. Seorang user biasa bisa menjalankan skrip itu dan mendapatkan akses root. Ini adalah privilege escalation karena kesalahan kecil dalam pengaturan file.\nPrinsip-Prinsip Defensive Programming untuk Mencegah Privilege Escalation\nBerikut beberapa prinsip sederhana yang bisa dilakukan saat menulis kode:\n✅ Validasi Input\nJangan pernah percaya begitu saja pada input dari pengguna. Selalu periksa apakah input tersebut sesuai format, panjang, dan tidak mengandung karakter berbahaya. Gunakan  whitelist  (hanya menerima input yang dikenal aman), bukan blacklist.\n🔐 Batasi Hak Akses\nJalankan program atau service dengan hak akses paling rendah yang dibutuhkan. Jangan menjalankan semua hal sebagai admin. Jika hanya perlu baca file, cukup beri izin baca saja.\n⚠️ Tangani Error dengan Baik\nJangan biarkan program berhenti tiba-tiba saat ada error. Tangani semua kemungkinan error dengan aman agar hacker tidak bisa mengeksploitasi celah tersebut.\n📋 Logging dan Audit\nCatat semua aktivitas penting, terutama yang berkaitan dengan akses atau perubahan file. Log bisa membantu mendeteksi upaya privilege escalation lebih awal.\n🔍 Lakukan Review dan Pengujian\nSebelum program digunakan, cek ulang kode bersama tim (code review) dan lakukan pengujian keamanan seperti  penetration testing  atau menggunakan  static analysis tools .\nAlat dan Praktik Tambahan\nSelain prinsip di atas, ada beberapa alat dan metode tambahan untuk membantu:\nAppArmor  dan  SELinux : Alat untuk membatasi apa yang boleh dilakukan oleh program di sistem Linux.\nSandboxing : Jalankan program di lingkungan yang terisolasi, sehingga jika ada yang rusak tidak merusak sistem utama.\nGunakan  compiler flags  untuk melindungi program dari buffer overflow dan celah keamanan lain.\nPilih framework yang sudah dirancang aman, seperti Laravel untuk PHP atau Django untuk Python.\nKesimpulan\nPrivilege escalation bisa terjadi karena kesalahan kecil dalam kode. Oleh karena itu, penting bagi developer untuk menerapkan  defensive programming  sejak awal.\nDengan menulis kode yang aman dan waspada terhadap kemungkinan kesalahan, kita bisa mencegah hacker “naik pangkat” dari user biasa menjadi penguasa sistem. Ingat, mencegah lebih baik daripada memperbaiki setelah sistem dibobol.\nNama: Damarudin\nNIM: 23156201034\nProdi: Sistem Komputer",
+  "raw": {
+    "id": 5499,
+    "date": "2025-07-09T19:10:37",
+    "date_gmt": "2025-07-09T19:10:37",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=5499"
+    },
+    "modified": "2025-07-09T19:10:37",
+    "modified_gmt": "2025-07-09T19:10:37",
+    "slug": "defensive-programming-untuk-mencegah-privilege-escalation",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/",
+    "title": {
+      "rendered": "Defensive Programming untuk Mencegah Privilege Escalation"
+    },
+    "content": {
+      "rendered": "<p>Dalam dunia keamanan komputer, <strong>privilege escalation</strong> adalah salah satu teknik berbahaya yang sering digunakan oleh hacker. Dengan teknik ini, seorang pengguna biasa bisa mendapatkan hak akses lebih tinggi, misalnya menjadi admin atau root. Hal ini tentu sangat berbahaya karena mereka bisa mengendalikan seluruh sistem.</p>\n<p>Untuk mencegah hal ini terjadi, salah satu cara yang bisa dilakukan adalah dengan menerapkan <strong>defensive programming</strong>. Teknik ini digunakan sejak tahap awal pembuatan program agar kode lebih aman dan tidak mudah disalahgunakan.</p>\n<p>&nbsp;</p>\n<h3>Apa Itu Defensive Programming?</h3>\n<p><strong>Defensive programming</strong> adalah cara menulis program dengan mengantisipasi kemungkinan kesalahan sejak awal. Artinya, programmer menulis kode dengan asumsi bahwa kesalahan bisa saja terjadi—baik karena input pengguna yang tidak valid, sistem yang tidak stabil, atau bahkan serangan dari luar.</p>\n<p>Tujuan dari teknik ini adalah agar program tetap berjalan dengan aman meskipun ada kesalahan, dan tidak membuka celah bagi hacker untuk masuk.</p>\n<p>&nbsp;</p>\n<h3>Bagaimana Privilege Escalation Bisa Terjadi dari Kode?</h3>\n<p>Privilege escalation seringkali terjadi bukan karena sistem operasi yang lemah, tapi karena kesalahan dalam pembuatan kode. Berikut beberapa contoh:</p>\n<ul>\n<li><strong>Input tidak dicek dengan baik</strong>: Misalnya, program menerima perintah dari user tanpa validasi.</li>\n<li><strong>File permission yang salah</strong>: File yang harusnya hanya dibaca oleh admin malah bisa ditulis oleh semua user.</li>\n<li><strong>Menggunakan fungsi berbahaya seperti <code>exec()</code></strong>: Fungsi ini bisa mengeksekusi perintah sistem, dan jika disalahgunakan bisa jadi pintu masuk hacker.</li>\n<li><strong>Password disimpan di dalam kode (hardcoded)</strong>: Jika ada yang membongkar kode program, maka password bisa diketahui dengan mudah.</li>\n</ul>\n<p>Contoh nyata: Ada sebuah skrip admin di Linux yang bisa dijalankan oleh siapa saja karena permission-nya salah. Seorang user biasa bisa menjalankan skrip itu dan mendapatkan akses root. Ini adalah privilege escalation karena kesalahan kecil dalam pengaturan file.</p>\n<p>&nbsp;</p>\n<h3>Prinsip-Prinsip Defensive Programming untuk Mencegah Privilege Escalation</h3>\n<p>Berikut beberapa prinsip sederhana yang bisa dilakukan saat menulis kode:</p>\n<h4>✅ Validasi Input</h4>\n<p>Jangan pernah percaya begitu saja pada input dari pengguna. Selalu periksa apakah input tersebut sesuai format, panjang, dan tidak mengandung karakter berbahaya. Gunakan <strong>whitelist</strong> (hanya menerima input yang dikenal aman), bukan blacklist.</p>\n<h4>🔐 Batasi Hak Akses</h4>\n<p>Jalankan program atau service dengan hak akses paling rendah yang dibutuhkan. Jangan menjalankan semua hal sebagai admin. Jika hanya perlu baca file, cukup beri izin baca saja.</p>\n<h4>⚠️ Tangani Error dengan Baik</h4>\n<p>Jangan biarkan program berhenti tiba-tiba saat ada error. Tangani semua kemungkinan error dengan aman agar hacker tidak bisa mengeksploitasi celah tersebut.</p>\n<h4>📋 Logging dan Audit</h4>\n<p>Catat semua aktivitas penting, terutama yang berkaitan dengan akses atau perubahan file. Log bisa membantu mendeteksi upaya privilege escalation lebih awal.</p>\n<h4>🔍 Lakukan Review dan Pengujian</h4>\n<p>Sebelum program digunakan, cek ulang kode bersama tim (code review) dan lakukan pengujian keamanan seperti <strong>penetration testing</strong> atau menggunakan <strong>static analysis tools</strong>.</p>\n<p>&nbsp;</p>\n<h3>Alat dan Praktik Tambahan</h3>\n<p>Selain prinsip di atas, ada beberapa alat dan metode tambahan untuk membantu:</p>\n<ul>\n<li><strong>AppArmor</strong> dan <strong>SELinux</strong>: Alat untuk membatasi apa yang boleh dilakukan oleh program di sistem Linux.</li>\n<li><strong>Sandboxing</strong>: Jalankan program di lingkungan yang terisolasi, sehingga jika ada yang rusak tidak merusak sistem utama.</li>\n<li>Gunakan <strong>compiler flags</strong> untuk melindungi program dari buffer overflow dan celah keamanan lain.</li>\n<li>Pilih framework yang sudah dirancang aman, seperti Laravel untuk PHP atau Django untuk Python.</li>\n</ul>\n<p>&nbsp;</p>\n<h3>Kesimpulan</h3>\n<p>Privilege escalation bisa terjadi karena kesalahan kecil dalam kode. Oleh karena itu, penting bagi developer untuk menerapkan <strong>defensive programming</strong> sejak awal.</p>\n<p>Dengan menulis kode yang aman dan waspada terhadap kemungkinan kesalahan, kita bisa mencegah hacker “naik pangkat” dari user biasa menjadi penguasa sistem. Ingat, mencegah lebih baik daripada memperbaiki setelah sistem dibobol.</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>Nama: Damarudin<br />\nNIM: 23156201034<br />\nProdi: Sistem Komputer</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Dalam dunia keamanan komputer, privilege escalation adalah salah satu teknik berbahaya yang sering digunakan oleh hacker. Dengan teknik ini, seorang pengguna biasa bisa mendapatkan hak akses lebih tinggi, misalnya menjadi admin atau root. Hal ini tentu sangat berbahaya karena mereka bisa mengendalikan seluruh sistem. Untuk mencegah hal ini terjadi, salah satu cara yang bisa dilakukan adalah dengan menerapkan defensive programming. Teknik ini digunakan sejak tahap awal pembuatan program agar kode lebih aman dan tidak mudah disalahgunakan. &nbsp; Apa Itu Defensive Programming? Defensive programming adalah cara menulis program dengan mengantisipasi kemungkinan kesalahan sejak awal. Artinya, programmer menulis kode dengan asumsi bahwa&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 4969,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      149
+    ],
+    "class_list": [
+      "post-5499",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-privilege-escalation"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Defensive Programming untuk Mencegah Privilege Escalation - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Defensive Programming untuk Mencegah Privilege Escalation - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Dalam dunia keamanan komputer, privilege escalation adalah salah satu teknik berbahaya yang sering digunakan oleh hacker. Dengan teknik ini, seorang pengguna biasa bisa mendapatkan hak akses lebih tinggi, misalnya menjadi admin atau root. Hal ini tentu sangat berbahaya karena mereka bisa mengendalikan seluruh sistem. Untuk mencegah hal ini terjadi, salah satu cara yang bisa dilakukan adalah dengan menerapkan defensive programming. Teknik ini digunakan sejak tahap awal pembuatan program agar kode lebih aman dan tidak mudah disalahgunakan. &nbsp; Apa Itu Defensive Programming? Defensive programming adalah cara menulis program dengan mengantisipasi kemungkinan kesalahan sejak awal. Artinya, programmer menulis kode dengan asumsi bahwa...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-09T19:10:37+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-13.webp\" />\n\t<meta property=\"og:image:width\" content=\"317\" />\n\t<meta property=\"og:image:height\" content=\"234\" />\n\t<meta property=\"og:image:type\" content=\"image/webp\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/\",\"url\":\"https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/\",\"name\":\"Defensive Programming untuk Mencegah Privilege Escalation - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-13.webp\",\"datePublished\":\"2025-07-09T19:10:37+00:00\",\"dateModified\":\"2025-07-09T19:10:37+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-13.webp\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-13.webp\",\"width\":317,\"height\":234},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Defensive Programming untuk Mencegah Privilege Escalation\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Defensive Programming untuk Mencegah Privilege Escalation - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Defensive Programming untuk Mencegah Privilege Escalation - buletinsiber.com",
+      "og_description": "Dalam dunia keamanan komputer, privilege escalation adalah salah satu teknik berbahaya yang sering digunakan oleh hacker. Dengan teknik ini, seorang pengguna biasa bisa mendapatkan hak akses lebih tinggi, misalnya menjadi admin atau root. Hal ini tentu sangat berbahaya karena mereka bisa mengendalikan seluruh sistem. Untuk mencegah hal ini terjadi, salah satu cara yang bisa dilakukan adalah dengan menerapkan defensive programming. Teknik ini digunakan sejak tahap awal pembuatan program agar kode lebih aman dan tidak mudah disalahgunakan. &nbsp; Apa Itu Defensive Programming? Defensive programming adalah cara menulis program dengan mengantisipasi kemungkinan kesalahan sejak awal. Artinya, programmer menulis kode dengan asumsi bahwa...",
+      "og_url": "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-09T19:10:37+00:00",
+      "og_image": [
+        {
+          "width": 317,
+          "height": 234,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-13.webp",
+          "type": "image/webp"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/",
+            "url": "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/",
+            "name": "Defensive Programming untuk Mencegah Privilege Escalation - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-13.webp",
+            "datePublished": "2025-07-09T19:10:37+00:00",
+            "dateModified": "2025-07-09T19:10:37+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-13.webp",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-13.webp",
+            "width": 317,
+            "height": 234
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/defensive-programming-untuk-mencegah-privilege-escalation/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Defensive Programming untuk Mencegah Privilege Escalation"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/5499",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=5499"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/5499/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 5500,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/5499/revisions/5500"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4969"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=5499"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=5499"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=5499"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

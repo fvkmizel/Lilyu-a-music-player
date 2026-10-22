@@ -1,0 +1,314 @@
+{
+  "id": 3335,
+  "title": "Session Hijacking Berbasis MITM (Man-in-the-Middle): Cara Kerja dan Solusi",
+  "slug": "session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi",
+  "url": "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/",
+  "date": "2025-07-06T09:58:45",
+  "date_gmt": "2025-07-06T09:58:45",
+  "modified": "2026-06-30T19:02:45",
+  "modified_gmt": "2026-06-30T19:02:45",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-6-3.jpg",
+  "excerpt": "I. Pendahuluan Di era digital, keamanan data dan privasi pengguna sangat penting. Saat pengguna login ke sebuah aplikasi atau website, sistem membuat sesi (session) untuk mengenali dan mengingat pengguna. Sesi ini bisa disalahgunakan oleh pihak tak bertanggung jawab jika tidak dijaga dengan baik. Salah satu cara yang digunakan oleh penyerang adalah session hijacking berbasis MITM (Man-in-the-Middle). Artikel ini akan menjelaskan bagaimana cara kerja serangan ini, dan solusi efektif untuk mencegahnya.  II. Apa Itu Session Hijacking? Session hijacking adalah serangan di mana penyerang mencuri session ID milik pengguna. Session ID adalah identitas sementara yang diberikan server setelah pengguna login. Jika session…",
+  "content_html": "<h3> I. <strong>Pendahuluan</strong></h3>\n<p>Di era digital, keamanan data dan privasi pengguna sangat penting. Saat pengguna login ke sebuah aplikasi atau website, sistem membuat sesi (session) untuk mengenali dan mengingat pengguna. Sesi ini bisa disalahgunakan oleh pihak tak bertanggung jawab jika tidak dijaga dengan baik. Salah satu cara yang digunakan oleh penyerang adalah <strong>session hijacking berbasis MITM (Man-in-the-Middle)</strong>.</p>\n<p>Artikel ini akan menjelaskan <strong>bagaimana cara kerja serangan ini</strong>, dan <strong>solusi efektif</strong> untuk mencegahnya.</p>\n<h3> II. <strong>Apa Itu Session Hijacking?</strong></h3>\n<p>Session hijacking adalah serangan di mana penyerang mencuri <strong>session ID</strong> milik pengguna. Session ID adalah identitas sementara yang diberikan server setelah pengguna login. Jika session ID dicuri, penyerang bisa mengambil alih sesi dan masuk ke akun korban tanpa harus login.</p>\n<h3> III. <strong>Apa Itu Serangan Man-in-the-Middle (MITM)?</strong></h3>\n<p>MITM adalah serangan di mana penyerang <strong>memposisikan diri di antara komunikasi dua pihak</strong>, misalnya antara pengguna dan server, tanpa diketahui oleh keduanya. Serangan ini biasanya terjadi di jaringan publik seperti Wi-Fi umum.</p>\n<p>Bayangkan kamu sedang mengetik password di kafe. Penyerang yang ada di jaringan Wi-Fi yang sama bisa menyadap data dan mencuri session ID kamu.</p>\n<h3> IV. <strong>Cara Kerja Session Hijacking Berbasis MITM</strong></h3>\n<p>Berikut alur umum serangan session hijacking menggunakan teknik MITM:</p>\n<ol>\n<li><strong>Pengguna terhubung ke jaringan publik tanpa enkripsi (HTTP)</strong>\n<ul>\n<li>Komunikasi antara browser dan server tidak dienkripsi.</li>\n</ul>\n</li>\n<li><strong>Penyerang menyadap koneksi</strong>\n<ul>\n<li>Dengan tools seperti Wireshark atau mitmproxy, penyerang bisa melihat semua data yang dikirim pengguna.</li>\n</ul>\n</li>\n<li><strong>Session ID dicuri</strong>\n<ul>\n<li>Saat pengguna berhasil login, server mengirim session ID melalui cookie.</li>\n<li>Penyerang menangkap cookie ini dari jaringan.</li>\n</ul>\n</li>\n<li><strong>Penyerang menggunakan session ID</strong>\n<ul>\n<li>Dengan session ID yang valid, penyerang masuk ke akun korban seolah-olah sebagai pengguna asli.</li>\n</ul>\n</li>\n</ol>\n<h3> V. <strong>Dampak Session Hijacking MITM</strong></h3>\n<ul>\n<li><strong>Pencurian akun dan data pribadi</strong></li>\n<li><strong>Penyalahgunaan identitas digital</strong></li>\n<li><strong>Akses ke email, keuangan, dan file penting</strong></li>\n<li><strong>Pencurian informasi perusahaan atau organisasi</strong></li>\n</ul>\n<h3> VI. <strong>Solusi untuk Mencegah Session Hijacking Berbasis MITM</strong></h3>\n<p>Berikut beberapa <strong>langkah penting</strong> untuk melindungi pengguna dari serangan ini:</p>\n<h4> 1. <strong>Gunakan HTTPS Secara Menyeluruh</strong></h4>\n<ul>\n<li>Seluruh komunikasi harus dienkripsi dengan SSL/TLS.</li>\n<li>Hindari penggunaan HTTP, terutama pada halaman login.</li>\n</ul>\n<h4> 2. <strong>Aktifkan HTTP Strict Transport Security (HSTS)</strong></h4>\n<ul>\n<li>Browser akan memaksa semua koneksi ke situs hanya melalui HTTPS.</li>\n<li>Mencegah SSL stripping oleh penyerang MITM.</li>\n</ul>\n<h4> 3. <strong>Gunakan Cookie Aman</strong></h4>\n<ul>\n<li>Tambahkan atribut <code>Secure</code>, <code>HttpOnly</code>, dan <code>SameSite</code> pada session cookie.</li>\n<li>Mencegah cookie dibaca lewat JavaScript atau dikirim lintas domain.</li>\n</ul>\n<h4> 4. <strong>Gunakan VPN di Jaringan Publik</strong></h4>\n<ul>\n<li>VPN mengenkripsi semua lalu lintas internet, termasuk session ID.</li>\n<li>Mencegah penyadapan oleh penyerang MITM di Wi-Fi publik.</li>\n</ul>\n<h4> 5. <strong>Implementasikan Autentikasi Multi-Faktor (MFA)</strong></h4>\n<ul>\n<li>Bahkan jika session ID dicuri, penyerang tetap tidak bisa login tanpa verifikasi tambahan.</li>\n</ul>\n<h4> 6. <strong>Pantau dan Audit Aktivitas Login</strong></h4>\n<ul>\n<li>Deteksi jika sesi dipakai dari lokasi yang tidak biasa atau perangkat baru.</li>\n</ul>\n<h4> 7. <strong>Batasi Waktu Sesi (Session Timeout)</strong></h4>\n<ul>\n<li>Akhiri sesi secara otomatis jika tidak aktif dalam jangka waktu tertentu.</li>\n</ul>\n<h3> VII. <strong>Kesimpulan</strong></h3>\n<p><strong>Session hijacking berbasis MITM</strong> adalah serangan yang berbahaya, karena penyerang bisa menyamar sebagai pengguna tanpa sepengetahuan korban. Namun, serangan ini bisa dicegah dengan kombinasi <strong>enkripsi koneksi (HTTPS), pengelolaan sesi yang aman, penggunaan VPN</strong>, dan <strong>edukasi pengguna</strong>.</p>\n<p>&nbsp;</p>\n<p>NAMA         : SAFARUDDIN</p>\n<p>NIM            : 23156201035</p>\n<p>JURUSAN : SISTEM KOMPUTER</p>\n<p>&nbsp;</p>\n",
+  "content_text": "I.  Pendahuluan\nDi era digital, keamanan data dan privasi pengguna sangat penting. Saat pengguna login ke sebuah aplikasi atau website, sistem membuat sesi (session) untuk mengenali dan mengingat pengguna. Sesi ini bisa disalahgunakan oleh pihak tak bertanggung jawab jika tidak dijaga dengan baik. Salah satu cara yang digunakan oleh penyerang adalah  session hijacking berbasis MITM (Man-in-the-Middle) .\nArtikel ini akan menjelaskan  bagaimana cara kerja serangan ini , dan  solusi efektif  untuk mencegahnya.\nII.  Apa Itu Session Hijacking?\nSession hijacking adalah serangan di mana penyerang mencuri  session ID  milik pengguna. Session ID adalah identitas sementara yang diberikan server setelah pengguna login. Jika session ID dicuri, penyerang bisa mengambil alih sesi dan masuk ke akun korban tanpa harus login.\nIII.  Apa Itu Serangan Man-in-the-Middle (MITM)?\nMITM adalah serangan di mana penyerang  memposisikan diri di antara komunikasi dua pihak , misalnya antara pengguna dan server, tanpa diketahui oleh keduanya. Serangan ini biasanya terjadi di jaringan publik seperti Wi-Fi umum.\nBayangkan kamu sedang mengetik password di kafe. Penyerang yang ada di jaringan Wi-Fi yang sama bisa menyadap data dan mencuri session ID kamu.\nIV.  Cara Kerja Session Hijacking Berbasis MITM\nBerikut alur umum serangan session hijacking menggunakan teknik MITM:\nPengguna terhubung ke jaringan publik tanpa enkripsi (HTTP)\nKomunikasi antara browser dan server tidak dienkripsi.\nPenyerang menyadap koneksi\nDengan tools seperti Wireshark atau mitmproxy, penyerang bisa melihat semua data yang dikirim pengguna.\nSession ID dicuri\nSaat pengguna berhasil login, server mengirim session ID melalui cookie.\nPenyerang menangkap cookie ini dari jaringan.\nPenyerang menggunakan session ID\nDengan session ID yang valid, penyerang masuk ke akun korban seolah-olah sebagai pengguna asli.\nV.  Dampak Session Hijacking MITM\nPencurian akun dan data pribadi\nPenyalahgunaan identitas digital\nAkses ke email, keuangan, dan file penting\nPencurian informasi perusahaan atau organisasi\nVI.  Solusi untuk Mencegah Session Hijacking Berbasis MITM\nBerikut beberapa  langkah penting  untuk melindungi pengguna dari serangan ini:\n1.  Gunakan HTTPS Secara Menyeluruh\nSeluruh komunikasi harus dienkripsi dengan SSL/TLS.\nHindari penggunaan HTTP, terutama pada halaman login.\n2.  Aktifkan HTTP Strict Transport Security (HSTS)\nBrowser akan memaksa semua koneksi ke situs hanya melalui HTTPS.\nMencegah SSL stripping oleh penyerang MITM.\n3.  Gunakan Cookie Aman\nTambahkan atribut  Secure ,  HttpOnly , dan  SameSite  pada session cookie.\nMencegah cookie dibaca lewat JavaScript atau dikirim lintas domain.\n4.  Gunakan VPN di Jaringan Publik\nVPN mengenkripsi semua lalu lintas internet, termasuk session ID.\nMencegah penyadapan oleh penyerang MITM di Wi-Fi publik.\n5.  Implementasikan Autentikasi Multi-Faktor (MFA)\nBahkan jika session ID dicuri, penyerang tetap tidak bisa login tanpa verifikasi tambahan.\n6.  Pantau dan Audit Aktivitas Login\nDeteksi jika sesi dipakai dari lokasi yang tidak biasa atau perangkat baru.\n7.  Batasi Waktu Sesi (Session Timeout)\nAkhiri sesi secara otomatis jika tidak aktif dalam jangka waktu tertentu.\nVII.  Kesimpulan\nSession hijacking berbasis MITM  adalah serangan yang berbahaya, karena penyerang bisa menyamar sebagai pengguna tanpa sepengetahuan korban. Namun, serangan ini bisa dicegah dengan kombinasi  enkripsi koneksi (HTTPS), pengelolaan sesi yang aman, penggunaan VPN , dan  edukasi pengguna .\nNAMA         : SAFARUDDIN\nNIM            : 23156201035\nJURUSAN : SISTEM KOMPUTER",
+  "raw": {
+    "id": 3335,
+    "date": "2025-07-06T09:58:45",
+    "date_gmt": "2025-07-06T09:58:45",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=3335"
+    },
+    "modified": "2026-06-30T19:02:45",
+    "modified_gmt": "2026-06-30T19:02:45",
+    "slug": "session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/",
+    "title": {
+      "rendered": "Session Hijacking Berbasis MITM (Man-in-the-Middle): Cara Kerja dan Solusi"
+    },
+    "content": {
+      "rendered": "<h3> I. <strong>Pendahuluan</strong></h3>\n<p>Di era digital, keamanan data dan privasi pengguna sangat penting. Saat pengguna login ke sebuah aplikasi atau website, sistem membuat sesi (session) untuk mengenali dan mengingat pengguna. Sesi ini bisa disalahgunakan oleh pihak tak bertanggung jawab jika tidak dijaga dengan baik. Salah satu cara yang digunakan oleh penyerang adalah <strong>session hijacking berbasis MITM (Man-in-the-Middle)</strong>.</p>\n<p>Artikel ini akan menjelaskan <strong>bagaimana cara kerja serangan ini</strong>, dan <strong>solusi efektif</strong> untuk mencegahnya.</p>\n<h3> II. <strong>Apa Itu Session Hijacking?</strong></h3>\n<p>Session hijacking adalah serangan di mana penyerang mencuri <strong>session ID</strong> milik pengguna. Session ID adalah identitas sementara yang diberikan server setelah pengguna login. Jika session ID dicuri, penyerang bisa mengambil alih sesi dan masuk ke akun korban tanpa harus login.</p>\n<h3> III. <strong>Apa Itu Serangan Man-in-the-Middle (MITM)?</strong></h3>\n<p>MITM adalah serangan di mana penyerang <strong>memposisikan diri di antara komunikasi dua pihak</strong>, misalnya antara pengguna dan server, tanpa diketahui oleh keduanya. Serangan ini biasanya terjadi di jaringan publik seperti Wi-Fi umum.</p>\n<p>Bayangkan kamu sedang mengetik password di kafe. Penyerang yang ada di jaringan Wi-Fi yang sama bisa menyadap data dan mencuri session ID kamu.</p>\n<h3> IV. <strong>Cara Kerja Session Hijacking Berbasis MITM</strong></h3>\n<p>Berikut alur umum serangan session hijacking menggunakan teknik MITM:</p>\n<ol>\n<li><strong>Pengguna terhubung ke jaringan publik tanpa enkripsi (HTTP)</strong>\n<ul>\n<li>Komunikasi antara browser dan server tidak dienkripsi.</li>\n</ul>\n</li>\n<li><strong>Penyerang menyadap koneksi</strong>\n<ul>\n<li>Dengan tools seperti Wireshark atau mitmproxy, penyerang bisa melihat semua data yang dikirim pengguna.</li>\n</ul>\n</li>\n<li><strong>Session ID dicuri</strong>\n<ul>\n<li>Saat pengguna berhasil login, server mengirim session ID melalui cookie.</li>\n<li>Penyerang menangkap cookie ini dari jaringan.</li>\n</ul>\n</li>\n<li><strong>Penyerang menggunakan session ID</strong>\n<ul>\n<li>Dengan session ID yang valid, penyerang masuk ke akun korban seolah-olah sebagai pengguna asli.</li>\n</ul>\n</li>\n</ol>\n<h3> V. <strong>Dampak Session Hijacking MITM</strong></h3>\n<ul>\n<li><strong>Pencurian akun dan data pribadi</strong></li>\n<li><strong>Penyalahgunaan identitas digital</strong></li>\n<li><strong>Akses ke email, keuangan, dan file penting</strong></li>\n<li><strong>Pencurian informasi perusahaan atau organisasi</strong></li>\n</ul>\n<h3> VI. <strong>Solusi untuk Mencegah Session Hijacking Berbasis MITM</strong></h3>\n<p>Berikut beberapa <strong>langkah penting</strong> untuk melindungi pengguna dari serangan ini:</p>\n<h4> 1. <strong>Gunakan HTTPS Secara Menyeluruh</strong></h4>\n<ul>\n<li>Seluruh komunikasi harus dienkripsi dengan SSL/TLS.</li>\n<li>Hindari penggunaan HTTP, terutama pada halaman login.</li>\n</ul>\n<h4> 2. <strong>Aktifkan HTTP Strict Transport Security (HSTS)</strong></h4>\n<ul>\n<li>Browser akan memaksa semua koneksi ke situs hanya melalui HTTPS.</li>\n<li>Mencegah SSL stripping oleh penyerang MITM.</li>\n</ul>\n<h4> 3. <strong>Gunakan Cookie Aman</strong></h4>\n<ul>\n<li>Tambahkan atribut <code>Secure</code>, <code>HttpOnly</code>, dan <code>SameSite</code> pada session cookie.</li>\n<li>Mencegah cookie dibaca lewat JavaScript atau dikirim lintas domain.</li>\n</ul>\n<h4> 4. <strong>Gunakan VPN di Jaringan Publik</strong></h4>\n<ul>\n<li>VPN mengenkripsi semua lalu lintas internet, termasuk session ID.</li>\n<li>Mencegah penyadapan oleh penyerang MITM di Wi-Fi publik.</li>\n</ul>\n<h4> 5. <strong>Implementasikan Autentikasi Multi-Faktor (MFA)</strong></h4>\n<ul>\n<li>Bahkan jika session ID dicuri, penyerang tetap tidak bisa login tanpa verifikasi tambahan.</li>\n</ul>\n<h4> 6. <strong>Pantau dan Audit Aktivitas Login</strong></h4>\n<ul>\n<li>Deteksi jika sesi dipakai dari lokasi yang tidak biasa atau perangkat baru.</li>\n</ul>\n<h4> 7. <strong>Batasi Waktu Sesi (Session Timeout)</strong></h4>\n<ul>\n<li>Akhiri sesi secara otomatis jika tidak aktif dalam jangka waktu tertentu.</li>\n</ul>\n<h3> VII. <strong>Kesimpulan</strong></h3>\n<p><strong>Session hijacking berbasis MITM</strong> adalah serangan yang berbahaya, karena penyerang bisa menyamar sebagai pengguna tanpa sepengetahuan korban. Namun, serangan ini bisa dicegah dengan kombinasi <strong>enkripsi koneksi (HTTPS), pengelolaan sesi yang aman, penggunaan VPN</strong>, dan <strong>edukasi pengguna</strong>.</p>\n<p>&nbsp;</p>\n<p>NAMA         : SAFARUDDIN</p>\n<p>NIM            : 23156201035</p>\n<p>JURUSAN : SISTEM KOMPUTER</p>\n<p>&nbsp;</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p> I. Pendahuluan Di era digital, keamanan data dan privasi pengguna sangat penting. Saat pengguna login ke sebuah aplikasi atau website, sistem membuat sesi (session) untuk mengenali dan mengingat pengguna. Sesi ini bisa disalahgunakan oleh pihak tak bertanggung jawab jika tidak dijaga dengan baik. Salah satu cara yang digunakan oleh penyerang adalah session hijacking berbasis MITM (Man-in-the-Middle). Artikel ini akan menjelaskan bagaimana cara kerja serangan ini, dan solusi efektif untuk mencegahnya.  II. Apa Itu Session Hijacking? Session hijacking adalah serangan di mana penyerang mencuri session ID milik pengguna. Session ID adalah identitas sementara yang diberikan server setelah pengguna login. Jika session&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 4981,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385
+    ],
+    "class_list": [
+      "post-3335",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Session Hijacking Berbasis MITM (Man-in-the-Middle): Cara Kerja dan Solusi - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Session Hijacking Berbasis MITM (Man-in-the-Middle): Cara Kerja dan Solusi - buletinsiber.com\" />\n<meta property=\"og:description\" content=\" I. Pendahuluan Di era digital, keamanan data dan privasi pengguna sangat penting. Saat pengguna login ke sebuah aplikasi atau website, sistem membuat sesi (session) untuk mengenali dan mengingat pengguna. Sesi ini bisa disalahgunakan oleh pihak tak bertanggung jawab jika tidak dijaga dengan baik. Salah satu cara yang digunakan oleh penyerang adalah session hijacking berbasis MITM (Man-in-the-Middle). Artikel ini akan menjelaskan bagaimana cara kerja serangan ini, dan solusi efektif untuk mencegahnya.  II. Apa Itu Session Hijacking? Session hijacking adalah serangan di mana penyerang mencuri session ID milik pengguna. Session ID adalah identitas sementara yang diberikan server setelah pengguna login. Jika session...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-06T09:58:45+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T19:02:45+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-6-3.jpg\" />\n\t<meta property=\"og:image:width\" content=\"288\" />\n\t<meta property=\"og:image:height\" content=\"180\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/\",\"url\":\"https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/\",\"name\":\"Session Hijacking Berbasis MITM (Man-in-the-Middle): Cara Kerja dan Solusi - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-6-3.jpg\",\"datePublished\":\"2025-07-06T09:58:45+00:00\",\"dateModified\":\"2026-06-30T19:02:45+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-6-3.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-6-3.jpg\",\"width\":288,\"height\":180},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Session Hijacking Berbasis MITM (Man-in-the-Middle): Cara Kerja dan Solusi\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Session Hijacking Berbasis MITM (Man-in-the-Middle): Cara Kerja dan Solusi - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Session Hijacking Berbasis MITM (Man-in-the-Middle): Cara Kerja dan Solusi - buletinsiber.com",
+      "og_description": " I. Pendahuluan Di era digital, keamanan data dan privasi pengguna sangat penting. Saat pengguna login ke sebuah aplikasi atau website, sistem membuat sesi (session) untuk mengenali dan mengingat pengguna. Sesi ini bisa disalahgunakan oleh pihak tak bertanggung jawab jika tidak dijaga dengan baik. Salah satu cara yang digunakan oleh penyerang adalah session hijacking berbasis MITM (Man-in-the-Middle). Artikel ini akan menjelaskan bagaimana cara kerja serangan ini, dan solusi efektif untuk mencegahnya.  II. Apa Itu Session Hijacking? Session hijacking adalah serangan di mana penyerang mencuri session ID milik pengguna. Session ID adalah identitas sementara yang diberikan server setelah pengguna login. Jika session...",
+      "og_url": "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-06T09:58:45+00:00",
+      "article_modified_time": "2026-06-30T19:02:45+00:00",
+      "og_image": [
+        {
+          "width": 288,
+          "height": 180,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-6-3.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/",
+            "url": "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/",
+            "name": "Session Hijacking Berbasis MITM (Man-in-the-Middle): Cara Kerja dan Solusi - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-6-3.jpg",
+            "datePublished": "2025-07-06T09:58:45+00:00",
+            "dateModified": "2026-06-30T19:02:45+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-6-3.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-6-3.jpg",
+            "width": 288,
+            "height": 180
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/session-hijacking-berbasis-mitm-man-in-the-middle-cara-kerja-dan-solusi/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Session Hijacking Berbasis MITM (Man-in-the-Middle): Cara Kerja dan Solusi"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3335",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=3335"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 3,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3335/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 6077,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3335/revisions/6077"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4981"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=3335"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=3335"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=3335"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

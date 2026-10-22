@@ -1,0 +1,322 @@
+{
+  "id": 2449,
+  "title": "Mengenal Struktur Ansible: Fondasi Otomatisasi yang Terorganisir",
+  "slug": "mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir",
+  "url": "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/",
+  "date": "2025-05-24T04:40:15",
+  "date_gmt": "2025-05-24T04:40:15",
+  "modified": "2025-05-24T04:40:15",
+  "modified_gmt": "2025-05-24T04:40:15",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    275
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/04/0_q8_9SpivajtPKEdS.jpg",
+  "excerpt": "Pendahuluan Ansible adalah alat otomatisasi yang banyak digunakan oleh sysadmin dan DevOps untuk mengelola server, menginstal aplikasi, hingga mengatur konfigurasi sistem. Agar penggunaan Ansible lebih mudah, efisien, dan rapi, kita perlu memahami struktur proyek dalam Ansible. Artikel ini akan membahas struktur dasar yang digunakan dalam Ansible dan bagaimana kamu bisa mengatur file dan folder agar proyek otomatisasi lebih terorganisir. Struktur Dasar dalam Proyek Ansible Saat kita mulai membuat proyek dengan Ansible, kita biasanya akan melihat susunan folder dan file seperti ini: ansible-project/ ├── inventory ├── playbook.yml ├── roles/ │ └── webserver/ │ ├── tasks/ │ ├── handlers/ │ ├── templates/…",
+  "content_html": "<h2 data-start=\"165\" data-end=\"182\">Pendahuluan</h2>\n<p data-start=\"184\" data-end=\"454\">Ansible adalah alat otomatisasi yang banyak digunakan oleh sysadmin dan DevOps untuk mengelola server, menginstal aplikasi, hingga mengatur konfigurasi sistem. Agar penggunaan Ansible lebih mudah, efisien, dan rapi, kita perlu memahami <strong data-start=\"420\" data-end=\"439\">struktur proyek</strong> dalam Ansible.</p>\n<p data-start=\"456\" data-end=\"618\">Artikel ini akan membahas struktur dasar yang digunakan dalam Ansible dan bagaimana kamu bisa mengatur file dan folder agar proyek otomatisasi lebih terorganisir.</p>\n<h2 data-start=\"625\" data-end=\"666\">Struktur Dasar dalam Proyek Ansible</h2>\n<p data-start=\"668\" data-end=\"778\">Saat kita mulai membuat proyek dengan Ansible, kita biasanya akan melihat susunan folder dan file seperti ini:</p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\">ansible-project/<br />\n├── inventory<br />\n├── playbook.yml<br />\n├── roles/<br />\n│   └── webserver/<br />\n│       ├── tasks/<br />\n│       ├── handlers/<br />\n│       ├── templates/<br />\n│       ├── files/<br />\n│       ├── <span class=\"hljs-built_in\">vars</span>/<br />\n│       └── defaults/<br />\n└── group_vars/</code></div>\n<div dir=\"ltr\"></div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\"></code><span style=\"color: #717582;\">Mari kita bahas satu per satu.</span></div>\n</div>\n<h2 data-start=\"1043\" data-end=\"1074\">Penjelasan Komponen Utama</h2>\n<h3 data-start=\"1076\" data-end=\"1096\">🔸 <strong data-start=\"1083\" data-end=\"1096\">Inventory</strong></h3>\n<p data-start=\"1097\" data-end=\"1194\">File ini berisi daftar server (host) yang ingin kita kelola. Bisa dalam format sederhana seperti:</p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\">[<span class=\"hljs-meta\">web</span>]<br />\n<span class=\"hljs-number\">192.168</span><span class=\"hljs-number\">.1</span><span class=\"hljs-number\">.10</span><br />\n</code></div>\n</div>\n<p data-start=\"1223\" data-end=\"1266\">\n<p data-start=\"1223\" data-end=\"1266\">Atau dalam format YAML yang lebih kompleks.</p>\n<h3 data-start=\"1268\" data-end=\"1287\">🔸 <strong data-start=\"1275\" data-end=\"1287\">Playbook</strong></h3>\n<p data-start=\"1288\" data-end=\"1417\">Playbook adalah file YAML yang berisi instruksi otomatisasi. Misalnya: install web server, salin file konfigurasi, dan lain-lain.</p>\n<p data-start=\"1419\" data-end=\"1436\">Contoh sederhana:</p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-yaml\"><span class=\"hljs-bullet\">-</span> <span class=\"hljs-attr\">hosts:</span> <span class=\"hljs-string\">web</span><br />\n  <span class=\"hljs-attr\">tasks:</span><br />\n    <span class=\"hljs-bullet\">-</span> <span class=\"hljs-attr\">name:</span> <span class=\"hljs-string\">Install</span> <span class=\"hljs-string\">Apache</span><br />\n      <span class=\"hljs-attr\">yum:</span><br />\n        <span class=\"hljs-attr\">name:</span> <span class=\"hljs-string\">httpd</span><br />\n        <span class=\"hljs-attr\">state:</span> <span class=\"hljs-string\">present</span><br />\n</code></div>\n</div>\n<h3 data-start=\"1553\" data-end=\"1569\">🔸 <strong data-start=\"1560\" data-end=\"1569\">Roles</strong></h3>\n<p data-start=\"1570\" data-end=\"1706\">Roles adalah cara untuk mengatur tugas dalam folder khusus agar lebih modular dan terpisah. Ini sangat membantu jika proyek mulai besar.</p>\n<p data-start=\"1708\" data-end=\"1743\">Dalam satu role, biasanya terdapat:</p>\n<ul data-start=\"1744\" data-end=\"2039\">\n<li data-start=\"1744\" data-end=\"1806\">\n<p data-start=\"1746\" data-end=\"1806\"><code data-start=\"1746\" data-end=\"1754\">tasks/</code> → berisi file <code data-start=\"1769\" data-end=\"1779\">main.yml</code> dengan daftar tugas utama.</p>\n</li>\n<li data-start=\"1807\" data-end=\"1871\">\n<p data-start=\"1809\" data-end=\"1871\"><code data-start=\"1809\" data-end=\"1820\">handlers/</code> → tugas khusus yang dijalankan saat ada perubahan.</p>\n</li>\n<li data-start=\"1872\" data-end=\"1930\">\n<p data-start=\"1874\" data-end=\"1930\"><code data-start=\"1874\" data-end=\"1886\">templates/</code> → file konfigurasi dinamis berbasis Jinja2.</p>\n</li>\n<li data-start=\"1931\" data-end=\"1984\">\n<p data-start=\"1933\" data-end=\"1984\"><code data-start=\"1933\" data-end=\"1941\">files/</code> → file statis yang akan disalin ke server.</p>\n</li>\n<li data-start=\"1985\" data-end=\"2039\">\n<p data-start=\"1987\" data-end=\"2039\"><code data-start=\"1987\" data-end=\"1994\">vars/</code> dan <code data-start=\"1999\" data-end=\"2010\">defaults/</code> → tempat menyimpan variabel.</p>\n</li>\n</ul>\n<h3 data-start=\"2041\" data-end=\"2074\">🔸 <strong data-start=\"2048\" data-end=\"2074\">Group Vars &amp; Host Vars</strong></h3>\n<p data-start=\"2075\" data-end=\"2203\">Kita bisa menyimpan variabel khusus untuk grup server atau host tertentu agar tidak perlu mendefinisikan variabel berulang kali.</p>\n<h2 data-start=\"2210\" data-end=\"2245\">Contoh Implementasi Sederhana</h2>\n<p data-start=\"2247\" data-end=\"2345\">Misalnya kamu ingin menginstal Apache di server 192.168.1.10. Struktur sederhana bisa seperti ini:</p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\">ansible-apache/<br />\n├── inventory<br />\n├── playbook<span class=\"hljs-selector-class\">.yml</span><br />\n└── roles/<br />\n    └── apache/<br />\n        └── tasks/<br />\n            └── <span class=\"hljs-selector-tag\">main</span><span class=\"hljs-selector-class\">.yml</span></code></div>\n<div dir=\"ltr\"></div>\n</div>\n<p data-start=\"2474\" data-end=\"2499\"><strong data-start=\"2474\" data-end=\"2499\">Isi file <code data-start=\"2485\" data-end=\"2496\">inventory</code>:</strong></p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\">[<span class=\"hljs-meta\">web</span>]<br />\n<span class=\"hljs-number\">192.168</span><span class=\"hljs-number\">.1</span><span class=\"hljs-number\">.10</span><br />\n</code></div>\n<div dir=\"ltr\"></div>\n</div>\n<p data-start=\"2528\" data-end=\"2556\"><strong data-start=\"2528\" data-end=\"2556\">Isi file <code data-start=\"2539\" data-end=\"2553\">playbook.yml</code>:</strong></p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-yaml\"><span class=\"hljs-bullet\">-</span> <span class=\"hljs-attr\">hosts:</span> <span class=\"hljs-string\">web</span><br />\n  <span class=\"hljs-attr\">roles:</span><br />\n    <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">apache</span><br />\n</code></div>\n<div dir=\"ltr\"></div>\n</div>\n<p data-start=\"2605\" data-end=\"2648\"><strong data-start=\"2605\" data-end=\"2648\">Isi file <code data-start=\"2616\" data-end=\"2645\">roles/apache/tasks/main.yml</code>:</strong></p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-yaml\"><span class=\"hljs-bullet\">-</span> <span class=\"hljs-attr\">name:</span> <span class=\"hljs-string\">Install</span> <span class=\"hljs-string\">Apache</span><br />\n  <span class=\"hljs-attr\">yum:</span><br />\n    <span class=\"hljs-attr\">name:</span> <span class=\"hljs-string\">httpd</span><br />\n    <span class=\"hljs-attr\">state:</span> <span class=\"hljs-string\">present</span><br />\n</code></div>\n</div>\n<h2 data-start=\"2732\" data-end=\"2775\">Best Practice dalam Menyusun Struktur</h2>\n<ul data-start=\"2777\" data-end=\"3059\">\n<li data-start=\"2777\" data-end=\"2839\">\n<p data-start=\"2779\" data-end=\"2839\">Gunakan <strong data-start=\"2787\" data-end=\"2796\">roles</strong> sejak awal untuk struktur yang lebih rapi.</p>\n</li>\n<li data-start=\"2840\" data-end=\"2918\">\n<p data-start=\"2842\" data-end=\"2918\">Simpan <strong data-start=\"2849\" data-end=\"2861\">variabel</strong> di tempat yang sesuai (group_vars, host_vars, defaults).</p>\n</li>\n<li data-start=\"2919\" data-end=\"2973\">\n<p data-start=\"2921\" data-end=\"2973\">Gunakan <strong data-start=\"2929\" data-end=\"2972\">penamaan folder dan file yang konsisten</strong>.</p>\n</li>\n<li data-start=\"2974\" data-end=\"3059\">\n<p data-start=\"2976\" data-end=\"3059\">Kelola proyek Ansible kamu menggunakan <strong data-start=\"3015\" data-end=\"3022\">Git</strong> agar mudah dilacak dan dikelola tim.</p>\n</li>\n</ul>\n<h2 data-start=\"3066\" data-end=\"3082\">Kesimpulan</h2>\n<p data-start=\"3084\" data-end=\"3394\">Struktur dalam Ansible sangat membantu agar proyek otomatisasi tetap terorganisir dan mudah dikelola, terutama saat proyek makin besar. Dengan mengikuti struktur yang baik dan memanfaatkan fitur seperti roles dan variabel, kamu bisa membuat proses otomatisasi lebih cepat, rapi, dan bisa digunakan bersama tim.</p>\n<p data-start=\"3396\" data-end=\"3480\">Yuk, mulai buat proyek Ansible kecil dengan struktur yang benar. Selamat mencoba! 🚀</p>\n",
+  "content_text": "Pendahuluan\nAnsible adalah alat otomatisasi yang banyak digunakan oleh sysadmin dan DevOps untuk mengelola server, menginstal aplikasi, hingga mengatur konfigurasi sistem. Agar penggunaan Ansible lebih mudah, efisien, dan rapi, kita perlu memahami  struktur proyek  dalam Ansible.\nArtikel ini akan membahas struktur dasar yang digunakan dalam Ansible dan bagaimana kamu bisa mengatur file dan folder agar proyek otomatisasi lebih terorganisir.\nStruktur Dasar dalam Proyek Ansible\nSaat kita mulai membuat proyek dengan Ansible, kita biasanya akan melihat susunan folder dan file seperti ini:\nansible-project/\n├── inventory\n├── playbook.yml\n├── roles/\n│   └── webserver/\n│       ├── tasks/\n│       ├── handlers/\n│       ├── templates/\n│       ├── files/\n│       ├──  vars /\n│       └── defaults/\n└── group_vars/\nMari kita bahas satu per satu.\nPenjelasan Komponen Utama\n🔸  Inventory\nFile ini berisi daftar server (host) yang ingin kita kelola. Bisa dalam format sederhana seperti:\n[ web ]\n192.168  .1  .10\nAtau dalam format YAML yang lebih kompleks.\n🔸  Playbook\nPlaybook adalah file YAML yang berisi instruksi otomatisasi. Misalnya: install web server, salin file konfigurasi, dan lain-lain.\nContoh sederhana:\n-   hosts:   web\ntasks:\n-   name:   Install   Apache\nyum:\nname:   httpd\nstate:   present\n🔸  Roles\nRoles adalah cara untuk mengatur tugas dalam folder khusus agar lebih modular dan terpisah. Ini sangat membantu jika proyek mulai besar.\nDalam satu role, biasanya terdapat:\ntasks/  → berisi file  main.yml  dengan daftar tugas utama.\nhandlers/  → tugas khusus yang dijalankan saat ada perubahan.\ntemplates/  → file konfigurasi dinamis berbasis Jinja2.\nfiles/  → file statis yang akan disalin ke server.\nvars/  dan  defaults/  → tempat menyimpan variabel.\n🔸  Group Vars & Host Vars\nKita bisa menyimpan variabel khusus untuk grup server atau host tertentu agar tidak perlu mendefinisikan variabel berulang kali.\nContoh Implementasi Sederhana\nMisalnya kamu ingin menginstal Apache di server 192.168.1.10. Struktur sederhana bisa seperti ini:\nansible-apache/\n├── inventory\n├── playbook .yml\n└── roles/\n└── apache/\n└── tasks/\n└──  main  .yml\nIsi file  inventory :\n[ web ]\n192.168  .1  .10\nIsi file  playbook.yml :\n-   hosts:   web\nroles:\n-   apache\nIsi file  roles/apache/tasks/main.yml :\n-   name:   Install   Apache\nyum:\nname:   httpd\nstate:   present\nBest Practice dalam Menyusun Struktur\nGunakan  roles  sejak awal untuk struktur yang lebih rapi.\nSimpan  variabel  di tempat yang sesuai (group_vars, host_vars, defaults).\nGunakan  penamaan folder dan file yang konsisten .\nKelola proyek Ansible kamu menggunakan  Git  agar mudah dilacak dan dikelola tim.\nKesimpulan\nStruktur dalam Ansible sangat membantu agar proyek otomatisasi tetap terorganisir dan mudah dikelola, terutama saat proyek makin besar. Dengan mengikuti struktur yang baik dan memanfaatkan fitur seperti roles dan variabel, kamu bisa membuat proses otomatisasi lebih cepat, rapi, dan bisa digunakan bersama tim.\nYuk, mulai buat proyek Ansible kecil dengan struktur yang benar. Selamat mencoba! 🚀",
+  "raw": {
+    "id": 2449,
+    "date": "2025-05-24T04:40:15",
+    "date_gmt": "2025-05-24T04:40:15",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2449"
+    },
+    "modified": "2025-05-24T04:40:15",
+    "modified_gmt": "2025-05-24T04:40:15",
+    "slug": "mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/",
+    "title": {
+      "rendered": "Mengenal Struktur Ansible: Fondasi Otomatisasi yang Terorganisir"
+    },
+    "content": {
+      "rendered": "<h2 data-start=\"165\" data-end=\"182\">Pendahuluan</h2>\n<p data-start=\"184\" data-end=\"454\">Ansible adalah alat otomatisasi yang banyak digunakan oleh sysadmin dan DevOps untuk mengelola server, menginstal aplikasi, hingga mengatur konfigurasi sistem. Agar penggunaan Ansible lebih mudah, efisien, dan rapi, kita perlu memahami <strong data-start=\"420\" data-end=\"439\">struktur proyek</strong> dalam Ansible.</p>\n<p data-start=\"456\" data-end=\"618\">Artikel ini akan membahas struktur dasar yang digunakan dalam Ansible dan bagaimana kamu bisa mengatur file dan folder agar proyek otomatisasi lebih terorganisir.</p>\n<h2 data-start=\"625\" data-end=\"666\">Struktur Dasar dalam Proyek Ansible</h2>\n<p data-start=\"668\" data-end=\"778\">Saat kita mulai membuat proyek dengan Ansible, kita biasanya akan melihat susunan folder dan file seperti ini:</p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\">ansible-project/<br />\n├── inventory<br />\n├── playbook.yml<br />\n├── roles/<br />\n│   └── webserver/<br />\n│       ├── tasks/<br />\n│       ├── handlers/<br />\n│       ├── templates/<br />\n│       ├── files/<br />\n│       ├── <span class=\"hljs-built_in\">vars</span>/<br />\n│       └── defaults/<br />\n└── group_vars/</code></div>\n<div dir=\"ltr\"></div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\"></code><span style=\"color: #717582;\">Mari kita bahas satu per satu.</span></div>\n</div>\n<h2 data-start=\"1043\" data-end=\"1074\">Penjelasan Komponen Utama</h2>\n<h3 data-start=\"1076\" data-end=\"1096\">🔸 <strong data-start=\"1083\" data-end=\"1096\">Inventory</strong></h3>\n<p data-start=\"1097\" data-end=\"1194\">File ini berisi daftar server (host) yang ingin kita kelola. Bisa dalam format sederhana seperti:</p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\">[<span class=\"hljs-meta\">web</span>]<br />\n<span class=\"hljs-number\">192.168</span><span class=\"hljs-number\">.1</span><span class=\"hljs-number\">.10</span><br />\n</code></div>\n</div>\n<p data-start=\"1223\" data-end=\"1266\">\n<p data-start=\"1223\" data-end=\"1266\">Atau dalam format YAML yang lebih kompleks.</p>\n<h3 data-start=\"1268\" data-end=\"1287\">🔸 <strong data-start=\"1275\" data-end=\"1287\">Playbook</strong></h3>\n<p data-start=\"1288\" data-end=\"1417\">Playbook adalah file YAML yang berisi instruksi otomatisasi. Misalnya: install web server, salin file konfigurasi, dan lain-lain.</p>\n<p data-start=\"1419\" data-end=\"1436\">Contoh sederhana:</p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-yaml\"><span class=\"hljs-bullet\">-</span> <span class=\"hljs-attr\">hosts:</span> <span class=\"hljs-string\">web</span><br />\n  <span class=\"hljs-attr\">tasks:</span><br />\n    <span class=\"hljs-bullet\">-</span> <span class=\"hljs-attr\">name:</span> <span class=\"hljs-string\">Install</span> <span class=\"hljs-string\">Apache</span><br />\n      <span class=\"hljs-attr\">yum:</span><br />\n        <span class=\"hljs-attr\">name:</span> <span class=\"hljs-string\">httpd</span><br />\n        <span class=\"hljs-attr\">state:</span> <span class=\"hljs-string\">present</span><br />\n</code></div>\n</div>\n<h3 data-start=\"1553\" data-end=\"1569\">🔸 <strong data-start=\"1560\" data-end=\"1569\">Roles</strong></h3>\n<p data-start=\"1570\" data-end=\"1706\">Roles adalah cara untuk mengatur tugas dalam folder khusus agar lebih modular dan terpisah. Ini sangat membantu jika proyek mulai besar.</p>\n<p data-start=\"1708\" data-end=\"1743\">Dalam satu role, biasanya terdapat:</p>\n<ul data-start=\"1744\" data-end=\"2039\">\n<li data-start=\"1744\" data-end=\"1806\">\n<p data-start=\"1746\" data-end=\"1806\"><code data-start=\"1746\" data-end=\"1754\">tasks/</code> → berisi file <code data-start=\"1769\" data-end=\"1779\">main.yml</code> dengan daftar tugas utama.</p>\n</li>\n<li data-start=\"1807\" data-end=\"1871\">\n<p data-start=\"1809\" data-end=\"1871\"><code data-start=\"1809\" data-end=\"1820\">handlers/</code> → tugas khusus yang dijalankan saat ada perubahan.</p>\n</li>\n<li data-start=\"1872\" data-end=\"1930\">\n<p data-start=\"1874\" data-end=\"1930\"><code data-start=\"1874\" data-end=\"1886\">templates/</code> → file konfigurasi dinamis berbasis Jinja2.</p>\n</li>\n<li data-start=\"1931\" data-end=\"1984\">\n<p data-start=\"1933\" data-end=\"1984\"><code data-start=\"1933\" data-end=\"1941\">files/</code> → file statis yang akan disalin ke server.</p>\n</li>\n<li data-start=\"1985\" data-end=\"2039\">\n<p data-start=\"1987\" data-end=\"2039\"><code data-start=\"1987\" data-end=\"1994\">vars/</code> dan <code data-start=\"1999\" data-end=\"2010\">defaults/</code> → tempat menyimpan variabel.</p>\n</li>\n</ul>\n<h3 data-start=\"2041\" data-end=\"2074\">🔸 <strong data-start=\"2048\" data-end=\"2074\">Group Vars &amp; Host Vars</strong></h3>\n<p data-start=\"2075\" data-end=\"2203\">Kita bisa menyimpan variabel khusus untuk grup server atau host tertentu agar tidak perlu mendefinisikan variabel berulang kali.</p>\n<h2 data-start=\"2210\" data-end=\"2245\">Contoh Implementasi Sederhana</h2>\n<p data-start=\"2247\" data-end=\"2345\">Misalnya kamu ingin menginstal Apache di server 192.168.1.10. Struktur sederhana bisa seperti ini:</p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\">ansible-apache/<br />\n├── inventory<br />\n├── playbook<span class=\"hljs-selector-class\">.yml</span><br />\n└── roles/<br />\n    └── apache/<br />\n        └── tasks/<br />\n            └── <span class=\"hljs-selector-tag\">main</span><span class=\"hljs-selector-class\">.yml</span></code></div>\n<div dir=\"ltr\"></div>\n</div>\n<p data-start=\"2474\" data-end=\"2499\"><strong data-start=\"2474\" data-end=\"2499\">Isi file <code data-start=\"2485\" data-end=\"2496\">inventory</code>:</strong></p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\">[<span class=\"hljs-meta\">web</span>]<br />\n<span class=\"hljs-number\">192.168</span><span class=\"hljs-number\">.1</span><span class=\"hljs-number\">.10</span><br />\n</code></div>\n<div dir=\"ltr\"></div>\n</div>\n<p data-start=\"2528\" data-end=\"2556\"><strong data-start=\"2528\" data-end=\"2556\">Isi file <code data-start=\"2539\" data-end=\"2553\">playbook.yml</code>:</strong></p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-yaml\"><span class=\"hljs-bullet\">-</span> <span class=\"hljs-attr\">hosts:</span> <span class=\"hljs-string\">web</span><br />\n  <span class=\"hljs-attr\">roles:</span><br />\n    <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">apache</span><br />\n</code></div>\n<div dir=\"ltr\"></div>\n</div>\n<p data-start=\"2605\" data-end=\"2648\"><strong data-start=\"2605\" data-end=\"2648\">Isi file <code data-start=\"2616\" data-end=\"2645\">roles/apache/tasks/main.yml</code>:</strong></p>\n<div class=\"contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary\">\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-yaml\"><span class=\"hljs-bullet\">-</span> <span class=\"hljs-attr\">name:</span> <span class=\"hljs-string\">Install</span> <span class=\"hljs-string\">Apache</span><br />\n  <span class=\"hljs-attr\">yum:</span><br />\n    <span class=\"hljs-attr\">name:</span> <span class=\"hljs-string\">httpd</span><br />\n    <span class=\"hljs-attr\">state:</span> <span class=\"hljs-string\">present</span><br />\n</code></div>\n</div>\n<h2 data-start=\"2732\" data-end=\"2775\">Best Practice dalam Menyusun Struktur</h2>\n<ul data-start=\"2777\" data-end=\"3059\">\n<li data-start=\"2777\" data-end=\"2839\">\n<p data-start=\"2779\" data-end=\"2839\">Gunakan <strong data-start=\"2787\" data-end=\"2796\">roles</strong> sejak awal untuk struktur yang lebih rapi.</p>\n</li>\n<li data-start=\"2840\" data-end=\"2918\">\n<p data-start=\"2842\" data-end=\"2918\">Simpan <strong data-start=\"2849\" data-end=\"2861\">variabel</strong> di tempat yang sesuai (group_vars, host_vars, defaults).</p>\n</li>\n<li data-start=\"2919\" data-end=\"2973\">\n<p data-start=\"2921\" data-end=\"2973\">Gunakan <strong data-start=\"2929\" data-end=\"2972\">penamaan folder dan file yang konsisten</strong>.</p>\n</li>\n<li data-start=\"2974\" data-end=\"3059\">\n<p data-start=\"2976\" data-end=\"3059\">Kelola proyek Ansible kamu menggunakan <strong data-start=\"3015\" data-end=\"3022\">Git</strong> agar mudah dilacak dan dikelola tim.</p>\n</li>\n</ul>\n<h2 data-start=\"3066\" data-end=\"3082\">Kesimpulan</h2>\n<p data-start=\"3084\" data-end=\"3394\">Struktur dalam Ansible sangat membantu agar proyek otomatisasi tetap terorganisir dan mudah dikelola, terutama saat proyek makin besar. Dengan mengikuti struktur yang baik dan memanfaatkan fitur seperti roles dan variabel, kamu bisa membuat proses otomatisasi lebih cepat, rapi, dan bisa digunakan bersama tim.</p>\n<p data-start=\"3396\" data-end=\"3480\">Yuk, mulai buat proyek Ansible kecil dengan struktur yang benar. Selamat mencoba! 🚀</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Ansible adalah alat otomatisasi yang banyak digunakan oleh sysadmin dan DevOps untuk mengelola server, menginstal aplikasi, hingga mengatur konfigurasi sistem. Agar penggunaan Ansible lebih mudah, efisien, dan rapi, kita perlu memahami struktur proyek dalam Ansible. Artikel ini akan membahas struktur dasar yang digunakan dalam Ansible dan bagaimana kamu bisa mengatur file dan folder agar proyek otomatisasi lebih terorganisir. Struktur Dasar dalam Proyek Ansible Saat kita mulai membuat proyek dengan Ansible, kita biasanya akan melihat susunan folder dan file seperti ini: ansible-project/ ├── inventory ├── playbook.yml ├── roles/ │ └── webserver/ │ ├── tasks/ │ ├── handlers/ │ ├── templates/&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 2332,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      275
+    ],
+    "class_list": [
+      "post-2449",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-ansible"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Mengenal Struktur Ansible: Fondasi Otomatisasi yang Terorganisir - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Mengenal Struktur Ansible: Fondasi Otomatisasi yang Terorganisir - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Ansible adalah alat otomatisasi yang banyak digunakan oleh sysadmin dan DevOps untuk mengelola server, menginstal aplikasi, hingga mengatur konfigurasi sistem. Agar penggunaan Ansible lebih mudah, efisien, dan rapi, kita perlu memahami struktur proyek dalam Ansible. Artikel ini akan membahas struktur dasar yang digunakan dalam Ansible dan bagaimana kamu bisa mengatur file dan folder agar proyek otomatisasi lebih terorganisir. Struktur Dasar dalam Proyek Ansible Saat kita mulai membuat proyek dengan Ansible, kita biasanya akan melihat susunan folder dan file seperti ini: ansible-project/ ├── inventory ├── playbook.yml ├── roles/ │ └── webserver/ │ ├── tasks/ │ ├── handlers/ │ ├── templates/...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2025-05-24T04:40:15+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/04/0_q8_9SpivajtPKEdS.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1200\" />\n\t<meta property=\"og:image:height\" content=\"675\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"2 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/\",\"url\":\"https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/\",\"name\":\"Mengenal Struktur Ansible: Fondasi Otomatisasi yang Terorganisir - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/04/0_q8_9SpivajtPKEdS.jpg\",\"datePublished\":\"2025-05-24T04:40:15+00:00\",\"dateModified\":\"2025-05-24T04:40:15+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/04/0_q8_9SpivajtPKEdS.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/04/0_q8_9SpivajtPKEdS.jpg\",\"width\":1200,\"height\":675},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Mengenal Struktur Ansible: Fondasi Otomatisasi yang Terorganisir\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Mengenal Struktur Ansible: Fondasi Otomatisasi yang Terorganisir - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Mengenal Struktur Ansible: Fondasi Otomatisasi yang Terorganisir - buletinsiber.com",
+      "og_description": "Pendahuluan Ansible adalah alat otomatisasi yang banyak digunakan oleh sysadmin dan DevOps untuk mengelola server, menginstal aplikasi, hingga mengatur konfigurasi sistem. Agar penggunaan Ansible lebih mudah, efisien, dan rapi, kita perlu memahami struktur proyek dalam Ansible. Artikel ini akan membahas struktur dasar yang digunakan dalam Ansible dan bagaimana kamu bisa mengatur file dan folder agar proyek otomatisasi lebih terorganisir. Struktur Dasar dalam Proyek Ansible Saat kita mulai membuat proyek dengan Ansible, kita biasanya akan melihat susunan folder dan file seperti ini: ansible-project/ ├── inventory ├── playbook.yml ├── roles/ │ └── webserver/ │ ├── tasks/ │ ├── handlers/ │ ├── templates/...",
+      "og_url": "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2025-05-24T04:40:15+00:00",
+      "og_image": [
+        {
+          "width": 1200,
+          "height": 675,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/04/0_q8_9SpivajtPKEdS.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "2 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/",
+            "url": "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/",
+            "name": "Mengenal Struktur Ansible: Fondasi Otomatisasi yang Terorganisir - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/04/0_q8_9SpivajtPKEdS.jpg",
+            "datePublished": "2025-05-24T04:40:15+00:00",
+            "dateModified": "2025-05-24T04:40:15+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/04/0_q8_9SpivajtPKEdS.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/04/0_q8_9SpivajtPKEdS.jpg",
+            "width": 1200,
+            "height": 675
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/mengenal-struktur-ansible-fondasi-otomatisasi-yang-terorganisir/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Mengenal Struktur Ansible: Fondasi Otomatisasi yang Terorganisir"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2449",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2449"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2449/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 2450,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2449/revisions/2450"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2332"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2449"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2449"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2449"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

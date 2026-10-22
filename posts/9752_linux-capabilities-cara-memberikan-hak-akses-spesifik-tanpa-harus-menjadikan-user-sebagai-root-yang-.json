@@ -1,0 +1,329 @@
+{
+  "id": 9752,
+  "title": "Linux Capabilities: Cara Memberikan Hak Akses Spesifik Tanpa Harus Menjadikan User Sebagai “Root” yang Berisiko",
+  "slug": "linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko",
+  "url": "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/",
+  "date": "2026-03-15T02:11:35",
+  "date_gmt": "2026-03-15T02:11:35",
+  "modified": "2026-07-06T20:54:47",
+  "modified_gmt": "2026-07-06T20:54:47",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    98,
+    1158
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-2.jpeg",
+  "excerpt": "Pengantar Dalam sistem operasi Linux, pengguna dengan hak akses root memiliki kendali penuh terhadap seluruh sistem. Meskipun akses ini diperlukan untuk melakukan berbagai tugas administratif, memberikan hak root kepada pengguna atau aplikasi juga dapat meningkatkan risiko keamanan. Jika akun dengan hak root disalahgunakan atau diretas, seluruh sistem dapat terpengaruh. Untuk mengatasi masalah ini, Linux menyediakan mekanisme yang disebut Linux Capabilities. Fitur ini memungkinkan administrator sistem untuk membagi hak akses root menjadi beberapa kemampuan spesifik yang dapat diberikan secara terpisah kepada proses atau aplikasi tertentu. Dengan pendekatan ini, aplikasi tidak perlu lagi berjalan sebagai root untuk melakukan tugas yang memerlukan hak…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"115\" data-end=\"127\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"129\" data-end=\"495\"><span style=\"color: #000000;\">Dalam sistem operasi Linux, pengguna dengan hak akses <strong data-start=\"183\" data-end=\"191\">root</strong> memiliki kendali penuh terhadap seluruh sistem. Meskipun akses ini diperlukan untuk melakukan berbagai tugas administratif, memberikan hak root kepada pengguna atau aplikasi juga dapat meningkatkan risiko keamanan. Jika akun dengan hak root disalahgunakan atau diretas, seluruh sistem dapat terpengaruh.</span></p>\n<p style=\"text-align: justify;\" data-start=\"497\" data-end=\"774\"><span style=\"color: #000000;\">Untuk mengatasi masalah ini, Linux menyediakan mekanisme yang disebut <strong data-start=\"567\" data-end=\"589\">Linux Capabilities</strong>. Fitur ini memungkinkan administrator sistem untuk membagi hak akses root menjadi beberapa kemampuan spesifik yang dapat diberikan secara terpisah kepada proses atau aplikasi tertentu.</span></p>\n<p style=\"text-align: justify;\" data-start=\"776\" data-end=\"1160\"><span style=\"color: #000000;\">Dengan pendekatan ini, aplikasi tidak perlu lagi berjalan sebagai root untuk melakukan tugas yang memerlukan hak akses khusus. Sebagai gantinya, aplikasi hanya diberikan kemampuan yang benar-benar dibutuhkan. Hal ini membantu meningkatkan keamanan sistem dengan menerapkan prinsip <strong data-start=\"1057\" data-end=\"1076\">least privilege</strong>, yaitu memberikan hak akses minimum yang diperlukan untuk menjalankan suatu fungsi.</span></p>\n<hr data-start=\"1162\" data-end=\"1165\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"washe\" data-start=\"1167\" data-end=\"1197\"><span style=\"color: #000000;\">Apa Itu Linux Capabilities?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1199\" data-end=\"1396\"><span style=\"color: #000000;\"><strong data-start=\"1199\" data-end=\"1221\">Linux Capabilities</strong> adalah mekanisme keamanan yang memecah hak akses superuser (root) menjadi sejumlah kemampuan kecil yang dapat diberikan secara individual kepada proses atau program tertentu.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1398\" data-end=\"1703\"><span style=\"color: #000000;\">Sebelum fitur ini diperkenalkan, banyak aplikasi harus dijalankan sebagai root agar dapat melakukan operasi tertentu seperti membuka port jaringan atau mengakses perangkat keras. Dengan Linux Capabilities, tugas-tugas tersebut dapat diberikan kepada aplikasi tanpa harus memberikan seluruh hak akses root.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1705\" data-end=\"1856\"><span style=\"color: #000000;\">Sebagai contoh, sebuah aplikasi server mungkin hanya membutuhkan kemampuan untuk membuka port jaringan tertentu tanpa memerlukan akses penuh ke sistem.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1858\" data-end=\"2107\"><span style=\"color: #000000;\">Menurut dokumentasi Linux Kernel, capabilities memungkinkan sistem untuk membagi hak istimewa root menjadi unit-unit yang lebih kecil sehingga dapat dikelola secara lebih aman (dikutip dari <a href=\"https://man7.org/linux/man-pages/man7/capabilities.7.html\">man7.org</a>).</span></p>\n<blockquote>\n<p data-start=\"1858\" data-end=\"2107\">baca juga : <a href=\"https://buletinsiber.com/tcp-reset-attack-serangan-yang-memutus-koneksi-jaringan-secara-paksa/\">TCP Reset Attack: Serangan yang Memutus Koneksi Jaringan Secara Paksa</a></p>\n</blockquote>\n<hr data-start=\"2109\" data-end=\"2112\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"ngphgy\" data-start=\"2114\" data-end=\"2174\"><span style=\"color: #000000;\">Mengapa Linux Capabilities Penting untuk Keamanan Sistem?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2176\" data-end=\"2280\"><span style=\"color: #000000;\">Penggunaan Linux Capabilities memberikan beberapa keuntungan dalam meningkatkan keamanan sistem operasi.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"1qhvvlp\" data-start=\"2282\" data-end=\"2328\"><span style=\"color: #000000;\">Mengurangi Risiko Penyalahgunaan Hak Akses</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2330\" data-end=\"2478\"><span style=\"color: #000000;\">Dengan memisahkan hak akses root menjadi kemampuan yang lebih kecil, administrator dapat membatasi akses aplikasi hanya pada fungsi yang diperlukan.</span></p>\n<hr data-start=\"2480\" data-end=\"2483\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1etdp7h\" data-start=\"2485\" data-end=\"2523\"><span style=\"color: #000000;\">Menerapkan Prinsip Least Privilege</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2525\" data-end=\"2701\"><span style=\"color: #000000;\">Prinsip <strong data-start=\"2533\" data-end=\"2552\">least privilege</strong> sangat penting dalam keamanan sistem. Dengan Linux Capabilities, aplikasi hanya mendapatkan izin minimum yang dibutuhkan untuk menjalankan tugasnya.</span></p>\n<hr data-start=\"2703\" data-end=\"2706\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"8vac7r\" data-start=\"2708\" data-end=\"2754\"><span style=\"color: #000000;\">Mengurangi Dampak Jika Terjadi Eksploitasi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2756\" data-end=\"2935\"><span style=\"color: #000000;\">Jika sebuah aplikasi yang memiliki kemampuan terbatas mengalami kerentanan keamanan, dampaknya akan lebih kecil dibandingkan jika aplikasi tersebut berjalan dengan hak root penuh.</span></p>\n<hr data-start=\"3178\" data-end=\"3181\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"16wjodd\" data-start=\"3183\" data-end=\"3231\"><span style=\"color: #000000;\">Contoh Linux Capabilities yang Umum Digunakan</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3233\" data-end=\"3328\"><span style=\"color: #000000;\">Linux menyediakan berbagai jenis capabilities yang dapat diberikan kepada proses atau aplikasi.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"10atfpk\" data-start=\"3330\" data-end=\"3354\"><span style=\"color: #000000;\">CAP_NET_BIND_SERVICE</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3356\" data-end=\"3502\"><span style=\"color: #000000;\">Capability ini memungkinkan sebuah aplikasi untuk <strong data-start=\"3406\" data-end=\"3445\">membuka port jaringan di bawah 1024</strong>, yang biasanya hanya dapat dilakukan oleh pengguna root.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3504\" data-end=\"3614\"><span style=\"color: #000000;\">Contohnya adalah server web yang ingin berjalan pada port <strong data-start=\"3562\" data-end=\"3577\">80 atau 443</strong> tanpa harus dijalankan sebagai root.</span></p>\n<hr data-start=\"3616\" data-end=\"3619\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1his1d0\" data-start=\"3621\" data-end=\"3638\"><span style=\"color: #000000;\">CAP_NET_ADMIN</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3640\" data-end=\"3769\"><span style=\"color: #000000;\">Capability ini memberikan izin untuk melakukan operasi administrasi jaringan seperti konfigurasi interface jaringan atau routing.</span></p>\n<hr data-start=\"3771\" data-end=\"3774\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"19e8tp4\" data-start=\"3776\" data-end=\"3792\"><span style=\"color: #000000;\">CAP_SYS_TIME</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3794\" data-end=\"3857\"><span style=\"color: #000000;\">Capability ini memungkinkan proses untuk mengubah waktu sistem.</span></p>\n<hr data-start=\"3859\" data-end=\"3862\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"19e3vq3\" data-start=\"3864\" data-end=\"3880\"><span style=\"color: #000000;\">CAP_SYS_BOOT</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3882\" data-end=\"3961\"><span style=\"color: #000000;\">Capability ini memberikan kemampuan untuk melakukan operasi reboot pada sistem.</span></p>\n<blockquote>\n<p data-start=\"3882\" data-end=\"3961\">baca juga : <a href=\"https://buletinsiber.com/dependency-confusion-serangan-supply-chain-yang-menargetkan-library-aplikasi/\">Dependency Confusion: Serangan Supply Chain yang Menargetkan Library Aplikasi</a></p>\n</blockquote>\n<hr data-start=\"3963\" data-end=\"3966\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1xo10gs\" data-start=\"3968\" data-end=\"4006\"><span style=\"color: #000000;\">Cara Menggunakan Linux Capabilities</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4008\" data-end=\"4132\"><span style=\"color: #000000;\">Linux menyediakan beberapa alat yang dapat digunakan untuk mengelola capabilities, salah satunya adalah perintah <strong data-start=\"4121\" data-end=\"4131\">setcap</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4134\" data-end=\"4267\"><span style=\"color: #000000;\">Sebagai contoh, administrator dapat memberikan capability kepada sebuah aplikasi agar dapat membuka port tertentu tanpa menjadi root.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4269\" data-end=\"4287\"><span style=\"color: #000000;\">Contoh penggunaan:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">sudo setcap 'cap_net_bind_service=+ep' /path/to/application</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"4358\" data-end=\"4475\"><span style=\"color: #000000;\">Perintah ini memungkinkan aplikasi menjalankan layanan pada port rendah tanpa harus dijalankan dengan hak akses root.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4477\" data-end=\"4583\"><span style=\"color: #000000;\">Selain itu, administrator juga dapat memeriksa capabilities yang dimiliki suatu file menggunakan perintah:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">getcap /path/to/application</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"4622\" data-end=\"4730\"><span style=\"color: #000000;\">Pendekatan ini memberikan kontrol yang lebih fleksibel dalam pengelolaan hak akses aplikasi di sistem Linux.</span></p>\n<hr data-start=\"4732\" data-end=\"4735\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"gwos1i\" data-start=\"4737\" data-end=\"4785\"><span style=\"color: #000000;\">Tantangan dalam Penggunaan Linux Capabilities</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4787\" data-end=\"4886\"><span style=\"color: #000000;\">Meskipun memberikan banyak manfaat, penggunaan Linux Capabilities juga memiliki beberapa tantangan.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"1i9t2qn\" data-start=\"4888\" data-end=\"4916\"><span style=\"color: #000000;\">Kompleksitas Konfigurasi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4918\" data-end=\"5025\"><span style=\"color: #000000;\">Administrator perlu memahami setiap jenis capability agar dapat memberikan izin yang tepat kepada aplikasi.</span></p>\n<hr data-start=\"5027\" data-end=\"5030\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"s19smz\" data-start=\"5032\" data-end=\"5065\"><span style=\"color: #000000;\">Risiko Konfigurasi yang Salah</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5067\" data-end=\"5196\"><span style=\"color: #000000;\">Jika capability yang diberikan terlalu luas, sistem tetap dapat menghadapi risiko keamanan yang mirip dengan penggunaan hak root.</span></p>\n<hr data-start=\"5198\" data-end=\"5201\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"4j2igb\" data-start=\"5203\" data-end=\"5224\"><span style=\"color: #000000;\">Dukungan Aplikasi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5226\" data-end=\"5347\"><span style=\"color: #000000;\">Tidak semua aplikasi dirancang untuk bekerja dengan Linux Capabilities sehingga kadang masih memerlukan akses root penuh.</span></p>\n<blockquote>\n<p data-start=\"5226\" data-end=\"5347\">baca juga : <a href=\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/\">SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman</a></p>\n</blockquote>\n<hr data-start=\"5349\" data-end=\"5352\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"5354\" data-end=\"5367\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5369\" data-end=\"5664\"><span style=\"color: #000000;\">Linux Capabilities merupakan mekanisme keamanan yang memungkinkan sistem operasi Linux membagi hak akses root menjadi kemampuan yang lebih spesifik dan terkontrol. Dengan pendekatan ini, administrator dapat memberikan izin tertentu kepada aplikasi tanpa harus memberikan akses root secara penuh.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5666\" data-end=\"5882\"><span style=\"color: #000000;\">Penerapan Linux Capabilities membantu meningkatkan keamanan sistem dengan mengurangi risiko penyalahgunaan hak akses, menerapkan prinsip least privilege, serta membatasi dampak jika terjadi eksploitasi pada aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5884\" data-end=\"6071\"><span style=\"color: #000000;\">Dalam lingkungan server maupun sistem produksi, penggunaan Linux Capabilities menjadi salah satu praktik keamanan penting untuk mengelola hak akses aplikasi secara lebih aman dan efisien.</span></p>\n",
+  "content_text": "Pengantar\nDalam sistem operasi Linux, pengguna dengan hak akses  root  memiliki kendali penuh terhadap seluruh sistem. Meskipun akses ini diperlukan untuk melakukan berbagai tugas administratif, memberikan hak root kepada pengguna atau aplikasi juga dapat meningkatkan risiko keamanan. Jika akun dengan hak root disalahgunakan atau diretas, seluruh sistem dapat terpengaruh.\nUntuk mengatasi masalah ini, Linux menyediakan mekanisme yang disebut  Linux Capabilities . Fitur ini memungkinkan administrator sistem untuk membagi hak akses root menjadi beberapa kemampuan spesifik yang dapat diberikan secara terpisah kepada proses atau aplikasi tertentu.\nDengan pendekatan ini, aplikasi tidak perlu lagi berjalan sebagai root untuk melakukan tugas yang memerlukan hak akses khusus. Sebagai gantinya, aplikasi hanya diberikan kemampuan yang benar-benar dibutuhkan. Hal ini membantu meningkatkan keamanan sistem dengan menerapkan prinsip  least privilege , yaitu memberikan hak akses minimum yang diperlukan untuk menjalankan suatu fungsi.\nApa Itu Linux Capabilities?\nLinux Capabilities  adalah mekanisme keamanan yang memecah hak akses superuser (root) menjadi sejumlah kemampuan kecil yang dapat diberikan secara individual kepada proses atau program tertentu.\nSebelum fitur ini diperkenalkan, banyak aplikasi harus dijalankan sebagai root agar dapat melakukan operasi tertentu seperti membuka port jaringan atau mengakses perangkat keras. Dengan Linux Capabilities, tugas-tugas tersebut dapat diberikan kepada aplikasi tanpa harus memberikan seluruh hak akses root.\nSebagai contoh, sebuah aplikasi server mungkin hanya membutuhkan kemampuan untuk membuka port jaringan tertentu tanpa memerlukan akses penuh ke sistem.\nMenurut dokumentasi Linux Kernel, capabilities memungkinkan sistem untuk membagi hak istimewa root menjadi unit-unit yang lebih kecil sehingga dapat dikelola secara lebih aman (dikutip dari  man7.org ).\nbaca juga :  TCP Reset Attack: Serangan yang Memutus Koneksi Jaringan Secara Paksa\nMengapa Linux Capabilities Penting untuk Keamanan Sistem?\nPenggunaan Linux Capabilities memberikan beberapa keuntungan dalam meningkatkan keamanan sistem operasi.\nMengurangi Risiko Penyalahgunaan Hak Akses\nDengan memisahkan hak akses root menjadi kemampuan yang lebih kecil, administrator dapat membatasi akses aplikasi hanya pada fungsi yang diperlukan.\nMenerapkan Prinsip Least Privilege\nPrinsip  least privilege  sangat penting dalam keamanan sistem. Dengan Linux Capabilities, aplikasi hanya mendapatkan izin minimum yang dibutuhkan untuk menjalankan tugasnya.\nMengurangi Dampak Jika Terjadi Eksploitasi\nJika sebuah aplikasi yang memiliki kemampuan terbatas mengalami kerentanan keamanan, dampaknya akan lebih kecil dibandingkan jika aplikasi tersebut berjalan dengan hak root penuh.\nContoh Linux Capabilities yang Umum Digunakan\nLinux menyediakan berbagai jenis capabilities yang dapat diberikan kepada proses atau aplikasi.\nCAP_NET_BIND_SERVICE\nCapability ini memungkinkan sebuah aplikasi untuk  membuka port jaringan di bawah 1024 , yang biasanya hanya dapat dilakukan oleh pengguna root.\nContohnya adalah server web yang ingin berjalan pada port  80 atau 443  tanpa harus dijalankan sebagai root.\nCAP_NET_ADMIN\nCapability ini memberikan izin untuk melakukan operasi administrasi jaringan seperti konfigurasi interface jaringan atau routing.\nCAP_SYS_TIME\nCapability ini memungkinkan proses untuk mengubah waktu sistem.\nCAP_SYS_BOOT\nCapability ini memberikan kemampuan untuk melakukan operasi reboot pada sistem.\nbaca juga :  Dependency Confusion: Serangan Supply Chain yang Menargetkan Library Aplikasi\nCara Menggunakan Linux Capabilities\nLinux menyediakan beberapa alat yang dapat digunakan untuk mengelola capabilities, salah satunya adalah perintah  setcap .\nSebagai contoh, administrator dapat memberikan capability kepada sebuah aplikasi agar dapat membuka port tertentu tanpa menjadi root.\nContoh penggunaan:\nsudo setcap 'cap_net_bind_service=+ep' /path/to/application\nPerintah ini memungkinkan aplikasi menjalankan layanan pada port rendah tanpa harus dijalankan dengan hak akses root.\nSelain itu, administrator juga dapat memeriksa capabilities yang dimiliki suatu file menggunakan perintah:\ngetcap /path/to/application\nPendekatan ini memberikan kontrol yang lebih fleksibel dalam pengelolaan hak akses aplikasi di sistem Linux.\nTantangan dalam Penggunaan Linux Capabilities\nMeskipun memberikan banyak manfaat, penggunaan Linux Capabilities juga memiliki beberapa tantangan.\nKompleksitas Konfigurasi\nAdministrator perlu memahami setiap jenis capability agar dapat memberikan izin yang tepat kepada aplikasi.\nRisiko Konfigurasi yang Salah\nJika capability yang diberikan terlalu luas, sistem tetap dapat menghadapi risiko keamanan yang mirip dengan penggunaan hak root.\nDukungan Aplikasi\nTidak semua aplikasi dirancang untuk bekerja dengan Linux Capabilities sehingga kadang masih memerlukan akses root penuh.\nbaca juga :  SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman\nKesimpulan\nLinux Capabilities merupakan mekanisme keamanan yang memungkinkan sistem operasi Linux membagi hak akses root menjadi kemampuan yang lebih spesifik dan terkontrol. Dengan pendekatan ini, administrator dapat memberikan izin tertentu kepada aplikasi tanpa harus memberikan akses root secara penuh.\nPenerapan Linux Capabilities membantu meningkatkan keamanan sistem dengan mengurangi risiko penyalahgunaan hak akses, menerapkan prinsip least privilege, serta membatasi dampak jika terjadi eksploitasi pada aplikasi.\nDalam lingkungan server maupun sistem produksi, penggunaan Linux Capabilities menjadi salah satu praktik keamanan penting untuk mengelola hak akses aplikasi secara lebih aman dan efisien.",
+  "raw": {
+    "id": 9752,
+    "date": "2026-03-15T02:11:35",
+    "date_gmt": "2026-03-15T02:11:35",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9752"
+    },
+    "modified": "2026-07-06T20:54:47",
+    "modified_gmt": "2026-07-06T20:54:47",
+    "slug": "linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/",
+    "title": {
+      "rendered": "Linux Capabilities: Cara Memberikan Hak Akses Spesifik Tanpa Harus Menjadikan User Sebagai “Root” yang Berisiko"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"115\" data-end=\"127\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"129\" data-end=\"495\"><span style=\"color: #000000;\">Dalam sistem operasi Linux, pengguna dengan hak akses <strong data-start=\"183\" data-end=\"191\">root</strong> memiliki kendali penuh terhadap seluruh sistem. Meskipun akses ini diperlukan untuk melakukan berbagai tugas administratif, memberikan hak root kepada pengguna atau aplikasi juga dapat meningkatkan risiko keamanan. Jika akun dengan hak root disalahgunakan atau diretas, seluruh sistem dapat terpengaruh.</span></p>\n<p style=\"text-align: justify;\" data-start=\"497\" data-end=\"774\"><span style=\"color: #000000;\">Untuk mengatasi masalah ini, Linux menyediakan mekanisme yang disebut <strong data-start=\"567\" data-end=\"589\">Linux Capabilities</strong>. Fitur ini memungkinkan administrator sistem untuk membagi hak akses root menjadi beberapa kemampuan spesifik yang dapat diberikan secara terpisah kepada proses atau aplikasi tertentu.</span></p>\n<p style=\"text-align: justify;\" data-start=\"776\" data-end=\"1160\"><span style=\"color: #000000;\">Dengan pendekatan ini, aplikasi tidak perlu lagi berjalan sebagai root untuk melakukan tugas yang memerlukan hak akses khusus. Sebagai gantinya, aplikasi hanya diberikan kemampuan yang benar-benar dibutuhkan. Hal ini membantu meningkatkan keamanan sistem dengan menerapkan prinsip <strong data-start=\"1057\" data-end=\"1076\">least privilege</strong>, yaitu memberikan hak akses minimum yang diperlukan untuk menjalankan suatu fungsi.</span></p>\n<hr data-start=\"1162\" data-end=\"1165\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"washe\" data-start=\"1167\" data-end=\"1197\"><span style=\"color: #000000;\">Apa Itu Linux Capabilities?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1199\" data-end=\"1396\"><span style=\"color: #000000;\"><strong data-start=\"1199\" data-end=\"1221\">Linux Capabilities</strong> adalah mekanisme keamanan yang memecah hak akses superuser (root) menjadi sejumlah kemampuan kecil yang dapat diberikan secara individual kepada proses atau program tertentu.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1398\" data-end=\"1703\"><span style=\"color: #000000;\">Sebelum fitur ini diperkenalkan, banyak aplikasi harus dijalankan sebagai root agar dapat melakukan operasi tertentu seperti membuka port jaringan atau mengakses perangkat keras. Dengan Linux Capabilities, tugas-tugas tersebut dapat diberikan kepada aplikasi tanpa harus memberikan seluruh hak akses root.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1705\" data-end=\"1856\"><span style=\"color: #000000;\">Sebagai contoh, sebuah aplikasi server mungkin hanya membutuhkan kemampuan untuk membuka port jaringan tertentu tanpa memerlukan akses penuh ke sistem.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1858\" data-end=\"2107\"><span style=\"color: #000000;\">Menurut dokumentasi Linux Kernel, capabilities memungkinkan sistem untuk membagi hak istimewa root menjadi unit-unit yang lebih kecil sehingga dapat dikelola secara lebih aman (dikutip dari <a href=\"https://man7.org/linux/man-pages/man7/capabilities.7.html\">man7.org</a>).</span></p>\n<blockquote>\n<p data-start=\"1858\" data-end=\"2107\">baca juga : <a href=\"https://buletinsiber.com/tcp-reset-attack-serangan-yang-memutus-koneksi-jaringan-secara-paksa/\">TCP Reset Attack: Serangan yang Memutus Koneksi Jaringan Secara Paksa</a></p>\n</blockquote>\n<hr data-start=\"2109\" data-end=\"2112\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"ngphgy\" data-start=\"2114\" data-end=\"2174\"><span style=\"color: #000000;\">Mengapa Linux Capabilities Penting untuk Keamanan Sistem?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2176\" data-end=\"2280\"><span style=\"color: #000000;\">Penggunaan Linux Capabilities memberikan beberapa keuntungan dalam meningkatkan keamanan sistem operasi.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"1qhvvlp\" data-start=\"2282\" data-end=\"2328\"><span style=\"color: #000000;\">Mengurangi Risiko Penyalahgunaan Hak Akses</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2330\" data-end=\"2478\"><span style=\"color: #000000;\">Dengan memisahkan hak akses root menjadi kemampuan yang lebih kecil, administrator dapat membatasi akses aplikasi hanya pada fungsi yang diperlukan.</span></p>\n<hr data-start=\"2480\" data-end=\"2483\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1etdp7h\" data-start=\"2485\" data-end=\"2523\"><span style=\"color: #000000;\">Menerapkan Prinsip Least Privilege</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2525\" data-end=\"2701\"><span style=\"color: #000000;\">Prinsip <strong data-start=\"2533\" data-end=\"2552\">least privilege</strong> sangat penting dalam keamanan sistem. Dengan Linux Capabilities, aplikasi hanya mendapatkan izin minimum yang dibutuhkan untuk menjalankan tugasnya.</span></p>\n<hr data-start=\"2703\" data-end=\"2706\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"8vac7r\" data-start=\"2708\" data-end=\"2754\"><span style=\"color: #000000;\">Mengurangi Dampak Jika Terjadi Eksploitasi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2756\" data-end=\"2935\"><span style=\"color: #000000;\">Jika sebuah aplikasi yang memiliki kemampuan terbatas mengalami kerentanan keamanan, dampaknya akan lebih kecil dibandingkan jika aplikasi tersebut berjalan dengan hak root penuh.</span></p>\n<hr data-start=\"3178\" data-end=\"3181\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"16wjodd\" data-start=\"3183\" data-end=\"3231\"><span style=\"color: #000000;\">Contoh Linux Capabilities yang Umum Digunakan</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3233\" data-end=\"3328\"><span style=\"color: #000000;\">Linux menyediakan berbagai jenis capabilities yang dapat diberikan kepada proses atau aplikasi.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"10atfpk\" data-start=\"3330\" data-end=\"3354\"><span style=\"color: #000000;\">CAP_NET_BIND_SERVICE</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3356\" data-end=\"3502\"><span style=\"color: #000000;\">Capability ini memungkinkan sebuah aplikasi untuk <strong data-start=\"3406\" data-end=\"3445\">membuka port jaringan di bawah 1024</strong>, yang biasanya hanya dapat dilakukan oleh pengguna root.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3504\" data-end=\"3614\"><span style=\"color: #000000;\">Contohnya adalah server web yang ingin berjalan pada port <strong data-start=\"3562\" data-end=\"3577\">80 atau 443</strong> tanpa harus dijalankan sebagai root.</span></p>\n<hr data-start=\"3616\" data-end=\"3619\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1his1d0\" data-start=\"3621\" data-end=\"3638\"><span style=\"color: #000000;\">CAP_NET_ADMIN</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3640\" data-end=\"3769\"><span style=\"color: #000000;\">Capability ini memberikan izin untuk melakukan operasi administrasi jaringan seperti konfigurasi interface jaringan atau routing.</span></p>\n<hr data-start=\"3771\" data-end=\"3774\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"19e8tp4\" data-start=\"3776\" data-end=\"3792\"><span style=\"color: #000000;\">CAP_SYS_TIME</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3794\" data-end=\"3857\"><span style=\"color: #000000;\">Capability ini memungkinkan proses untuk mengubah waktu sistem.</span></p>\n<hr data-start=\"3859\" data-end=\"3862\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"19e3vq3\" data-start=\"3864\" data-end=\"3880\"><span style=\"color: #000000;\">CAP_SYS_BOOT</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3882\" data-end=\"3961\"><span style=\"color: #000000;\">Capability ini memberikan kemampuan untuk melakukan operasi reboot pada sistem.</span></p>\n<blockquote>\n<p data-start=\"3882\" data-end=\"3961\">baca juga : <a href=\"https://buletinsiber.com/dependency-confusion-serangan-supply-chain-yang-menargetkan-library-aplikasi/\">Dependency Confusion: Serangan Supply Chain yang Menargetkan Library Aplikasi</a></p>\n</blockquote>\n<hr data-start=\"3963\" data-end=\"3966\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1xo10gs\" data-start=\"3968\" data-end=\"4006\"><span style=\"color: #000000;\">Cara Menggunakan Linux Capabilities</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4008\" data-end=\"4132\"><span style=\"color: #000000;\">Linux menyediakan beberapa alat yang dapat digunakan untuk mengelola capabilities, salah satunya adalah perintah <strong data-start=\"4121\" data-end=\"4131\">setcap</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4134\" data-end=\"4267\"><span style=\"color: #000000;\">Sebagai contoh, administrator dapat memberikan capability kepada sebuah aplikasi agar dapat membuka port tertentu tanpa menjadi root.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4269\" data-end=\"4287\"><span style=\"color: #000000;\">Contoh penggunaan:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">sudo setcap 'cap_net_bind_service=+ep' /path/to/application</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"4358\" data-end=\"4475\"><span style=\"color: #000000;\">Perintah ini memungkinkan aplikasi menjalankan layanan pada port rendah tanpa harus dijalankan dengan hak akses root.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4477\" data-end=\"4583\"><span style=\"color: #000000;\">Selain itu, administrator juga dapat memeriksa capabilities yang dimiliki suatu file menggunakan perintah:</span></p>\n<div class=\"relative w-full mt-4 mb-1\" style=\"text-align: justify;\">\n<div class=\"\">\n<div class=\"relative\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"h-full min-h-0 min-w-0\">\n<div class=\"border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl\">\n<div class=\"h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback\">\n<div class=\"pe-11 pt-3\">\n<div class=\"relative z-0 flex max-w-full\">\n<div id=\"code-block-viewer\" class=\"q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy\" dir=\"ltr\">\n<div class=\"cm-scroller\">\n<pre class=\"cm-content q9tKkq_readonly\"><span style=\"color: #000000;\">getcap /path/to/application</span></pre>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"4622\" data-end=\"4730\"><span style=\"color: #000000;\">Pendekatan ini memberikan kontrol yang lebih fleksibel dalam pengelolaan hak akses aplikasi di sistem Linux.</span></p>\n<hr data-start=\"4732\" data-end=\"4735\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"gwos1i\" data-start=\"4737\" data-end=\"4785\"><span style=\"color: #000000;\">Tantangan dalam Penggunaan Linux Capabilities</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4787\" data-end=\"4886\"><span style=\"color: #000000;\">Meskipun memberikan banyak manfaat, penggunaan Linux Capabilities juga memiliki beberapa tantangan.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"1i9t2qn\" data-start=\"4888\" data-end=\"4916\"><span style=\"color: #000000;\">Kompleksitas Konfigurasi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4918\" data-end=\"5025\"><span style=\"color: #000000;\">Administrator perlu memahami setiap jenis capability agar dapat memberikan izin yang tepat kepada aplikasi.</span></p>\n<hr data-start=\"5027\" data-end=\"5030\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"s19smz\" data-start=\"5032\" data-end=\"5065\"><span style=\"color: #000000;\">Risiko Konfigurasi yang Salah</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5067\" data-end=\"5196\"><span style=\"color: #000000;\">Jika capability yang diberikan terlalu luas, sistem tetap dapat menghadapi risiko keamanan yang mirip dengan penggunaan hak root.</span></p>\n<hr data-start=\"5198\" data-end=\"5201\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"4j2igb\" data-start=\"5203\" data-end=\"5224\"><span style=\"color: #000000;\">Dukungan Aplikasi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5226\" data-end=\"5347\"><span style=\"color: #000000;\">Tidak semua aplikasi dirancang untuk bekerja dengan Linux Capabilities sehingga kadang masih memerlukan akses root penuh.</span></p>\n<blockquote>\n<p data-start=\"5226\" data-end=\"5347\">baca juga : <a href=\"https://buletinsiber.com/ssh-fingerprinting-cara-memverifikasi-identitas-server-secara-aman/\">SSH Fingerprinting: Cara Memverifikasi Identitas Server Secara Aman</a></p>\n</blockquote>\n<hr data-start=\"5349\" data-end=\"5352\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"5354\" data-end=\"5367\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5369\" data-end=\"5664\"><span style=\"color: #000000;\">Linux Capabilities merupakan mekanisme keamanan yang memungkinkan sistem operasi Linux membagi hak akses root menjadi kemampuan yang lebih spesifik dan terkontrol. Dengan pendekatan ini, administrator dapat memberikan izin tertentu kepada aplikasi tanpa harus memberikan akses root secara penuh.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5666\" data-end=\"5882\"><span style=\"color: #000000;\">Penerapan Linux Capabilities membantu meningkatkan keamanan sistem dengan mengurangi risiko penyalahgunaan hak akses, menerapkan prinsip least privilege, serta membatasi dampak jika terjadi eksploitasi pada aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5884\" data-end=\"6071\"><span style=\"color: #000000;\">Dalam lingkungan server maupun sistem produksi, penggunaan Linux Capabilities menjadi salah satu praktik keamanan penting untuk mengelola hak akses aplikasi secara lebih aman dan efisien.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dalam sistem operasi Linux, pengguna dengan hak akses root memiliki kendali penuh terhadap seluruh sistem. Meskipun akses ini diperlukan untuk melakukan berbagai tugas administratif, memberikan hak root kepada pengguna atau aplikasi juga dapat meningkatkan risiko keamanan. Jika akun dengan hak root disalahgunakan atau diretas, seluruh sistem dapat terpengaruh. Untuk mengatasi masalah ini, Linux menyediakan mekanisme yang disebut Linux Capabilities. Fitur ini memungkinkan administrator sistem untuk membagi hak akses root menjadi beberapa kemampuan spesifik yang dapat diberikan secara terpisah kepada proses atau aplikasi tertentu. Dengan pendekatan ini, aplikasi tidak perlu lagi berjalan sebagai root untuk melakukan tugas yang memerlukan hak&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 5153,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Linux Capabilities",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      98,
+      1158
+    ],
+    "class_list": [
+      "post-9752",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-linux",
+      "tag-user"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Linux Capabilities: Cara Memberikan Hak Akses Spesifik Tanpa Harus Menjadikan User Sebagai “Root” yang Berisiko - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Linux Capabilities: Cara Memberikan Hak Akses Spesifik Tanpa Harus Menjadikan User Sebagai “Root” yang Berisiko - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dalam sistem operasi Linux, pengguna dengan hak akses root memiliki kendali penuh terhadap seluruh sistem. Meskipun akses ini diperlukan untuk melakukan berbagai tugas administratif, memberikan hak root kepada pengguna atau aplikasi juga dapat meningkatkan risiko keamanan. Jika akun dengan hak root disalahgunakan atau diretas, seluruh sistem dapat terpengaruh. Untuk mengatasi masalah ini, Linux menyediakan mekanisme yang disebut Linux Capabilities. Fitur ini memungkinkan administrator sistem untuk membagi hak akses root menjadi beberapa kemampuan spesifik yang dapat diberikan secara terpisah kepada proses atau aplikasi tertentu. Dengan pendekatan ini, aplikasi tidak perlu lagi berjalan sebagai root untuk melakukan tugas yang memerlukan hak...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-03-15T02:11:35+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:54:47+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-2.jpeg\" />\n\t<meta property=\"og:image:width\" content=\"330\" />\n\t<meta property=\"og:image:height\" content=\"220\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/\",\"url\":\"https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/\",\"name\":\"Linux Capabilities: Cara Memberikan Hak Akses Spesifik Tanpa Harus Menjadikan User Sebagai “Root” yang Berisiko - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-2.jpeg\",\"datePublished\":\"2026-03-15T02:11:35+00:00\",\"dateModified\":\"2026-07-06T20:54:47+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-2.jpeg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-2.jpeg\",\"width\":330,\"height\":220},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Linux Capabilities: Cara Memberikan Hak Akses Spesifik Tanpa Harus Menjadikan User Sebagai “Root” yang Berisiko\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Linux Capabilities: Cara Memberikan Hak Akses Spesifik Tanpa Harus Menjadikan User Sebagai “Root” yang Berisiko - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Linux Capabilities: Cara Memberikan Hak Akses Spesifik Tanpa Harus Menjadikan User Sebagai “Root” yang Berisiko - buletinsiber.com",
+      "og_description": "Pengantar Dalam sistem operasi Linux, pengguna dengan hak akses root memiliki kendali penuh terhadap seluruh sistem. Meskipun akses ini diperlukan untuk melakukan berbagai tugas administratif, memberikan hak root kepada pengguna atau aplikasi juga dapat meningkatkan risiko keamanan. Jika akun dengan hak root disalahgunakan atau diretas, seluruh sistem dapat terpengaruh. Untuk mengatasi masalah ini, Linux menyediakan mekanisme yang disebut Linux Capabilities. Fitur ini memungkinkan administrator sistem untuk membagi hak akses root menjadi beberapa kemampuan spesifik yang dapat diberikan secara terpisah kepada proses atau aplikasi tertentu. Dengan pendekatan ini, aplikasi tidak perlu lagi berjalan sebagai root untuk melakukan tugas yang memerlukan hak...",
+      "og_url": "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-03-15T02:11:35+00:00",
+      "article_modified_time": "2026-07-06T20:54:47+00:00",
+      "og_image": [
+        {
+          "width": 330,
+          "height": 220,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-2.jpeg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/",
+            "url": "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/",
+            "name": "Linux Capabilities: Cara Memberikan Hak Akses Spesifik Tanpa Harus Menjadikan User Sebagai “Root” yang Berisiko - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-2.jpeg",
+            "datePublished": "2026-03-15T02:11:35+00:00",
+            "dateModified": "2026-07-06T20:54:47+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-2.jpeg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-2.jpeg",
+            "width": 330,
+            "height": 220
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/linux-capabilities-cara-memberikan-hak-akses-spesifik-tanpa-harus-menjadikan-user-sebagai-root-yang-berisiko/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Linux Capabilities: Cara Memberikan Hak Akses Spesifik Tanpa Harus Menjadikan User Sebagai “Root” yang Berisiko"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9752",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9752"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9752/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9753,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9752/revisions/9753"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/5153"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9752"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9752"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9752"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

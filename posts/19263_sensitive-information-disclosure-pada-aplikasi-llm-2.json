@@ -1,0 +1,319 @@
+{
+  "id": 19263,
+  "title": "Sensitive Information Disclosure pada Aplikasi LLM",
+  "slug": "sensitive-information-disclosure-pada-aplikasi-llm-2",
+  "url": "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/",
+  "date": "2026-07-31T10:31:28",
+  "date_gmt": "2026-07-31T10:31:28",
+  "modified": "2026-07-31T10:31:28",
+  "modified_gmt": "2026-07-31T10:31:28",
+  "author": {
+    "id": 34,
+    "name": "Citra Saskia saranani"
+  },
+  "categories": [
+    {
+      "id": 1919,
+      "name": "AI"
+    },
+    {
+      "id": 2616,
+      "name": "Information Technology"
+    }
+  ],
+  "tags": [
+    3535
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/EZY63-IbRz_FIRv_EHknZ_gUZUkIq5cXknHYLxGoW03OQTvNEI3at2lFbX3JK8nE9_RJFctAeq8ktxfLeuO9zsknq5QoGDpCMdRGujVEqQmY1x1cI-7cj6JrDblIntOIkZhqmcg5GlwCjDTbrItGgdUGShaORa-NwwHpvAxsxi-YdCvHSe-gkEgcIMTxYijM.jpg",
+  "excerpt": "Sensitive Information Disclosure pada Aplikasi LLM Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah merevolusi interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, menulis kode dalam berbagai bahasa pemrograman, bahkan berpartisipasi dalam percakapan yang meniru manusia, membuka peluang baru di berbagai industri. Namun, di balik kemudahan penggunaan ini, terdapat sebuah tantangan signifikan dan berpotensi berbahaya: risiko *Sensitive Information Disclosure* (SID). Artikel ini akan mengupas tuntas fenomena SID pada aplikasi LLM, menjelaskan apa itu, bagaimana hal ini bisa terjadi, mengapa ini menjadi perhatian utama, serta langkah-langkah strategis yang dapat diambil untuk…",
+  "content_html": "<p>&nbsp;</p>\n<h1>Sensitive Information Disclosure pada Aplikasi LLM</h1>\n<p>Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah merevolusi interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, menulis kode dalam berbagai bahasa pemrograman, bahkan berpartisipasi dalam percakapan yang meniru manusia, membuka peluang baru di berbagai industri. Namun, di balik kemudahan penggunaan ini, terdapat sebuah tantangan signifikan dan berpotensi berbahaya: risiko *Sensitive Information Disclosure* (SID). Artikel ini akan mengupas tuntas fenomena SID pada aplikasi LLM, menjelaskan apa itu, bagaimana hal ini bisa terjadi, mengapa ini menjadi perhatian utama, serta langkah-langkah strategis yang dapat diambil untuk memitigasinya. Target pembaca adalah mereka yang memiliki pemahaman dasar tentang teknologi dan potensi dampaknya, namun belum sepenuhnya memahami implikasi keamanan dan privasi yang terkait dengan penggunaan LLM secara luas.</p>\n<h2>Apa Itu Sensitive Information Disclosure (SID)?</h2>\n<p>Sensitive Information Disclosure (SID) dalam konteks LLM merujuk pada kecenderungan model untuk secara tidak sengaja atau bahkan disengaja mengungkapkan informasi pribadi yang sensitif, data rahasia perusahaan, detail sistem yang seharusnya tidak dapat diakses, atau kerahasiaan operasional. Analogi sederhananya adalah membicarakan proyek bisnis yang sangat penting dengan teman dekat, dan kemudian teman tersebut tanpa sadar mengungkap detail-detail pentingnya kepada orang lain. Proses ini terjadi karena LLM dilatih menggunakan dataset teks yang sangat besar—kadang-kadang mencapai terabyte atau bahkan petabyte—yang diambil dari berbagai sumber di seluruh internet.</p>\n<p>Dataset pelatihan LLM mencakup berbagai macam konten, termasuk dokumen publik, artikel berita, postingan media sosial, transkrip percakapan online, kode sumber yang dipublikasikan (seperti repositori GitHub), dan bahkan data yang mungkin secara tidak sengaja terpublikasi oleh individu atau organisasi. Karena LLM belajar dengan mengidentifikasi pola dalam data ini, mereka dapat menghasilkan output yang mengandung informasi yang ada dalam dataset pelatihan, meskipun Anda tidak secara eksplisit meminta informasi tersebut. Ini bukan berarti model &#8220;memahami&#8221; informasi tersebut, melainkan memprediksi kata-kata berikutnya berdasarkan probabilitas yang dipelajari dari data pelatihan.</p>\n<h2>Bagaimana SID Terjadi pada LLM?</h2>\n<p>Ada beberapa mekanisme utama yang dapat menyebabkan SID pada aplikasi LLM. Memahami cara-cara ini adalah kunci untuk mengembangkan strategi mitigasi yang efektif:</p>\n<ul>\n<li><strong>Data Pelatihan yang Tidak Terfilter:</strong> Dataset pelatihan seringkali tidak sepenuhnya bersih dari informasi sensitif. Proses penyaringan data, meskipun ada, mungkin tidak sempurna, terutama ketika data berasal dari sumber-sumber yang kurang terpercaya atau data yang telah dipublikasikan tetapi belum dihapus dari internet. Misalnya, dataset publik mungkin berisi nama karyawan bersama dengan deskripsi pekerjaan mereka, atau detail kontak pelanggan yang tercantum dalam forum diskusi online.</li>\n<li><strong>&#8220;Memorization&#8221; (Penyimpanan) dan *In-Context Learning*:</strong> LLM cenderung &#8220;mengingat&#8221; informasi yang mereka lihat selama pelatihan. Mereka tidak hanya mempelajari pola statistik; mereka juga mampu menyimpan sebagian dari konten yang mereka pelajari. Ketika Anda memberikan prompt, LLM dapat menggunakan &#8220;in-context learning,&#8221; yaitu menggunakan contoh-contoh yang diberikan dalam prompt tersebut untuk memandu responsnya. Jika prompt berisi data sensitif, LLM mungkin secara verbatim meniru teks tersebut dalam outputnya. Ini mirip dengan seorang siswa yang menghafal jawaban ujian dengan tepat, bukan memahami konsepnya; informasi tersebut hanya tersimpan sementara dan mudah dilupakan, tetapi dalam kasus LLM, informasi tersebut dapat muncul kembali secara tak terduga.</li>\n<li><strong>Prompt Injection:</strong> Prompt injection adalah teknik berbahaya di mana pengguna memasukkan instruksi khusus ke dalam prompt yang dirancang untuk membujuk LLM agar mengungkapkan informasi rahasia atau melakukan tindakan yang tidak diinginkan. Ini bukan hanya kesalahan ketik; ini adalah serangan yang disengaja. Contohnya, seorang pengguna mungkin bertanya, “Tuliskan kode SQL untuk mengakses database internal perusahaan dan mendapatkan semua data pelanggan.” Atau, mereka bisa menggunakan teknik *jailbreaking* untuk mengelabui model agar melanggar batasan yang telah ditetapkan.</li>\n<li><strong>Hallucination (Halusinasi):</strong> Meskipun bukan secara langsung SID, fenomena *hallucination* – di mana LLM menghasilkan informasi palsu yang terdengar meyakinkan—dapat memperburuk masalah. Jika LLM &#8220;berhalusinasi&#8221; dan memberikan detail palsu tentang sebuah sistem atau proses, informasi tersebut dapat dianggap sebagai fakta dan disebarkan lebih lanjut, yang pada akhirnya dapat menyebabkan kebocoran informasi sensitif jika detail palsu itu sendiri mengandung data rahasia.</li>\n</ul>\n<h2>Contoh Konkret SID pada LLM</h2>\n<p>Berikut beberapa contoh konkret bagaimana SID dapat terjadi dalam skenario praktis:</p>\n<ul>\n<li>Sebuah LLM yang digunakan untuk menghasilkan ringkasan dokumen hukum secara tidak sengaja menghasilkan nomor kartu kredit pelanggan yang terdaftar dalam dokumen tersebut.</li>\n<li>LLM mengungkapkan detail tentang strategi pemasaran rahasia perusahaan setelah diminta untuk memberikan analisis pasar, yang kemudian disebarkan melalui postingan media sosial oleh pengguna yang terkejut.</li>\n<li>LLM memberikan informasi pribadi tentang karyawan, seperti alamat rumah dan nomor telepon, setelah diberikan prompt yang meminta deskripsi profil individu—misalnya, “Buat profil karyawan baru untuk posisi ini.”</li>\n<li>LLM menghasilkan kode yang dapat digunakan untuk mengeksploitasi kerentanan keamanan sistem, karena telah dilatih dengan banyak contoh kode sumber publik yang mengandung *vulnerability*.</li>\n<li>Sebuah chatbot layanan pelanggan mengungkapkan kata sandi akun pengguna setelah diminta untuk membantu memecahkan masalah login.</li>\n</ul>\n<h2>Manfaat Menggunakan LLM (dan Mengapa SID Menjadi Masalah)</h2>\n<p>Meskipun risiko SID ada, penting untuk mengakui bahwa LLM menawarkan sejumlah manfaat yang signifikan dan terus berkembang. Memahami manfaat ini membantu kita menimbang risiko dengan lebih baik:</p>\n<ul>\n<li><strong>Otomatisasi Tugas:</strong> LLM dapat mengotomatiskan berbagai tugas yang sebelumnya membutuhkan waktu dan sumber daya manusia yang besar, seperti penulisan konten pemasaran, penerjemahan bahasa secara *real-time*, pembuatan ringkasan dokumen panjang, dan bahkan pembuatan kode sederhana.</li>\n<li><strong>Peningkatan Produktivitas:</strong> Mereka dapat membantu meningkatkan produktivitas dengan menyediakan bantuan cepat untuk penelitian, brainstorming ide, penyelesaian tugas rutin, dan pembuatan kode.</li>\n<li><strong>Personalisasi Pengalaman:</strong> LLM dapat digunakan untuk mempersonalisasi pengalaman pengguna di berbagai aplikasi dan layanan, misalnya, memberikan rekomendasi produk yang dipersonalisasi atau menyesuaikan antarmuka pengguna berdasarkan preferensi individu.</li>\n<li>**Pengembangan Aplikasi:** LLM dapat digunakan untuk membantu dalam pengembangan aplikasi baru secara keseluruhan, dengan menghasilkan kode, mendokumentasikan fitur, dan bahkan membantu dalam proses pengujian.</li>\n</ul>\n<p>SID menjadi masalah serius karena potensi dampaknya yang merugikan: kerugian finansial (akibat pelanggaran data), kerusakan reputasi perusahaan, tuntutan hukum terkait pelanggaran privasi, ancaman keamanan siber, dan hilangnya kepercayaan pelanggan.</p>\n<h2>Keterbatasan dan Risiko SID</h2>\n<p>Meskipun ada upaya untuk memitigasi risiko SID, beberapa keterbatasan dan risiko tetap ada yang perlu diakui:</p>\n<ul>\n<li><strong>Sulit Dideteksi:</strong> Output yang dihasilkan LLM seringkali terdengar alami dan meyakinkan, sehingga sulit bagi manusia untuk mendeteksi apakah informasi tersebut sensitif—terutama jika output tersebut disajikan dengan cara yang lancar dan koheren.</li>\n<li><strong>Dataset Pelatihan yang Dinamis:</strong> Dataset pelatihan LLM terus berkembang seiring waktu karena data baru ditambahkan dan data lama dihapus. Ini berarti bahwa informasi sensitif yang mungkin telah dihapus dari dataset pelatihan sebelumnya dapat muncul kembali di kemudian hari.</li>\n<li><strong>Evolusi Teknik Prompt Injection:</strong> Teknik prompt injection terus berkembang dan semakin canggih, sehingga semakin sulit untuk melindungi LLM dari serangan tersebut. Para *adversarial* (pencipta serangan) terus mencari cara baru untuk membujuk LLM agar mengungkapkan informasi rahasia.</li>\n<li>**Kurangnya Pemahaman Kontekstual:** LLM seringkali kekurangan pemahaman kontekstual yang mendalam tentang informasi yang mereka proses, sehingga dapat menghasilkan output yang tidak sesuai atau bahkan berbahaya jika konteksnya salah.</li>\n</ul>\n<h2>Langkah-langkah Mitigasi SID</h2>\n<p>Beberapa langkah dapat diambil untuk memitigasi risiko SID:</p>\n<ul>\n<li><strong>Pemfilteran Dataset Pelatihan:</strong> Menghapus atau memodifikasi informasi sensitif dari dataset pelatihan. Ini adalah langkah yang paling efektif tetapi juga yang paling kompleks dan mahal, karena memerlukan pemindaian dan penyaringan data secara terus menerus.</li>\n<li><strong>Prompt Engineering yang Hati-hati:</strong> Merancang prompt dengan hati-hati untuk menghindari meminta informasi sensitif. Gunakan prompt yang spesifik dan jelas, dan hindari pertanyaan terbuka yang dapat memicu keluarnya informasi rahasia.</li>\n<li><strong>Filtering Output LLM:</strong> Menerapkan filter untuk mendeteksi dan menghapus output yang mengandung informasi sensitif. Ini bisa berupa filter berbasis aturan (misalnya, memblokir kata kunci tertentu) atau filter berbasis AI (yang menggunakan model pembelajaran mesin untuk mengidentifikasi output yang mencurigakan).</li>\n<li><strong>Pengawasan Manusia:</strong> Melibatkan manusia dalam proses pengujian dan validasi output LLM, terutama untuk aplikasi yang berisiko tinggi.</li>\n<li><strong>Pembatasan Akses:</strong> Membatasi akses ke LLM hanya kepada pengguna yang berwenang, dan menerapkan kontrol keamanan yang ketat untuk mencegah penyalahgunaan.</li>\n<li>**Pelatihan Model:** Melatih model dengan data yang telah dimodifikasi atau disensor untuk mengurangi kemungkinan keluarnya informasi sensitif.</li>\n</ul>\n<h2>Penerapan SID dalam Berbagai Sektor</h2>\n<p>Risiko SID relevan di berbagai sektor, dan semakin banyak organisasi yang mulai menyadari pentingnya mengatasi masalah ini:</p>\n<ul>\n<li><strong>Keuangan:</strong> LLM digunakan untuk deteksi penipuan dan analisis risiko, tetapi dapat mengungkapkan informasi keuangan sensitif jika tidak ditangani dengan hati-hati.</li>\n<li><strong>Kesehatan:</strong> LLM digunakan untuk membantu diagnosis dan perawatan pasien, tetapi dapat membocorkan data medis pribadi jika tidak dilindungi dengan benar.</li>\n<li><strong>Pemerintahan:</strong> LLM digunakan untuk berbagai aplikasi, seperti layanan pelanggan dan analisis intelijen, tetapi dapat mengungkapkan informasi rahasia negara jika tidak dikendalikan.</li>\n<li>**Hukum:** LLM digunakan dalam penelitian hukum dan pembuatan dokumen, yang menimbulkan risiko kebocoran informasi klien yang sensitif.</li>\n<li>**Teknologi Informasi (TI):** Penggunaan LLM untuk otomatisasi tugas TI dapat berpotensi mengungkapkan detail tentang infrastruktur sistem, konfigurasi keamanan, dan kerentanan lainnya.</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>Sensitive Information Disclosure pada aplikasi LLM adalah masalah serius yang memerlukan perhatian serius dan pendekatan multidisiplin. Meskipun LLM menawarkan potensi manfaat yang luar biasa, risiko penyebaran informasi sensitif harus dimitigasi dengan hati-hati melalui kombinasi langkah-langkah teknis yang canggih, kebijakan yang jelas, dan kesadaran pengguna yang tinggi. Sebagai pengguna dan pengembang, kita perlu menyadari potensi risiko ini dan mengambil langkah-langkah proaktif untuk melindungi data sensitif. Seiring dengan perkembangan teknologi LLM, pemahaman dan strategi mitigasi SID juga akan terus berkembang. Penting untuk terus memantau perkembangan terbaru di bidang ini dan beradaptasi dengan perubahan yang terjadi. Diperlukan kerja sama antara pengembang model, organisasi yang menggunakan LLM, dan regulator untuk memastikan bahwa teknologi ini digunakan secara bertanggung jawab dan aman.</p>\n",
+  "content_text": "Sensitive Information Disclosure pada Aplikasi LLM\nLarge Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah merevolusi interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, menulis kode dalam berbagai bahasa pemrograman, bahkan berpartisipasi dalam percakapan yang meniru manusia, membuka peluang baru di berbagai industri. Namun, di balik kemudahan penggunaan ini, terdapat sebuah tantangan signifikan dan berpotensi berbahaya: risiko *Sensitive Information Disclosure* (SID). Artikel ini akan mengupas tuntas fenomena SID pada aplikasi LLM, menjelaskan apa itu, bagaimana hal ini bisa terjadi, mengapa ini menjadi perhatian utama, serta langkah-langkah strategis yang dapat diambil untuk memitigasinya. Target pembaca adalah mereka yang memiliki pemahaman dasar tentang teknologi dan potensi dampaknya, namun belum sepenuhnya memahami implikasi keamanan dan privasi yang terkait dengan penggunaan LLM secara luas.\nApa Itu Sensitive Information Disclosure (SID)?\nSensitive Information Disclosure (SID) dalam konteks LLM merujuk pada kecenderungan model untuk secara tidak sengaja atau bahkan disengaja mengungkapkan informasi pribadi yang sensitif, data rahasia perusahaan, detail sistem yang seharusnya tidak dapat diakses, atau kerahasiaan operasional. Analogi sederhananya adalah membicarakan proyek bisnis yang sangat penting dengan teman dekat, dan kemudian teman tersebut tanpa sadar mengungkap detail-detail pentingnya kepada orang lain. Proses ini terjadi karena LLM dilatih menggunakan dataset teks yang sangat besar—kadang-kadang mencapai terabyte atau bahkan petabyte—yang diambil dari berbagai sumber di seluruh internet.\nDataset pelatihan LLM mencakup berbagai macam konten, termasuk dokumen publik, artikel berita, postingan media sosial, transkrip percakapan online, kode sumber yang dipublikasikan (seperti repositori GitHub), dan bahkan data yang mungkin secara tidak sengaja terpublikasi oleh individu atau organisasi. Karena LLM belajar dengan mengidentifikasi pola dalam data ini, mereka dapat menghasilkan output yang mengandung informasi yang ada dalam dataset pelatihan, meskipun Anda tidak secara eksplisit meminta informasi tersebut. Ini bukan berarti model “memahami” informasi tersebut, melainkan memprediksi kata-kata berikutnya berdasarkan probabilitas yang dipelajari dari data pelatihan.\nBagaimana SID Terjadi pada LLM?\nAda beberapa mekanisme utama yang dapat menyebabkan SID pada aplikasi LLM. Memahami cara-cara ini adalah kunci untuk mengembangkan strategi mitigasi yang efektif:\nData Pelatihan yang Tidak Terfilter:  Dataset pelatihan seringkali tidak sepenuhnya bersih dari informasi sensitif. Proses penyaringan data, meskipun ada, mungkin tidak sempurna, terutama ketika data berasal dari sumber-sumber yang kurang terpercaya atau data yang telah dipublikasikan tetapi belum dihapus dari internet. Misalnya, dataset publik mungkin berisi nama karyawan bersama dengan deskripsi pekerjaan mereka, atau detail kontak pelanggan yang tercantum dalam forum diskusi online.\n“Memorization” (Penyimpanan) dan *In-Context Learning*:  LLM cenderung “mengingat” informasi yang mereka lihat selama pelatihan. Mereka tidak hanya mempelajari pola statistik; mereka juga mampu menyimpan sebagian dari konten yang mereka pelajari. Ketika Anda memberikan prompt, LLM dapat menggunakan “in-context learning,” yaitu menggunakan contoh-contoh yang diberikan dalam prompt tersebut untuk memandu responsnya. Jika prompt berisi data sensitif, LLM mungkin secara verbatim meniru teks tersebut dalam outputnya. Ini mirip dengan seorang siswa yang menghafal jawaban ujian dengan tepat, bukan memahami konsepnya; informasi tersebut hanya tersimpan sementara dan mudah dilupakan, tetapi dalam kasus LLM, informasi tersebut dapat muncul kembali secara tak terduga.\nPrompt Injection:  Prompt injection adalah teknik berbahaya di mana pengguna memasukkan instruksi khusus ke dalam prompt yang dirancang untuk membujuk LLM agar mengungkapkan informasi rahasia atau melakukan tindakan yang tidak diinginkan. Ini bukan hanya kesalahan ketik; ini adalah serangan yang disengaja. Contohnya, seorang pengguna mungkin bertanya, “Tuliskan kode SQL untuk mengakses database internal perusahaan dan mendapatkan semua data pelanggan.” Atau, mereka bisa menggunakan teknik *jailbreaking* untuk mengelabui model agar melanggar batasan yang telah ditetapkan.\nHallucination (Halusinasi):  Meskipun bukan secara langsung SID, fenomena *hallucination* – di mana LLM menghasilkan informasi palsu yang terdengar meyakinkan—dapat memperburuk masalah. Jika LLM “berhalusinasi” dan memberikan detail palsu tentang sebuah sistem atau proses, informasi tersebut dapat dianggap sebagai fakta dan disebarkan lebih lanjut, yang pada akhirnya dapat menyebabkan kebocoran informasi sensitif jika detail palsu itu sendiri mengandung data rahasia.\nContoh Konkret SID pada LLM\nBerikut beberapa contoh konkret bagaimana SID dapat terjadi dalam skenario praktis:\nSebuah LLM yang digunakan untuk menghasilkan ringkasan dokumen hukum secara tidak sengaja menghasilkan nomor kartu kredit pelanggan yang terdaftar dalam dokumen tersebut.\nLLM mengungkapkan detail tentang strategi pemasaran rahasia perusahaan setelah diminta untuk memberikan analisis pasar, yang kemudian disebarkan melalui postingan media sosial oleh pengguna yang terkejut.\nLLM memberikan informasi pribadi tentang karyawan, seperti alamat rumah dan nomor telepon, setelah diberikan prompt yang meminta deskripsi profil individu—misalnya, “Buat profil karyawan baru untuk posisi ini.”\nLLM menghasilkan kode yang dapat digunakan untuk mengeksploitasi kerentanan keamanan sistem, karena telah dilatih dengan banyak contoh kode sumber publik yang mengandung *vulnerability*.\nSebuah chatbot layanan pelanggan mengungkapkan kata sandi akun pengguna setelah diminta untuk membantu memecahkan masalah login.\nManfaat Menggunakan LLM (dan Mengapa SID Menjadi Masalah)\nMeskipun risiko SID ada, penting untuk mengakui bahwa LLM menawarkan sejumlah manfaat yang signifikan dan terus berkembang. Memahami manfaat ini membantu kita menimbang risiko dengan lebih baik:\nOtomatisasi Tugas:  LLM dapat mengotomatiskan berbagai tugas yang sebelumnya membutuhkan waktu dan sumber daya manusia yang besar, seperti penulisan konten pemasaran, penerjemahan bahasa secara *real-time*, pembuatan ringkasan dokumen panjang, dan bahkan pembuatan kode sederhana.\nPeningkatan Produktivitas:  Mereka dapat membantu meningkatkan produktivitas dengan menyediakan bantuan cepat untuk penelitian, brainstorming ide, penyelesaian tugas rutin, dan pembuatan kode.\nPersonalisasi Pengalaman:  LLM dapat digunakan untuk mempersonalisasi pengalaman pengguna di berbagai aplikasi dan layanan, misalnya, memberikan rekomendasi produk yang dipersonalisasi atau menyesuaikan antarmuka pengguna berdasarkan preferensi individu.\n**Pengembangan Aplikasi:** LLM dapat digunakan untuk membantu dalam pengembangan aplikasi baru secara keseluruhan, dengan menghasilkan kode, mendokumentasikan fitur, dan bahkan membantu dalam proses pengujian.\nSID menjadi masalah serius karena potensi dampaknya yang merugikan: kerugian finansial (akibat pelanggaran data), kerusakan reputasi perusahaan, tuntutan hukum terkait pelanggaran privasi, ancaman keamanan siber, dan hilangnya kepercayaan pelanggan.\nKeterbatasan dan Risiko SID\nMeskipun ada upaya untuk memitigasi risiko SID, beberapa keterbatasan dan risiko tetap ada yang perlu diakui:\nSulit Dideteksi:  Output yang dihasilkan LLM seringkali terdengar alami dan meyakinkan, sehingga sulit bagi manusia untuk mendeteksi apakah informasi tersebut sensitif—terutama jika output tersebut disajikan dengan cara yang lancar dan koheren.\nDataset Pelatihan yang Dinamis:  Dataset pelatihan LLM terus berkembang seiring waktu karena data baru ditambahkan dan data lama dihapus. Ini berarti bahwa informasi sensitif yang mungkin telah dihapus dari dataset pelatihan sebelumnya dapat muncul kembali di kemudian hari.\nEvolusi Teknik Prompt Injection:  Teknik prompt injection terus berkembang dan semakin canggih, sehingga semakin sulit untuk melindungi LLM dari serangan tersebut. Para *adversarial* (pencipta serangan) terus mencari cara baru untuk membujuk LLM agar mengungkapkan informasi rahasia.\n**Kurangnya Pemahaman Kontekstual:** LLM seringkali kekurangan pemahaman kontekstual yang mendalam tentang informasi yang mereka proses, sehingga dapat menghasilkan output yang tidak sesuai atau bahkan berbahaya jika konteksnya salah.\nLangkah-langkah Mitigasi SID\nBeberapa langkah dapat diambil untuk memitigasi risiko SID:\nPemfilteran Dataset Pelatihan:  Menghapus atau memodifikasi informasi sensitif dari dataset pelatihan. Ini adalah langkah yang paling efektif tetapi juga yang paling kompleks dan mahal, karena memerlukan pemindaian dan penyaringan data secara terus menerus.\nPrompt Engineering yang Hati-hati:  Merancang prompt dengan hati-hati untuk menghindari meminta informasi sensitif. Gunakan prompt yang spesifik dan jelas, dan hindari pertanyaan terbuka yang dapat memicu keluarnya informasi rahasia.\nFiltering Output LLM:  Menerapkan filter untuk mendeteksi dan menghapus output yang mengandung informasi sensitif. Ini bisa berupa filter berbasis aturan (misalnya, memblokir kata kunci tertentu) atau filter berbasis AI (yang menggunakan model pembelajaran mesin untuk mengidentifikasi output yang mencurigakan).\nPengawasan Manusia:  Melibatkan manusia dalam proses pengujian dan validasi output LLM, terutama untuk aplikasi yang berisiko tinggi.\nPembatasan Akses:  Membatasi akses ke LLM hanya kepada pengguna yang berwenang, dan menerapkan kontrol keamanan yang ketat untuk mencegah penyalahgunaan.\n**Pelatihan Model:** Melatih model dengan data yang telah dimodifikasi atau disensor untuk mengurangi kemungkinan keluarnya informasi sensitif.\nPenerapan SID dalam Berbagai Sektor\nRisiko SID relevan di berbagai sektor, dan semakin banyak organisasi yang mulai menyadari pentingnya mengatasi masalah ini:\nKeuangan:  LLM digunakan untuk deteksi penipuan dan analisis risiko, tetapi dapat mengungkapkan informasi keuangan sensitif jika tidak ditangani dengan hati-hati.\nKesehatan:  LLM digunakan untuk membantu diagnosis dan perawatan pasien, tetapi dapat membocorkan data medis pribadi jika tidak dilindungi dengan benar.\nPemerintahan:  LLM digunakan untuk berbagai aplikasi, seperti layanan pelanggan dan analisis intelijen, tetapi dapat mengungkapkan informasi rahasia negara jika tidak dikendalikan.\n**Hukum:** LLM digunakan dalam penelitian hukum dan pembuatan dokumen, yang menimbulkan risiko kebocoran informasi klien yang sensitif.\n**Teknologi Informasi (TI):** Penggunaan LLM untuk otomatisasi tugas TI dapat berpotensi mengungkapkan detail tentang infrastruktur sistem, konfigurasi keamanan, dan kerentanan lainnya.\nKesimpulan\nSensitive Information Disclosure pada aplikasi LLM adalah masalah serius yang memerlukan perhatian serius dan pendekatan multidisiplin. Meskipun LLM menawarkan potensi manfaat yang luar biasa, risiko penyebaran informasi sensitif harus dimitigasi dengan hati-hati melalui kombinasi langkah-langkah teknis yang canggih, kebijakan yang jelas, dan kesadaran pengguna yang tinggi. Sebagai pengguna dan pengembang, kita perlu menyadari potensi risiko ini dan mengambil langkah-langkah proaktif untuk melindungi data sensitif. Seiring dengan perkembangan teknologi LLM, pemahaman dan strategi mitigasi SID juga akan terus berkembang. Penting untuk terus memantau perkembangan terbaru di bidang ini dan beradaptasi dengan perubahan yang terjadi. Diperlukan kerja sama antara pengembang model, organisasi yang menggunakan LLM, dan regulator untuk memastikan bahwa teknologi ini digunakan secara bertanggung jawab dan aman.",
+  "raw": {
+    "id": 19263,
+    "date": "2026-07-31T10:31:28",
+    "date_gmt": "2026-07-31T10:31:28",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=19263"
+    },
+    "modified": "2026-07-31T10:31:28",
+    "modified_gmt": "2026-07-31T10:31:28",
+    "slug": "sensitive-information-disclosure-pada-aplikasi-llm-2",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/",
+    "title": {
+      "rendered": "Sensitive Information Disclosure pada Aplikasi LLM"
+    },
+    "content": {
+      "rendered": "<p>&nbsp;</p>\n<h1>Sensitive Information Disclosure pada Aplikasi LLM</h1>\n<p>Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah merevolusi interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, menulis kode dalam berbagai bahasa pemrograman, bahkan berpartisipasi dalam percakapan yang meniru manusia, membuka peluang baru di berbagai industri. Namun, di balik kemudahan penggunaan ini, terdapat sebuah tantangan signifikan dan berpotensi berbahaya: risiko *Sensitive Information Disclosure* (SID). Artikel ini akan mengupas tuntas fenomena SID pada aplikasi LLM, menjelaskan apa itu, bagaimana hal ini bisa terjadi, mengapa ini menjadi perhatian utama, serta langkah-langkah strategis yang dapat diambil untuk memitigasinya. Target pembaca adalah mereka yang memiliki pemahaman dasar tentang teknologi dan potensi dampaknya, namun belum sepenuhnya memahami implikasi keamanan dan privasi yang terkait dengan penggunaan LLM secara luas.</p>\n<h2>Apa Itu Sensitive Information Disclosure (SID)?</h2>\n<p>Sensitive Information Disclosure (SID) dalam konteks LLM merujuk pada kecenderungan model untuk secara tidak sengaja atau bahkan disengaja mengungkapkan informasi pribadi yang sensitif, data rahasia perusahaan, detail sistem yang seharusnya tidak dapat diakses, atau kerahasiaan operasional. Analogi sederhananya adalah membicarakan proyek bisnis yang sangat penting dengan teman dekat, dan kemudian teman tersebut tanpa sadar mengungkap detail-detail pentingnya kepada orang lain. Proses ini terjadi karena LLM dilatih menggunakan dataset teks yang sangat besar—kadang-kadang mencapai terabyte atau bahkan petabyte—yang diambil dari berbagai sumber di seluruh internet.</p>\n<p>Dataset pelatihan LLM mencakup berbagai macam konten, termasuk dokumen publik, artikel berita, postingan media sosial, transkrip percakapan online, kode sumber yang dipublikasikan (seperti repositori GitHub), dan bahkan data yang mungkin secara tidak sengaja terpublikasi oleh individu atau organisasi. Karena LLM belajar dengan mengidentifikasi pola dalam data ini, mereka dapat menghasilkan output yang mengandung informasi yang ada dalam dataset pelatihan, meskipun Anda tidak secara eksplisit meminta informasi tersebut. Ini bukan berarti model &#8220;memahami&#8221; informasi tersebut, melainkan memprediksi kata-kata berikutnya berdasarkan probabilitas yang dipelajari dari data pelatihan.</p>\n<h2>Bagaimana SID Terjadi pada LLM?</h2>\n<p>Ada beberapa mekanisme utama yang dapat menyebabkan SID pada aplikasi LLM. Memahami cara-cara ini adalah kunci untuk mengembangkan strategi mitigasi yang efektif:</p>\n<ul>\n<li><strong>Data Pelatihan yang Tidak Terfilter:</strong> Dataset pelatihan seringkali tidak sepenuhnya bersih dari informasi sensitif. Proses penyaringan data, meskipun ada, mungkin tidak sempurna, terutama ketika data berasal dari sumber-sumber yang kurang terpercaya atau data yang telah dipublikasikan tetapi belum dihapus dari internet. Misalnya, dataset publik mungkin berisi nama karyawan bersama dengan deskripsi pekerjaan mereka, atau detail kontak pelanggan yang tercantum dalam forum diskusi online.</li>\n<li><strong>&#8220;Memorization&#8221; (Penyimpanan) dan *In-Context Learning*:</strong> LLM cenderung &#8220;mengingat&#8221; informasi yang mereka lihat selama pelatihan. Mereka tidak hanya mempelajari pola statistik; mereka juga mampu menyimpan sebagian dari konten yang mereka pelajari. Ketika Anda memberikan prompt, LLM dapat menggunakan &#8220;in-context learning,&#8221; yaitu menggunakan contoh-contoh yang diberikan dalam prompt tersebut untuk memandu responsnya. Jika prompt berisi data sensitif, LLM mungkin secara verbatim meniru teks tersebut dalam outputnya. Ini mirip dengan seorang siswa yang menghafal jawaban ujian dengan tepat, bukan memahami konsepnya; informasi tersebut hanya tersimpan sementara dan mudah dilupakan, tetapi dalam kasus LLM, informasi tersebut dapat muncul kembali secara tak terduga.</li>\n<li><strong>Prompt Injection:</strong> Prompt injection adalah teknik berbahaya di mana pengguna memasukkan instruksi khusus ke dalam prompt yang dirancang untuk membujuk LLM agar mengungkapkan informasi rahasia atau melakukan tindakan yang tidak diinginkan. Ini bukan hanya kesalahan ketik; ini adalah serangan yang disengaja. Contohnya, seorang pengguna mungkin bertanya, “Tuliskan kode SQL untuk mengakses database internal perusahaan dan mendapatkan semua data pelanggan.” Atau, mereka bisa menggunakan teknik *jailbreaking* untuk mengelabui model agar melanggar batasan yang telah ditetapkan.</li>\n<li><strong>Hallucination (Halusinasi):</strong> Meskipun bukan secara langsung SID, fenomena *hallucination* – di mana LLM menghasilkan informasi palsu yang terdengar meyakinkan—dapat memperburuk masalah. Jika LLM &#8220;berhalusinasi&#8221; dan memberikan detail palsu tentang sebuah sistem atau proses, informasi tersebut dapat dianggap sebagai fakta dan disebarkan lebih lanjut, yang pada akhirnya dapat menyebabkan kebocoran informasi sensitif jika detail palsu itu sendiri mengandung data rahasia.</li>\n</ul>\n<h2>Contoh Konkret SID pada LLM</h2>\n<p>Berikut beberapa contoh konkret bagaimana SID dapat terjadi dalam skenario praktis:</p>\n<ul>\n<li>Sebuah LLM yang digunakan untuk menghasilkan ringkasan dokumen hukum secara tidak sengaja menghasilkan nomor kartu kredit pelanggan yang terdaftar dalam dokumen tersebut.</li>\n<li>LLM mengungkapkan detail tentang strategi pemasaran rahasia perusahaan setelah diminta untuk memberikan analisis pasar, yang kemudian disebarkan melalui postingan media sosial oleh pengguna yang terkejut.</li>\n<li>LLM memberikan informasi pribadi tentang karyawan, seperti alamat rumah dan nomor telepon, setelah diberikan prompt yang meminta deskripsi profil individu—misalnya, “Buat profil karyawan baru untuk posisi ini.”</li>\n<li>LLM menghasilkan kode yang dapat digunakan untuk mengeksploitasi kerentanan keamanan sistem, karena telah dilatih dengan banyak contoh kode sumber publik yang mengandung *vulnerability*.</li>\n<li>Sebuah chatbot layanan pelanggan mengungkapkan kata sandi akun pengguna setelah diminta untuk membantu memecahkan masalah login.</li>\n</ul>\n<h2>Manfaat Menggunakan LLM (dan Mengapa SID Menjadi Masalah)</h2>\n<p>Meskipun risiko SID ada, penting untuk mengakui bahwa LLM menawarkan sejumlah manfaat yang signifikan dan terus berkembang. Memahami manfaat ini membantu kita menimbang risiko dengan lebih baik:</p>\n<ul>\n<li><strong>Otomatisasi Tugas:</strong> LLM dapat mengotomatiskan berbagai tugas yang sebelumnya membutuhkan waktu dan sumber daya manusia yang besar, seperti penulisan konten pemasaran, penerjemahan bahasa secara *real-time*, pembuatan ringkasan dokumen panjang, dan bahkan pembuatan kode sederhana.</li>\n<li><strong>Peningkatan Produktivitas:</strong> Mereka dapat membantu meningkatkan produktivitas dengan menyediakan bantuan cepat untuk penelitian, brainstorming ide, penyelesaian tugas rutin, dan pembuatan kode.</li>\n<li><strong>Personalisasi Pengalaman:</strong> LLM dapat digunakan untuk mempersonalisasi pengalaman pengguna di berbagai aplikasi dan layanan, misalnya, memberikan rekomendasi produk yang dipersonalisasi atau menyesuaikan antarmuka pengguna berdasarkan preferensi individu.</li>\n<li>**Pengembangan Aplikasi:** LLM dapat digunakan untuk membantu dalam pengembangan aplikasi baru secara keseluruhan, dengan menghasilkan kode, mendokumentasikan fitur, dan bahkan membantu dalam proses pengujian.</li>\n</ul>\n<p>SID menjadi masalah serius karena potensi dampaknya yang merugikan: kerugian finansial (akibat pelanggaran data), kerusakan reputasi perusahaan, tuntutan hukum terkait pelanggaran privasi, ancaman keamanan siber, dan hilangnya kepercayaan pelanggan.</p>\n<h2>Keterbatasan dan Risiko SID</h2>\n<p>Meskipun ada upaya untuk memitigasi risiko SID, beberapa keterbatasan dan risiko tetap ada yang perlu diakui:</p>\n<ul>\n<li><strong>Sulit Dideteksi:</strong> Output yang dihasilkan LLM seringkali terdengar alami dan meyakinkan, sehingga sulit bagi manusia untuk mendeteksi apakah informasi tersebut sensitif—terutama jika output tersebut disajikan dengan cara yang lancar dan koheren.</li>\n<li><strong>Dataset Pelatihan yang Dinamis:</strong> Dataset pelatihan LLM terus berkembang seiring waktu karena data baru ditambahkan dan data lama dihapus. Ini berarti bahwa informasi sensitif yang mungkin telah dihapus dari dataset pelatihan sebelumnya dapat muncul kembali di kemudian hari.</li>\n<li><strong>Evolusi Teknik Prompt Injection:</strong> Teknik prompt injection terus berkembang dan semakin canggih, sehingga semakin sulit untuk melindungi LLM dari serangan tersebut. Para *adversarial* (pencipta serangan) terus mencari cara baru untuk membujuk LLM agar mengungkapkan informasi rahasia.</li>\n<li>**Kurangnya Pemahaman Kontekstual:** LLM seringkali kekurangan pemahaman kontekstual yang mendalam tentang informasi yang mereka proses, sehingga dapat menghasilkan output yang tidak sesuai atau bahkan berbahaya jika konteksnya salah.</li>\n</ul>\n<h2>Langkah-langkah Mitigasi SID</h2>\n<p>Beberapa langkah dapat diambil untuk memitigasi risiko SID:</p>\n<ul>\n<li><strong>Pemfilteran Dataset Pelatihan:</strong> Menghapus atau memodifikasi informasi sensitif dari dataset pelatihan. Ini adalah langkah yang paling efektif tetapi juga yang paling kompleks dan mahal, karena memerlukan pemindaian dan penyaringan data secara terus menerus.</li>\n<li><strong>Prompt Engineering yang Hati-hati:</strong> Merancang prompt dengan hati-hati untuk menghindari meminta informasi sensitif. Gunakan prompt yang spesifik dan jelas, dan hindari pertanyaan terbuka yang dapat memicu keluarnya informasi rahasia.</li>\n<li><strong>Filtering Output LLM:</strong> Menerapkan filter untuk mendeteksi dan menghapus output yang mengandung informasi sensitif. Ini bisa berupa filter berbasis aturan (misalnya, memblokir kata kunci tertentu) atau filter berbasis AI (yang menggunakan model pembelajaran mesin untuk mengidentifikasi output yang mencurigakan).</li>\n<li><strong>Pengawasan Manusia:</strong> Melibatkan manusia dalam proses pengujian dan validasi output LLM, terutama untuk aplikasi yang berisiko tinggi.</li>\n<li><strong>Pembatasan Akses:</strong> Membatasi akses ke LLM hanya kepada pengguna yang berwenang, dan menerapkan kontrol keamanan yang ketat untuk mencegah penyalahgunaan.</li>\n<li>**Pelatihan Model:** Melatih model dengan data yang telah dimodifikasi atau disensor untuk mengurangi kemungkinan keluarnya informasi sensitif.</li>\n</ul>\n<h2>Penerapan SID dalam Berbagai Sektor</h2>\n<p>Risiko SID relevan di berbagai sektor, dan semakin banyak organisasi yang mulai menyadari pentingnya mengatasi masalah ini:</p>\n<ul>\n<li><strong>Keuangan:</strong> LLM digunakan untuk deteksi penipuan dan analisis risiko, tetapi dapat mengungkapkan informasi keuangan sensitif jika tidak ditangani dengan hati-hati.</li>\n<li><strong>Kesehatan:</strong> LLM digunakan untuk membantu diagnosis dan perawatan pasien, tetapi dapat membocorkan data medis pribadi jika tidak dilindungi dengan benar.</li>\n<li><strong>Pemerintahan:</strong> LLM digunakan untuk berbagai aplikasi, seperti layanan pelanggan dan analisis intelijen, tetapi dapat mengungkapkan informasi rahasia negara jika tidak dikendalikan.</li>\n<li>**Hukum:** LLM digunakan dalam penelitian hukum dan pembuatan dokumen, yang menimbulkan risiko kebocoran informasi klien yang sensitif.</li>\n<li>**Teknologi Informasi (TI):** Penggunaan LLM untuk otomatisasi tugas TI dapat berpotensi mengungkapkan detail tentang infrastruktur sistem, konfigurasi keamanan, dan kerentanan lainnya.</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>Sensitive Information Disclosure pada aplikasi LLM adalah masalah serius yang memerlukan perhatian serius dan pendekatan multidisiplin. Meskipun LLM menawarkan potensi manfaat yang luar biasa, risiko penyebaran informasi sensitif harus dimitigasi dengan hati-hati melalui kombinasi langkah-langkah teknis yang canggih, kebijakan yang jelas, dan kesadaran pengguna yang tinggi. Sebagai pengguna dan pengembang, kita perlu menyadari potensi risiko ini dan mengambil langkah-langkah proaktif untuk melindungi data sensitif. Seiring dengan perkembangan teknologi LLM, pemahaman dan strategi mitigasi SID juga akan terus berkembang. Penting untuk terus memantau perkembangan terbaru di bidang ini dan beradaptasi dengan perubahan yang terjadi. Diperlukan kerja sama antara pengembang model, organisasi yang menggunakan LLM, dan regulator untuk memastikan bahwa teknologi ini digunakan secara bertanggung jawab dan aman.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>&nbsp; Sensitive Information Disclosure pada Aplikasi LLM Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah merevolusi interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, menulis kode dalam berbagai bahasa pemrograman, bahkan berpartisipasi dalam percakapan yang meniru manusia, membuka peluang baru di berbagai industri. Namun, di balik kemudahan penggunaan ini, terdapat sebuah tantangan signifikan dan berpotensi berbahaya: risiko *Sensitive Information Disclosure* (SID). Artikel ini akan mengupas tuntas fenomena SID pada aplikasi LLM, menjelaskan apa itu, bagaimana hal ini bisa terjadi, mengapa ini menjadi perhatian utama, serta langkah-langkah strategis yang dapat diambil untuk&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 34,
+    "featured_media": 19269,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1919,
+      2616
+    ],
+    "tags": [
+      3535
+    ],
+    "class_list": [
+      "post-19263",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-ai",
+      "category-information-technology",
+      "tag-sensitive-information-disclosure-pada-aplikasi-llm"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Sensitive Information Disclosure pada Aplikasi LLM - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Sensitive Information Disclosure pada Aplikasi LLM - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"&nbsp; Sensitive Information Disclosure pada Aplikasi LLM Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah merevolusi interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, menulis kode dalam berbagai bahasa pemrograman, bahkan berpartisipasi dalam percakapan yang meniru manusia, membuka peluang baru di berbagai industri. Namun, di balik kemudahan penggunaan ini, terdapat sebuah tantangan signifikan dan berpotensi berbahaya: risiko *Sensitive Information Disclosure* (SID). Artikel ini akan mengupas tuntas fenomena SID pada aplikasi LLM, menjelaskan apa itu, bagaimana hal ini bisa terjadi, mengapa ini menjadi perhatian utama, serta langkah-langkah strategis yang dapat diambil untuk...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-31T10:31:28+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/EZY63-IbRz_FIRv_EHknZ_gUZUkIq5cXknHYLxGoW03OQTvNEI3at2lFbX3JK8nE9_RJFctAeq8ktxfLeuO9zsknq5QoGDpCMdRGujVEqQmY1x1cI-7cj6JrDblIntOIkZhqmcg5GlwCjDTbrItGgdUGShaORa-NwwHpvAxsxi-YdCvHSe-gkEgcIMTxYijM.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1600\" />\n\t<meta property=\"og:image:height\" content=\"900\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Citra Saskia saranani\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Citra Saskia saranani\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"7 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/\",\"url\":\"https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/\",\"name\":\"Sensitive Information Disclosure pada Aplikasi LLM - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/EZY63-IbRz_FIRv_EHknZ_gUZUkIq5cXknHYLxGoW03OQTvNEI3at2lFbX3JK8nE9_RJFctAeq8ktxfLeuO9zsknq5QoGDpCMdRGujVEqQmY1x1cI-7cj6JrDblIntOIkZhqmcg5GlwCjDTbrItGgdUGShaORa-NwwHpvAxsxi-YdCvHSe-gkEgcIMTxYijM.jpg\",\"datePublished\":\"2026-07-31T10:31:28+00:00\",\"dateModified\":\"2026-07-31T10:31:28+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/EZY63-IbRz_FIRv_EHknZ_gUZUkIq5cXknHYLxGoW03OQTvNEI3at2lFbX3JK8nE9_RJFctAeq8ktxfLeuO9zsknq5QoGDpCMdRGujVEqQmY1x1cI-7cj6JrDblIntOIkZhqmcg5GlwCjDTbrItGgdUGShaORa-NwwHpvAxsxi-YdCvHSe-gkEgcIMTxYijM.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/EZY63-IbRz_FIRv_EHknZ_gUZUkIq5cXknHYLxGoW03OQTvNEI3at2lFbX3JK8nE9_RJFctAeq8ktxfLeuO9zsknq5QoGDpCMdRGujVEqQmY1x1cI-7cj6JrDblIntOIkZhqmcg5GlwCjDTbrItGgdUGShaORa-NwwHpvAxsxi-YdCvHSe-gkEgcIMTxYijM.jpg\",\"width\":1600,\"height\":900},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Sensitive Information Disclosure pada Aplikasi LLM\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6\",\"name\":\"Citra Saskia saranani\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g\",\"caption\":\"Citra Saskia saranani\"},\"url\":\"https://buletinsiber.com/author/citra-saskia-saranani/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Sensitive Information Disclosure pada Aplikasi LLM - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Sensitive Information Disclosure pada Aplikasi LLM - buletinsiber.com",
+      "og_description": "&nbsp; Sensitive Information Disclosure pada Aplikasi LLM Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah merevolusi interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, menulis kode dalam berbagai bahasa pemrograman, bahkan berpartisipasi dalam percakapan yang meniru manusia, membuka peluang baru di berbagai industri. Namun, di balik kemudahan penggunaan ini, terdapat sebuah tantangan signifikan dan berpotensi berbahaya: risiko *Sensitive Information Disclosure* (SID). Artikel ini akan mengupas tuntas fenomena SID pada aplikasi LLM, menjelaskan apa itu, bagaimana hal ini bisa terjadi, mengapa ini menjadi perhatian utama, serta langkah-langkah strategis yang dapat diambil untuk...",
+      "og_url": "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-31T10:31:28+00:00",
+      "og_image": [
+        {
+          "width": 1600,
+          "height": 900,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/EZY63-IbRz_FIRv_EHknZ_gUZUkIq5cXknHYLxGoW03OQTvNEI3at2lFbX3JK8nE9_RJFctAeq8ktxfLeuO9zsknq5QoGDpCMdRGujVEqQmY1x1cI-7cj6JrDblIntOIkZhqmcg5GlwCjDTbrItGgdUGShaORa-NwwHpvAxsxi-YdCvHSe-gkEgcIMTxYijM.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Citra Saskia saranani",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Citra Saskia saranani",
+        "Est. reading time": "7 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/",
+            "url": "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/",
+            "name": "Sensitive Information Disclosure pada Aplikasi LLM - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/EZY63-IbRz_FIRv_EHknZ_gUZUkIq5cXknHYLxGoW03OQTvNEI3at2lFbX3JK8nE9_RJFctAeq8ktxfLeuO9zsknq5QoGDpCMdRGujVEqQmY1x1cI-7cj6JrDblIntOIkZhqmcg5GlwCjDTbrItGgdUGShaORa-NwwHpvAxsxi-YdCvHSe-gkEgcIMTxYijM.jpg",
+            "datePublished": "2026-07-31T10:31:28+00:00",
+            "dateModified": "2026-07-31T10:31:28+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/EZY63-IbRz_FIRv_EHknZ_gUZUkIq5cXknHYLxGoW03OQTvNEI3at2lFbX3JK8nE9_RJFctAeq8ktxfLeuO9zsknq5QoGDpCMdRGujVEqQmY1x1cI-7cj6JrDblIntOIkZhqmcg5GlwCjDTbrItGgdUGShaORa-NwwHpvAxsxi-YdCvHSe-gkEgcIMTxYijM.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/EZY63-IbRz_FIRv_EHknZ_gUZUkIq5cXknHYLxGoW03OQTvNEI3at2lFbX3JK8nE9_RJFctAeq8ktxfLeuO9zsknq5QoGDpCMdRGujVEqQmY1x1cI-7cj6JrDblIntOIkZhqmcg5GlwCjDTbrItGgdUGShaORa-NwwHpvAxsxi-YdCvHSe-gkEgcIMTxYijM.jpg",
+            "width": 1600,
+            "height": 900
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/sensitive-information-disclosure-pada-aplikasi-llm-2/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Sensitive Information Disclosure pada Aplikasi LLM"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6",
+            "name": "Citra Saskia saranani",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g",
+              "caption": "Citra Saskia saranani"
+            },
+            "url": "https://buletinsiber.com/author/citra-saskia-saranani/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/19263",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/34"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=19263"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/19263/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 19270,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/19263/revisions/19270"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/19269"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=19263"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=19263"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=19263"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

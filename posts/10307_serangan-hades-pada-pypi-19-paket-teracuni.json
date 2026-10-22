@@ -1,0 +1,335 @@
+{
+  "id": 10307,
+  "title": "Serangan Supply Chain Menargetkan Pengguna PyPI",
+  "slug": "serangan-hades-pada-pypi-19-paket-teracuni",
+  "url": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/",
+  "date": "2026-06-10T00:36:26",
+  "date_gmt": "2026-06-10T00:36:26",
+  "modified": "2026-06-30T18:24:14",
+  "modified_gmt": "2026-06-30T18:24:14",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 740,
+      "name": "secnews"
+    }
+  ],
+  "tags": [
+    1385,
+    682,
+    412,
+    1346
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/12/computer-monitor-showing-hacked-system-alert-message-flashing-screen-dealing-with-hacking-cyber-crime-attack-display-with-security-breach-warning-malware-threat-close-up-scaled.jpg",
+  "excerpt": "Peneliti menemukan kelompok Hades menyisipkan paket jahat ke PyPI, memengaruhi 19 paket. Artikel ini menjelaskan cara kerja serangan, dampak teknis, dan langkah perlindungan praktis untuk pengembang dan organisasi.",
+  "content_html": "<h3>Pengantar</h3>\n<p>Pada Juni 2026, peneliti keamanan menemukan serangan yang menargetkan pengguna repositori paket Python, <strong>Python Package Index (PyPI)</strong>. Kelompok peretas yang dikenal sebagai <strong>Hades</strong> dilaporkan mengunggah paket palsu yang mengandung malware untuk menyerang pengembang dan organisasi yang menggunakan dependensi open source.</p>\n<h3>Ringkasan Serangan</h3>\n<p>Laporan menunjukkan bahwa sedikitnya 19 paket berbahaya berhasil dipublikasikan di PyPI. Paket-paket tersebut dibuat sangat mirip dengan paket asli sehingga mudah tertukar saat diinstal menggunakan alat seperti pip.</p>\n<p>Target utama serangan ini adalah proyek dan aplikasi yang bergantung pada paket Python dari PyPI.</p>\n<h3>Bagaimana Serangan Bekerja?</h3>\n<p>Penyerang memanfaatkan nama paket yang mirip dengan paket populer dan memberikan nomor versi yang terlihat sah. Akibatnya, pengembang atau sistem yang melakukan pembaruan otomatis dapat menginstal paket berbahaya tanpa menyadarinya.</p>\n<p>Setelah terinstal, paket tersebut dapat:</p>\n<ul>\n<li>Menjalankan kode berbahaya.</li>\n<li>Menghubungi server milik penyerang.</li>\n<li>Mencuri data atau kredensial.</li>\n<li>Memberikan akses jarak jauh ke sistem.</li>\n</ul>\n<h3>Teknik yang Digunakan Penyerang</h3>\n<p>Kelompok Hades menggunakan beberapa cara untuk menipu pengguna, antara lain:</p>\n<ul>\n<li>Mengambil alih nama paket yang sudah tidak aktif.</li>\n<li>Mendaftarkan ulang paket yang ditinggalkan pemiliknya.</li>\n<li>Menambahkan dependensi berbahaya ke dalam paket.</li>\n</ul>\n<p>Teknik ini memanfaatkan kebiasaan pengembang yang sering menginstal atau memperbarui paket tanpa melakukan pemeriksaan terlebih dahulu.</p>\n<h3>Temuan Analisis Teknis</h3>\n<p>Peneliti menemukan bahwa paket-paket berbahaya tersebut berisi kode yang mampu:</p>\n<ul>\n<li>Menghubungi server kendali (<em>command and control</em>).</li>\n<li>Mengunduh dan menjalankan perintah tambahan.</li>\n<li>Menyembunyikan aktivitas berbahaya.</li>\n<li>Menghindari deteksi di lingkungan pengujian atau sandbox.</li>\n</ul>\n<p>Komunikasi dengan server penyerang umumnya menggunakan HTTP atau HTTPS.</p>\n<h3>Dampak bagi Pengembang dan Organisasi</h3>\n<p>Risiko terbesar terjadi pada:</p>\n<ul>\n<li>Pengembang yang menggunakan pembaruan dependensi otomatis.</li>\n<li>Sistem CI/CD yang tidak memeriksa keamanan paket sebelum digunakan.</li>\n<li>Server build yang memiliki akses ke kredensial atau lingkungan produksi.</li>\n</ul>\n<p>Dampak yang mungkin terjadi meliputi:</p>\n<ul>\n<li>Pencurian kredensial.</li>\n<li>Kompromi server build.</li>\n<li>Penyebaran malware ke lingkungan produksi.</li>\n<li>Kebocoran data sensitif.</li>\n</ul>\n<h3>Tanda-Tanda Kompromi</h3>\n<p>Beberapa indikator yang perlu diperhatikan:</p>\n<ul>\n<li>Build aplikasi tiba-tiba gagal setelah pembaruan paket.</li>\n<li>Muncul koneksi ke domain yang tidak dikenal.</li>\n<li>Terjadi peningkatan trafik keluar yang mencurigakan.</li>\n<li>Muncul file atau proses baru tanpa alasan yang jelas.</li>\n</ul>\n<h3>Cara Melindungi Diri</h3>\n<p>Untuk mengurangi risiko, lakukan langkah berikut:</p>\n<ol>\n<li>Verifikasi keaslian paket sebelum menginstalnya.</li>\n<li>Gunakan hash atau mekanisme verifikasi integritas paket.</li>\n<li>Kunci versi dependensi pada file seperti <code>requirements.txt</code>.</li>\n<li>Hindari pembaruan otomatis tanpa proses peninjauan.</li>\n<li>Gunakan registry privat jika memungkinkan.</li>\n<li>Terapkan pemindaian keamanan pada pipeline CI/CD.</li>\n<li>Pantau aktivitas sistem dan log secara rutin.</li>\n</ol>\n<h3>Jika Diduga Terkena Serangan</h3>\n<p>Apabila ditemukan indikasi kompromi:</p>\n<ul>\n<li>Hentikan penggunaan paket yang mencurigakan.</li>\n<li>Kembalikan ke versi yang terpercaya.</li>\n<li>Lakukan pemindaian malware.</li>\n<li>Periksa log sistem dan CI/CD.</li>\n<li>Ganti kredensial yang mungkin telah bocor.</li>\n<li>Lakukan investigasi forensik jika diperlukan.</li>\n</ul>\n<h3>Rekomendasi untuk Pengguna PyPI</h3>\n<p>Pengguna PyPI sebaiknya:</p>\n<ul>\n<li>Memeriksa paket yang digunakan secara berkala.</li>\n<li>Memastikan paket masih aktif dipelihara.</li>\n<li>Memeriksa identitas maintainer dan riwayat rilis.</li>\n<li>Tidak mengandalkan pembaruan otomatis tanpa verifikasi.</li>\n</ul>\n<h3>Kesimpulan</h3>\n<p>Kasus ini menunjukkan bahwa serangan terhadap rantai pasokan perangkat lunak (<em>software supply chain attack</em>) semakin sering terjadi. Paket open source yang tampak aman bisa saja disusupi oleh pihak berbahaya. Karena itu, pengembang dan organisasi perlu lebih berhati-hati dalam mengelola dependensi, memverifikasi paket yang digunakan, dan menerapkan kontrol keamanan pada proses pengembangan perangkat lunak.</p>\n<p>sumber : hackernews</p>\n",
+  "content_text": "Pengantar\nPada Juni 2026, peneliti keamanan menemukan serangan yang menargetkan pengguna repositori paket Python,  Python Package Index (PyPI) . Kelompok peretas yang dikenal sebagai  Hades  dilaporkan mengunggah paket palsu yang mengandung malware untuk menyerang pengembang dan organisasi yang menggunakan dependensi open source.\nRingkasan Serangan\nLaporan menunjukkan bahwa sedikitnya 19 paket berbahaya berhasil dipublikasikan di PyPI. Paket-paket tersebut dibuat sangat mirip dengan paket asli sehingga mudah tertukar saat diinstal menggunakan alat seperti pip.\nTarget utama serangan ini adalah proyek dan aplikasi yang bergantung pada paket Python dari PyPI.\nBagaimana Serangan Bekerja?\nPenyerang memanfaatkan nama paket yang mirip dengan paket populer dan memberikan nomor versi yang terlihat sah. Akibatnya, pengembang atau sistem yang melakukan pembaruan otomatis dapat menginstal paket berbahaya tanpa menyadarinya.\nSetelah terinstal, paket tersebut dapat:\nMenjalankan kode berbahaya.\nMenghubungi server milik penyerang.\nMencuri data atau kredensial.\nMemberikan akses jarak jauh ke sistem.\nTeknik yang Digunakan Penyerang\nKelompok Hades menggunakan beberapa cara untuk menipu pengguna, antara lain:\nMengambil alih nama paket yang sudah tidak aktif.\nMendaftarkan ulang paket yang ditinggalkan pemiliknya.\nMenambahkan dependensi berbahaya ke dalam paket.\nTeknik ini memanfaatkan kebiasaan pengembang yang sering menginstal atau memperbarui paket tanpa melakukan pemeriksaan terlebih dahulu.\nTemuan Analisis Teknis\nPeneliti menemukan bahwa paket-paket berbahaya tersebut berisi kode yang mampu:\nMenghubungi server kendali ( command and control ).\nMengunduh dan menjalankan perintah tambahan.\nMenyembunyikan aktivitas berbahaya.\nMenghindari deteksi di lingkungan pengujian atau sandbox.\nKomunikasi dengan server penyerang umumnya menggunakan HTTP atau HTTPS.\nDampak bagi Pengembang dan Organisasi\nRisiko terbesar terjadi pada:\nPengembang yang menggunakan pembaruan dependensi otomatis.\nSistem CI/CD yang tidak memeriksa keamanan paket sebelum digunakan.\nServer build yang memiliki akses ke kredensial atau lingkungan produksi.\nDampak yang mungkin terjadi meliputi:\nPencurian kredensial.\nKompromi server build.\nPenyebaran malware ke lingkungan produksi.\nKebocoran data sensitif.\nTanda-Tanda Kompromi\nBeberapa indikator yang perlu diperhatikan:\nBuild aplikasi tiba-tiba gagal setelah pembaruan paket.\nMuncul koneksi ke domain yang tidak dikenal.\nTerjadi peningkatan trafik keluar yang mencurigakan.\nMuncul file atau proses baru tanpa alasan yang jelas.\nCara Melindungi Diri\nUntuk mengurangi risiko, lakukan langkah berikut:\nVerifikasi keaslian paket sebelum menginstalnya.\nGunakan hash atau mekanisme verifikasi integritas paket.\nKunci versi dependensi pada file seperti  requirements.txt .\nHindari pembaruan otomatis tanpa proses peninjauan.\nGunakan registry privat jika memungkinkan.\nTerapkan pemindaian keamanan pada pipeline CI/CD.\nPantau aktivitas sistem dan log secara rutin.\nJika Diduga Terkena Serangan\nApabila ditemukan indikasi kompromi:\nHentikan penggunaan paket yang mencurigakan.\nKembalikan ke versi yang terpercaya.\nLakukan pemindaian malware.\nPeriksa log sistem dan CI/CD.\nGanti kredensial yang mungkin telah bocor.\nLakukan investigasi forensik jika diperlukan.\nRekomendasi untuk Pengguna PyPI\nPengguna PyPI sebaiknya:\nMemeriksa paket yang digunakan secara berkala.\nMemastikan paket masih aktif dipelihara.\nMemeriksa identitas maintainer dan riwayat rilis.\nTidak mengandalkan pembaruan otomatis tanpa verifikasi.\nKesimpulan\nKasus ini menunjukkan bahwa serangan terhadap rantai pasokan perangkat lunak ( software supply chain attack ) semakin sering terjadi. Paket open source yang tampak aman bisa saja disusupi oleh pihak berbahaya. Karena itu, pengembang dan organisasi perlu lebih berhati-hati dalam mengelola dependensi, memverifikasi paket yang digunakan, dan menerapkan kontrol keamanan pada proses pengembangan perangkat lunak.\nsumber : hackernews",
+  "raw": {
+    "id": 10307,
+    "date": "2026-06-10T00:36:26",
+    "date_gmt": "2026-06-10T00:36:26",
+    "guid": {
+      "rendered": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/"
+    },
+    "modified": "2026-06-30T18:24:14",
+    "modified_gmt": "2026-06-30T18:24:14",
+    "slug": "serangan-hades-pada-pypi-19-paket-teracuni",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/",
+    "title": {
+      "rendered": "Serangan Supply Chain Menargetkan Pengguna PyPI"
+    },
+    "content": {
+      "rendered": "<h3>Pengantar</h3>\n<p>Pada Juni 2026, peneliti keamanan menemukan serangan yang menargetkan pengguna repositori paket Python, <strong>Python Package Index (PyPI)</strong>. Kelompok peretas yang dikenal sebagai <strong>Hades</strong> dilaporkan mengunggah paket palsu yang mengandung malware untuk menyerang pengembang dan organisasi yang menggunakan dependensi open source.</p>\n<h3>Ringkasan Serangan</h3>\n<p>Laporan menunjukkan bahwa sedikitnya 19 paket berbahaya berhasil dipublikasikan di PyPI. Paket-paket tersebut dibuat sangat mirip dengan paket asli sehingga mudah tertukar saat diinstal menggunakan alat seperti pip.</p>\n<p>Target utama serangan ini adalah proyek dan aplikasi yang bergantung pada paket Python dari PyPI.</p>\n<h3>Bagaimana Serangan Bekerja?</h3>\n<p>Penyerang memanfaatkan nama paket yang mirip dengan paket populer dan memberikan nomor versi yang terlihat sah. Akibatnya, pengembang atau sistem yang melakukan pembaruan otomatis dapat menginstal paket berbahaya tanpa menyadarinya.</p>\n<p>Setelah terinstal, paket tersebut dapat:</p>\n<ul>\n<li>Menjalankan kode berbahaya.</li>\n<li>Menghubungi server milik penyerang.</li>\n<li>Mencuri data atau kredensial.</li>\n<li>Memberikan akses jarak jauh ke sistem.</li>\n</ul>\n<h3>Teknik yang Digunakan Penyerang</h3>\n<p>Kelompok Hades menggunakan beberapa cara untuk menipu pengguna, antara lain:</p>\n<ul>\n<li>Mengambil alih nama paket yang sudah tidak aktif.</li>\n<li>Mendaftarkan ulang paket yang ditinggalkan pemiliknya.</li>\n<li>Menambahkan dependensi berbahaya ke dalam paket.</li>\n</ul>\n<p>Teknik ini memanfaatkan kebiasaan pengembang yang sering menginstal atau memperbarui paket tanpa melakukan pemeriksaan terlebih dahulu.</p>\n<h3>Temuan Analisis Teknis</h3>\n<p>Peneliti menemukan bahwa paket-paket berbahaya tersebut berisi kode yang mampu:</p>\n<ul>\n<li>Menghubungi server kendali (<em>command and control</em>).</li>\n<li>Mengunduh dan menjalankan perintah tambahan.</li>\n<li>Menyembunyikan aktivitas berbahaya.</li>\n<li>Menghindari deteksi di lingkungan pengujian atau sandbox.</li>\n</ul>\n<p>Komunikasi dengan server penyerang umumnya menggunakan HTTP atau HTTPS.</p>\n<h3>Dampak bagi Pengembang dan Organisasi</h3>\n<p>Risiko terbesar terjadi pada:</p>\n<ul>\n<li>Pengembang yang menggunakan pembaruan dependensi otomatis.</li>\n<li>Sistem CI/CD yang tidak memeriksa keamanan paket sebelum digunakan.</li>\n<li>Server build yang memiliki akses ke kredensial atau lingkungan produksi.</li>\n</ul>\n<p>Dampak yang mungkin terjadi meliputi:</p>\n<ul>\n<li>Pencurian kredensial.</li>\n<li>Kompromi server build.</li>\n<li>Penyebaran malware ke lingkungan produksi.</li>\n<li>Kebocoran data sensitif.</li>\n</ul>\n<h3>Tanda-Tanda Kompromi</h3>\n<p>Beberapa indikator yang perlu diperhatikan:</p>\n<ul>\n<li>Build aplikasi tiba-tiba gagal setelah pembaruan paket.</li>\n<li>Muncul koneksi ke domain yang tidak dikenal.</li>\n<li>Terjadi peningkatan trafik keluar yang mencurigakan.</li>\n<li>Muncul file atau proses baru tanpa alasan yang jelas.</li>\n</ul>\n<h3>Cara Melindungi Diri</h3>\n<p>Untuk mengurangi risiko, lakukan langkah berikut:</p>\n<ol>\n<li>Verifikasi keaslian paket sebelum menginstalnya.</li>\n<li>Gunakan hash atau mekanisme verifikasi integritas paket.</li>\n<li>Kunci versi dependensi pada file seperti <code>requirements.txt</code>.</li>\n<li>Hindari pembaruan otomatis tanpa proses peninjauan.</li>\n<li>Gunakan registry privat jika memungkinkan.</li>\n<li>Terapkan pemindaian keamanan pada pipeline CI/CD.</li>\n<li>Pantau aktivitas sistem dan log secara rutin.</li>\n</ol>\n<h3>Jika Diduga Terkena Serangan</h3>\n<p>Apabila ditemukan indikasi kompromi:</p>\n<ul>\n<li>Hentikan penggunaan paket yang mencurigakan.</li>\n<li>Kembalikan ke versi yang terpercaya.</li>\n<li>Lakukan pemindaian malware.</li>\n<li>Periksa log sistem dan CI/CD.</li>\n<li>Ganti kredensial yang mungkin telah bocor.</li>\n<li>Lakukan investigasi forensik jika diperlukan.</li>\n</ul>\n<h3>Rekomendasi untuk Pengguna PyPI</h3>\n<p>Pengguna PyPI sebaiknya:</p>\n<ul>\n<li>Memeriksa paket yang digunakan secara berkala.</li>\n<li>Memastikan paket masih aktif dipelihara.</li>\n<li>Memeriksa identitas maintainer dan riwayat rilis.</li>\n<li>Tidak mengandalkan pembaruan otomatis tanpa verifikasi.</li>\n</ul>\n<h3>Kesimpulan</h3>\n<p>Kasus ini menunjukkan bahwa serangan terhadap rantai pasokan perangkat lunak (<em>software supply chain attack</em>) semakin sering terjadi. Paket open source yang tampak aman bisa saja disusupi oleh pihak berbahaya. Karena itu, pengembang dan organisasi perlu lebih berhati-hati dalam mengelola dependensi, memverifikasi paket yang digunakan, dan menerapkan kontrol keamanan pada proses pengembangan perangkat lunak.</p>\n<p>sumber : hackernews</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Peneliti menemukan kelompok <strong>Hades</strong> menyisipkan paket jahat ke PyPI, memengaruhi 19 paket. Artikel ini menjelaskan cara kerja serangan, dampak teknis, dan langkah perlindungan praktis untuk pengembang dan organisasi.</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8835,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Hades",
+      "_yoast_wpseo_title": "Hades menyasar PyPI: 19 paket terinfeksi dan mitigasi",
+      "_yoast_wpseo_metadesc": "Kelompok Hades memasang paket berbahaya di PyPI yang memengaruhi 19 paket. Pelajari cara kerja serangan, dampak teknis, dan langkah praktis untuk melindungi proyek dan lingkungan build Anda.",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      740
+    ],
+    "tags": [
+      1385,
+      682,
+      412,
+      1346
+    ],
+    "class_list": [
+      "post-10307",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-secnews",
+      "tag-buletin-siber",
+      "tag-keamanan",
+      "tag-malware",
+      "tag-pypi"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Hades menyasar PyPI: 19 paket terinfeksi dan mitigasi</title>\n<meta name=\"description\" content=\"Kelompok Hades memasang paket berbahaya di PyPI yang memengaruhi 19 paket. Pelajari cara kerja serangan, dampak teknis, dan langkah praktis untuk melindungi proyek dan lingkungan build Anda.\" />\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Hades menyasar PyPI: 19 paket terinfeksi dan mitigasi\" />\n<meta property=\"og:description\" content=\"Kelompok Hades memasang paket berbahaya di PyPI yang memengaruhi 19 paket. Pelajari cara kerja serangan, dampak teknis, dan langkah praktis untuk melindungi proyek dan lingkungan build Anda.\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-06-10T00:36:26+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T18:24:14+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/12/computer-monitor-showing-hacked-system-alert-message-flashing-screen-dealing-with-hacking-cyber-crime-attack-display-with-security-breach-warning-malware-threat-close-up-scaled.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2560\" />\n\t<meta property=\"og:image:height\" content=\"1440\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/\",\"url\":\"https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/\",\"name\":\"Hades menyasar PyPI: 19 paket terinfeksi dan mitigasi\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/computer-monitor-showing-hacked-system-alert-message-flashing-screen-dealing-with-hacking-cyber-crime-attack-display-with-security-breach-warning-malware-threat-close-up-scaled.jpg\",\"datePublished\":\"2026-06-10T00:36:26+00:00\",\"dateModified\":\"2026-06-30T18:24:14+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"description\":\"Kelompok Hades memasang paket berbahaya di PyPI yang memengaruhi 19 paket. Pelajari cara kerja serangan, dampak teknis, dan langkah praktis untuk melindungi proyek dan lingkungan build Anda.\",\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/12/computer-monitor-showing-hacked-system-alert-message-flashing-screen-dealing-with-hacking-cyber-crime-attack-display-with-security-breach-warning-malware-threat-close-up-scaled.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/computer-monitor-showing-hacked-system-alert-message-flashing-screen-dealing-with-hacking-cyber-crime-attack-display-with-security-breach-warning-malware-threat-close-up-scaled.jpg\",\"width\":2560,\"height\":1440,\"caption\":\"Computer monitor showing hacked system alert message flashing on screen, dealing with hacking and cyber crime attack. Display with security breach warning and malware threat. Close up.\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Serangan Supply Chain Menargetkan Pengguna PyPI\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Hades menyasar PyPI: 19 paket terinfeksi dan mitigasi",
+      "description": "Kelompok Hades memasang paket berbahaya di PyPI yang memengaruhi 19 paket. Pelajari cara kerja serangan, dampak teknis, dan langkah praktis untuk melindungi proyek dan lingkungan build Anda.",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Hades menyasar PyPI: 19 paket terinfeksi dan mitigasi",
+      "og_description": "Kelompok Hades memasang paket berbahaya di PyPI yang memengaruhi 19 paket. Pelajari cara kerja serangan, dampak teknis, dan langkah praktis untuk melindungi proyek dan lingkungan build Anda.",
+      "og_url": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-06-10T00:36:26+00:00",
+      "article_modified_time": "2026-06-30T18:24:14+00:00",
+      "og_image": [
+        {
+          "width": 2560,
+          "height": 1440,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/12/computer-monitor-showing-hacked-system-alert-message-flashing-screen-dealing-with-hacking-cyber-crime-attack-display-with-security-breach-warning-malware-threat-close-up-scaled.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/",
+            "url": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/",
+            "name": "Hades menyasar PyPI: 19 paket terinfeksi dan mitigasi",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/computer-monitor-showing-hacked-system-alert-message-flashing-screen-dealing-with-hacking-cyber-crime-attack-display-with-security-breach-warning-malware-threat-close-up-scaled.jpg",
+            "datePublished": "2026-06-10T00:36:26+00:00",
+            "dateModified": "2026-06-30T18:24:14+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "description": "Kelompok Hades memasang paket berbahaya di PyPI yang memengaruhi 19 paket. Pelajari cara kerja serangan, dampak teknis, dan langkah praktis untuk melindungi proyek dan lingkungan build Anda.",
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/12/computer-monitor-showing-hacked-system-alert-message-flashing-screen-dealing-with-hacking-cyber-crime-attack-display-with-security-breach-warning-malware-threat-close-up-scaled.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/computer-monitor-showing-hacked-system-alert-message-flashing-screen-dealing-with-hacking-cyber-crime-attack-display-with-security-breach-warning-malware-threat-close-up-scaled.jpg",
+            "width": 2560,
+            "height": 1440,
+            "caption": "Computer monitor showing hacked system alert message flashing on screen, dealing with hacking and cyber crime attack. Display with security breach warning and malware threat. Close up."
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/serangan-hades-pada-pypi-19-paket-teracuni/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Serangan Supply Chain Menargetkan Pengguna PyPI"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10307",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=10307"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10307/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 10313,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10307/revisions/10313"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8835"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=10307"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=10307"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=10307"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

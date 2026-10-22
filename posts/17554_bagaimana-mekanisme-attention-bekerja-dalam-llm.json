@@ -1,0 +1,319 @@
+{
+  "id": 17554,
+  "title": "Bagaimana Mekanisme Attention Bekerja dalam LLM?",
+  "slug": "bagaimana-mekanisme-attention-bekerja-dalam-llm",
+  "url": "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/",
+  "date": "2026-07-30T09:25:39",
+  "date_gmt": "2026-07-30T09:25:39",
+  "modified": "2026-07-30T09:25:39",
+  "modified_gmt": "2026-07-30T09:25:39",
+  "author": {
+    "id": 34,
+    "name": "Citra Saskia saranani"
+  },
+  "categories": [
+    {
+      "id": 1919,
+      "name": "AI"
+    },
+    {
+      "id": 2616,
+      "name": "Information Technology"
+    }
+  ],
+  "tags": [
+    2982
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_1hlqpc1hlqpc1hlq.png",
+  "excerpt": "Bagaimana Mekanisme Attention Bekerja dalam LLM? Large Language Models (LLM) seperti ChatGPT dan Gemini telah memicu revolusi dalam cara kita berinteraksi dengan teknologi. Kemampuan mereka menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menulis kode pemrograman, terasa begitu canggih. Namun, di balik semua kemudahan ini, terdapat mekanisme rumit yang memungkinkan LLM melakukan hal tersebut: Attention Mechanism. Mekanisme ini bukan hanya sekadar komponen teknis; ia adalah kunci untuk memahami bagaimana model-model ini mampu meniru pemahaman bahasa manusia. 1. Memahami Tantangan Dasar Bahasa Sebelum membahas bagaimana “perhatian” bekerja, penting untuk memahami tantangan utama dalam memproses bahasa alami. Manusia, saat membaca atau berbicara,…",
+  "content_html": "<h2><strong>Bagaimana Mekanisme Attention Bekerja dalam LLM?</strong></h2>\n<p>Large Language Models (LLM) seperti ChatGPT dan Gemini telah memicu revolusi dalam cara kita berinteraksi dengan teknologi. Kemampuan mereka menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menulis kode pemrograman, terasa begitu canggih. Namun, di balik semua kemudahan ini, terdapat mekanisme rumit yang memungkinkan LLM melakukan hal tersebut: Attention Mechanism. Mekanisme ini bukan hanya sekadar komponen teknis; ia adalah kunci untuk memahami bagaimana model-model ini mampu meniru pemahaman bahasa manusia.</p>\n<h1>1. Memahami Tantangan Dasar Bahasa</h1>\n<p>Sebelum membahas bagaimana “perhatian” bekerja, penting untuk memahami tantangan utama dalam memproses bahasa alami. Manusia, saat membaca atau berbicara, tidak melihat setiap kata secara merata. Kita cenderung lebih fokus pada beberapa kata kunci yang relevan dengan makna keseluruhan kalimat. Misalnya, dalam kalimat &#8220;Anjing itu mengejar bola merah di taman,&#8221; kita secara otomatis memberikan perhatian lebih besar pada kata-kata seperti “anjing,” “mengejar,” dan “bola.” Kata-kata lain, seperti “di” atau “taman,” mungkin kurang menonjol dalam pemahaman awal kita tentang kalimat tersebut. Ini bukan karena kata-kata tersebut tidak penting, tetapi karena cara otak manusia secara alami memprioritaskan informasi.</p>\n<p>Secara tradisional, model bahasa (sebelum munculnya Attention Mechanism) memproses teks dengan cara yang seragam. Setiap kata diperlakukan sama, tanpa mempertimbangkan hubungan antar kata. Ini menimbulkan masalah karena kata-kata dalam kalimat tidak selalu memiliki hubungan yang sama pentingnya. Pendekatan ini seringkali gagal menangkap nuansa dan konteks yang diperlukan untuk memahami makna secara akurat. Bayangkan mencoba memahami novel tanpa memperhatikan bagaimana karakter berinteraksi satu sama lain atau bagaimana peristiwa saling berhubungan. Hasilnya akan menjadi pemahaman yang terfragmentasi dan tidak lengkap.</p>\n<h1>2. Apa Itu Attention Mechanism? Analogi Kotak Surat</h1>\n<p>Bayangkan Anda sedang membaca sebuah surat panjang dengan banyak informasi. Anda tidak akan mencoba memahami setiap kalimat secara terpisah. Sebaliknya, Anda akan mencari kata kunci atau frasa penting yang relevan dengan topik utama surat tersebut. Anda kemudian akan fokus pada bagian-bagian yang berkaitan dengan kata kunci tersebut. Setelah Anda mengidentifikasi poin-poin penting, Anda mungkin membuat catatan atau ringkasan untuk membantu Anda mengingat informasi tersebut. Attention Mechanism dalam LLM bekerja dengan cara yang serupa. Ini adalah proses memprioritaskan informasi berdasarkan relevansinya terhadap tugas yang sedang dilakukan.</p>\n<p>Secara sederhana, Attention Mechanism memungkinkan model untuk “memperhatikan” (atau memberikan bobot) pada bagian-bagian tertentu dari input teks ketika menghasilkan output. Ini dilakukan dengan menghitung seberapa relevan setiap kata dalam input dengan kata atau bagian lain dalam input, atau bahkan dengan kata yang sedang diproses oleh model. Ini seperti memiliki seorang asisten yang secara cerdas menyoroti informasi yang paling penting saat Anda meminta bantuan.</p>\n<h1>3. Cara Kerja Attention: Langkah demi Langkah</h1>\n<p>Proses kerja Attention Mechanism dapat dipecah menjadi beberapa langkah kunci, dirancang untuk secara efisien memodelkan hubungan kompleks dalam data:</p>\n<ul>\n<li><strong>Query, Key, dan Value:</strong> Setiap kata dalam input teks diubah menjadi tiga representasi berbeda: Query (pertanyaan), Key (kunci), dan Value (nilai). Query mewakili pertanyaan yang diajukan oleh kata tersebut tentang konteks kalimat. Key digunakan untuk mencocokkan query dengan kata lain dalam input. Value mengandung informasi sebenarnya dari kata tersebut. Ini seperti memiliki tim peneliti yang masing-masing mengajukan pertanyaan, mencari jawaban, dan mengumpulkan data relevan.</li>\n<li><strong>Skor Relevansi:</strong> Model menghitung skor relevansi antara Query dari satu kata dengan Key dari semua kata lainnya dalam input. Skor ini menunjukkan seberapa relevan setiap kata lain dengan kata yang sedang diproses. Semakin tinggi skornya, semakin relevan kata tersebut. Ini adalah langkah di mana model menentukan sejauh mana setiap kata berkontribusi pada pemahaman keseluruhan.</li>\n<li><strong>Softmax:</strong> Skor relevansi kemudian diubah menjadi probabilitas menggunakan fungsi Softmax. Ini memastikan bahwa semua probabilitas berjumlah 1, sehingga kita mendapatkan bobot yang merepresentasikan tingkat perhatian yang harus diberikan pada setiap kata. Fungsi Softmax menghasilkan distribusi probabilitas, seperti menentukan seberapa besar fokus yang akan diberikan model pada setiap aspek informasi.</li>\n<li><strong>Weighted Sum:</strong> Nilai dari setiap kata dalam input dikalikan dengan probabilitasnya (bobot perhatian). Hasil perkalian ini dijumlahkan untuk menghasilkan representasi konteks yang mempertimbangkan semua kata dalam input, dengan fokus pada kata-kata yang paling relevan. Ini adalah langkah terakhir di mana model menggabungkan informasi yang paling penting menjadi satu representasi terpadu.</li>\n</ul>\n<h1>4. Berbagai Jenis Attention Mechanism</h1>\n<p>Ada beberapa variasi dari Attention Mechanism, masing-masing memiliki kelebihan dan kekurangan:</p>\n<ul>\n<li><strong>Global Attention:</strong> Memperhatikan semua kata dalam input. Ini adalah pendekatan yang paling sederhana tetapi juga paling intensif secara komputasi, terutama untuk input yang panjang.</li>\n<li><strong>Local Attention:</strong> Hanya memperhatikan sebagian kecil kata dalam input, yang lebih efisien secara komputasi. Ini melibatkan menentukan jendela perhatian yang berpusat di sekitar kata yang sedang diproses.</li>\n<li><strong>Self-Attention:</strong> Memungkinkan model untuk memperhatikan hubungan antar bagian dari *input itu sendiri*. Ini sangat penting untuk memahami konteks kalimat dan hubungan antar kata dalam sebuah kalimat. Contohnya, dalam kalimat “Anjing itu mengejar bola merah,” self-attention akan membantu model memahami bahwa kata “itu” merujuk pada “anjing,” bukan pada &#8220;bola.&#8221; Ini adalah kunci untuk menangkap ketergantungan jangka panjang dalam teks.</li>\n</ul>\n<h1>5. Manfaat Attention Mechanism</h1>\n<p>Attention Mechanism memberikan beberapa manfaat signifikan bagi LLM:</p>\n<ul>\n<li><strong>Memahami Konteks yang Lebih Baik:</strong> Dengan mempertimbangkan hubungan antar kata, model dapat memahami konteks kalimat dengan lebih akurat.</li>\n<li><strong>Menangani Kalimat Panjang:</strong> Attention Mechanism memungkinkan model untuk menangani kalimat panjang tanpa kehilangan informasi penting.</li>\n<li><strong>Interpretasi yang Lebih Mudah:</strong> Bobot perhatian dapat memberikan wawasan tentang bagaimana model memproses input dan membuat keputusan, meskipun interpretasi ini tidak selalu mudah.</li>\n<li><strong>Peningkatan Akurasi:</strong> Secara umum, penggunaan Attention Mechanism meningkatkan akurasi dalam berbagai tugas pemrosesan bahasa alami.</li>\n</ul>\n<h1>6. Keterbatasan dan Risiko Attention Mechanism</h1>\n<p>Meskipun sangat efektif, Attention Mechanism juga memiliki beberapa keterbatasan:</p>\n<ul>\n<li><strong>Komputasi Intensif:</strong> Perhitungan perhatian, terutama untuk input yang panjang, dapat menjadi sangat mahal secara komputasi.</li>\n<li><strong>Interpretasi yang Tidak Selalu Jelas:</strong> Meskipun bobot perhatian memberikan wawasan, interpretasinya tidak selalu mudah dan bisa menyesatkan. Bobot ini merefleksikan seberapa besar model &#8220;memperhatikan&#8221; kata-kata tersebut, tetapi tidak selalu berarti bahwa kata-kata itu adalah penyebab langsung dari output model.</li>\n<li><strong>Sensitivitas terhadap Data Pelatihan:</strong> Performa Attention Mechanism sangat bergantung pada kualitas dan kuantitas data pelatihan. Jika data pelatihan bias, model juga akan bias.</li>\n</ul>\n<h1>7. Penerapan Attention Mechanism dalam LLM</h1>\n<p>Attention Mechanism telah menjadi komponen integral dari sebagian besar LLM modern, termasuk:</p>\n<ul>\n<li><strong>GPT (Generative Pre-trained Transformer):</strong> Model GPT menggunakan self-attention untuk menghasilkan teks yang koheren dan relevan.</li>\n<li><strong>BERT (Bidirectional Encoder Representations from Transformers):</strong> BERT menggunakan attention untuk memahami konteks kalimat secara bidireksional, memungkinkan model untuk mempertimbangkan informasi dari kedua arah dalam kalimat.</li>\n</ul>\n<p>Selain itu, Attention Mechanism juga digunakan dalam berbagai aplikasi lain, seperti penerjemahan mesin, ringkasan teks, analisis sentimen, dan bahkan pembuatan musik.</p>\n<h1>8. Kesimpulan</h1>\n<p>Attention Mechanism merupakan terobosan penting dalam bidang pemrosesan bahasa alami. Dengan memungkinkan model untuk “memperhatikan” bagian-bagian penting dari input teks, Attention Mechanism telah membuka jalan bagi LLM yang lebih canggih dan mampu memahami bahasa manusia dengan cara yang lebih mirip dengan manusia. Ini bukan hanya tentang memproses kata-kata; ini tentang memahami hubungan di antara mereka dan bagaimana mereka berkontribusi pada makna keseluruhan. Meskipun memiliki keterbatasan, potensi Attention Mechanism untuk meningkatkan kemampuan LLM masih sangat besar dan terus menjadi fokus penelitian dan pengembangan, mendorong batas-batas apa yang mungkin dilakukan dalam pemahaman dan pembuatan bahasa</p>\n",
+  "content_text": "Bagaimana Mekanisme Attention Bekerja dalam LLM?\nLarge Language Models (LLM) seperti ChatGPT dan Gemini telah memicu revolusi dalam cara kita berinteraksi dengan teknologi. Kemampuan mereka menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menulis kode pemrograman, terasa begitu canggih. Namun, di balik semua kemudahan ini, terdapat mekanisme rumit yang memungkinkan LLM melakukan hal tersebut: Attention Mechanism. Mekanisme ini bukan hanya sekadar komponen teknis; ia adalah kunci untuk memahami bagaimana model-model ini mampu meniru pemahaman bahasa manusia.\n1. Memahami Tantangan Dasar Bahasa\nSebelum membahas bagaimana “perhatian” bekerja, penting untuk memahami tantangan utama dalam memproses bahasa alami. Manusia, saat membaca atau berbicara, tidak melihat setiap kata secara merata. Kita cenderung lebih fokus pada beberapa kata kunci yang relevan dengan makna keseluruhan kalimat. Misalnya, dalam kalimat “Anjing itu mengejar bola merah di taman,” kita secara otomatis memberikan perhatian lebih besar pada kata-kata seperti “anjing,” “mengejar,” dan “bola.” Kata-kata lain, seperti “di” atau “taman,” mungkin kurang menonjol dalam pemahaman awal kita tentang kalimat tersebut. Ini bukan karena kata-kata tersebut tidak penting, tetapi karena cara otak manusia secara alami memprioritaskan informasi.\nSecara tradisional, model bahasa (sebelum munculnya Attention Mechanism) memproses teks dengan cara yang seragam. Setiap kata diperlakukan sama, tanpa mempertimbangkan hubungan antar kata. Ini menimbulkan masalah karena kata-kata dalam kalimat tidak selalu memiliki hubungan yang sama pentingnya. Pendekatan ini seringkali gagal menangkap nuansa dan konteks yang diperlukan untuk memahami makna secara akurat. Bayangkan mencoba memahami novel tanpa memperhatikan bagaimana karakter berinteraksi satu sama lain atau bagaimana peristiwa saling berhubungan. Hasilnya akan menjadi pemahaman yang terfragmentasi dan tidak lengkap.\n2. Apa Itu Attention Mechanism? Analogi Kotak Surat\nBayangkan Anda sedang membaca sebuah surat panjang dengan banyak informasi. Anda tidak akan mencoba memahami setiap kalimat secara terpisah. Sebaliknya, Anda akan mencari kata kunci atau frasa penting yang relevan dengan topik utama surat tersebut. Anda kemudian akan fokus pada bagian-bagian yang berkaitan dengan kata kunci tersebut. Setelah Anda mengidentifikasi poin-poin penting, Anda mungkin membuat catatan atau ringkasan untuk membantu Anda mengingat informasi tersebut. Attention Mechanism dalam LLM bekerja dengan cara yang serupa. Ini adalah proses memprioritaskan informasi berdasarkan relevansinya terhadap tugas yang sedang dilakukan.\nSecara sederhana, Attention Mechanism memungkinkan model untuk “memperhatikan” (atau memberikan bobot) pada bagian-bagian tertentu dari input teks ketika menghasilkan output. Ini dilakukan dengan menghitung seberapa relevan setiap kata dalam input dengan kata atau bagian lain dalam input, atau bahkan dengan kata yang sedang diproses oleh model. Ini seperti memiliki seorang asisten yang secara cerdas menyoroti informasi yang paling penting saat Anda meminta bantuan.\n3. Cara Kerja Attention: Langkah demi Langkah\nProses kerja Attention Mechanism dapat dipecah menjadi beberapa langkah kunci, dirancang untuk secara efisien memodelkan hubungan kompleks dalam data:\nQuery, Key, dan Value:  Setiap kata dalam input teks diubah menjadi tiga representasi berbeda: Query (pertanyaan), Key (kunci), dan Value (nilai). Query mewakili pertanyaan yang diajukan oleh kata tersebut tentang konteks kalimat. Key digunakan untuk mencocokkan query dengan kata lain dalam input. Value mengandung informasi sebenarnya dari kata tersebut. Ini seperti memiliki tim peneliti yang masing-masing mengajukan pertanyaan, mencari jawaban, dan mengumpulkan data relevan.\nSkor Relevansi:  Model menghitung skor relevansi antara Query dari satu kata dengan Key dari semua kata lainnya dalam input. Skor ini menunjukkan seberapa relevan setiap kata lain dengan kata yang sedang diproses. Semakin tinggi skornya, semakin relevan kata tersebut. Ini adalah langkah di mana model menentukan sejauh mana setiap kata berkontribusi pada pemahaman keseluruhan.\nSoftmax:  Skor relevansi kemudian diubah menjadi probabilitas menggunakan fungsi Softmax. Ini memastikan bahwa semua probabilitas berjumlah 1, sehingga kita mendapatkan bobot yang merepresentasikan tingkat perhatian yang harus diberikan pada setiap kata. Fungsi Softmax menghasilkan distribusi probabilitas, seperti menentukan seberapa besar fokus yang akan diberikan model pada setiap aspek informasi.\nWeighted Sum:  Nilai dari setiap kata dalam input dikalikan dengan probabilitasnya (bobot perhatian). Hasil perkalian ini dijumlahkan untuk menghasilkan representasi konteks yang mempertimbangkan semua kata dalam input, dengan fokus pada kata-kata yang paling relevan. Ini adalah langkah terakhir di mana model menggabungkan informasi yang paling penting menjadi satu representasi terpadu.\n4. Berbagai Jenis Attention Mechanism\nAda beberapa variasi dari Attention Mechanism, masing-masing memiliki kelebihan dan kekurangan:\nGlobal Attention:  Memperhatikan semua kata dalam input. Ini adalah pendekatan yang paling sederhana tetapi juga paling intensif secara komputasi, terutama untuk input yang panjang.\nLocal Attention:  Hanya memperhatikan sebagian kecil kata dalam input, yang lebih efisien secara komputasi. Ini melibatkan menentukan jendela perhatian yang berpusat di sekitar kata yang sedang diproses.\nSelf-Attention:  Memungkinkan model untuk memperhatikan hubungan antar bagian dari *input itu sendiri*. Ini sangat penting untuk memahami konteks kalimat dan hubungan antar kata dalam sebuah kalimat. Contohnya, dalam kalimat “Anjing itu mengejar bola merah,” self-attention akan membantu model memahami bahwa kata “itu” merujuk pada “anjing,” bukan pada “bola.” Ini adalah kunci untuk menangkap ketergantungan jangka panjang dalam teks.\n5. Manfaat Attention Mechanism\nAttention Mechanism memberikan beberapa manfaat signifikan bagi LLM:\nMemahami Konteks yang Lebih Baik:  Dengan mempertimbangkan hubungan antar kata, model dapat memahami konteks kalimat dengan lebih akurat.\nMenangani Kalimat Panjang:  Attention Mechanism memungkinkan model untuk menangani kalimat panjang tanpa kehilangan informasi penting.\nInterpretasi yang Lebih Mudah:  Bobot perhatian dapat memberikan wawasan tentang bagaimana model memproses input dan membuat keputusan, meskipun interpretasi ini tidak selalu mudah.\nPeningkatan Akurasi:  Secara umum, penggunaan Attention Mechanism meningkatkan akurasi dalam berbagai tugas pemrosesan bahasa alami.\n6. Keterbatasan dan Risiko Attention Mechanism\nMeskipun sangat efektif, Attention Mechanism juga memiliki beberapa keterbatasan:\nKomputasi Intensif:  Perhitungan perhatian, terutama untuk input yang panjang, dapat menjadi sangat mahal secara komputasi.\nInterpretasi yang Tidak Selalu Jelas:  Meskipun bobot perhatian memberikan wawasan, interpretasinya tidak selalu mudah dan bisa menyesatkan. Bobot ini merefleksikan seberapa besar model “memperhatikan” kata-kata tersebut, tetapi tidak selalu berarti bahwa kata-kata itu adalah penyebab langsung dari output model.\nSensitivitas terhadap Data Pelatihan:  Performa Attention Mechanism sangat bergantung pada kualitas dan kuantitas data pelatihan. Jika data pelatihan bias, model juga akan bias.\n7. Penerapan Attention Mechanism dalam LLM\nAttention Mechanism telah menjadi komponen integral dari sebagian besar LLM modern, termasuk:\nGPT (Generative Pre-trained Transformer):  Model GPT menggunakan self-attention untuk menghasilkan teks yang koheren dan relevan.\nBERT (Bidirectional Encoder Representations from Transformers):  BERT menggunakan attention untuk memahami konteks kalimat secara bidireksional, memungkinkan model untuk mempertimbangkan informasi dari kedua arah dalam kalimat.\nSelain itu, Attention Mechanism juga digunakan dalam berbagai aplikasi lain, seperti penerjemahan mesin, ringkasan teks, analisis sentimen, dan bahkan pembuatan musik.\n8. Kesimpulan\nAttention Mechanism merupakan terobosan penting dalam bidang pemrosesan bahasa alami. Dengan memungkinkan model untuk “memperhatikan” bagian-bagian penting dari input teks, Attention Mechanism telah membuka jalan bagi LLM yang lebih canggih dan mampu memahami bahasa manusia dengan cara yang lebih mirip dengan manusia. Ini bukan hanya tentang memproses kata-kata; ini tentang memahami hubungan di antara mereka dan bagaimana mereka berkontribusi pada makna keseluruhan. Meskipun memiliki keterbatasan, potensi Attention Mechanism untuk meningkatkan kemampuan LLM masih sangat besar dan terus menjadi fokus penelitian dan pengembangan, mendorong batas-batas apa yang mungkin dilakukan dalam pemahaman dan pembuatan bahasa",
+  "raw": {
+    "id": 17554,
+    "date": "2026-07-30T09:25:39",
+    "date_gmt": "2026-07-30T09:25:39",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=17554"
+    },
+    "modified": "2026-07-30T09:25:39",
+    "modified_gmt": "2026-07-30T09:25:39",
+    "slug": "bagaimana-mekanisme-attention-bekerja-dalam-llm",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/",
+    "title": {
+      "rendered": "Bagaimana Mekanisme Attention Bekerja dalam LLM?"
+    },
+    "content": {
+      "rendered": "<h2><strong>Bagaimana Mekanisme Attention Bekerja dalam LLM?</strong></h2>\n<p>Large Language Models (LLM) seperti ChatGPT dan Gemini telah memicu revolusi dalam cara kita berinteraksi dengan teknologi. Kemampuan mereka menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menulis kode pemrograman, terasa begitu canggih. Namun, di balik semua kemudahan ini, terdapat mekanisme rumit yang memungkinkan LLM melakukan hal tersebut: Attention Mechanism. Mekanisme ini bukan hanya sekadar komponen teknis; ia adalah kunci untuk memahami bagaimana model-model ini mampu meniru pemahaman bahasa manusia.</p>\n<h1>1. Memahami Tantangan Dasar Bahasa</h1>\n<p>Sebelum membahas bagaimana “perhatian” bekerja, penting untuk memahami tantangan utama dalam memproses bahasa alami. Manusia, saat membaca atau berbicara, tidak melihat setiap kata secara merata. Kita cenderung lebih fokus pada beberapa kata kunci yang relevan dengan makna keseluruhan kalimat. Misalnya, dalam kalimat &#8220;Anjing itu mengejar bola merah di taman,&#8221; kita secara otomatis memberikan perhatian lebih besar pada kata-kata seperti “anjing,” “mengejar,” dan “bola.” Kata-kata lain, seperti “di” atau “taman,” mungkin kurang menonjol dalam pemahaman awal kita tentang kalimat tersebut. Ini bukan karena kata-kata tersebut tidak penting, tetapi karena cara otak manusia secara alami memprioritaskan informasi.</p>\n<p>Secara tradisional, model bahasa (sebelum munculnya Attention Mechanism) memproses teks dengan cara yang seragam. Setiap kata diperlakukan sama, tanpa mempertimbangkan hubungan antar kata. Ini menimbulkan masalah karena kata-kata dalam kalimat tidak selalu memiliki hubungan yang sama pentingnya. Pendekatan ini seringkali gagal menangkap nuansa dan konteks yang diperlukan untuk memahami makna secara akurat. Bayangkan mencoba memahami novel tanpa memperhatikan bagaimana karakter berinteraksi satu sama lain atau bagaimana peristiwa saling berhubungan. Hasilnya akan menjadi pemahaman yang terfragmentasi dan tidak lengkap.</p>\n<h1>2. Apa Itu Attention Mechanism? Analogi Kotak Surat</h1>\n<p>Bayangkan Anda sedang membaca sebuah surat panjang dengan banyak informasi. Anda tidak akan mencoba memahami setiap kalimat secara terpisah. Sebaliknya, Anda akan mencari kata kunci atau frasa penting yang relevan dengan topik utama surat tersebut. Anda kemudian akan fokus pada bagian-bagian yang berkaitan dengan kata kunci tersebut. Setelah Anda mengidentifikasi poin-poin penting, Anda mungkin membuat catatan atau ringkasan untuk membantu Anda mengingat informasi tersebut. Attention Mechanism dalam LLM bekerja dengan cara yang serupa. Ini adalah proses memprioritaskan informasi berdasarkan relevansinya terhadap tugas yang sedang dilakukan.</p>\n<p>Secara sederhana, Attention Mechanism memungkinkan model untuk “memperhatikan” (atau memberikan bobot) pada bagian-bagian tertentu dari input teks ketika menghasilkan output. Ini dilakukan dengan menghitung seberapa relevan setiap kata dalam input dengan kata atau bagian lain dalam input, atau bahkan dengan kata yang sedang diproses oleh model. Ini seperti memiliki seorang asisten yang secara cerdas menyoroti informasi yang paling penting saat Anda meminta bantuan.</p>\n<h1>3. Cara Kerja Attention: Langkah demi Langkah</h1>\n<p>Proses kerja Attention Mechanism dapat dipecah menjadi beberapa langkah kunci, dirancang untuk secara efisien memodelkan hubungan kompleks dalam data:</p>\n<ul>\n<li><strong>Query, Key, dan Value:</strong> Setiap kata dalam input teks diubah menjadi tiga representasi berbeda: Query (pertanyaan), Key (kunci), dan Value (nilai). Query mewakili pertanyaan yang diajukan oleh kata tersebut tentang konteks kalimat. Key digunakan untuk mencocokkan query dengan kata lain dalam input. Value mengandung informasi sebenarnya dari kata tersebut. Ini seperti memiliki tim peneliti yang masing-masing mengajukan pertanyaan, mencari jawaban, dan mengumpulkan data relevan.</li>\n<li><strong>Skor Relevansi:</strong> Model menghitung skor relevansi antara Query dari satu kata dengan Key dari semua kata lainnya dalam input. Skor ini menunjukkan seberapa relevan setiap kata lain dengan kata yang sedang diproses. Semakin tinggi skornya, semakin relevan kata tersebut. Ini adalah langkah di mana model menentukan sejauh mana setiap kata berkontribusi pada pemahaman keseluruhan.</li>\n<li><strong>Softmax:</strong> Skor relevansi kemudian diubah menjadi probabilitas menggunakan fungsi Softmax. Ini memastikan bahwa semua probabilitas berjumlah 1, sehingga kita mendapatkan bobot yang merepresentasikan tingkat perhatian yang harus diberikan pada setiap kata. Fungsi Softmax menghasilkan distribusi probabilitas, seperti menentukan seberapa besar fokus yang akan diberikan model pada setiap aspek informasi.</li>\n<li><strong>Weighted Sum:</strong> Nilai dari setiap kata dalam input dikalikan dengan probabilitasnya (bobot perhatian). Hasil perkalian ini dijumlahkan untuk menghasilkan representasi konteks yang mempertimbangkan semua kata dalam input, dengan fokus pada kata-kata yang paling relevan. Ini adalah langkah terakhir di mana model menggabungkan informasi yang paling penting menjadi satu representasi terpadu.</li>\n</ul>\n<h1>4. Berbagai Jenis Attention Mechanism</h1>\n<p>Ada beberapa variasi dari Attention Mechanism, masing-masing memiliki kelebihan dan kekurangan:</p>\n<ul>\n<li><strong>Global Attention:</strong> Memperhatikan semua kata dalam input. Ini adalah pendekatan yang paling sederhana tetapi juga paling intensif secara komputasi, terutama untuk input yang panjang.</li>\n<li><strong>Local Attention:</strong> Hanya memperhatikan sebagian kecil kata dalam input, yang lebih efisien secara komputasi. Ini melibatkan menentukan jendela perhatian yang berpusat di sekitar kata yang sedang diproses.</li>\n<li><strong>Self-Attention:</strong> Memungkinkan model untuk memperhatikan hubungan antar bagian dari *input itu sendiri*. Ini sangat penting untuk memahami konteks kalimat dan hubungan antar kata dalam sebuah kalimat. Contohnya, dalam kalimat “Anjing itu mengejar bola merah,” self-attention akan membantu model memahami bahwa kata “itu” merujuk pada “anjing,” bukan pada &#8220;bola.&#8221; Ini adalah kunci untuk menangkap ketergantungan jangka panjang dalam teks.</li>\n</ul>\n<h1>5. Manfaat Attention Mechanism</h1>\n<p>Attention Mechanism memberikan beberapa manfaat signifikan bagi LLM:</p>\n<ul>\n<li><strong>Memahami Konteks yang Lebih Baik:</strong> Dengan mempertimbangkan hubungan antar kata, model dapat memahami konteks kalimat dengan lebih akurat.</li>\n<li><strong>Menangani Kalimat Panjang:</strong> Attention Mechanism memungkinkan model untuk menangani kalimat panjang tanpa kehilangan informasi penting.</li>\n<li><strong>Interpretasi yang Lebih Mudah:</strong> Bobot perhatian dapat memberikan wawasan tentang bagaimana model memproses input dan membuat keputusan, meskipun interpretasi ini tidak selalu mudah.</li>\n<li><strong>Peningkatan Akurasi:</strong> Secara umum, penggunaan Attention Mechanism meningkatkan akurasi dalam berbagai tugas pemrosesan bahasa alami.</li>\n</ul>\n<h1>6. Keterbatasan dan Risiko Attention Mechanism</h1>\n<p>Meskipun sangat efektif, Attention Mechanism juga memiliki beberapa keterbatasan:</p>\n<ul>\n<li><strong>Komputasi Intensif:</strong> Perhitungan perhatian, terutama untuk input yang panjang, dapat menjadi sangat mahal secara komputasi.</li>\n<li><strong>Interpretasi yang Tidak Selalu Jelas:</strong> Meskipun bobot perhatian memberikan wawasan, interpretasinya tidak selalu mudah dan bisa menyesatkan. Bobot ini merefleksikan seberapa besar model &#8220;memperhatikan&#8221; kata-kata tersebut, tetapi tidak selalu berarti bahwa kata-kata itu adalah penyebab langsung dari output model.</li>\n<li><strong>Sensitivitas terhadap Data Pelatihan:</strong> Performa Attention Mechanism sangat bergantung pada kualitas dan kuantitas data pelatihan. Jika data pelatihan bias, model juga akan bias.</li>\n</ul>\n<h1>7. Penerapan Attention Mechanism dalam LLM</h1>\n<p>Attention Mechanism telah menjadi komponen integral dari sebagian besar LLM modern, termasuk:</p>\n<ul>\n<li><strong>GPT (Generative Pre-trained Transformer):</strong> Model GPT menggunakan self-attention untuk menghasilkan teks yang koheren dan relevan.</li>\n<li><strong>BERT (Bidirectional Encoder Representations from Transformers):</strong> BERT menggunakan attention untuk memahami konteks kalimat secara bidireksional, memungkinkan model untuk mempertimbangkan informasi dari kedua arah dalam kalimat.</li>\n</ul>\n<p>Selain itu, Attention Mechanism juga digunakan dalam berbagai aplikasi lain, seperti penerjemahan mesin, ringkasan teks, analisis sentimen, dan bahkan pembuatan musik.</p>\n<h1>8. Kesimpulan</h1>\n<p>Attention Mechanism merupakan terobosan penting dalam bidang pemrosesan bahasa alami. Dengan memungkinkan model untuk “memperhatikan” bagian-bagian penting dari input teks, Attention Mechanism telah membuka jalan bagi LLM yang lebih canggih dan mampu memahami bahasa manusia dengan cara yang lebih mirip dengan manusia. Ini bukan hanya tentang memproses kata-kata; ini tentang memahami hubungan di antara mereka dan bagaimana mereka berkontribusi pada makna keseluruhan. Meskipun memiliki keterbatasan, potensi Attention Mechanism untuk meningkatkan kemampuan LLM masih sangat besar dan terus menjadi fokus penelitian dan pengembangan, mendorong batas-batas apa yang mungkin dilakukan dalam pemahaman dan pembuatan bahasa</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Bagaimana Mekanisme Attention Bekerja dalam LLM? Large Language Models (LLM) seperti ChatGPT dan Gemini telah memicu revolusi dalam cara kita berinteraksi dengan teknologi. Kemampuan mereka menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menulis kode pemrograman, terasa begitu canggih. Namun, di balik semua kemudahan ini, terdapat mekanisme rumit yang memungkinkan LLM melakukan hal tersebut: Attention Mechanism. Mekanisme ini bukan hanya sekadar komponen teknis; ia adalah kunci untuk memahami bagaimana model-model ini mampu meniru pemahaman bahasa manusia. 1. Memahami Tantangan Dasar Bahasa Sebelum membahas bagaimana “perhatian” bekerja, penting untuk memahami tantangan utama dalam memproses bahasa alami. Manusia, saat membaca atau berbicara,&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 34,
+    "featured_media": 17562,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1919,
+      2616
+    ],
+    "tags": [
+      2982
+    ],
+    "class_list": [
+      "post-17554",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-ai",
+      "category-information-technology",
+      "tag-bagaimana-mekanisme-attention-bekerja-dalam-llm"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Bagaimana Mekanisme Attention Bekerja dalam LLM? - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Bagaimana Mekanisme Attention Bekerja dalam LLM? - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Bagaimana Mekanisme Attention Bekerja dalam LLM? Large Language Models (LLM) seperti ChatGPT dan Gemini telah memicu revolusi dalam cara kita berinteraksi dengan teknologi. Kemampuan mereka menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menulis kode pemrograman, terasa begitu canggih. Namun, di balik semua kemudahan ini, terdapat mekanisme rumit yang memungkinkan LLM melakukan hal tersebut: Attention Mechanism. Mekanisme ini bukan hanya sekadar komponen teknis; ia adalah kunci untuk memahami bagaimana model-model ini mampu meniru pemahaman bahasa manusia. 1. Memahami Tantangan Dasar Bahasa Sebelum membahas bagaimana “perhatian” bekerja, penting untuk memahami tantangan utama dalam memproses bahasa alami. Manusia, saat membaca atau berbicara,...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-30T09:25:39+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_1hlqpc1hlqpc1hlq.png\" />\n\t<meta property=\"og:image:width\" content=\"1408\" />\n\t<meta property=\"og:image:height\" content=\"768\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Citra Saskia saranani\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Citra Saskia saranani\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"6 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/\",\"url\":\"https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/\",\"name\":\"Bagaimana Mekanisme Attention Bekerja dalam LLM? - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_1hlqpc1hlqpc1hlq.png\",\"datePublished\":\"2026-07-30T09:25:39+00:00\",\"dateModified\":\"2026-07-30T09:25:39+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_1hlqpc1hlqpc1hlq.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_1hlqpc1hlqpc1hlq.png\",\"width\":1408,\"height\":768},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Bagaimana Mekanisme Attention Bekerja dalam LLM?\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6\",\"name\":\"Citra Saskia saranani\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g\",\"caption\":\"Citra Saskia saranani\"},\"url\":\"https://buletinsiber.com/author/citra-saskia-saranani/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Bagaimana Mekanisme Attention Bekerja dalam LLM? - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Bagaimana Mekanisme Attention Bekerja dalam LLM? - buletinsiber.com",
+      "og_description": "Bagaimana Mekanisme Attention Bekerja dalam LLM? Large Language Models (LLM) seperti ChatGPT dan Gemini telah memicu revolusi dalam cara kita berinteraksi dengan teknologi. Kemampuan mereka menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menulis kode pemrograman, terasa begitu canggih. Namun, di balik semua kemudahan ini, terdapat mekanisme rumit yang memungkinkan LLM melakukan hal tersebut: Attention Mechanism. Mekanisme ini bukan hanya sekadar komponen teknis; ia adalah kunci untuk memahami bagaimana model-model ini mampu meniru pemahaman bahasa manusia. 1. Memahami Tantangan Dasar Bahasa Sebelum membahas bagaimana “perhatian” bekerja, penting untuk memahami tantangan utama dalam memproses bahasa alami. Manusia, saat membaca atau berbicara,...",
+      "og_url": "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-30T09:25:39+00:00",
+      "og_image": [
+        {
+          "width": 1408,
+          "height": 768,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_1hlqpc1hlqpc1hlq.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Citra Saskia saranani",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Citra Saskia saranani",
+        "Est. reading time": "6 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/",
+            "url": "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/",
+            "name": "Bagaimana Mekanisme Attention Bekerja dalam LLM? - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_1hlqpc1hlqpc1hlq.png",
+            "datePublished": "2026-07-30T09:25:39+00:00",
+            "dateModified": "2026-07-30T09:25:39+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_1hlqpc1hlqpc1hlq.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_1hlqpc1hlqpc1hlq.png",
+            "width": 1408,
+            "height": 768
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/bagaimana-mekanisme-attention-bekerja-dalam-llm/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Bagaimana Mekanisme Attention Bekerja dalam LLM?"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6",
+            "name": "Citra Saskia saranani",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g",
+              "caption": "Citra Saskia saranani"
+            },
+            "url": "https://buletinsiber.com/author/citra-saskia-saranani/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17554",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/34"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=17554"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17554/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 17563,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17554/revisions/17563"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/17562"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=17554"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=17554"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=17554"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

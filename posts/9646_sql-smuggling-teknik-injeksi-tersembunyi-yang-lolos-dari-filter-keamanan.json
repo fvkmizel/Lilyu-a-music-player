@@ -1,0 +1,332 @@
+{
+  "id": 9646,
+  "title": "SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan",
+  "slug": "sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan",
+  "url": "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/",
+  "date": "2026-02-27T01:09:27",
+  "date_gmt": "2026-02-27T01:09:27",
+  "modified": "2026-07-06T20:56:58",
+  "modified_gmt": "2026-07-06T20:56:58",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    185,
+    682,
+    1127
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/12/programming-background-with-person-working-with-codes-computer-1-scaled.jpg",
+  "excerpt": "Pengantar Keamanan aplikasi web terus berkembang untuk menghadapi berbagai teknik eksploitasi, salah satunya adalah SQL Injection. Namun, ketika banyak organisasi mulai menerapkan Web Application Firewall (WAF) dan validasi input yang ketat, pelaku serangan juga mengembangkan metode yang lebih canggih. Salah satu teknik tersebut dikenal sebagai SQL Smuggling. SQL Smuggling adalah variasi lanjutan dari SQL Injection yang dirancang untuk menyelundupkan payload berbahaya melewati mekanisme filter keamanan. Teknik ini memanfaatkan perbedaan cara sistem keamanan dan database memproses input, sehingga perintah SQL berbahaya dapat lolos tanpa terdeteksi. Apa Itu SQL Smuggling? SQL Smuggling merupakan teknik manipulasi input yang bertujuan menyamarkan atau menyusun ulang…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"81\" data-end=\"93\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"95\" data-end=\"450\"><span style=\"color: #000000;\">Keamanan aplikasi web terus berkembang untuk menghadapi berbagai teknik eksploitasi, salah satunya adalah SQL Injection. Namun, ketika banyak organisasi mulai menerapkan Web Application Firewall (WAF) dan validasi input yang ketat, pelaku serangan juga mengembangkan metode yang lebih canggih. Salah satu teknik tersebut dikenal sebagai <strong data-start=\"432\" data-end=\"449\">SQL Smuggling</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"452\" data-end=\"745\"><span style=\"color: #000000;\">SQL Smuggling adalah variasi lanjutan dari SQL Injection yang dirancang untuk menyelundupkan payload berbahaya melewati mekanisme filter keamanan. Teknik ini memanfaatkan perbedaan cara sistem keamanan dan database memproses input, sehingga perintah SQL berbahaya dapat lolos tanpa terdeteksi.</span></p>\n<hr data-start=\"747\" data-end=\"750\" />\n<h3 style=\"text-align: justify;\" data-start=\"752\" data-end=\"777\"><span style=\"color: #000000;\">Apa Itu SQL Smuggling?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"779\" data-end=\"989\"><span style=\"color: #000000;\">SQL Smuggling merupakan teknik manipulasi input yang bertujuan menyamarkan atau menyusun ulang query SQL agar tidak dikenali oleh sistem pertahanan seperti WAF, tetapi tetap diproses secara valid oleh database.</span></p>\n<p style=\"text-align: justify;\" data-start=\"991\" data-end=\"1117\"><span style=\"color: #000000;\">Berbeda dengan SQL Injection konvensional yang langsung memasukkan perintah berbahaya, SQL Smuggling memanfaatkan celah dalam:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1118\" data-end=\"1219\">\n<li data-start=\"1118\" data-end=\"1139\">\n<p data-start=\"1120\" data-end=\"1139\"><span style=\"color: #000000;\">Encoding karakter</span></p>\n</li>\n<li data-start=\"1140\" data-end=\"1161\">\n<p data-start=\"1142\" data-end=\"1161\"><span style=\"color: #000000;\">Normalisasi input</span></p>\n</li>\n<li data-start=\"1162\" data-end=\"1179\">\n<p data-start=\"1164\" data-end=\"1179\"><span style=\"color: #000000;\">Parsing query</span></p>\n</li>\n<li data-start=\"1180\" data-end=\"1219\">\n<p data-start=\"1182\" data-end=\"1219\"><span style=\"color: #000000;\">Perbedaan interpretasi antar sistem</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1221\" data-end=\"1434\"><span style=\"color: #000000;\">Menurut OWASP, SQL Injection tetap menjadi salah satu risiko keamanan aplikasi web yang signifikan karena lemahnya validasi input dan pengolahan query dinamis (dikutip dari <a href=\"https://owasp.org/www-project-top-ten/\">OWASP</a>).</span></p>\n<p style=\"text-align: justify;\" data-start=\"1436\" data-end=\"1575\"><span style=\"color: #000000;\">SQL Smuggling berkembang sebagai teknik untuk menghindari mekanisme proteksi yang telah dirancang untuk mencegah SQL Injection tradisional.</span></p>\n<blockquote>\n<p data-start=\"1436\" data-end=\"1575\">baca juga : <a href=\"https://buletinsiber.com/cloud-hopper-strategi-spionase-siber-yang-menyusup-lewat-penyedia-layanan-cloud/\">Cloud Hopper: Strategi Spionase Siber yang Menyusup Lewat Penyedia Layanan Cloud</a></p>\n</blockquote>\n<hr data-start=\"1577\" data-end=\"1580\" />\n<h3 style=\"text-align: justify;\" data-start=\"1582\" data-end=\"1620\"><span style=\"color: #000000;\">Bagaimana Cara Kerja SQL Smuggling?</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1622\" data-end=\"1672\"><span style=\"color: #000000;\">Perbedaan Interpretasi antara WAF dan Database</span></h4>\n<p style=\"text-align: justify;\" data-start=\"1674\" data-end=\"1778\"><span style=\"color: #000000;\">Salah satu inti dari SQL Smuggling adalah mengeksploitasi perbedaan cara WAF dan database membaca input.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"1780\" data-end=\"1795\"><span style=\"color: #000000;\">Contohnya:</span></h6>\n<ul style=\"text-align: justify;\" data-start=\"1796\" data-end=\"2022\">\n<li data-start=\"1796\" data-end=\"1858\">\n<p data-start=\"1798\" data-end=\"1858\"><span style=\"color: #000000;\">WAF melakukan decoding satu kali terhadap karakter tertentu.</span></p>\n</li>\n<li data-start=\"1859\" data-end=\"1925\">\n<p data-start=\"1861\" data-end=\"1925\"><span style=\"color: #000000;\">Database melakukan decoding dua kali atau dengan metode berbeda.</span></p>\n</li>\n<li data-start=\"1926\" data-end=\"2022\">\n<p data-start=\"1928\" data-end=\"2022\"><span style=\"color: #000000;\">Hasilnya, payload yang terlihat aman oleh WAF menjadi berbahaya ketika diproses oleh database.</span></p>\n</li>\n</ul>\n<h4 style=\"text-align: justify;\" data-start=\"2024\" data-end=\"2047\"><span style=\"color: #000000;\">Manipulasi Encoding</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2049\" data-end=\"2074\"><span style=\"color: #000000;\">Pelaku dapat menggunakan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2075\" data-end=\"2140\">\n<li data-start=\"2075\" data-end=\"2094\">\n<p data-start=\"2077\" data-end=\"2094\"><span style=\"color: #000000;\">Double encoding</span></p>\n</li>\n<li data-start=\"2095\" data-end=\"2115\">\n<p data-start=\"2097\" data-end=\"2115\"><span style=\"color: #000000;\">Unicode encoding</span></p>\n</li>\n<li data-start=\"2116\" data-end=\"2140\">\n<p data-start=\"2118\" data-end=\"2140\"><span style=\"color: #000000;\">Hexadecimal encoding</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2142\" data-end=\"2223\"><span style=\"color: #000000;\">Teknik ini membuat query tampak tidak mencurigakan saat melewati sistem keamanan.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2225\" data-end=\"2267\"><span style=\"color: #000000;\">Penyusunan Query Secara Terfragmentasi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2269\" data-end=\"2407\"><span style=\"color: #000000;\">Payload SQL dapat dipecah menjadi beberapa bagian yang tampak tidak berbahaya, lalu digabungkan kembali oleh sistem backend saat diproses.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2409\" data-end=\"2604\"><span style=\"color: #000000;\">Menurut PortSwigger, variasi SQL Injection modern sering memanfaatkan teknik encoding dan evasion untuk melewati filter keamanan (dikutip dari <a href=\"https://portswigger.net/web-security/sql-injection\">PortSwigger</a>).</span></p>\n<blockquote>\n<p data-start=\"2409\" data-end=\"2604\">baca juga : <a href=\"https://buletinsiber.com/magecart-attack-ancaman-tersembunyi-di-balik-transaksi-belanja-online/\">Magecart Attack: Ancaman Tersembunyi di Balik Transaksi Belanja Online</a></p>\n</blockquote>\n<hr data-start=\"2606\" data-end=\"2609\" />\n<h3 style=\"text-align: justify;\" data-start=\"2611\" data-end=\"2661\"><span style=\"color: #000000;\">Perbedaan SQL Smuggling dan SQL Injection Biasa</span></h3>\n<div class=\"TyagGW_tableContainer\" style=\"text-align: justify;\">\n<div class=\"group TyagGW_tableWrapper flex flex-col-reverse w-fit\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2663\" data-end=\"2982\">\n<thead data-start=\"2663\" data-end=\"2704\">\n<tr data-start=\"2663\" data-end=\"2704\">\n<th class=\"\" data-start=\"2663\" data-end=\"2671\" data-col-size=\"sm\"><span style=\"color: #000000;\">Aspek</span></th>\n<th class=\"\" data-start=\"2671\" data-end=\"2687\" data-col-size=\"sm\"><span style=\"color: #000000;\">SQL Injection</span></th>\n<th class=\"\" data-start=\"2687\" data-end=\"2704\" data-col-size=\"sm\"><span style=\"color: #000000;\">SQL Smuggling</span></th>\n</tr>\n</thead>\n<tbody data-start=\"2746\" data-end=\"2982\">\n<tr data-start=\"2746\" data-end=\"2799\">\n<td data-start=\"2746\" data-end=\"2755\" data-col-size=\"sm\"><span style=\"color: #000000;\">Metode</span></td>\n<td data-start=\"2755\" data-end=\"2774\" data-col-size=\"sm\"><span style=\"color: #000000;\">Injeksi langsung</span></td>\n<td data-start=\"2774\" data-end=\"2799\" data-col-size=\"sm\"><span style=\"color: #000000;\">Penyelundupan payload</span></td>\n</tr>\n<tr data-start=\"2800\" data-end=\"2854\">\n<td data-start=\"2800\" data-end=\"2809\" data-col-size=\"sm\"><span style=\"color: #000000;\">Target</span></td>\n<td data-start=\"2809\" data-end=\"2825\" data-col-size=\"sm\"><span style=\"color: #000000;\">Query dinamis</span></td>\n<td data-start=\"2825\" data-end=\"2854\" data-col-size=\"sm\"><span style=\"color: #000000;\">Mekanisme filter &amp; parser</span></td>\n</tr>\n<tr data-start=\"2855\" data-end=\"2922\">\n<td data-start=\"2855\" data-end=\"2870\" data-col-size=\"sm\"><span style=\"color: #000000;\">Kompleksitas</span></td>\n<td data-start=\"2870\" data-end=\"2890\" data-col-size=\"sm\"><span style=\"color: #000000;\">Relatif sederhana</span></td>\n<td data-start=\"2890\" data-end=\"2922\" data-col-size=\"sm\"><span style=\"color: #000000;\">Lebih teknis dan terstruktur</span></td>\n</tr>\n<tr data-start=\"2923\" data-end=\"2982\">\n<td data-start=\"2923\" data-end=\"2932\" data-col-size=\"sm\"><span style=\"color: #000000;\">Tujuan</span></td>\n<td data-start=\"2932\" data-end=\"2959\" data-col-size=\"sm\"><span style=\"color: #000000;\">Eksekusi query berbahaya</span></td>\n<td data-start=\"2959\" data-end=\"2982\" data-col-size=\"sm\"><span style=\"color: #000000;\">Menghindari deteksi</span></td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"2984\" data-end=\"3116\"><span style=\"color: #000000;\">SQL Smuggling bukan teknik yang sepenuhnya baru, melainkan evolusi dari SQL Injection dengan fokus pada bypass mekanisme pertahanan.</span></p>\n<hr data-start=\"3118\" data-end=\"3121\" />\n<h3 style=\"text-align: justify;\" data-start=\"3123\" data-end=\"3146\"><span style=\"color: #000000;\">Dampak SQL Smuggling</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3148\" data-end=\"3194\"><span style=\"color: #000000;\">Jika berhasil, serangan ini dapat menyebabkan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3196\" data-end=\"3308\">\n<li data-start=\"3196\" data-end=\"3223\">\n<p data-start=\"3198\" data-end=\"3223\"><span style=\"color: #000000;\">Kebocoran data sensitif</span></p>\n</li>\n<li data-start=\"3224\" data-end=\"3248\">\n<p data-start=\"3226\" data-end=\"3248\"><span style=\"color: #000000;\">Pengambilalihan akun</span></p>\n</li>\n<li data-start=\"3249\" data-end=\"3285\">\n<p data-start=\"3251\" data-end=\"3285\"><span style=\"color: #000000;\">Modifikasi atau penghapusan data</span></p>\n</li>\n<li data-start=\"3286\" data-end=\"3308\">\n<p data-start=\"3288\" data-end=\"3308\"><span style=\"color: #000000;\">Eskalasi hak akses</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3310\" data-end=\"3486\"><span style=\"color: #000000;\">Karena teknik ini dirancang untuk melewati sistem keamanan, dampaknya sering kali lebih serius karena organisasi merasa sudah terlindungi oleh WAF atau sistem proteksi lainnya.</span></p>\n<hr data-start=\"3488\" data-end=\"3491\" />\n<h3 style=\"text-align: justify;\" data-start=\"3493\" data-end=\"3534\"><span style=\"color: #000000;\">Mengapa SQL Smuggling Sulit Dideteksi?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3536\" data-end=\"3597\"><span style=\"color: #000000;\">Beberapa faktor yang membuat teknik ini sulit diidentifikasi:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"3599\" data-end=\"3824\">\n<li data-start=\"3599\" data-end=\"3653\">\n<p data-start=\"3602\" data-end=\"3653\"><span style=\"color: #000000;\">Payload terlihat normal pada tahap inspeksi awal.</span></p>\n</li>\n<li data-start=\"3654\" data-end=\"3712\">\n<p data-start=\"3657\" data-end=\"3712\"><span style=\"color: #000000;\">Mengandalkan celah pada proses decoding atau parsing.</span></p>\n</li>\n<li data-start=\"3713\" data-end=\"3767\">\n<p data-start=\"3716\" data-end=\"3767\"><span style=\"color: #000000;\">Memanfaatkan kompleksitas sistem aplikasi modern.</span></p>\n</li>\n<li data-start=\"3768\" data-end=\"3824\">\n<p data-start=\"3771\" data-end=\"3824\"><span style=\"color: #000000;\">Bergantung pada inkonsistensi konfigurasi keamanan.</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"3826\" data-end=\"3966\"><span style=\"color: #000000;\">Banyak sistem keamanan hanya memeriksa pola eksplisit, bukan bagaimana input tersebut akan diinterpretasikan secara menyeluruh oleh backend.</span></p>\n<hr data-start=\"3968\" data-end=\"3971\" />\n<h3 style=\"text-align: justify;\" data-start=\"3973\" data-end=\"4009\"><span style=\"color: #000000;\">Strategi Pencegahan SQL Smuggling</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"4011\" data-end=\"4044\"><span style=\"color: #000000;\">Gunakan Parameterized Queries</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4046\" data-end=\"4134\"><span style=\"color: #000000;\">Prepared statements mencegah eksekusi perintah SQL yang disisipkan dalam input pengguna.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4136\" data-end=\"4185\"><span style=\"color: #000000;\">Validasi dan Normalisasi Input yang Konsisten</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4187\" data-end=\"4279\"><span style=\"color: #000000;\">Pastikan proses decoding dan parsing dilakukan secara konsisten di seluruh lapisan aplikasi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4281\" data-end=\"4311\"><span style=\"color: #000000;\">Konfigurasi WAF yang Tepat</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4313\" data-end=\"4397\"><span style=\"color: #000000;\">Perbarui signature dan aturan deteksi agar mampu mengenali teknik encoding kompleks.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4399\" data-end=\"4440\"><span style=\"color: #000000;\">Prinsip Least Privilege pada Database</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4442\" data-end=\"4516\"><span style=\"color: #000000;\">Batasi hak akses akun database agar dampak eksploitasi dapat diminimalkan.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4518\" data-end=\"4548\"><span style=\"color: #000000;\">Pengujian Keamanan Berkala</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4550\" data-end=\"4639\"><span style=\"color: #000000;\">Lakukan penetration testing untuk mengidentifikasi potensi bypass pada sistem pertahanan.</span></p>\n<hr data-start=\"4641\" data-end=\"4644\" />\n<h3 style=\"text-align: justify;\" data-start=\"4646\" data-end=\"4694\"><span style=\"color: #000000;\">Relevansi SQL Smuggling dalam Keamanan Modern</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4696\" data-end=\"4891\"><span style=\"color: #000000;\">Dengan semakin kompleksnya arsitektur aplikasi berbasis microservices dan API, permukaan serangan juga semakin luas. SQL Smuggling menunjukkan bahwa perlindungan berbasis filter saja tidak cukup.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4893\" data-end=\"5047\"><span style=\"color: #000000;\">Pendekatan keamanan modern harus mengutamakan desain aplikasi yang aman sejak awal (secure by design), bukan hanya mengandalkan lapisan proteksi tambahan.</span></p>\n<blockquote>\n<p data-start=\"4893\" data-end=\"5047\">baca juga : <a href=\"https://buletinsiber.com/adversial-attacks-kerentanan-sistem-berbasis-ai/\">Adversarial Attacks: Mengungkap Kerentanan Sistem Berbasis AI</a></p>\n</blockquote>\n<hr data-start=\"5049\" data-end=\"5052\" />\n<h2 style=\"text-align: justify;\" data-start=\"5054\" data-end=\"5067\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5069\" data-end=\"5341\"><span style=\"color: #000000;\">SQL Smuggling adalah teknik lanjutan dari SQL Injection yang dirancang untuk menyelundupkan perintah berbahaya melewati sistem keamanan seperti WAF. Dengan memanfaatkan perbedaan interpretasi dan teknik encoding, pelaku dapat mengeksekusi query berbahaya tanpa terdeteksi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5343\" data-end=\"5677\"><span style=\"color: #000000;\">Untuk mencegahnya, organisasi harus menggabungkan praktik secure coding, parameterized queries, validasi input yang konsisten, serta pengujian keamanan rutin. Dalam lanskap ancaman siber yang terus berkembang, pemahaman terhadap teknik bypass seperti SQL Smuggling menjadi kunci untuk membangun pertahanan aplikasi yang lebih tangguh.</span></p>\n",
+  "content_text": "Pengantar\nKeamanan aplikasi web terus berkembang untuk menghadapi berbagai teknik eksploitasi, salah satunya adalah SQL Injection. Namun, ketika banyak organisasi mulai menerapkan Web Application Firewall (WAF) dan validasi input yang ketat, pelaku serangan juga mengembangkan metode yang lebih canggih. Salah satu teknik tersebut dikenal sebagai  SQL Smuggling .\nSQL Smuggling adalah variasi lanjutan dari SQL Injection yang dirancang untuk menyelundupkan payload berbahaya melewati mekanisme filter keamanan. Teknik ini memanfaatkan perbedaan cara sistem keamanan dan database memproses input, sehingga perintah SQL berbahaya dapat lolos tanpa terdeteksi.\nApa Itu SQL Smuggling?\nSQL Smuggling merupakan teknik manipulasi input yang bertujuan menyamarkan atau menyusun ulang query SQL agar tidak dikenali oleh sistem pertahanan seperti WAF, tetapi tetap diproses secara valid oleh database.\nBerbeda dengan SQL Injection konvensional yang langsung memasukkan perintah berbahaya, SQL Smuggling memanfaatkan celah dalam:\nEncoding karakter\nNormalisasi input\nParsing query\nPerbedaan interpretasi antar sistem\nMenurut OWASP, SQL Injection tetap menjadi salah satu risiko keamanan aplikasi web yang signifikan karena lemahnya validasi input dan pengolahan query dinamis (dikutip dari  OWASP ).\nSQL Smuggling berkembang sebagai teknik untuk menghindari mekanisme proteksi yang telah dirancang untuk mencegah SQL Injection tradisional.\nbaca juga :  Cloud Hopper: Strategi Spionase Siber yang Menyusup Lewat Penyedia Layanan Cloud\nBagaimana Cara Kerja SQL Smuggling?\nPerbedaan Interpretasi antara WAF dan Database\nSalah satu inti dari SQL Smuggling adalah mengeksploitasi perbedaan cara WAF dan database membaca input.\nContohnya:\nWAF melakukan decoding satu kali terhadap karakter tertentu.\nDatabase melakukan decoding dua kali atau dengan metode berbeda.\nHasilnya, payload yang terlihat aman oleh WAF menjadi berbahaya ketika diproses oleh database.\nManipulasi Encoding\nPelaku dapat menggunakan:\nDouble encoding\nUnicode encoding\nHexadecimal encoding\nTeknik ini membuat query tampak tidak mencurigakan saat melewati sistem keamanan.\nPenyusunan Query Secara Terfragmentasi\nPayload SQL dapat dipecah menjadi beberapa bagian yang tampak tidak berbahaya, lalu digabungkan kembali oleh sistem backend saat diproses.\nMenurut PortSwigger, variasi SQL Injection modern sering memanfaatkan teknik encoding dan evasion untuk melewati filter keamanan (dikutip dari  PortSwigger ).\nbaca juga :  Magecart Attack: Ancaman Tersembunyi di Balik Transaksi Belanja Online\nPerbedaan SQL Smuggling dan SQL Injection Biasa\nAspek\nSQL Injection\nSQL Smuggling\nMetode\nInjeksi langsung\nPenyelundupan payload\nTarget\nQuery dinamis\nMekanisme filter & parser\nKompleksitas\nRelatif sederhana\nLebih teknis dan terstruktur\nTujuan\nEksekusi query berbahaya\nMenghindari deteksi\nSQL Smuggling bukan teknik yang sepenuhnya baru, melainkan evolusi dari SQL Injection dengan fokus pada bypass mekanisme pertahanan.\nDampak SQL Smuggling\nJika berhasil, serangan ini dapat menyebabkan:\nKebocoran data sensitif\nPengambilalihan akun\nModifikasi atau penghapusan data\nEskalasi hak akses\nKarena teknik ini dirancang untuk melewati sistem keamanan, dampaknya sering kali lebih serius karena organisasi merasa sudah terlindungi oleh WAF atau sistem proteksi lainnya.\nMengapa SQL Smuggling Sulit Dideteksi?\nBeberapa faktor yang membuat teknik ini sulit diidentifikasi:\nPayload terlihat normal pada tahap inspeksi awal.\nMengandalkan celah pada proses decoding atau parsing.\nMemanfaatkan kompleksitas sistem aplikasi modern.\nBergantung pada inkonsistensi konfigurasi keamanan.\nBanyak sistem keamanan hanya memeriksa pola eksplisit, bukan bagaimana input tersebut akan diinterpretasikan secara menyeluruh oleh backend.\nStrategi Pencegahan SQL Smuggling\nGunakan Parameterized Queries\nPrepared statements mencegah eksekusi perintah SQL yang disisipkan dalam input pengguna.\nValidasi dan Normalisasi Input yang Konsisten\nPastikan proses decoding dan parsing dilakukan secara konsisten di seluruh lapisan aplikasi.\nKonfigurasi WAF yang Tepat\nPerbarui signature dan aturan deteksi agar mampu mengenali teknik encoding kompleks.\nPrinsip Least Privilege pada Database\nBatasi hak akses akun database agar dampak eksploitasi dapat diminimalkan.\nPengujian Keamanan Berkala\nLakukan penetration testing untuk mengidentifikasi potensi bypass pada sistem pertahanan.\nRelevansi SQL Smuggling dalam Keamanan Modern\nDengan semakin kompleksnya arsitektur aplikasi berbasis microservices dan API, permukaan serangan juga semakin luas. SQL Smuggling menunjukkan bahwa perlindungan berbasis filter saja tidak cukup.\nPendekatan keamanan modern harus mengutamakan desain aplikasi yang aman sejak awal (secure by design), bukan hanya mengandalkan lapisan proteksi tambahan.\nbaca juga :  Adversarial Attacks: Mengungkap Kerentanan Sistem Berbasis AI\nKesimpulan\nSQL Smuggling adalah teknik lanjutan dari SQL Injection yang dirancang untuk menyelundupkan perintah berbahaya melewati sistem keamanan seperti WAF. Dengan memanfaatkan perbedaan interpretasi dan teknik encoding, pelaku dapat mengeksekusi query berbahaya tanpa terdeteksi.\nUntuk mencegahnya, organisasi harus menggabungkan praktik secure coding, parameterized queries, validasi input yang konsisten, serta pengujian keamanan rutin. Dalam lanskap ancaman siber yang terus berkembang, pemahaman terhadap teknik bypass seperti SQL Smuggling menjadi kunci untuk membangun pertahanan aplikasi yang lebih tangguh.",
+  "raw": {
+    "id": 9646,
+    "date": "2026-02-27T01:09:27",
+    "date_gmt": "2026-02-27T01:09:27",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9646"
+    },
+    "modified": "2026-07-06T20:56:58",
+    "modified_gmt": "2026-07-06T20:56:58",
+    "slug": "sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/",
+    "title": {
+      "rendered": "SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"81\" data-end=\"93\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"95\" data-end=\"450\"><span style=\"color: #000000;\">Keamanan aplikasi web terus berkembang untuk menghadapi berbagai teknik eksploitasi, salah satunya adalah SQL Injection. Namun, ketika banyak organisasi mulai menerapkan Web Application Firewall (WAF) dan validasi input yang ketat, pelaku serangan juga mengembangkan metode yang lebih canggih. Salah satu teknik tersebut dikenal sebagai <strong data-start=\"432\" data-end=\"449\">SQL Smuggling</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"452\" data-end=\"745\"><span style=\"color: #000000;\">SQL Smuggling adalah variasi lanjutan dari SQL Injection yang dirancang untuk menyelundupkan payload berbahaya melewati mekanisme filter keamanan. Teknik ini memanfaatkan perbedaan cara sistem keamanan dan database memproses input, sehingga perintah SQL berbahaya dapat lolos tanpa terdeteksi.</span></p>\n<hr data-start=\"747\" data-end=\"750\" />\n<h3 style=\"text-align: justify;\" data-start=\"752\" data-end=\"777\"><span style=\"color: #000000;\">Apa Itu SQL Smuggling?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"779\" data-end=\"989\"><span style=\"color: #000000;\">SQL Smuggling merupakan teknik manipulasi input yang bertujuan menyamarkan atau menyusun ulang query SQL agar tidak dikenali oleh sistem pertahanan seperti WAF, tetapi tetap diproses secara valid oleh database.</span></p>\n<p style=\"text-align: justify;\" data-start=\"991\" data-end=\"1117\"><span style=\"color: #000000;\">Berbeda dengan SQL Injection konvensional yang langsung memasukkan perintah berbahaya, SQL Smuggling memanfaatkan celah dalam:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1118\" data-end=\"1219\">\n<li data-start=\"1118\" data-end=\"1139\">\n<p data-start=\"1120\" data-end=\"1139\"><span style=\"color: #000000;\">Encoding karakter</span></p>\n</li>\n<li data-start=\"1140\" data-end=\"1161\">\n<p data-start=\"1142\" data-end=\"1161\"><span style=\"color: #000000;\">Normalisasi input</span></p>\n</li>\n<li data-start=\"1162\" data-end=\"1179\">\n<p data-start=\"1164\" data-end=\"1179\"><span style=\"color: #000000;\">Parsing query</span></p>\n</li>\n<li data-start=\"1180\" data-end=\"1219\">\n<p data-start=\"1182\" data-end=\"1219\"><span style=\"color: #000000;\">Perbedaan interpretasi antar sistem</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1221\" data-end=\"1434\"><span style=\"color: #000000;\">Menurut OWASP, SQL Injection tetap menjadi salah satu risiko keamanan aplikasi web yang signifikan karena lemahnya validasi input dan pengolahan query dinamis (dikutip dari <a href=\"https://owasp.org/www-project-top-ten/\">OWASP</a>).</span></p>\n<p style=\"text-align: justify;\" data-start=\"1436\" data-end=\"1575\"><span style=\"color: #000000;\">SQL Smuggling berkembang sebagai teknik untuk menghindari mekanisme proteksi yang telah dirancang untuk mencegah SQL Injection tradisional.</span></p>\n<blockquote>\n<p data-start=\"1436\" data-end=\"1575\">baca juga : <a href=\"https://buletinsiber.com/cloud-hopper-strategi-spionase-siber-yang-menyusup-lewat-penyedia-layanan-cloud/\">Cloud Hopper: Strategi Spionase Siber yang Menyusup Lewat Penyedia Layanan Cloud</a></p>\n</blockquote>\n<hr data-start=\"1577\" data-end=\"1580\" />\n<h3 style=\"text-align: justify;\" data-start=\"1582\" data-end=\"1620\"><span style=\"color: #000000;\">Bagaimana Cara Kerja SQL Smuggling?</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1622\" data-end=\"1672\"><span style=\"color: #000000;\">Perbedaan Interpretasi antara WAF dan Database</span></h4>\n<p style=\"text-align: justify;\" data-start=\"1674\" data-end=\"1778\"><span style=\"color: #000000;\">Salah satu inti dari SQL Smuggling adalah mengeksploitasi perbedaan cara WAF dan database membaca input.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"1780\" data-end=\"1795\"><span style=\"color: #000000;\">Contohnya:</span></h6>\n<ul style=\"text-align: justify;\" data-start=\"1796\" data-end=\"2022\">\n<li data-start=\"1796\" data-end=\"1858\">\n<p data-start=\"1798\" data-end=\"1858\"><span style=\"color: #000000;\">WAF melakukan decoding satu kali terhadap karakter tertentu.</span></p>\n</li>\n<li data-start=\"1859\" data-end=\"1925\">\n<p data-start=\"1861\" data-end=\"1925\"><span style=\"color: #000000;\">Database melakukan decoding dua kali atau dengan metode berbeda.</span></p>\n</li>\n<li data-start=\"1926\" data-end=\"2022\">\n<p data-start=\"1928\" data-end=\"2022\"><span style=\"color: #000000;\">Hasilnya, payload yang terlihat aman oleh WAF menjadi berbahaya ketika diproses oleh database.</span></p>\n</li>\n</ul>\n<h4 style=\"text-align: justify;\" data-start=\"2024\" data-end=\"2047\"><span style=\"color: #000000;\">Manipulasi Encoding</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2049\" data-end=\"2074\"><span style=\"color: #000000;\">Pelaku dapat menggunakan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2075\" data-end=\"2140\">\n<li data-start=\"2075\" data-end=\"2094\">\n<p data-start=\"2077\" data-end=\"2094\"><span style=\"color: #000000;\">Double encoding</span></p>\n</li>\n<li data-start=\"2095\" data-end=\"2115\">\n<p data-start=\"2097\" data-end=\"2115\"><span style=\"color: #000000;\">Unicode encoding</span></p>\n</li>\n<li data-start=\"2116\" data-end=\"2140\">\n<p data-start=\"2118\" data-end=\"2140\"><span style=\"color: #000000;\">Hexadecimal encoding</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2142\" data-end=\"2223\"><span style=\"color: #000000;\">Teknik ini membuat query tampak tidak mencurigakan saat melewati sistem keamanan.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2225\" data-end=\"2267\"><span style=\"color: #000000;\">Penyusunan Query Secara Terfragmentasi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2269\" data-end=\"2407\"><span style=\"color: #000000;\">Payload SQL dapat dipecah menjadi beberapa bagian yang tampak tidak berbahaya, lalu digabungkan kembali oleh sistem backend saat diproses.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2409\" data-end=\"2604\"><span style=\"color: #000000;\">Menurut PortSwigger, variasi SQL Injection modern sering memanfaatkan teknik encoding dan evasion untuk melewati filter keamanan (dikutip dari <a href=\"https://portswigger.net/web-security/sql-injection\">PortSwigger</a>).</span></p>\n<blockquote>\n<p data-start=\"2409\" data-end=\"2604\">baca juga : <a href=\"https://buletinsiber.com/magecart-attack-ancaman-tersembunyi-di-balik-transaksi-belanja-online/\">Magecart Attack: Ancaman Tersembunyi di Balik Transaksi Belanja Online</a></p>\n</blockquote>\n<hr data-start=\"2606\" data-end=\"2609\" />\n<h3 style=\"text-align: justify;\" data-start=\"2611\" data-end=\"2661\"><span style=\"color: #000000;\">Perbedaan SQL Smuggling dan SQL Injection Biasa</span></h3>\n<div class=\"TyagGW_tableContainer\" style=\"text-align: justify;\">\n<div class=\"group TyagGW_tableWrapper flex flex-col-reverse w-fit\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2663\" data-end=\"2982\">\n<thead data-start=\"2663\" data-end=\"2704\">\n<tr data-start=\"2663\" data-end=\"2704\">\n<th class=\"\" data-start=\"2663\" data-end=\"2671\" data-col-size=\"sm\"><span style=\"color: #000000;\">Aspek</span></th>\n<th class=\"\" data-start=\"2671\" data-end=\"2687\" data-col-size=\"sm\"><span style=\"color: #000000;\">SQL Injection</span></th>\n<th class=\"\" data-start=\"2687\" data-end=\"2704\" data-col-size=\"sm\"><span style=\"color: #000000;\">SQL Smuggling</span></th>\n</tr>\n</thead>\n<tbody data-start=\"2746\" data-end=\"2982\">\n<tr data-start=\"2746\" data-end=\"2799\">\n<td data-start=\"2746\" data-end=\"2755\" data-col-size=\"sm\"><span style=\"color: #000000;\">Metode</span></td>\n<td data-start=\"2755\" data-end=\"2774\" data-col-size=\"sm\"><span style=\"color: #000000;\">Injeksi langsung</span></td>\n<td data-start=\"2774\" data-end=\"2799\" data-col-size=\"sm\"><span style=\"color: #000000;\">Penyelundupan payload</span></td>\n</tr>\n<tr data-start=\"2800\" data-end=\"2854\">\n<td data-start=\"2800\" data-end=\"2809\" data-col-size=\"sm\"><span style=\"color: #000000;\">Target</span></td>\n<td data-start=\"2809\" data-end=\"2825\" data-col-size=\"sm\"><span style=\"color: #000000;\">Query dinamis</span></td>\n<td data-start=\"2825\" data-end=\"2854\" data-col-size=\"sm\"><span style=\"color: #000000;\">Mekanisme filter &amp; parser</span></td>\n</tr>\n<tr data-start=\"2855\" data-end=\"2922\">\n<td data-start=\"2855\" data-end=\"2870\" data-col-size=\"sm\"><span style=\"color: #000000;\">Kompleksitas</span></td>\n<td data-start=\"2870\" data-end=\"2890\" data-col-size=\"sm\"><span style=\"color: #000000;\">Relatif sederhana</span></td>\n<td data-start=\"2890\" data-end=\"2922\" data-col-size=\"sm\"><span style=\"color: #000000;\">Lebih teknis dan terstruktur</span></td>\n</tr>\n<tr data-start=\"2923\" data-end=\"2982\">\n<td data-start=\"2923\" data-end=\"2932\" data-col-size=\"sm\"><span style=\"color: #000000;\">Tujuan</span></td>\n<td data-start=\"2932\" data-end=\"2959\" data-col-size=\"sm\"><span style=\"color: #000000;\">Eksekusi query berbahaya</span></td>\n<td data-start=\"2959\" data-end=\"2982\" data-col-size=\"sm\"><span style=\"color: #000000;\">Menghindari deteksi</span></td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"2984\" data-end=\"3116\"><span style=\"color: #000000;\">SQL Smuggling bukan teknik yang sepenuhnya baru, melainkan evolusi dari SQL Injection dengan fokus pada bypass mekanisme pertahanan.</span></p>\n<hr data-start=\"3118\" data-end=\"3121\" />\n<h3 style=\"text-align: justify;\" data-start=\"3123\" data-end=\"3146\"><span style=\"color: #000000;\">Dampak SQL Smuggling</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3148\" data-end=\"3194\"><span style=\"color: #000000;\">Jika berhasil, serangan ini dapat menyebabkan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3196\" data-end=\"3308\">\n<li data-start=\"3196\" data-end=\"3223\">\n<p data-start=\"3198\" data-end=\"3223\"><span style=\"color: #000000;\">Kebocoran data sensitif</span></p>\n</li>\n<li data-start=\"3224\" data-end=\"3248\">\n<p data-start=\"3226\" data-end=\"3248\"><span style=\"color: #000000;\">Pengambilalihan akun</span></p>\n</li>\n<li data-start=\"3249\" data-end=\"3285\">\n<p data-start=\"3251\" data-end=\"3285\"><span style=\"color: #000000;\">Modifikasi atau penghapusan data</span></p>\n</li>\n<li data-start=\"3286\" data-end=\"3308\">\n<p data-start=\"3288\" data-end=\"3308\"><span style=\"color: #000000;\">Eskalasi hak akses</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3310\" data-end=\"3486\"><span style=\"color: #000000;\">Karena teknik ini dirancang untuk melewati sistem keamanan, dampaknya sering kali lebih serius karena organisasi merasa sudah terlindungi oleh WAF atau sistem proteksi lainnya.</span></p>\n<hr data-start=\"3488\" data-end=\"3491\" />\n<h3 style=\"text-align: justify;\" data-start=\"3493\" data-end=\"3534\"><span style=\"color: #000000;\">Mengapa SQL Smuggling Sulit Dideteksi?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3536\" data-end=\"3597\"><span style=\"color: #000000;\">Beberapa faktor yang membuat teknik ini sulit diidentifikasi:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"3599\" data-end=\"3824\">\n<li data-start=\"3599\" data-end=\"3653\">\n<p data-start=\"3602\" data-end=\"3653\"><span style=\"color: #000000;\">Payload terlihat normal pada tahap inspeksi awal.</span></p>\n</li>\n<li data-start=\"3654\" data-end=\"3712\">\n<p data-start=\"3657\" data-end=\"3712\"><span style=\"color: #000000;\">Mengandalkan celah pada proses decoding atau parsing.</span></p>\n</li>\n<li data-start=\"3713\" data-end=\"3767\">\n<p data-start=\"3716\" data-end=\"3767\"><span style=\"color: #000000;\">Memanfaatkan kompleksitas sistem aplikasi modern.</span></p>\n</li>\n<li data-start=\"3768\" data-end=\"3824\">\n<p data-start=\"3771\" data-end=\"3824\"><span style=\"color: #000000;\">Bergantung pada inkonsistensi konfigurasi keamanan.</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"3826\" data-end=\"3966\"><span style=\"color: #000000;\">Banyak sistem keamanan hanya memeriksa pola eksplisit, bukan bagaimana input tersebut akan diinterpretasikan secara menyeluruh oleh backend.</span></p>\n<hr data-start=\"3968\" data-end=\"3971\" />\n<h3 style=\"text-align: justify;\" data-start=\"3973\" data-end=\"4009\"><span style=\"color: #000000;\">Strategi Pencegahan SQL Smuggling</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"4011\" data-end=\"4044\"><span style=\"color: #000000;\">Gunakan Parameterized Queries</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4046\" data-end=\"4134\"><span style=\"color: #000000;\">Prepared statements mencegah eksekusi perintah SQL yang disisipkan dalam input pengguna.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4136\" data-end=\"4185\"><span style=\"color: #000000;\">Validasi dan Normalisasi Input yang Konsisten</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4187\" data-end=\"4279\"><span style=\"color: #000000;\">Pastikan proses decoding dan parsing dilakukan secara konsisten di seluruh lapisan aplikasi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4281\" data-end=\"4311\"><span style=\"color: #000000;\">Konfigurasi WAF yang Tepat</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4313\" data-end=\"4397\"><span style=\"color: #000000;\">Perbarui signature dan aturan deteksi agar mampu mengenali teknik encoding kompleks.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4399\" data-end=\"4440\"><span style=\"color: #000000;\">Prinsip Least Privilege pada Database</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4442\" data-end=\"4516\"><span style=\"color: #000000;\">Batasi hak akses akun database agar dampak eksploitasi dapat diminimalkan.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4518\" data-end=\"4548\"><span style=\"color: #000000;\">Pengujian Keamanan Berkala</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4550\" data-end=\"4639\"><span style=\"color: #000000;\">Lakukan penetration testing untuk mengidentifikasi potensi bypass pada sistem pertahanan.</span></p>\n<hr data-start=\"4641\" data-end=\"4644\" />\n<h3 style=\"text-align: justify;\" data-start=\"4646\" data-end=\"4694\"><span style=\"color: #000000;\">Relevansi SQL Smuggling dalam Keamanan Modern</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4696\" data-end=\"4891\"><span style=\"color: #000000;\">Dengan semakin kompleksnya arsitektur aplikasi berbasis microservices dan API, permukaan serangan juga semakin luas. SQL Smuggling menunjukkan bahwa perlindungan berbasis filter saja tidak cukup.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4893\" data-end=\"5047\"><span style=\"color: #000000;\">Pendekatan keamanan modern harus mengutamakan desain aplikasi yang aman sejak awal (secure by design), bukan hanya mengandalkan lapisan proteksi tambahan.</span></p>\n<blockquote>\n<p data-start=\"4893\" data-end=\"5047\">baca juga : <a href=\"https://buletinsiber.com/adversial-attacks-kerentanan-sistem-berbasis-ai/\">Adversarial Attacks: Mengungkap Kerentanan Sistem Berbasis AI</a></p>\n</blockquote>\n<hr data-start=\"5049\" data-end=\"5052\" />\n<h2 style=\"text-align: justify;\" data-start=\"5054\" data-end=\"5067\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5069\" data-end=\"5341\"><span style=\"color: #000000;\">SQL Smuggling adalah teknik lanjutan dari SQL Injection yang dirancang untuk menyelundupkan perintah berbahaya melewati sistem keamanan seperti WAF. Dengan memanfaatkan perbedaan interpretasi dan teknik encoding, pelaku dapat mengeksekusi query berbahaya tanpa terdeteksi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5343\" data-end=\"5677\"><span style=\"color: #000000;\">Untuk mencegahnya, organisasi harus menggabungkan praktik secure coding, parameterized queries, validasi input yang konsisten, serta pengujian keamanan rutin. Dalam lanskap ancaman siber yang terus berkembang, pemahaman terhadap teknik bypass seperti SQL Smuggling menjadi kunci untuk membangun pertahanan aplikasi yang lebih tangguh.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Keamanan aplikasi web terus berkembang untuk menghadapi berbagai teknik eksploitasi, salah satunya adalah SQL Injection. Namun, ketika banyak organisasi mulai menerapkan Web Application Firewall (WAF) dan validasi input yang ketat, pelaku serangan juga mengembangkan metode yang lebih canggih. Salah satu teknik tersebut dikenal sebagai SQL Smuggling. SQL Smuggling adalah variasi lanjutan dari SQL Injection yang dirancang untuk menyelundupkan payload berbahaya melewati mekanisme filter keamanan. Teknik ini memanfaatkan perbedaan cara sistem keamanan dan database memproses input, sehingga perintah SQL berbahaya dapat lolos tanpa terdeteksi. Apa Itu SQL Smuggling? SQL Smuggling merupakan teknik manipulasi input yang bertujuan menyamarkan atau menyusun ulang&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8557,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "SQL Smuggling",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      185,
+      682,
+      1127
+    ],
+    "class_list": [
+      "post-9646",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-cybersecurity",
+      "tag-keamanan",
+      "tag-sql-smuggling"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Keamanan aplikasi web terus berkembang untuk menghadapi berbagai teknik eksploitasi, salah satunya adalah SQL Injection. Namun, ketika banyak organisasi mulai menerapkan Web Application Firewall (WAF) dan validasi input yang ketat, pelaku serangan juga mengembangkan metode yang lebih canggih. Salah satu teknik tersebut dikenal sebagai SQL Smuggling. SQL Smuggling adalah variasi lanjutan dari SQL Injection yang dirancang untuk menyelundupkan payload berbahaya melewati mekanisme filter keamanan. Teknik ini memanfaatkan perbedaan cara sistem keamanan dan database memproses input, sehingga perintah SQL berbahaya dapat lolos tanpa terdeteksi. Apa Itu SQL Smuggling? SQL Smuggling merupakan teknik manipulasi input yang bertujuan menyamarkan atau menyusun ulang...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-02-27T01:09:27+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:56:58+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/12/programming-background-with-person-working-with-codes-computer-1-scaled.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2560\" />\n\t<meta property=\"og:image:height\" content=\"1707\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/\",\"url\":\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/\",\"name\":\"SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/programming-background-with-person-working-with-codes-computer-1-scaled.jpg\",\"datePublished\":\"2026-02-27T01:09:27+00:00\",\"dateModified\":\"2026-07-06T20:56:58+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/12/programming-background-with-person-working-with-codes-computer-1-scaled.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/programming-background-with-person-working-with-codes-computer-1-scaled.jpg\",\"width\":2560,\"height\":1707},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan - buletinsiber.com",
+      "og_description": "Pengantar Keamanan aplikasi web terus berkembang untuk menghadapi berbagai teknik eksploitasi, salah satunya adalah SQL Injection. Namun, ketika banyak organisasi mulai menerapkan Web Application Firewall (WAF) dan validasi input yang ketat, pelaku serangan juga mengembangkan metode yang lebih canggih. Salah satu teknik tersebut dikenal sebagai SQL Smuggling. SQL Smuggling adalah variasi lanjutan dari SQL Injection yang dirancang untuk menyelundupkan payload berbahaya melewati mekanisme filter keamanan. Teknik ini memanfaatkan perbedaan cara sistem keamanan dan database memproses input, sehingga perintah SQL berbahaya dapat lolos tanpa terdeteksi. Apa Itu SQL Smuggling? SQL Smuggling merupakan teknik manipulasi input yang bertujuan menyamarkan atau menyusun ulang...",
+      "og_url": "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-02-27T01:09:27+00:00",
+      "article_modified_time": "2026-07-06T20:56:58+00:00",
+      "og_image": [
+        {
+          "width": 2560,
+          "height": 1707,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/12/programming-background-with-person-working-with-codes-computer-1-scaled.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/",
+            "url": "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/",
+            "name": "SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/programming-background-with-person-working-with-codes-computer-1-scaled.jpg",
+            "datePublished": "2026-02-27T01:09:27+00:00",
+            "dateModified": "2026-07-06T20:56:58+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/12/programming-background-with-person-working-with-codes-computer-1-scaled.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/programming-background-with-person-working-with-codes-computer-1-scaled.jpg",
+            "width": 2560,
+            "height": 1707
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/sql-smuggling-teknik-injeksi-tersembunyi-yang-lolos-dari-filter-keamanan/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "SQL Smuggling: Teknik Injeksi Tersembunyi yang Lolos dari Filter Keamanan"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9646",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9646"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9646/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9647,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9646/revisions/9647"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8557"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9646"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9646"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9646"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

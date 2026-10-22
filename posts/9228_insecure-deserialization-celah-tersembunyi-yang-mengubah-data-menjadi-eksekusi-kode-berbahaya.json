@@ -1,0 +1,332 @@
+{
+  "id": 9228,
+  "title": "Insecure Deserialization: Celah Tersembunyi yang Mengubah Data Menjadi Eksekusi Kode Berbahaya",
+  "slug": "insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya",
+  "url": "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/",
+  "date": "2026-01-13T00:30:49",
+  "date_gmt": "2026-01-13T00:30:49",
+  "modified": "2026-07-06T21:31:48",
+  "modified_gmt": "2026-07-06T21:31:48",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    185,
+    839,
+    682
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/06/standard-quality-control-collage-concept-scaled-1.jpg",
+  "excerpt": "Pengantar Dalam banyak aplikasi modern, proses serialization dan deserialization digunakan untuk menyimpan atau mengirim objek dalam bentuk data. Namun, di balik mekanisme yang tampak sederhana ini, tersembunyi celah keamanan serius bernama Insecure Deserialization. Kerentanan ini memungkinkan penyerang memanipulasi data ter-serialize untuk menjalankan perintah berbahaya, melewati autentikasi, hingga mengambil alih sistem. Artikel ini membahas bagaimana insecure deserialization bekerja, mengapa ia berbahaya, dan bagaimana cara mendeteksinya sebelum menjadi pintu masuk serangan tingkat lanjut. Apa Itu Insecure Deserialization? Insecure deserialization terjadi ketika aplikasi menerima dan memproses data ter-serialize dari sumber yang tidak tepercaya tanpa validasi yang memadai. Akibatnya, data tersebut dapat diubah menjadi…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"329\" data-end=\"345\"><span style=\"color: #000000;\"><strong data-start=\"332\" data-end=\"345\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"347\" data-end=\"611\"><span style=\"color: #000000;\">Dalam banyak aplikasi modern, proses <em data-start=\"384\" data-end=\"399\">serialization</em> dan <em data-start=\"404\" data-end=\"421\">deserialization</em> digunakan untuk menyimpan atau mengirim objek dalam bentuk data. Namun, di balik mekanisme yang tampak sederhana ini, tersembunyi celah keamanan serius bernama <strong data-start=\"582\" data-end=\"610\">Insecure Deserialization</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"613\" data-end=\"945\"><span style=\"color: #000000;\">Kerentanan ini memungkinkan penyerang memanipulasi data ter-serialize untuk menjalankan perintah berbahaya, melewati autentikasi, hingga mengambil alih sistem. Artikel ini membahas bagaimana insecure deserialization bekerja, mengapa ia berbahaya, dan bagaimana cara mendeteksinya sebelum menjadi pintu masuk serangan tingkat lanjut.</span></p>\n<hr data-start=\"947\" data-end=\"950\" />\n<h3 style=\"text-align: justify;\" data-start=\"952\" data-end=\"992\"><span style=\"color: #000000;\"><strong data-start=\"955\" data-end=\"992\">Apa Itu Insecure Deserialization?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"994\" data-end=\"1233\"><span style=\"color: #000000;\">Insecure deserialization terjadi ketika aplikasi <strong data-start=\"1043\" data-end=\"1149\">menerima dan memproses data ter-serialize dari sumber yang tidak tepercaya tanpa validasi yang memadai</strong>. Akibatnya, data tersebut dapat diubah menjadi objek berbahaya saat dide-serialize.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1235\" data-end=\"1490\"><span style=\"color: #000000;\">OWASP mendefinisikan insecure deserialization sebagai kerentanan yang dapat menyebabkan <em data-start=\"1323\" data-end=\"1346\">remote code execution</em>, <em data-start=\"1348\" data-end=\"1370\">privilege escalation</em>, dan <em data-start=\"1376\" data-end=\"1389\">logic abuse </em></span><span style=\"color: #000000;\"><em data-start=\"1392\" data-end=\"1490\">(dikutip dari <a href=\"https://owasp.org/www-community/vulnerabilities/Deserialization_of_untrusted_data\">OWASP</a>).</em></span></p>\n<blockquote>\n<p data-start=\"1235\" data-end=\"1490\">baca juga : <a href=\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/\">Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem</a></p>\n</blockquote>\n<hr data-start=\"1492\" data-end=\"1495\" />\n<h3 style=\"text-align: justify;\" data-start=\"1497\" data-end=\"1547\"><span style=\"color: #000000;\"><strong data-start=\"1500\" data-end=\"1547\">Bagaimana Insecure Deserialization Bekerja?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1554\" data-end=\"1600\"><span style=\"color: #000000;\"><strong data-start=\"1558\" data-end=\"1600\">Proses Serialization &amp; Deserialization</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"1602\" data-end=\"1743\">\n<li data-start=\"1602\" data-end=\"1677\">\n<p data-start=\"1604\" data-end=\"1677\"><span style=\"color: #000000;\"><strong data-start=\"1604\" data-end=\"1621\">Serialization</strong>: Mengubah objek menjadi format data (JSON, XML, binary)</span></p>\n</li>\n<li data-start=\"1678\" data-end=\"1743\">\n<p data-start=\"1680\" data-end=\"1743\"><span style=\"color: #000000;\"><strong data-start=\"1680\" data-end=\"1699\">Deserialization</strong>: Mengembalikan data menjadi objek di memori</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1745\" data-end=\"1831\"><span style=\"color: #000000;\">Masalah muncul ketika aplikasi mempercayai data yang telah dimodifikasi penyerang.</span></p>\n<hr data-start=\"1833\" data-end=\"1836\" />\n<h4 style=\"text-align: justify;\" data-start=\"1838\" data-end=\"1877\"><span style=\"color: #000000;\"><strong data-start=\"1842\" data-end=\"1877\">Manipulasi Objek oleh Penyerang</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1879\" data-end=\"1895\"><span style=\"color: #000000;\">Penyerang dapat:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1896\" data-end=\"2003\">\n<li data-start=\"1896\" data-end=\"1927\">\n<p data-start=\"1898\" data-end=\"1927\"><span style=\"color: #000000;\">Mengubah nilai properti objek</span></p>\n</li>\n<li data-start=\"1928\" data-end=\"1956\">\n<p data-start=\"1930\" data-end=\"1956\"><span style=\"color: #000000;\">Menyisipkan <em data-start=\"1942\" data-end=\"1956\">gadget chain</em></span></p>\n</li>\n<li data-start=\"1957\" data-end=\"2003\">\n<p data-start=\"1959\" data-end=\"2003\"><span style=\"color: #000000;\">Memicu method berbahaya saat deserialization</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2005\" data-end=\"2116\"><span style=\"color: #000000;\">Jika aplikasi tidak membatasi tipe objek yang boleh dipulihkan, serangan bisa terjadi tanpa interaksi tambahan.</span></p>\n<hr data-start=\"2118\" data-end=\"2121\" />\n<h3 style=\"text-align: justify;\" data-start=\"2123\" data-end=\"2170\"><span style=\"color: #000000;\"><strong data-start=\"2126\" data-end=\"2170\">Dampak Keamanan Insecure Deserialization</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2177\" data-end=\"2212\"><span style=\"color: #000000;\"><strong data-start=\"2181\" data-end=\"2212\">Remote Code Execution (RCE)</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2214\" data-end=\"2305\"><span style=\"color: #000000;\">Objek berbahaya dapat memicu eksekusi perintah sistem saat proses deserialization berjalan.</span></p>\n<hr data-start=\"2307\" data-end=\"2310\" />\n<h4 style=\"text-align: justify;\" data-start=\"2312\" data-end=\"2338\"><span style=\"color: #000000;\"><strong data-start=\"2316\" data-end=\"2338\">Bypass Autentikasi</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2340\" data-end=\"2437\"><span style=\"color: #000000;\">Token sesi atau objek autentikasi dapat dimanipulasi untuk masuk sebagai user lain, bahkan admin.</span></p>\n<blockquote>\n<p data-start=\"2340\" data-end=\"2437\">baca juga : <a href=\"https://buletinsiber.com/cve-2026-0544-kerentanan-sql-injection-pada-school-management-system/\">CVE-2026-0544: Kerentanan SQL Injection pada School Management System</a></p>\n</blockquote>\n<hr data-start=\"2439\" data-end=\"2442\" />\n<h4 style=\"text-align: justify;\" data-start=\"2444\" data-end=\"2475\"><span style=\"color: #000000;\"><strong data-start=\"2448\" data-end=\"2475\">Denial of Service (DoS)</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2477\" data-end=\"2570\"><span style=\"color: #000000;\">Payload besar atau kompleks dapat menyebabkan konsumsi memori berlebih hingga aplikasi crash.</span></p>\n<hr data-start=\"2572\" data-end=\"2575\" />\n<h3 style=\"text-align: justify;\" data-start=\"2577\" data-end=\"2615\"><span style=\"color: #000000;\"><strong data-start=\"2580\" data-end=\"2615\">Contoh Nyata dalam Aplikasi Web</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2622\" data-end=\"2659\"><span style=\"color: #000000;\"><strong data-start=\"2626\" data-end=\"2659\">Bahasa &amp; Platform yang Rentan</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2661\" data-end=\"2708\"><span style=\"color: #000000;\">Insecure deserialization sering ditemukan pada:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2710\" data-end=\"2794\">\n<li data-start=\"2710\" data-end=\"2731\">\n<p data-start=\"2712\" data-end=\"2731\"><span style=\"color: #000000;\">Java (Serializable)</span></p>\n</li>\n<li data-start=\"2732\" data-end=\"2751\">\n<p data-start=\"2734\" data-end=\"2751\"><span style=\"color: #000000;\">PHP (unserialize)</span></p>\n</li>\n<li data-start=\"2752\" data-end=\"2769\">\n<p data-start=\"2754\" data-end=\"2769\"><span style=\"color: #000000;\">Python (pickle)</span></p>\n</li>\n<li data-start=\"2770\" data-end=\"2794\">\n<p data-start=\"2772\" data-end=\"2794\"><span style=\"color: #000000;\">.NET (BinaryFormatter)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2796\" data-end=\"2972\"><span style=\"color: #000000;\">PortSwigger menjelaskan bagaimana eksploitasi deserialization dapat dikembangkan melalui <em data-start=\"2885\" data-end=\"2900\">gadget chains </em></span><span style=\"color: #000000;\"><em data-start=\"2903\" data-end=\"2972\">(dikutip dari <a href=\"https://portswigger.net/web-security/deserialization\">Portswigger</a>).</em></span></p>\n<hr data-start=\"2974\" data-end=\"2977\" />\n<h4 style=\"text-align: justify;\" data-start=\"2979\" data-end=\"3014\"><span style=\"color: #000000;\"><strong data-start=\"2983\" data-end=\"3014\">Skenario Serangan Sederhana</strong></span></h4>\n<ol style=\"text-align: justify;\" data-start=\"3016\" data-end=\"3208\">\n<li data-start=\"3016\" data-end=\"3072\">\n<p data-start=\"3019\" data-end=\"3072\"><span style=\"color: #000000;\">Aplikasi menerima cookie berisi objek ter-serialize</span></p>\n</li>\n<li data-start=\"3073\" data-end=\"3111\">\n<p data-start=\"3076\" data-end=\"3111\"><span style=\"color: #000000;\">Penyerang memodifikasi isi cookie</span></p>\n</li>\n<li data-start=\"3112\" data-end=\"3164\">\n<p data-start=\"3115\" data-end=\"3164\"><span style=\"color: #000000;\">Server melakukan deserialization tanpa validasi</span></p>\n</li>\n<li data-start=\"3165\" data-end=\"3208\">\n<p data-start=\"3168\" data-end=\"3208\"><span style=\"color: #000000;\">Payload berbahaya dieksekusi di server</span></p>\n</li>\n</ol>\n<hr data-start=\"3210\" data-end=\"3213\" />\n<h3 style=\"text-align: justify;\" data-start=\"3215\" data-end=\"3262\"><span style=\"color: #000000;\"><strong data-start=\"3218\" data-end=\"3262\">Cara Mendeteksi Insecure Deserialization</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3269\" data-end=\"3305\"><span style=\"color: #000000;\"><strong data-start=\"3273\" data-end=\"3305\">Analisis Traffic &amp; Parameter</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"3307\" data-end=\"3401\">\n<li data-start=\"3307\" data-end=\"3366\">\n<p data-start=\"3309\" data-end=\"3366\"><span style=\"color: #000000;\">Cari parameter yang berisi data Base64, JSON, atau binary</span></p>\n</li>\n<li data-start=\"3367\" data-end=\"3401\">\n<p data-start=\"3369\" data-end=\"3401\"><span style=\"color: #000000;\">Uji perubahan kecil pada payload</span></p>\n</li>\n</ul>\n<hr data-start=\"3403\" data-end=\"3406\" />\n<h4 style=\"text-align: justify;\" data-start=\"3408\" data-end=\"3434\"><span style=\"color: #000000;\"><strong data-start=\"3412\" data-end=\"3434\">Pengujian Aplikasi</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"3436\" data-end=\"3551\">\n<li data-start=\"3436\" data-end=\"3505\">\n<p data-start=\"3438\" data-end=\"3505\"><span style=\"color: #000000;\">Gunakan <em data-start=\"3446\" data-end=\"3468\">static code analysis</em> untuk mencari fungsi deserialization</span></p>\n</li>\n<li data-start=\"3506\" data-end=\"3551\">\n<p data-start=\"3508\" data-end=\"3551\"><span style=\"color: #000000;\">Identifikasi apakah ada validasi tipe objek</span></p>\n</li>\n</ul>\n<hr data-start=\"3553\" data-end=\"3556\" />\n<h3 style=\"text-align: justify;\" data-start=\"3558\" data-end=\"3597\"><span style=\"color: #000000;\"><strong data-start=\"3561\" data-end=\"3597\">Strategi Pencegahan yang Efektif</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3604\" data-end=\"3657\"><span style=\"color: #000000;\"><strong data-start=\"3608\" data-end=\"3657\">Hindari Deserialization Objek Tidak Tepercaya</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3659\" data-end=\"3737\"><span style=\"color: #000000;\">Gunakan format data sederhana (JSON) tanpa kemampuan eksekusi logika internal.</span></p>\n<hr data-start=\"3739\" data-end=\"3742\" />\n<h4 style=\"text-align: justify;\" data-start=\"3744\" data-end=\"3774\"><span style=\"color: #000000;\"><strong data-start=\"3748\" data-end=\"3774\">Implementasi Allowlist</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3776\" data-end=\"3831\"><span style=\"color: #000000;\">Batasi kelas atau tipe objek yang boleh di-deserialize.</span></p>\n<hr data-start=\"3833\" data-end=\"3836\" />\n<h4 style=\"text-align: justify;\" data-start=\"3838\" data-end=\"3872\"><span style=\"color: #000000;\"><strong data-start=\"3842\" data-end=\"3872\">Validasi &amp; Integrity Check</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3874\" data-end=\"3882\"><span style=\"color: #000000;\">Gunakan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3883\" data-end=\"3928\">\n<li data-start=\"3883\" data-end=\"3902\">\n<p data-start=\"3885\" data-end=\"3902\"><span style=\"color: #000000;\">Digital signature</span></p>\n</li>\n<li data-start=\"3903\" data-end=\"3909\">\n<p data-start=\"3905\" data-end=\"3909\"><span style=\"color: #000000;\">HMAC</span></p>\n</li>\n<li data-start=\"3910\" data-end=\"3928\">\n<p data-start=\"3912\" data-end=\"3928\"><span style=\"color: #000000;\">Enkripsi payload</span></p>\n</li>\n</ul>\n<hr data-start=\"3930\" data-end=\"3933\" />\n<h4 style=\"text-align: justify;\" data-start=\"3935\" data-end=\"3969\"><span style=\"color: #000000;\"><strong data-start=\"3939\" data-end=\"3969\">Update Library &amp; Framework</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3971\" data-end=\"4066\"><span style=\"color: #000000;\">Banyak framework modern telah menonaktifkan mekanisme deserialization berbahaya secara default.</span></p>\n<blockquote>\n<p data-start=\"3971\" data-end=\"4066\">baca juga : <a href=\"https://buletinsiber.com/docker-escape-membedah-celah-keamanan-yang-memungkinkan-kontainer-membobol-host-os/\">Docker Escape: Membedah Celah Keamanan yang Memungkinkan Kontainer Membobol Host OS</a></p>\n</blockquote>\n<hr data-start=\"4068\" data-end=\"4071\" />\n<h2 style=\"text-align: justify;\" data-start=\"4073\" data-end=\"4090\"><span style=\"color: #000000;\"><strong data-start=\"4076\" data-end=\"4090\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4092\" data-end=\"4331\"><span style=\"color: #000000;\">Insecure deserialization adalah celah keamanan yang sering luput dari perhatian karena tersembunyi di balik mekanisme internal aplikasi. Namun, dampaknya sangat serius—mulai dari bypass autentikasi hingga eksekusi kode berbahaya di server.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4333\" data-end=\"4556\"><span style=\"color: #000000;\">Dengan memahami cara kerja deserialization, mengenali pola serangan, dan menerapkan mitigasi yang tepat, pengembang dan administrator sistem dapat menutup salah satu jalur eksploitasi paling berbahaya dalam aplikasi modern.</span></p>\n",
+  "content_text": "Pengantar\nDalam banyak aplikasi modern, proses  serialization  dan  deserialization  digunakan untuk menyimpan atau mengirim objek dalam bentuk data. Namun, di balik mekanisme yang tampak sederhana ini, tersembunyi celah keamanan serius bernama  Insecure Deserialization .\nKerentanan ini memungkinkan penyerang memanipulasi data ter-serialize untuk menjalankan perintah berbahaya, melewati autentikasi, hingga mengambil alih sistem. Artikel ini membahas bagaimana insecure deserialization bekerja, mengapa ia berbahaya, dan bagaimana cara mendeteksinya sebelum menjadi pintu masuk serangan tingkat lanjut.\nApa Itu Insecure Deserialization?\nInsecure deserialization terjadi ketika aplikasi  menerima dan memproses data ter-serialize dari sumber yang tidak tepercaya tanpa validasi yang memadai . Akibatnya, data tersebut dapat diubah menjadi objek berbahaya saat dide-serialize.\nOWASP mendefinisikan insecure deserialization sebagai kerentanan yang dapat menyebabkan  remote code execution ,  privilege escalation , dan  logic abuse     (dikutip dari  OWASP ).\nbaca juga :  Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem\nBagaimana Insecure Deserialization Bekerja?\nProses Serialization & Deserialization\nSerialization : Mengubah objek menjadi format data (JSON, XML, binary)\nDeserialization : Mengembalikan data menjadi objek di memori\nMasalah muncul ketika aplikasi mempercayai data yang telah dimodifikasi penyerang.\nManipulasi Objek oleh Penyerang\nPenyerang dapat:\nMengubah nilai properti objek\nMenyisipkan  gadget chain\nMemicu method berbahaya saat deserialization\nJika aplikasi tidak membatasi tipe objek yang boleh dipulihkan, serangan bisa terjadi tanpa interaksi tambahan.\nDampak Keamanan Insecure Deserialization\nRemote Code Execution (RCE)\nObjek berbahaya dapat memicu eksekusi perintah sistem saat proses deserialization berjalan.\nBypass Autentikasi\nToken sesi atau objek autentikasi dapat dimanipulasi untuk masuk sebagai user lain, bahkan admin.\nbaca juga :  CVE-2026-0544: Kerentanan SQL Injection pada School Management System\nDenial of Service (DoS)\nPayload besar atau kompleks dapat menyebabkan konsumsi memori berlebih hingga aplikasi crash.\nContoh Nyata dalam Aplikasi Web\nBahasa & Platform yang Rentan\nInsecure deserialization sering ditemukan pada:\nJava (Serializable)\nPHP (unserialize)\nPython (pickle)\n.NET (BinaryFormatter)\nPortSwigger menjelaskan bagaimana eksploitasi deserialization dapat dikembangkan melalui  gadget chains     (dikutip dari  Portswigger ).\nSkenario Serangan Sederhana\nAplikasi menerima cookie berisi objek ter-serialize\nPenyerang memodifikasi isi cookie\nServer melakukan deserialization tanpa validasi\nPayload berbahaya dieksekusi di server\nCara Mendeteksi Insecure Deserialization\nAnalisis Traffic & Parameter\nCari parameter yang berisi data Base64, JSON, atau binary\nUji perubahan kecil pada payload\nPengujian Aplikasi\nGunakan  static code analysis  untuk mencari fungsi deserialization\nIdentifikasi apakah ada validasi tipe objek\nStrategi Pencegahan yang Efektif\nHindari Deserialization Objek Tidak Tepercaya\nGunakan format data sederhana (JSON) tanpa kemampuan eksekusi logika internal.\nImplementasi Allowlist\nBatasi kelas atau tipe objek yang boleh di-deserialize.\nValidasi & Integrity Check\nGunakan:\nDigital signature\nHMAC\nEnkripsi payload\nUpdate Library & Framework\nBanyak framework modern telah menonaktifkan mekanisme deserialization berbahaya secara default.\nbaca juga :  Docker Escape: Membedah Celah Keamanan yang Memungkinkan Kontainer Membobol Host OS\nKesimpulan\nInsecure deserialization adalah celah keamanan yang sering luput dari perhatian karena tersembunyi di balik mekanisme internal aplikasi. Namun, dampaknya sangat serius—mulai dari bypass autentikasi hingga eksekusi kode berbahaya di server.\nDengan memahami cara kerja deserialization, mengenali pola serangan, dan menerapkan mitigasi yang tepat, pengembang dan administrator sistem dapat menutup salah satu jalur eksploitasi paling berbahaya dalam aplikasi modern.",
+  "raw": {
+    "id": 9228,
+    "date": "2026-01-13T00:30:49",
+    "date_gmt": "2026-01-13T00:30:49",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9228"
+    },
+    "modified": "2026-07-06T21:31:48",
+    "modified_gmt": "2026-07-06T21:31:48",
+    "slug": "insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/",
+    "title": {
+      "rendered": "Insecure Deserialization: Celah Tersembunyi yang Mengubah Data Menjadi Eksekusi Kode Berbahaya"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"329\" data-end=\"345\"><span style=\"color: #000000;\"><strong data-start=\"332\" data-end=\"345\">Pengantar</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"347\" data-end=\"611\"><span style=\"color: #000000;\">Dalam banyak aplikasi modern, proses <em data-start=\"384\" data-end=\"399\">serialization</em> dan <em data-start=\"404\" data-end=\"421\">deserialization</em> digunakan untuk menyimpan atau mengirim objek dalam bentuk data. Namun, di balik mekanisme yang tampak sederhana ini, tersembunyi celah keamanan serius bernama <strong data-start=\"582\" data-end=\"610\">Insecure Deserialization</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"613\" data-end=\"945\"><span style=\"color: #000000;\">Kerentanan ini memungkinkan penyerang memanipulasi data ter-serialize untuk menjalankan perintah berbahaya, melewati autentikasi, hingga mengambil alih sistem. Artikel ini membahas bagaimana insecure deserialization bekerja, mengapa ia berbahaya, dan bagaimana cara mendeteksinya sebelum menjadi pintu masuk serangan tingkat lanjut.</span></p>\n<hr data-start=\"947\" data-end=\"950\" />\n<h3 style=\"text-align: justify;\" data-start=\"952\" data-end=\"992\"><span style=\"color: #000000;\"><strong data-start=\"955\" data-end=\"992\">Apa Itu Insecure Deserialization?</strong></span></h3>\n<p style=\"text-align: justify;\" data-start=\"994\" data-end=\"1233\"><span style=\"color: #000000;\">Insecure deserialization terjadi ketika aplikasi <strong data-start=\"1043\" data-end=\"1149\">menerima dan memproses data ter-serialize dari sumber yang tidak tepercaya tanpa validasi yang memadai</strong>. Akibatnya, data tersebut dapat diubah menjadi objek berbahaya saat dide-serialize.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1235\" data-end=\"1490\"><span style=\"color: #000000;\">OWASP mendefinisikan insecure deserialization sebagai kerentanan yang dapat menyebabkan <em data-start=\"1323\" data-end=\"1346\">remote code execution</em>, <em data-start=\"1348\" data-end=\"1370\">privilege escalation</em>, dan <em data-start=\"1376\" data-end=\"1389\">logic abuse </em></span><span style=\"color: #000000;\"><em data-start=\"1392\" data-end=\"1490\">(dikutip dari <a href=\"https://owasp.org/www-community/vulnerabilities/Deserialization_of_untrusted_data\">OWASP</a>).</em></span></p>\n<blockquote>\n<p data-start=\"1235\" data-end=\"1490\">baca juga : <a href=\"https://buletinsiber.com/log-poisoning-trik-peretas-menghapus-jejak-digital-dengan-memanipulasi-file-log-sistem/\">Log Poisoning: Trik Peretas Menghapus Jejak Digital dengan Memanipulasi File Log Sistem</a></p>\n</blockquote>\n<hr data-start=\"1492\" data-end=\"1495\" />\n<h3 style=\"text-align: justify;\" data-start=\"1497\" data-end=\"1547\"><span style=\"color: #000000;\"><strong data-start=\"1500\" data-end=\"1547\">Bagaimana Insecure Deserialization Bekerja?</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"1554\" data-end=\"1600\"><span style=\"color: #000000;\"><strong data-start=\"1558\" data-end=\"1600\">Proses Serialization &amp; Deserialization</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"1602\" data-end=\"1743\">\n<li data-start=\"1602\" data-end=\"1677\">\n<p data-start=\"1604\" data-end=\"1677\"><span style=\"color: #000000;\"><strong data-start=\"1604\" data-end=\"1621\">Serialization</strong>: Mengubah objek menjadi format data (JSON, XML, binary)</span></p>\n</li>\n<li data-start=\"1678\" data-end=\"1743\">\n<p data-start=\"1680\" data-end=\"1743\"><span style=\"color: #000000;\"><strong data-start=\"1680\" data-end=\"1699\">Deserialization</strong>: Mengembalikan data menjadi objek di memori</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1745\" data-end=\"1831\"><span style=\"color: #000000;\">Masalah muncul ketika aplikasi mempercayai data yang telah dimodifikasi penyerang.</span></p>\n<hr data-start=\"1833\" data-end=\"1836\" />\n<h4 style=\"text-align: justify;\" data-start=\"1838\" data-end=\"1877\"><span style=\"color: #000000;\"><strong data-start=\"1842\" data-end=\"1877\">Manipulasi Objek oleh Penyerang</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"1879\" data-end=\"1895\"><span style=\"color: #000000;\">Penyerang dapat:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1896\" data-end=\"2003\">\n<li data-start=\"1896\" data-end=\"1927\">\n<p data-start=\"1898\" data-end=\"1927\"><span style=\"color: #000000;\">Mengubah nilai properti objek</span></p>\n</li>\n<li data-start=\"1928\" data-end=\"1956\">\n<p data-start=\"1930\" data-end=\"1956\"><span style=\"color: #000000;\">Menyisipkan <em data-start=\"1942\" data-end=\"1956\">gadget chain</em></span></p>\n</li>\n<li data-start=\"1957\" data-end=\"2003\">\n<p data-start=\"1959\" data-end=\"2003\"><span style=\"color: #000000;\">Memicu method berbahaya saat deserialization</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2005\" data-end=\"2116\"><span style=\"color: #000000;\">Jika aplikasi tidak membatasi tipe objek yang boleh dipulihkan, serangan bisa terjadi tanpa interaksi tambahan.</span></p>\n<hr data-start=\"2118\" data-end=\"2121\" />\n<h3 style=\"text-align: justify;\" data-start=\"2123\" data-end=\"2170\"><span style=\"color: #000000;\"><strong data-start=\"2126\" data-end=\"2170\">Dampak Keamanan Insecure Deserialization</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2177\" data-end=\"2212\"><span style=\"color: #000000;\"><strong data-start=\"2181\" data-end=\"2212\">Remote Code Execution (RCE)</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2214\" data-end=\"2305\"><span style=\"color: #000000;\">Objek berbahaya dapat memicu eksekusi perintah sistem saat proses deserialization berjalan.</span></p>\n<hr data-start=\"2307\" data-end=\"2310\" />\n<h4 style=\"text-align: justify;\" data-start=\"2312\" data-end=\"2338\"><span style=\"color: #000000;\"><strong data-start=\"2316\" data-end=\"2338\">Bypass Autentikasi</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2340\" data-end=\"2437\"><span style=\"color: #000000;\">Token sesi atau objek autentikasi dapat dimanipulasi untuk masuk sebagai user lain, bahkan admin.</span></p>\n<blockquote>\n<p data-start=\"2340\" data-end=\"2437\">baca juga : <a href=\"https://buletinsiber.com/cve-2026-0544-kerentanan-sql-injection-pada-school-management-system/\">CVE-2026-0544: Kerentanan SQL Injection pada School Management System</a></p>\n</blockquote>\n<hr data-start=\"2439\" data-end=\"2442\" />\n<h4 style=\"text-align: justify;\" data-start=\"2444\" data-end=\"2475\"><span style=\"color: #000000;\"><strong data-start=\"2448\" data-end=\"2475\">Denial of Service (DoS)</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2477\" data-end=\"2570\"><span style=\"color: #000000;\">Payload besar atau kompleks dapat menyebabkan konsumsi memori berlebih hingga aplikasi crash.</span></p>\n<hr data-start=\"2572\" data-end=\"2575\" />\n<h3 style=\"text-align: justify;\" data-start=\"2577\" data-end=\"2615\"><span style=\"color: #000000;\"><strong data-start=\"2580\" data-end=\"2615\">Contoh Nyata dalam Aplikasi Web</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"2622\" data-end=\"2659\"><span style=\"color: #000000;\"><strong data-start=\"2626\" data-end=\"2659\">Bahasa &amp; Platform yang Rentan</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"2661\" data-end=\"2708\"><span style=\"color: #000000;\">Insecure deserialization sering ditemukan pada:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2710\" data-end=\"2794\">\n<li data-start=\"2710\" data-end=\"2731\">\n<p data-start=\"2712\" data-end=\"2731\"><span style=\"color: #000000;\">Java (Serializable)</span></p>\n</li>\n<li data-start=\"2732\" data-end=\"2751\">\n<p data-start=\"2734\" data-end=\"2751\"><span style=\"color: #000000;\">PHP (unserialize)</span></p>\n</li>\n<li data-start=\"2752\" data-end=\"2769\">\n<p data-start=\"2754\" data-end=\"2769\"><span style=\"color: #000000;\">Python (pickle)</span></p>\n</li>\n<li data-start=\"2770\" data-end=\"2794\">\n<p data-start=\"2772\" data-end=\"2794\"><span style=\"color: #000000;\">.NET (BinaryFormatter)</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2796\" data-end=\"2972\"><span style=\"color: #000000;\">PortSwigger menjelaskan bagaimana eksploitasi deserialization dapat dikembangkan melalui <em data-start=\"2885\" data-end=\"2900\">gadget chains </em></span><span style=\"color: #000000;\"><em data-start=\"2903\" data-end=\"2972\">(dikutip dari <a href=\"https://portswigger.net/web-security/deserialization\">Portswigger</a>).</em></span></p>\n<hr data-start=\"2974\" data-end=\"2977\" />\n<h4 style=\"text-align: justify;\" data-start=\"2979\" data-end=\"3014\"><span style=\"color: #000000;\"><strong data-start=\"2983\" data-end=\"3014\">Skenario Serangan Sederhana</strong></span></h4>\n<ol style=\"text-align: justify;\" data-start=\"3016\" data-end=\"3208\">\n<li data-start=\"3016\" data-end=\"3072\">\n<p data-start=\"3019\" data-end=\"3072\"><span style=\"color: #000000;\">Aplikasi menerima cookie berisi objek ter-serialize</span></p>\n</li>\n<li data-start=\"3073\" data-end=\"3111\">\n<p data-start=\"3076\" data-end=\"3111\"><span style=\"color: #000000;\">Penyerang memodifikasi isi cookie</span></p>\n</li>\n<li data-start=\"3112\" data-end=\"3164\">\n<p data-start=\"3115\" data-end=\"3164\"><span style=\"color: #000000;\">Server melakukan deserialization tanpa validasi</span></p>\n</li>\n<li data-start=\"3165\" data-end=\"3208\">\n<p data-start=\"3168\" data-end=\"3208\"><span style=\"color: #000000;\">Payload berbahaya dieksekusi di server</span></p>\n</li>\n</ol>\n<hr data-start=\"3210\" data-end=\"3213\" />\n<h3 style=\"text-align: justify;\" data-start=\"3215\" data-end=\"3262\"><span style=\"color: #000000;\"><strong data-start=\"3218\" data-end=\"3262\">Cara Mendeteksi Insecure Deserialization</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3269\" data-end=\"3305\"><span style=\"color: #000000;\"><strong data-start=\"3273\" data-end=\"3305\">Analisis Traffic &amp; Parameter</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"3307\" data-end=\"3401\">\n<li data-start=\"3307\" data-end=\"3366\">\n<p data-start=\"3309\" data-end=\"3366\"><span style=\"color: #000000;\">Cari parameter yang berisi data Base64, JSON, atau binary</span></p>\n</li>\n<li data-start=\"3367\" data-end=\"3401\">\n<p data-start=\"3369\" data-end=\"3401\"><span style=\"color: #000000;\">Uji perubahan kecil pada payload</span></p>\n</li>\n</ul>\n<hr data-start=\"3403\" data-end=\"3406\" />\n<h4 style=\"text-align: justify;\" data-start=\"3408\" data-end=\"3434\"><span style=\"color: #000000;\"><strong data-start=\"3412\" data-end=\"3434\">Pengujian Aplikasi</strong></span></h4>\n<ul style=\"text-align: justify;\" data-start=\"3436\" data-end=\"3551\">\n<li data-start=\"3436\" data-end=\"3505\">\n<p data-start=\"3438\" data-end=\"3505\"><span style=\"color: #000000;\">Gunakan <em data-start=\"3446\" data-end=\"3468\">static code analysis</em> untuk mencari fungsi deserialization</span></p>\n</li>\n<li data-start=\"3506\" data-end=\"3551\">\n<p data-start=\"3508\" data-end=\"3551\"><span style=\"color: #000000;\">Identifikasi apakah ada validasi tipe objek</span></p>\n</li>\n</ul>\n<hr data-start=\"3553\" data-end=\"3556\" />\n<h3 style=\"text-align: justify;\" data-start=\"3558\" data-end=\"3597\"><span style=\"color: #000000;\"><strong data-start=\"3561\" data-end=\"3597\">Strategi Pencegahan yang Efektif</strong></span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3604\" data-end=\"3657\"><span style=\"color: #000000;\"><strong data-start=\"3608\" data-end=\"3657\">Hindari Deserialization Objek Tidak Tepercaya</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3659\" data-end=\"3737\"><span style=\"color: #000000;\">Gunakan format data sederhana (JSON) tanpa kemampuan eksekusi logika internal.</span></p>\n<hr data-start=\"3739\" data-end=\"3742\" />\n<h4 style=\"text-align: justify;\" data-start=\"3744\" data-end=\"3774\"><span style=\"color: #000000;\"><strong data-start=\"3748\" data-end=\"3774\">Implementasi Allowlist</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3776\" data-end=\"3831\"><span style=\"color: #000000;\">Batasi kelas atau tipe objek yang boleh di-deserialize.</span></p>\n<hr data-start=\"3833\" data-end=\"3836\" />\n<h4 style=\"text-align: justify;\" data-start=\"3838\" data-end=\"3872\"><span style=\"color: #000000;\"><strong data-start=\"3842\" data-end=\"3872\">Validasi &amp; Integrity Check</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3874\" data-end=\"3882\"><span style=\"color: #000000;\">Gunakan:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3883\" data-end=\"3928\">\n<li data-start=\"3883\" data-end=\"3902\">\n<p data-start=\"3885\" data-end=\"3902\"><span style=\"color: #000000;\">Digital signature</span></p>\n</li>\n<li data-start=\"3903\" data-end=\"3909\">\n<p data-start=\"3905\" data-end=\"3909\"><span style=\"color: #000000;\">HMAC</span></p>\n</li>\n<li data-start=\"3910\" data-end=\"3928\">\n<p data-start=\"3912\" data-end=\"3928\"><span style=\"color: #000000;\">Enkripsi payload</span></p>\n</li>\n</ul>\n<hr data-start=\"3930\" data-end=\"3933\" />\n<h4 style=\"text-align: justify;\" data-start=\"3935\" data-end=\"3969\"><span style=\"color: #000000;\"><strong data-start=\"3939\" data-end=\"3969\">Update Library &amp; Framework</strong></span></h4>\n<p style=\"text-align: justify;\" data-start=\"3971\" data-end=\"4066\"><span style=\"color: #000000;\">Banyak framework modern telah menonaktifkan mekanisme deserialization berbahaya secara default.</span></p>\n<blockquote>\n<p data-start=\"3971\" data-end=\"4066\">baca juga : <a href=\"https://buletinsiber.com/docker-escape-membedah-celah-keamanan-yang-memungkinkan-kontainer-membobol-host-os/\">Docker Escape: Membedah Celah Keamanan yang Memungkinkan Kontainer Membobol Host OS</a></p>\n</blockquote>\n<hr data-start=\"4068\" data-end=\"4071\" />\n<h2 style=\"text-align: justify;\" data-start=\"4073\" data-end=\"4090\"><span style=\"color: #000000;\"><strong data-start=\"4076\" data-end=\"4090\">Kesimpulan</strong></span></h2>\n<p style=\"text-align: justify;\" data-start=\"4092\" data-end=\"4331\"><span style=\"color: #000000;\">Insecure deserialization adalah celah keamanan yang sering luput dari perhatian karena tersembunyi di balik mekanisme internal aplikasi. Namun, dampaknya sangat serius—mulai dari bypass autentikasi hingga eksekusi kode berbahaya di server.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4333\" data-end=\"4556\"><span style=\"color: #000000;\">Dengan memahami cara kerja deserialization, mengenali pola serangan, dan menerapkan mitigasi yang tepat, pengembang dan administrator sistem dapat menutup salah satu jalur eksploitasi paling berbahaya dalam aplikasi modern.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dalam banyak aplikasi modern, proses serialization dan deserialization digunakan untuk menyimpan atau mengirim objek dalam bentuk data. Namun, di balik mekanisme yang tampak sederhana ini, tersembunyi celah keamanan serius bernama Insecure Deserialization. Kerentanan ini memungkinkan penyerang memanipulasi data ter-serialize untuk menjalankan perintah berbahaya, melewati autentikasi, hingga mengambil alih sistem. Artikel ini membahas bagaimana insecure deserialization bekerja, mengapa ia berbahaya, dan bagaimana cara mendeteksinya sebelum menjadi pintu masuk serangan tingkat lanjut. Apa Itu Insecure Deserialization? Insecure deserialization terjadi ketika aplikasi menerima dan memproses data ter-serialize dari sumber yang tidak tepercaya tanpa validasi yang memadai. Akibatnya, data tersebut dapat diubah menjadi&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 2565,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "insecure deserialization",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      185,
+      839,
+      682
+    ],
+    "class_list": [
+      "post-9228",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-cybersecurity",
+      "tag-deserialization",
+      "tag-keamanan"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Insecure Deserialization: Celah Tersembunyi yang Mengubah Data Menjadi Eksekusi Kode Berbahaya - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Insecure Deserialization: Celah Tersembunyi yang Mengubah Data Menjadi Eksekusi Kode Berbahaya - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dalam banyak aplikasi modern, proses serialization dan deserialization digunakan untuk menyimpan atau mengirim objek dalam bentuk data. Namun, di balik mekanisme yang tampak sederhana ini, tersembunyi celah keamanan serius bernama Insecure Deserialization. Kerentanan ini memungkinkan penyerang memanipulasi data ter-serialize untuk menjalankan perintah berbahaya, melewati autentikasi, hingga mengambil alih sistem. Artikel ini membahas bagaimana insecure deserialization bekerja, mengapa ia berbahaya, dan bagaimana cara mendeteksinya sebelum menjadi pintu masuk serangan tingkat lanjut. Apa Itu Insecure Deserialization? Insecure deserialization terjadi ketika aplikasi menerima dan memproses data ter-serialize dari sumber yang tidak tepercaya tanpa validasi yang memadai. Akibatnya, data tersebut dapat diubah menjadi...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-01-13T00:30:49+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T21:31:48+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/06/standard-quality-control-collage-concept-scaled-1.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2560\" />\n\t<meta property=\"og:image:height\" content=\"1698\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/\",\"url\":\"https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/\",\"name\":\"Insecure Deserialization: Celah Tersembunyi yang Mengubah Data Menjadi Eksekusi Kode Berbahaya - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/standard-quality-control-collage-concept-scaled-1.jpg\",\"datePublished\":\"2026-01-13T00:30:49+00:00\",\"dateModified\":\"2026-07-06T21:31:48+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/06/standard-quality-control-collage-concept-scaled-1.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/06/standard-quality-control-collage-concept-scaled-1.jpg\",\"width\":2560,\"height\":1698},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Insecure Deserialization: Celah Tersembunyi yang Mengubah Data Menjadi Eksekusi Kode Berbahaya\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Insecure Deserialization: Celah Tersembunyi yang Mengubah Data Menjadi Eksekusi Kode Berbahaya - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Insecure Deserialization: Celah Tersembunyi yang Mengubah Data Menjadi Eksekusi Kode Berbahaya - buletinsiber.com",
+      "og_description": "Pengantar Dalam banyak aplikasi modern, proses serialization dan deserialization digunakan untuk menyimpan atau mengirim objek dalam bentuk data. Namun, di balik mekanisme yang tampak sederhana ini, tersembunyi celah keamanan serius bernama Insecure Deserialization. Kerentanan ini memungkinkan penyerang memanipulasi data ter-serialize untuk menjalankan perintah berbahaya, melewati autentikasi, hingga mengambil alih sistem. Artikel ini membahas bagaimana insecure deserialization bekerja, mengapa ia berbahaya, dan bagaimana cara mendeteksinya sebelum menjadi pintu masuk serangan tingkat lanjut. Apa Itu Insecure Deserialization? Insecure deserialization terjadi ketika aplikasi menerima dan memproses data ter-serialize dari sumber yang tidak tepercaya tanpa validasi yang memadai. Akibatnya, data tersebut dapat diubah menjadi...",
+      "og_url": "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-01-13T00:30:49+00:00",
+      "article_modified_time": "2026-07-06T21:31:48+00:00",
+      "og_image": [
+        {
+          "width": 2560,
+          "height": 1698,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/06/standard-quality-control-collage-concept-scaled-1.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/",
+            "url": "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/",
+            "name": "Insecure Deserialization: Celah Tersembunyi yang Mengubah Data Menjadi Eksekusi Kode Berbahaya - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/standard-quality-control-collage-concept-scaled-1.jpg",
+            "datePublished": "2026-01-13T00:30:49+00:00",
+            "dateModified": "2026-07-06T21:31:48+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/06/standard-quality-control-collage-concept-scaled-1.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/06/standard-quality-control-collage-concept-scaled-1.jpg",
+            "width": 2560,
+            "height": 1698
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/insecure-deserialization-celah-tersembunyi-yang-mengubah-data-menjadi-eksekusi-kode-berbahaya/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Insecure Deserialization: Celah Tersembunyi yang Mengubah Data Menjadi Eksekusi Kode Berbahaya"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9228",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9228"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9228/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9229,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9228/revisions/9229"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2565"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9228"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9228"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9228"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

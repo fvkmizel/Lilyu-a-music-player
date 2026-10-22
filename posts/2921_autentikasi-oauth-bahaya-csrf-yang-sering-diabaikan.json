@@ -1,0 +1,314 @@
+{
+  "id": 2921,
+  "title": "Autentikasi OAuth & Bahaya CSRF yang Sering Diabaikan",
+  "slug": "autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan",
+  "url": "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/",
+  "date": "2025-07-07T08:42:01",
+  "date_gmt": "2025-07-07T08:42:01",
+  "modified": "2025-07-07T08:42:01",
+  "modified_gmt": "2025-07-07T08:42:01",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1409375226-1024x1024-1.jpg",
+  "excerpt": "Pernah login ke sebuah aplikasi pakai akun Google, Facebook, atau GitHub? Itu artinya kamu sedang menggunakan sistem OAuth — cara praktis untuk login tanpa bikin akun baru. Tapi tahukah kamu? Kalau tidak hati-hati, OAuth juga bisa jadi celah berbahaya untuk serangan CSRF. Banyak developer lupa atau tidak sadar bahwa OAuth rentan disalahgunakan, terutama jika langkah-langkah keamanannya tidak lengkap. 🧠 Apa Itu OAuth? OAuth adalah standar yang memungkinkan satu aplikasi (misalnya: Aplikasi A) meminta akses ke data milikmu di aplikasi lain (misalnya: Google), tanpa harus tahu password kamu. Proses singkat OAuth: Kamu klik “Login with Google” Kamu diarahkan ke halaman login…",
+  "content_html": "<p data-start=\"150\" data-end=\"235\">Pernah login ke sebuah aplikasi pakai akun <strong data-start=\"193\" data-end=\"203\">Google</strong>, <strong data-start=\"205\" data-end=\"217\">Facebook</strong>, atau <strong data-start=\"224\" data-end=\"234\">GitHub</strong>?</p>\n<p data-start=\"237\" data-end=\"443\">Itu artinya kamu sedang menggunakan sistem <strong data-start=\"280\" data-end=\"289\">OAuth</strong> — cara praktis untuk login tanpa bikin akun baru. Tapi tahukah kamu? Kalau tidak hati-hati, <strong data-start=\"382\" data-end=\"442\">OAuth juga bisa jadi celah berbahaya untuk serangan CSRF</strong>.</p>\n<p data-start=\"445\" data-end=\"591\">Banyak developer <strong data-start=\"462\" data-end=\"470\">lupa</strong> atau <strong data-start=\"476\" data-end=\"491\">tidak sadar</strong> bahwa OAuth <strong data-start=\"504\" data-end=\"529\">rentan disalahgunakan</strong>, terutama jika <strong data-start=\"545\" data-end=\"590\">langkah-langkah keamanannya tidak lengkap</strong>.</p>\n<hr data-start=\"593\" data-end=\"596\" />\n<h2 data-start=\"598\" data-end=\"618\">🧠 Apa Itu OAuth?</h2>\n<p data-start=\"620\" data-end=\"802\"><strong data-start=\"620\" data-end=\"629\">OAuth</strong> adalah standar yang memungkinkan satu aplikasi (misalnya: Aplikasi A) meminta akses ke data milikmu di aplikasi lain (misalnya: Google), <strong data-start=\"767\" data-end=\"801\">tanpa harus tahu password kamu</strong>.</p>\n<h3 data-start=\"804\" data-end=\"829\">Proses singkat OAuth:</h3>\n<ol data-start=\"830\" data-end=\"1057\">\n<li data-start=\"830\" data-end=\"862\">\n<p data-start=\"833\" data-end=\"862\">Kamu klik “Login with Google”</p>\n</li>\n<li data-start=\"863\" data-end=\"904\">\n<p data-start=\"866\" data-end=\"904\">Kamu diarahkan ke halaman login Google</p>\n</li>\n<li data-start=\"905\" data-end=\"987\">\n<p data-start=\"908\" data-end=\"987\">Setelah izin diberikan, Google mengirimkan <strong data-start=\"951\" data-end=\"965\">kode/token</strong> kembali ke Aplikasi A</p>\n</li>\n<li data-start=\"988\" data-end=\"1057\">\n<p data-start=\"991\" data-end=\"1057\">Aplikasi A memakai kode itu untuk <strong data-start=\"1025\" data-end=\"1057\">memverifikasi identitas kamu</strong></p>\n</li>\n</ol>\n<p data-start=\"1059\" data-end=\"1098\">Semuanya tampak aman… tapi tunggu dulu.</p>\n<hr data-start=\"1100\" data-end=\"1103\" />\n<h2 data-start=\"1105\" data-end=\"1131\">💣 Di Mana Bahaya CSRF?</h2>\n<p data-start=\"1133\" data-end=\"1213\">Masalahnya ada di <strong data-start=\"1151\" data-end=\"1167\">langkah ke-3</strong>, saat kode/token dikirim balik ke Aplikasi A.</p>\n<p data-start=\"1215\" data-end=\"1294\">Jika aplikasi <strong data-start=\"1229\" data-end=\"1277\">tidak mengecek siapa yang mengirim token itu</strong>, penyerang bisa:</p>\n<ul data-start=\"1296\" data-end=\"1399\">\n<li data-start=\"1296\" data-end=\"1330\">\n<p data-start=\"1298\" data-end=\"1330\">Menyusupkan token mereka sendiri</p>\n</li>\n<li data-start=\"1331\" data-end=\"1357\">\n<p data-start=\"1333\" data-end=\"1357\">Membajak akun orang lain</p>\n</li>\n<li data-start=\"1358\" data-end=\"1399\">\n<p data-start=\"1360\" data-end=\"1399\">Login sebagai orang lain tanpa password</p>\n</li>\n</ul>\n<blockquote data-start=\"1401\" data-end=\"1494\">\n<p data-start=\"1403\" data-end=\"1494\">Ini yang disebut <strong data-start=\"1420\" data-end=\"1441\">OAuth CSRF Attack</strong> — serangan CSRF yang menargetkan proses OAuth login.</p>\n</blockquote>\n<hr data-start=\"1496\" data-end=\"1499\" />\n<h2 data-start=\"1501\" data-end=\"1533\">🎭 Contoh Serangan OAuth CSRF</h2>\n<ol data-start=\"1535\" data-end=\"1981\">\n<li data-start=\"1535\" data-end=\"1594\">\n<p data-start=\"1538\" data-end=\"1594\">Penyerang login ke Google dan mendapat token dari Google</p>\n</li>\n<li data-start=\"1595\" data-end=\"1716\">\n<p data-start=\"1598\" data-end=\"1641\">Penyerang menyisipkan link ke situs korban:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">arduino</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\">https:<span class=\"hljs-comment\">//aplikasimu.com/auth/callback?code=TOKEN_PENYERANG</span><br />\n</code></div>\n</div>\n</li>\n<li data-start=\"1717\" data-end=\"1782\">\n<p data-start=\"1720\" data-end=\"1782\">Korban (yang sudah login ke aplikasimu) mengklik link tersebut</p>\n</li>\n<li data-start=\"1783\" data-end=\"1862\">\n<p data-start=\"1786\" data-end=\"1862\">Server aplikasimu menerima token, dan <strong data-start=\"1824\" data-end=\"1862\">menganggap korban adalah penyerang</strong></p>\n</li>\n<li data-start=\"1863\" data-end=\"1981\">\n<p data-start=\"1866\" data-end=\"1981\">Hasilnya: <strong data-start=\"1876\" data-end=\"1915\">korban “terlogin” ke akun penyerang</strong>, dan <strong data-start=\"1921\" data-end=\"1981\">semua tindakan korban akan dilakukan atas nama penyerang</strong></p>\n</li>\n</ol>\n<p data-start=\"1983\" data-end=\"2128\">Bayangkan: korban klik “hapus akun”, yang terhapus justru akun penyerang. Tapi kalau korban isi data pribadi—<strong data-start=\"2092\" data-end=\"2128\">datanya masuk ke akun penyerang!</strong></p>\n<hr data-start=\"2130\" data-end=\"2133\" />\n<h2 data-start=\"2135\" data-end=\"2164\">❌ Kesalahan Umum Developer</h2>\n<ul data-start=\"2166\" data-end=\"2364\">\n<li data-start=\"2166\" data-end=\"2247\">\n<p data-start=\"2168\" data-end=\"2247\">Tidak menyimpan dan memverifikasi <strong data-start=\"2202\" data-end=\"2223\">“state” parameter</strong> (pengaman OAuth bawaan)</p>\n</li>\n<li data-start=\"2248\" data-end=\"2303\">\n<p data-start=\"2250\" data-end=\"2303\">Tidak mengecek <strong data-start=\"2265\" data-end=\"2284\">asal permintaan</strong> (Referer / Origin)</p>\n</li>\n<li data-start=\"2304\" data-end=\"2364\">\n<p data-start=\"2306\" data-end=\"2364\">Menganggap token OAuth selalu aman tanpa validasi tambahan</p>\n</li>\n</ul>\n<hr data-start=\"2366\" data-end=\"2369\" />\n<h2 data-start=\"2371\" data-end=\"2416\">✅ Solusi: Cara Mengamankan OAuth dari CSRF</h2>\n<h3 data-start=\"2418\" data-end=\"2452\">1. Gunakan Parameter <code data-start=\"2443\" data-end=\"2450\">state</code></h3>\n<p data-start=\"2453\" data-end=\"2560\">OAuth menyediakan parameter <code data-start=\"2481\" data-end=\"2488\">state</code> yang dikirim bersama permintaan login, lalu diverifikasi saat callback.</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">url</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-url\">https://accounts.google.com/o/oauth2/auth?client_id=...&amp;state=abc123<br />\n</code></div>\n</div>\n<p data-start=\"2643\" data-end=\"2725\">Simpan <code data-start=\"2650\" data-end=\"2657\">state</code> di session sebelum redirect ke Google, lalu cocokkan saat callback.</p>\n<h3 data-start=\"2727\" data-end=\"2761\">2. Validasi Referer / Origin</h3>\n<p data-start=\"2762\" data-end=\"2859\">Pastikan permintaan <code data-start=\"2782\" data-end=\"2792\">callback</code> benar-benar datang dari domain resmi seperti Google atau Facebook.</p>\n<h3 data-start=\"2861\" data-end=\"2901\">3. Jangan Proses Token Sembarangan</h3>\n<p data-start=\"2902\" data-end=\"2969\">Jangan langsung terima token tanpa validasi. Selalu periksa apakah:</p>\n<ul data-start=\"2970\" data-end=\"3028\">\n<li data-start=\"2970\" data-end=\"2983\">\n<p data-start=\"2972\" data-end=\"2983\">Token valid</p>\n</li>\n<li data-start=\"2984\" data-end=\"2997\">\n<p data-start=\"2986\" data-end=\"2997\">State cocok</p>\n</li>\n<li data-start=\"2998\" data-end=\"3028\">\n<p data-start=\"3000\" data-end=\"3028\">User sesuai dengan identitas</p>\n</li>\n</ul>\n<hr data-start=\"3030\" data-end=\"3033\" />\n<h2 data-start=\"3035\" data-end=\"3058\">📌 Rangkuman Singkat</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"3060\" data-end=\"3713\">\n<thead data-start=\"3060\" data-end=\"3189\">\n<tr data-start=\"3060\" data-end=\"3189\">\n<th data-start=\"3060\" data-end=\"3101\" data-col-size=\"sm\">Masalah OAuth</th>\n<th data-start=\"3101\" data-end=\"3149\" data-col-size=\"sm\">Dampaknya</th>\n<th data-start=\"3149\" data-end=\"3189\" data-col-size=\"sm\">Solusi Aman</th>\n</tr>\n</thead>\n<tbody data-start=\"3321\" data-end=\"3713\">\n<tr data-start=\"3321\" data-end=\"3451\">\n<td data-start=\"3321\" data-end=\"3362\" data-col-size=\"sm\">Tidak pakai <code data-start=\"3335\" data-end=\"3342\">state</code></td>\n<td data-col-size=\"sm\" data-start=\"3362\" data-end=\"3410\">Bisa diserang CSRF login</td>\n<td data-col-size=\"sm\" data-start=\"3410\" data-end=\"3451\">Tambahkan &amp; validasi <code data-start=\"3433\" data-end=\"3440\">state</code></td>\n</tr>\n<tr data-start=\"3452\" data-end=\"3582\">\n<td data-start=\"3452\" data-end=\"3493\" data-col-size=\"sm\">Tidak cek asal permintaan</td>\n<td data-col-size=\"sm\" data-start=\"3493\" data-end=\"3541\">Penyerang bisa spoof permintaan</td>\n<td data-col-size=\"sm\" data-start=\"3541\" data-end=\"3582\">Cek <code data-start=\"3547\" data-end=\"3556\">Referer</code> atau <code data-start=\"3562\" data-end=\"3570\">Origin</code></td>\n</tr>\n<tr data-start=\"3583\" data-end=\"3713\">\n<td data-start=\"3583\" data-end=\"3624\" data-col-size=\"sm\">Token diterima mentah-mentah</td>\n<td data-col-size=\"sm\" data-start=\"3624\" data-end=\"3672\">Bisa login sebagai orang lain</td>\n<td data-col-size=\"sm\" data-start=\"3672\" data-end=\"3713\">Verifikasi token &amp; pengguna</td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"3715\" data-end=\"3718\" />\n<h2 data-start=\"3720\" data-end=\"3736\">🧾 Kesimpulan</h2>\n<p data-start=\"3738\" data-end=\"3867\">OAuth memang memudahkan login pengguna, tapi jika tidak dikonfigurasi dengan aman, justru bisa menjadi <strong data-start=\"3841\" data-end=\"3866\">jalan masuk bagi CSRF</strong>.</p>\n<blockquote data-start=\"3869\" data-end=\"3978\">\n<p data-start=\"3871\" data-end=\"3978\">Jangan hanya fokus membuat fitur bisa jalan—pastikan juga <strong data-start=\"3929\" data-end=\"3977\">proses login OAuth kamu aman dan terlindungi</strong>.</p>\n</blockquote>\n<p data-start=\"3980\" data-end=\"4068\">Ingat: keamanan bukan soal “apakah bisa login”, tapi “<strong data-start=\"4034\" data-end=\"4066\">siapa yang benar-benar login</strong>”.</p>\n<p data-start=\"3980\" data-end=\"4068\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-thumbnail wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-150x150.jpeg\" alt=\"\" width=\"150\" height=\"150\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-150x150.jpeg 150w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-80x80.jpeg 80w\" sizes=\"auto, (max-width: 150px) 100vw, 150px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n",
+  "content_text": "Pernah login ke sebuah aplikasi pakai akun  Google ,  Facebook , atau  GitHub ?\nItu artinya kamu sedang menggunakan sistem  OAuth  — cara praktis untuk login tanpa bikin akun baru. Tapi tahukah kamu? Kalau tidak hati-hati,  OAuth juga bisa jadi celah berbahaya untuk serangan CSRF .\nBanyak developer  lupa  atau  tidak sadar  bahwa OAuth  rentan disalahgunakan , terutama jika  langkah-langkah keamanannya tidak lengkap .\n🧠 Apa Itu OAuth?\nOAuth  adalah standar yang memungkinkan satu aplikasi (misalnya: Aplikasi A) meminta akses ke data milikmu di aplikasi lain (misalnya: Google),  tanpa harus tahu password kamu .\nProses singkat OAuth:\nKamu klik “Login with Google”\nKamu diarahkan ke halaman login Google\nSetelah izin diberikan, Google mengirimkan  kode/token  kembali ke Aplikasi A\nAplikasi A memakai kode itu untuk  memverifikasi identitas kamu\nSemuanya tampak aman… tapi tunggu dulu.\n💣 Di Mana Bahaya CSRF?\nMasalahnya ada di  langkah ke-3 , saat kode/token dikirim balik ke Aplikasi A.\nJika aplikasi  tidak mengecek siapa yang mengirim token itu , penyerang bisa:\nMenyusupkan token mereka sendiri\nMembajak akun orang lain\nLogin sebagai orang lain tanpa password\nIni yang disebut  OAuth CSRF Attack  — serangan CSRF yang menargetkan proses OAuth login.\n🎭 Contoh Serangan OAuth CSRF\nPenyerang login ke Google dan mendapat token dari Google\nPenyerang menyisipkan link ke situs korban:\narduino\nCopy   Edit\nhttps: //aplikasimu.com/auth/callback?code=TOKEN_PENYERANG\nKorban (yang sudah login ke aplikasimu) mengklik link tersebut\nServer aplikasimu menerima token, dan  menganggap korban adalah penyerang\nHasilnya:  korban “terlogin” ke akun penyerang , dan  semua tindakan korban akan dilakukan atas nama penyerang\nBayangkan: korban klik “hapus akun”, yang terhapus justru akun penyerang. Tapi kalau korban isi data pribadi— datanya masuk ke akun penyerang!\n❌ Kesalahan Umum Developer\nTidak menyimpan dan memverifikasi  “state” parameter  (pengaman OAuth bawaan)\nTidak mengecek  asal permintaan  (Referer / Origin)\nMenganggap token OAuth selalu aman tanpa validasi tambahan\n✅ Solusi: Cara Mengamankan OAuth dari CSRF\n1. Gunakan Parameter  state\nOAuth menyediakan parameter  state  yang dikirim bersama permintaan login, lalu diverifikasi saat callback.\nurl\nCopy   Edit\nhttps://accounts.google.com/o/oauth2/auth?client_id=...&state=abc123\nSimpan  state  di session sebelum redirect ke Google, lalu cocokkan saat callback.\n2. Validasi Referer / Origin\nPastikan permintaan  callback  benar-benar datang dari domain resmi seperti Google atau Facebook.\n3. Jangan Proses Token Sembarangan\nJangan langsung terima token tanpa validasi. Selalu periksa apakah:\nToken valid\nState cocok\nUser sesuai dengan identitas\n📌 Rangkuman Singkat\nMasalah OAuth\nDampaknya\nSolusi Aman\nTidak pakai  state\nBisa diserang CSRF login\nTambahkan & validasi  state\nTidak cek asal permintaan\nPenyerang bisa spoof permintaan\nCek  Referer  atau  Origin\nToken diterima mentah-mentah\nBisa login sebagai orang lain\nVerifikasi token & pengguna\n🧾 Kesimpulan\nOAuth memang memudahkan login pengguna, tapi jika tidak dikonfigurasi dengan aman, justru bisa menjadi  jalan masuk bagi CSRF .\nJangan hanya fokus membuat fitur bisa jalan—pastikan juga  proses login OAuth kamu aman dan terlindungi .\nIngat: keamanan bukan soal “apakah bisa login”, tapi “ siapa yang benar-benar login ”.\nPenulias : Muhammad Aditya Alkhawarizmi\nNim : 23156201023\njurusan : Sistem Komputer",
+  "raw": {
+    "id": 2921,
+    "date": "2025-07-07T08:42:01",
+    "date_gmt": "2025-07-07T08:42:01",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2921"
+    },
+    "modified": "2025-07-07T08:42:01",
+    "modified_gmt": "2025-07-07T08:42:01",
+    "slug": "autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/",
+    "title": {
+      "rendered": "Autentikasi OAuth &#038; Bahaya CSRF yang Sering Diabaikan"
+    },
+    "content": {
+      "rendered": "<p data-start=\"150\" data-end=\"235\">Pernah login ke sebuah aplikasi pakai akun <strong data-start=\"193\" data-end=\"203\">Google</strong>, <strong data-start=\"205\" data-end=\"217\">Facebook</strong>, atau <strong data-start=\"224\" data-end=\"234\">GitHub</strong>?</p>\n<p data-start=\"237\" data-end=\"443\">Itu artinya kamu sedang menggunakan sistem <strong data-start=\"280\" data-end=\"289\">OAuth</strong> — cara praktis untuk login tanpa bikin akun baru. Tapi tahukah kamu? Kalau tidak hati-hati, <strong data-start=\"382\" data-end=\"442\">OAuth juga bisa jadi celah berbahaya untuk serangan CSRF</strong>.</p>\n<p data-start=\"445\" data-end=\"591\">Banyak developer <strong data-start=\"462\" data-end=\"470\">lupa</strong> atau <strong data-start=\"476\" data-end=\"491\">tidak sadar</strong> bahwa OAuth <strong data-start=\"504\" data-end=\"529\">rentan disalahgunakan</strong>, terutama jika <strong data-start=\"545\" data-end=\"590\">langkah-langkah keamanannya tidak lengkap</strong>.</p>\n<hr data-start=\"593\" data-end=\"596\" />\n<h2 data-start=\"598\" data-end=\"618\">🧠 Apa Itu OAuth?</h2>\n<p data-start=\"620\" data-end=\"802\"><strong data-start=\"620\" data-end=\"629\">OAuth</strong> adalah standar yang memungkinkan satu aplikasi (misalnya: Aplikasi A) meminta akses ke data milikmu di aplikasi lain (misalnya: Google), <strong data-start=\"767\" data-end=\"801\">tanpa harus tahu password kamu</strong>.</p>\n<h3 data-start=\"804\" data-end=\"829\">Proses singkat OAuth:</h3>\n<ol data-start=\"830\" data-end=\"1057\">\n<li data-start=\"830\" data-end=\"862\">\n<p data-start=\"833\" data-end=\"862\">Kamu klik “Login with Google”</p>\n</li>\n<li data-start=\"863\" data-end=\"904\">\n<p data-start=\"866\" data-end=\"904\">Kamu diarahkan ke halaman login Google</p>\n</li>\n<li data-start=\"905\" data-end=\"987\">\n<p data-start=\"908\" data-end=\"987\">Setelah izin diberikan, Google mengirimkan <strong data-start=\"951\" data-end=\"965\">kode/token</strong> kembali ke Aplikasi A</p>\n</li>\n<li data-start=\"988\" data-end=\"1057\">\n<p data-start=\"991\" data-end=\"1057\">Aplikasi A memakai kode itu untuk <strong data-start=\"1025\" data-end=\"1057\">memverifikasi identitas kamu</strong></p>\n</li>\n</ol>\n<p data-start=\"1059\" data-end=\"1098\">Semuanya tampak aman… tapi tunggu dulu.</p>\n<hr data-start=\"1100\" data-end=\"1103\" />\n<h2 data-start=\"1105\" data-end=\"1131\">💣 Di Mana Bahaya CSRF?</h2>\n<p data-start=\"1133\" data-end=\"1213\">Masalahnya ada di <strong data-start=\"1151\" data-end=\"1167\">langkah ke-3</strong>, saat kode/token dikirim balik ke Aplikasi A.</p>\n<p data-start=\"1215\" data-end=\"1294\">Jika aplikasi <strong data-start=\"1229\" data-end=\"1277\">tidak mengecek siapa yang mengirim token itu</strong>, penyerang bisa:</p>\n<ul data-start=\"1296\" data-end=\"1399\">\n<li data-start=\"1296\" data-end=\"1330\">\n<p data-start=\"1298\" data-end=\"1330\">Menyusupkan token mereka sendiri</p>\n</li>\n<li data-start=\"1331\" data-end=\"1357\">\n<p data-start=\"1333\" data-end=\"1357\">Membajak akun orang lain</p>\n</li>\n<li data-start=\"1358\" data-end=\"1399\">\n<p data-start=\"1360\" data-end=\"1399\">Login sebagai orang lain tanpa password</p>\n</li>\n</ul>\n<blockquote data-start=\"1401\" data-end=\"1494\">\n<p data-start=\"1403\" data-end=\"1494\">Ini yang disebut <strong data-start=\"1420\" data-end=\"1441\">OAuth CSRF Attack</strong> — serangan CSRF yang menargetkan proses OAuth login.</p>\n</blockquote>\n<hr data-start=\"1496\" data-end=\"1499\" />\n<h2 data-start=\"1501\" data-end=\"1533\">🎭 Contoh Serangan OAuth CSRF</h2>\n<ol data-start=\"1535\" data-end=\"1981\">\n<li data-start=\"1535\" data-end=\"1594\">\n<p data-start=\"1538\" data-end=\"1594\">Penyerang login ke Google dan mendapat token dari Google</p>\n</li>\n<li data-start=\"1595\" data-end=\"1716\">\n<p data-start=\"1598\" data-end=\"1641\">Penyerang menyisipkan link ke situs korban:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">arduino</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre!\">https:<span class=\"hljs-comment\">//aplikasimu.com/auth/callback?code=TOKEN_PENYERANG</span><br />\n</code></div>\n</div>\n</li>\n<li data-start=\"1717\" data-end=\"1782\">\n<p data-start=\"1720\" data-end=\"1782\">Korban (yang sudah login ke aplikasimu) mengklik link tersebut</p>\n</li>\n<li data-start=\"1783\" data-end=\"1862\">\n<p data-start=\"1786\" data-end=\"1862\">Server aplikasimu menerima token, dan <strong data-start=\"1824\" data-end=\"1862\">menganggap korban adalah penyerang</strong></p>\n</li>\n<li data-start=\"1863\" data-end=\"1981\">\n<p data-start=\"1866\" data-end=\"1981\">Hasilnya: <strong data-start=\"1876\" data-end=\"1915\">korban “terlogin” ke akun penyerang</strong>, dan <strong data-start=\"1921\" data-end=\"1981\">semua tindakan korban akan dilakukan atas nama penyerang</strong></p>\n</li>\n</ol>\n<p data-start=\"1983\" data-end=\"2128\">Bayangkan: korban klik “hapus akun”, yang terhapus justru akun penyerang. Tapi kalau korban isi data pribadi—<strong data-start=\"2092\" data-end=\"2128\">datanya masuk ke akun penyerang!</strong></p>\n<hr data-start=\"2130\" data-end=\"2133\" />\n<h2 data-start=\"2135\" data-end=\"2164\">❌ Kesalahan Umum Developer</h2>\n<ul data-start=\"2166\" data-end=\"2364\">\n<li data-start=\"2166\" data-end=\"2247\">\n<p data-start=\"2168\" data-end=\"2247\">Tidak menyimpan dan memverifikasi <strong data-start=\"2202\" data-end=\"2223\">“state” parameter</strong> (pengaman OAuth bawaan)</p>\n</li>\n<li data-start=\"2248\" data-end=\"2303\">\n<p data-start=\"2250\" data-end=\"2303\">Tidak mengecek <strong data-start=\"2265\" data-end=\"2284\">asal permintaan</strong> (Referer / Origin)</p>\n</li>\n<li data-start=\"2304\" data-end=\"2364\">\n<p data-start=\"2306\" data-end=\"2364\">Menganggap token OAuth selalu aman tanpa validasi tambahan</p>\n</li>\n</ul>\n<hr data-start=\"2366\" data-end=\"2369\" />\n<h2 data-start=\"2371\" data-end=\"2416\">✅ Solusi: Cara Mengamankan OAuth dari CSRF</h2>\n<h3 data-start=\"2418\" data-end=\"2452\">1. Gunakan Parameter <code data-start=\"2443\" data-end=\"2450\">state</code></h3>\n<p data-start=\"2453\" data-end=\"2560\">OAuth menyediakan parameter <code data-start=\"2481\" data-end=\"2488\">state</code> yang dikirim bersama permintaan login, lalu diverifikasi saat callback.</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">url</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-url\">https://accounts.google.com/o/oauth2/auth?client_id=...&amp;state=abc123<br />\n</code></div>\n</div>\n<p data-start=\"2643\" data-end=\"2725\">Simpan <code data-start=\"2650\" data-end=\"2657\">state</code> di session sebelum redirect ke Google, lalu cocokkan saat callback.</p>\n<h3 data-start=\"2727\" data-end=\"2761\">2. Validasi Referer / Origin</h3>\n<p data-start=\"2762\" data-end=\"2859\">Pastikan permintaan <code data-start=\"2782\" data-end=\"2792\">callback</code> benar-benar datang dari domain resmi seperti Google atau Facebook.</p>\n<h3 data-start=\"2861\" data-end=\"2901\">3. Jangan Proses Token Sembarangan</h3>\n<p data-start=\"2902\" data-end=\"2969\">Jangan langsung terima token tanpa validasi. Selalu periksa apakah:</p>\n<ul data-start=\"2970\" data-end=\"3028\">\n<li data-start=\"2970\" data-end=\"2983\">\n<p data-start=\"2972\" data-end=\"2983\">Token valid</p>\n</li>\n<li data-start=\"2984\" data-end=\"2997\">\n<p data-start=\"2986\" data-end=\"2997\">State cocok</p>\n</li>\n<li data-start=\"2998\" data-end=\"3028\">\n<p data-start=\"3000\" data-end=\"3028\">User sesuai dengan identitas</p>\n</li>\n</ul>\n<hr data-start=\"3030\" data-end=\"3033\" />\n<h2 data-start=\"3035\" data-end=\"3058\">📌 Rangkuman Singkat</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"3060\" data-end=\"3713\">\n<thead data-start=\"3060\" data-end=\"3189\">\n<tr data-start=\"3060\" data-end=\"3189\">\n<th data-start=\"3060\" data-end=\"3101\" data-col-size=\"sm\">Masalah OAuth</th>\n<th data-start=\"3101\" data-end=\"3149\" data-col-size=\"sm\">Dampaknya</th>\n<th data-start=\"3149\" data-end=\"3189\" data-col-size=\"sm\">Solusi Aman</th>\n</tr>\n</thead>\n<tbody data-start=\"3321\" data-end=\"3713\">\n<tr data-start=\"3321\" data-end=\"3451\">\n<td data-start=\"3321\" data-end=\"3362\" data-col-size=\"sm\">Tidak pakai <code data-start=\"3335\" data-end=\"3342\">state</code></td>\n<td data-col-size=\"sm\" data-start=\"3362\" data-end=\"3410\">Bisa diserang CSRF login</td>\n<td data-col-size=\"sm\" data-start=\"3410\" data-end=\"3451\">Tambahkan &amp; validasi <code data-start=\"3433\" data-end=\"3440\">state</code></td>\n</tr>\n<tr data-start=\"3452\" data-end=\"3582\">\n<td data-start=\"3452\" data-end=\"3493\" data-col-size=\"sm\">Tidak cek asal permintaan</td>\n<td data-col-size=\"sm\" data-start=\"3493\" data-end=\"3541\">Penyerang bisa spoof permintaan</td>\n<td data-col-size=\"sm\" data-start=\"3541\" data-end=\"3582\">Cek <code data-start=\"3547\" data-end=\"3556\">Referer</code> atau <code data-start=\"3562\" data-end=\"3570\">Origin</code></td>\n</tr>\n<tr data-start=\"3583\" data-end=\"3713\">\n<td data-start=\"3583\" data-end=\"3624\" data-col-size=\"sm\">Token diterima mentah-mentah</td>\n<td data-col-size=\"sm\" data-start=\"3624\" data-end=\"3672\">Bisa login sebagai orang lain</td>\n<td data-col-size=\"sm\" data-start=\"3672\" data-end=\"3713\">Verifikasi token &amp; pengguna</td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"3715\" data-end=\"3718\" />\n<h2 data-start=\"3720\" data-end=\"3736\">🧾 Kesimpulan</h2>\n<p data-start=\"3738\" data-end=\"3867\">OAuth memang memudahkan login pengguna, tapi jika tidak dikonfigurasi dengan aman, justru bisa menjadi <strong data-start=\"3841\" data-end=\"3866\">jalan masuk bagi CSRF</strong>.</p>\n<blockquote data-start=\"3869\" data-end=\"3978\">\n<p data-start=\"3871\" data-end=\"3978\">Jangan hanya fokus membuat fitur bisa jalan—pastikan juga <strong data-start=\"3929\" data-end=\"3977\">proses login OAuth kamu aman dan terlindungi</strong>.</p>\n</blockquote>\n<p data-start=\"3980\" data-end=\"4068\">Ingat: keamanan bukan soal “apakah bisa login”, tapi “<strong data-start=\"4034\" data-end=\"4066\">siapa yang benar-benar login</strong>”.</p>\n<p data-start=\"3980\" data-end=\"4068\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-thumbnail wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-150x150.jpeg\" alt=\"\" width=\"150\" height=\"150\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-150x150.jpeg 150w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-80x80.jpeg 80w\" sizes=\"auto, (max-width: 150px) 100vw, 150px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pernah login ke sebuah aplikasi pakai akun Google, Facebook, atau GitHub? Itu artinya kamu sedang menggunakan sistem OAuth — cara praktis untuk login tanpa bikin akun baru. Tapi tahukah kamu? Kalau tidak hati-hati, OAuth juga bisa jadi celah berbahaya untuk serangan CSRF. Banyak developer lupa atau tidak sadar bahwa OAuth rentan disalahgunakan, terutama jika langkah-langkah keamanannya tidak lengkap. 🧠 Apa Itu OAuth? OAuth adalah standar yang memungkinkan satu aplikasi (misalnya: Aplikasi A) meminta akses ke data milikmu di aplikasi lain (misalnya: Google), tanpa harus tahu password kamu. Proses singkat OAuth: Kamu klik “Login with Google” Kamu diarahkan ke halaman login&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 2922,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      385
+    ],
+    "class_list": [
+      "post-2921",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-cross-site-request-forgery-csrf"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Autentikasi OAuth &amp; Bahaya CSRF yang Sering Diabaikan - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Autentikasi OAuth &amp; Bahaya CSRF yang Sering Diabaikan - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pernah login ke sebuah aplikasi pakai akun Google, Facebook, atau GitHub? Itu artinya kamu sedang menggunakan sistem OAuth — cara praktis untuk login tanpa bikin akun baru. Tapi tahukah kamu? Kalau tidak hati-hati, OAuth juga bisa jadi celah berbahaya untuk serangan CSRF. Banyak developer lupa atau tidak sadar bahwa OAuth rentan disalahgunakan, terutama jika langkah-langkah keamanannya tidak lengkap. 🧠 Apa Itu OAuth? OAuth adalah standar yang memungkinkan satu aplikasi (misalnya: Aplikasi A) meminta akses ke data milikmu di aplikasi lain (misalnya: Google), tanpa harus tahu password kamu. Proses singkat OAuth: Kamu klik “Login with Google” Kamu diarahkan ke halaman login...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-07T08:42:01+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1409375226-1024x1024-1.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"1024\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/\",\"url\":\"https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/\",\"name\":\"Autentikasi OAuth & Bahaya CSRF yang Sering Diabaikan - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1409375226-1024x1024-1.jpg\",\"datePublished\":\"2025-07-07T08:42:01+00:00\",\"dateModified\":\"2025-07-07T08:42:01+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1409375226-1024x1024-1.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1409375226-1024x1024-1.jpg\",\"width\":1024,\"height\":1024,\"caption\":\"Two factor authentication. Information protection concept. Security of online accounts using a multi factor method for login with username and password. Personal identification 2fa vector illustration\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Autentikasi OAuth &#038; Bahaya CSRF yang Sering Diabaikan\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Autentikasi OAuth & Bahaya CSRF yang Sering Diabaikan - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Autentikasi OAuth & Bahaya CSRF yang Sering Diabaikan - buletinsiber.com",
+      "og_description": "Pernah login ke sebuah aplikasi pakai akun Google, Facebook, atau GitHub? Itu artinya kamu sedang menggunakan sistem OAuth — cara praktis untuk login tanpa bikin akun baru. Tapi tahukah kamu? Kalau tidak hati-hati, OAuth juga bisa jadi celah berbahaya untuk serangan CSRF. Banyak developer lupa atau tidak sadar bahwa OAuth rentan disalahgunakan, terutama jika langkah-langkah keamanannya tidak lengkap. 🧠 Apa Itu OAuth? OAuth adalah standar yang memungkinkan satu aplikasi (misalnya: Aplikasi A) meminta akses ke data milikmu di aplikasi lain (misalnya: Google), tanpa harus tahu password kamu. Proses singkat OAuth: Kamu klik “Login with Google” Kamu diarahkan ke halaman login...",
+      "og_url": "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-07T08:42:01+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 1024,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1409375226-1024x1024-1.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/",
+            "url": "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/",
+            "name": "Autentikasi OAuth & Bahaya CSRF yang Sering Diabaikan - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1409375226-1024x1024-1.jpg",
+            "datePublished": "2025-07-07T08:42:01+00:00",
+            "dateModified": "2025-07-07T08:42:01+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1409375226-1024x1024-1.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/istockphoto-1409375226-1024x1024-1.jpg",
+            "width": 1024,
+            "height": 1024,
+            "caption": "Two factor authentication. Information protection concept. Security of online accounts using a multi factor method for login with username and password. Personal identification 2fa vector illustration"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/autentikasi-oauth-bahaya-csrf-yang-sering-diabaikan/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Autentikasi OAuth &#038; Bahaya CSRF yang Sering Diabaikan"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2921",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2921"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2921/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 3715,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2921/revisions/3715"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2922"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2921"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2921"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2921"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

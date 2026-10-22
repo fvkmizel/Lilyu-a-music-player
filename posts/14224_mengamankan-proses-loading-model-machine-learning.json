@@ -1,0 +1,308 @@
+{
+  "id": 14224,
+  "title": "Mengamankan Proses Loading Model Machine Learning",
+  "slug": "mengamankan-proses-loading-model-machine-learning",
+  "url": "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/",
+  "date": "2026-07-28T16:53:25",
+  "date_gmt": "2026-07-28T16:53:25",
+  "modified": "2026-07-28T16:53:25",
+  "modified_gmt": "2026-07-28T16:53:25",
+  "author": {
+    "id": 23,
+    "name": "Ezril Fahrul Rizal"
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Uncategorized"
+    }
+  ],
+  "tags": [],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_bn2lq2bn2lq2bn2l.png",
+  "excerpt": "Bayangkan skenario ini: tim Anda baru saja mengunduh model machine learning (ML) terbaru dari repositori populer untuk diintegrasikan ke dalam sistem. Proses loading pun berjalan lancar. Namun, tanpa disadari, alih-alih hanya memuat bobot dan arsitektur model, Anda justru telah membuka pintu bagi penyerang untuk mengendalikan sistem. Ini bukanlah fiksi ilmiah, melainkan ancaman nyata yang disebut sebagai supply chain attack pada AI/ML . Mengapa Loading Model Sama Berbahayanya dengan Menjalankan Kode? Prinsip keamanan fundamental yang sering terabaikan adalah: memuat model ML pada dasarnya setara dengan menjalankan kode dari sumber yang tidak dikenal . Mengapa demikian? Karena format serialisasi yang umum digunakan, seperti pickle Python, tidak hanya menyimpan data,…",
+  "content_html": "<p class=\"ds-markdown-paragraph\"><span class=\"\">Bayangkan skenario ini: tim Anda baru saja mengunduh model machine learning (ML) terbaru dari repositori populer untuk diintegrasikan ke dalam sistem. Proses loading pun berjalan lancar. Namun, tanpa disadari, alih-alih hanya memuat bobot dan arsitektur model, Anda justru telah membuka pintu bagi penyerang untuk mengendalikan sistem. Ini bukanlah fiksi ilmiah, melainkan ancaman nyata yang disebut sebagai </span><em><span class=\"\">supply chain attack</span></em><span class=\"\"> pada AI/ML </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Mengapa Loading Model Sama Berbahayanya dengan Menjalankan Kode?</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Prinsip keamanan fundamental yang sering terabaikan adalah: </span><strong><span class=\"\">memuat model ML pada dasarnya setara dengan menjalankan kode dari sumber yang tidak dikenal</span></strong><span class=\"\"> </span><span class=\"\">. Mengapa demikian? Karena format serialisasi yang umum digunakan, seperti </span><code>pickle</code><span class=\"\"> Python, tidak hanya menyimpan data, tetapi juga instruksi yang dapat dieksekusi.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Ketika Anda menjalankan fungsi </span><code>pickle.load()</code><span class=\"\"> atau </span><code>torch.load()</code><span class=\"\"> pada file model, proses deserialisasi dapat memicu eksekusi kode arbitrer yang tertanam dalam file tersebut </span><span class=\"\">. Penyerang dapat memanfaatkan celah ini untuk:</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Memasang </span><em><span class=\"\">backdoor</span></em><span class=\"\"> atau </span><em><span class=\"\">ransomware</span></em><span class=\"\"> </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Mengeksfiltrasi data sensitif dari lingkungan Anda </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Melakukan gerakan lateral ke sistem lain dalam jaringan </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Risiko ini semakin krusial mengingat maraknya platform berbagi model seperti Hugging Face, di mana masih banyak model (44.9% dari model populer) yang menggunakan format </span><code>pickle</code><span class=\"\"> yang tidak aman </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Celah Keamanan di Balik Layar</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Bahkan ketika Anda merasa sudah berhati-hati, ancaman bisa datang dari celah yang tidak terduga. Sebuah penelitian mengungkapkan bahwa persepsi keamanan seringkali tidak sesuai dengan kenyataan. Sebanyak 73% praktisi ML merasa lebih aman memuat model dari hub terkenal, namun alat pemindai keamanan di platform tersebut terkadang gagal mendeteksi model berbahaya </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Beberapa kerentanan spesifik yang ditemukan antara lain:</span></p>\n<ol start=\"1\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Keras </span><code>safe_mode</code><span class=\"\"> yang Tidak Konsisten</span></strong><span class=\"\">: Parameter </span><code>safe_mode=True</code><span class=\"\"> pada </span><code>Model.load_model</code><span class=\"\"> Keras ternyata diabaikan secara diam-diam saat memuat file </span><code>.h5</code><span class=\"\"> lawas, menciptakan ilusi keamanan </span><span class=\"\">. Bahkan, kerentanan lain (CVE-2025-9906) menunjukkan bahwa </span><code>safe_mode</code><span class=\"\"> dapat dinonaktifkan secara paksa oleh file </span><code>.keras</code><span class=\"\"> yang dirancang khusus </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Fungsi Internal yang Disalahgunakan</span></strong><span class=\"\">: Serangan tidak selalu harus berupa kode </span><code>pickle</code><span class=\"\"> eksplisit. Peneliti menemukan bahwa fungsi internal Keras (seperti </span><code>keras.utils.get_file</code><span class=\"\">) dapat disalahgunakan untuk mengunduh dan menimpa file berbahaya, seperti </span><code>authorized_keys</code><span class=\"\"> untuk akses SSH </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Teknik Evasi </span><code>nullifAI</code></strong><span class=\"\">: Penyerang menggunakan file </span><code>pickle</code><span class=\"\"> yang sengaja &#8220;rusak&#8221; untuk lolos dari pemindaian (misalnya, Picklescan). Malware dijalankan pada saat deserialisasi, lalu file tersebut &#8220;rusak&#8221; untuk menghindari deteksi lebih lanjut </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><code>lmdeploy</code><span class=\"\"> dan </span><code>weights_only</code></strong><span class=\"\">: Framework </span><code>lmdeploy</code><span class=\"\"> ditemukan rentan terhadap RCE karena memanggil </span><code>torch.load()</code><span class=\"\"> tanpa parameter keamanan </span><code>weights_only=True</code><span class=\"\">, sebuah pola tidak aman yang telah diketahui </span><span class=\"\">.</span></p>\n</li>\n</ol>\n<h2><span class=\"\">Strategi Praktis Mengamankan Loading Model</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Untuk memitigasi risiko, organisasi perlu mengadopsi pendekatan berlapis yang mencakup kebijakan, teknologi, dan proses.</span></p>\n<h3><span class=\"\">1. Perlakukan Model sebagai Kode (Zero Trust)</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Prinsip utama: </span><strong><span class=\"\">jangan pernah memuat model dari sumber yang tidak terpercaya tanpa verifikasi</span></strong><span class=\"\">. Prinsip ini berlaku untuk semua framework, termasuk PyTorch, TensorFlow/Keras, dan Apache Spark </span><span class=\"\">.</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Verifikasi Sumber dan Integritas</span></strong><span class=\"\">: Hanya gunakan model dari sumber resmi dan terverifikasi. Selalu verifikasi hash kriptografi (seperti SHA-256) untuk memastikan model tidak dirusak selama perjalanan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Isolasi (Sandboxing)</span></strong><span class=\"\">: Jalankan proses loading dan inferensi model dalam lingkungan yang terisolasi (misalnya, container terbatas) untuk membatasi dampak jika terjadi serangan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Kebijakan Pembaruan</span></strong><span class=\"\">: Pastikan semua framework ML (PyTorch, Keras, dll.) dan dependensi selalu diperbarui ke versi terbaru yang mencakup tambalan keamanan </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h3><span class=\"\">2. Pilih Format yang Lebih Aman: SafeTensors</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Langkah paling efektif adalah beralih dari format </span><code>pickle</code><span class=\"\"> ke </span><strong><span class=\"\">SafeTensors</span></strong><span class=\"\">. Ini adalah format serialisasi yang dirancang khusus untuk keamanan dengan hanya menyimpan data tensor murni, tanpa kode yang dapat dieksekusi </span><span class=\"\">. Jika memungkinkan, ini harus menjadi standar untuk proyek baru </span><span class=\"\">.</span></p>\n<h3><span class=\"\">3. Amankan Kode dengan </span><code>weights_only</code><span class=\"\"> dan Analisis Statis</span></h3>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Gunakan </span><code>weights_only=True</code></strong><span class=\"\">: Untuk PyTorch, selalu gunakan parameter </span><code>weights_only=True</code><span class=\"\"> pada </span><code>torch.load()</code><span class=\"\">. Ini secara signifikan membatasi apa yang dapat dimuat, meskipun masih memiliki keterbatasan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Analisis Kode Statis (SAST)</span></strong><span class=\"\">: Integrasikan alat seperti Semgrep atau CodeGuru ke dalam CI/CD untuk secara otomatis mendeteksi pola pemanggilan fungsi </span><code>pickle.load()</code><span class=\"\"> atau </span><code>torch.load()</code><span class=\"\"> yang tidak aman di kode Anda </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h3><span class=\"\">4. Terapkan Enforcements dan Alat Keamanan</span></h3>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Allowlist Import (Fickling)</span></strong><span class=\"\">: Alat seperti Fickling memungkinkan Anda untuk melakukan </span><em><span class=\"\">monkey-patch</span></em><span class=\"\"> pada modul </span><code>pickle</code><span class=\"\"> dan menerapkan </span><em><span class=\"\">allowlist</span></em><span class=\"\"> impor. Hanya pustaka ML yang dikenal (NumPy, PyTorch, dll.) yang diizinkan untuk diimpor selama deserialisasi. Ini secara efektif memblokir kode berbahaya yang mencoba mengimpor modul sistem (misalnya, </span><code>os</code><span class=\"\">, </span><code>subprocess</code><span class=\"\">) </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Solusi Canggih (PickleBall)</span></strong><span class=\"\">: Untuk keamanan yang lebih ketat dengan kompatibilitas tinggi, pertimbangkan pendekatan seperti PickleBall. Alat ini secara statis menganalisis kode Anda untuk menghasilkan kebijakan yang aman dan spesifik, lalu menegakkannya secara dinamis. Penelitian menunjukkan ini dapat memuat 79.8% model aman dan memblokir 100% contoh berbahaya </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">Kesimpulan</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Mengamankan proses loading model ML adalah tantangan baru dalam rantai pasok perangkat lunak. Kesadaran bahwa memuat model sama dengan menjalankan kode adalah langkah pertama dan paling penting. Dengan menerapkan kebijakan </span><em><span class=\"\">zero-trust</span></em><span class=\"\">, memilih format yang aman (seperti SafeTensors), menggunakan alat analisis statis, dan menerapkan </span><em><span class=\"\">enforcement</span></em><span class=\"\"> saat runtime, organisasi dapat secara signifikan mengurangi permukaan serangan dan melindungi infrastruktur mereka dari ancaman yang terus berkembang.</span></p>\n",
+  "content_text": "Bayangkan skenario ini: tim Anda baru saja mengunduh model machine learning (ML) terbaru dari repositori populer untuk diintegrasikan ke dalam sistem. Proses loading pun berjalan lancar. Namun, tanpa disadari, alih-alih hanya memuat bobot dan arsitektur model, Anda justru telah membuka pintu bagi penyerang untuk mengendalikan sistem. Ini bukanlah fiksi ilmiah, melainkan ancaman nyata yang disebut sebagai    supply chain attack    pada AI/ML   .\nMengapa Loading Model Sama Berbahayanya dengan Menjalankan Kode?\nPrinsip keamanan fundamental yang sering terabaikan adalah:    memuat model ML pada dasarnya setara dengan menjalankan kode dari sumber yang tidak dikenal      . Mengapa demikian? Karena format serialisasi yang umum digunakan, seperti   pickle   Python, tidak hanya menyimpan data, tetapi juga instruksi yang dapat dieksekusi.\nKetika Anda menjalankan fungsi   pickle.load()   atau   torch.load()   pada file model, proses deserialisasi dapat memicu eksekusi kode arbitrer yang tertanam dalam file tersebut   . Penyerang dapat memanfaatkan celah ini untuk:\nMemasang    backdoor    atau    ransomware      .\nMengeksfiltrasi data sensitif dari lingkungan Anda   .\nMelakukan gerakan lateral ke sistem lain dalam jaringan   .\nRisiko ini semakin krusial mengingat maraknya platform berbagi model seperti Hugging Face, di mana masih banyak model (44.9% dari model populer) yang menggunakan format   pickle   yang tidak aman   .\nCelah Keamanan di Balik Layar\nBahkan ketika Anda merasa sudah berhati-hati, ancaman bisa datang dari celah yang tidak terduga. Sebuah penelitian mengungkapkan bahwa persepsi keamanan seringkali tidak sesuai dengan kenyataan. Sebanyak 73% praktisi ML merasa lebih aman memuat model dari hub terkenal, namun alat pemindai keamanan di platform tersebut terkadang gagal mendeteksi model berbahaya   .\nBeberapa kerentanan spesifik yang ditemukan antara lain:\nKeras   safe_mode   yang Tidak Konsisten   : Parameter   safe_mode=True   pada   Model.load_model   Keras ternyata diabaikan secara diam-diam saat memuat file   .h5   lawas, menciptakan ilusi keamanan   . Bahkan, kerentanan lain (CVE-2025-9906) menunjukkan bahwa   safe_mode   dapat dinonaktifkan secara paksa oleh file   .keras   yang dirancang khusus   .\nFungsi Internal yang Disalahgunakan   : Serangan tidak selalu harus berupa kode   pickle   eksplisit. Peneliti menemukan bahwa fungsi internal Keras (seperti   keras.utils.get_file  ) dapat disalahgunakan untuk mengunduh dan menimpa file berbahaya, seperti   authorized_keys   untuk akses SSH   .\nTeknik Evasi   nullifAI   : Penyerang menggunakan file   pickle   yang sengaja “rusak” untuk lolos dari pemindaian (misalnya, Picklescan). Malware dijalankan pada saat deserialisasi, lalu file tersebut “rusak” untuk menghindari deteksi lebih lanjut   .\nlmdeploy   dan   weights_only   : Framework   lmdeploy   ditemukan rentan terhadap RCE karena memanggil   torch.load()   tanpa parameter keamanan   weights_only=True  , sebuah pola tidak aman yang telah diketahui   .\nStrategi Praktis Mengamankan Loading Model\nUntuk memitigasi risiko, organisasi perlu mengadopsi pendekatan berlapis yang mencakup kebijakan, teknologi, dan proses.\n1. Perlakukan Model sebagai Kode (Zero Trust)\nPrinsip utama:    jangan pernah memuat model dari sumber yang tidak terpercaya tanpa verifikasi   . Prinsip ini berlaku untuk semua framework, termasuk PyTorch, TensorFlow/Keras, dan Apache Spark   .\nVerifikasi Sumber dan Integritas   : Hanya gunakan model dari sumber resmi dan terverifikasi. Selalu verifikasi hash kriptografi (seperti SHA-256) untuk memastikan model tidak dirusak selama perjalanan   .\nIsolasi (Sandboxing)   : Jalankan proses loading dan inferensi model dalam lingkungan yang terisolasi (misalnya, container terbatas) untuk membatasi dampak jika terjadi serangan   .\nKebijakan Pembaruan   : Pastikan semua framework ML (PyTorch, Keras, dll.) dan dependensi selalu diperbarui ke versi terbaru yang mencakup tambalan keamanan   .\n2. Pilih Format yang Lebih Aman: SafeTensors\nLangkah paling efektif adalah beralih dari format   pickle   ke    SafeTensors   . Ini adalah format serialisasi yang dirancang khusus untuk keamanan dengan hanya menyimpan data tensor murni, tanpa kode yang dapat dieksekusi   . Jika memungkinkan, ini harus menjadi standar untuk proyek baru   .\n3. Amankan Kode dengan   weights_only   dan Analisis Statis\nGunakan   weights_only=True   : Untuk PyTorch, selalu gunakan parameter   weights_only=True   pada   torch.load()  . Ini secara signifikan membatasi apa yang dapat dimuat, meskipun masih memiliki keterbatasan   .\nAnalisis Kode Statis (SAST)   : Integrasikan alat seperti Semgrep atau CodeGuru ke dalam CI/CD untuk secara otomatis mendeteksi pola pemanggilan fungsi   pickle.load()   atau   torch.load()   yang tidak aman di kode Anda   .\n4. Terapkan Enforcements dan Alat Keamanan\nAllowlist Import (Fickling)   : Alat seperti Fickling memungkinkan Anda untuk melakukan    monkey-patch    pada modul   pickle   dan menerapkan    allowlist    impor. Hanya pustaka ML yang dikenal (NumPy, PyTorch, dll.) yang diizinkan untuk diimpor selama deserialisasi. Ini secara efektif memblokir kode berbahaya yang mencoba mengimpor modul sistem (misalnya,   os  ,   subprocess  )   .\nSolusi Canggih (PickleBall)   : Untuk keamanan yang lebih ketat dengan kompatibilitas tinggi, pertimbangkan pendekatan seperti PickleBall. Alat ini secara statis menganalisis kode Anda untuk menghasilkan kebijakan yang aman dan spesifik, lalu menegakkannya secara dinamis. Penelitian menunjukkan ini dapat memuat 79.8% model aman dan memblokir 100% contoh berbahaya   .\nKesimpulan\nMengamankan proses loading model ML adalah tantangan baru dalam rantai pasok perangkat lunak. Kesadaran bahwa memuat model sama dengan menjalankan kode adalah langkah pertama dan paling penting. Dengan menerapkan kebijakan    zero-trust   , memilih format yang aman (seperti SafeTensors), menggunakan alat analisis statis, dan menerapkan    enforcement    saat runtime, organisasi dapat secara signifikan mengurangi permukaan serangan dan melindungi infrastruktur mereka dari ancaman yang terus berkembang.",
+  "raw": {
+    "id": 14224,
+    "date": "2026-07-28T16:53:25",
+    "date_gmt": "2026-07-28T16:53:25",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=14224"
+    },
+    "modified": "2026-07-28T16:53:25",
+    "modified_gmt": "2026-07-28T16:53:25",
+    "slug": "mengamankan-proses-loading-model-machine-learning",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/",
+    "title": {
+      "rendered": "Mengamankan Proses Loading Model Machine Learning"
+    },
+    "content": {
+      "rendered": "<p class=\"ds-markdown-paragraph\"><span class=\"\">Bayangkan skenario ini: tim Anda baru saja mengunduh model machine learning (ML) terbaru dari repositori populer untuk diintegrasikan ke dalam sistem. Proses loading pun berjalan lancar. Namun, tanpa disadari, alih-alih hanya memuat bobot dan arsitektur model, Anda justru telah membuka pintu bagi penyerang untuk mengendalikan sistem. Ini bukanlah fiksi ilmiah, melainkan ancaman nyata yang disebut sebagai </span><em><span class=\"\">supply chain attack</span></em><span class=\"\"> pada AI/ML </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Mengapa Loading Model Sama Berbahayanya dengan Menjalankan Kode?</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Prinsip keamanan fundamental yang sering terabaikan adalah: </span><strong><span class=\"\">memuat model ML pada dasarnya setara dengan menjalankan kode dari sumber yang tidak dikenal</span></strong><span class=\"\"> </span><span class=\"\">. Mengapa demikian? Karena format serialisasi yang umum digunakan, seperti </span><code>pickle</code><span class=\"\"> Python, tidak hanya menyimpan data, tetapi juga instruksi yang dapat dieksekusi.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Ketika Anda menjalankan fungsi </span><code>pickle.load()</code><span class=\"\"> atau </span><code>torch.load()</code><span class=\"\"> pada file model, proses deserialisasi dapat memicu eksekusi kode arbitrer yang tertanam dalam file tersebut </span><span class=\"\">. Penyerang dapat memanfaatkan celah ini untuk:</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Memasang </span><em><span class=\"\">backdoor</span></em><span class=\"\"> atau </span><em><span class=\"\">ransomware</span></em><span class=\"\"> </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Mengeksfiltrasi data sensitif dari lingkungan Anda </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Melakukan gerakan lateral ke sistem lain dalam jaringan </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Risiko ini semakin krusial mengingat maraknya platform berbagi model seperti Hugging Face, di mana masih banyak model (44.9% dari model populer) yang menggunakan format </span><code>pickle</code><span class=\"\"> yang tidak aman </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Celah Keamanan di Balik Layar</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Bahkan ketika Anda merasa sudah berhati-hati, ancaman bisa datang dari celah yang tidak terduga. Sebuah penelitian mengungkapkan bahwa persepsi keamanan seringkali tidak sesuai dengan kenyataan. Sebanyak 73% praktisi ML merasa lebih aman memuat model dari hub terkenal, namun alat pemindai keamanan di platform tersebut terkadang gagal mendeteksi model berbahaya </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Beberapa kerentanan spesifik yang ditemukan antara lain:</span></p>\n<ol start=\"1\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Keras </span><code>safe_mode</code><span class=\"\"> yang Tidak Konsisten</span></strong><span class=\"\">: Parameter </span><code>safe_mode=True</code><span class=\"\"> pada </span><code>Model.load_model</code><span class=\"\"> Keras ternyata diabaikan secara diam-diam saat memuat file </span><code>.h5</code><span class=\"\"> lawas, menciptakan ilusi keamanan </span><span class=\"\">. Bahkan, kerentanan lain (CVE-2025-9906) menunjukkan bahwa </span><code>safe_mode</code><span class=\"\"> dapat dinonaktifkan secara paksa oleh file </span><code>.keras</code><span class=\"\"> yang dirancang khusus </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Fungsi Internal yang Disalahgunakan</span></strong><span class=\"\">: Serangan tidak selalu harus berupa kode </span><code>pickle</code><span class=\"\"> eksplisit. Peneliti menemukan bahwa fungsi internal Keras (seperti </span><code>keras.utils.get_file</code><span class=\"\">) dapat disalahgunakan untuk mengunduh dan menimpa file berbahaya, seperti </span><code>authorized_keys</code><span class=\"\"> untuk akses SSH </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Teknik Evasi </span><code>nullifAI</code></strong><span class=\"\">: Penyerang menggunakan file </span><code>pickle</code><span class=\"\"> yang sengaja &#8220;rusak&#8221; untuk lolos dari pemindaian (misalnya, Picklescan). Malware dijalankan pada saat deserialisasi, lalu file tersebut &#8220;rusak&#8221; untuk menghindari deteksi lebih lanjut </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><code>lmdeploy</code><span class=\"\"> dan </span><code>weights_only</code></strong><span class=\"\">: Framework </span><code>lmdeploy</code><span class=\"\"> ditemukan rentan terhadap RCE karena memanggil </span><code>torch.load()</code><span class=\"\"> tanpa parameter keamanan </span><code>weights_only=True</code><span class=\"\">, sebuah pola tidak aman yang telah diketahui </span><span class=\"\">.</span></p>\n</li>\n</ol>\n<h2><span class=\"\">Strategi Praktis Mengamankan Loading Model</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Untuk memitigasi risiko, organisasi perlu mengadopsi pendekatan berlapis yang mencakup kebijakan, teknologi, dan proses.</span></p>\n<h3><span class=\"\">1. Perlakukan Model sebagai Kode (Zero Trust)</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Prinsip utama: </span><strong><span class=\"\">jangan pernah memuat model dari sumber yang tidak terpercaya tanpa verifikasi</span></strong><span class=\"\">. Prinsip ini berlaku untuk semua framework, termasuk PyTorch, TensorFlow/Keras, dan Apache Spark </span><span class=\"\">.</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Verifikasi Sumber dan Integritas</span></strong><span class=\"\">: Hanya gunakan model dari sumber resmi dan terverifikasi. Selalu verifikasi hash kriptografi (seperti SHA-256) untuk memastikan model tidak dirusak selama perjalanan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Isolasi (Sandboxing)</span></strong><span class=\"\">: Jalankan proses loading dan inferensi model dalam lingkungan yang terisolasi (misalnya, container terbatas) untuk membatasi dampak jika terjadi serangan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Kebijakan Pembaruan</span></strong><span class=\"\">: Pastikan semua framework ML (PyTorch, Keras, dll.) dan dependensi selalu diperbarui ke versi terbaru yang mencakup tambalan keamanan </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h3><span class=\"\">2. Pilih Format yang Lebih Aman: SafeTensors</span></h3>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Langkah paling efektif adalah beralih dari format </span><code>pickle</code><span class=\"\"> ke </span><strong><span class=\"\">SafeTensors</span></strong><span class=\"\">. Ini adalah format serialisasi yang dirancang khusus untuk keamanan dengan hanya menyimpan data tensor murni, tanpa kode yang dapat dieksekusi </span><span class=\"\">. Jika memungkinkan, ini harus menjadi standar untuk proyek baru </span><span class=\"\">.</span></p>\n<h3><span class=\"\">3. Amankan Kode dengan </span><code>weights_only</code><span class=\"\"> dan Analisis Statis</span></h3>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Gunakan </span><code>weights_only=True</code></strong><span class=\"\">: Untuk PyTorch, selalu gunakan parameter </span><code>weights_only=True</code><span class=\"\"> pada </span><code>torch.load()</code><span class=\"\">. Ini secara signifikan membatasi apa yang dapat dimuat, meskipun masih memiliki keterbatasan </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Analisis Kode Statis (SAST)</span></strong><span class=\"\">: Integrasikan alat seperti Semgrep atau CodeGuru ke dalam CI/CD untuk secara otomatis mendeteksi pola pemanggilan fungsi </span><code>pickle.load()</code><span class=\"\"> atau </span><code>torch.load()</code><span class=\"\"> yang tidak aman di kode Anda </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h3><span class=\"\">4. Terapkan Enforcements dan Alat Keamanan</span></h3>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Allowlist Import (Fickling)</span></strong><span class=\"\">: Alat seperti Fickling memungkinkan Anda untuk melakukan </span><em><span class=\"\">monkey-patch</span></em><span class=\"\"> pada modul </span><code>pickle</code><span class=\"\"> dan menerapkan </span><em><span class=\"\">allowlist</span></em><span class=\"\"> impor. Hanya pustaka ML yang dikenal (NumPy, PyTorch, dll.) yang diizinkan untuk diimpor selama deserialisasi. Ini secara efektif memblokir kode berbahaya yang mencoba mengimpor modul sistem (misalnya, </span><code>os</code><span class=\"\">, </span><code>subprocess</code><span class=\"\">) </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Solusi Canggih (PickleBall)</span></strong><span class=\"\">: Untuk keamanan yang lebih ketat dengan kompatibilitas tinggi, pertimbangkan pendekatan seperti PickleBall. Alat ini secara statis menganalisis kode Anda untuk menghasilkan kebijakan yang aman dan spesifik, lalu menegakkannya secara dinamis. Penelitian menunjukkan ini dapat memuat 79.8% model aman dan memblokir 100% contoh berbahaya </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">Kesimpulan</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Mengamankan proses loading model ML adalah tantangan baru dalam rantai pasok perangkat lunak. Kesadaran bahwa memuat model sama dengan menjalankan kode adalah langkah pertama dan paling penting. Dengan menerapkan kebijakan </span><em><span class=\"\">zero-trust</span></em><span class=\"\">, memilih format yang aman (seperti SafeTensors), menggunakan alat analisis statis, dan menerapkan </span><em><span class=\"\">enforcement</span></em><span class=\"\"> saat runtime, organisasi dapat secara signifikan mengurangi permukaan serangan dan melindungi infrastruktur mereka dari ancaman yang terus berkembang.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Bayangkan skenario ini: tim Anda baru saja mengunduh model machine learning (ML) terbaru dari repositori populer untuk diintegrasikan ke dalam sistem. Proses loading pun berjalan lancar. Namun, tanpa disadari, alih-alih hanya memuat bobot dan arsitektur model, Anda justru telah membuka pintu bagi penyerang untuk mengendalikan sistem. Ini bukanlah fiksi ilmiah, melainkan ancaman nyata yang disebut sebagai supply chain attack pada AI/ML . Mengapa Loading Model Sama Berbahayanya dengan Menjalankan Kode? Prinsip keamanan fundamental yang sering terabaikan adalah: memuat model ML pada dasarnya setara dengan menjalankan kode dari sumber yang tidak dikenal . Mengapa demikian? Karena format serialisasi yang umum digunakan, seperti pickle Python, tidak hanya menyimpan data,&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 23,
+    "featured_media": 14225,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1
+    ],
+    "tags": [],
+    "class_list": [
+      "post-14224",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-uncategorized"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Mengamankan Proses Loading Model Machine Learning - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Mengamankan Proses Loading Model Machine Learning - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Bayangkan skenario ini: tim Anda baru saja mengunduh model machine learning (ML) terbaru dari repositori populer untuk diintegrasikan ke dalam sistem. Proses loading pun berjalan lancar. Namun, tanpa disadari, alih-alih hanya memuat bobot dan arsitektur model, Anda justru telah membuka pintu bagi penyerang untuk mengendalikan sistem. Ini bukanlah fiksi ilmiah, melainkan ancaman nyata yang disebut sebagai supply chain attack pada AI/ML . Mengapa Loading Model Sama Berbahayanya dengan Menjalankan Kode? Prinsip keamanan fundamental yang sering terabaikan adalah: memuat model ML pada dasarnya setara dengan menjalankan kode dari sumber yang tidak dikenal . Mengapa demikian? Karena format serialisasi yang umum digunakan, seperti pickle Python, tidak hanya menyimpan data,...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-28T16:53:25+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_bn2lq2bn2lq2bn2l.png\" />\n\t<meta property=\"og:image:width\" content=\"1408\" />\n\t<meta property=\"og:image:height\" content=\"768\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Ezril Fahrul Rizal\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Ezril Fahrul Rizal\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/\",\"url\":\"https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/\",\"name\":\"Mengamankan Proses Loading Model Machine Learning - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_bn2lq2bn2lq2bn2l.png\",\"datePublished\":\"2026-07-28T16:53:25+00:00\",\"dateModified\":\"2026-07-28T16:53:25+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_bn2lq2bn2lq2bn2l.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_bn2lq2bn2lq2bn2l.png\",\"width\":1408,\"height\":768},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Mengamankan Proses Loading Model Machine Learning\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d\",\"name\":\"Ezril Fahrul Rizal\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g\",\"caption\":\"Ezril Fahrul Rizal\"},\"url\":\"https://buletinsiber.com/author/ezril-fahrul-rizal/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Mengamankan Proses Loading Model Machine Learning - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Mengamankan Proses Loading Model Machine Learning - buletinsiber.com",
+      "og_description": "Bayangkan skenario ini: tim Anda baru saja mengunduh model machine learning (ML) terbaru dari repositori populer untuk diintegrasikan ke dalam sistem. Proses loading pun berjalan lancar. Namun, tanpa disadari, alih-alih hanya memuat bobot dan arsitektur model, Anda justru telah membuka pintu bagi penyerang untuk mengendalikan sistem. Ini bukanlah fiksi ilmiah, melainkan ancaman nyata yang disebut sebagai supply chain attack pada AI/ML . Mengapa Loading Model Sama Berbahayanya dengan Menjalankan Kode? Prinsip keamanan fundamental yang sering terabaikan adalah: memuat model ML pada dasarnya setara dengan menjalankan kode dari sumber yang tidak dikenal . Mengapa demikian? Karena format serialisasi yang umum digunakan, seperti pickle Python, tidak hanya menyimpan data,...",
+      "og_url": "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-28T16:53:25+00:00",
+      "og_image": [
+        {
+          "width": 1408,
+          "height": 768,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_bn2lq2bn2lq2bn2l.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Ezril Fahrul Rizal",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Ezril Fahrul Rizal",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/",
+            "url": "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/",
+            "name": "Mengamankan Proses Loading Model Machine Learning - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_bn2lq2bn2lq2bn2l.png",
+            "datePublished": "2026-07-28T16:53:25+00:00",
+            "dateModified": "2026-07-28T16:53:25+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_bn2lq2bn2lq2bn2l.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_bn2lq2bn2lq2bn2l.png",
+            "width": 1408,
+            "height": 768
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/mengamankan-proses-loading-model-machine-learning/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Mengamankan Proses Loading Model Machine Learning"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d",
+            "name": "Ezril Fahrul Rizal",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g",
+              "caption": "Ezril Fahrul Rizal"
+            },
+            "url": "https://buletinsiber.com/author/ezril-fahrul-rizal/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14224",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/23"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=14224"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14224/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 14230,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14224/revisions/14230"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/14225"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=14224"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=14224"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=14224"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "id": 2709,
+  "title": "SSRF vs CSRF: Serangan Web yang Sering Disangka Sama, Tapi Berbeda!",
+  "slug": "ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda",
+  "url": "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/",
+  "date": "2025-06-19T08:50:39",
+  "date_gmt": "2025-06-19T08:50:39",
+  "modified": "2026-06-30T18:55:54",
+  "modified_gmt": "2026-06-30T18:55:54",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    342,
+    343
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-30-at-23.27.14_a5d019c7.jpg",
+  "excerpt": "Pendahuluan Di dunia keamanan web, banyak istilah teknis yang terdengar mirip, padahal memiliki makna dan dampak yang sangat berbeda. Salah satu contohnya adalah CSRF dan SSRF. Keduanya sama-sama mengandung kata “Request Forgery” dan sering membuat bingung, terutama bagi yang baru belajar keamanan web. Padahal, CSRF (Cross-Site Request Forgery) dan SSRF (Server-Side Request Forgery) memiliki cara kerja, target, dan dampak yang sangat berbeda. Artikel ini akan membantu kamu memahami perbedaan keduanya dengan cara yang sederhana. Apa Itu CSRF (Cross-Site Request Forgery)? CSRF adalah serangan yang mengecoh pengguna yang sedang login ke sebuah website agar tanpa sadar melakukan aksi tertentu, seperti mengubah…",
+  "content_html": "<h2>Pendahuluan</h2>\n<p>Di dunia keamanan web, banyak istilah teknis yang terdengar mirip, padahal memiliki makna dan dampak yang sangat berbeda. Salah satu contohnya adalah <strong>CSRF</strong> dan <strong>SSRF</strong>. Keduanya sama-sama mengandung kata &#8220;Request Forgery&#8221; dan sering membuat bingung, terutama bagi yang baru belajar keamanan web.</p>\n<p>Padahal, <strong>CSRF (Cross-Site Request Forgery)</strong> dan <strong>SSRF (Server-Side Request Forgery)</strong> memiliki cara kerja, target, dan dampak yang sangat berbeda. Artikel ini akan membantu kamu memahami perbedaan keduanya dengan cara yang sederhana.</p>\n<h2>Apa Itu CSRF (Cross-Site Request Forgery)?</h2>\n<p><strong>CSRF</strong> adalah serangan yang mengecoh <strong>pengguna yang sedang login</strong> ke sebuah website agar tanpa sadar melakukan aksi tertentu, seperti mengubah password, mengirim uang, atau menghapus data.</p>\n<h3>Bagaimana Cara Kerjanya?</h3>\n<p>Misalnya kamu sedang login ke akun bank. Lalu kamu membuka website lain yang ternyata dibuat oleh penyerang. Di website itu, penyerang menyisipkan kode yang akan mengirimkan permintaan ke situs bank kamu, misalnya:</p>\n<pre><code class=\"language-html\">&lt;img src=\"https://bank.com/transfer?to=hacker&amp;amount=1000\"&gt;\r\n</code></pre>\n<p>Jika situs bank tidak memeriksa asal permintaan, maka uangmu bisa saja ditransfer ke penyerang—padahal kamu tidak pernah menekan tombol apapun!</p>\n<h2>Apa Itu SSRF (Server-Side Request Forgery)?</h2>\n<p>Berbeda dengan CSRF yang menipu pengguna, <strong>SSRF</strong> menipu <strong>server</strong>.</p>\n<p>Penyerang memanfaatkan celah di server agar server tersebut mengirim permintaan ke alamat yang tidak seharusnya, termasuk ke sistem internal yang seharusnya tidak bisa diakses dari luar.</p>\n<h3>Contoh Sederhana:</h3>\n<p>Sebuah website menyediakan fitur untuk mengambil gambar dari URL yang dikirim pengguna. Penyerang lalu mengirimkan URL seperti:</p>\n<pre><code>http://127.0.0.1/admin\r\n</code></pre>\n<p>Server kemudian tanpa sadar mengakses alamat lokal (localhost) dan membuka halaman admin internal. Jika tidak ada perlindungan, penyerang bisa membaca informasi rahasia atau bahkan mengambil alih server.</p>\n<h2>Perbandingan CSRF vs SSRF</h2>\n<table>\n<thead>\n<tr>\n<th>Aspek</th>\n<th>CSRF</th>\n<th>SSRF</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Target</td>\n<td>Pengguna (user)</td>\n<td>Server</td>\n</tr>\n<tr>\n<td>Pelaku</td>\n<td>Korban yang sedang login</td>\n<td>Server yang mengirim permintaan</td>\n</tr>\n<tr>\n<td>Media Serangan</td>\n<td>Browser pengguna</td>\n<td>Aplikasi web/server</td>\n</tr>\n<tr>\n<td>Contoh Umum</td>\n<td>Transfer uang, ubah password</td>\n<td>Akses metadata server, intranet, admin panel</td>\n</tr>\n<tr>\n<td>Tujuan</td>\n<td>Mengecoh pengguna untuk melakukan aksi</td>\n<td>Menyalahgunakan server untuk akses tersembunyi</td>\n</tr>\n</tbody>\n</table>\n<h2>Mengapa Banyak yang Bingung?</h2>\n<p>Kedua istilah ini terdengar mirip karena sama-sama mengandung kata &#8220;Request Forgery&#8221;, yaitu <strong>pemalsuan permintaan</strong>. Namun, yang dipalsukan dan siapa yang tertipu sangat berbeda:</p>\n<ul>\n<li><strong>CSRF → menipu pengguna</strong></li>\n<li><strong>SSRF → menipu server</strong></li>\n</ul>\n<p>Mengetahui perbedaan ini sangat penting untuk menentukan jenis perlindungan yang harus digunakan.</p>\n<p>Cara Mencegah Kedua Serangan Ini</p>\n<h3>Mencegah CSRF:</h3>\n<ul>\n<li>Gunakan <strong>CSRF Token</strong> pada setiap form.</li>\n<li>Periksa <strong>Origin</strong> atau <strong>Referer</strong> header untuk memastikan permintaan datang dari sumber sah.</li>\n<li>Gunakan cookie dengan atribut <strong>SameSite</strong> agar tidak dikirim dari domain lain</li>\n</ul>\n<h3>Mencegah SSRF:</h3>\n<ul>\n<li>Validasi input URL secara ketat.</li>\n<li><strong>Whitelist</strong> domain yang boleh diakses.</li>\n<li>Blokir akses ke alamat internal seperti <code>127.0.0.1</code>, <code>169.254.169.254</code> (metadata AWS), dan IP privat.</li>\n<li>Gunakan firewall atau proxy dengan aturan khusus untuk request keluar.</li>\n</ul>\n<h2>Studi Kasus Nyata</h2>\n<ul>\n<li><strong>CSRF:</strong> Facebook pernah mengalami bug yang memungkinkan pengguna menghapus foto hanya dengan membuka tautan tertentu.</li>\n<li><strong>SSRF:</strong> Pada 2019, Capital One diretas melalui SSRF. Penyerang berhasil mengakses metadata layanan cloud dan mengambil data pribadi jutaan orang.</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>Meskipun terdengar mirip, <strong>SSRF dan CSRF adalah dua jenis serangan yang sangat berbeda</strong>. CSRF menyerang <strong>pengguna</strong>, sementara SSRF menyasar <strong>server</strong>.</p>\n<p>Mengetahui perbedaan ini bukan hanya penting bagi developer, tetapi juga bagi siapa saja yang peduli dengan keamanan data. Dengan memahami cara kerja dan menerapkan perlindungan yang tepat, kita bisa membuat aplikasi web jauh lebih aman dari kedua ancaman ini.</p>\n",
+  "content_text": "Pendahuluan\nDi dunia keamanan web, banyak istilah teknis yang terdengar mirip, padahal memiliki makna dan dampak yang sangat berbeda. Salah satu contohnya adalah  CSRF  dan  SSRF . Keduanya sama-sama mengandung kata “Request Forgery” dan sering membuat bingung, terutama bagi yang baru belajar keamanan web.\nPadahal,  CSRF (Cross-Site Request Forgery)  dan  SSRF (Server-Side Request Forgery)  memiliki cara kerja, target, dan dampak yang sangat berbeda. Artikel ini akan membantu kamu memahami perbedaan keduanya dengan cara yang sederhana.\nApa Itu CSRF (Cross-Site Request Forgery)?\nCSRF  adalah serangan yang mengecoh  pengguna yang sedang login  ke sebuah website agar tanpa sadar melakukan aksi tertentu, seperti mengubah password, mengirim uang, atau menghapus data.\nBagaimana Cara Kerjanya?\nMisalnya kamu sedang login ke akun bank. Lalu kamu membuka website lain yang ternyata dibuat oleh penyerang. Di website itu, penyerang menyisipkan kode yang akan mengirimkan permintaan ke situs bank kamu, misalnya:\n<img src=\"https://bank.com/transfer?to=hacker&amount=1000\">\nJika situs bank tidak memeriksa asal permintaan, maka uangmu bisa saja ditransfer ke penyerang—padahal kamu tidak pernah menekan tombol apapun!\nApa Itu SSRF (Server-Side Request Forgery)?\nBerbeda dengan CSRF yang menipu pengguna,  SSRF  menipu  server .\nPenyerang memanfaatkan celah di server agar server tersebut mengirim permintaan ke alamat yang tidak seharusnya, termasuk ke sistem internal yang seharusnya tidak bisa diakses dari luar.\nContoh Sederhana:\nSebuah website menyediakan fitur untuk mengambil gambar dari URL yang dikirim pengguna. Penyerang lalu mengirimkan URL seperti:\nhttp://127.0.0.1/admin\nServer kemudian tanpa sadar mengakses alamat lokal (localhost) dan membuka halaman admin internal. Jika tidak ada perlindungan, penyerang bisa membaca informasi rahasia atau bahkan mengambil alih server.\nPerbandingan CSRF vs SSRF\nAspek\nCSRF\nSSRF\nTarget\nPengguna (user)\nServer\nPelaku\nKorban yang sedang login\nServer yang mengirim permintaan\nMedia Serangan\nBrowser pengguna\nAplikasi web/server\nContoh Umum\nTransfer uang, ubah password\nAkses metadata server, intranet, admin panel\nTujuan\nMengecoh pengguna untuk melakukan aksi\nMenyalahgunakan server untuk akses tersembunyi\nMengapa Banyak yang Bingung?\nKedua istilah ini terdengar mirip karena sama-sama mengandung kata “Request Forgery”, yaitu  pemalsuan permintaan . Namun, yang dipalsukan dan siapa yang tertipu sangat berbeda:\nCSRF → menipu pengguna\nSSRF → menipu server\nMengetahui perbedaan ini sangat penting untuk menentukan jenis perlindungan yang harus digunakan.\nCara Mencegah Kedua Serangan Ini\nMencegah CSRF:\nGunakan  CSRF Token  pada setiap form.\nPeriksa  Origin  atau  Referer  header untuk memastikan permintaan datang dari sumber sah.\nGunakan cookie dengan atribut  SameSite  agar tidak dikirim dari domain lain\nMencegah SSRF:\nValidasi input URL secara ketat.\nWhitelist  domain yang boleh diakses.\nBlokir akses ke alamat internal seperti  127.0.0.1 ,  169.254.169.254  (metadata AWS), dan IP privat.\nGunakan firewall atau proxy dengan aturan khusus untuk request keluar.\nStudi Kasus Nyata\nCSRF:  Facebook pernah mengalami bug yang memungkinkan pengguna menghapus foto hanya dengan membuka tautan tertentu.\nSSRF:  Pada 2019, Capital One diretas melalui SSRF. Penyerang berhasil mengakses metadata layanan cloud dan mengambil data pribadi jutaan orang.\nKesimpulan\nMeskipun terdengar mirip,  SSRF dan CSRF adalah dua jenis serangan yang sangat berbeda . CSRF menyerang  pengguna , sementara SSRF menyasar  server .\nMengetahui perbedaan ini bukan hanya penting bagi developer, tetapi juga bagi siapa saja yang peduli dengan keamanan data. Dengan memahami cara kerja dan menerapkan perlindungan yang tepat, kita bisa membuat aplikasi web jauh lebih aman dari kedua ancaman ini.",
+  "raw": {
+    "id": 2709,
+    "date": "2025-06-19T08:50:39",
+    "date_gmt": "2025-06-19T08:50:39",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2709"
+    },
+    "modified": "2026-06-30T18:55:54",
+    "modified_gmt": "2026-06-30T18:55:54",
+    "slug": "ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/",
+    "title": {
+      "rendered": "SSRF vs CSRF: Serangan Web yang Sering Disangka Sama, Tapi Berbeda!"
+    },
+    "content": {
+      "rendered": "<h2>Pendahuluan</h2>\n<p>Di dunia keamanan web, banyak istilah teknis yang terdengar mirip, padahal memiliki makna dan dampak yang sangat berbeda. Salah satu contohnya adalah <strong>CSRF</strong> dan <strong>SSRF</strong>. Keduanya sama-sama mengandung kata &#8220;Request Forgery&#8221; dan sering membuat bingung, terutama bagi yang baru belajar keamanan web.</p>\n<p>Padahal, <strong>CSRF (Cross-Site Request Forgery)</strong> dan <strong>SSRF (Server-Side Request Forgery)</strong> memiliki cara kerja, target, dan dampak yang sangat berbeda. Artikel ini akan membantu kamu memahami perbedaan keduanya dengan cara yang sederhana.</p>\n<h2>Apa Itu CSRF (Cross-Site Request Forgery)?</h2>\n<p><strong>CSRF</strong> adalah serangan yang mengecoh <strong>pengguna yang sedang login</strong> ke sebuah website agar tanpa sadar melakukan aksi tertentu, seperti mengubah password, mengirim uang, atau menghapus data.</p>\n<h3>Bagaimana Cara Kerjanya?</h3>\n<p>Misalnya kamu sedang login ke akun bank. Lalu kamu membuka website lain yang ternyata dibuat oleh penyerang. Di website itu, penyerang menyisipkan kode yang akan mengirimkan permintaan ke situs bank kamu, misalnya:</p>\n<pre><code class=\"language-html\">&lt;img src=\"https://bank.com/transfer?to=hacker&amp;amount=1000\"&gt;\r\n</code></pre>\n<p>Jika situs bank tidak memeriksa asal permintaan, maka uangmu bisa saja ditransfer ke penyerang—padahal kamu tidak pernah menekan tombol apapun!</p>\n<h2>Apa Itu SSRF (Server-Side Request Forgery)?</h2>\n<p>Berbeda dengan CSRF yang menipu pengguna, <strong>SSRF</strong> menipu <strong>server</strong>.</p>\n<p>Penyerang memanfaatkan celah di server agar server tersebut mengirim permintaan ke alamat yang tidak seharusnya, termasuk ke sistem internal yang seharusnya tidak bisa diakses dari luar.</p>\n<h3>Contoh Sederhana:</h3>\n<p>Sebuah website menyediakan fitur untuk mengambil gambar dari URL yang dikirim pengguna. Penyerang lalu mengirimkan URL seperti:</p>\n<pre><code>http://127.0.0.1/admin\r\n</code></pre>\n<p>Server kemudian tanpa sadar mengakses alamat lokal (localhost) dan membuka halaman admin internal. Jika tidak ada perlindungan, penyerang bisa membaca informasi rahasia atau bahkan mengambil alih server.</p>\n<h2>Perbandingan CSRF vs SSRF</h2>\n<table>\n<thead>\n<tr>\n<th>Aspek</th>\n<th>CSRF</th>\n<th>SSRF</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Target</td>\n<td>Pengguna (user)</td>\n<td>Server</td>\n</tr>\n<tr>\n<td>Pelaku</td>\n<td>Korban yang sedang login</td>\n<td>Server yang mengirim permintaan</td>\n</tr>\n<tr>\n<td>Media Serangan</td>\n<td>Browser pengguna</td>\n<td>Aplikasi web/server</td>\n</tr>\n<tr>\n<td>Contoh Umum</td>\n<td>Transfer uang, ubah password</td>\n<td>Akses metadata server, intranet, admin panel</td>\n</tr>\n<tr>\n<td>Tujuan</td>\n<td>Mengecoh pengguna untuk melakukan aksi</td>\n<td>Menyalahgunakan server untuk akses tersembunyi</td>\n</tr>\n</tbody>\n</table>\n<h2>Mengapa Banyak yang Bingung?</h2>\n<p>Kedua istilah ini terdengar mirip karena sama-sama mengandung kata &#8220;Request Forgery&#8221;, yaitu <strong>pemalsuan permintaan</strong>. Namun, yang dipalsukan dan siapa yang tertipu sangat berbeda:</p>\n<ul>\n<li><strong>CSRF → menipu pengguna</strong></li>\n<li><strong>SSRF → menipu server</strong></li>\n</ul>\n<p>Mengetahui perbedaan ini sangat penting untuk menentukan jenis perlindungan yang harus digunakan.</p>\n<p>Cara Mencegah Kedua Serangan Ini</p>\n<h3>Mencegah CSRF:</h3>\n<ul>\n<li>Gunakan <strong>CSRF Token</strong> pada setiap form.</li>\n<li>Periksa <strong>Origin</strong> atau <strong>Referer</strong> header untuk memastikan permintaan datang dari sumber sah.</li>\n<li>Gunakan cookie dengan atribut <strong>SameSite</strong> agar tidak dikirim dari domain lain</li>\n</ul>\n<h3>Mencegah SSRF:</h3>\n<ul>\n<li>Validasi input URL secara ketat.</li>\n<li><strong>Whitelist</strong> domain yang boleh diakses.</li>\n<li>Blokir akses ke alamat internal seperti <code>127.0.0.1</code>, <code>169.254.169.254</code> (metadata AWS), dan IP privat.</li>\n<li>Gunakan firewall atau proxy dengan aturan khusus untuk request keluar.</li>\n</ul>\n<h2>Studi Kasus Nyata</h2>\n<ul>\n<li><strong>CSRF:</strong> Facebook pernah mengalami bug yang memungkinkan pengguna menghapus foto hanya dengan membuka tautan tertentu.</li>\n<li><strong>SSRF:</strong> Pada 2019, Capital One diretas melalui SSRF. Penyerang berhasil mengakses metadata layanan cloud dan mengambil data pribadi jutaan orang.</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>Meskipun terdengar mirip, <strong>SSRF dan CSRF adalah dua jenis serangan yang sangat berbeda</strong>. CSRF menyerang <strong>pengguna</strong>, sementara SSRF menyasar <strong>server</strong>.</p>\n<p>Mengetahui perbedaan ini bukan hanya penting bagi developer, tetapi juga bagi siapa saja yang peduli dengan keamanan data. Dengan memahami cara kerja dan menerapkan perlindungan yang tepat, kita bisa membuat aplikasi web jauh lebih aman dari kedua ancaman ini.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Di dunia keamanan web, banyak istilah teknis yang terdengar mirip, padahal memiliki makna dan dampak yang sangat berbeda. Salah satu contohnya adalah CSRF dan SSRF. Keduanya sama-sama mengandung kata &#8220;Request Forgery&#8221; dan sering membuat bingung, terutama bagi yang baru belajar keamanan web. Padahal, CSRF (Cross-Site Request Forgery) dan SSRF (Server-Side Request Forgery) memiliki cara kerja, target, dan dampak yang sangat berbeda. Artikel ini akan membantu kamu memahami perbedaan keduanya dengan cara yang sederhana. Apa Itu CSRF (Cross-Site Request Forgery)? CSRF adalah serangan yang mengecoh pengguna yang sedang login ke sebuah website agar tanpa sadar melakukan aksi tertentu, seperti mengubah&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 1725,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      342,
+      343
+    ],
+    "class_list": [
+      "post-2709",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-csrf",
+      "tag-ssrf"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>SSRF vs CSRF: Serangan Web yang Sering Disangka Sama, Tapi Berbeda! - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"SSRF vs CSRF: Serangan Web yang Sering Disangka Sama, Tapi Berbeda! - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Di dunia keamanan web, banyak istilah teknis yang terdengar mirip, padahal memiliki makna dan dampak yang sangat berbeda. Salah satu contohnya adalah CSRF dan SSRF. Keduanya sama-sama mengandung kata &#8220;Request Forgery&#8221; dan sering membuat bingung, terutama bagi yang baru belajar keamanan web. Padahal, CSRF (Cross-Site Request Forgery) dan SSRF (Server-Side Request Forgery) memiliki cara kerja, target, dan dampak yang sangat berbeda. Artikel ini akan membantu kamu memahami perbedaan keduanya dengan cara yang sederhana. Apa Itu CSRF (Cross-Site Request Forgery)? CSRF adalah serangan yang mengecoh pengguna yang sedang login ke sebuah website agar tanpa sadar melakukan aksi tertentu, seperti mengubah...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2025-06-19T08:50:39+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T18:55:54+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-30-at-23.27.14_a5d019c7.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"1024\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/\",\"url\":\"https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/\",\"name\":\"SSRF vs CSRF: Serangan Web yang Sering Disangka Sama, Tapi Berbeda! - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-30-at-23.27.14_a5d019c7.jpg\",\"datePublished\":\"2025-06-19T08:50:39+00:00\",\"dateModified\":\"2026-06-30T18:55:54+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-30-at-23.27.14_a5d019c7.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-30-at-23.27.14_a5d019c7.jpg\",\"width\":1024,\"height\":1024},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"SSRF vs CSRF: Serangan Web yang Sering Disangka Sama, Tapi Berbeda!\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "SSRF vs CSRF: Serangan Web yang Sering Disangka Sama, Tapi Berbeda! - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "SSRF vs CSRF: Serangan Web yang Sering Disangka Sama, Tapi Berbeda! - buletinsiber.com",
+      "og_description": "Pendahuluan Di dunia keamanan web, banyak istilah teknis yang terdengar mirip, padahal memiliki makna dan dampak yang sangat berbeda. Salah satu contohnya adalah CSRF dan SSRF. Keduanya sama-sama mengandung kata &#8220;Request Forgery&#8221; dan sering membuat bingung, terutama bagi yang baru belajar keamanan web. Padahal, CSRF (Cross-Site Request Forgery) dan SSRF (Server-Side Request Forgery) memiliki cara kerja, target, dan dampak yang sangat berbeda. Artikel ini akan membantu kamu memahami perbedaan keduanya dengan cara yang sederhana. Apa Itu CSRF (Cross-Site Request Forgery)? CSRF adalah serangan yang mengecoh pengguna yang sedang login ke sebuah website agar tanpa sadar melakukan aksi tertentu, seperti mengubah...",
+      "og_url": "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2025-06-19T08:50:39+00:00",
+      "article_modified_time": "2026-06-30T18:55:54+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 1024,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-30-at-23.27.14_a5d019c7.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/",
+            "url": "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/",
+            "name": "SSRF vs CSRF: Serangan Web yang Sering Disangka Sama, Tapi Berbeda! - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-30-at-23.27.14_a5d019c7.jpg",
+            "datePublished": "2025-06-19T08:50:39+00:00",
+            "dateModified": "2026-06-30T18:55:54+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-30-at-23.27.14_a5d019c7.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-30-at-23.27.14_a5d019c7.jpg",
+            "width": 1024,
+            "height": 1024
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/ssrf-vs-csrf-serangan-web-yang-sering-disangka-sama-tapi-berbeda/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "SSRF vs CSRF: Serangan Web yang Sering Disangka Sama, Tapi Berbeda!"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2709",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2709"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2709/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 2710,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2709/revisions/2710"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/1725"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2709"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2709"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2709"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

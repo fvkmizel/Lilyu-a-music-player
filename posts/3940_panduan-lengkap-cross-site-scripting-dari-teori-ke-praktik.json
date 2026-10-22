@@ -1,0 +1,314 @@
+{
+  "id": 3940,
+  "title": "Panduan Lengkap Cross Site Scripting: Dari Teori ke Praktik",
+  "slug": "panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik",
+  "url": "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/",
+  "date": "2025-07-08T11:21:11",
+  "date_gmt": "2025-07-08T11:21:11",
+  "modified": "2025-07-08T11:22:37",
+  "modified_gmt": "2025-07-08T11:22:37",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    333
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-1.jpg",
+  "excerpt": "I. Pendahuluan Keamanan web adalah hal penting yang harus diperhatikan dalam pengembangan aplikasi. Banyak situs dan aplikasi web yang terlihat baik dari luar, tetapi memiliki celah keamanan yang bisa dimanfaatkan oleh penyerang. Salah satu serangan yang cukup sering terjadi adalah Cross Site Scripting atau XSS. XSS adalah teknik serangan yang memanfaatkan celah dalam sistem web untuk menyisipkan skrip berbahaya. Dalam panduan ini, kita akan membahas XSS dari sisi teori hingga praktik, agar kamu bisa lebih memahami cara kerja dan cara mencegahnya. II. Dasar Teori Cross Site Scripting (XSS) XSS adalah serangan di mana penyerang menyisipkan kode (biasanya JavaScript) ke dalam…",
+  "content_html": "<h3 data-start=\"240\" data-end=\"258\">I. Pendahuluan</h3>\n<p data-start=\"260\" data-end=\"558\">Keamanan web adalah hal penting yang harus diperhatikan dalam pengembangan aplikasi. Banyak situs dan aplikasi web yang terlihat baik dari luar, tetapi memiliki celah keamanan yang bisa dimanfaatkan oleh penyerang. Salah satu serangan yang cukup sering terjadi adalah Cross Site Scripting atau XSS.</p>\n<p data-start=\"560\" data-end=\"799\">XSS adalah teknik serangan yang memanfaatkan celah dalam sistem web untuk menyisipkan skrip berbahaya. Dalam panduan ini, kita akan membahas XSS dari sisi teori hingga praktik, agar kamu bisa lebih memahami cara kerja dan cara mencegahnya.</p>\n<h3 data-start=\"801\" data-end=\"847\">II. Dasar Teori Cross Site Scripting (XSS)</h3>\n<p data-start=\"849\" data-end=\"1129\">XSS adalah serangan di mana penyerang menyisipkan kode (biasanya JavaScript) ke dalam halaman web. Kode tersebut akan dijalankan di browser korban seolah-olah berasal dari situs yang sah. Serangan ini bisa menyebabkan pencurian data, pengalihan halaman, atau pengambilalihan akun.</p>\n<p data-start=\"1131\" data-end=\"1324\">XSS pertama kali dikenal sejak awal berkembangnya web interaktif. Karena celah ini umum ditemukan, XSS masuk dalam daftar OWASP Top 10, yaitu daftar sepuluh besar ancaman keamanan aplikasi web.</p>\n<p data-start=\"1326\" data-end=\"1483\">XSS bisa berakibat fatal bagi pengguna dan pemilik website. Misalnya, seorang pengguna bisa kehilangan sesi login atau datanya dicuri tanpa sepengetahuannya.</p>\n<h3 data-start=\"1485\" data-end=\"1518\">III. Jenis-Jenis Serangan XSS</h3>\n<p data-start=\"1520\" data-end=\"1741\">Stored XSS adalah jenis serangan di mana skrip berbahaya disimpan secara permanen di server. Contohnya, penyerang menyisipkan skrip di kolom komentar, dan setiap orang yang membuka komentar tersebut akan terkena serangan.</p>\n<p data-start=\"1743\" data-end=\"1943\">Reflected XSS terjadi ketika skrip berbahaya dikirim lewat URL atau input form dan dipantulkan kembali ke halaman web. Ini sering dimanfaatkan dalam phishing, di mana pengguna diarahkan ke link palsu.</p>\n<p data-start=\"1945\" data-end=\"2189\">DOM-Based XSS terjadi di sisi klien, yaitu di browser pengguna. Serangan ini memanfaatkan JavaScript yang tidak aman di dalam halaman web. Jika skrip dalam halaman tidak memfilter input pengguna, maka XSS bisa terjadi hanya dengan mengubah URL.</p>\n<h3 data-start=\"2191\" data-end=\"2222\">IV. Cara Kerja Serangan XSS</h3>\n<p data-start=\"2224\" data-end=\"2394\">Penyerang biasanya memulai dengan mencari input pengguna yang tidak difilter, seperti kolom komentar atau parameter URL. Setelah itu, penyerang menyisipkan skrip seperti:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Salin\">Salin</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span></span>&gt;<span class=\"language-javascript\"><span class=\"hljs-title function_\">alert</span></span>(<span class=\"hljs-string\">'XSS berhasil'</span>);<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"2449\" data-end=\"2680\">Ketika korban membuka halaman tersebut, skrip dijalankan dan bisa digunakan untuk mencuri cookie, mencatat keystroke, atau mengalihkan ke situs lain. Browser tidak tahu bahwa skrip ini berbahaya karena berasal dari domain yang sah.</p>\n<h3 data-start=\"2682\" data-end=\"2719\">V. Studi Kasus XSS di Dunia Nyata</h3>\n<p data-start=\"2721\" data-end=\"2959\">Beberapa situs besar pernah terkena XSS. Salah satunya adalah Twitter, di mana penyerang berhasil menyisipkan JavaScript dalam tweet yang tampak normal. Saat pengguna membuka tweet itu, skrip langsung berjalan dan melakukan aksi tertentu.</p>\n<p data-start=\"2961\" data-end=\"3143\">eBay juga pernah mengalami serangan XSS di bagian deskripsi produk. Penjual bisa menyisipkan skrip yang mencuri data pembeli. Serangan ini sempat ramai dibahas di komunitas keamanan.</p>\n<p data-start=\"3145\" data-end=\"3281\">Kedua kasus tersebut memperlihatkan bahwa XSS bisa terjadi di mana saja, bahkan pada situs yang sudah memiliki tim keamanan profesional.</p>\n<h3 data-start=\"3283\" data-end=\"3338\">VI. Praktik Menguji dan Mensimulasikan Serangan XSS</h3>\n<p data-start=\"3340\" data-end=\"3607\">Untuk memahami XSS secara langsung, kita bisa menggunakan lingkungan pengujian yang aman seperti DVWA (Damn Vulnerable Web Application), bWAPP, atau XSS Game dari Google. Di platform ini, kita bisa mencoba menyisipkan skrip XSS dan melihat bagaimana serangan terjadi.</p>\n<p data-start=\"3609\" data-end=\"3783\">Contohnya, kita bisa mengetikkan <code data-start=\"3642\" data-end=\"3674\">&lt;script&gt;alert('XSS');&lt;/script&gt;</code> ke dalam form komentar. Jika tidak ada perlindungan, maka skrip akan dijalankan ketika halaman dimuat ulang.</p>\n<p data-start=\"3785\" data-end=\"3863\">Ini adalah cara yang aman untuk belajar tanpa membahayakan website orang lain.</p>\n<h3 data-start=\"3865\" data-end=\"3908\">VII. Teknik Pencegahan dan Perlindungan</h3>\n<p data-start=\"3910\" data-end=\"4056\">Langkah pertama adalah memvalidasi dan membersihkan input dari pengguna. Jangan biarkan karakter berbahaya seperti &lt;, &gt;, atau &#8221; lolos begitu saja.</p>\n<p data-start=\"4058\" data-end=\"4263\">Kedua, escaping output adalah teknik untuk menampilkan karakter spesial sebagai teks biasa, bukan sebagai bagian dari kode. Ini penting saat menampilkan data pengguna di halaman HTML, JavaScript, atau URL.</p>\n<p data-start=\"4265\" data-end=\"4412\">Ketiga, gunakan Content Security Policy atau CSP. Ini adalah aturan yang diberi ke browser agar hanya menjalankan skrip dari sumber yang dipercaya.</p>\n<p data-start=\"4414\" data-end=\"4605\">Keempat, gunakan framework seperti React, Angular, atau Vue. Framework ini dirancang dengan keamanan sebagai prioritas, sehingga lebih sulit untuk menyisipkan XSS jika digunakan dengan benar.</p>\n<p data-start=\"4607\" data-end=\"4721\">Kelima, gunakan alat bantu seperti OWASP ZAP atau Burp Suite untuk memindai celah XSS di aplikasi sebelum dirilis.</p>\n<h3 data-start=\"4723\" data-end=\"4776\">VIII. Checklist Keamanan Anti-XSS untuk Developer</h3>\n<p data-start=\"4778\" data-end=\"4835\">Berikut beberapa hal yang bisa digunakan sebagai panduan:</p>\n<ul data-start=\"4837\" data-end=\"5076\">\n<li data-start=\"4837\" data-end=\"4883\">\n<p data-start=\"4839\" data-end=\"4883\">Apakah semua input dari pengguna divalidasi?</p>\n</li>\n<li data-start=\"4884\" data-end=\"4944\">\n<p data-start=\"4886\" data-end=\"4944\">Apakah output dari data pengguna di-<em data-start=\"4922\" data-end=\"4930\">escape</em> dengan benar?</p>\n</li>\n<li data-start=\"4945\" data-end=\"4975\">\n<p data-start=\"4947\" data-end=\"4975\">Apakah CSP sudah diterapkan?</p>\n</li>\n<li data-start=\"4976\" data-end=\"5024\">\n<p data-start=\"4978\" data-end=\"5024\">Apakah framework yang digunakan aman dari XSS?</p>\n</li>\n<li data-start=\"5025\" data-end=\"5076\">\n<p data-start=\"5027\" data-end=\"5076\">Apakah pengujian keamanan dilakukan secara rutin?</p>\n</li>\n</ul>\n<p data-start=\"5078\" data-end=\"5164\">Checklist ini bisa membantu developer lebih disiplin dan waspada terhadap ancaman XSS.</p>\n<h3 data-start=\"5166\" data-end=\"5184\">IX. Kesimpulan</h3>\n<p data-start=\"5186\" data-end=\"5426\">Cross Site Scripting atau XSS adalah salah satu serangan yang paling sering ditemukan di aplikasi web. Meskipun terlihat sederhana, dampaknya bisa sangat merugikan. Namun dengan pemahaman yang cukup dan praktik yang benar, XSS bisa dicegah.</p>\n<p data-start=\"5428\" data-end=\"5678\">Melalui panduan ini, kita sudah mengenal teori XSS, jenis-jenisnya, contoh nyata, serta cara menguji dan mencegahnya. Pengembang web harus selalu ingat bahwa keamanan bukanlah fitur tambahan, melainkan bagian penting dari proses pembangunan aplikasi.</p>\n<p data-start=\"5428\" data-end=\"5678\">NAMA: AISYA</p>\n<p data-start=\"5428\" data-end=\"5678\">NIM: 23156201029</p>\n<p data-start=\"5428\" data-end=\"5678\">PRODI: SISTEM KOMPUTER</p>\n",
+  "content_text": "I. Pendahuluan\nKeamanan web adalah hal penting yang harus diperhatikan dalam pengembangan aplikasi. Banyak situs dan aplikasi web yang terlihat baik dari luar, tetapi memiliki celah keamanan yang bisa dimanfaatkan oleh penyerang. Salah satu serangan yang cukup sering terjadi adalah Cross Site Scripting atau XSS.\nXSS adalah teknik serangan yang memanfaatkan celah dalam sistem web untuk menyisipkan skrip berbahaya. Dalam panduan ini, kita akan membahas XSS dari sisi teori hingga praktik, agar kamu bisa lebih memahami cara kerja dan cara mencegahnya.\nII. Dasar Teori Cross Site Scripting (XSS)\nXSS adalah serangan di mana penyerang menyisipkan kode (biasanya JavaScript) ke dalam halaman web. Kode tersebut akan dijalankan di browser korban seolah-olah berasal dari situs yang sah. Serangan ini bisa menyebabkan pencurian data, pengalihan halaman, atau pengambilalihan akun.\nXSS pertama kali dikenal sejak awal berkembangnya web interaktif. Karena celah ini umum ditemukan, XSS masuk dalam daftar OWASP Top 10, yaitu daftar sepuluh besar ancaman keamanan aplikasi web.\nXSS bisa berakibat fatal bagi pengguna dan pemilik website. Misalnya, seorang pengguna bisa kehilangan sesi login atau datanya dicuri tanpa sepengetahuannya.\nIII. Jenis-Jenis Serangan XSS\nStored XSS adalah jenis serangan di mana skrip berbahaya disimpan secara permanen di server. Contohnya, penyerang menyisipkan skrip di kolom komentar, dan setiap orang yang membuka komentar tersebut akan terkena serangan.\nReflected XSS terjadi ketika skrip berbahaya dikirim lewat URL atau input form dan dipantulkan kembali ke halaman web. Ini sering dimanfaatkan dalam phishing, di mana pengguna diarahkan ke link palsu.\nDOM-Based XSS terjadi di sisi klien, yaitu di browser pengguna. Serangan ini memanfaatkan JavaScript yang tidak aman di dalam halaman web. Jika skrip dalam halaman tidak memfilter input pengguna, maka XSS bisa terjadi hanya dengan mengubah URL.\nIV. Cara Kerja Serangan XSS\nPenyerang biasanya memulai dengan mencari input pengguna yang tidak difilter, seperti kolom komentar atau parameter URL. Setelah itu, penyerang menyisipkan skrip seperti:\nhtml\nSalin   Edit\n< script  >  alert  ( 'XSS berhasil' ); </ script  >\nKetika korban membuka halaman tersebut, skrip dijalankan dan bisa digunakan untuk mencuri cookie, mencatat keystroke, atau mengalihkan ke situs lain. Browser tidak tahu bahwa skrip ini berbahaya karena berasal dari domain yang sah.\nV. Studi Kasus XSS di Dunia Nyata\nBeberapa situs besar pernah terkena XSS. Salah satunya adalah Twitter, di mana penyerang berhasil menyisipkan JavaScript dalam tweet yang tampak normal. Saat pengguna membuka tweet itu, skrip langsung berjalan dan melakukan aksi tertentu.\neBay juga pernah mengalami serangan XSS di bagian deskripsi produk. Penjual bisa menyisipkan skrip yang mencuri data pembeli. Serangan ini sempat ramai dibahas di komunitas keamanan.\nKedua kasus tersebut memperlihatkan bahwa XSS bisa terjadi di mana saja, bahkan pada situs yang sudah memiliki tim keamanan profesional.\nVI. Praktik Menguji dan Mensimulasikan Serangan XSS\nUntuk memahami XSS secara langsung, kita bisa menggunakan lingkungan pengujian yang aman seperti DVWA (Damn Vulnerable Web Application), bWAPP, atau XSS Game dari Google. Di platform ini, kita bisa mencoba menyisipkan skrip XSS dan melihat bagaimana serangan terjadi.\nContohnya, kita bisa mengetikkan  <script>alert('XSS');</script>  ke dalam form komentar. Jika tidak ada perlindungan, maka skrip akan dijalankan ketika halaman dimuat ulang.\nIni adalah cara yang aman untuk belajar tanpa membahayakan website orang lain.\nVII. Teknik Pencegahan dan Perlindungan\nLangkah pertama adalah memvalidasi dan membersihkan input dari pengguna. Jangan biarkan karakter berbahaya seperti <, >, atau ” lolos begitu saja.\nKedua, escaping output adalah teknik untuk menampilkan karakter spesial sebagai teks biasa, bukan sebagai bagian dari kode. Ini penting saat menampilkan data pengguna di halaman HTML, JavaScript, atau URL.\nKetiga, gunakan Content Security Policy atau CSP. Ini adalah aturan yang diberi ke browser agar hanya menjalankan skrip dari sumber yang dipercaya.\nKeempat, gunakan framework seperti React, Angular, atau Vue. Framework ini dirancang dengan keamanan sebagai prioritas, sehingga lebih sulit untuk menyisipkan XSS jika digunakan dengan benar.\nKelima, gunakan alat bantu seperti OWASP ZAP atau Burp Suite untuk memindai celah XSS di aplikasi sebelum dirilis.\nVIII. Checklist Keamanan Anti-XSS untuk Developer\nBerikut beberapa hal yang bisa digunakan sebagai panduan:\nApakah semua input dari pengguna divalidasi?\nApakah output dari data pengguna di- escape  dengan benar?\nApakah CSP sudah diterapkan?\nApakah framework yang digunakan aman dari XSS?\nApakah pengujian keamanan dilakukan secara rutin?\nChecklist ini bisa membantu developer lebih disiplin dan waspada terhadap ancaman XSS.\nIX. Kesimpulan\nCross Site Scripting atau XSS adalah salah satu serangan yang paling sering ditemukan di aplikasi web. Meskipun terlihat sederhana, dampaknya bisa sangat merugikan. Namun dengan pemahaman yang cukup dan praktik yang benar, XSS bisa dicegah.\nMelalui panduan ini, kita sudah mengenal teori XSS, jenis-jenisnya, contoh nyata, serta cara menguji dan mencegahnya. Pengembang web harus selalu ingat bahwa keamanan bukanlah fitur tambahan, melainkan bagian penting dari proses pembangunan aplikasi.\nNAMA: AISYA\nNIM: 23156201029\nPRODI: SISTEM KOMPUTER",
+  "raw": {
+    "id": 3940,
+    "date": "2025-07-08T11:21:11",
+    "date_gmt": "2025-07-08T11:21:11",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=3940"
+    },
+    "modified": "2025-07-08T11:22:37",
+    "modified_gmt": "2025-07-08T11:22:37",
+    "slug": "panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/",
+    "title": {
+      "rendered": "Panduan Lengkap Cross Site Scripting: Dari Teori ke Praktik"
+    },
+    "content": {
+      "rendered": "<h3 data-start=\"240\" data-end=\"258\">I. Pendahuluan</h3>\n<p data-start=\"260\" data-end=\"558\">Keamanan web adalah hal penting yang harus diperhatikan dalam pengembangan aplikasi. Banyak situs dan aplikasi web yang terlihat baik dari luar, tetapi memiliki celah keamanan yang bisa dimanfaatkan oleh penyerang. Salah satu serangan yang cukup sering terjadi adalah Cross Site Scripting atau XSS.</p>\n<p data-start=\"560\" data-end=\"799\">XSS adalah teknik serangan yang memanfaatkan celah dalam sistem web untuk menyisipkan skrip berbahaya. Dalam panduan ini, kita akan membahas XSS dari sisi teori hingga praktik, agar kamu bisa lebih memahami cara kerja dan cara mencegahnya.</p>\n<h3 data-start=\"801\" data-end=\"847\">II. Dasar Teori Cross Site Scripting (XSS)</h3>\n<p data-start=\"849\" data-end=\"1129\">XSS adalah serangan di mana penyerang menyisipkan kode (biasanya JavaScript) ke dalam halaman web. Kode tersebut akan dijalankan di browser korban seolah-olah berasal dari situs yang sah. Serangan ini bisa menyebabkan pencurian data, pengalihan halaman, atau pengambilalihan akun.</p>\n<p data-start=\"1131\" data-end=\"1324\">XSS pertama kali dikenal sejak awal berkembangnya web interaktif. Karena celah ini umum ditemukan, XSS masuk dalam daftar OWASP Top 10, yaitu daftar sepuluh besar ancaman keamanan aplikasi web.</p>\n<p data-start=\"1326\" data-end=\"1483\">XSS bisa berakibat fatal bagi pengguna dan pemilik website. Misalnya, seorang pengguna bisa kehilangan sesi login atau datanya dicuri tanpa sepengetahuannya.</p>\n<h3 data-start=\"1485\" data-end=\"1518\">III. Jenis-Jenis Serangan XSS</h3>\n<p data-start=\"1520\" data-end=\"1741\">Stored XSS adalah jenis serangan di mana skrip berbahaya disimpan secara permanen di server. Contohnya, penyerang menyisipkan skrip di kolom komentar, dan setiap orang yang membuka komentar tersebut akan terkena serangan.</p>\n<p data-start=\"1743\" data-end=\"1943\">Reflected XSS terjadi ketika skrip berbahaya dikirim lewat URL atau input form dan dipantulkan kembali ke halaman web. Ini sering dimanfaatkan dalam phishing, di mana pengguna diarahkan ke link palsu.</p>\n<p data-start=\"1945\" data-end=\"2189\">DOM-Based XSS terjadi di sisi klien, yaitu di browser pengguna. Serangan ini memanfaatkan JavaScript yang tidak aman di dalam halaman web. Jika skrip dalam halaman tidak memfilter input pengguna, maka XSS bisa terjadi hanya dengan mengubah URL.</p>\n<h3 data-start=\"2191\" data-end=\"2222\">IV. Cara Kerja Serangan XSS</h3>\n<p data-start=\"2224\" data-end=\"2394\">Penyerang biasanya memulai dengan mencari input pengguna yang tidak difilter, seperti kolom komentar atau parameter URL. Setelah itu, penyerang menyisipkan skrip seperti:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Salin\">Salin</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span></span>&gt;<span class=\"language-javascript\"><span class=\"hljs-title function_\">alert</span></span>(<span class=\"hljs-string\">'XSS berhasil'</span>);<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"2449\" data-end=\"2680\">Ketika korban membuka halaman tersebut, skrip dijalankan dan bisa digunakan untuk mencuri cookie, mencatat keystroke, atau mengalihkan ke situs lain. Browser tidak tahu bahwa skrip ini berbahaya karena berasal dari domain yang sah.</p>\n<h3 data-start=\"2682\" data-end=\"2719\">V. Studi Kasus XSS di Dunia Nyata</h3>\n<p data-start=\"2721\" data-end=\"2959\">Beberapa situs besar pernah terkena XSS. Salah satunya adalah Twitter, di mana penyerang berhasil menyisipkan JavaScript dalam tweet yang tampak normal. Saat pengguna membuka tweet itu, skrip langsung berjalan dan melakukan aksi tertentu.</p>\n<p data-start=\"2961\" data-end=\"3143\">eBay juga pernah mengalami serangan XSS di bagian deskripsi produk. Penjual bisa menyisipkan skrip yang mencuri data pembeli. Serangan ini sempat ramai dibahas di komunitas keamanan.</p>\n<p data-start=\"3145\" data-end=\"3281\">Kedua kasus tersebut memperlihatkan bahwa XSS bisa terjadi di mana saja, bahkan pada situs yang sudah memiliki tim keamanan profesional.</p>\n<h3 data-start=\"3283\" data-end=\"3338\">VI. Praktik Menguji dan Mensimulasikan Serangan XSS</h3>\n<p data-start=\"3340\" data-end=\"3607\">Untuk memahami XSS secara langsung, kita bisa menggunakan lingkungan pengujian yang aman seperti DVWA (Damn Vulnerable Web Application), bWAPP, atau XSS Game dari Google. Di platform ini, kita bisa mencoba menyisipkan skrip XSS dan melihat bagaimana serangan terjadi.</p>\n<p data-start=\"3609\" data-end=\"3783\">Contohnya, kita bisa mengetikkan <code data-start=\"3642\" data-end=\"3674\">&lt;script&gt;alert('XSS');&lt;/script&gt;</code> ke dalam form komentar. Jika tidak ada perlindungan, maka skrip akan dijalankan ketika halaman dimuat ulang.</p>\n<p data-start=\"3785\" data-end=\"3863\">Ini adalah cara yang aman untuk belajar tanpa membahayakan website orang lain.</p>\n<h3 data-start=\"3865\" data-end=\"3908\">VII. Teknik Pencegahan dan Perlindungan</h3>\n<p data-start=\"3910\" data-end=\"4056\">Langkah pertama adalah memvalidasi dan membersihkan input dari pengguna. Jangan biarkan karakter berbahaya seperti &lt;, &gt;, atau &#8221; lolos begitu saja.</p>\n<p data-start=\"4058\" data-end=\"4263\">Kedua, escaping output adalah teknik untuk menampilkan karakter spesial sebagai teks biasa, bukan sebagai bagian dari kode. Ini penting saat menampilkan data pengguna di halaman HTML, JavaScript, atau URL.</p>\n<p data-start=\"4265\" data-end=\"4412\">Ketiga, gunakan Content Security Policy atau CSP. Ini adalah aturan yang diberi ke browser agar hanya menjalankan skrip dari sumber yang dipercaya.</p>\n<p data-start=\"4414\" data-end=\"4605\">Keempat, gunakan framework seperti React, Angular, atau Vue. Framework ini dirancang dengan keamanan sebagai prioritas, sehingga lebih sulit untuk menyisipkan XSS jika digunakan dengan benar.</p>\n<p data-start=\"4607\" data-end=\"4721\">Kelima, gunakan alat bantu seperti OWASP ZAP atau Burp Suite untuk memindai celah XSS di aplikasi sebelum dirilis.</p>\n<h3 data-start=\"4723\" data-end=\"4776\">VIII. Checklist Keamanan Anti-XSS untuk Developer</h3>\n<p data-start=\"4778\" data-end=\"4835\">Berikut beberapa hal yang bisa digunakan sebagai panduan:</p>\n<ul data-start=\"4837\" data-end=\"5076\">\n<li data-start=\"4837\" data-end=\"4883\">\n<p data-start=\"4839\" data-end=\"4883\">Apakah semua input dari pengguna divalidasi?</p>\n</li>\n<li data-start=\"4884\" data-end=\"4944\">\n<p data-start=\"4886\" data-end=\"4944\">Apakah output dari data pengguna di-<em data-start=\"4922\" data-end=\"4930\">escape</em> dengan benar?</p>\n</li>\n<li data-start=\"4945\" data-end=\"4975\">\n<p data-start=\"4947\" data-end=\"4975\">Apakah CSP sudah diterapkan?</p>\n</li>\n<li data-start=\"4976\" data-end=\"5024\">\n<p data-start=\"4978\" data-end=\"5024\">Apakah framework yang digunakan aman dari XSS?</p>\n</li>\n<li data-start=\"5025\" data-end=\"5076\">\n<p data-start=\"5027\" data-end=\"5076\">Apakah pengujian keamanan dilakukan secara rutin?</p>\n</li>\n</ul>\n<p data-start=\"5078\" data-end=\"5164\">Checklist ini bisa membantu developer lebih disiplin dan waspada terhadap ancaman XSS.</p>\n<h3 data-start=\"5166\" data-end=\"5184\">IX. Kesimpulan</h3>\n<p data-start=\"5186\" data-end=\"5426\">Cross Site Scripting atau XSS adalah salah satu serangan yang paling sering ditemukan di aplikasi web. Meskipun terlihat sederhana, dampaknya bisa sangat merugikan. Namun dengan pemahaman yang cukup dan praktik yang benar, XSS bisa dicegah.</p>\n<p data-start=\"5428\" data-end=\"5678\">Melalui panduan ini, kita sudah mengenal teori XSS, jenis-jenisnya, contoh nyata, serta cara menguji dan mencegahnya. Pengembang web harus selalu ingat bahwa keamanan bukanlah fitur tambahan, melainkan bagian penting dari proses pembangunan aplikasi.</p>\n<p data-start=\"5428\" data-end=\"5678\">NAMA: AISYA</p>\n<p data-start=\"5428\" data-end=\"5678\">NIM: 23156201029</p>\n<p data-start=\"5428\" data-end=\"5678\">PRODI: SISTEM KOMPUTER</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>I. Pendahuluan Keamanan web adalah hal penting yang harus diperhatikan dalam pengembangan aplikasi. Banyak situs dan aplikasi web yang terlihat baik dari luar, tetapi memiliki celah keamanan yang bisa dimanfaatkan oleh penyerang. Salah satu serangan yang cukup sering terjadi adalah Cross Site Scripting atau XSS. XSS adalah teknik serangan yang memanfaatkan celah dalam sistem web untuk menyisipkan skrip berbahaya. Dalam panduan ini, kita akan membahas XSS dari sisi teori hingga praktik, agar kamu bisa lebih memahami cara kerja dan cara mencegahnya. II. Dasar Teori Cross Site Scripting (XSS) XSS adalah serangan di mana penyerang menyisipkan kode (biasanya JavaScript) ke dalam&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 3941,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      333
+    ],
+    "class_list": [
+      "post-3940",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-artikel"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Panduan Lengkap Cross Site Scripting: Dari Teori ke Praktik - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Panduan Lengkap Cross Site Scripting: Dari Teori ke Praktik - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"I. Pendahuluan Keamanan web adalah hal penting yang harus diperhatikan dalam pengembangan aplikasi. Banyak situs dan aplikasi web yang terlihat baik dari luar, tetapi memiliki celah keamanan yang bisa dimanfaatkan oleh penyerang. Salah satu serangan yang cukup sering terjadi adalah Cross Site Scripting atau XSS. XSS adalah teknik serangan yang memanfaatkan celah dalam sistem web untuk menyisipkan skrip berbahaya. Dalam panduan ini, kita akan membahas XSS dari sisi teori hingga praktik, agar kamu bisa lebih memahami cara kerja dan cara mencegahnya. II. Dasar Teori Cross Site Scripting (XSS) XSS adalah serangan di mana penyerang menyisipkan kode (biasanya JavaScript) ke dalam...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-08T11:21:11+00:00\" />\n<meta property=\"article:modified_time\" content=\"2025-07-08T11:22:37+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-1.jpg\" />\n\t<meta property=\"og:image:width\" content=\"320\" />\n\t<meta property=\"og:image:height\" content=\"180\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/\",\"url\":\"https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/\",\"name\":\"Panduan Lengkap Cross Site Scripting: Dari Teori ke Praktik - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-1.jpg\",\"datePublished\":\"2025-07-08T11:21:11+00:00\",\"dateModified\":\"2025-07-08T11:22:37+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-1.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-1.jpg\",\"width\":320,\"height\":180},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Panduan Lengkap Cross Site Scripting: Dari Teori ke Praktik\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Panduan Lengkap Cross Site Scripting: Dari Teori ke Praktik - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Panduan Lengkap Cross Site Scripting: Dari Teori ke Praktik - buletinsiber.com",
+      "og_description": "I. Pendahuluan Keamanan web adalah hal penting yang harus diperhatikan dalam pengembangan aplikasi. Banyak situs dan aplikasi web yang terlihat baik dari luar, tetapi memiliki celah keamanan yang bisa dimanfaatkan oleh penyerang. Salah satu serangan yang cukup sering terjadi adalah Cross Site Scripting atau XSS. XSS adalah teknik serangan yang memanfaatkan celah dalam sistem web untuk menyisipkan skrip berbahaya. Dalam panduan ini, kita akan membahas XSS dari sisi teori hingga praktik, agar kamu bisa lebih memahami cara kerja dan cara mencegahnya. II. Dasar Teori Cross Site Scripting (XSS) XSS adalah serangan di mana penyerang menyisipkan kode (biasanya JavaScript) ke dalam...",
+      "og_url": "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-08T11:21:11+00:00",
+      "article_modified_time": "2025-07-08T11:22:37+00:00",
+      "og_image": [
+        {
+          "width": 320,
+          "height": 180,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-1.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/",
+            "url": "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/",
+            "name": "Panduan Lengkap Cross Site Scripting: Dari Teori ke Praktik - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-1.jpg",
+            "datePublished": "2025-07-08T11:21:11+00:00",
+            "dateModified": "2025-07-08T11:22:37+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-1.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-4-1.jpg",
+            "width": 320,
+            "height": 180
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/panduan-lengkap-cross-site-scripting-dari-teori-ke-praktik/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Panduan Lengkap Cross Site Scripting: Dari Teori ke Praktik"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3940",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=3940"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3940/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 3942,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3940/revisions/3942"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/3941"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=3940"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=3940"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=3940"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

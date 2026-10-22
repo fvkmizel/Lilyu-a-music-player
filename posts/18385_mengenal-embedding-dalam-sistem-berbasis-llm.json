@@ -1,0 +1,319 @@
+{
+  "id": 18385,
+  "title": "Mengenal Embedding dalam Sistem Berbasis LLM",
+  "slug": "mengenal-embedding-dalam-sistem-berbasis-llm",
+  "url": "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/",
+  "date": "2026-07-30T15:17:31",
+  "date_gmt": "2026-07-30T15:17:31",
+  "modified": "2026-07-30T15:17:31",
+  "modified_gmt": "2026-07-30T15:17:31",
+  "author": {
+    "id": 34,
+    "name": "Citra Saskia saranani"
+  },
+  "categories": [
+    {
+      "id": 1919,
+      "name": "AI"
+    },
+    {
+      "id": 2616,
+      "name": "Information Technology"
+    }
+  ],
+  "tags": [
+    3239
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/rQTBGeXj6BIk3NHm1U1Fe4fkCHhJussWoPA38PYlsBkIEqHh41mpghBYFESBLZHWHBmotMGx4rRvEhl1Va2WDRooKIKhc1ZEQY1R7N4QG8snPQomF359F3v7U2FmMtBUt52jHi8Sl9bnB68meOrdhAiHd3K-ZG6c2lPwz-Xb-oM-JuCT_h5AawKoQ-DHhVu9.jpg",
+  "excerpt": "Mengenal Embedding dalam Sistem Berbasis LLM Model Bahasa Besar (Large Language Model – LLM) seperti ChatGPT, Gemini, dan lainnya telah mengubah secara fundamental cara kita berinteraksi dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menghasilkan kode program adalah bukti kemajuan pesat di bidang kecerdasan buatan. Namun, di balik kemampuan luar biasa ini terdapat konsep krusial yang seringkali kurang dipahami oleh banyak orang: Embedding. Artikel ini akan membahas secara mendalam apa itu embedding, bagaimana cara kerjanya dalam sistem berbasis LLM, dan mengapa hal ini menjadi fondasi keberhasilan aplikasi-aplikasi modern yang didukung oleh teknologi ini. Kita…",
+  "content_html": "<p>&nbsp;</p>\n<h1>Mengenal Embedding dalam Sistem Berbasis LLM</h1>\n<p>Model Bahasa Besar (Large Language Model – LLM) seperti ChatGPT, Gemini, dan lainnya telah mengubah secara fundamental cara kita berinteraksi dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menghasilkan kode program adalah bukti kemajuan pesat di bidang kecerdasan buatan. Namun, di balik kemampuan luar biasa ini terdapat konsep krusial yang seringkali kurang dipahami oleh banyak orang: Embedding. Artikel ini akan membahas secara mendalam apa itu embedding, bagaimana cara kerjanya dalam sistem berbasis LLM, dan mengapa hal ini menjadi fondasi keberhasilan aplikasi-aplikasi modern yang didukung oleh teknologi ini. Kita akan menjelajahi berbagai aspek dengan bahasa yang mudah dimengerti, cocok untuk pembaca dari kalangan pemula hingga profesional nonteknis. Tujuan utama artikel ini adalah memberikan pemahaman yang komprehensif tentang embedding, bukan hanya sekadar definisi teknis, tetapi juga dampaknya pada cara LLM berfungsi dan bagaimana hal itu membuka peluang baru dalam berbagai industri.</p>\n<h2>Apa Itu Embedding? Analogi Kotak Kata</h2>\n<p>Pada intinya, embedding adalah metode untuk merepresentasikan kata-kata, frasa, atau bahkan konsep kompleks sebagai serangkaian angka. Bayangkan Anda memiliki sebuah kotak besar yang berisi ribuan kata. Setiap kata tidak ditempatkan secara acak di dalam kotak; melainkan, setiap kata memiliki lokasi unik yang ditentukan oleh hubungan semantiknya dengan kata-kata lain di dalam kotak tersebut. Analogi sederhana untuk memahami embedding adalah seperti rak buku yang terorganisir dengan cermat, di mana buku-buku yang membahas topik serupa ditempatkan berdekatan satu sama lain. Kata-kata yang sering muncul bersamaan atau memiliki makna yang serupa akan ditempatkan berdekatan satu sama lain dalam kotak ini. Ini adalah representasi visual dari bagaimana model bahasa memahami hubungan antar kata. Semakin dekat dua kata dalam kotak, semakin mirip maknanya.</p>\n<p>Secara teknis, embedding adalah vektor (daftar angka) yang mewakili suatu entitas – sebuah kata, frasa, kalimat, atau bahkan dokumen lengkap. Setiap elemen dalam vektor ini memiliki arti tertentu dan merepresentasikan aspek-aspek berbeda dari entitas tersebut. Bayangkan setiap dimensi dalam vektor sebagai fitur yang berbeda. Misalnya, vektor untuk kata “raja” mungkin memiliki nilai tinggi pada dimensi yang mewakili “kekuasaan,” “kepemimpinan,” “kesewajaan,” dan “keagungan,” sementara vektor untuk kata “ratu” akan memiliki nilai tinggi pada dimensi yang serupa, tetapi dengan penekanan pada aspek-aspek yang terkait dengan peran feminin. Perbedaan kecil dalam nilai antar dimensi ini mencerminkan perbedaan makna antara kedua kata tersebut. Ukuran dan arah dari vektor ini menangkap kompleksitas hubungan semantik.</p>\n<p>Sebelum LLM menjadi populer, representasi kata seringkali dilakukan melalui metode seperti “one-hot encoding,” di mana setiap kata direpresentasikan sebagai vektor dengan satu elemen bernilai 1 (pada posisi yang sesuai dengan kata tersebut) dan sisanya 0. Metode ini memiliki beberapa kelemahan signifikan. Pertama, ia menghasilkan vektor yang sangat besar dan jarang, yang sulit untuk diproses secara efisien. Kedua, metode ini tidak menangkap hubungan semantik antar kata; ia hanya menunjukkan bahwa sebuah kata ada atau tidak ada dalam suatu dataset. Ini seperti memiliki daftar semua kata dalam kamus tanpa mengetahui bagaimana kata-kata tersebut berhubungan satu sama lain. Akibatnya, model yang menggunakan one-hot encoding akan kesulitan memahami konteks dan menghasilkan output yang koheren.</p>\n<h2>Bagaimana Embedding Dibuat untuk LLM</h2>\n<p>LLM tidak dilatih secara langsung untuk memahami makna kata-kata seperti manusia. Sebaliknya, mereka belajar dari sejumlah besar teks yang telah diproses sebelumnya, seringkali dalam jumlah yang sangat besar – jutaan atau bahkan miliaran kata. Proses pembuatan embedding dalam konteks LLM melibatkan beberapa tahap yang saling terkait dan membutuhkan sumber daya komputasi yang signifikan.</p>\n<ul>\n<li><strong>Pelatihan Awal (Pre-training):</strong> LLM dilatih dengan volume teks yang sangat besar, seringkali diperoleh dari berbagai sumber seperti buku, artikel berita, situs web, kode sumber, dan bahkan transkrip percakapan. Tujuan dari pelatihan awal adalah untuk memungkinkan model mempelajari pola bahasa umum, tata bahasa, fakta dunia, dan hubungan antar konsep.</li>\n<li><strong>Pembelajaran Representasi Kata:</strong> Selama pelatihan, model secara iteratif memprediksi kata berikutnya dalam sebuah kalimat atau urutan. Proses ini, yang sering disebut sebagai “language modeling,” memaksa model untuk memahami hubungan statistik antar kata dan membangun representasi internal tentang makna. Model belajar bahwa kata-kata tertentu cenderung muncul bersamaan dalam konteks tertentu. Misalnya, model akan belajar bahwa kata &#8220;anjing&#8221; sering muncul bersama dengan kata-kata seperti &#8220;menggonggong,&#8221; &#8220;pemilik,&#8221; atau &#8220;trak.&#8221;</li>\n<li><strong>Konversi ke Embedding:</strong> Setelah model dilatih, bobot internalnya (parameter yang telah dipelajari) digunakan untuk menghasilkan embedding untuk setiap kata atau frasa. Bobot-bobot ini kemudian dikumpulkan menjadi sebuah vektor, membentuk embedding tersebut. Proses ini seringkali melibatkan penggunaan fungsi aktivasi nonlinear untuk memampatkan informasi dari lapisan tersembunyi model ke dalam representasi vektor yang ringkas dan bermakna.</li>\n</ul>\n<p>Proses ini dapat dibandingkan dengan bagaimana seorang musisi belajar memahami nada dan melodi dari mendengarkan banyak musik. Semakin banyak musik yang didengarkan, semakin baik pemahaman musisi tentang berbagai nada dan hubungan di antara mereka. Dalam kasus LLM, model &#8220;mendengarkan&#8221; sejumlah besar teks dan secara bertahap mempelajari pola-pola bahasa yang mendasarinya.</p>\n<h2>Manfaat Embedding dalam Sistem Berbasis LLM</h2>\n<p>Embedding memainkan peran krusial dalam meningkatkan kinerja dan kemampuan sistem berbasis LLM, membuka peluang baru untuk aplikasi yang sebelumnya tidak mungkin. Berikut beberapa manfaat utamanya yang signifikan:</p>\n<ul>\n<li><strong>Pemahaman Semantik yang Lebih Baik:</strong> Embedding memungkinkan LLM untuk memahami makna kata-kata dan frasa dalam konteks, bukan hanya berdasarkan kemunculannya dalam teks. Ini memungkinkan model untuk menangani ambiguitas dan variasi bahasa dengan lebih efektif.</li>\n<li><strong>Pencarian Semantik:</strong> Dengan mengubah pertanyaan atau kueri pengguna menjadi embedding vektor, LLM dapat menemukan dokumen atau informasi yang relevan berdasarkan *makna* dari pertanyaan tersebut, bukan hanya berdasarkan kata kunci yang cocok. Bayangkan mencari “perusahaan teknologi besar di Indonesia” – sistem dengan embedding akan memahami bahwa “teknologi” merujuk pada industri dan “besar” merujuk pada skala perusahaan, sehingga mengembalikan hasil yang lebih relevan daripada pencarian berbasis kata kunci tradisional.</li>\n<li><strong>Pengelompokan (Clustering) dan Pengurangan Dimensi:</strong> Embedding dapat digunakan untuk mengelompokkan dokumen atau kata-kata berdasarkan kesamaan makna mereka. Ini sangat berguna dalam tugas-tugas seperti analisis sentimen, rekomendasi produk, ringkasan teks otomatis, atau bahkan deteksi plagiarisme.</li>\n<li><strong>Peningkatan Akurasi dalam Tugas-Tugas Tertentu:</strong> Dalam beberapa kasus, embedding dapat meningkatkan akurasi LLM dalam berbagai tugas, termasuk penerjemahan bahasa (dengan memetakan kata-kata yang memiliki makna serupa ke dalam ruang vektor yang sama), menjawab pertanyaan kompleks, dan menghasilkan teks kreatif.</li>\n<li><strong>Pemrosesan Bahasa Alami (NLP) Lebih Efisien:</strong> Embedding secara signifikan mengurangi kompleksitas komputasi dibandingkan dengan metode representasi kata tradisional, sehingga memungkinkan LLM untuk memproses data teks dengan lebih cepat dan efisien.</li>\n</ul>\n<h2>Keterbatasan dan Risiko Embedding</h2>\n<p>Meskipun sangat bermanfaat, embedding juga memiliki beberapa keterbatasan dan risiko yang perlu dipertimbangkan dengan cermat.</p>\n<ul>\n<li><strong>Bias:</strong> Embedding dapat mewarisi bias dari data pelatihan. Jika data pelatihan mengandung bias gender, ras, atau budaya tertentu, embedding tersebut akan mencerminkan bias tersebut. Ini dapat menyebabkan LLM menghasilkan output yang diskriminatif atau tidak adil.</li>\n<li><strong>Kompleksitas Komputasi:</strong> Membuat dan menggunakan embedding bisa menjadi proses yang intensif secara komputasi, terutama untuk dataset yang sangat besar. Hal ini membutuhkan sumber daya perangkat keras (CPU, GPU, memori) yang signifikan dan biaya operasional yang tinggi.</li>\n<li><strong>Interpretasi:</strong> Meskipun embedding menangkap hubungan semantik antar kata, interpretasi nilai-nilai dalam vektor embedding itu sendiri bisa sulit dan membutuhkan pengetahuan khusus tentang teknik representasi data dan algoritma pembelajaran mesin.</li>\n<li><strong>Masalah Skala:</strong> Efektivitas embedding dapat menurun seiring dengan peningkatan skala dataset pelatihan.</li>\n</ul>\n<p>Penting untuk melakukan evaluasi bias secara berkala menggunakan metrik yang relevan dan menerapkan teknik mitigasi bias, seperti pelatihan adversarial atau penggunaan data augmentasi, untuk memastikan bahwa sistem berbasis LLM yang menggunakan embedding menghasilkan hasil yang adil dan akurat. Selain itu, pemahaman yang mendalam tentang keterbatasan ini sangat penting untuk penerapan yang bertanggung jawab.</p>\n<h2>Contoh Penerapan Embedding</h2>\n<p>Embedding telah diterapkan dalam berbagai aplikasi inovatif di berbagai industri:</p>\n<ul>\n<li><strong>Mesin Pencari Semantik:</strong> Mesin pencari modern menggunakan embedding untuk memahami maksud pengguna dan menemukan dokumen yang paling relevan, bahkan jika kata kunci yang digunakan tidak cocok persis dengan kata kunci dalam dokumen.</li>\n<li><strong>Sistem Rekomendasi:</strong> Platform e-commerce dan streaming media menggunakan embedding untuk merekomendasikan produk atau konten kepada pengguna berdasarkan preferensi mereka yang terdeteksi melalui data interaksi (misalnya, riwayat pembelian, peringkat, peninjauan).</li>\n<li><strong>Analisis Sentimen:</strong> Embedding digunakan untuk mengklasifikasikan teks sebagai positif, negatif, atau netral, sehingga memungkinkan perusahaan memahami opini pelanggan tentang produk atau layanan mereka.</li>\n<li><strong>Chatbot dan Asisten Virtual:</strong> Embedding membantu chatbot memahami pertanyaan pengguna dengan lebih baik dan memberikan jawaban yang relevan, bahkan dalam percakapan yang kompleks dan tidak terstruktur.</li>\n<li><strong>Pemrosesan Bahasa Alami (NLP) untuk Domain Khusus:</strong> Embedding digunakan dalam bidang-bidang seperti kedokteran (untuk analisis catatan medis), hukum (untuk analisis dokumen hukum), dan keuangan (untuk analisis laporan keuangan).</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>Embedding adalah konsep fundamental dalam sistem berbasis LLM yang memungkinkan model untuk memahami makna kata-kata, frasa, dan konsep secara lebih mendalam. Dengan merepresentasikan entitas sebagai vektor angka, embedding membuka pintu bagi berbagai aplikasi inovatif, mulai dari pencarian semantik hingga rekomendasi produk. Kemampuan LLM untuk memproses bahasa alami secara efektif sangat bergantung pada kualitas dan representasi data embedding yang digunakan. Meskipun ada beberapa keterbatasan dan risiko yang perlu dipertimbangkan, potensi manfaat embedding sangat besar, dan teknologi ini terus berkembang seiring dengan kemajuan dalam bidang kecerdasan buatan. Memahami konsep embedding adalah langkah penting bagi siapa saja yang ingin memanfaatkan kekuatan LLM secara efektif dan berkontribusi pada pengembangan aplikasi-aplikasi cerdas dan intuitif.</p>\n<p>Dengan pengetahuan tentang bagaimana embedding bekerja, Anda dapat lebih menghargai bagaimana sistem-sistem ini bekerja di balik layar dan bagaimana mereka dapat digunakan untuk memecahkan berbagai masalah kompleks. Pengembangan dan penerapan embedding yang bertanggung jawab akan terus mendorong inovasi dalam bidang kecerdasan buatan dan membentuk masa depan interaksi manusia dengan teknologi.</p>\n",
+  "content_text": "Mengenal Embedding dalam Sistem Berbasis LLM\nModel Bahasa Besar (Large Language Model – LLM) seperti ChatGPT, Gemini, dan lainnya telah mengubah secara fundamental cara kita berinteraksi dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menghasilkan kode program adalah bukti kemajuan pesat di bidang kecerdasan buatan. Namun, di balik kemampuan luar biasa ini terdapat konsep krusial yang seringkali kurang dipahami oleh banyak orang: Embedding. Artikel ini akan membahas secara mendalam apa itu embedding, bagaimana cara kerjanya dalam sistem berbasis LLM, dan mengapa hal ini menjadi fondasi keberhasilan aplikasi-aplikasi modern yang didukung oleh teknologi ini. Kita akan menjelajahi berbagai aspek dengan bahasa yang mudah dimengerti, cocok untuk pembaca dari kalangan pemula hingga profesional nonteknis. Tujuan utama artikel ini adalah memberikan pemahaman yang komprehensif tentang embedding, bukan hanya sekadar definisi teknis, tetapi juga dampaknya pada cara LLM berfungsi dan bagaimana hal itu membuka peluang baru dalam berbagai industri.\nApa Itu Embedding? Analogi Kotak Kata\nPada intinya, embedding adalah metode untuk merepresentasikan kata-kata, frasa, atau bahkan konsep kompleks sebagai serangkaian angka. Bayangkan Anda memiliki sebuah kotak besar yang berisi ribuan kata. Setiap kata tidak ditempatkan secara acak di dalam kotak; melainkan, setiap kata memiliki lokasi unik yang ditentukan oleh hubungan semantiknya dengan kata-kata lain di dalam kotak tersebut. Analogi sederhana untuk memahami embedding adalah seperti rak buku yang terorganisir dengan cermat, di mana buku-buku yang membahas topik serupa ditempatkan berdekatan satu sama lain. Kata-kata yang sering muncul bersamaan atau memiliki makna yang serupa akan ditempatkan berdekatan satu sama lain dalam kotak ini. Ini adalah representasi visual dari bagaimana model bahasa memahami hubungan antar kata. Semakin dekat dua kata dalam kotak, semakin mirip maknanya.\nSecara teknis, embedding adalah vektor (daftar angka) yang mewakili suatu entitas – sebuah kata, frasa, kalimat, atau bahkan dokumen lengkap. Setiap elemen dalam vektor ini memiliki arti tertentu dan merepresentasikan aspek-aspek berbeda dari entitas tersebut. Bayangkan setiap dimensi dalam vektor sebagai fitur yang berbeda. Misalnya, vektor untuk kata “raja” mungkin memiliki nilai tinggi pada dimensi yang mewakili “kekuasaan,” “kepemimpinan,” “kesewajaan,” dan “keagungan,” sementara vektor untuk kata “ratu” akan memiliki nilai tinggi pada dimensi yang serupa, tetapi dengan penekanan pada aspek-aspek yang terkait dengan peran feminin. Perbedaan kecil dalam nilai antar dimensi ini mencerminkan perbedaan makna antara kedua kata tersebut. Ukuran dan arah dari vektor ini menangkap kompleksitas hubungan semantik.\nSebelum LLM menjadi populer, representasi kata seringkali dilakukan melalui metode seperti “one-hot encoding,” di mana setiap kata direpresentasikan sebagai vektor dengan satu elemen bernilai 1 (pada posisi yang sesuai dengan kata tersebut) dan sisanya 0. Metode ini memiliki beberapa kelemahan signifikan. Pertama, ia menghasilkan vektor yang sangat besar dan jarang, yang sulit untuk diproses secara efisien. Kedua, metode ini tidak menangkap hubungan semantik antar kata; ia hanya menunjukkan bahwa sebuah kata ada atau tidak ada dalam suatu dataset. Ini seperti memiliki daftar semua kata dalam kamus tanpa mengetahui bagaimana kata-kata tersebut berhubungan satu sama lain. Akibatnya, model yang menggunakan one-hot encoding akan kesulitan memahami konteks dan menghasilkan output yang koheren.\nBagaimana Embedding Dibuat untuk LLM\nLLM tidak dilatih secara langsung untuk memahami makna kata-kata seperti manusia. Sebaliknya, mereka belajar dari sejumlah besar teks yang telah diproses sebelumnya, seringkali dalam jumlah yang sangat besar – jutaan atau bahkan miliaran kata. Proses pembuatan embedding dalam konteks LLM melibatkan beberapa tahap yang saling terkait dan membutuhkan sumber daya komputasi yang signifikan.\nPelatihan Awal (Pre-training):  LLM dilatih dengan volume teks yang sangat besar, seringkali diperoleh dari berbagai sumber seperti buku, artikel berita, situs web, kode sumber, dan bahkan transkrip percakapan. Tujuan dari pelatihan awal adalah untuk memungkinkan model mempelajari pola bahasa umum, tata bahasa, fakta dunia, dan hubungan antar konsep.\nPembelajaran Representasi Kata:  Selama pelatihan, model secara iteratif memprediksi kata berikutnya dalam sebuah kalimat atau urutan. Proses ini, yang sering disebut sebagai “language modeling,” memaksa model untuk memahami hubungan statistik antar kata dan membangun representasi internal tentang makna. Model belajar bahwa kata-kata tertentu cenderung muncul bersamaan dalam konteks tertentu. Misalnya, model akan belajar bahwa kata “anjing” sering muncul bersama dengan kata-kata seperti “menggonggong,” “pemilik,” atau “trak.”\nKonversi ke Embedding:  Setelah model dilatih, bobot internalnya (parameter yang telah dipelajari) digunakan untuk menghasilkan embedding untuk setiap kata atau frasa. Bobot-bobot ini kemudian dikumpulkan menjadi sebuah vektor, membentuk embedding tersebut. Proses ini seringkali melibatkan penggunaan fungsi aktivasi nonlinear untuk memampatkan informasi dari lapisan tersembunyi model ke dalam representasi vektor yang ringkas dan bermakna.\nProses ini dapat dibandingkan dengan bagaimana seorang musisi belajar memahami nada dan melodi dari mendengarkan banyak musik. Semakin banyak musik yang didengarkan, semakin baik pemahaman musisi tentang berbagai nada dan hubungan di antara mereka. Dalam kasus LLM, model “mendengarkan” sejumlah besar teks dan secara bertahap mempelajari pola-pola bahasa yang mendasarinya.\nManfaat Embedding dalam Sistem Berbasis LLM\nEmbedding memainkan peran krusial dalam meningkatkan kinerja dan kemampuan sistem berbasis LLM, membuka peluang baru untuk aplikasi yang sebelumnya tidak mungkin. Berikut beberapa manfaat utamanya yang signifikan:\nPemahaman Semantik yang Lebih Baik:  Embedding memungkinkan LLM untuk memahami makna kata-kata dan frasa dalam konteks, bukan hanya berdasarkan kemunculannya dalam teks. Ini memungkinkan model untuk menangani ambiguitas dan variasi bahasa dengan lebih efektif.\nPencarian Semantik:  Dengan mengubah pertanyaan atau kueri pengguna menjadi embedding vektor, LLM dapat menemukan dokumen atau informasi yang relevan berdasarkan *makna* dari pertanyaan tersebut, bukan hanya berdasarkan kata kunci yang cocok. Bayangkan mencari “perusahaan teknologi besar di Indonesia” – sistem dengan embedding akan memahami bahwa “teknologi” merujuk pada industri dan “besar” merujuk pada skala perusahaan, sehingga mengembalikan hasil yang lebih relevan daripada pencarian berbasis kata kunci tradisional.\nPengelompokan (Clustering) dan Pengurangan Dimensi:  Embedding dapat digunakan untuk mengelompokkan dokumen atau kata-kata berdasarkan kesamaan makna mereka. Ini sangat berguna dalam tugas-tugas seperti analisis sentimen, rekomendasi produk, ringkasan teks otomatis, atau bahkan deteksi plagiarisme.\nPeningkatan Akurasi dalam Tugas-Tugas Tertentu:  Dalam beberapa kasus, embedding dapat meningkatkan akurasi LLM dalam berbagai tugas, termasuk penerjemahan bahasa (dengan memetakan kata-kata yang memiliki makna serupa ke dalam ruang vektor yang sama), menjawab pertanyaan kompleks, dan menghasilkan teks kreatif.\nPemrosesan Bahasa Alami (NLP) Lebih Efisien:  Embedding secara signifikan mengurangi kompleksitas komputasi dibandingkan dengan metode representasi kata tradisional, sehingga memungkinkan LLM untuk memproses data teks dengan lebih cepat dan efisien.\nKeterbatasan dan Risiko Embedding\nMeskipun sangat bermanfaat, embedding juga memiliki beberapa keterbatasan dan risiko yang perlu dipertimbangkan dengan cermat.\nBias:  Embedding dapat mewarisi bias dari data pelatihan. Jika data pelatihan mengandung bias gender, ras, atau budaya tertentu, embedding tersebut akan mencerminkan bias tersebut. Ini dapat menyebabkan LLM menghasilkan output yang diskriminatif atau tidak adil.\nKompleksitas Komputasi:  Membuat dan menggunakan embedding bisa menjadi proses yang intensif secara komputasi, terutama untuk dataset yang sangat besar. Hal ini membutuhkan sumber daya perangkat keras (CPU, GPU, memori) yang signifikan dan biaya operasional yang tinggi.\nInterpretasi:  Meskipun embedding menangkap hubungan semantik antar kata, interpretasi nilai-nilai dalam vektor embedding itu sendiri bisa sulit dan membutuhkan pengetahuan khusus tentang teknik representasi data dan algoritma pembelajaran mesin.\nMasalah Skala:  Efektivitas embedding dapat menurun seiring dengan peningkatan skala dataset pelatihan.\nPenting untuk melakukan evaluasi bias secara berkala menggunakan metrik yang relevan dan menerapkan teknik mitigasi bias, seperti pelatihan adversarial atau penggunaan data augmentasi, untuk memastikan bahwa sistem berbasis LLM yang menggunakan embedding menghasilkan hasil yang adil dan akurat. Selain itu, pemahaman yang mendalam tentang keterbatasan ini sangat penting untuk penerapan yang bertanggung jawab.\nContoh Penerapan Embedding\nEmbedding telah diterapkan dalam berbagai aplikasi inovatif di berbagai industri:\nMesin Pencari Semantik:  Mesin pencari modern menggunakan embedding untuk memahami maksud pengguna dan menemukan dokumen yang paling relevan, bahkan jika kata kunci yang digunakan tidak cocok persis dengan kata kunci dalam dokumen.\nSistem Rekomendasi:  Platform e-commerce dan streaming media menggunakan embedding untuk merekomendasikan produk atau konten kepada pengguna berdasarkan preferensi mereka yang terdeteksi melalui data interaksi (misalnya, riwayat pembelian, peringkat, peninjauan).\nAnalisis Sentimen:  Embedding digunakan untuk mengklasifikasikan teks sebagai positif, negatif, atau netral, sehingga memungkinkan perusahaan memahami opini pelanggan tentang produk atau layanan mereka.\nChatbot dan Asisten Virtual:  Embedding membantu chatbot memahami pertanyaan pengguna dengan lebih baik dan memberikan jawaban yang relevan, bahkan dalam percakapan yang kompleks dan tidak terstruktur.\nPemrosesan Bahasa Alami (NLP) untuk Domain Khusus:  Embedding digunakan dalam bidang-bidang seperti kedokteran (untuk analisis catatan medis), hukum (untuk analisis dokumen hukum), dan keuangan (untuk analisis laporan keuangan).\nKesimpulan\nEmbedding adalah konsep fundamental dalam sistem berbasis LLM yang memungkinkan model untuk memahami makna kata-kata, frasa, dan konsep secara lebih mendalam. Dengan merepresentasikan entitas sebagai vektor angka, embedding membuka pintu bagi berbagai aplikasi inovatif, mulai dari pencarian semantik hingga rekomendasi produk. Kemampuan LLM untuk memproses bahasa alami secara efektif sangat bergantung pada kualitas dan representasi data embedding yang digunakan. Meskipun ada beberapa keterbatasan dan risiko yang perlu dipertimbangkan, potensi manfaat embedding sangat besar, dan teknologi ini terus berkembang seiring dengan kemajuan dalam bidang kecerdasan buatan. Memahami konsep embedding adalah langkah penting bagi siapa saja yang ingin memanfaatkan kekuatan LLM secara efektif dan berkontribusi pada pengembangan aplikasi-aplikasi cerdas dan intuitif.\nDengan pengetahuan tentang bagaimana embedding bekerja, Anda dapat lebih menghargai bagaimana sistem-sistem ini bekerja di balik layar dan bagaimana mereka dapat digunakan untuk memecahkan berbagai masalah kompleks. Pengembangan dan penerapan embedding yang bertanggung jawab akan terus mendorong inovasi dalam bidang kecerdasan buatan dan membentuk masa depan interaksi manusia dengan teknologi.",
+  "raw": {
+    "id": 18385,
+    "date": "2026-07-30T15:17:31",
+    "date_gmt": "2026-07-30T15:17:31",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=18385"
+    },
+    "modified": "2026-07-30T15:17:31",
+    "modified_gmt": "2026-07-30T15:17:31",
+    "slug": "mengenal-embedding-dalam-sistem-berbasis-llm",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/",
+    "title": {
+      "rendered": "Mengenal Embedding dalam Sistem Berbasis LLM"
+    },
+    "content": {
+      "rendered": "<p>&nbsp;</p>\n<h1>Mengenal Embedding dalam Sistem Berbasis LLM</h1>\n<p>Model Bahasa Besar (Large Language Model – LLM) seperti ChatGPT, Gemini, dan lainnya telah mengubah secara fundamental cara kita berinteraksi dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menghasilkan kode program adalah bukti kemajuan pesat di bidang kecerdasan buatan. Namun, di balik kemampuan luar biasa ini terdapat konsep krusial yang seringkali kurang dipahami oleh banyak orang: Embedding. Artikel ini akan membahas secara mendalam apa itu embedding, bagaimana cara kerjanya dalam sistem berbasis LLM, dan mengapa hal ini menjadi fondasi keberhasilan aplikasi-aplikasi modern yang didukung oleh teknologi ini. Kita akan menjelajahi berbagai aspek dengan bahasa yang mudah dimengerti, cocok untuk pembaca dari kalangan pemula hingga profesional nonteknis. Tujuan utama artikel ini adalah memberikan pemahaman yang komprehensif tentang embedding, bukan hanya sekadar definisi teknis, tetapi juga dampaknya pada cara LLM berfungsi dan bagaimana hal itu membuka peluang baru dalam berbagai industri.</p>\n<h2>Apa Itu Embedding? Analogi Kotak Kata</h2>\n<p>Pada intinya, embedding adalah metode untuk merepresentasikan kata-kata, frasa, atau bahkan konsep kompleks sebagai serangkaian angka. Bayangkan Anda memiliki sebuah kotak besar yang berisi ribuan kata. Setiap kata tidak ditempatkan secara acak di dalam kotak; melainkan, setiap kata memiliki lokasi unik yang ditentukan oleh hubungan semantiknya dengan kata-kata lain di dalam kotak tersebut. Analogi sederhana untuk memahami embedding adalah seperti rak buku yang terorganisir dengan cermat, di mana buku-buku yang membahas topik serupa ditempatkan berdekatan satu sama lain. Kata-kata yang sering muncul bersamaan atau memiliki makna yang serupa akan ditempatkan berdekatan satu sama lain dalam kotak ini. Ini adalah representasi visual dari bagaimana model bahasa memahami hubungan antar kata. Semakin dekat dua kata dalam kotak, semakin mirip maknanya.</p>\n<p>Secara teknis, embedding adalah vektor (daftar angka) yang mewakili suatu entitas – sebuah kata, frasa, kalimat, atau bahkan dokumen lengkap. Setiap elemen dalam vektor ini memiliki arti tertentu dan merepresentasikan aspek-aspek berbeda dari entitas tersebut. Bayangkan setiap dimensi dalam vektor sebagai fitur yang berbeda. Misalnya, vektor untuk kata “raja” mungkin memiliki nilai tinggi pada dimensi yang mewakili “kekuasaan,” “kepemimpinan,” “kesewajaan,” dan “keagungan,” sementara vektor untuk kata “ratu” akan memiliki nilai tinggi pada dimensi yang serupa, tetapi dengan penekanan pada aspek-aspek yang terkait dengan peran feminin. Perbedaan kecil dalam nilai antar dimensi ini mencerminkan perbedaan makna antara kedua kata tersebut. Ukuran dan arah dari vektor ini menangkap kompleksitas hubungan semantik.</p>\n<p>Sebelum LLM menjadi populer, representasi kata seringkali dilakukan melalui metode seperti “one-hot encoding,” di mana setiap kata direpresentasikan sebagai vektor dengan satu elemen bernilai 1 (pada posisi yang sesuai dengan kata tersebut) dan sisanya 0. Metode ini memiliki beberapa kelemahan signifikan. Pertama, ia menghasilkan vektor yang sangat besar dan jarang, yang sulit untuk diproses secara efisien. Kedua, metode ini tidak menangkap hubungan semantik antar kata; ia hanya menunjukkan bahwa sebuah kata ada atau tidak ada dalam suatu dataset. Ini seperti memiliki daftar semua kata dalam kamus tanpa mengetahui bagaimana kata-kata tersebut berhubungan satu sama lain. Akibatnya, model yang menggunakan one-hot encoding akan kesulitan memahami konteks dan menghasilkan output yang koheren.</p>\n<h2>Bagaimana Embedding Dibuat untuk LLM</h2>\n<p>LLM tidak dilatih secara langsung untuk memahami makna kata-kata seperti manusia. Sebaliknya, mereka belajar dari sejumlah besar teks yang telah diproses sebelumnya, seringkali dalam jumlah yang sangat besar – jutaan atau bahkan miliaran kata. Proses pembuatan embedding dalam konteks LLM melibatkan beberapa tahap yang saling terkait dan membutuhkan sumber daya komputasi yang signifikan.</p>\n<ul>\n<li><strong>Pelatihan Awal (Pre-training):</strong> LLM dilatih dengan volume teks yang sangat besar, seringkali diperoleh dari berbagai sumber seperti buku, artikel berita, situs web, kode sumber, dan bahkan transkrip percakapan. Tujuan dari pelatihan awal adalah untuk memungkinkan model mempelajari pola bahasa umum, tata bahasa, fakta dunia, dan hubungan antar konsep.</li>\n<li><strong>Pembelajaran Representasi Kata:</strong> Selama pelatihan, model secara iteratif memprediksi kata berikutnya dalam sebuah kalimat atau urutan. Proses ini, yang sering disebut sebagai “language modeling,” memaksa model untuk memahami hubungan statistik antar kata dan membangun representasi internal tentang makna. Model belajar bahwa kata-kata tertentu cenderung muncul bersamaan dalam konteks tertentu. Misalnya, model akan belajar bahwa kata &#8220;anjing&#8221; sering muncul bersama dengan kata-kata seperti &#8220;menggonggong,&#8221; &#8220;pemilik,&#8221; atau &#8220;trak.&#8221;</li>\n<li><strong>Konversi ke Embedding:</strong> Setelah model dilatih, bobot internalnya (parameter yang telah dipelajari) digunakan untuk menghasilkan embedding untuk setiap kata atau frasa. Bobot-bobot ini kemudian dikumpulkan menjadi sebuah vektor, membentuk embedding tersebut. Proses ini seringkali melibatkan penggunaan fungsi aktivasi nonlinear untuk memampatkan informasi dari lapisan tersembunyi model ke dalam representasi vektor yang ringkas dan bermakna.</li>\n</ul>\n<p>Proses ini dapat dibandingkan dengan bagaimana seorang musisi belajar memahami nada dan melodi dari mendengarkan banyak musik. Semakin banyak musik yang didengarkan, semakin baik pemahaman musisi tentang berbagai nada dan hubungan di antara mereka. Dalam kasus LLM, model &#8220;mendengarkan&#8221; sejumlah besar teks dan secara bertahap mempelajari pola-pola bahasa yang mendasarinya.</p>\n<h2>Manfaat Embedding dalam Sistem Berbasis LLM</h2>\n<p>Embedding memainkan peran krusial dalam meningkatkan kinerja dan kemampuan sistem berbasis LLM, membuka peluang baru untuk aplikasi yang sebelumnya tidak mungkin. Berikut beberapa manfaat utamanya yang signifikan:</p>\n<ul>\n<li><strong>Pemahaman Semantik yang Lebih Baik:</strong> Embedding memungkinkan LLM untuk memahami makna kata-kata dan frasa dalam konteks, bukan hanya berdasarkan kemunculannya dalam teks. Ini memungkinkan model untuk menangani ambiguitas dan variasi bahasa dengan lebih efektif.</li>\n<li><strong>Pencarian Semantik:</strong> Dengan mengubah pertanyaan atau kueri pengguna menjadi embedding vektor, LLM dapat menemukan dokumen atau informasi yang relevan berdasarkan *makna* dari pertanyaan tersebut, bukan hanya berdasarkan kata kunci yang cocok. Bayangkan mencari “perusahaan teknologi besar di Indonesia” – sistem dengan embedding akan memahami bahwa “teknologi” merujuk pada industri dan “besar” merujuk pada skala perusahaan, sehingga mengembalikan hasil yang lebih relevan daripada pencarian berbasis kata kunci tradisional.</li>\n<li><strong>Pengelompokan (Clustering) dan Pengurangan Dimensi:</strong> Embedding dapat digunakan untuk mengelompokkan dokumen atau kata-kata berdasarkan kesamaan makna mereka. Ini sangat berguna dalam tugas-tugas seperti analisis sentimen, rekomendasi produk, ringkasan teks otomatis, atau bahkan deteksi plagiarisme.</li>\n<li><strong>Peningkatan Akurasi dalam Tugas-Tugas Tertentu:</strong> Dalam beberapa kasus, embedding dapat meningkatkan akurasi LLM dalam berbagai tugas, termasuk penerjemahan bahasa (dengan memetakan kata-kata yang memiliki makna serupa ke dalam ruang vektor yang sama), menjawab pertanyaan kompleks, dan menghasilkan teks kreatif.</li>\n<li><strong>Pemrosesan Bahasa Alami (NLP) Lebih Efisien:</strong> Embedding secara signifikan mengurangi kompleksitas komputasi dibandingkan dengan metode representasi kata tradisional, sehingga memungkinkan LLM untuk memproses data teks dengan lebih cepat dan efisien.</li>\n</ul>\n<h2>Keterbatasan dan Risiko Embedding</h2>\n<p>Meskipun sangat bermanfaat, embedding juga memiliki beberapa keterbatasan dan risiko yang perlu dipertimbangkan dengan cermat.</p>\n<ul>\n<li><strong>Bias:</strong> Embedding dapat mewarisi bias dari data pelatihan. Jika data pelatihan mengandung bias gender, ras, atau budaya tertentu, embedding tersebut akan mencerminkan bias tersebut. Ini dapat menyebabkan LLM menghasilkan output yang diskriminatif atau tidak adil.</li>\n<li><strong>Kompleksitas Komputasi:</strong> Membuat dan menggunakan embedding bisa menjadi proses yang intensif secara komputasi, terutama untuk dataset yang sangat besar. Hal ini membutuhkan sumber daya perangkat keras (CPU, GPU, memori) yang signifikan dan biaya operasional yang tinggi.</li>\n<li><strong>Interpretasi:</strong> Meskipun embedding menangkap hubungan semantik antar kata, interpretasi nilai-nilai dalam vektor embedding itu sendiri bisa sulit dan membutuhkan pengetahuan khusus tentang teknik representasi data dan algoritma pembelajaran mesin.</li>\n<li><strong>Masalah Skala:</strong> Efektivitas embedding dapat menurun seiring dengan peningkatan skala dataset pelatihan.</li>\n</ul>\n<p>Penting untuk melakukan evaluasi bias secara berkala menggunakan metrik yang relevan dan menerapkan teknik mitigasi bias, seperti pelatihan adversarial atau penggunaan data augmentasi, untuk memastikan bahwa sistem berbasis LLM yang menggunakan embedding menghasilkan hasil yang adil dan akurat. Selain itu, pemahaman yang mendalam tentang keterbatasan ini sangat penting untuk penerapan yang bertanggung jawab.</p>\n<h2>Contoh Penerapan Embedding</h2>\n<p>Embedding telah diterapkan dalam berbagai aplikasi inovatif di berbagai industri:</p>\n<ul>\n<li><strong>Mesin Pencari Semantik:</strong> Mesin pencari modern menggunakan embedding untuk memahami maksud pengguna dan menemukan dokumen yang paling relevan, bahkan jika kata kunci yang digunakan tidak cocok persis dengan kata kunci dalam dokumen.</li>\n<li><strong>Sistem Rekomendasi:</strong> Platform e-commerce dan streaming media menggunakan embedding untuk merekomendasikan produk atau konten kepada pengguna berdasarkan preferensi mereka yang terdeteksi melalui data interaksi (misalnya, riwayat pembelian, peringkat, peninjauan).</li>\n<li><strong>Analisis Sentimen:</strong> Embedding digunakan untuk mengklasifikasikan teks sebagai positif, negatif, atau netral, sehingga memungkinkan perusahaan memahami opini pelanggan tentang produk atau layanan mereka.</li>\n<li><strong>Chatbot dan Asisten Virtual:</strong> Embedding membantu chatbot memahami pertanyaan pengguna dengan lebih baik dan memberikan jawaban yang relevan, bahkan dalam percakapan yang kompleks dan tidak terstruktur.</li>\n<li><strong>Pemrosesan Bahasa Alami (NLP) untuk Domain Khusus:</strong> Embedding digunakan dalam bidang-bidang seperti kedokteran (untuk analisis catatan medis), hukum (untuk analisis dokumen hukum), dan keuangan (untuk analisis laporan keuangan).</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>Embedding adalah konsep fundamental dalam sistem berbasis LLM yang memungkinkan model untuk memahami makna kata-kata, frasa, dan konsep secara lebih mendalam. Dengan merepresentasikan entitas sebagai vektor angka, embedding membuka pintu bagi berbagai aplikasi inovatif, mulai dari pencarian semantik hingga rekomendasi produk. Kemampuan LLM untuk memproses bahasa alami secara efektif sangat bergantung pada kualitas dan representasi data embedding yang digunakan. Meskipun ada beberapa keterbatasan dan risiko yang perlu dipertimbangkan, potensi manfaat embedding sangat besar, dan teknologi ini terus berkembang seiring dengan kemajuan dalam bidang kecerdasan buatan. Memahami konsep embedding adalah langkah penting bagi siapa saja yang ingin memanfaatkan kekuatan LLM secara efektif dan berkontribusi pada pengembangan aplikasi-aplikasi cerdas dan intuitif.</p>\n<p>Dengan pengetahuan tentang bagaimana embedding bekerja, Anda dapat lebih menghargai bagaimana sistem-sistem ini bekerja di balik layar dan bagaimana mereka dapat digunakan untuk memecahkan berbagai masalah kompleks. Pengembangan dan penerapan embedding yang bertanggung jawab akan terus mendorong inovasi dalam bidang kecerdasan buatan dan membentuk masa depan interaksi manusia dengan teknologi.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>&nbsp; Mengenal Embedding dalam Sistem Berbasis LLM Model Bahasa Besar (Large Language Model – LLM) seperti ChatGPT, Gemini, dan lainnya telah mengubah secara fundamental cara kita berinteraksi dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menghasilkan kode program adalah bukti kemajuan pesat di bidang kecerdasan buatan. Namun, di balik kemampuan luar biasa ini terdapat konsep krusial yang seringkali kurang dipahami oleh banyak orang: Embedding. Artikel ini akan membahas secara mendalam apa itu embedding, bagaimana cara kerjanya dalam sistem berbasis LLM, dan mengapa hal ini menjadi fondasi keberhasilan aplikasi-aplikasi modern yang didukung oleh teknologi ini. Kita&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 34,
+    "featured_media": 18390,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1919,
+      2616
+    ],
+    "tags": [
+      3239
+    ],
+    "class_list": [
+      "post-18385",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-ai",
+      "category-information-technology",
+      "tag-mengenal-embedding-dalam-sistem-berbasis-llm"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Mengenal Embedding dalam Sistem Berbasis LLM - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Mengenal Embedding dalam Sistem Berbasis LLM - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"&nbsp; Mengenal Embedding dalam Sistem Berbasis LLM Model Bahasa Besar (Large Language Model – LLM) seperti ChatGPT, Gemini, dan lainnya telah mengubah secara fundamental cara kita berinteraksi dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menghasilkan kode program adalah bukti kemajuan pesat di bidang kecerdasan buatan. Namun, di balik kemampuan luar biasa ini terdapat konsep krusial yang seringkali kurang dipahami oleh banyak orang: Embedding. Artikel ini akan membahas secara mendalam apa itu embedding, bagaimana cara kerjanya dalam sistem berbasis LLM, dan mengapa hal ini menjadi fondasi keberhasilan aplikasi-aplikasi modern yang didukung oleh teknologi ini. Kita...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-30T15:17:31+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/rQTBGeXj6BIk3NHm1U1Fe4fkCHhJussWoPA38PYlsBkIEqHh41mpghBYFESBLZHWHBmotMGx4rRvEhl1Va2WDRooKIKhc1ZEQY1R7N4QG8snPQomF359F3v7U2FmMtBUt52jHi8Sl9bnB68meOrdhAiHd3K-ZG6c2lPwz-Xb-oM-JuCT_h5AawKoQ-DHhVu9.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1848\" />\n\t<meta property=\"og:image:height\" content=\"1168\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Citra Saskia saranani\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Citra Saskia saranani\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"7 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/\",\"url\":\"https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/\",\"name\":\"Mengenal Embedding dalam Sistem Berbasis LLM - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/rQTBGeXj6BIk3NHm1U1Fe4fkCHhJussWoPA38PYlsBkIEqHh41mpghBYFESBLZHWHBmotMGx4rRvEhl1Va2WDRooKIKhc1ZEQY1R7N4QG8snPQomF359F3v7U2FmMtBUt52jHi8Sl9bnB68meOrdhAiHd3K-ZG6c2lPwz-Xb-oM-JuCT_h5AawKoQ-DHhVu9.jpg\",\"datePublished\":\"2026-07-30T15:17:31+00:00\",\"dateModified\":\"2026-07-30T15:17:31+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/rQTBGeXj6BIk3NHm1U1Fe4fkCHhJussWoPA38PYlsBkIEqHh41mpghBYFESBLZHWHBmotMGx4rRvEhl1Va2WDRooKIKhc1ZEQY1R7N4QG8snPQomF359F3v7U2FmMtBUt52jHi8Sl9bnB68meOrdhAiHd3K-ZG6c2lPwz-Xb-oM-JuCT_h5AawKoQ-DHhVu9.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/rQTBGeXj6BIk3NHm1U1Fe4fkCHhJussWoPA38PYlsBkIEqHh41mpghBYFESBLZHWHBmotMGx4rRvEhl1Va2WDRooKIKhc1ZEQY1R7N4QG8snPQomF359F3v7U2FmMtBUt52jHi8Sl9bnB68meOrdhAiHd3K-ZG6c2lPwz-Xb-oM-JuCT_h5AawKoQ-DHhVu9.jpg\",\"width\":1848,\"height\":1168},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Mengenal Embedding dalam Sistem Berbasis LLM\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6\",\"name\":\"Citra Saskia saranani\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g\",\"caption\":\"Citra Saskia saranani\"},\"url\":\"https://buletinsiber.com/author/citra-saskia-saranani/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Mengenal Embedding dalam Sistem Berbasis LLM - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Mengenal Embedding dalam Sistem Berbasis LLM - buletinsiber.com",
+      "og_description": "&nbsp; Mengenal Embedding dalam Sistem Berbasis LLM Model Bahasa Besar (Large Language Model – LLM) seperti ChatGPT, Gemini, dan lainnya telah mengubah secara fundamental cara kita berinteraksi dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, bahkan menghasilkan kode program adalah bukti kemajuan pesat di bidang kecerdasan buatan. Namun, di balik kemampuan luar biasa ini terdapat konsep krusial yang seringkali kurang dipahami oleh banyak orang: Embedding. Artikel ini akan membahas secara mendalam apa itu embedding, bagaimana cara kerjanya dalam sistem berbasis LLM, dan mengapa hal ini menjadi fondasi keberhasilan aplikasi-aplikasi modern yang didukung oleh teknologi ini. Kita...",
+      "og_url": "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-30T15:17:31+00:00",
+      "og_image": [
+        {
+          "width": 1848,
+          "height": 1168,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/rQTBGeXj6BIk3NHm1U1Fe4fkCHhJussWoPA38PYlsBkIEqHh41mpghBYFESBLZHWHBmotMGx4rRvEhl1Va2WDRooKIKhc1ZEQY1R7N4QG8snPQomF359F3v7U2FmMtBUt52jHi8Sl9bnB68meOrdhAiHd3K-ZG6c2lPwz-Xb-oM-JuCT_h5AawKoQ-DHhVu9.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Citra Saskia saranani",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Citra Saskia saranani",
+        "Est. reading time": "7 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/",
+            "url": "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/",
+            "name": "Mengenal Embedding dalam Sistem Berbasis LLM - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/rQTBGeXj6BIk3NHm1U1Fe4fkCHhJussWoPA38PYlsBkIEqHh41mpghBYFESBLZHWHBmotMGx4rRvEhl1Va2WDRooKIKhc1ZEQY1R7N4QG8snPQomF359F3v7U2FmMtBUt52jHi8Sl9bnB68meOrdhAiHd3K-ZG6c2lPwz-Xb-oM-JuCT_h5AawKoQ-DHhVu9.jpg",
+            "datePublished": "2026-07-30T15:17:31+00:00",
+            "dateModified": "2026-07-30T15:17:31+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/rQTBGeXj6BIk3NHm1U1Fe4fkCHhJussWoPA38PYlsBkIEqHh41mpghBYFESBLZHWHBmotMGx4rRvEhl1Va2WDRooKIKhc1ZEQY1R7N4QG8snPQomF359F3v7U2FmMtBUt52jHi8Sl9bnB68meOrdhAiHd3K-ZG6c2lPwz-Xb-oM-JuCT_h5AawKoQ-DHhVu9.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/rQTBGeXj6BIk3NHm1U1Fe4fkCHhJussWoPA38PYlsBkIEqHh41mpghBYFESBLZHWHBmotMGx4rRvEhl1Va2WDRooKIKhc1ZEQY1R7N4QG8snPQomF359F3v7U2FmMtBUt52jHi8Sl9bnB68meOrdhAiHd3K-ZG6c2lPwz-Xb-oM-JuCT_h5AawKoQ-DHhVu9.jpg",
+            "width": 1848,
+            "height": 1168
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/mengenal-embedding-dalam-sistem-berbasis-llm/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Mengenal Embedding dalam Sistem Berbasis LLM"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6",
+            "name": "Citra Saskia saranani",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g",
+              "caption": "Citra Saskia saranani"
+            },
+            "url": "https://buletinsiber.com/author/citra-saskia-saranani/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/18385",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/34"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=18385"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/18385/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 18392,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/18385/revisions/18392"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/18390"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=18385"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=18385"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=18385"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

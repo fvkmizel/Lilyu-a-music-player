@@ -1,0 +1,335 @@
+{
+  "id": 9723,
+  "title": "DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows",
+  "slug": "dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows",
+  "url": "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/",
+  "date": "2026-03-12T01:14:30",
+  "date_gmt": "2026-03-12T01:14:30",
+  "modified": "2026-07-06T20:55:14",
+  "modified_gmt": "2026-07-06T20:55:14",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    1097,
+    478,
+    682,
+    800
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg",
+  "excerpt": "Pengantar Dalam sistem operasi Windows, banyak aplikasi bergantung pada file Dynamic Link Library (DLL) untuk menjalankan berbagai fungsi penting. File DLL memungkinkan program berbagi kode yang sama sehingga aplikasi dapat berjalan lebih efisien dan ringan. Namun, mekanisme ini juga membuka peluang bagi penyerang untuk melakukan eksploitasi melalui teknik yang dikenal sebagai DLL Hijacking. DLL Hijacking adalah metode serangan di mana penyerang menempatkan file DLL berbahaya pada lokasi tertentu sehingga aplikasi memuat file tersebut alih-alih memuat DLL asli yang seharusnya digunakan. Ketika aplikasi dijalankan, sistem secara tidak sadar akan mengeksekusi kode berbahaya yang telah disisipkan oleh penyerang. Teknik ini sering digunakan…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"72\" data-end=\"84\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"86\" data-end=\"478\"><span style=\"color: #000000;\">Dalam sistem operasi Windows, banyak aplikasi bergantung pada file <strong data-start=\"153\" data-end=\"183\">Dynamic Link Library (DLL)</strong> untuk menjalankan berbagai fungsi penting. File DLL memungkinkan program berbagi kode yang sama sehingga aplikasi dapat berjalan lebih efisien dan ringan. Namun, mekanisme ini juga membuka peluang bagi penyerang untuk melakukan eksploitasi melalui teknik yang dikenal sebagai <strong data-start=\"460\" data-end=\"477\">DLL Hijacking</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"480\" data-end=\"807\"><span style=\"color: #000000;\">DLL Hijacking adalah metode serangan di mana penyerang menempatkan file DLL berbahaya pada lokasi tertentu sehingga aplikasi memuat file tersebut <strong data-start=\"626\" data-end=\"681\">alih-alih memuat DLL asli yang seharusnya digunakan</strong>. Ketika aplikasi dijalankan, sistem secara tidak sadar akan mengeksekusi kode berbahaya yang telah disisipkan oleh penyerang.</span></p>\n<p style=\"text-align: justify;\" data-start=\"809\" data-end=\"1076\"><span style=\"color: #000000;\">Teknik ini sering digunakan dalam berbagai serangan malware karena relatif mudah dilakukan jika konfigurasi sistem atau aplikasi tidak aman. Oleh karena itu, memahami bagaimana DLL Hijacking bekerja menjadi langkah penting dalam meningkatkan keamanan sistem komputer.</span></p>\n<hr data-start=\"1078\" data-end=\"1081\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"zurih0\" data-start=\"1083\" data-end=\"1108\"><span style=\"color: #000000;\">Apa Itu DLL Hijacking?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1110\" data-end=\"1237\"><span style=\"color: #000000;\"><strong data-start=\"1110\" data-end=\"1127\">DLL Hijacking</strong> adalah teknik eksploitasi keamanan yang memanfaatkan cara sistem operasi Windows mencari dan memuat file DLL.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1239\" data-end=\"1570\"><span style=\"color: #000000;\">Ketika sebuah aplikasi membutuhkan DLL tertentu, Windows akan mencarinya berdasarkan <strong data-start=\"1324\" data-end=\"1372\">urutan pencarian tertentu (DLL search order)</strong>. Jika penyerang berhasil menempatkan file DLL berbahaya pada lokasi yang diprioritaskan dalam proses pencarian tersebut, maka aplikasi dapat secara tidak sengaja memuat DLL yang telah dimodifikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1572\" data-end=\"1674\"><span style=\"color: #000000;\">Akibatnya, kode berbahaya dapat dijalankan dengan hak akses yang sama seperti aplikasi yang memuatnya.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1676\" data-end=\"2011\"><span style=\"color: #000000;\">Menurut dokumentasi keamanan Microsoft, kerentanan ini sering terjadi ketika aplikasi memuat DLL tanpa menentukan path yang aman, sehingga memungkinkan penyerang menempatkan DLL berbahaya dalam direktori yang dapat diakses oleh aplikasi (dikutip dari <a href=\"https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-security\">microsoft</a>).</span></p>\n<blockquote>\n<p data-start=\"1676\" data-end=\"2011\">baca juga : <a href=\"https://buletinsiber.com/reentrancy-attack-celah-berbahaya-dalam-smart-contract-blockchain/\">Reentrancy Attack: Celah Berbahaya dalam Smart Contract Blockchain</a></p>\n</blockquote>\n<hr data-start=\"2013\" data-end=\"2016\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1eq5pn9\" data-start=\"2018\" data-end=\"2056\"><span style=\"color: #000000;\">Bagaimana Cara Kerja DLL Hijacking?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2058\" data-end=\"2181\"><span style=\"color: #000000;\">Untuk memahami serangan ini, penting untuk mengetahui bagaimana Windows mencari file DLL ketika sebuah aplikasi dijalankan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2183\" data-end=\"2242\"><span style=\"color: #000000;\">Secara umum, Windows akan mencari DLL dalam urutan berikut:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"2244\" data-end=\"2397\">\n<li data-section-id=\"vbty53\" data-start=\"2244\" data-end=\"2285\">\n<p data-start=\"2247\" data-end=\"2285\"><span style=\"color: #000000;\">Direktori tempat aplikasi dijalankan</span></p>\n</li>\n<li data-section-id=\"6y18i\" data-start=\"2286\" data-end=\"2315\">\n<p data-start=\"2289\" data-end=\"2315\"><span style=\"color: #000000;\">Direktori sistem Windows</span></p>\n</li>\n<li data-section-id=\"gcrws6\" data-start=\"2316\" data-end=\"2338\">\n<p data-start=\"2319\" data-end=\"2338\"><span style=\"color: #000000;\">Direktori Windows</span></p>\n</li>\n<li data-section-id=\"rklyg2\" data-start=\"2339\" data-end=\"2397\">\n<p data-start=\"2342\" data-end=\"2397\"><span style=\"color: #000000;\">Direktori yang terdaftar dalam variabel lingkungan PATH</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2399\" data-end=\"2517\"><span style=\"color: #000000;\">Jika sebuah aplikasi memanggil DLL tanpa menentukan jalur lengkapnya, sistem akan mengikuti urutan pencarian tersebut.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2519\" data-end=\"2759\"><span style=\"color: #000000;\">Penyerang dapat memanfaatkan kondisi ini dengan cara menempatkan <strong data-start=\"2584\" data-end=\"2654\">DLL berbahaya pada direktori yang lebih dulu diperiksa oleh sistem</strong>. Ketika aplikasi berjalan, file tersebut akan dimuat terlebih dahulu dan kode berbahaya akan dieksekusi.</span></p>\n<hr data-start=\"2761\" data-end=\"2764\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"bueeum\" data-start=\"2766\" data-end=\"2794\"><span style=\"color: #000000;\">Jenis-Jenis DLL Hijacking</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2796\" data-end=\"2870\"><span style=\"color: #000000;\">Dalam praktiknya, DLL Hijacking memiliki beberapa variasi metode serangan.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"1qi31nk\" data-start=\"2872\" data-end=\"2902\"><span style=\"color: #000000;\">DLL Search Order Hijacking</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2904\" data-end=\"2953\"><span style=\"color: #000000;\">Ini adalah bentuk paling umum dari DLL Hijacking.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2955\" data-end=\"3161\"><span style=\"color: #000000;\">Penyerang menempatkan DLL berbahaya dalam direktori yang berada lebih awal dalam urutan pencarian Windows. Ketika aplikasi memanggil DLL yang tidak memiliki path absolut, sistem akan memuat file yang salah.</span></p>\n<hr data-start=\"3163\" data-end=\"3166\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"l241hd\" data-start=\"3168\" data-end=\"3193\"><span style=\"color: #000000;\">Phantom DLL Hijacking</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3195\" data-end=\"3303\"><span style=\"color: #000000;\">Phantom DLL Hijacking terjadi ketika aplikasi mencoba memuat DLL yang sebenarnya <strong data-start=\"3276\" data-end=\"3302\">tidak ada dalam sistem</strong>.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"3305\" data-end=\"3320\"><span style=\"color: #000000;\">Cara Kerja</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3322\" data-end=\"3526\"><span style=\"color: #000000;\">Jika penyerang mengetahui nama DLL yang dicari oleh aplikasi tetapi tidak tersedia di sistem, mereka dapat membuat DLL dengan nama tersebut dan menempatkannya pada lokasi yang dapat diakses oleh aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3528\" data-end=\"3579\"><span style=\"color: #000000;\">Akibatnya, aplikasi akan memuat DLL palsu tersebut.</span></p>\n<hr data-start=\"3581\" data-end=\"3584\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"rcbz82\" data-start=\"3586\" data-end=\"3606\"><span style=\"color: #000000;\">DLL Side-Loading</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3608\" data-end=\"3771\"><span style=\"color: #000000;\">DLL Side-Loading adalah teknik di mana penyerang memanfaatkan aplikasi yang sah untuk memuat DLL berbahaya yang ditempatkan di direktori yang sama dengan aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3773\" data-end=\"3897\"><span style=\"color: #000000;\">Metode ini sering digunakan oleh malware karena <strong data-start=\"3821\" data-end=\"3896\">dapat menyamarkan aktivitas berbahaya di balik aplikasi yang terpercaya</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3899\" data-end=\"4113\"><span style=\"color: #000000;\">Menurut MITRE ATT&amp;CK, teknik ini sering digunakan oleh berbagai kelompok malware untuk menjalankan kode berbahaya tanpa terdeteksi oleh sistem keamanan (dikutip dari <a href=\"https://attack.mitre.org/techniques/T1574/001/\">MITRE</a>).</span></p>\n<blockquote>\n<p data-start=\"3899\" data-end=\"4113\">baca juga : <a href=\"https://buletinsiber.com/port-security-cara-melindungi-jaringan-dari-akses-tidak-sah/\">Port Security: Cara Melindungi Jaringan dari Akses Tidak Sah</a></p>\n</blockquote>\n<hr data-start=\"4115\" data-end=\"4118\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"4nthjv\" data-start=\"4120\" data-end=\"4159\"><span style=\"color: #000000;\">Dampak DLL Hijacking terhadap Sistem</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4161\" data-end=\"4250\"><span style=\"color: #000000;\">Serangan DLL Hijacking dapat menimbulkan berbagai dampak serius terhadap keamanan sistem.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4252\" data-end=\"4283\"><span style=\"color: #000000;\">Beberapa di antaranya meliputi:</span></p>\n<p style=\"text-align: justify;\" data-start=\"4285\" data-end=\"4398\"><span style=\"color: #000000;\"><strong data-start=\"4285\" data-end=\"4323\">1. Eksekusi Malware Tanpa Disadari</strong></span><br data-start=\"4323\" data-end=\"4326\" /><span style=\"color: #000000;\">Aplikasi dapat menjalankan kode berbahaya tanpa diketahui oleh pengguna.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4400\" data-end=\"4516\"><span style=\"color: #000000;\"><strong data-start=\"4400\" data-end=\"4425\">2. Eskalasi Hak Akses</strong></span><br data-start=\"4425\" data-end=\"4428\" /><span style=\"color: #000000;\">Jika aplikasi memiliki hak akses tinggi, penyerang dapat memperoleh akses administratif.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4518\" data-end=\"4637\"><span style=\"color: #000000;\"><strong data-start=\"4518\" data-end=\"4553\">3. Penyebaran Malware di Sistem</strong></span><br data-start=\"4553\" data-end=\"4556\" /><span style=\"color: #000000;\">DLL berbahaya dapat digunakan untuk menyebarkan malware ke bagian sistem lainnya.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4639\" data-end=\"4765\"><span style=\"color: #000000;\"><strong data-start=\"4639\" data-end=\"4677\">4. Penyusupan ke Sistem Organisasi</strong></span><br data-start=\"4677\" data-end=\"4680\" /><span style=\"color: #000000;\">Serangan ini sering dimanfaatkan dalam kampanye <strong data-start=\"4728\" data-end=\"4764\">Advanced Persistent Threat (APT)</strong>.</span></p>\n<hr data-start=\"4767\" data-end=\"4770\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1vt2zy4\" data-start=\"4772\" data-end=\"4802\"><span style=\"color: #000000;\">Cara Mencegah DLL Hijacking</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4804\" data-end=\"4930\"><span style=\"color: #000000;\">Untuk mengurangi risiko DLL Hijacking, beberapa langkah keamanan dapat diterapkan oleh pengembang maupun administrator sistem.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"1d1lpq9\" data-start=\"4932\" data-end=\"4960\"><span style=\"color: #000000;\">Menggunakan Path Absolut</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4962\" data-end=\"5125\"><span style=\"color: #000000;\">Pengembang sebaiknya menentukan <strong data-start=\"4994\" data-end=\"5027\">jalur lengkap (absolute path)</strong> ketika memanggil DLL, sehingga sistem tidak perlu mencari file tersebut melalui urutan pencarian.</span></p>\n<hr data-start=\"5127\" data-end=\"5130\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"oqx5f\" data-start=\"5132\" data-end=\"5165\"><span style=\"color: #000000;\">Membatasi Hak Akses Direktori</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5167\" data-end=\"5303\"><span style=\"color: #000000;\">Direktori tempat aplikasi berjalan harus memiliki <strong data-start=\"5217\" data-end=\"5239\">hak akses terbatas</strong>, sehingga pengguna biasa tidak dapat menambahkan file DLL baru.</span></p>\n<hr data-start=\"5305\" data-end=\"5308\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1iv09xm\" data-start=\"5310\" data-end=\"5347\"><span style=\"color: #000000;\">Mengaktifkan Safe DLL Search Mode</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5349\" data-end=\"5488\"><span style=\"color: #000000;\">Windows menyediakan fitur <strong data-start=\"5375\" data-end=\"5399\">Safe DLL Search Mode</strong> yang mengubah urutan pencarian DLL agar lebih aman dan memprioritaskan direktori sistem.</span></p>\n<hr data-start=\"5490\" data-end=\"5493\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"i7iqg0\" data-start=\"5495\" data-end=\"5535\"><span style=\"color: #000000;\">Menggunakan Solusi Keamanan Endpoint</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5537\" data-end=\"5679\"><span style=\"color: #000000;\">Antivirus atau <strong data-start=\"5552\" data-end=\"5593\">Endpoint Detection and Response (EDR)</strong> dapat membantu mendeteksi aktivitas mencurigakan terkait pemuatan DLL yang tidak sah.</span></p>\n<blockquote>\n<p data-start=\"5537\" data-end=\"5679\">baca juga : <a href=\"https://buletinsiber.com/heap-spraying-teknik-eksploitasi-memori-yang-membuka-jalan-bagi-malware/\">Heap Spraying: Teknik Eksploitasi Memori yang Membuka Jalan bagi Malware</a></p>\n</blockquote>\n<hr data-start=\"5681\" data-end=\"5684\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"5686\" data-end=\"5699\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5701\" data-end=\"5956\"><span style=\"color: #000000;\">DLL Hijacking merupakan teknik serangan yang memanfaatkan cara sistem operasi Windows mencari dan memuat file DLL. Dengan menempatkan DLL berbahaya pada lokasi tertentu, penyerang dapat membuat aplikasi memuat file tersebut dan menjalankan kode berbahaya.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5958\" data-end=\"6249\"><span style=\"color: #000000;\">Serangan ini sering digunakan dalam berbagai kampanye malware karena dapat menyusup melalui aplikasi yang sah tanpa langsung terlihat mencurigakan. Jika tidak ditangani dengan baik, DLL Hijacking dapat menyebabkan eksekusi malware, eskalasi hak akses, hingga penyusupan ke sistem organisasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"6251\" data-end=\"6455\"><span style=\"color: #000000;\">Oleh karena itu, penerapan praktik keamanan seperti penggunaan path absolut, pembatasan hak akses direktori, serta penggunaan solusi keamanan endpoint sangat penting untuk mencegah eksploitasi teknik ini.</span></p>\n",
+  "content_text": "Pengantar\nDalam sistem operasi Windows, banyak aplikasi bergantung pada file  Dynamic Link Library (DLL)  untuk menjalankan berbagai fungsi penting. File DLL memungkinkan program berbagi kode yang sama sehingga aplikasi dapat berjalan lebih efisien dan ringan. Namun, mekanisme ini juga membuka peluang bagi penyerang untuk melakukan eksploitasi melalui teknik yang dikenal sebagai  DLL Hijacking .\nDLL Hijacking adalah metode serangan di mana penyerang menempatkan file DLL berbahaya pada lokasi tertentu sehingga aplikasi memuat file tersebut  alih-alih memuat DLL asli yang seharusnya digunakan . Ketika aplikasi dijalankan, sistem secara tidak sadar akan mengeksekusi kode berbahaya yang telah disisipkan oleh penyerang.\nTeknik ini sering digunakan dalam berbagai serangan malware karena relatif mudah dilakukan jika konfigurasi sistem atau aplikasi tidak aman. Oleh karena itu, memahami bagaimana DLL Hijacking bekerja menjadi langkah penting dalam meningkatkan keamanan sistem komputer.\nApa Itu DLL Hijacking?\nDLL Hijacking  adalah teknik eksploitasi keamanan yang memanfaatkan cara sistem operasi Windows mencari dan memuat file DLL.\nKetika sebuah aplikasi membutuhkan DLL tertentu, Windows akan mencarinya berdasarkan  urutan pencarian tertentu (DLL search order) . Jika penyerang berhasil menempatkan file DLL berbahaya pada lokasi yang diprioritaskan dalam proses pencarian tersebut, maka aplikasi dapat secara tidak sengaja memuat DLL yang telah dimodifikasi.\nAkibatnya, kode berbahaya dapat dijalankan dengan hak akses yang sama seperti aplikasi yang memuatnya.\nMenurut dokumentasi keamanan Microsoft, kerentanan ini sering terjadi ketika aplikasi memuat DLL tanpa menentukan path yang aman, sehingga memungkinkan penyerang menempatkan DLL berbahaya dalam direktori yang dapat diakses oleh aplikasi (dikutip dari  microsoft ).\nbaca juga :  Reentrancy Attack: Celah Berbahaya dalam Smart Contract Blockchain\nBagaimana Cara Kerja DLL Hijacking?\nUntuk memahami serangan ini, penting untuk mengetahui bagaimana Windows mencari file DLL ketika sebuah aplikasi dijalankan.\nSecara umum, Windows akan mencari DLL dalam urutan berikut:\nDirektori tempat aplikasi dijalankan\nDirektori sistem Windows\nDirektori Windows\nDirektori yang terdaftar dalam variabel lingkungan PATH\nJika sebuah aplikasi memanggil DLL tanpa menentukan jalur lengkapnya, sistem akan mengikuti urutan pencarian tersebut.\nPenyerang dapat memanfaatkan kondisi ini dengan cara menempatkan  DLL berbahaya pada direktori yang lebih dulu diperiksa oleh sistem . Ketika aplikasi berjalan, file tersebut akan dimuat terlebih dahulu dan kode berbahaya akan dieksekusi.\nJenis-Jenis DLL Hijacking\nDalam praktiknya, DLL Hijacking memiliki beberapa variasi metode serangan.\nDLL Search Order Hijacking\nIni adalah bentuk paling umum dari DLL Hijacking.\nPenyerang menempatkan DLL berbahaya dalam direktori yang berada lebih awal dalam urutan pencarian Windows. Ketika aplikasi memanggil DLL yang tidak memiliki path absolut, sistem akan memuat file yang salah.\nPhantom DLL Hijacking\nPhantom DLL Hijacking terjadi ketika aplikasi mencoba memuat DLL yang sebenarnya  tidak ada dalam sistem .\nCara Kerja\nJika penyerang mengetahui nama DLL yang dicari oleh aplikasi tetapi tidak tersedia di sistem, mereka dapat membuat DLL dengan nama tersebut dan menempatkannya pada lokasi yang dapat diakses oleh aplikasi.\nAkibatnya, aplikasi akan memuat DLL palsu tersebut.\nDLL Side-Loading\nDLL Side-Loading adalah teknik di mana penyerang memanfaatkan aplikasi yang sah untuk memuat DLL berbahaya yang ditempatkan di direktori yang sama dengan aplikasi.\nMetode ini sering digunakan oleh malware karena  dapat menyamarkan aktivitas berbahaya di balik aplikasi yang terpercaya .\nMenurut MITRE ATT&CK, teknik ini sering digunakan oleh berbagai kelompok malware untuk menjalankan kode berbahaya tanpa terdeteksi oleh sistem keamanan (dikutip dari  MITRE ).\nbaca juga :  Port Security: Cara Melindungi Jaringan dari Akses Tidak Sah\nDampak DLL Hijacking terhadap Sistem\nSerangan DLL Hijacking dapat menimbulkan berbagai dampak serius terhadap keamanan sistem.\nBeberapa di antaranya meliputi:\n1. Eksekusi Malware Tanpa Disadari\nAplikasi dapat menjalankan kode berbahaya tanpa diketahui oleh pengguna.\n2. Eskalasi Hak Akses\nJika aplikasi memiliki hak akses tinggi, penyerang dapat memperoleh akses administratif.\n3. Penyebaran Malware di Sistem\nDLL berbahaya dapat digunakan untuk menyebarkan malware ke bagian sistem lainnya.\n4. Penyusupan ke Sistem Organisasi\nSerangan ini sering dimanfaatkan dalam kampanye  Advanced Persistent Threat (APT) .\nCara Mencegah DLL Hijacking\nUntuk mengurangi risiko DLL Hijacking, beberapa langkah keamanan dapat diterapkan oleh pengembang maupun administrator sistem.\nMenggunakan Path Absolut\nPengembang sebaiknya menentukan  jalur lengkap (absolute path)  ketika memanggil DLL, sehingga sistem tidak perlu mencari file tersebut melalui urutan pencarian.\nMembatasi Hak Akses Direktori\nDirektori tempat aplikasi berjalan harus memiliki  hak akses terbatas , sehingga pengguna biasa tidak dapat menambahkan file DLL baru.\nMengaktifkan Safe DLL Search Mode\nWindows menyediakan fitur  Safe DLL Search Mode  yang mengubah urutan pencarian DLL agar lebih aman dan memprioritaskan direktori sistem.\nMenggunakan Solusi Keamanan Endpoint\nAntivirus atau  Endpoint Detection and Response (EDR)  dapat membantu mendeteksi aktivitas mencurigakan terkait pemuatan DLL yang tidak sah.\nbaca juga :  Heap Spraying: Teknik Eksploitasi Memori yang Membuka Jalan bagi Malware\nKesimpulan\nDLL Hijacking merupakan teknik serangan yang memanfaatkan cara sistem operasi Windows mencari dan memuat file DLL. Dengan menempatkan DLL berbahaya pada lokasi tertentu, penyerang dapat membuat aplikasi memuat file tersebut dan menjalankan kode berbahaya.\nSerangan ini sering digunakan dalam berbagai kampanye malware karena dapat menyusup melalui aplikasi yang sah tanpa langsung terlihat mencurigakan. Jika tidak ditangani dengan baik, DLL Hijacking dapat menyebabkan eksekusi malware, eskalasi hak akses, hingga penyusupan ke sistem organisasi.\nOleh karena itu, penerapan praktik keamanan seperti penggunaan path absolut, pembatasan hak akses direktori, serta penggunaan solusi keamanan endpoint sangat penting untuk mencegah eksploitasi teknik ini.",
+  "raw": {
+    "id": 9723,
+    "date": "2026-03-12T01:14:30",
+    "date_gmt": "2026-03-12T01:14:30",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9723"
+    },
+    "modified": "2026-07-06T20:55:14",
+    "modified_gmt": "2026-07-06T20:55:14",
+    "slug": "dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/",
+    "title": {
+      "rendered": "DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-section-id=\"1mm19m9\" data-start=\"72\" data-end=\"84\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"86\" data-end=\"478\"><span style=\"color: #000000;\">Dalam sistem operasi Windows, banyak aplikasi bergantung pada file <strong data-start=\"153\" data-end=\"183\">Dynamic Link Library (DLL)</strong> untuk menjalankan berbagai fungsi penting. File DLL memungkinkan program berbagi kode yang sama sehingga aplikasi dapat berjalan lebih efisien dan ringan. Namun, mekanisme ini juga membuka peluang bagi penyerang untuk melakukan eksploitasi melalui teknik yang dikenal sebagai <strong data-start=\"460\" data-end=\"477\">DLL Hijacking</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"480\" data-end=\"807\"><span style=\"color: #000000;\">DLL Hijacking adalah metode serangan di mana penyerang menempatkan file DLL berbahaya pada lokasi tertentu sehingga aplikasi memuat file tersebut <strong data-start=\"626\" data-end=\"681\">alih-alih memuat DLL asli yang seharusnya digunakan</strong>. Ketika aplikasi dijalankan, sistem secara tidak sadar akan mengeksekusi kode berbahaya yang telah disisipkan oleh penyerang.</span></p>\n<p style=\"text-align: justify;\" data-start=\"809\" data-end=\"1076\"><span style=\"color: #000000;\">Teknik ini sering digunakan dalam berbagai serangan malware karena relatif mudah dilakukan jika konfigurasi sistem atau aplikasi tidak aman. Oleh karena itu, memahami bagaimana DLL Hijacking bekerja menjadi langkah penting dalam meningkatkan keamanan sistem komputer.</span></p>\n<hr data-start=\"1078\" data-end=\"1081\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"zurih0\" data-start=\"1083\" data-end=\"1108\"><span style=\"color: #000000;\">Apa Itu DLL Hijacking?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1110\" data-end=\"1237\"><span style=\"color: #000000;\"><strong data-start=\"1110\" data-end=\"1127\">DLL Hijacking</strong> adalah teknik eksploitasi keamanan yang memanfaatkan cara sistem operasi Windows mencari dan memuat file DLL.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1239\" data-end=\"1570\"><span style=\"color: #000000;\">Ketika sebuah aplikasi membutuhkan DLL tertentu, Windows akan mencarinya berdasarkan <strong data-start=\"1324\" data-end=\"1372\">urutan pencarian tertentu (DLL search order)</strong>. Jika penyerang berhasil menempatkan file DLL berbahaya pada lokasi yang diprioritaskan dalam proses pencarian tersebut, maka aplikasi dapat secara tidak sengaja memuat DLL yang telah dimodifikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1572\" data-end=\"1674\"><span style=\"color: #000000;\">Akibatnya, kode berbahaya dapat dijalankan dengan hak akses yang sama seperti aplikasi yang memuatnya.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1676\" data-end=\"2011\"><span style=\"color: #000000;\">Menurut dokumentasi keamanan Microsoft, kerentanan ini sering terjadi ketika aplikasi memuat DLL tanpa menentukan path yang aman, sehingga memungkinkan penyerang menempatkan DLL berbahaya dalam direktori yang dapat diakses oleh aplikasi (dikutip dari <a href=\"https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-security\">microsoft</a>).</span></p>\n<blockquote>\n<p data-start=\"1676\" data-end=\"2011\">baca juga : <a href=\"https://buletinsiber.com/reentrancy-attack-celah-berbahaya-dalam-smart-contract-blockchain/\">Reentrancy Attack: Celah Berbahaya dalam Smart Contract Blockchain</a></p>\n</blockquote>\n<hr data-start=\"2013\" data-end=\"2016\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"1eq5pn9\" data-start=\"2018\" data-end=\"2056\"><span style=\"color: #000000;\">Bagaimana Cara Kerja DLL Hijacking?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2058\" data-end=\"2181\"><span style=\"color: #000000;\">Untuk memahami serangan ini, penting untuk mengetahui bagaimana Windows mencari file DLL ketika sebuah aplikasi dijalankan.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2183\" data-end=\"2242\"><span style=\"color: #000000;\">Secara umum, Windows akan mencari DLL dalam urutan berikut:</span></p>\n<ol style=\"text-align: justify;\" data-start=\"2244\" data-end=\"2397\">\n<li data-section-id=\"vbty53\" data-start=\"2244\" data-end=\"2285\">\n<p data-start=\"2247\" data-end=\"2285\"><span style=\"color: #000000;\">Direktori tempat aplikasi dijalankan</span></p>\n</li>\n<li data-section-id=\"6y18i\" data-start=\"2286\" data-end=\"2315\">\n<p data-start=\"2289\" data-end=\"2315\"><span style=\"color: #000000;\">Direktori sistem Windows</span></p>\n</li>\n<li data-section-id=\"gcrws6\" data-start=\"2316\" data-end=\"2338\">\n<p data-start=\"2319\" data-end=\"2338\"><span style=\"color: #000000;\">Direktori Windows</span></p>\n</li>\n<li data-section-id=\"rklyg2\" data-start=\"2339\" data-end=\"2397\">\n<p data-start=\"2342\" data-end=\"2397\"><span style=\"color: #000000;\">Direktori yang terdaftar dalam variabel lingkungan PATH</span></p>\n</li>\n</ol>\n<p style=\"text-align: justify;\" data-start=\"2399\" data-end=\"2517\"><span style=\"color: #000000;\">Jika sebuah aplikasi memanggil DLL tanpa menentukan jalur lengkapnya, sistem akan mengikuti urutan pencarian tersebut.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2519\" data-end=\"2759\"><span style=\"color: #000000;\">Penyerang dapat memanfaatkan kondisi ini dengan cara menempatkan <strong data-start=\"2584\" data-end=\"2654\">DLL berbahaya pada direktori yang lebih dulu diperiksa oleh sistem</strong>. Ketika aplikasi berjalan, file tersebut akan dimuat terlebih dahulu dan kode berbahaya akan dieksekusi.</span></p>\n<hr data-start=\"2761\" data-end=\"2764\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"bueeum\" data-start=\"2766\" data-end=\"2794\"><span style=\"color: #000000;\">Jenis-Jenis DLL Hijacking</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2796\" data-end=\"2870\"><span style=\"color: #000000;\">Dalam praktiknya, DLL Hijacking memiliki beberapa variasi metode serangan.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"1qi31nk\" data-start=\"2872\" data-end=\"2902\"><span style=\"color: #000000;\">DLL Search Order Hijacking</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2904\" data-end=\"2953\"><span style=\"color: #000000;\">Ini adalah bentuk paling umum dari DLL Hijacking.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2955\" data-end=\"3161\"><span style=\"color: #000000;\">Penyerang menempatkan DLL berbahaya dalam direktori yang berada lebih awal dalam urutan pencarian Windows. Ketika aplikasi memanggil DLL yang tidak memiliki path absolut, sistem akan memuat file yang salah.</span></p>\n<hr data-start=\"3163\" data-end=\"3166\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"l241hd\" data-start=\"3168\" data-end=\"3193\"><span style=\"color: #000000;\">Phantom DLL Hijacking</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3195\" data-end=\"3303\"><span style=\"color: #000000;\">Phantom DLL Hijacking terjadi ketika aplikasi mencoba memuat DLL yang sebenarnya <strong data-start=\"3276\" data-end=\"3302\">tidak ada dalam sistem</strong>.</span></p>\n<h6 style=\"text-align: justify;\" data-start=\"3305\" data-end=\"3320\"><span style=\"color: #000000;\">Cara Kerja</span></h6>\n<p style=\"text-align: justify;\" data-start=\"3322\" data-end=\"3526\"><span style=\"color: #000000;\">Jika penyerang mengetahui nama DLL yang dicari oleh aplikasi tetapi tidak tersedia di sistem, mereka dapat membuat DLL dengan nama tersebut dan menempatkannya pada lokasi yang dapat diakses oleh aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3528\" data-end=\"3579\"><span style=\"color: #000000;\">Akibatnya, aplikasi akan memuat DLL palsu tersebut.</span></p>\n<hr data-start=\"3581\" data-end=\"3584\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"rcbz82\" data-start=\"3586\" data-end=\"3606\"><span style=\"color: #000000;\">DLL Side-Loading</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3608\" data-end=\"3771\"><span style=\"color: #000000;\">DLL Side-Loading adalah teknik di mana penyerang memanfaatkan aplikasi yang sah untuk memuat DLL berbahaya yang ditempatkan di direktori yang sama dengan aplikasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3773\" data-end=\"3897\"><span style=\"color: #000000;\">Metode ini sering digunakan oleh malware karena <strong data-start=\"3821\" data-end=\"3896\">dapat menyamarkan aktivitas berbahaya di balik aplikasi yang terpercaya</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"3899\" data-end=\"4113\"><span style=\"color: #000000;\">Menurut MITRE ATT&amp;CK, teknik ini sering digunakan oleh berbagai kelompok malware untuk menjalankan kode berbahaya tanpa terdeteksi oleh sistem keamanan (dikutip dari <a href=\"https://attack.mitre.org/techniques/T1574/001/\">MITRE</a>).</span></p>\n<blockquote>\n<p data-start=\"3899\" data-end=\"4113\">baca juga : <a href=\"https://buletinsiber.com/port-security-cara-melindungi-jaringan-dari-akses-tidak-sah/\">Port Security: Cara Melindungi Jaringan dari Akses Tidak Sah</a></p>\n</blockquote>\n<hr data-start=\"4115\" data-end=\"4118\" />\n<h3 style=\"text-align: justify;\" data-section-id=\"4nthjv\" data-start=\"4120\" data-end=\"4159\"><span style=\"color: #000000;\">Dampak DLL Hijacking terhadap Sistem</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4161\" data-end=\"4250\"><span style=\"color: #000000;\">Serangan DLL Hijacking dapat menimbulkan berbagai dampak serius terhadap keamanan sistem.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4252\" data-end=\"4283\"><span style=\"color: #000000;\">Beberapa di antaranya meliputi:</span></p>\n<p style=\"text-align: justify;\" data-start=\"4285\" data-end=\"4398\"><span style=\"color: #000000;\"><strong data-start=\"4285\" data-end=\"4323\">1. Eksekusi Malware Tanpa Disadari</strong></span><br data-start=\"4323\" data-end=\"4326\" /><span style=\"color: #000000;\">Aplikasi dapat menjalankan kode berbahaya tanpa diketahui oleh pengguna.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4400\" data-end=\"4516\"><span style=\"color: #000000;\"><strong data-start=\"4400\" data-end=\"4425\">2. Eskalasi Hak Akses</strong></span><br data-start=\"4425\" data-end=\"4428\" /><span style=\"color: #000000;\">Jika aplikasi memiliki hak akses tinggi, penyerang dapat memperoleh akses administratif.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4518\" data-end=\"4637\"><span style=\"color: #000000;\"><strong data-start=\"4518\" data-end=\"4553\">3. Penyebaran Malware di Sistem</strong></span><br data-start=\"4553\" data-end=\"4556\" /><span style=\"color: #000000;\">DLL berbahaya dapat digunakan untuk menyebarkan malware ke bagian sistem lainnya.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4639\" data-end=\"4765\"><span style=\"color: #000000;\"><strong data-start=\"4639\" data-end=\"4677\">4. Penyusupan ke Sistem Organisasi</strong></span><br data-start=\"4677\" data-end=\"4680\" /><span style=\"color: #000000;\">Serangan ini sering dimanfaatkan dalam kampanye <strong data-start=\"4728\" data-end=\"4764\">Advanced Persistent Threat (APT)</strong>.</span></p>\n<hr data-start=\"4767\" data-end=\"4770\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1vt2zy4\" data-start=\"4772\" data-end=\"4802\"><span style=\"color: #000000;\">Cara Mencegah DLL Hijacking</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4804\" data-end=\"4930\"><span style=\"color: #000000;\">Untuk mengurangi risiko DLL Hijacking, beberapa langkah keamanan dapat diterapkan oleh pengembang maupun administrator sistem.</span></p>\n<h4 style=\"text-align: justify;\" data-section-id=\"1d1lpq9\" data-start=\"4932\" data-end=\"4960\"><span style=\"color: #000000;\">Menggunakan Path Absolut</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4962\" data-end=\"5125\"><span style=\"color: #000000;\">Pengembang sebaiknya menentukan <strong data-start=\"4994\" data-end=\"5027\">jalur lengkap (absolute path)</strong> ketika memanggil DLL, sehingga sistem tidak perlu mencari file tersebut melalui urutan pencarian.</span></p>\n<hr data-start=\"5127\" data-end=\"5130\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"oqx5f\" data-start=\"5132\" data-end=\"5165\"><span style=\"color: #000000;\">Membatasi Hak Akses Direktori</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5167\" data-end=\"5303\"><span style=\"color: #000000;\">Direktori tempat aplikasi berjalan harus memiliki <strong data-start=\"5217\" data-end=\"5239\">hak akses terbatas</strong>, sehingga pengguna biasa tidak dapat menambahkan file DLL baru.</span></p>\n<hr data-start=\"5305\" data-end=\"5308\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"1iv09xm\" data-start=\"5310\" data-end=\"5347\"><span style=\"color: #000000;\">Mengaktifkan Safe DLL Search Mode</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5349\" data-end=\"5488\"><span style=\"color: #000000;\">Windows menyediakan fitur <strong data-start=\"5375\" data-end=\"5399\">Safe DLL Search Mode</strong> yang mengubah urutan pencarian DLL agar lebih aman dan memprioritaskan direktori sistem.</span></p>\n<hr data-start=\"5490\" data-end=\"5493\" />\n<h4 style=\"text-align: justify;\" data-section-id=\"i7iqg0\" data-start=\"5495\" data-end=\"5535\"><span style=\"color: #000000;\">Menggunakan Solusi Keamanan Endpoint</span></h4>\n<p style=\"text-align: justify;\" data-start=\"5537\" data-end=\"5679\"><span style=\"color: #000000;\">Antivirus atau <strong data-start=\"5552\" data-end=\"5593\">Endpoint Detection and Response (EDR)</strong> dapat membantu mendeteksi aktivitas mencurigakan terkait pemuatan DLL yang tidak sah.</span></p>\n<blockquote>\n<p data-start=\"5537\" data-end=\"5679\">baca juga : <a href=\"https://buletinsiber.com/heap-spraying-teknik-eksploitasi-memori-yang-membuka-jalan-bagi-malware/\">Heap Spraying: Teknik Eksploitasi Memori yang Membuka Jalan bagi Malware</a></p>\n</blockquote>\n<hr data-start=\"5681\" data-end=\"5684\" />\n<h2 style=\"text-align: justify;\" data-section-id=\"1806px6\" data-start=\"5686\" data-end=\"5699\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"5701\" data-end=\"5956\"><span style=\"color: #000000;\">DLL Hijacking merupakan teknik serangan yang memanfaatkan cara sistem operasi Windows mencari dan memuat file DLL. Dengan menempatkan DLL berbahaya pada lokasi tertentu, penyerang dapat membuat aplikasi memuat file tersebut dan menjalankan kode berbahaya.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5958\" data-end=\"6249\"><span style=\"color: #000000;\">Serangan ini sering digunakan dalam berbagai kampanye malware karena dapat menyusup melalui aplikasi yang sah tanpa langsung terlihat mencurigakan. Jika tidak ditangani dengan baik, DLL Hijacking dapat menyebabkan eksekusi malware, eskalasi hak akses, hingga penyusupan ke sistem organisasi.</span></p>\n<p style=\"text-align: justify;\" data-start=\"6251\" data-end=\"6455\"><span style=\"color: #000000;\">Oleh karena itu, penerapan praktik keamanan seperti penggunaan path absolut, pembatasan hak akses direktori, serta penggunaan solusi keamanan endpoint sangat penting untuk mencegah eksploitasi teknik ini.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dalam sistem operasi Windows, banyak aplikasi bergantung pada file Dynamic Link Library (DLL) untuk menjalankan berbagai fungsi penting. File DLL memungkinkan program berbagi kode yang sama sehingga aplikasi dapat berjalan lebih efisien dan ringan. Namun, mekanisme ini juga membuka peluang bagi penyerang untuk melakukan eksploitasi melalui teknik yang dikenal sebagai DLL Hijacking. DLL Hijacking adalah metode serangan di mana penyerang menempatkan file DLL berbahaya pada lokasi tertentu sehingga aplikasi memuat file tersebut alih-alih memuat DLL asli yang seharusnya digunakan. Ketika aplikasi dijalankan, sistem secara tidak sadar akan mengeksekusi kode berbahaya yang telah disisipkan oleh penyerang. Teknik ini sering digunakan&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 4011,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "DLL Hijacking",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      1097,
+      478,
+      682,
+      800
+    ],
+    "class_list": [
+      "post-9723",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-dll",
+      "tag-hijacking",
+      "tag-keamanan",
+      "tag-windows"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dalam sistem operasi Windows, banyak aplikasi bergantung pada file Dynamic Link Library (DLL) untuk menjalankan berbagai fungsi penting. File DLL memungkinkan program berbagi kode yang sama sehingga aplikasi dapat berjalan lebih efisien dan ringan. Namun, mekanisme ini juga membuka peluang bagi penyerang untuk melakukan eksploitasi melalui teknik yang dikenal sebagai DLL Hijacking. DLL Hijacking adalah metode serangan di mana penyerang menempatkan file DLL berbahaya pada lokasi tertentu sehingga aplikasi memuat file tersebut alih-alih memuat DLL asli yang seharusnya digunakan. Ketika aplikasi dijalankan, sistem secara tidak sadar akan mengeksekusi kode berbahaya yang telah disisipkan oleh penyerang. Teknik ini sering digunakan...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-03-12T01:14:30+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:55:14+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2000\" />\n\t<meta property=\"og:image:height\" content=\"1125\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/\",\"url\":\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/\",\"name\":\"DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg\",\"datePublished\":\"2026-03-12T01:14:30+00:00\",\"dateModified\":\"2026-07-06T20:55:14+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg\",\"width\":2000,\"height\":1125},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows - buletinsiber.com",
+      "og_description": "Pengantar Dalam sistem operasi Windows, banyak aplikasi bergantung pada file Dynamic Link Library (DLL) untuk menjalankan berbagai fungsi penting. File DLL memungkinkan program berbagi kode yang sama sehingga aplikasi dapat berjalan lebih efisien dan ringan. Namun, mekanisme ini juga membuka peluang bagi penyerang untuk melakukan eksploitasi melalui teknik yang dikenal sebagai DLL Hijacking. DLL Hijacking adalah metode serangan di mana penyerang menempatkan file DLL berbahaya pada lokasi tertentu sehingga aplikasi memuat file tersebut alih-alih memuat DLL asli yang seharusnya digunakan. Ketika aplikasi dijalankan, sistem secara tidak sadar akan mengeksekusi kode berbahaya yang telah disisipkan oleh penyerang. Teknik ini sering digunakan...",
+      "og_url": "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-03-12T01:14:30+00:00",
+      "article_modified_time": "2026-07-06T20:55:14+00:00",
+      "og_image": [
+        {
+          "width": 2000,
+          "height": 1125,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/",
+            "url": "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/",
+            "name": "DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg",
+            "datePublished": "2026-03-12T01:14:30+00:00",
+            "dateModified": "2026-07-06T20:55:14+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1697102-virtualizing-the-digital-forensics-lab.jpg",
+            "width": 2000,
+            "height": 1125
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/dll-hijacking-teknik-serangan-yang-menyusup-melalui-library-windows/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "DLL Hijacking: Teknik Serangan yang Menyusup Melalui Library Windows"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9723",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9723"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9723/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9724,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9723/revisions/9724"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4011"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9723"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9723"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9723"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

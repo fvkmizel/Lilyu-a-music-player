@@ -1,0 +1,324 @@
+{
+  "id": 13389,
+  "title": "Deteksi Injeksi SQL Menggunakan Jaringan Saraf Tiruan",
+  "slug": "deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan",
+  "url": "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/",
+  "date": "2026-07-28T12:06:44",
+  "date_gmt": "2026-07-28T12:06:44",
+  "modified": "2026-07-28T12:06:44",
+  "modified_gmt": "2026-07-28T12:06:44",
+  "author": {
+    "id": 18,
+    "name": "Putri Adinda"
+  },
+  "categories": [
+    {
+      "id": 2237,
+      "name": "Cybersecurity"
+    }
+  ],
+  "tags": [
+    122,
+    185,
+    196,
+    513
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/24.jpg",
+  "excerpt": "Pendahuluan Aplikasi web menjadi bagian penting dalam berbagai layanan digital, mulai dari sistem perbankan, e-commerce, pendidikan, hingga pemerintahan. Di balik kemudahan tersebut, terdapat berbagai ancaman keamanan yang dapat dimanfaatkan oleh pelaku kejahatan siber. Salah satu serangan yang masih sering ditemukan adalah SQL Injection (SQLi). SQL Injection terjadi ketika penyerang memasukkan perintah SQL berbahaya melalui formulir, URL, atau parameter aplikasi untuk memanipulasi database. Jika berhasil, serangan ini dapat menyebabkan pencurian data, perubahan informasi, hingga pengambilalihan sistem. Untuk meningkatkan kemampuan deteksi, banyak sistem keamanan modern mulai memanfaatkan Jaringan Saraf Tiruan (Artificial Neural Network/ANN). Teknologi ini mampu mempelajari pola serangan dan membedakan permintaan…",
+  "content_html": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-start=\"99\" data-end=\"113\">Pendahuluan</h2>\n<p data-start=\"115\" data-end=\"454\">Aplikasi web menjadi bagian penting dalam berbagai layanan digital, mulai dari sistem perbankan, e-commerce, pendidikan, hingga pemerintahan. Di balik kemudahan tersebut, terdapat berbagai ancaman keamanan yang dapat dimanfaatkan oleh pelaku kejahatan siber. Salah satu serangan yang masih sering ditemukan adalah <strong data-start=\"429\" data-end=\"453\">SQL Injection (SQLi)</strong>.</p>\n<p data-start=\"456\" data-end=\"718\">SQL Injection terjadi ketika penyerang memasukkan perintah SQL berbahaya melalui formulir, URL, atau parameter aplikasi untuk memanipulasi database. Jika berhasil, serangan ini dapat menyebabkan pencurian data, perubahan informasi, hingga pengambilalihan sistem.</p>\n<p data-start=\"720\" data-end=\"999\">Untuk meningkatkan kemampuan deteksi, banyak sistem keamanan modern mulai memanfaatkan <strong data-start=\"807\" data-end=\"864\">Jaringan Saraf Tiruan (Artificial Neural Network/ANN)</strong>. Teknologi ini mampu mempelajari pola serangan dan membedakan permintaan yang normal dengan yang berpotensi berbahaya secara otomatis.</p>\n<h2 data-start=\"1001\" data-end=\"1026\">Mengenal SQL Injection</h2>\n<p data-start=\"1028\" data-end=\"1252\">SQL Injection merupakan teknik serangan yang memanfaatkan kelemahan validasi input pada aplikasi web. Penyerang menyisipkan perintah SQL ke dalam masukan pengguna sehingga database menjalankan perintah yang tidak semestinya.</p>\n<p data-start=\"1254\" data-end=\"1305\">Beberapa dampak yang dapat ditimbulkan antara lain:</p>\n<ul data-start=\"1307\" data-end=\"1479\">\n<li data-start=\"1307\" data-end=\"1344\">Membaca data rahasia dari database.</li>\n<li data-start=\"1345\" data-end=\"1376\">Mengubah atau menghapus data.</li>\n<li data-start=\"1377\" data-end=\"1407\">Melewati proses autentikasi.</li>\n<li data-start=\"1408\" data-end=\"1444\">Mengambil alih hak akses pengguna.</li>\n<li data-start=\"1445\" data-end=\"1479\">Mengganggu operasional aplikasi.</li>\n</ul>\n<p data-start=\"1481\" data-end=\"1643\">Walaupun praktik pengembangan aplikasi semakin baik, SQL Injection masih menjadi ancaman terutama pada sistem yang belum menerapkan validasi input secara optimal.</p>\n<h2 data-start=\"1645\" data-end=\"1672\">Mengapa Sulit Dideteksi?</h2>\n<p data-start=\"1674\" data-end=\"1887\">Metode deteksi tradisional umumnya menggunakan aturan (<em data-start=\"1729\" data-end=\"1751\">rule-based detection</em>) atau daftar pola serangan (<em data-start=\"1780\" data-end=\"1791\">signature</em>). Pendekatan ini cukup efektif untuk serangan yang sudah dikenal, tetapi memiliki keterbatasan.</p>\n<p data-start=\"1889\" data-end=\"1948\">Beberapa tantangan dalam mendeteksi SQL Injection meliputi:</p>\n<p data-start=\"1950\" data-end=\"1975\"><strong data-start=\"1950\" data-end=\"1975\">Variasi Pola Serangan</strong></p>\n<p data-start=\"1977\" data-end=\"2056\">Penyerang dapat memodifikasi sintaks SQL agar lolos dari aturan yang sudah ada.</p>\n<p data-start=\"2058\" data-end=\"2080\"><strong data-start=\"2058\" data-end=\"2080\">Teknik Obfuscation</strong></p>\n<p data-start=\"2082\" data-end=\"2184\">Karakter tertentu dapat disamarkan menggunakan encoding atau kombinasi simbol sehingga sulit dikenali.</p>\n<p data-start=\"2186\" data-end=\"2207\"><strong data-start=\"2186\" data-end=\"2207\">Serangan Zero-Day</strong></p>\n<p data-start=\"2209\" data-end=\"2273\">Teknik baru sering kali belum tercakup dalam database signature.</p>\n<p data-start=\"2275\" data-end=\"2308\"><strong data-start=\"2275\" data-end=\"2308\">Volume Permintaan yang Tinggi</strong></p>\n<p data-start=\"2310\" data-end=\"2409\">Website modern menerima ribuan permintaan setiap menit sehingga analisis manual tidak memungkinkan.</p>\n<h2 data-start=\"2411\" data-end=\"2441\">Peran Jaringan Saraf Tiruan</h2>\n<p data-start=\"2443\" data-end=\"2553\">Jaringan Saraf Tiruan mampu mempelajari karakteristik permintaan web tanpa hanya bergantung pada aturan tetap.</p>\n<p data-start=\"2555\" data-end=\"2607\">Model dapat menganalisis berbagai informasi seperti:</p>\n<ul data-start=\"2609\" data-end=\"2750\">\n<li data-start=\"2609\" data-end=\"2625\">Parameter URL.</li>\n<li data-start=\"2626\" data-end=\"2641\">Isi formulir.</li>\n<li data-start=\"2642\" data-end=\"2672\">Query yang dikirim aplikasi.</li>\n<li data-start=\"2673\" data-end=\"2700\">Pola karakter pada input.</li>\n<li data-start=\"2701\" data-end=\"2722\">Panjang permintaan.</li>\n<li data-start=\"2723\" data-end=\"2750\">Frekuensi akses pengguna.</li>\n</ul>\n<p data-start=\"2752\" data-end=\"2855\">Melalui proses pembelajaran, model dapat mengenali pola yang sering muncul pada serangan SQL Injection.</p>\n<h2 data-start=\"2857\" data-end=\"2885\">Cara Kerja Sistem Deteksi</h2>\n<h3 data-start=\"2887\" data-end=\"2907\">Pengumpulan Data</h3>\n<p data-start=\"2909\" data-end=\"2995\">Tahap pertama adalah mengumpulkan data permintaan HTTP yang berasal dari aplikasi web.</p>\n<p data-start=\"2997\" data-end=\"3015\">Data dapat berupa:</p>\n<ul data-start=\"3017\" data-end=\"3109\">\n<li data-start=\"3017\" data-end=\"3023\">URL.</li>\n<li data-start=\"3024\" data-end=\"3049\">Parameter GET dan POST.</li>\n<li data-start=\"3050\" data-end=\"3064\">Header HTTP.</li>\n<li data-start=\"3065\" data-end=\"3078\">Log server.</li>\n<li data-start=\"3079\" data-end=\"3109\">Riwayat permintaan pengguna.</li>\n</ul>\n<h3 data-start=\"3111\" data-end=\"3134\">Pra-pemrosesan Data</h3>\n<p data-start=\"3136\" data-end=\"3232\">Sebelum dianalisis, data dibersihkan dan diubah menjadi format yang dapat dipelajari oleh model.</p>\n<p data-start=\"3234\" data-end=\"3261\">Tahapan ini dapat mencakup:</p>\n<ul data-start=\"3263\" data-end=\"3367\">\n<li data-start=\"3263\" data-end=\"3285\">Tokenisasi karakter.</li>\n<li data-start=\"3286\" data-end=\"3305\">Normalisasi teks.</li>\n<li data-start=\"3306\" data-end=\"3324\">Ekstraksi fitur.</li>\n<li data-start=\"3325\" data-end=\"3367\">Penghapusan karakter yang tidak relevan.</li>\n</ul>\n<h3 data-start=\"3369\" data-end=\"3388\">Pelatihan Model</h3>\n<p data-start=\"3390\" data-end=\"3527\">Model jaringan saraf dilatih menggunakan kumpulan data yang berisi contoh permintaan normal dan permintaan yang mengandung SQL Injection.</p>\n<p data-start=\"3529\" data-end=\"3613\">Selama proses ini, model belajar membedakan karakteristik kedua jenis data tersebut.</p>\n<h3 data-start=\"3615\" data-end=\"3643\">Deteksi Secara Real-Time</h3>\n<p data-start=\"3645\" data-end=\"3728\">Ketika aplikasi menerima permintaan baru, model melakukan analisis secara langsung.</p>\n<p data-start=\"3730\" data-end=\"3853\">Jika ditemukan pola yang menyerupai SQL Injection, sistem dapat memberikan skor risiko dan menentukan tindakan selanjutnya.</p>\n<h2 data-start=\"3855\" data-end=\"3895\">Penerapan dalam Keamanan Aplikasi Web</h2>\n<p data-start=\"3897\" data-end=\"3966\">Jaringan Saraf Tiruan dapat diterapkan pada berbagai sistem keamanan.</p>\n<p data-start=\"3968\" data-end=\"4002\"><strong data-start=\"3968\" data-end=\"4002\">Web Application Firewall (WAF)</strong></p>\n<p data-start=\"4004\" data-end=\"4087\">Membantu WAF mengenali pola serangan yang tidak terdapat dalam aturan konvensional.</p>\n<p data-start=\"4089\" data-end=\"4125\"><strong data-start=\"4089\" data-end=\"4125\">Intrusion Detection System (IDS)</strong></p>\n<p data-start=\"4127\" data-end=\"4182\">Mendeteksi percobaan eksploitasi terhadap aplikasi web.</p>\n<p data-start=\"4184\" data-end=\"4200\"><strong data-start=\"4184\" data-end=\"4200\">API Security</strong></p>\n<p data-start=\"4202\" data-end=\"4279\">Melindungi layanan API dari parameter yang mengandung perintah SQL berbahaya.</p>\n<p data-start=\"4281\" data-end=\"4317\"><strong data-start=\"4281\" data-end=\"4317\">Security Operations Center (SOC)</strong></p>\n<p data-start=\"4319\" data-end=\"4417\">Memberikan informasi kepada analis keamanan mengenai aktivitas yang berpotensi menyerang database.</p>\n<h2 data-start=\"4419\" data-end=\"4466\">Keunggulan Menggunakan Jaringan Saraf Tiruan</h2>\n<h3 data-start=\"4468\" data-end=\"4498\">Adaptif terhadap Pola Baru</h3>\n<p data-start=\"4500\" data-end=\"4576\">Model dapat mengenali variasi serangan yang belum pernah ditemui sebelumnya.</p>\n<h3 data-start=\"4578\" data-end=\"4602\">Meningkatkan Akurasi</h3>\n<p data-start=\"4604\" data-end=\"4730\">Analisis dilakukan berdasarkan pola data sehingga mampu mengurangi kesalahan deteksi dibandingkan metode berbasis aturan saja.</p>\n<h3 data-start=\"4732\" data-end=\"4764\">Mendukung Analisis Real-Time</h3>\n<p data-start=\"4766\" data-end=\"4841\">Permintaan web dapat diperiksa dengan cepat sebelum diproses oleh aplikasi.</p>\n<h3 data-start=\"4843\" data-end=\"4877\">Mengurangi Beban Administrator</h3>\n<p data-start=\"4879\" data-end=\"4998\">Proses identifikasi ancaman dilakukan secara otomatis sehingga administrator dapat lebih fokus pada penanganan insiden.</p>\n<h2 data-start=\"5000\" data-end=\"5025\">Tantangan Implementasi</h2>\n<p data-start=\"5027\" data-end=\"5120\">Penerapan Jaringan Saraf Tiruan dalam deteksi SQL Injection juga memiliki beberapa tantangan.</p>\n<p data-start=\"5122\" data-end=\"5144\">Beberapa di antaranya:</p>\n<ul data-start=\"5146\" data-end=\"5356\">\n<li data-start=\"5146\" data-end=\"5191\">Membutuhkan dataset pelatihan yang beragam.</li>\n<li data-start=\"5192\" data-end=\"5236\">Risiko false positive masih dapat terjadi.</li>\n<li data-start=\"5237\" data-end=\"5296\">Model harus diperbarui mengikuti teknik serangan terbaru.</li>\n<li data-start=\"5297\" data-end=\"5356\">Membutuhkan sumber daya komputasi untuk proses pelatihan.</li>\n</ul>\n<p data-start=\"5358\" data-end=\"5563\">Karena itu, teknologi ini sebaiknya digunakan bersama praktik keamanan lain seperti validasi input, <em data-start=\"5458\" data-end=\"5478\">prepared statement</em>, <em data-start=\"5480\" data-end=\"5501\">parameterized query</em>, pembatasan hak akses database, dan Web Application Firewall.</p>\n<h2 data-start=\"5565\" data-end=\"5578\">Kesimpulan</h2>\n<p data-start=\"5580\" data-end=\"5851\">Deteksi SQL Injection menggunakan <strong data-start=\"5614\" data-end=\"5639\">Jaringan Saraf Tiruan</strong> memberikan pendekatan yang lebih adaptif dibandingkan metode tradisional. Dengan kemampuan mempelajari pola permintaan web, teknologi ini dapat membantu mengenali berbagai variasi serangan yang terus berkembang.</p>\n<p data-start=\"5853\" data-end=\"6062\">Kombinasi antara Neural Network, pengembangan aplikasi yang aman, serta sistem keamanan berlapis akan meningkatkan perlindungan terhadap database dan menjaga aplikasi web tetap aman dari ancaman SQL Injection.</p>\n",
+  "content_text": "Pendahuluan\nAplikasi web menjadi bagian penting dalam berbagai layanan digital, mulai dari sistem perbankan, e-commerce, pendidikan, hingga pemerintahan. Di balik kemudahan tersebut, terdapat berbagai ancaman keamanan yang dapat dimanfaatkan oleh pelaku kejahatan siber. Salah satu serangan yang masih sering ditemukan adalah  SQL Injection (SQLi) .\nSQL Injection terjadi ketika penyerang memasukkan perintah SQL berbahaya melalui formulir, URL, atau parameter aplikasi untuk memanipulasi database. Jika berhasil, serangan ini dapat menyebabkan pencurian data, perubahan informasi, hingga pengambilalihan sistem.\nUntuk meningkatkan kemampuan deteksi, banyak sistem keamanan modern mulai memanfaatkan  Jaringan Saraf Tiruan (Artificial Neural Network/ANN) . Teknologi ini mampu mempelajari pola serangan dan membedakan permintaan yang normal dengan yang berpotensi berbahaya secara otomatis.\nMengenal SQL Injection\nSQL Injection merupakan teknik serangan yang memanfaatkan kelemahan validasi input pada aplikasi web. Penyerang menyisipkan perintah SQL ke dalam masukan pengguna sehingga database menjalankan perintah yang tidak semestinya.\nBeberapa dampak yang dapat ditimbulkan antara lain:\nMembaca data rahasia dari database.\nMengubah atau menghapus data.\nMelewati proses autentikasi.\nMengambil alih hak akses pengguna.\nMengganggu operasional aplikasi.\nWalaupun praktik pengembangan aplikasi semakin baik, SQL Injection masih menjadi ancaman terutama pada sistem yang belum menerapkan validasi input secara optimal.\nMengapa Sulit Dideteksi?\nMetode deteksi tradisional umumnya menggunakan aturan ( rule-based detection ) atau daftar pola serangan ( signature ). Pendekatan ini cukup efektif untuk serangan yang sudah dikenal, tetapi memiliki keterbatasan.\nBeberapa tantangan dalam mendeteksi SQL Injection meliputi:\nVariasi Pola Serangan\nPenyerang dapat memodifikasi sintaks SQL agar lolos dari aturan yang sudah ada.\nTeknik Obfuscation\nKarakter tertentu dapat disamarkan menggunakan encoding atau kombinasi simbol sehingga sulit dikenali.\nSerangan Zero-Day\nTeknik baru sering kali belum tercakup dalam database signature.\nVolume Permintaan yang Tinggi\nWebsite modern menerima ribuan permintaan setiap menit sehingga analisis manual tidak memungkinkan.\nPeran Jaringan Saraf Tiruan\nJaringan Saraf Tiruan mampu mempelajari karakteristik permintaan web tanpa hanya bergantung pada aturan tetap.\nModel dapat menganalisis berbagai informasi seperti:\nParameter URL.\nIsi formulir.\nQuery yang dikirim aplikasi.\nPola karakter pada input.\nPanjang permintaan.\nFrekuensi akses pengguna.\nMelalui proses pembelajaran, model dapat mengenali pola yang sering muncul pada serangan SQL Injection.\nCara Kerja Sistem Deteksi\nPengumpulan Data\nTahap pertama adalah mengumpulkan data permintaan HTTP yang berasal dari aplikasi web.\nData dapat berupa:\nURL.\nParameter GET dan POST.\nHeader HTTP.\nLog server.\nRiwayat permintaan pengguna.\nPra-pemrosesan Data\nSebelum dianalisis, data dibersihkan dan diubah menjadi format yang dapat dipelajari oleh model.\nTahapan ini dapat mencakup:\nTokenisasi karakter.\nNormalisasi teks.\nEkstraksi fitur.\nPenghapusan karakter yang tidak relevan.\nPelatihan Model\nModel jaringan saraf dilatih menggunakan kumpulan data yang berisi contoh permintaan normal dan permintaan yang mengandung SQL Injection.\nSelama proses ini, model belajar membedakan karakteristik kedua jenis data tersebut.\nDeteksi Secara Real-Time\nKetika aplikasi menerima permintaan baru, model melakukan analisis secara langsung.\nJika ditemukan pola yang menyerupai SQL Injection, sistem dapat memberikan skor risiko dan menentukan tindakan selanjutnya.\nPenerapan dalam Keamanan Aplikasi Web\nJaringan Saraf Tiruan dapat diterapkan pada berbagai sistem keamanan.\nWeb Application Firewall (WAF)\nMembantu WAF mengenali pola serangan yang tidak terdapat dalam aturan konvensional.\nIntrusion Detection System (IDS)\nMendeteksi percobaan eksploitasi terhadap aplikasi web.\nAPI Security\nMelindungi layanan API dari parameter yang mengandung perintah SQL berbahaya.\nSecurity Operations Center (SOC)\nMemberikan informasi kepada analis keamanan mengenai aktivitas yang berpotensi menyerang database.\nKeunggulan Menggunakan Jaringan Saraf Tiruan\nAdaptif terhadap Pola Baru\nModel dapat mengenali variasi serangan yang belum pernah ditemui sebelumnya.\nMeningkatkan Akurasi\nAnalisis dilakukan berdasarkan pola data sehingga mampu mengurangi kesalahan deteksi dibandingkan metode berbasis aturan saja.\nMendukung Analisis Real-Time\nPermintaan web dapat diperiksa dengan cepat sebelum diproses oleh aplikasi.\nMengurangi Beban Administrator\nProses identifikasi ancaman dilakukan secara otomatis sehingga administrator dapat lebih fokus pada penanganan insiden.\nTantangan Implementasi\nPenerapan Jaringan Saraf Tiruan dalam deteksi SQL Injection juga memiliki beberapa tantangan.\nBeberapa di antaranya:\nMembutuhkan dataset pelatihan yang beragam.\nRisiko false positive masih dapat terjadi.\nModel harus diperbarui mengikuti teknik serangan terbaru.\nMembutuhkan sumber daya komputasi untuk proses pelatihan.\nKarena itu, teknologi ini sebaiknya digunakan bersama praktik keamanan lain seperti validasi input,  prepared statement ,  parameterized query , pembatasan hak akses database, dan Web Application Firewall.\nKesimpulan\nDeteksi SQL Injection menggunakan  Jaringan Saraf Tiruan  memberikan pendekatan yang lebih adaptif dibandingkan metode tradisional. Dengan kemampuan mempelajari pola permintaan web, teknologi ini dapat membantu mengenali berbagai variasi serangan yang terus berkembang.\nKombinasi antara Neural Network, pengembangan aplikasi yang aman, serta sistem keamanan berlapis akan meningkatkan perlindungan terhadap database dan menjaga aplikasi web tetap aman dari ancaman SQL Injection.",
+  "raw": {
+    "id": 13389,
+    "date": "2026-07-28T12:06:44",
+    "date_gmt": "2026-07-28T12:06:44",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=13389"
+    },
+    "modified": "2026-07-28T12:06:44",
+    "modified_gmt": "2026-07-28T12:06:44",
+    "slug": "deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/",
+    "title": {
+      "rendered": "Deteksi Injeksi SQL Menggunakan Jaringan Saraf Tiruan"
+    },
+    "content": {
+      "rendered": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-start=\"99\" data-end=\"113\">Pendahuluan</h2>\n<p data-start=\"115\" data-end=\"454\">Aplikasi web menjadi bagian penting dalam berbagai layanan digital, mulai dari sistem perbankan, e-commerce, pendidikan, hingga pemerintahan. Di balik kemudahan tersebut, terdapat berbagai ancaman keamanan yang dapat dimanfaatkan oleh pelaku kejahatan siber. Salah satu serangan yang masih sering ditemukan adalah <strong data-start=\"429\" data-end=\"453\">SQL Injection (SQLi)</strong>.</p>\n<p data-start=\"456\" data-end=\"718\">SQL Injection terjadi ketika penyerang memasukkan perintah SQL berbahaya melalui formulir, URL, atau parameter aplikasi untuk memanipulasi database. Jika berhasil, serangan ini dapat menyebabkan pencurian data, perubahan informasi, hingga pengambilalihan sistem.</p>\n<p data-start=\"720\" data-end=\"999\">Untuk meningkatkan kemampuan deteksi, banyak sistem keamanan modern mulai memanfaatkan <strong data-start=\"807\" data-end=\"864\">Jaringan Saraf Tiruan (Artificial Neural Network/ANN)</strong>. Teknologi ini mampu mempelajari pola serangan dan membedakan permintaan yang normal dengan yang berpotensi berbahaya secara otomatis.</p>\n<h2 data-start=\"1001\" data-end=\"1026\">Mengenal SQL Injection</h2>\n<p data-start=\"1028\" data-end=\"1252\">SQL Injection merupakan teknik serangan yang memanfaatkan kelemahan validasi input pada aplikasi web. Penyerang menyisipkan perintah SQL ke dalam masukan pengguna sehingga database menjalankan perintah yang tidak semestinya.</p>\n<p data-start=\"1254\" data-end=\"1305\">Beberapa dampak yang dapat ditimbulkan antara lain:</p>\n<ul data-start=\"1307\" data-end=\"1479\">\n<li data-start=\"1307\" data-end=\"1344\">Membaca data rahasia dari database.</li>\n<li data-start=\"1345\" data-end=\"1376\">Mengubah atau menghapus data.</li>\n<li data-start=\"1377\" data-end=\"1407\">Melewati proses autentikasi.</li>\n<li data-start=\"1408\" data-end=\"1444\">Mengambil alih hak akses pengguna.</li>\n<li data-start=\"1445\" data-end=\"1479\">Mengganggu operasional aplikasi.</li>\n</ul>\n<p data-start=\"1481\" data-end=\"1643\">Walaupun praktik pengembangan aplikasi semakin baik, SQL Injection masih menjadi ancaman terutama pada sistem yang belum menerapkan validasi input secara optimal.</p>\n<h2 data-start=\"1645\" data-end=\"1672\">Mengapa Sulit Dideteksi?</h2>\n<p data-start=\"1674\" data-end=\"1887\">Metode deteksi tradisional umumnya menggunakan aturan (<em data-start=\"1729\" data-end=\"1751\">rule-based detection</em>) atau daftar pola serangan (<em data-start=\"1780\" data-end=\"1791\">signature</em>). Pendekatan ini cukup efektif untuk serangan yang sudah dikenal, tetapi memiliki keterbatasan.</p>\n<p data-start=\"1889\" data-end=\"1948\">Beberapa tantangan dalam mendeteksi SQL Injection meliputi:</p>\n<p data-start=\"1950\" data-end=\"1975\"><strong data-start=\"1950\" data-end=\"1975\">Variasi Pola Serangan</strong></p>\n<p data-start=\"1977\" data-end=\"2056\">Penyerang dapat memodifikasi sintaks SQL agar lolos dari aturan yang sudah ada.</p>\n<p data-start=\"2058\" data-end=\"2080\"><strong data-start=\"2058\" data-end=\"2080\">Teknik Obfuscation</strong></p>\n<p data-start=\"2082\" data-end=\"2184\">Karakter tertentu dapat disamarkan menggunakan encoding atau kombinasi simbol sehingga sulit dikenali.</p>\n<p data-start=\"2186\" data-end=\"2207\"><strong data-start=\"2186\" data-end=\"2207\">Serangan Zero-Day</strong></p>\n<p data-start=\"2209\" data-end=\"2273\">Teknik baru sering kali belum tercakup dalam database signature.</p>\n<p data-start=\"2275\" data-end=\"2308\"><strong data-start=\"2275\" data-end=\"2308\">Volume Permintaan yang Tinggi</strong></p>\n<p data-start=\"2310\" data-end=\"2409\">Website modern menerima ribuan permintaan setiap menit sehingga analisis manual tidak memungkinkan.</p>\n<h2 data-start=\"2411\" data-end=\"2441\">Peran Jaringan Saraf Tiruan</h2>\n<p data-start=\"2443\" data-end=\"2553\">Jaringan Saraf Tiruan mampu mempelajari karakteristik permintaan web tanpa hanya bergantung pada aturan tetap.</p>\n<p data-start=\"2555\" data-end=\"2607\">Model dapat menganalisis berbagai informasi seperti:</p>\n<ul data-start=\"2609\" data-end=\"2750\">\n<li data-start=\"2609\" data-end=\"2625\">Parameter URL.</li>\n<li data-start=\"2626\" data-end=\"2641\">Isi formulir.</li>\n<li data-start=\"2642\" data-end=\"2672\">Query yang dikirim aplikasi.</li>\n<li data-start=\"2673\" data-end=\"2700\">Pola karakter pada input.</li>\n<li data-start=\"2701\" data-end=\"2722\">Panjang permintaan.</li>\n<li data-start=\"2723\" data-end=\"2750\">Frekuensi akses pengguna.</li>\n</ul>\n<p data-start=\"2752\" data-end=\"2855\">Melalui proses pembelajaran, model dapat mengenali pola yang sering muncul pada serangan SQL Injection.</p>\n<h2 data-start=\"2857\" data-end=\"2885\">Cara Kerja Sistem Deteksi</h2>\n<h3 data-start=\"2887\" data-end=\"2907\">Pengumpulan Data</h3>\n<p data-start=\"2909\" data-end=\"2995\">Tahap pertama adalah mengumpulkan data permintaan HTTP yang berasal dari aplikasi web.</p>\n<p data-start=\"2997\" data-end=\"3015\">Data dapat berupa:</p>\n<ul data-start=\"3017\" data-end=\"3109\">\n<li data-start=\"3017\" data-end=\"3023\">URL.</li>\n<li data-start=\"3024\" data-end=\"3049\">Parameter GET dan POST.</li>\n<li data-start=\"3050\" data-end=\"3064\">Header HTTP.</li>\n<li data-start=\"3065\" data-end=\"3078\">Log server.</li>\n<li data-start=\"3079\" data-end=\"3109\">Riwayat permintaan pengguna.</li>\n</ul>\n<h3 data-start=\"3111\" data-end=\"3134\">Pra-pemrosesan Data</h3>\n<p data-start=\"3136\" data-end=\"3232\">Sebelum dianalisis, data dibersihkan dan diubah menjadi format yang dapat dipelajari oleh model.</p>\n<p data-start=\"3234\" data-end=\"3261\">Tahapan ini dapat mencakup:</p>\n<ul data-start=\"3263\" data-end=\"3367\">\n<li data-start=\"3263\" data-end=\"3285\">Tokenisasi karakter.</li>\n<li data-start=\"3286\" data-end=\"3305\">Normalisasi teks.</li>\n<li data-start=\"3306\" data-end=\"3324\">Ekstraksi fitur.</li>\n<li data-start=\"3325\" data-end=\"3367\">Penghapusan karakter yang tidak relevan.</li>\n</ul>\n<h3 data-start=\"3369\" data-end=\"3388\">Pelatihan Model</h3>\n<p data-start=\"3390\" data-end=\"3527\">Model jaringan saraf dilatih menggunakan kumpulan data yang berisi contoh permintaan normal dan permintaan yang mengandung SQL Injection.</p>\n<p data-start=\"3529\" data-end=\"3613\">Selama proses ini, model belajar membedakan karakteristik kedua jenis data tersebut.</p>\n<h3 data-start=\"3615\" data-end=\"3643\">Deteksi Secara Real-Time</h3>\n<p data-start=\"3645\" data-end=\"3728\">Ketika aplikasi menerima permintaan baru, model melakukan analisis secara langsung.</p>\n<p data-start=\"3730\" data-end=\"3853\">Jika ditemukan pola yang menyerupai SQL Injection, sistem dapat memberikan skor risiko dan menentukan tindakan selanjutnya.</p>\n<h2 data-start=\"3855\" data-end=\"3895\">Penerapan dalam Keamanan Aplikasi Web</h2>\n<p data-start=\"3897\" data-end=\"3966\">Jaringan Saraf Tiruan dapat diterapkan pada berbagai sistem keamanan.</p>\n<p data-start=\"3968\" data-end=\"4002\"><strong data-start=\"3968\" data-end=\"4002\">Web Application Firewall (WAF)</strong></p>\n<p data-start=\"4004\" data-end=\"4087\">Membantu WAF mengenali pola serangan yang tidak terdapat dalam aturan konvensional.</p>\n<p data-start=\"4089\" data-end=\"4125\"><strong data-start=\"4089\" data-end=\"4125\">Intrusion Detection System (IDS)</strong></p>\n<p data-start=\"4127\" data-end=\"4182\">Mendeteksi percobaan eksploitasi terhadap aplikasi web.</p>\n<p data-start=\"4184\" data-end=\"4200\"><strong data-start=\"4184\" data-end=\"4200\">API Security</strong></p>\n<p data-start=\"4202\" data-end=\"4279\">Melindungi layanan API dari parameter yang mengandung perintah SQL berbahaya.</p>\n<p data-start=\"4281\" data-end=\"4317\"><strong data-start=\"4281\" data-end=\"4317\">Security Operations Center (SOC)</strong></p>\n<p data-start=\"4319\" data-end=\"4417\">Memberikan informasi kepada analis keamanan mengenai aktivitas yang berpotensi menyerang database.</p>\n<h2 data-start=\"4419\" data-end=\"4466\">Keunggulan Menggunakan Jaringan Saraf Tiruan</h2>\n<h3 data-start=\"4468\" data-end=\"4498\">Adaptif terhadap Pola Baru</h3>\n<p data-start=\"4500\" data-end=\"4576\">Model dapat mengenali variasi serangan yang belum pernah ditemui sebelumnya.</p>\n<h3 data-start=\"4578\" data-end=\"4602\">Meningkatkan Akurasi</h3>\n<p data-start=\"4604\" data-end=\"4730\">Analisis dilakukan berdasarkan pola data sehingga mampu mengurangi kesalahan deteksi dibandingkan metode berbasis aturan saja.</p>\n<h3 data-start=\"4732\" data-end=\"4764\">Mendukung Analisis Real-Time</h3>\n<p data-start=\"4766\" data-end=\"4841\">Permintaan web dapat diperiksa dengan cepat sebelum diproses oleh aplikasi.</p>\n<h3 data-start=\"4843\" data-end=\"4877\">Mengurangi Beban Administrator</h3>\n<p data-start=\"4879\" data-end=\"4998\">Proses identifikasi ancaman dilakukan secara otomatis sehingga administrator dapat lebih fokus pada penanganan insiden.</p>\n<h2 data-start=\"5000\" data-end=\"5025\">Tantangan Implementasi</h2>\n<p data-start=\"5027\" data-end=\"5120\">Penerapan Jaringan Saraf Tiruan dalam deteksi SQL Injection juga memiliki beberapa tantangan.</p>\n<p data-start=\"5122\" data-end=\"5144\">Beberapa di antaranya:</p>\n<ul data-start=\"5146\" data-end=\"5356\">\n<li data-start=\"5146\" data-end=\"5191\">Membutuhkan dataset pelatihan yang beragam.</li>\n<li data-start=\"5192\" data-end=\"5236\">Risiko false positive masih dapat terjadi.</li>\n<li data-start=\"5237\" data-end=\"5296\">Model harus diperbarui mengikuti teknik serangan terbaru.</li>\n<li data-start=\"5297\" data-end=\"5356\">Membutuhkan sumber daya komputasi untuk proses pelatihan.</li>\n</ul>\n<p data-start=\"5358\" data-end=\"5563\">Karena itu, teknologi ini sebaiknya digunakan bersama praktik keamanan lain seperti validasi input, <em data-start=\"5458\" data-end=\"5478\">prepared statement</em>, <em data-start=\"5480\" data-end=\"5501\">parameterized query</em>, pembatasan hak akses database, dan Web Application Firewall.</p>\n<h2 data-start=\"5565\" data-end=\"5578\">Kesimpulan</h2>\n<p data-start=\"5580\" data-end=\"5851\">Deteksi SQL Injection menggunakan <strong data-start=\"5614\" data-end=\"5639\">Jaringan Saraf Tiruan</strong> memberikan pendekatan yang lebih adaptif dibandingkan metode tradisional. Dengan kemampuan mempelajari pola permintaan web, teknologi ini dapat membantu mengenali berbagai variasi serangan yang terus berkembang.</p>\n<p data-start=\"5853\" data-end=\"6062\">Kombinasi antara Neural Network, pengembangan aplikasi yang aman, serta sistem keamanan berlapis akan meningkatkan perlindungan terhadap database dan menjaga aplikasi web tetap aman dari ancaman SQL Injection.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Aplikasi web menjadi bagian penting dalam berbagai layanan digital, mulai dari sistem perbankan, e-commerce, pendidikan, hingga pemerintahan. Di balik kemudahan tersebut, terdapat berbagai ancaman keamanan yang dapat dimanfaatkan oleh pelaku kejahatan siber. Salah satu serangan yang masih sering ditemukan adalah SQL Injection (SQLi). SQL Injection terjadi ketika penyerang memasukkan perintah SQL berbahaya melalui formulir, URL, atau parameter aplikasi untuk memanipulasi database. Jika berhasil, serangan ini dapat menyebabkan pencurian data, perubahan informasi, hingga pengambilalihan sistem. Untuk meningkatkan kemampuan deteksi, banyak sistem keamanan modern mulai memanfaatkan Jaringan Saraf Tiruan (Artificial Neural Network/ANN). Teknologi ini mampu mempelajari pola serangan dan membedakan permintaan&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 18,
+    "featured_media": 13393,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Deteksi SQL Injection Neural Network",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "Pelajari bagaimana jaringan saraf tiruan membantu mendeteksi serangan SQL Injection melalui analisis pola permintaan web dan teknologi kecerdasan buatan.",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      2237
+    ],
+    "tags": [
+      122,
+      185,
+      196,
+      513
+    ],
+    "class_list": [
+      "post-13389",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-cybersecurity",
+      "tag-artificial-intelligence",
+      "tag-cybersecurity",
+      "tag-neural-network",
+      "tag-sql-injection"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Deteksi Injeksi SQL Menggunakan Jaringan Saraf Tiruan - buletinsiber.com</title>\n<meta name=\"description\" content=\"Pelajari bagaimana jaringan saraf tiruan membantu mendeteksi serangan SQL Injection melalui analisis pola permintaan web dan teknologi kecerdasan buatan.\" />\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Deteksi Injeksi SQL Menggunakan Jaringan Saraf Tiruan - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pelajari bagaimana jaringan saraf tiruan membantu mendeteksi serangan SQL Injection melalui analisis pola permintaan web dan teknologi kecerdasan buatan.\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-28T12:06:44+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/24.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"1024\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Putri Adinda\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Putri Adinda\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/\",\"url\":\"https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/\",\"name\":\"Deteksi Injeksi SQL Menggunakan Jaringan Saraf Tiruan - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/24.jpg\",\"datePublished\":\"2026-07-28T12:06:44+00:00\",\"dateModified\":\"2026-07-28T12:06:44+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/79504360a1d6c45900d5ffe2d012137b\"},\"description\":\"Pelajari bagaimana jaringan saraf tiruan membantu mendeteksi serangan SQL Injection melalui analisis pola permintaan web dan teknologi kecerdasan buatan.\",\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/24.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/24.jpg\",\"width\":1024,\"height\":1024},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Deteksi Injeksi SQL Menggunakan Jaringan Saraf Tiruan\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/79504360a1d6c45900d5ffe2d012137b\",\"name\":\"Putri Adinda\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/5eab85f21c2bd0ea32063f023e4cae8bc6fd950f6aa807e6720f64fab7b42c28?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/5eab85f21c2bd0ea32063f023e4cae8bc6fd950f6aa807e6720f64fab7b42c28?s=96&d=mm&r=g\",\"caption\":\"Putri Adinda\"},\"url\":\"https://buletinsiber.com/author/putri-adinda/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Deteksi Injeksi SQL Menggunakan Jaringan Saraf Tiruan - buletinsiber.com",
+      "description": "Pelajari bagaimana jaringan saraf tiruan membantu mendeteksi serangan SQL Injection melalui analisis pola permintaan web dan teknologi kecerdasan buatan.",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Deteksi Injeksi SQL Menggunakan Jaringan Saraf Tiruan - buletinsiber.com",
+      "og_description": "Pelajari bagaimana jaringan saraf tiruan membantu mendeteksi serangan SQL Injection melalui analisis pola permintaan web dan teknologi kecerdasan buatan.",
+      "og_url": "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-28T12:06:44+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 1024,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/24.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Putri Adinda",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Putri Adinda",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/",
+            "url": "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/",
+            "name": "Deteksi Injeksi SQL Menggunakan Jaringan Saraf Tiruan - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/24.jpg",
+            "datePublished": "2026-07-28T12:06:44+00:00",
+            "dateModified": "2026-07-28T12:06:44+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/79504360a1d6c45900d5ffe2d012137b"
+            },
+            "description": "Pelajari bagaimana jaringan saraf tiruan membantu mendeteksi serangan SQL Injection melalui analisis pola permintaan web dan teknologi kecerdasan buatan.",
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/24.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/24.jpg",
+            "width": 1024,
+            "height": 1024
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/deteksi-injeksi-sql-menggunakan-jaringan-saraf-tiruan/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Deteksi Injeksi SQL Menggunakan Jaringan Saraf Tiruan"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/79504360a1d6c45900d5ffe2d012137b",
+            "name": "Putri Adinda",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/5eab85f21c2bd0ea32063f023e4cae8bc6fd950f6aa807e6720f64fab7b42c28?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/5eab85f21c2bd0ea32063f023e4cae8bc6fd950f6aa807e6720f64fab7b42c28?s=96&d=mm&r=g",
+              "caption": "Putri Adinda"
+            },
+            "url": "https://buletinsiber.com/author/putri-adinda/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/13389",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/18"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=13389"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/13389/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 13394,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/13389/revisions/13394"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/13393"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=13389"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=13389"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=13389"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

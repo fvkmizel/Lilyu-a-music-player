@@ -1,0 +1,332 @@
+{
+  "id": 22819,
+  "title": "HTTP/3 dan UDP: Mengapa Protokol Web Modern Beralih dari TCP ke UDP?",
+  "slug": "http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp",
+  "url": "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/",
+  "date": "2026-08-07T00:32:38",
+  "date_gmt": "2026-08-07T00:32:38",
+  "modified": "2026-08-07T00:32:38",
+  "modified_gmt": "2026-08-07T00:32:38",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    411,
+    966,
+    1198,
+    444
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/12/internet-banking-online-payment-technology-concept-scaled.jpg",
+  "excerpt": "Pengantar Selama lebih dari dua dekade, HTTP sebagai protokol komunikasi web selalu berjalan di atas TCP (Transmission Control Protocol). Kombinasi ini telah menjadi standar dalam mengirim halaman web, gambar, video, hingga berbagai layanan internet lainnya. Namun, meningkatnya kebutuhan akan aplikasi real-time, layanan streaming, dan koneksi berlatensi rendah mendorong munculnya pendekatan baru dalam komunikasi jaringan. Melalui pengembangan HTTP/3, komunitas internet memperkenalkan perubahan besar dengan menggunakan UDP (User Datagram Protocol) sebagai transport layer, menggantikan TCP yang telah lama digunakan. Meski UDP dikenal sebagai protokol yang tidak menjamin pengiriman data, HTTP/3 justru mampu menghadirkan koneksi yang lebih cepat, lebih stabil, dan lebih efisien…",
+  "content_html": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-start=\"72\" data-end=\"84\">Pengantar</h2>\n<p data-start=\"86\" data-end=\"509\">Selama lebih dari dua dekade, <strong data-start=\"116\" data-end=\"124\">HTTP</strong> sebagai protokol komunikasi web selalu berjalan di atas <strong data-start=\"181\" data-end=\"220\">TCP (Transmission Control Protocol)</strong>. Kombinasi ini telah menjadi standar dalam mengirim halaman web, gambar, video, hingga berbagai layanan internet lainnya. Namun, meningkatnya kebutuhan akan aplikasi real-time, layanan streaming, dan koneksi berlatensi rendah mendorong munculnya pendekatan baru dalam komunikasi jaringan.</p>\n<p data-start=\"511\" data-end=\"916\">Melalui pengembangan <strong data-start=\"532\" data-end=\"542\">HTTP/3</strong>, komunitas internet memperkenalkan perubahan besar dengan menggunakan <strong data-start=\"613\" data-end=\"645\">UDP (User Datagram Protocol)</strong> sebagai transport layer, menggantikan TCP yang telah lama digunakan. Meski UDP dikenal sebagai protokol yang tidak menjamin pengiriman data, HTTP/3 justru mampu menghadirkan koneksi yang lebih cepat, lebih stabil, dan lebih efisien berkat implementasi protokol <strong data-start=\"907\" data-end=\"915\">QUIC</strong>.</p>\n<p data-start=\"918\" data-end=\"1062\">Lalu, mengapa HTTP/3 memilih UDP dibandingkan TCP? Apa keuntungan dan tantangan dari perubahan ini? Artikel ini akan membahasnya secara lengkap.</p>\n<hr data-start=\"1064\" data-end=\"1067\" />\n<h2 data-start=\"1069\" data-end=\"1087\">Apa Itu HTTP/3?</h2>\n<h3 data-start=\"1089\" data-end=\"1110\">Pengertian HTTP/3</h3>\n<p data-start=\"1112\" data-end=\"1315\"><strong data-start=\"1112\" data-end=\"1122\">HTTP/3</strong> adalah <strong data-start=\"1130\" data-end=\"1314\">versi terbaru dari protokol Hypertext Transfer Protocol (HTTP) yang menggunakan QUIC sebagai lapisan transportasi dan berjalan di atas UDP, bukan TCP seperti HTTP/1.1 maupun HTTP/2</strong>.</p>\n<p data-start=\"1317\" data-end=\"1518\">Berbeda dengan versi sebelumnya, HTTP/3 menggabungkan fungsi transport, keamanan TLS, dan pengelolaan koneksi dalam protokol QUIC sehingga mampu mengurangi latensi dan meningkatkan performa komunikasi.</p>\n<p data-start=\"1520\" data-end=\"1827\">Menurut <strong data-start=\"1528\" data-end=\"1540\">RFC 9114</strong> yang diterbitkan oleh <strong data-start=\"1563\" data-end=\"1605\">Internet Engineering Task Force (IETF)</strong>, HTTP/3 memanfaatkan QUIC sebagai transport protocol untuk menyediakan komunikasi HTTP yang lebih cepat dan efisien dibandingkan implementasi berbasis TCP <strong data-start=\"1761\" data-end=\"1826\">(dikutip dari: <a class=\"decorated-link\" href=\"https://datatracker.ietf.org/doc/html/rfc9114\" target=\"_new\" rel=\"noopener\" data-start=\"1778\" data-end=\"1823\">https://datatracker.ietf.org/doc/html/rfc9114</a>)</strong>.</p>\n<blockquote>\n<p data-start=\"1520\" data-end=\"1827\">baca juga : <a href=\"https://buletinsiber.com/software-supply-chain-attack-ancaman-tersembunyi-yang-menyerang-dari-dalam-rantai-pasok-perangkat-lunak/\">Software Supply Chain Attack: Ancaman Tersembunyi yang Menyerang dari Dalam Rantai Pasok Perangkat Lunak</a></p>\n</blockquote>\n<hr data-start=\"1829\" data-end=\"1832\" />\n<h2 data-start=\"1834\" data-end=\"1849\">Apa Itu UDP?</h2>\n<h3 data-start=\"1851\" data-end=\"1869\">Pengertian UDP</h3>\n<p data-start=\"1871\" data-end=\"2023\"><strong data-start=\"1871\" data-end=\"1903\">UDP (User Datagram Protocol)</strong> adalah protokol transport yang mengirimkan data tanpa melakukan proses pembentukan koneksi (<em data-start=\"1996\" data-end=\"2021\">connectionless protocol</em>).</p>\n<p data-start=\"2025\" data-end=\"2061\">Karakteristik utama UDP antara lain:</p>\n<ul data-start=\"2063\" data-end=\"2237\">\n<li data-start=\"2063\" data-end=\"2110\">Tidak melakukan proses handshake seperti TCP.</li>\n<li data-start=\"2111\" data-end=\"2143\">Tidak menjamin paket diterima.</li>\n<li data-start=\"2144\" data-end=\"2174\">Tidak menjamin urutan paket.</li>\n<li data-start=\"2175\" data-end=\"2212\">Memiliki overhead yang lebih kecil.</li>\n<li data-start=\"2213\" data-end=\"2237\">Latensi sangat rendah.</li>\n</ul>\n<p data-start=\"2239\" data-end=\"2404\">Karena sifat tersebut, UDP banyak digunakan pada layanan yang membutuhkan kecepatan tinggi, seperti video streaming, VoIP, game online, dan kini HTTP/3 melalui QUIC.</p>\n<hr data-start=\"2406\" data-end=\"2409\" />\n<h2 data-start=\"2411\" data-end=\"2445\">Mengapa HTTP/3 Menggunakan UDP?</h2>\n<p data-start=\"2447\" data-end=\"2663\">Banyak orang menganggap penggunaan UDP sebagai langkah mundur karena tidak memiliki mekanisme keandalan seperti TCP. Faktanya, HTTP/3 tidak menggunakan UDP secara langsung, melainkan menjalankan <strong data-start=\"2642\" data-end=\"2650\">QUIC</strong> di atas UDP.</p>\n<p data-start=\"2665\" data-end=\"2776\">Dengan cara ini, QUIC membangun mekanisme keamanan dan keandalan sendiri tanpa dibatasi oleh karakteristik TCP.</p>\n<p data-start=\"2778\" data-end=\"2824\">Beberapa alasan utama penggunaan UDP meliputi:</p>\n<ul data-start=\"2826\" data-end=\"3024\">\n<li data-start=\"2826\" data-end=\"2865\">Mengurangi waktu pembentukan koneksi.</li>\n<li data-start=\"2866\" data-end=\"2898\">Mendukung koneksi lebih cepat.</li>\n<li data-start=\"2899\" data-end=\"2937\">Menghindari <em data-start=\"2913\" data-end=\"2936\">Head-of-Line Blocking</em>.</li>\n<li data-start=\"2938\" data-end=\"2983\">Mempermudah migrasi koneksi antar jaringan.</li>\n<li data-start=\"2984\" data-end=\"3024\">Meningkatkan performa aplikasi modern.</li>\n</ul>\n<hr data-start=\"3026\" data-end=\"3029\" />\n<h2 data-start=\"3031\" data-end=\"3047\">Apa Itu QUIC?</h2>\n<h3 data-start=\"3049\" data-end=\"3068\">Pengertian QUIC</h3>\n<p data-start=\"3070\" data-end=\"3214\"><strong data-start=\"3070\" data-end=\"3111\">QUIC (Quick UDP Internet Connections)</strong> adalah protokol transport modern yang dikembangkan oleh Google dan kemudian distandardisasi oleh IETF.</p>\n<p data-start=\"3216\" data-end=\"3294\">QUIC menyediakan berbagai fitur yang sebelumnya dimiliki TCP dan TLS, seperti:</p>\n<ul data-start=\"3296\" data-end=\"3460\">\n<li data-start=\"3296\" data-end=\"3327\">Reliabilitas pengiriman data.</li>\n<li data-start=\"3328\" data-end=\"3366\">Enkripsi bawaan menggunakan TLS 1.3.</li>\n<li data-start=\"3367\" data-end=\"3398\">Multiplexing beberapa stream.</li>\n<li data-start=\"3399\" data-end=\"3414\">Flow control.</li>\n<li data-start=\"3415\" data-end=\"3436\">Congestion control.</li>\n<li data-start=\"3437\" data-end=\"3460\">Connection migration.</li>\n</ul>\n<p data-start=\"3462\" data-end=\"3694\">Menurut <strong data-start=\"3470\" data-end=\"3482\">RFC 9000</strong>, QUIC dirancang untuk menyediakan transport yang aman, cepat, dan memiliki latensi rendah dengan memanfaatkan UDP sebagai media pengiriman paket <strong data-start=\"3628\" data-end=\"3693\">(dikutip dari: <a class=\"decorated-link\" href=\"https://datatracker.ietf.org/doc/html/rfc9000\" target=\"_new\" rel=\"noopener\" data-start=\"3645\" data-end=\"3690\">https://datatracker.ietf.org/doc/html/rfc9000</a>)</strong>.</p>\n<hr data-start=\"3696\" data-end=\"3699\" />\n<h2 data-start=\"3701\" data-end=\"3733\">Cara Kerja HTTP/3 di Atas UDP</h2>\n<p data-start=\"3735\" data-end=\"3799\">Secara sederhana, alur komunikasi HTTP/3 adalah sebagai berikut:</p>\n<ol data-start=\"3801\" data-end=\"4129\">\n<li data-start=\"3801\" data-end=\"3848\">Browser mengirim permintaan menggunakan UDP.</li>\n<li data-start=\"3849\" data-end=\"3920\">QUIC melakukan proses handshake yang lebih singkat dibandingkan TCP.</li>\n<li data-start=\"3921\" data-end=\"3970\">TLS 1.3 diintegrasikan langsung ke dalam QUIC.</li>\n<li data-start=\"3971\" data-end=\"4053\">Setelah koneksi terbentuk, beberapa stream data dapat dikirim secara bersamaan.</li>\n<li data-start=\"4054\" data-end=\"4129\">Kehilangan satu paket tidak akan menghentikan pengiriman stream lainnya.</li>\n</ol>\n<p data-start=\"4131\" data-end=\"4239\">Pendekatan ini membuat komunikasi menjadi jauh lebih efisien dibandingkan HTTP/2 yang masih menggunakan TCP.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"703\" height=\"468\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 703px) 100vw, 703px\" /></p>\n<hr data-start=\"4241\" data-end=\"4244\" />\n<h2 data-start=\"4246\" data-end=\"4276\">Perbedaan HTTP/2 dan HTTP/3</h2>\n<div class=\"group TyagGW_tableContainer\">\n<div class=\"TyagGW_tableWrapper flex flex-col-reverse w-fit\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"4278\" data-end=\"4617\">\n<thead data-start=\"4278\" data-end=\"4305\">\n<tr data-start=\"4278\" data-end=\"4305\">\n<th class=\"last:pe-10\" data-start=\"4278\" data-end=\"4286\" data-col-size=\"sm\">Aspek</th>\n<th class=\"last:pe-10\" data-start=\"4286\" data-end=\"4295\" data-col-size=\"sm\">HTTP/2</th>\n<th class=\"last:pe-10\" data-start=\"4295\" data-end=\"4305\" data-col-size=\"sm\">HTTP/3</th>\n</tr>\n</thead>\n<tbody data-start=\"4337\" data-end=\"4617\">\n<tr data-start=\"4337\" data-end=\"4375\">\n<td data-start=\"4337\" data-end=\"4355\" data-col-size=\"sm\">Transport Layer</td>\n<td data-col-size=\"sm\" data-start=\"4355\" data-end=\"4361\">TCP</td>\n<td data-col-size=\"sm\" data-start=\"4361\" data-end=\"4375\">UDP (QUIC)</td>\n</tr>\n<tr data-start=\"4376\" data-end=\"4418\">\n<td data-start=\"4376\" data-end=\"4388\" data-col-size=\"sm\">Handshake</td>\n<td data-col-size=\"sm\" data-start=\"4388\" data-end=\"4400\">TCP + TLS</td>\n<td data-col-size=\"sm\" data-start=\"4400\" data-end=\"4418\">QUIC + TLS 1.3</td>\n</tr>\n<tr data-start=\"4419\" data-end=\"4486\">\n<td data-start=\"4419\" data-end=\"4443\" data-col-size=\"sm\">Head-of-Line Blocking</td>\n<td data-col-size=\"sm\" data-start=\"4443\" data-end=\"4464\">Masih ada pada TCP</td>\n<td data-col-size=\"sm\" data-start=\"4464\" data-end=\"4486\">Hampir dihilangkan</td>\n</tr>\n<tr data-start=\"4487\" data-end=\"4539\">\n<td data-start=\"4487\" data-end=\"4510\" data-col-size=\"sm\">Connection Migration</td>\n<td data-col-size=\"sm\" data-start=\"4510\" data-end=\"4527\">Tidak tersedia</td>\n<td data-col-size=\"sm\" data-start=\"4527\" data-end=\"4539\">Didukung</td>\n</tr>\n<tr data-start=\"4540\" data-end=\"4575\">\n<td data-start=\"4540\" data-end=\"4550\" data-col-size=\"sm\">Latensi</td>\n<td data-col-size=\"sm\" data-start=\"4550\" data-end=\"4559\">Rendah</td>\n<td data-col-size=\"sm\" data-start=\"4559\" data-end=\"4575\">Lebih rendah</td>\n</tr>\n<tr data-start=\"4576\" data-end=\"4617\">\n<td data-start=\"4576\" data-end=\"4591\" data-col-size=\"sm\">Multiplexing</td>\n<td data-col-size=\"sm\" data-start=\"4591\" data-end=\"4596\">Ya</td>\n<td data-col-size=\"sm\" data-start=\"4596\" data-end=\"4617\">Ya, lebih efisien</td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>\n<p data-start=\"4619\" data-end=\"4724\">Perbedaan terbesar terletak pada penggunaan QUIC yang mengatasi keterbatasan TCP dalam komunikasi modern.</p>\n<hr data-start=\"4726\" data-end=\"4729\" />\n<h2 data-start=\"4731\" data-end=\"4751\">Keunggulan HTTP/3</h2>\n<h3 data-start=\"4753\" data-end=\"4777\">Latensi Lebih Rendah</h3>\n<p data-start=\"4779\" data-end=\"4897\">HTTP/3 mengurangi jumlah proses yang diperlukan untuk membangun koneksi sehingga halaman web dapat dimuat lebih cepat.</p>\n<hr data-start=\"4899\" data-end=\"4902\" />\n<h3 data-start=\"4904\" data-end=\"4940\">Mengurangi Head-of-Line Blocking</h3>\n<p data-start=\"4942\" data-end=\"5139\">Pada TCP, kehilangan satu paket dapat menghambat seluruh aliran data. QUIC mengatasi masalah ini dengan memisahkan setiap stream sehingga gangguan pada satu stream tidak memengaruhi stream lainnya.</p>\n<blockquote>\n<p data-start=\"4942\" data-end=\"5139\">baca juga : <a href=\"https://buletinsiber.com/log-structured-merge-tree-lsm-tree-arsitektur-database-modern-untuk-performa-tulis-yang-sangat-cepat/\">Log-Structured Merge-tree (LSM-Tree): Arsitektur Database Modern untuk Performa Tulis yang Sangat Cepat</a></p>\n</blockquote>\n<hr data-start=\"5141\" data-end=\"5144\" />\n<h3 data-start=\"5146\" data-end=\"5170\">Connection Migration</h3>\n<p data-start=\"5172\" data-end=\"5329\">HTTP/3 memungkinkan koneksi tetap aktif meskipun pengguna berpindah jaringan, misalnya dari Wi-Fi ke jaringan seluler, tanpa harus memulai koneksi dari awal.</p>\n<hr data-start=\"5331\" data-end=\"5334\" />\n<h3 data-start=\"5336\" data-end=\"5356\">TLS Terintegrasi</h3>\n<p data-start=\"5358\" data-end=\"5445\">Keamanan TLS 1.3 sudah menjadi bagian dari QUIC sehingga proses enkripsi lebih efisien.</p>\n<hr data-start=\"5447\" data-end=\"5450\" />\n<h3 data-start=\"5452\" data-end=\"5500\">Performa Lebih Baik di Jaringan Tidak Stabil</h3>\n<p data-start=\"5502\" data-end=\"5634\">Pada jaringan dengan tingkat kehilangan paket yang tinggi, HTTP/3 umumnya memberikan pengalaman yang lebih baik dibandingkan HTTP/2.</p>\n<hr data-start=\"5636\" data-end=\"5639\" />\n<h2 data-start=\"5641\" data-end=\"5673\">Tantangan Implementasi HTTP/3</h2>\n<p data-start=\"5675\" data-end=\"5767\">Walaupun menawarkan banyak keunggulan, implementasi HTTP/3 juga memiliki beberapa tantangan.</p>\n<h3 data-start=\"5769\" data-end=\"5791\">Infrastruktur Lama</h3>\n<p data-start=\"5793\" data-end=\"5886\">Tidak semua perangkat jaringan, firewall, dan load balancer telah mendukung QUIC atau HTTP/3.</p>\n<hr data-start=\"5888\" data-end=\"5891\" />\n<h3 data-start=\"5893\" data-end=\"5922\">Monitoring Lebih Kompleks</h3>\n<p data-start=\"5924\" data-end=\"6040\">Karena seluruh komunikasi telah dienkripsi sejak awal, proses analisis lalu lintas jaringan menjadi lebih menantang.</p>\n<hr data-start=\"6042\" data-end=\"6045\" />\n<h3 data-start=\"6047\" data-end=\"6065\">Penggunaan CPU</h3>\n<p data-start=\"6067\" data-end=\"6248\">Implementasi QUIC dilakukan di ruang pengguna (<em data-start=\"6114\" data-end=\"6126\">user space</em>), sehingga pada kondisi tertentu dapat meningkatkan penggunaan CPU dibandingkan implementasi TCP yang berjalan di kernel.</p>\n<hr data-start=\"6250\" data-end=\"6253\" />\n<h2 data-start=\"6255\" data-end=\"6291\">Kapan HTTP/3 Sebaiknya Digunakan?</h2>\n<p data-start=\"6293\" data-end=\"6345\">HTTP/3 sangat cocok diterapkan pada layanan seperti:</p>\n<ul data-start=\"6347\" data-end=\"6526\">\n<li data-start=\"6347\" data-end=\"6383\">Website dengan lalu lintas tinggi.</li>\n<li data-start=\"6384\" data-end=\"6411\">Platform streaming video.</li>\n<li data-start=\"6412\" data-end=\"6438\">Aplikasi berbasis cloud.</li>\n<li data-start=\"6439\" data-end=\"6472\">Content Delivery Network (CDN).</li>\n<li data-start=\"6473\" data-end=\"6491\">Aplikasi mobile.</li>\n<li data-start=\"6492\" data-end=\"6512\">Layanan real-time.</li>\n<li data-start=\"6513\" data-end=\"6526\">API modern.</li>\n</ul>\n<p data-start=\"6528\" data-end=\"6627\">Banyak penyedia layanan besar telah mulai mengadopsi HTTP/3 untuk meningkatkan pengalaman pengguna.</p>\n<hr data-start=\"6629\" data-end=\"6632\" />\n<h2 data-start=\"6634\" data-end=\"6669\">Best Practice Menggunakan HTTP/3</h2>\n<h3 data-start=\"6671\" data-end=\"6706\">Aktifkan HTTP/3 pada Web Server</h3>\n<p data-start=\"6708\" data-end=\"6826\">Gunakan web server atau reverse proxy yang telah mendukung HTTP/3, seperti Nginx versi terbaru, Caddy, atau LiteSpeed.</p>\n<hr data-start=\"6828\" data-end=\"6831\" />\n<h3 data-start=\"6833\" data-end=\"6852\">Gunakan TLS 1.3</h3>\n<p data-start=\"6854\" data-end=\"6954\">Karena QUIC mengintegrasikan TLS 1.3, pastikan sertifikat dan konfigurasi keamanan telah diperbarui.</p>\n<hr data-start=\"6956\" data-end=\"6959\" />\n<h3 data-start=\"6961\" data-end=\"6980\">Pantau Performa</h3>\n<p data-start=\"6982\" data-end=\"7089\">Lakukan monitoring terhadap latensi, waktu respons, dan tingkat kehilangan paket setelah migrasi ke HTTP/3.</p>\n<hr data-start=\"7091\" data-end=\"7094\" />\n<h3 data-start=\"7096\" data-end=\"7127\">Pertahankan Dukungan HTTP/2</h3>\n<p data-start=\"7129\" data-end=\"7249\">Belum semua browser dan perangkat mendukung HTTP/3. Oleh karena itu, tetap sediakan HTTP/2 sebagai mekanisme <em data-start=\"7238\" data-end=\"7248\">fallback</em>.</p>\n<blockquote>\n<p data-start=\"7129\" data-end=\"7249\">baca juga : <a href=\"https://buletinsiber.com/oauth-2-0-pkce-cara-mengamankan-proses-login-dari-ancaman-interception-attack/\">OAuth 2.0 PKCE: Cara Mengamankan Proses Login dari Ancaman Interception Attack</a></p>\n</blockquote>\n<hr data-start=\"7251\" data-end=\"7254\" />\n<h2 data-start=\"7256\" data-end=\"7269\">Kesimpulan</h2>\n<p data-start=\"7271\" data-end=\"7589\">HTTP/3 merupakan evolusi besar dalam komunikasi web modern dengan memanfaatkan QUIC di atas UDP sebagai pengganti TCP. Pendekatan ini memungkinkan proses pembentukan koneksi yang lebih cepat, mengurangi latensi, mengatasi <em data-start=\"7493\" data-end=\"7516\">Head-of-Line Blocking</em>, serta meningkatkan pengalaman pengguna pada jaringan yang tidak stabil.</p>\n<p data-start=\"7591\" data-end=\"7925\">Meskipun masih terdapat tantangan dalam implementasi dan kompatibilitas infrastruktur, HTTP/3 diprediksi akan menjadi standar utama komunikasi web di masa depan. Bagi organisasi yang mengutamakan performa, skalabilitas, dan pengalaman pengguna, mengadopsi HTTP/3 merupakan langkah strategis untuk menghadapi kebutuhan internet modern.</p>\n",
+  "content_text": "Pengantar\nSelama lebih dari dua dekade,  HTTP  sebagai protokol komunikasi web selalu berjalan di atas  TCP (Transmission Control Protocol) . Kombinasi ini telah menjadi standar dalam mengirim halaman web, gambar, video, hingga berbagai layanan internet lainnya. Namun, meningkatnya kebutuhan akan aplikasi real-time, layanan streaming, dan koneksi berlatensi rendah mendorong munculnya pendekatan baru dalam komunikasi jaringan.\nMelalui pengembangan  HTTP/3 , komunitas internet memperkenalkan perubahan besar dengan menggunakan  UDP (User Datagram Protocol)  sebagai transport layer, menggantikan TCP yang telah lama digunakan. Meski UDP dikenal sebagai protokol yang tidak menjamin pengiriman data, HTTP/3 justru mampu menghadirkan koneksi yang lebih cepat, lebih stabil, dan lebih efisien berkat implementasi protokol  QUIC .\nLalu, mengapa HTTP/3 memilih UDP dibandingkan TCP? Apa keuntungan dan tantangan dari perubahan ini? Artikel ini akan membahasnya secara lengkap.\nApa Itu HTTP/3?\nPengertian HTTP/3\nHTTP/3  adalah  versi terbaru dari protokol Hypertext Transfer Protocol (HTTP) yang menggunakan QUIC sebagai lapisan transportasi dan berjalan di atas UDP, bukan TCP seperti HTTP/1.1 maupun HTTP/2 .\nBerbeda dengan versi sebelumnya, HTTP/3 menggabungkan fungsi transport, keamanan TLS, dan pengelolaan koneksi dalam protokol QUIC sehingga mampu mengurangi latensi dan meningkatkan performa komunikasi.\nMenurut  RFC 9114  yang diterbitkan oleh  Internet Engineering Task Force (IETF) , HTTP/3 memanfaatkan QUIC sebagai transport protocol untuk menyediakan komunikasi HTTP yang lebih cepat dan efisien dibandingkan implementasi berbasis TCP  (dikutip dari:  https://datatracker.ietf.org/doc/html/rfc9114 ) .\nbaca juga :  Software Supply Chain Attack: Ancaman Tersembunyi yang Menyerang dari Dalam Rantai Pasok Perangkat Lunak\nApa Itu UDP?\nPengertian UDP\nUDP (User Datagram Protocol)  adalah protokol transport yang mengirimkan data tanpa melakukan proses pembentukan koneksi ( connectionless protocol ).\nKarakteristik utama UDP antara lain:\nTidak melakukan proses handshake seperti TCP.\nTidak menjamin paket diterima.\nTidak menjamin urutan paket.\nMemiliki overhead yang lebih kecil.\nLatensi sangat rendah.\nKarena sifat tersebut, UDP banyak digunakan pada layanan yang membutuhkan kecepatan tinggi, seperti video streaming, VoIP, game online, dan kini HTTP/3 melalui QUIC.\nMengapa HTTP/3 Menggunakan UDP?\nBanyak orang menganggap penggunaan UDP sebagai langkah mundur karena tidak memiliki mekanisme keandalan seperti TCP. Faktanya, HTTP/3 tidak menggunakan UDP secara langsung, melainkan menjalankan  QUIC  di atas UDP.\nDengan cara ini, QUIC membangun mekanisme keamanan dan keandalan sendiri tanpa dibatasi oleh karakteristik TCP.\nBeberapa alasan utama penggunaan UDP meliputi:\nMengurangi waktu pembentukan koneksi.\nMendukung koneksi lebih cepat.\nMenghindari  Head-of-Line Blocking .\nMempermudah migrasi koneksi antar jaringan.\nMeningkatkan performa aplikasi modern.\nApa Itu QUIC?\nPengertian QUIC\nQUIC (Quick UDP Internet Connections)  adalah protokol transport modern yang dikembangkan oleh Google dan kemudian distandardisasi oleh IETF.\nQUIC menyediakan berbagai fitur yang sebelumnya dimiliki TCP dan TLS, seperti:\nReliabilitas pengiriman data.\nEnkripsi bawaan menggunakan TLS 1.3.\nMultiplexing beberapa stream.\nFlow control.\nCongestion control.\nConnection migration.\nMenurut  RFC 9000 , QUIC dirancang untuk menyediakan transport yang aman, cepat, dan memiliki latensi rendah dengan memanfaatkan UDP sebagai media pengiriman paket  (dikutip dari:  https://datatracker.ietf.org/doc/html/rfc9000 ) .\nCara Kerja HTTP/3 di Atas UDP\nSecara sederhana, alur komunikasi HTTP/3 adalah sebagai berikut:\nBrowser mengirim permintaan menggunakan UDP.\nQUIC melakukan proses handshake yang lebih singkat dibandingkan TCP.\nTLS 1.3 diintegrasikan langsung ke dalam QUIC.\nSetelah koneksi terbentuk, beberapa stream data dapat dikirim secara bersamaan.\nKehilangan satu paket tidak akan menghentikan pengiriman stream lainnya.\nPendekatan ini membuat komunikasi menjadi jauh lebih efisien dibandingkan HTTP/2 yang masih menggunakan TCP.\nPerbedaan HTTP/2 dan HTTP/3\nAspek\nHTTP/2\nHTTP/3\nTransport Layer\nTCP\nUDP (QUIC)\nHandshake\nTCP + TLS\nQUIC + TLS 1.3\nHead-of-Line Blocking\nMasih ada pada TCP\nHampir dihilangkan\nConnection Migration\nTidak tersedia\nDidukung\nLatensi\nRendah\nLebih rendah\nMultiplexing\nYa\nYa, lebih efisien\nPerbedaan terbesar terletak pada penggunaan QUIC yang mengatasi keterbatasan TCP dalam komunikasi modern.\nKeunggulan HTTP/3\nLatensi Lebih Rendah\nHTTP/3 mengurangi jumlah proses yang diperlukan untuk membangun koneksi sehingga halaman web dapat dimuat lebih cepat.\nMengurangi Head-of-Line Blocking\nPada TCP, kehilangan satu paket dapat menghambat seluruh aliran data. QUIC mengatasi masalah ini dengan memisahkan setiap stream sehingga gangguan pada satu stream tidak memengaruhi stream lainnya.\nbaca juga :  Log-Structured Merge-tree (LSM-Tree): Arsitektur Database Modern untuk Performa Tulis yang Sangat Cepat\nConnection Migration\nHTTP/3 memungkinkan koneksi tetap aktif meskipun pengguna berpindah jaringan, misalnya dari Wi-Fi ke jaringan seluler, tanpa harus memulai koneksi dari awal.\nTLS Terintegrasi\nKeamanan TLS 1.3 sudah menjadi bagian dari QUIC sehingga proses enkripsi lebih efisien.\nPerforma Lebih Baik di Jaringan Tidak Stabil\nPada jaringan dengan tingkat kehilangan paket yang tinggi, HTTP/3 umumnya memberikan pengalaman yang lebih baik dibandingkan HTTP/2.\nTantangan Implementasi HTTP/3\nWalaupun menawarkan banyak keunggulan, implementasi HTTP/3 juga memiliki beberapa tantangan.\nInfrastruktur Lama\nTidak semua perangkat jaringan, firewall, dan load balancer telah mendukung QUIC atau HTTP/3.\nMonitoring Lebih Kompleks\nKarena seluruh komunikasi telah dienkripsi sejak awal, proses analisis lalu lintas jaringan menjadi lebih menantang.\nPenggunaan CPU\nImplementasi QUIC dilakukan di ruang pengguna ( user space ), sehingga pada kondisi tertentu dapat meningkatkan penggunaan CPU dibandingkan implementasi TCP yang berjalan di kernel.\nKapan HTTP/3 Sebaiknya Digunakan?\nHTTP/3 sangat cocok diterapkan pada layanan seperti:\nWebsite dengan lalu lintas tinggi.\nPlatform streaming video.\nAplikasi berbasis cloud.\nContent Delivery Network (CDN).\nAplikasi mobile.\nLayanan real-time.\nAPI modern.\nBanyak penyedia layanan besar telah mulai mengadopsi HTTP/3 untuk meningkatkan pengalaman pengguna.\nBest Practice Menggunakan HTTP/3\nAktifkan HTTP/3 pada Web Server\nGunakan web server atau reverse proxy yang telah mendukung HTTP/3, seperti Nginx versi terbaru, Caddy, atau LiteSpeed.\nGunakan TLS 1.3\nKarena QUIC mengintegrasikan TLS 1.3, pastikan sertifikat dan konfigurasi keamanan telah diperbarui.\nPantau Performa\nLakukan monitoring terhadap latensi, waktu respons, dan tingkat kehilangan paket setelah migrasi ke HTTP/3.\nPertahankan Dukungan HTTP/2\nBelum semua browser dan perangkat mendukung HTTP/3. Oleh karena itu, tetap sediakan HTTP/2 sebagai mekanisme  fallback .\nbaca juga :  OAuth 2.0 PKCE: Cara Mengamankan Proses Login dari Ancaman Interception Attack\nKesimpulan\nHTTP/3 merupakan evolusi besar dalam komunikasi web modern dengan memanfaatkan QUIC di atas UDP sebagai pengganti TCP. Pendekatan ini memungkinkan proses pembentukan koneksi yang lebih cepat, mengurangi latensi, mengatasi  Head-of-Line Blocking , serta meningkatkan pengalaman pengguna pada jaringan yang tidak stabil.\nMeskipun masih terdapat tantangan dalam implementasi dan kompatibilitas infrastruktur, HTTP/3 diprediksi akan menjadi standar utama komunikasi web di masa depan. Bagi organisasi yang mengutamakan performa, skalabilitas, dan pengalaman pengguna, mengadopsi HTTP/3 merupakan langkah strategis untuk menghadapi kebutuhan internet modern.",
+  "raw": {
+    "id": 22819,
+    "date": "2026-08-07T00:32:38",
+    "date_gmt": "2026-08-07T00:32:38",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=22819"
+    },
+    "modified": "2026-08-07T00:32:38",
+    "modified_gmt": "2026-08-07T00:32:38",
+    "slug": "http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/",
+    "title": {
+      "rendered": "HTTP/3 dan UDP: Mengapa Protokol Web Modern Beralih dari TCP ke UDP?"
+    },
+    "content": {
+      "rendered": "<h2 class=\"PDq2pG_selectionAnchorContainer\" data-start=\"72\" data-end=\"84\">Pengantar</h2>\n<p data-start=\"86\" data-end=\"509\">Selama lebih dari dua dekade, <strong data-start=\"116\" data-end=\"124\">HTTP</strong> sebagai protokol komunikasi web selalu berjalan di atas <strong data-start=\"181\" data-end=\"220\">TCP (Transmission Control Protocol)</strong>. Kombinasi ini telah menjadi standar dalam mengirim halaman web, gambar, video, hingga berbagai layanan internet lainnya. Namun, meningkatnya kebutuhan akan aplikasi real-time, layanan streaming, dan koneksi berlatensi rendah mendorong munculnya pendekatan baru dalam komunikasi jaringan.</p>\n<p data-start=\"511\" data-end=\"916\">Melalui pengembangan <strong data-start=\"532\" data-end=\"542\">HTTP/3</strong>, komunitas internet memperkenalkan perubahan besar dengan menggunakan <strong data-start=\"613\" data-end=\"645\">UDP (User Datagram Protocol)</strong> sebagai transport layer, menggantikan TCP yang telah lama digunakan. Meski UDP dikenal sebagai protokol yang tidak menjamin pengiriman data, HTTP/3 justru mampu menghadirkan koneksi yang lebih cepat, lebih stabil, dan lebih efisien berkat implementasi protokol <strong data-start=\"907\" data-end=\"915\">QUIC</strong>.</p>\n<p data-start=\"918\" data-end=\"1062\">Lalu, mengapa HTTP/3 memilih UDP dibandingkan TCP? Apa keuntungan dan tantangan dari perubahan ini? Artikel ini akan membahasnya secara lengkap.</p>\n<hr data-start=\"1064\" data-end=\"1067\" />\n<h2 data-start=\"1069\" data-end=\"1087\">Apa Itu HTTP/3?</h2>\n<h3 data-start=\"1089\" data-end=\"1110\">Pengertian HTTP/3</h3>\n<p data-start=\"1112\" data-end=\"1315\"><strong data-start=\"1112\" data-end=\"1122\">HTTP/3</strong> adalah <strong data-start=\"1130\" data-end=\"1314\">versi terbaru dari protokol Hypertext Transfer Protocol (HTTP) yang menggunakan QUIC sebagai lapisan transportasi dan berjalan di atas UDP, bukan TCP seperti HTTP/1.1 maupun HTTP/2</strong>.</p>\n<p data-start=\"1317\" data-end=\"1518\">Berbeda dengan versi sebelumnya, HTTP/3 menggabungkan fungsi transport, keamanan TLS, dan pengelolaan koneksi dalam protokol QUIC sehingga mampu mengurangi latensi dan meningkatkan performa komunikasi.</p>\n<p data-start=\"1520\" data-end=\"1827\">Menurut <strong data-start=\"1528\" data-end=\"1540\">RFC 9114</strong> yang diterbitkan oleh <strong data-start=\"1563\" data-end=\"1605\">Internet Engineering Task Force (IETF)</strong>, HTTP/3 memanfaatkan QUIC sebagai transport protocol untuk menyediakan komunikasi HTTP yang lebih cepat dan efisien dibandingkan implementasi berbasis TCP <strong data-start=\"1761\" data-end=\"1826\">(dikutip dari: <a class=\"decorated-link\" href=\"https://datatracker.ietf.org/doc/html/rfc9114\" target=\"_new\" rel=\"noopener\" data-start=\"1778\" data-end=\"1823\">https://datatracker.ietf.org/doc/html/rfc9114</a>)</strong>.</p>\n<blockquote>\n<p data-start=\"1520\" data-end=\"1827\">baca juga : <a href=\"https://buletinsiber.com/software-supply-chain-attack-ancaman-tersembunyi-yang-menyerang-dari-dalam-rantai-pasok-perangkat-lunak/\">Software Supply Chain Attack: Ancaman Tersembunyi yang Menyerang dari Dalam Rantai Pasok Perangkat Lunak</a></p>\n</blockquote>\n<hr data-start=\"1829\" data-end=\"1832\" />\n<h2 data-start=\"1834\" data-end=\"1849\">Apa Itu UDP?</h2>\n<h3 data-start=\"1851\" data-end=\"1869\">Pengertian UDP</h3>\n<p data-start=\"1871\" data-end=\"2023\"><strong data-start=\"1871\" data-end=\"1903\">UDP (User Datagram Protocol)</strong> adalah protokol transport yang mengirimkan data tanpa melakukan proses pembentukan koneksi (<em data-start=\"1996\" data-end=\"2021\">connectionless protocol</em>).</p>\n<p data-start=\"2025\" data-end=\"2061\">Karakteristik utama UDP antara lain:</p>\n<ul data-start=\"2063\" data-end=\"2237\">\n<li data-start=\"2063\" data-end=\"2110\">Tidak melakukan proses handshake seperti TCP.</li>\n<li data-start=\"2111\" data-end=\"2143\">Tidak menjamin paket diterima.</li>\n<li data-start=\"2144\" data-end=\"2174\">Tidak menjamin urutan paket.</li>\n<li data-start=\"2175\" data-end=\"2212\">Memiliki overhead yang lebih kecil.</li>\n<li data-start=\"2213\" data-end=\"2237\">Latensi sangat rendah.</li>\n</ul>\n<p data-start=\"2239\" data-end=\"2404\">Karena sifat tersebut, UDP banyak digunakan pada layanan yang membutuhkan kecepatan tinggi, seperti video streaming, VoIP, game online, dan kini HTTP/3 melalui QUIC.</p>\n<hr data-start=\"2406\" data-end=\"2409\" />\n<h2 data-start=\"2411\" data-end=\"2445\">Mengapa HTTP/3 Menggunakan UDP?</h2>\n<p data-start=\"2447\" data-end=\"2663\">Banyak orang menganggap penggunaan UDP sebagai langkah mundur karena tidak memiliki mekanisme keandalan seperti TCP. Faktanya, HTTP/3 tidak menggunakan UDP secara langsung, melainkan menjalankan <strong data-start=\"2642\" data-end=\"2650\">QUIC</strong> di atas UDP.</p>\n<p data-start=\"2665\" data-end=\"2776\">Dengan cara ini, QUIC membangun mekanisme keamanan dan keandalan sendiri tanpa dibatasi oleh karakteristik TCP.</p>\n<p data-start=\"2778\" data-end=\"2824\">Beberapa alasan utama penggunaan UDP meliputi:</p>\n<ul data-start=\"2826\" data-end=\"3024\">\n<li data-start=\"2826\" data-end=\"2865\">Mengurangi waktu pembentukan koneksi.</li>\n<li data-start=\"2866\" data-end=\"2898\">Mendukung koneksi lebih cepat.</li>\n<li data-start=\"2899\" data-end=\"2937\">Menghindari <em data-start=\"2913\" data-end=\"2936\">Head-of-Line Blocking</em>.</li>\n<li data-start=\"2938\" data-end=\"2983\">Mempermudah migrasi koneksi antar jaringan.</li>\n<li data-start=\"2984\" data-end=\"3024\">Meningkatkan performa aplikasi modern.</li>\n</ul>\n<hr data-start=\"3026\" data-end=\"3029\" />\n<h2 data-start=\"3031\" data-end=\"3047\">Apa Itu QUIC?</h2>\n<h3 data-start=\"3049\" data-end=\"3068\">Pengertian QUIC</h3>\n<p data-start=\"3070\" data-end=\"3214\"><strong data-start=\"3070\" data-end=\"3111\">QUIC (Quick UDP Internet Connections)</strong> adalah protokol transport modern yang dikembangkan oleh Google dan kemudian distandardisasi oleh IETF.</p>\n<p data-start=\"3216\" data-end=\"3294\">QUIC menyediakan berbagai fitur yang sebelumnya dimiliki TCP dan TLS, seperti:</p>\n<ul data-start=\"3296\" data-end=\"3460\">\n<li data-start=\"3296\" data-end=\"3327\">Reliabilitas pengiriman data.</li>\n<li data-start=\"3328\" data-end=\"3366\">Enkripsi bawaan menggunakan TLS 1.3.</li>\n<li data-start=\"3367\" data-end=\"3398\">Multiplexing beberapa stream.</li>\n<li data-start=\"3399\" data-end=\"3414\">Flow control.</li>\n<li data-start=\"3415\" data-end=\"3436\">Congestion control.</li>\n<li data-start=\"3437\" data-end=\"3460\">Connection migration.</li>\n</ul>\n<p data-start=\"3462\" data-end=\"3694\">Menurut <strong data-start=\"3470\" data-end=\"3482\">RFC 9000</strong>, QUIC dirancang untuk menyediakan transport yang aman, cepat, dan memiliki latensi rendah dengan memanfaatkan UDP sebagai media pengiriman paket <strong data-start=\"3628\" data-end=\"3693\">(dikutip dari: <a class=\"decorated-link\" href=\"https://datatracker.ietf.org/doc/html/rfc9000\" target=\"_new\" rel=\"noopener\" data-start=\"3645\" data-end=\"3690\">https://datatracker.ietf.org/doc/html/rfc9000</a>)</strong>.</p>\n<hr data-start=\"3696\" data-end=\"3699\" />\n<h2 data-start=\"3701\" data-end=\"3733\">Cara Kerja HTTP/3 di Atas UDP</h2>\n<p data-start=\"3735\" data-end=\"3799\">Secara sederhana, alur komunikasi HTTP/3 adalah sebagai berikut:</p>\n<ol data-start=\"3801\" data-end=\"4129\">\n<li data-start=\"3801\" data-end=\"3848\">Browser mengirim permintaan menggunakan UDP.</li>\n<li data-start=\"3849\" data-end=\"3920\">QUIC melakukan proses handshake yang lebih singkat dibandingkan TCP.</li>\n<li data-start=\"3921\" data-end=\"3970\">TLS 1.3 diintegrasikan langsung ke dalam QUIC.</li>\n<li data-start=\"3971\" data-end=\"4053\">Setelah koneksi terbentuk, beberapa stream data dapat dikirim secara bersamaan.</li>\n<li data-start=\"4054\" data-end=\"4129\">Kehilangan satu paket tidak akan menghentikan pengiriman stream lainnya.</li>\n</ol>\n<p data-start=\"4131\" data-end=\"4239\">Pendekatan ini membuat komunikasi menjadi jauh lebih efisien dibandingkan HTTP/2 yang masih menggunakan TCP.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"703\" height=\"468\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 703px) 100vw, 703px\" /></p>\n<hr data-start=\"4241\" data-end=\"4244\" />\n<h2 data-start=\"4246\" data-end=\"4276\">Perbedaan HTTP/2 dan HTTP/3</h2>\n<div class=\"group TyagGW_tableContainer\">\n<div class=\"TyagGW_tableWrapper flex flex-col-reverse w-fit\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"4278\" data-end=\"4617\">\n<thead data-start=\"4278\" data-end=\"4305\">\n<tr data-start=\"4278\" data-end=\"4305\">\n<th class=\"last:pe-10\" data-start=\"4278\" data-end=\"4286\" data-col-size=\"sm\">Aspek</th>\n<th class=\"last:pe-10\" data-start=\"4286\" data-end=\"4295\" data-col-size=\"sm\">HTTP/2</th>\n<th class=\"last:pe-10\" data-start=\"4295\" data-end=\"4305\" data-col-size=\"sm\">HTTP/3</th>\n</tr>\n</thead>\n<tbody data-start=\"4337\" data-end=\"4617\">\n<tr data-start=\"4337\" data-end=\"4375\">\n<td data-start=\"4337\" data-end=\"4355\" data-col-size=\"sm\">Transport Layer</td>\n<td data-col-size=\"sm\" data-start=\"4355\" data-end=\"4361\">TCP</td>\n<td data-col-size=\"sm\" data-start=\"4361\" data-end=\"4375\">UDP (QUIC)</td>\n</tr>\n<tr data-start=\"4376\" data-end=\"4418\">\n<td data-start=\"4376\" data-end=\"4388\" data-col-size=\"sm\">Handshake</td>\n<td data-col-size=\"sm\" data-start=\"4388\" data-end=\"4400\">TCP + TLS</td>\n<td data-col-size=\"sm\" data-start=\"4400\" data-end=\"4418\">QUIC + TLS 1.3</td>\n</tr>\n<tr data-start=\"4419\" data-end=\"4486\">\n<td data-start=\"4419\" data-end=\"4443\" data-col-size=\"sm\">Head-of-Line Blocking</td>\n<td data-col-size=\"sm\" data-start=\"4443\" data-end=\"4464\">Masih ada pada TCP</td>\n<td data-col-size=\"sm\" data-start=\"4464\" data-end=\"4486\">Hampir dihilangkan</td>\n</tr>\n<tr data-start=\"4487\" data-end=\"4539\">\n<td data-start=\"4487\" data-end=\"4510\" data-col-size=\"sm\">Connection Migration</td>\n<td data-col-size=\"sm\" data-start=\"4510\" data-end=\"4527\">Tidak tersedia</td>\n<td data-col-size=\"sm\" data-start=\"4527\" data-end=\"4539\">Didukung</td>\n</tr>\n<tr data-start=\"4540\" data-end=\"4575\">\n<td data-start=\"4540\" data-end=\"4550\" data-col-size=\"sm\">Latensi</td>\n<td data-col-size=\"sm\" data-start=\"4550\" data-end=\"4559\">Rendah</td>\n<td data-col-size=\"sm\" data-start=\"4559\" data-end=\"4575\">Lebih rendah</td>\n</tr>\n<tr data-start=\"4576\" data-end=\"4617\">\n<td data-start=\"4576\" data-end=\"4591\" data-col-size=\"sm\">Multiplexing</td>\n<td data-col-size=\"sm\" data-start=\"4591\" data-end=\"4596\">Ya</td>\n<td data-col-size=\"sm\" data-start=\"4596\" data-end=\"4617\">Ya, lebih efisien</td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>\n<p data-start=\"4619\" data-end=\"4724\">Perbedaan terbesar terletak pada penggunaan QUIC yang mengatasi keterbatasan TCP dalam komunikasi modern.</p>\n<hr data-start=\"4726\" data-end=\"4729\" />\n<h2 data-start=\"4731\" data-end=\"4751\">Keunggulan HTTP/3</h2>\n<h3 data-start=\"4753\" data-end=\"4777\">Latensi Lebih Rendah</h3>\n<p data-start=\"4779\" data-end=\"4897\">HTTP/3 mengurangi jumlah proses yang diperlukan untuk membangun koneksi sehingga halaman web dapat dimuat lebih cepat.</p>\n<hr data-start=\"4899\" data-end=\"4902\" />\n<h3 data-start=\"4904\" data-end=\"4940\">Mengurangi Head-of-Line Blocking</h3>\n<p data-start=\"4942\" data-end=\"5139\">Pada TCP, kehilangan satu paket dapat menghambat seluruh aliran data. QUIC mengatasi masalah ini dengan memisahkan setiap stream sehingga gangguan pada satu stream tidak memengaruhi stream lainnya.</p>\n<blockquote>\n<p data-start=\"4942\" data-end=\"5139\">baca juga : <a href=\"https://buletinsiber.com/log-structured-merge-tree-lsm-tree-arsitektur-database-modern-untuk-performa-tulis-yang-sangat-cepat/\">Log-Structured Merge-tree (LSM-Tree): Arsitektur Database Modern untuk Performa Tulis yang Sangat Cepat</a></p>\n</blockquote>\n<hr data-start=\"5141\" data-end=\"5144\" />\n<h3 data-start=\"5146\" data-end=\"5170\">Connection Migration</h3>\n<p data-start=\"5172\" data-end=\"5329\">HTTP/3 memungkinkan koneksi tetap aktif meskipun pengguna berpindah jaringan, misalnya dari Wi-Fi ke jaringan seluler, tanpa harus memulai koneksi dari awal.</p>\n<hr data-start=\"5331\" data-end=\"5334\" />\n<h3 data-start=\"5336\" data-end=\"5356\">TLS Terintegrasi</h3>\n<p data-start=\"5358\" data-end=\"5445\">Keamanan TLS 1.3 sudah menjadi bagian dari QUIC sehingga proses enkripsi lebih efisien.</p>\n<hr data-start=\"5447\" data-end=\"5450\" />\n<h3 data-start=\"5452\" data-end=\"5500\">Performa Lebih Baik di Jaringan Tidak Stabil</h3>\n<p data-start=\"5502\" data-end=\"5634\">Pada jaringan dengan tingkat kehilangan paket yang tinggi, HTTP/3 umumnya memberikan pengalaman yang lebih baik dibandingkan HTTP/2.</p>\n<hr data-start=\"5636\" data-end=\"5639\" />\n<h2 data-start=\"5641\" data-end=\"5673\">Tantangan Implementasi HTTP/3</h2>\n<p data-start=\"5675\" data-end=\"5767\">Walaupun menawarkan banyak keunggulan, implementasi HTTP/3 juga memiliki beberapa tantangan.</p>\n<h3 data-start=\"5769\" data-end=\"5791\">Infrastruktur Lama</h3>\n<p data-start=\"5793\" data-end=\"5886\">Tidak semua perangkat jaringan, firewall, dan load balancer telah mendukung QUIC atau HTTP/3.</p>\n<hr data-start=\"5888\" data-end=\"5891\" />\n<h3 data-start=\"5893\" data-end=\"5922\">Monitoring Lebih Kompleks</h3>\n<p data-start=\"5924\" data-end=\"6040\">Karena seluruh komunikasi telah dienkripsi sejak awal, proses analisis lalu lintas jaringan menjadi lebih menantang.</p>\n<hr data-start=\"6042\" data-end=\"6045\" />\n<h3 data-start=\"6047\" data-end=\"6065\">Penggunaan CPU</h3>\n<p data-start=\"6067\" data-end=\"6248\">Implementasi QUIC dilakukan di ruang pengguna (<em data-start=\"6114\" data-end=\"6126\">user space</em>), sehingga pada kondisi tertentu dapat meningkatkan penggunaan CPU dibandingkan implementasi TCP yang berjalan di kernel.</p>\n<hr data-start=\"6250\" data-end=\"6253\" />\n<h2 data-start=\"6255\" data-end=\"6291\">Kapan HTTP/3 Sebaiknya Digunakan?</h2>\n<p data-start=\"6293\" data-end=\"6345\">HTTP/3 sangat cocok diterapkan pada layanan seperti:</p>\n<ul data-start=\"6347\" data-end=\"6526\">\n<li data-start=\"6347\" data-end=\"6383\">Website dengan lalu lintas tinggi.</li>\n<li data-start=\"6384\" data-end=\"6411\">Platform streaming video.</li>\n<li data-start=\"6412\" data-end=\"6438\">Aplikasi berbasis cloud.</li>\n<li data-start=\"6439\" data-end=\"6472\">Content Delivery Network (CDN).</li>\n<li data-start=\"6473\" data-end=\"6491\">Aplikasi mobile.</li>\n<li data-start=\"6492\" data-end=\"6512\">Layanan real-time.</li>\n<li data-start=\"6513\" data-end=\"6526\">API modern.</li>\n</ul>\n<p data-start=\"6528\" data-end=\"6627\">Banyak penyedia layanan besar telah mulai mengadopsi HTTP/3 untuk meningkatkan pengalaman pengguna.</p>\n<hr data-start=\"6629\" data-end=\"6632\" />\n<h2 data-start=\"6634\" data-end=\"6669\">Best Practice Menggunakan HTTP/3</h2>\n<h3 data-start=\"6671\" data-end=\"6706\">Aktifkan HTTP/3 pada Web Server</h3>\n<p data-start=\"6708\" data-end=\"6826\">Gunakan web server atau reverse proxy yang telah mendukung HTTP/3, seperti Nginx versi terbaru, Caddy, atau LiteSpeed.</p>\n<hr data-start=\"6828\" data-end=\"6831\" />\n<h3 data-start=\"6833\" data-end=\"6852\">Gunakan TLS 1.3</h3>\n<p data-start=\"6854\" data-end=\"6954\">Karena QUIC mengintegrasikan TLS 1.3, pastikan sertifikat dan konfigurasi keamanan telah diperbarui.</p>\n<hr data-start=\"6956\" data-end=\"6959\" />\n<h3 data-start=\"6961\" data-end=\"6980\">Pantau Performa</h3>\n<p data-start=\"6982\" data-end=\"7089\">Lakukan monitoring terhadap latensi, waktu respons, dan tingkat kehilangan paket setelah migrasi ke HTTP/3.</p>\n<hr data-start=\"7091\" data-end=\"7094\" />\n<h3 data-start=\"7096\" data-end=\"7127\">Pertahankan Dukungan HTTP/2</h3>\n<p data-start=\"7129\" data-end=\"7249\">Belum semua browser dan perangkat mendukung HTTP/3. Oleh karena itu, tetap sediakan HTTP/2 sebagai mekanisme <em data-start=\"7238\" data-end=\"7248\">fallback</em>.</p>\n<blockquote>\n<p data-start=\"7129\" data-end=\"7249\">baca juga : <a href=\"https://buletinsiber.com/oauth-2-0-pkce-cara-mengamankan-proses-login-dari-ancaman-interception-attack/\">OAuth 2.0 PKCE: Cara Mengamankan Proses Login dari Ancaman Interception Attack</a></p>\n</blockquote>\n<hr data-start=\"7251\" data-end=\"7254\" />\n<h2 data-start=\"7256\" data-end=\"7269\">Kesimpulan</h2>\n<p data-start=\"7271\" data-end=\"7589\">HTTP/3 merupakan evolusi besar dalam komunikasi web modern dengan memanfaatkan QUIC di atas UDP sebagai pengganti TCP. Pendekatan ini memungkinkan proses pembentukan koneksi yang lebih cepat, mengurangi latensi, mengatasi <em data-start=\"7493\" data-end=\"7516\">Head-of-Line Blocking</em>, serta meningkatkan pengalaman pengguna pada jaringan yang tidak stabil.</p>\n<p data-start=\"7591\" data-end=\"7925\">Meskipun masih terdapat tantangan dalam implementasi dan kompatibilitas infrastruktur, HTTP/3 diprediksi akan menjadi standar utama komunikasi web di masa depan. Bagi organisasi yang mengutamakan performa, skalabilitas, dan pengalaman pengguna, mengadopsi HTTP/3 merupakan langkah strategis untuk menghadapi kebutuhan internet modern.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Selama lebih dari dua dekade, HTTP sebagai protokol komunikasi web selalu berjalan di atas TCP (Transmission Control Protocol). Kombinasi ini telah menjadi standar dalam mengirim halaman web, gambar, video, hingga berbagai layanan internet lainnya. Namun, meningkatnya kebutuhan akan aplikasi real-time, layanan streaming, dan koneksi berlatensi rendah mendorong munculnya pendekatan baru dalam komunikasi jaringan. Melalui pengembangan HTTP/3, komunitas internet memperkenalkan perubahan besar dengan menggunakan UDP (User Datagram Protocol) sebagai transport layer, menggantikan TCP yang telah lama digunakan. Meski UDP dikenal sebagai protokol yang tidak menjamin pengiriman data, HTTP/3 justru mampu menghadirkan koneksi yang lebih cepat, lebih stabil, dan lebih efisien&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8944,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "HTTP/3 dan UDP",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      411,
+      966,
+      1198,
+      444
+    ],
+    "class_list": [
+      "post-22819",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-http",
+      "tag-tcp",
+      "tag-udp",
+      "tag-web"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>HTTP/3 dan UDP: Mengapa Protokol Web Modern Beralih dari TCP ke UDP? - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"HTTP/3 dan UDP: Mengapa Protokol Web Modern Beralih dari TCP ke UDP? - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Selama lebih dari dua dekade, HTTP sebagai protokol komunikasi web selalu berjalan di atas TCP (Transmission Control Protocol). Kombinasi ini telah menjadi standar dalam mengirim halaman web, gambar, video, hingga berbagai layanan internet lainnya. Namun, meningkatnya kebutuhan akan aplikasi real-time, layanan streaming, dan koneksi berlatensi rendah mendorong munculnya pendekatan baru dalam komunikasi jaringan. Melalui pengembangan HTTP/3, komunitas internet memperkenalkan perubahan besar dengan menggunakan UDP (User Datagram Protocol) sebagai transport layer, menggantikan TCP yang telah lama digunakan. Meski UDP dikenal sebagai protokol yang tidak menjamin pengiriman data, HTTP/3 justru mampu menghadirkan koneksi yang lebih cepat, lebih stabil, dan lebih efisien...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-08-07T00:32:38+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/12/internet-banking-online-payment-technology-concept-scaled.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2560\" />\n\t<meta property=\"og:image:height\" content=\"1757\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"5 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/\",\"url\":\"https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/\",\"name\":\"HTTP/3 dan UDP: Mengapa Protokol Web Modern Beralih dari TCP ke UDP? - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/internet-banking-online-payment-technology-concept-scaled.jpg\",\"datePublished\":\"2026-08-07T00:32:38+00:00\",\"dateModified\":\"2026-08-07T00:32:38+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/12/internet-banking-online-payment-technology-concept-scaled.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/12/internet-banking-online-payment-technology-concept-scaled.jpg\",\"width\":2560,\"height\":1757,\"caption\":\"Internet banking\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"HTTP/3 dan UDP: Mengapa Protokol Web Modern Beralih dari TCP ke UDP?\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "HTTP/3 dan UDP: Mengapa Protokol Web Modern Beralih dari TCP ke UDP? - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "HTTP/3 dan UDP: Mengapa Protokol Web Modern Beralih dari TCP ke UDP? - buletinsiber.com",
+      "og_description": "Pengantar Selama lebih dari dua dekade, HTTP sebagai protokol komunikasi web selalu berjalan di atas TCP (Transmission Control Protocol). Kombinasi ini telah menjadi standar dalam mengirim halaman web, gambar, video, hingga berbagai layanan internet lainnya. Namun, meningkatnya kebutuhan akan aplikasi real-time, layanan streaming, dan koneksi berlatensi rendah mendorong munculnya pendekatan baru dalam komunikasi jaringan. Melalui pengembangan HTTP/3, komunitas internet memperkenalkan perubahan besar dengan menggunakan UDP (User Datagram Protocol) sebagai transport layer, menggantikan TCP yang telah lama digunakan. Meski UDP dikenal sebagai protokol yang tidak menjamin pengiriman data, HTTP/3 justru mampu menghadirkan koneksi yang lebih cepat, lebih stabil, dan lebih efisien...",
+      "og_url": "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-08-07T00:32:38+00:00",
+      "og_image": [
+        {
+          "width": 2560,
+          "height": 1757,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/12/internet-banking-online-payment-technology-concept-scaled.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "5 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/",
+            "url": "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/",
+            "name": "HTTP/3 dan UDP: Mengapa Protokol Web Modern Beralih dari TCP ke UDP? - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/internet-banking-online-payment-technology-concept-scaled.jpg",
+            "datePublished": "2026-08-07T00:32:38+00:00",
+            "dateModified": "2026-08-07T00:32:38+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/12/internet-banking-online-payment-technology-concept-scaled.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/12/internet-banking-online-payment-technology-concept-scaled.jpg",
+            "width": 2560,
+            "height": 1757,
+            "caption": "Internet banking"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/http-3-dan-udp-mengapa-protokol-web-modern-beralih-dari-tcp-ke-udp/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "HTTP/3 dan UDP: Mengapa Protokol Web Modern Beralih dari TCP ke UDP?"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22819",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=22819"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22819/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 22820,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22819/revisions/22820"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8944"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=22819"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=22819"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=22819"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,335 @@
+{
+  "id": 10454,
+  "title": "Eksploit Linux “pedit COW” Memungkinkan Penyerang Mendapatkan Hak Akses Root, Administrator Diminta untuk Waspada",
+  "slug": "eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada",
+  "url": "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/",
+  "date": "2026-06-27T15:32:43",
+  "date_gmt": "2026-06-27T15:32:43",
+  "modified": "2026-06-30T18:23:09",
+  "modified_gmt": "2026-06-30T18:23:09",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    863,
+    1284,
+    1378,
+    149
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/06/linux-cow.jpg",
+  "excerpt": "Pendahuluan Buletin Siber – Dunia keamanan siber kembali dihebohkan dengan ditemukannya sebuah kerentanan baru pada sistem operasi Linux yang diberi nama pedit COW. Kerentanan ini memungkinkan pengguna lokal yang awalnya tidak memiliki hak akses administrator untuk meningkatkan hak aksesnya hingga menjadi root, yaitu tingkat akses tertinggi pada sistem Linux. Kerentanan ini telah terdaftar sebagai CVE-2026-46331 dan menjadi perhatian para administrator sistem karena dapat dimanfaatkan untuk mengambil alih server yang rentan. Apa Itu pedit COW? pedit COW adalah teknik eksploitasi yang memanfaatkan kelemahan pada komponen Traffic Control (tc) di kernel Linux, khususnya pada modul act_pedit yang digunakan untuk memodifikasi paket jaringan….",
+  "content_html": "<h2 style=\"text-align: justify;\">Pendahuluan</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\"><strong>Buletin Siber</strong> – Dunia keamanan siber kembali dihebohkan dengan ditemukannya sebuah kerentanan baru pada sistem operasi Linux yang diberi nama <strong>pedit COW</strong>. Kerentanan ini memungkinkan pengguna lokal yang awalnya tidak memiliki hak akses administrator untuk meningkatkan hak aksesnya hingga menjadi <strong>root</strong>, yaitu tingkat akses tertinggi pada sistem Linux.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Kerentanan ini telah terdaftar sebagai <strong>CVE-2026-46331</strong> dan menjadi perhatian para administrator sistem karena dapat dimanfaatkan untuk mengambil alih server yang rentan.</p>\n<h2 style=\"text-align: justify;\">Apa Itu pedit COW?</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">pedit COW adalah teknik eksploitasi yang memanfaatkan kelemahan pada komponen <strong>Traffic Control (tc)</strong> di kernel Linux, khususnya pada modul <strong>act_pedit</strong> yang digunakan untuk memodifikasi paket jaringan.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Akibat adanya kesalahan dalam pengelolaan memori, penyerang dapat memanipulasi <strong>page cache</strong>, yaitu area memori yang digunakan Linux untuk menyimpan salinan file agar proses pembacaan menjadi lebih cepat.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Meskipun file asli di dalam penyimpanan tidak berubah, salinan file yang berada di memori dapat dimodifikasi sehingga menghasilkan perilaku yang berbeda ketika dijalankan.</p>\n<h2 style=\"text-align: justify;\">Bagaimana Cara Kerja Eksploit Ini?</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Eksploit pedit COW memanfaatkan mekanisme <strong>Copy-on-Write (COW)</strong> yang digunakan oleh Linux untuk mengelola memori secara efisien.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Secara sederhana, proses serangan berlangsung sebagai berikut:</p>\n<ol style=\"text-align: justify;\" start=\"1\" data-spread=\"false\">\n<li>Penyerang memiliki akses sebagai pengguna biasa di sistem Linux.</li>\n<li>Penyerang mengeksploitasi kelemahan pada modul <strong>act_pedit</strong>.</li>\n<li>Eksploit memodifikasi salinan file program yang berada di <strong>page cache</strong>.</li>\n<li>Program sistem, seperti <strong>/bin/su</strong>, kemudian dijalankan menggunakan salinan yang telah dimodifikasi.</li>\n<li>Program tersebut memberikan hak akses <strong>root</strong> kepada penyerang.</li>\n</ol>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Dengan teknik ini, penyerang tidak perlu mengubah file asli di hard disk sehingga aktivitasnya menjadi lebih sulit dideteksi.</p>\n<h2 style=\"text-align: justify;\">Sistem yang Berpotensi Terdampak</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Kerentanan ini berpotensi memengaruhi berbagai distribusi Linux modern, terutama yang mengaktifkan fitur <strong>unprivileged user namespaces</strong>.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Beberapa distribusi yang dilaporkan berpotensi terdampak antara lain:</p>\n<ul style=\"text-align: justify;\" data-spread=\"false\">\n<li>RHEL 10</li>\n<li>Debian 13</li>\n<li>Distribusi Linux lain dengan konfigurasi serupa</li>\n</ul>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Administrator disarankan untuk memeriksa apakah sistem yang digunakan telah menerima pembaruan keamanan dari vendor distribusi masing-masing.</p>\n<h2 style=\"text-align: justify;\">Tingkat Risiko</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Kerentanan pedit COW termasuk dalam kategori <strong>Local Privilege Escalation (LPE)</strong>.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Artinya, penyerang harus memiliki akses ke sistem terlebih dahulu, misalnya melalui akun pengguna biasa atau hasil eksploitasi kerentanan lain. Setelah berhasil menjalankan eksploitasi, penyerang dapat memperoleh hak akses root dan mengendalikan seluruh sistem.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Risiko menjadi semakin tinggi karena <strong>Proof of Concept (PoC)</strong> eksploitasi telah dipublikasikan sehingga dapat dipelajari dan disalahgunakan oleh pihak yang tidak bertanggung jawab.</p>\n<h2 style=\"text-align: justify;\">Dampak bagi Organisasi</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Jika berhasil dieksploitasi, kerentanan ini dapat menimbulkan berbagai dampak serius, di antaranya:</p>\n<ul style=\"text-align: justify;\" data-spread=\"false\">\n<li>Mengambil alih server Linux.</li>\n<li>Menginstal malware atau ransomware dengan hak akses root.</li>\n<li>Mencuri data penting milik organisasi.</li>\n<li>Menonaktifkan mekanisme keamanan sistem.</li>\n<li>Membuka jalan bagi serangan lanjutan ke infrastruktur perusahaan.</li>\n</ul>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Server yang digunakan sebagai layanan web, database, maupun cloud memiliki risiko lebih tinggi apabila memberikan akses kepada banyak pengguna.</p>\n<h2 style=\"text-align: justify;\">Cara Mitigasi</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Untuk mengurangi risiko eksploitasi, administrator sistem disarankan melakukan beberapa langkah berikut:</p>\n<ul style=\"text-align: justify;\" data-spread=\"false\">\n<li>Segera memperbarui kernel Linux ke versi yang telah mendapatkan patch keamanan.</li>\n<li>Menginstal seluruh pembaruan keamanan dari vendor distribusi Linux.</li>\n<li>Menonaktifkan fitur <strong>unprivileged user namespaces</strong> apabila tidak diperlukan.</li>\n<li>Membatasi akses shell hanya kepada pengguna yang benar-benar membutuhkan.</li>\n<li>Memantau aktivitas yang mengarah pada peningkatan hak akses secara tidak wajar.</li>\n<li>Melakukan audit keamanan dan vulnerability assessment secara berkala.</li>\n</ul>\n<h2 style=\"text-align: justify;\">Praktik Keamanan Tambahan</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Selain memasang patch, organisasi juga sebaiknya menerapkan praktik keamanan berikut:</p>\n<ul style=\"text-align: justify;\" data-spread=\"false\">\n<li>Menerapkan prinsip <strong>Least Privilege</strong>, yaitu memberikan hak akses seminimal mungkin kepada pengguna.</li>\n<li>Mengaktifkan <strong>SELinux</strong> atau <strong>AppArmor</strong> untuk membatasi kemampuan aplikasi.</li>\n<li>Mengaktifkan audit log agar aktivitas mencurigakan dapat dideteksi lebih cepat.</li>\n<li>Melakukan pemindaian kerentanan secara berkala.</li>\n<li>Menyusun proses patch management yang rutin dan terdokumentasi.</li>\n</ul>\n<h2 style=\"text-align: justify;\">Kesimpulan</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Munculnya eksploit <strong>pedit COW</strong> menunjukkan bahwa kerentanan lokal masih menjadi ancaman serius bagi sistem Linux. Meskipun penyerang harus memiliki akses awal ke sistem, keberhasilan eksploitasi dapat memberikan kendali penuh terhadap server.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Oleh karena itu, administrator dan tim keamanan informasi disarankan untuk segera memasang pembaruan keamanan, memperkuat konfigurasi sistem, serta melakukan pemantauan secara berkala guna mencegah penyalahgunaan kerentanan ini.</p>\n<p style=\"text-align: justify;\">Dengan langkah mitigasi yang tepat, risiko eksploitasi dapat ditekan sehingga keamanan dan ketersediaan layanan tetap terjaga.</p>\n",
+  "content_text": "Pendahuluan\nBuletin Siber  – Dunia keamanan siber kembali dihebohkan dengan ditemukannya sebuah kerentanan baru pada sistem operasi Linux yang diberi nama  pedit COW . Kerentanan ini memungkinkan pengguna lokal yang awalnya tidak memiliki hak akses administrator untuk meningkatkan hak aksesnya hingga menjadi  root , yaitu tingkat akses tertinggi pada sistem Linux.\nKerentanan ini telah terdaftar sebagai  CVE-2026-46331  dan menjadi perhatian para administrator sistem karena dapat dimanfaatkan untuk mengambil alih server yang rentan.\nApa Itu pedit COW?\npedit COW adalah teknik eksploitasi yang memanfaatkan kelemahan pada komponen  Traffic Control (tc)  di kernel Linux, khususnya pada modul  act_pedit  yang digunakan untuk memodifikasi paket jaringan.\nAkibat adanya kesalahan dalam pengelolaan memori, penyerang dapat memanipulasi  page cache , yaitu area memori yang digunakan Linux untuk menyimpan salinan file agar proses pembacaan menjadi lebih cepat.\nMeskipun file asli di dalam penyimpanan tidak berubah, salinan file yang berada di memori dapat dimodifikasi sehingga menghasilkan perilaku yang berbeda ketika dijalankan.\nBagaimana Cara Kerja Eksploit Ini?\nEksploit pedit COW memanfaatkan mekanisme  Copy-on-Write (COW)  yang digunakan oleh Linux untuk mengelola memori secara efisien.\nSecara sederhana, proses serangan berlangsung sebagai berikut:\nPenyerang memiliki akses sebagai pengguna biasa di sistem Linux.\nPenyerang mengeksploitasi kelemahan pada modul  act_pedit .\nEksploit memodifikasi salinan file program yang berada di  page cache .\nProgram sistem, seperti  /bin/su , kemudian dijalankan menggunakan salinan yang telah dimodifikasi.\nProgram tersebut memberikan hak akses  root  kepada penyerang.\nDengan teknik ini, penyerang tidak perlu mengubah file asli di hard disk sehingga aktivitasnya menjadi lebih sulit dideteksi.\nSistem yang Berpotensi Terdampak\nKerentanan ini berpotensi memengaruhi berbagai distribusi Linux modern, terutama yang mengaktifkan fitur  unprivileged user namespaces .\nBeberapa distribusi yang dilaporkan berpotensi terdampak antara lain:\nRHEL 10\nDebian 13\nDistribusi Linux lain dengan konfigurasi serupa\nAdministrator disarankan untuk memeriksa apakah sistem yang digunakan telah menerima pembaruan keamanan dari vendor distribusi masing-masing.\nTingkat Risiko\nKerentanan pedit COW termasuk dalam kategori  Local Privilege Escalation (LPE) .\nArtinya, penyerang harus memiliki akses ke sistem terlebih dahulu, misalnya melalui akun pengguna biasa atau hasil eksploitasi kerentanan lain. Setelah berhasil menjalankan eksploitasi, penyerang dapat memperoleh hak akses root dan mengendalikan seluruh sistem.\nRisiko menjadi semakin tinggi karena  Proof of Concept (PoC)  eksploitasi telah dipublikasikan sehingga dapat dipelajari dan disalahgunakan oleh pihak yang tidak bertanggung jawab.\nDampak bagi Organisasi\nJika berhasil dieksploitasi, kerentanan ini dapat menimbulkan berbagai dampak serius, di antaranya:\nMengambil alih server Linux.\nMenginstal malware atau ransomware dengan hak akses root.\nMencuri data penting milik organisasi.\nMenonaktifkan mekanisme keamanan sistem.\nMembuka jalan bagi serangan lanjutan ke infrastruktur perusahaan.\nServer yang digunakan sebagai layanan web, database, maupun cloud memiliki risiko lebih tinggi apabila memberikan akses kepada banyak pengguna.\nCara Mitigasi\nUntuk mengurangi risiko eksploitasi, administrator sistem disarankan melakukan beberapa langkah berikut:\nSegera memperbarui kernel Linux ke versi yang telah mendapatkan patch keamanan.\nMenginstal seluruh pembaruan keamanan dari vendor distribusi Linux.\nMenonaktifkan fitur  unprivileged user namespaces  apabila tidak diperlukan.\nMembatasi akses shell hanya kepada pengguna yang benar-benar membutuhkan.\nMemantau aktivitas yang mengarah pada peningkatan hak akses secara tidak wajar.\nMelakukan audit keamanan dan vulnerability assessment secara berkala.\nPraktik Keamanan Tambahan\nSelain memasang patch, organisasi juga sebaiknya menerapkan praktik keamanan berikut:\nMenerapkan prinsip  Least Privilege , yaitu memberikan hak akses seminimal mungkin kepada pengguna.\nMengaktifkan  SELinux  atau  AppArmor  untuk membatasi kemampuan aplikasi.\nMengaktifkan audit log agar aktivitas mencurigakan dapat dideteksi lebih cepat.\nMelakukan pemindaian kerentanan secara berkala.\nMenyusun proses patch management yang rutin dan terdokumentasi.\nKesimpulan\nMunculnya eksploit  pedit COW  menunjukkan bahwa kerentanan lokal masih menjadi ancaman serius bagi sistem Linux. Meskipun penyerang harus memiliki akses awal ke sistem, keberhasilan eksploitasi dapat memberikan kendali penuh terhadap server.\nOleh karena itu, administrator dan tim keamanan informasi disarankan untuk segera memasang pembaruan keamanan, memperkuat konfigurasi sistem, serta melakukan pemantauan secara berkala guna mencegah penyalahgunaan kerentanan ini.\nDengan langkah mitigasi yang tepat, risiko eksploitasi dapat ditekan sehingga keamanan dan ketersediaan layanan tetap terjaga.",
+  "raw": {
+    "id": 10454,
+    "date": "2026-06-27T15:32:43",
+    "date_gmt": "2026-06-27T15:32:43",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=10454"
+    },
+    "modified": "2026-06-30T18:23:09",
+    "modified_gmt": "2026-06-30T18:23:09",
+    "slug": "eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/",
+    "title": {
+      "rendered": "Eksploit Linux &#8220;pedit COW&#8221; Memungkinkan Penyerang Mendapatkan Hak Akses Root, Administrator Diminta untuk Waspada"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\">Pendahuluan</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\"><strong>Buletin Siber</strong> – Dunia keamanan siber kembali dihebohkan dengan ditemukannya sebuah kerentanan baru pada sistem operasi Linux yang diberi nama <strong>pedit COW</strong>. Kerentanan ini memungkinkan pengguna lokal yang awalnya tidak memiliki hak akses administrator untuk meningkatkan hak aksesnya hingga menjadi <strong>root</strong>, yaitu tingkat akses tertinggi pada sistem Linux.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Kerentanan ini telah terdaftar sebagai <strong>CVE-2026-46331</strong> dan menjadi perhatian para administrator sistem karena dapat dimanfaatkan untuk mengambil alih server yang rentan.</p>\n<h2 style=\"text-align: justify;\">Apa Itu pedit COW?</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">pedit COW adalah teknik eksploitasi yang memanfaatkan kelemahan pada komponen <strong>Traffic Control (tc)</strong> di kernel Linux, khususnya pada modul <strong>act_pedit</strong> yang digunakan untuk memodifikasi paket jaringan.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Akibat adanya kesalahan dalam pengelolaan memori, penyerang dapat memanipulasi <strong>page cache</strong>, yaitu area memori yang digunakan Linux untuk menyimpan salinan file agar proses pembacaan menjadi lebih cepat.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Meskipun file asli di dalam penyimpanan tidak berubah, salinan file yang berada di memori dapat dimodifikasi sehingga menghasilkan perilaku yang berbeda ketika dijalankan.</p>\n<h2 style=\"text-align: justify;\">Bagaimana Cara Kerja Eksploit Ini?</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Eksploit pedit COW memanfaatkan mekanisme <strong>Copy-on-Write (COW)</strong> yang digunakan oleh Linux untuk mengelola memori secara efisien.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Secara sederhana, proses serangan berlangsung sebagai berikut:</p>\n<ol style=\"text-align: justify;\" start=\"1\" data-spread=\"false\">\n<li>Penyerang memiliki akses sebagai pengguna biasa di sistem Linux.</li>\n<li>Penyerang mengeksploitasi kelemahan pada modul <strong>act_pedit</strong>.</li>\n<li>Eksploit memodifikasi salinan file program yang berada di <strong>page cache</strong>.</li>\n<li>Program sistem, seperti <strong>/bin/su</strong>, kemudian dijalankan menggunakan salinan yang telah dimodifikasi.</li>\n<li>Program tersebut memberikan hak akses <strong>root</strong> kepada penyerang.</li>\n</ol>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Dengan teknik ini, penyerang tidak perlu mengubah file asli di hard disk sehingga aktivitasnya menjadi lebih sulit dideteksi.</p>\n<h2 style=\"text-align: justify;\">Sistem yang Berpotensi Terdampak</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Kerentanan ini berpotensi memengaruhi berbagai distribusi Linux modern, terutama yang mengaktifkan fitur <strong>unprivileged user namespaces</strong>.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Beberapa distribusi yang dilaporkan berpotensi terdampak antara lain:</p>\n<ul style=\"text-align: justify;\" data-spread=\"false\">\n<li>RHEL 10</li>\n<li>Debian 13</li>\n<li>Distribusi Linux lain dengan konfigurasi serupa</li>\n</ul>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Administrator disarankan untuk memeriksa apakah sistem yang digunakan telah menerima pembaruan keamanan dari vendor distribusi masing-masing.</p>\n<h2 style=\"text-align: justify;\">Tingkat Risiko</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Kerentanan pedit COW termasuk dalam kategori <strong>Local Privilege Escalation (LPE)</strong>.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Artinya, penyerang harus memiliki akses ke sistem terlebih dahulu, misalnya melalui akun pengguna biasa atau hasil eksploitasi kerentanan lain. Setelah berhasil menjalankan eksploitasi, penyerang dapat memperoleh hak akses root dan mengendalikan seluruh sistem.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Risiko menjadi semakin tinggi karena <strong>Proof of Concept (PoC)</strong> eksploitasi telah dipublikasikan sehingga dapat dipelajari dan disalahgunakan oleh pihak yang tidak bertanggung jawab.</p>\n<h2 style=\"text-align: justify;\">Dampak bagi Organisasi</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Jika berhasil dieksploitasi, kerentanan ini dapat menimbulkan berbagai dampak serius, di antaranya:</p>\n<ul style=\"text-align: justify;\" data-spread=\"false\">\n<li>Mengambil alih server Linux.</li>\n<li>Menginstal malware atau ransomware dengan hak akses root.</li>\n<li>Mencuri data penting milik organisasi.</li>\n<li>Menonaktifkan mekanisme keamanan sistem.</li>\n<li>Membuka jalan bagi serangan lanjutan ke infrastruktur perusahaan.</li>\n</ul>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Server yang digunakan sebagai layanan web, database, maupun cloud memiliki risiko lebih tinggi apabila memberikan akses kepada banyak pengguna.</p>\n<h2 style=\"text-align: justify;\">Cara Mitigasi</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Untuk mengurangi risiko eksploitasi, administrator sistem disarankan melakukan beberapa langkah berikut:</p>\n<ul style=\"text-align: justify;\" data-spread=\"false\">\n<li>Segera memperbarui kernel Linux ke versi yang telah mendapatkan patch keamanan.</li>\n<li>Menginstal seluruh pembaruan keamanan dari vendor distribusi Linux.</li>\n<li>Menonaktifkan fitur <strong>unprivileged user namespaces</strong> apabila tidak diperlukan.</li>\n<li>Membatasi akses shell hanya kepada pengguna yang benar-benar membutuhkan.</li>\n<li>Memantau aktivitas yang mengarah pada peningkatan hak akses secara tidak wajar.</li>\n<li>Melakukan audit keamanan dan vulnerability assessment secara berkala.</li>\n</ul>\n<h2 style=\"text-align: justify;\">Praktik Keamanan Tambahan</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Selain memasang patch, organisasi juga sebaiknya menerapkan praktik keamanan berikut:</p>\n<ul style=\"text-align: justify;\" data-spread=\"false\">\n<li>Menerapkan prinsip <strong>Least Privilege</strong>, yaitu memberikan hak akses seminimal mungkin kepada pengguna.</li>\n<li>Mengaktifkan <strong>SELinux</strong> atau <strong>AppArmor</strong> untuk membatasi kemampuan aplikasi.</li>\n<li>Mengaktifkan audit log agar aktivitas mencurigakan dapat dideteksi lebih cepat.</li>\n<li>Melakukan pemindaian kerentanan secara berkala.</li>\n<li>Menyusun proses patch management yang rutin dan terdokumentasi.</li>\n</ul>\n<h2 style=\"text-align: justify;\">Kesimpulan</h2>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Munculnya eksploit <strong>pedit COW</strong> menunjukkan bahwa kerentanan lokal masih menjadi ancaman serius bagi sistem Linux. Meskipun penyerang harus memiliki akses awal ke sistem, keberhasilan eksploitasi dapat memberikan kendali penuh terhadap server.</p>\n<p class=\"isSelectedEnd\" style=\"text-align: justify;\">Oleh karena itu, administrator dan tim keamanan informasi disarankan untuk segera memasang pembaruan keamanan, memperkuat konfigurasi sistem, serta melakukan pemantauan secara berkala guna mencegah penyalahgunaan kerentanan ini.</p>\n<p style=\"text-align: justify;\">Dengan langkah mitigasi yang tepat, risiko eksploitasi dapat ditekan sehingga keamanan dan ketersediaan layanan tetap terjaga.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Buletin Siber – Dunia keamanan siber kembali dihebohkan dengan ditemukannya sebuah kerentanan baru pada sistem operasi Linux yang diberi nama pedit COW. Kerentanan ini memungkinkan pengguna lokal yang awalnya tidak memiliki hak akses administrator untuk meningkatkan hak aksesnya hingga menjadi root, yaitu tingkat akses tertinggi pada sistem Linux. Kerentanan ini telah terdaftar sebagai CVE-2026-46331 dan menjadi perhatian para administrator sistem karena dapat dimanfaatkan untuk mengambil alih server yang rentan. Apa Itu pedit COW? pedit COW adalah teknik eksploitasi yang memanfaatkan kelemahan pada komponen Traffic Control (tc) di kernel Linux, khususnya pada modul act_pedit yang digunakan untuk memodifikasi paket jaringan&#8230;.</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 10455,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "pedit COW",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      863,
+      1284,
+      1378,
+      149
+    ],
+    "class_list": [
+      "post-10454",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-dirty-cow",
+      "tag-exploit",
+      "tag-pedit-cow",
+      "tag-privilege-escalation"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Eksploit Linux &quot;pedit COW&quot; Memungkinkan Penyerang Mendapatkan Hak Akses Root, Administrator Diminta untuk Waspada - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Eksploit Linux &quot;pedit COW&quot; Memungkinkan Penyerang Mendapatkan Hak Akses Root, Administrator Diminta untuk Waspada - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Buletin Siber – Dunia keamanan siber kembali dihebohkan dengan ditemukannya sebuah kerentanan baru pada sistem operasi Linux yang diberi nama pedit COW. Kerentanan ini memungkinkan pengguna lokal yang awalnya tidak memiliki hak akses administrator untuk meningkatkan hak aksesnya hingga menjadi root, yaitu tingkat akses tertinggi pada sistem Linux. Kerentanan ini telah terdaftar sebagai CVE-2026-46331 dan menjadi perhatian para administrator sistem karena dapat dimanfaatkan untuk mengambil alih server yang rentan. Apa Itu pedit COW? pedit COW adalah teknik eksploitasi yang memanfaatkan kelemahan pada komponen Traffic Control (tc) di kernel Linux, khususnya pada modul act_pedit yang digunakan untuk memodifikasi paket jaringan....\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-06-27T15:32:43+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T18:23:09+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/06/linux-cow.jpg\" />\n\t<meta property=\"og:image:width\" content=\"900\" />\n\t<meta property=\"og:image:height\" content=\"470\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/\",\"url\":\"https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/\",\"name\":\"Eksploit Linux \\\"pedit COW\\\" Memungkinkan Penyerang Mendapatkan Hak Akses Root, Administrator Diminta untuk Waspada - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/06/linux-cow.jpg\",\"datePublished\":\"2026-06-27T15:32:43+00:00\",\"dateModified\":\"2026-06-30T18:23:09+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/06/linux-cow.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/06/linux-cow.jpg\",\"width\":900,\"height\":470},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Eksploit Linux &#8220;pedit COW&#8221; Memungkinkan Penyerang Mendapatkan Hak Akses Root, Administrator Diminta untuk Waspada\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Eksploit Linux \"pedit COW\" Memungkinkan Penyerang Mendapatkan Hak Akses Root, Administrator Diminta untuk Waspada - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Eksploit Linux \"pedit COW\" Memungkinkan Penyerang Mendapatkan Hak Akses Root, Administrator Diminta untuk Waspada - buletinsiber.com",
+      "og_description": "Pendahuluan Buletin Siber – Dunia keamanan siber kembali dihebohkan dengan ditemukannya sebuah kerentanan baru pada sistem operasi Linux yang diberi nama pedit COW. Kerentanan ini memungkinkan pengguna lokal yang awalnya tidak memiliki hak akses administrator untuk meningkatkan hak aksesnya hingga menjadi root, yaitu tingkat akses tertinggi pada sistem Linux. Kerentanan ini telah terdaftar sebagai CVE-2026-46331 dan menjadi perhatian para administrator sistem karena dapat dimanfaatkan untuk mengambil alih server yang rentan. Apa Itu pedit COW? pedit COW adalah teknik eksploitasi yang memanfaatkan kelemahan pada komponen Traffic Control (tc) di kernel Linux, khususnya pada modul act_pedit yang digunakan untuk memodifikasi paket jaringan....",
+      "og_url": "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-06-27T15:32:43+00:00",
+      "article_modified_time": "2026-06-30T18:23:09+00:00",
+      "og_image": [
+        {
+          "width": 900,
+          "height": 470,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/06/linux-cow.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/",
+            "url": "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/",
+            "name": "Eksploit Linux \"pedit COW\" Memungkinkan Penyerang Mendapatkan Hak Akses Root, Administrator Diminta untuk Waspada - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/06/linux-cow.jpg",
+            "datePublished": "2026-06-27T15:32:43+00:00",
+            "dateModified": "2026-06-30T18:23:09+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/06/linux-cow.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/06/linux-cow.jpg",
+            "width": 900,
+            "height": 470
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/eksploit-linux-pedit-cow-memungkinkan-penyerang-mendapatkan-hak-akses-root-administrator-diminta-untuk-waspada/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Eksploit Linux &#8220;pedit COW&#8221; Memungkinkan Penyerang Mendapatkan Hak Akses Root, Administrator Diminta untuk Waspada"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10454",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=10454"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10454/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 10456,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/10454/revisions/10456"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/10455"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=10454"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=10454"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=10454"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,319 @@
+{
+  "id": 17743,
+  "title": "Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM",
+  "slug": "mengenal-lora-dan-qlora-untuk-fine-tuning-llm",
+  "url": "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/",
+  "date": "2026-07-30T11:02:30",
+  "date_gmt": "2026-07-30T11:02:30",
+  "modified": "2026-07-30T11:02:30",
+  "modified_gmt": "2026-07-30T11:02:30",
+  "author": {
+    "id": 34,
+    "name": "Citra Saskia saranani"
+  },
+  "categories": [
+    {
+      "id": 1919,
+      "name": "AI"
+    },
+    {
+      "id": 2616,
+      "name": "Information Technology"
+    }
+  ],
+  "tags": [
+    3065
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/QqGzfJ1PjeE6KtqVh5YNE1T2NsXZXI_G8bFWb8H80hLu_Qum2sTePxZ-WwoXy_WCB87ArbeIGP8gL1EURTHnKODjJrjNcDuIH4FpGIJXp91WMV8_tHvC5xIPY9RDRDozCI05ho5TkaozGtxhiOq2qe91LV5BIaGBSIodGDAsza7y2M7hiAxZLTxqh-vjAlWl.jpg",
+  "excerpt": "Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM Large Language Models (LLM) seperti GPT-3, LaMDA, atau PaLM telah memicu revolusi dalam bidang kecerdasan buatan. Kemampuan mereka yang mengesankan – mulai dari menghasilkan teks kreatif yang meyakinkan hingga menjawab pertanyaan kompleks dengan akurasi tinggi – membuka peluang baru di berbagai industri. Namun, kekuatan ini datang dengan biaya: LLM-lah secara inheren sangat besar, membutuhkan sumber daya komputasi yang luar biasa untuk pelatihan dan inferensi, serta penyimpanan memori yang signifikan. Fine-tuning, proses penyesuaian model pra-latih ini dengan dataset spesifik, merupakan pendekatan yang menjanjikan untuk meningkatkan kinerja pada tugas tertentu. Akan tetapi, fine-tuning tradisional…",
+  "content_html": "<p>&nbsp;</p>\n<h1>Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM</h1>\n<p>Large Language Models (LLM) seperti GPT-3, LaMDA, atau PaLM telah memicu revolusi dalam bidang kecerdasan buatan. Kemampuan mereka yang mengesankan – mulai dari menghasilkan teks kreatif yang meyakinkan hingga menjawab pertanyaan kompleks dengan akurasi tinggi – membuka peluang baru di berbagai industri. Namun, kekuatan ini datang dengan biaya: LLM-lah secara inheren sangat besar, membutuhkan sumber daya komputasi yang luar biasa untuk pelatihan dan inferensi, serta penyimpanan memori yang signifikan. Fine-tuning, proses penyesuaian model pra-latih ini dengan dataset spesifik, merupakan pendekatan yang menjanjikan untuk meningkatkan kinerja pada tugas tertentu. Akan tetapi, fine-tuning tradisional – yang melibatkan pembaruan seluruh parameter model – seringkali tidak praktis karena biaya dan kompleksitasnya yang tinggi. Di sinilah LoRA (Low-Rank Adaptation) dan QLoRA (Quantized Low-Rank Adaptation) hadir sebagai solusi inovatif, memungkinkan fine-tuning LLM dengan sumber daya yang jauh lebih sedikit, membuka jalan bagi aksesibilitas dan efisiensi yang belum pernah terjadi sebelumnya.</p>\n<h1>Konsep Dasar Fine-Tuning LLM</h1>\n<p>Sebelum menyelami detail LoRA dan QLoRA, penting untuk memahami konsep dasar fine-tuning. Pada intinya, fine-tuning adalah proses melatih kembali model yang sudah ada (model pra-latih) dengan dataset baru yang lebih kecil dan berfokus pada tujuan tertentu. Bayangkan Anda memiliki seorang ahli bahasa yang telah membaca jutaan buku, menguasai berbagai gaya penulisan, dan memahami nuansa bahasa secara mendalam – itulah model pra-latih. Sekarang, Anda ingin dia menjadi spesialis dalam menulis puisi tentang bunga. Fine-tuning adalah proses memberikan pelatihan tambahan kepada ahli bahasa tersebut dengan membaca banyak contoh puisi tentang bunga, menganalisis struktur dan gaya mereka, dan mempelajari kosakata yang relevan—sehingga dia dapat menghasilkan puisi yang lebih baik tentang bunga. Proses ini secara efektif memfokuskan pengetahuan model yang luas untuk tugas tertentu.</p>\n<p>Dalam konteks LLM, fine-tuning melibatkan memperbarui bobot (weights) model. Bobot ini merupakan representasi numerik dari pengetahuan yang telah dipelajari model selama pelatihan awal, yang diperoleh melalui pemrosesan sejumlah besar data teks. Dengan menyesuaikan bobot ini dengan dataset baru, model dapat mempelajari pola dan hubungan yang relevan untuk tugas spesifik, sehingga meningkatkan kemampuannya dalam memprediksi dan menghasilkan teks.</p>\n<h2>Tantangan Fine-Tuning Tradisional</h2>\n<p>Fine-tuning tradisional memiliki beberapa tantangan utama yang menghambat adopsinya secara luas: <strong>Sumber Daya Komputasi Tinggi:</strong> Menyesuaikan seluruh parameter model membutuhkan daya komputasi yang besar, seringkali memerlukan akses ke GPU kelas atas dan waktu pelatihan yang lama – bisa mencapai minggu atau bahkan bulan. <strong>Kebutuhan Penyimpanan Besar:</strong> Model yang telah di-fine-tune masih berukuran besar, karena semua parameter model telah dimodifikasi, sehingga membutuhkan ruang penyimpanan yang signifikan untuk menyimpan dan memuat model. <strong>Risiko Overfitting:</strong> Jika dataset fine-tuning terlalu kecil atau tidak representatif terhadap data yang akan dihadapi model dalam produksi, model dapat menjadi overfitting terhadap data tersebut dan kehilangan kemampuan generalisasinya, yang berarti kinerjanya menurun ketika diterapkan pada data baru.</p>\n<h1>Memperkenalkan LoRA</h1>\n<p>LoRA (Low-Rank Adaptation) adalah teknik yang dirancang untuk mengatasi tantangan fine-tuning LLM dengan cara yang lebih efisien dan praktis. Ide dasarnya adalah alih-alih menyesuaikan seluruh parameter model, LoRA hanya melatih sejumlah kecil parameter tambahan yang disebut &#8220;adapter&#8221;. Adapter ini jauh lebih kecil daripada parameter model asli, sehingga mengurangi kebutuhan sumber daya komputasi dan penyimpanan secara signifikan. Analogi sederhananya adalah seperti menambahkan sedikit cat baru ke lukisan besar – perubahan tersebut halus, terfokus, dan tidak mengubah keseluruhan gambar.</p>\n<p>Bayangkan Anda ingin mengubah gaya tulisan seorang ahli bahasa. Alih-alih mengubah semua catatan dan pengalamannya (parameter model), Anda hanya memberikan beberapa petunjuk atau contoh gaya tulisan baru (adapter). Dengan cara ini, perubahan tersebut lebih cepat, lebih mudah dikelola, dan tidak terlalu memengaruhi pengetahuan dasar ahli bahasa.</p>\n<p>Secara teknis, LoRA menerapkan matriks berperingkat rendah untuk memperkirakan perubahan pada bobot model. Ini berarti bahwa alih-alih menyesuaikan seluruh matriks bobot, LoRA hanya melatih matriks yang lebih kecil dengan peringkat yang lebih rendah. Peringkat yang lebih rendah ini secara signifikan mengurangi jumlah parameter yang perlu dilatih, sehingga mengurangi kebutuhan sumber daya komputasi.</p>\n<h2>Cara Kerja LoRA</h2>\n<ul>\n<li><strong>Menambahkan Adapter:</strong> LoRA menambahkan beberapa lapisan adapter ke dalam arsitektur model LLM. Lapisan-lapisan ini biasanya ditambahkan di antara lapisan-lapisan transformer yang ada.</li>\n<li><strong>Melatih Adapter:</strong> Hanya parameter dalam adapter yang dilatih selama proses fine-tuning. Bobot model asli tetap tidak berubah, menjaga pengetahuan umum model yang telah dipelajari sebelumnya.</li>\n<li><strong>Menggabungkan Output:</strong> Output dari model asli dan adapter digabungkan untuk menghasilkan output akhir, sehingga menggabungkan pengetahuan umum dengan adaptasi khusus tugas.</li>\n</ul>\n<h1>QLoRA: LoRA yang Lebih Efisien</h1>\n<p>QLoRA (Quantized Low-Rank Adaptation) adalah evolusi dari LoRA, yang dirancang untuk mengurangi kebutuhan memori bahkan lebih jauh. QLoRA memanfaatkan teknik kuantisasi untuk mengurangi ukuran bobot model, sehingga memungkinkan fine-tuning LLM dengan perangkat keras yang lebih terbatas. Kuantisasi adalah proses mengubah representasi numerik dari bobot model menjadi format presisi rendah, seperti int8 atau bahkan lebih rendah, daripada float32 yang biasa digunakan. Bayangkan Anda memiliki gambar berkualitas tinggi. Kuantisasi adalah proses mereduksi ukuran gambar tersebut dengan mengurangi jumlah warna yang digunakan, sehingga gambar tersebut terlihat sedikit kurang detail tetapi ukurannya jauh lebih kecil.</p>\n<p>Dengan mengkuantisasi bobot model, QLoRA dapat secara signifikan mengurangi kebutuhan memori untuk menyimpan dan memproses model. Selain itu, QLoRA menggunakan teknik khusus untuk memastikan bahwa kuantisasi tidak terlalu merusak kinerja model, dengan menggunakan teknik seperti &#8220;double quantization&#8221; yang memungkinkan representasi lebih akurat dari gradien selama pelatihan.</p>\n<h2>Keunggulan QLoRA</h2>\n<ul>\n<li><strong>Pengurangan Memori Drastis:</strong> QLoRA memungkinkan fine-tuning LLM dengan memori yang jauh lebih sedikit daripada LoRA biasa.</li>\n<li><strong>Kinerja Tinggi:</strong> Teknik kuantisasi khusus di QLoRA membantu menjaga kinerja model setelah kuantisasi, bahkan dengan tingkat kuantisasi yang lebih rendah.</li>\n<li><strong>Kemampuan Fine-Tuning pada Perangkat Keras Terbatas:</strong> QLoRA memungkinkan fine-tuning LLM pada GPU dengan memori yang lebih kecil, seperti kartu grafis konsumen.</li>\n</ul>\n<h1>Manfaat LoRA dan QLoRA</h1>\n<p>Menggunakan LoRA atau QLoRA menawarkan beberapa manfaat signifikan: <strong>Biaya yang Lebih Rendah:</strong> Fine-tuning LLM dengan LoRA atau QLoRA jauh lebih murah daripada fine-tuning tradisional karena mengurangi kebutuhan sumber daya komputasi. <strong>Waktu Pelatihan yang Lebih Singkat:</strong> Karena sumber daya komputasi yang dibutuhkan lebih sedikit, proses fine-tuning menjadi lebih cepat dan efisien. <strong>Aksesibilitas yang Lebih Besar:</strong> LoRA dan QLoRA memungkinkan peneliti dan pengembang dengan sumber daya terbatas untuk melakukan fine-tuning LLM, membuka peluang baru bagi inovasi di berbagai bidang.</p>\n<h1>Contoh Penerapan LoRA dan QLoRA</h1>\n<p>LoRA dan QLoRA dapat digunakan dalam berbagai aplikasi, termasuk: <strong>Chatbots yang Disesuaikan:</strong> Fine-tuning LLM dengan LoRA atau QLoRA untuk menciptakan chatbot yang lebih responsif dan relevan untuk domain tertentu, seperti layanan pelanggan atau dukungan teknis. <strong>Pembuatan Konten Kreatif:</strong> Fine-tuning LLM untuk menghasilkan teks kreatif dalam gaya tertentu, seperti puisi, skenario film, atau musik, memungkinkan pengguna untuk memanfaatkan kemampuan kreatif LLM. <strong>Analisis Sentimen:</strong> Fine-tuning LLM untuk menganalisis sentimen dari teks, seperti ulasan produk atau postingan media sosial, memberikan wawasan berharga tentang opini dan persepsi pelanggan.</p>\n<h1>Kesimpulan</h1>\n<p>LoRA dan QLoRA merepresentasikan terobosan penting dalam fine-tuning Large Language Models. Dengan mengurangi kebutuhan sumber daya komputasi dan penyimpanan, teknik ini membuka pintu bagi lebih banyak orang untuk memanfaatkan kekuatan LLM dalam berbagai aplikasi. Seiring dengan perkembangan teknologi, LoRA dan QLoRA akan terus memainkan peran yang semakin penting dalam pengembangan dan penerapan LLM, memungkinkan aksesibilitas yang lebih luas dan mendorong inovasi di berbagai bidang, dari layanan pelanggan hingga pembuatan konten kreatif.</p>\n",
+  "content_text": "Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM\nLarge Language Models (LLM) seperti GPT-3, LaMDA, atau PaLM telah memicu revolusi dalam bidang kecerdasan buatan. Kemampuan mereka yang mengesankan – mulai dari menghasilkan teks kreatif yang meyakinkan hingga menjawab pertanyaan kompleks dengan akurasi tinggi – membuka peluang baru di berbagai industri. Namun, kekuatan ini datang dengan biaya: LLM-lah secara inheren sangat besar, membutuhkan sumber daya komputasi yang luar biasa untuk pelatihan dan inferensi, serta penyimpanan memori yang signifikan. Fine-tuning, proses penyesuaian model pra-latih ini dengan dataset spesifik, merupakan pendekatan yang menjanjikan untuk meningkatkan kinerja pada tugas tertentu. Akan tetapi, fine-tuning tradisional – yang melibatkan pembaruan seluruh parameter model – seringkali tidak praktis karena biaya dan kompleksitasnya yang tinggi. Di sinilah LoRA (Low-Rank Adaptation) dan QLoRA (Quantized Low-Rank Adaptation) hadir sebagai solusi inovatif, memungkinkan fine-tuning LLM dengan sumber daya yang jauh lebih sedikit, membuka jalan bagi aksesibilitas dan efisiensi yang belum pernah terjadi sebelumnya.\nKonsep Dasar Fine-Tuning LLM\nSebelum menyelami detail LoRA dan QLoRA, penting untuk memahami konsep dasar fine-tuning. Pada intinya, fine-tuning adalah proses melatih kembali model yang sudah ada (model pra-latih) dengan dataset baru yang lebih kecil dan berfokus pada tujuan tertentu. Bayangkan Anda memiliki seorang ahli bahasa yang telah membaca jutaan buku, menguasai berbagai gaya penulisan, dan memahami nuansa bahasa secara mendalam – itulah model pra-latih. Sekarang, Anda ingin dia menjadi spesialis dalam menulis puisi tentang bunga. Fine-tuning adalah proses memberikan pelatihan tambahan kepada ahli bahasa tersebut dengan membaca banyak contoh puisi tentang bunga, menganalisis struktur dan gaya mereka, dan mempelajari kosakata yang relevan—sehingga dia dapat menghasilkan puisi yang lebih baik tentang bunga. Proses ini secara efektif memfokuskan pengetahuan model yang luas untuk tugas tertentu.\nDalam konteks LLM, fine-tuning melibatkan memperbarui bobot (weights) model. Bobot ini merupakan representasi numerik dari pengetahuan yang telah dipelajari model selama pelatihan awal, yang diperoleh melalui pemrosesan sejumlah besar data teks. Dengan menyesuaikan bobot ini dengan dataset baru, model dapat mempelajari pola dan hubungan yang relevan untuk tugas spesifik, sehingga meningkatkan kemampuannya dalam memprediksi dan menghasilkan teks.\nTantangan Fine-Tuning Tradisional\nFine-tuning tradisional memiliki beberapa tantangan utama yang menghambat adopsinya secara luas:  Sumber Daya Komputasi Tinggi:  Menyesuaikan seluruh parameter model membutuhkan daya komputasi yang besar, seringkali memerlukan akses ke GPU kelas atas dan waktu pelatihan yang lama – bisa mencapai minggu atau bahkan bulan.  Kebutuhan Penyimpanan Besar:  Model yang telah di-fine-tune masih berukuran besar, karena semua parameter model telah dimodifikasi, sehingga membutuhkan ruang penyimpanan yang signifikan untuk menyimpan dan memuat model.  Risiko Overfitting:  Jika dataset fine-tuning terlalu kecil atau tidak representatif terhadap data yang akan dihadapi model dalam produksi, model dapat menjadi overfitting terhadap data tersebut dan kehilangan kemampuan generalisasinya, yang berarti kinerjanya menurun ketika diterapkan pada data baru.\nMemperkenalkan LoRA\nLoRA (Low-Rank Adaptation) adalah teknik yang dirancang untuk mengatasi tantangan fine-tuning LLM dengan cara yang lebih efisien dan praktis. Ide dasarnya adalah alih-alih menyesuaikan seluruh parameter model, LoRA hanya melatih sejumlah kecil parameter tambahan yang disebut “adapter”. Adapter ini jauh lebih kecil daripada parameter model asli, sehingga mengurangi kebutuhan sumber daya komputasi dan penyimpanan secara signifikan. Analogi sederhananya adalah seperti menambahkan sedikit cat baru ke lukisan besar – perubahan tersebut halus, terfokus, dan tidak mengubah keseluruhan gambar.\nBayangkan Anda ingin mengubah gaya tulisan seorang ahli bahasa. Alih-alih mengubah semua catatan dan pengalamannya (parameter model), Anda hanya memberikan beberapa petunjuk atau contoh gaya tulisan baru (adapter). Dengan cara ini, perubahan tersebut lebih cepat, lebih mudah dikelola, dan tidak terlalu memengaruhi pengetahuan dasar ahli bahasa.\nSecara teknis, LoRA menerapkan matriks berperingkat rendah untuk memperkirakan perubahan pada bobot model. Ini berarti bahwa alih-alih menyesuaikan seluruh matriks bobot, LoRA hanya melatih matriks yang lebih kecil dengan peringkat yang lebih rendah. Peringkat yang lebih rendah ini secara signifikan mengurangi jumlah parameter yang perlu dilatih, sehingga mengurangi kebutuhan sumber daya komputasi.\nCara Kerja LoRA\nMenambahkan Adapter:  LoRA menambahkan beberapa lapisan adapter ke dalam arsitektur model LLM. Lapisan-lapisan ini biasanya ditambahkan di antara lapisan-lapisan transformer yang ada.\nMelatih Adapter:  Hanya parameter dalam adapter yang dilatih selama proses fine-tuning. Bobot model asli tetap tidak berubah, menjaga pengetahuan umum model yang telah dipelajari sebelumnya.\nMenggabungkan Output:  Output dari model asli dan adapter digabungkan untuk menghasilkan output akhir, sehingga menggabungkan pengetahuan umum dengan adaptasi khusus tugas.\nQLoRA: LoRA yang Lebih Efisien\nQLoRA (Quantized Low-Rank Adaptation) adalah evolusi dari LoRA, yang dirancang untuk mengurangi kebutuhan memori bahkan lebih jauh. QLoRA memanfaatkan teknik kuantisasi untuk mengurangi ukuran bobot model, sehingga memungkinkan fine-tuning LLM dengan perangkat keras yang lebih terbatas. Kuantisasi adalah proses mengubah representasi numerik dari bobot model menjadi format presisi rendah, seperti int8 atau bahkan lebih rendah, daripada float32 yang biasa digunakan. Bayangkan Anda memiliki gambar berkualitas tinggi. Kuantisasi adalah proses mereduksi ukuran gambar tersebut dengan mengurangi jumlah warna yang digunakan, sehingga gambar tersebut terlihat sedikit kurang detail tetapi ukurannya jauh lebih kecil.\nDengan mengkuantisasi bobot model, QLoRA dapat secara signifikan mengurangi kebutuhan memori untuk menyimpan dan memproses model. Selain itu, QLoRA menggunakan teknik khusus untuk memastikan bahwa kuantisasi tidak terlalu merusak kinerja model, dengan menggunakan teknik seperti “double quantization” yang memungkinkan representasi lebih akurat dari gradien selama pelatihan.\nKeunggulan QLoRA\nPengurangan Memori Drastis:  QLoRA memungkinkan fine-tuning LLM dengan memori yang jauh lebih sedikit daripada LoRA biasa.\nKinerja Tinggi:  Teknik kuantisasi khusus di QLoRA membantu menjaga kinerja model setelah kuantisasi, bahkan dengan tingkat kuantisasi yang lebih rendah.\nKemampuan Fine-Tuning pada Perangkat Keras Terbatas:  QLoRA memungkinkan fine-tuning LLM pada GPU dengan memori yang lebih kecil, seperti kartu grafis konsumen.\nManfaat LoRA dan QLoRA\nMenggunakan LoRA atau QLoRA menawarkan beberapa manfaat signifikan:  Biaya yang Lebih Rendah:  Fine-tuning LLM dengan LoRA atau QLoRA jauh lebih murah daripada fine-tuning tradisional karena mengurangi kebutuhan sumber daya komputasi.  Waktu Pelatihan yang Lebih Singkat:  Karena sumber daya komputasi yang dibutuhkan lebih sedikit, proses fine-tuning menjadi lebih cepat dan efisien.  Aksesibilitas yang Lebih Besar:  LoRA dan QLoRA memungkinkan peneliti dan pengembang dengan sumber daya terbatas untuk melakukan fine-tuning LLM, membuka peluang baru bagi inovasi di berbagai bidang.\nContoh Penerapan LoRA dan QLoRA\nLoRA dan QLoRA dapat digunakan dalam berbagai aplikasi, termasuk:  Chatbots yang Disesuaikan:  Fine-tuning LLM dengan LoRA atau QLoRA untuk menciptakan chatbot yang lebih responsif dan relevan untuk domain tertentu, seperti layanan pelanggan atau dukungan teknis.  Pembuatan Konten Kreatif:  Fine-tuning LLM untuk menghasilkan teks kreatif dalam gaya tertentu, seperti puisi, skenario film, atau musik, memungkinkan pengguna untuk memanfaatkan kemampuan kreatif LLM.  Analisis Sentimen:  Fine-tuning LLM untuk menganalisis sentimen dari teks, seperti ulasan produk atau postingan media sosial, memberikan wawasan berharga tentang opini dan persepsi pelanggan.\nKesimpulan\nLoRA dan QLoRA merepresentasikan terobosan penting dalam fine-tuning Large Language Models. Dengan mengurangi kebutuhan sumber daya komputasi dan penyimpanan, teknik ini membuka pintu bagi lebih banyak orang untuk memanfaatkan kekuatan LLM dalam berbagai aplikasi. Seiring dengan perkembangan teknologi, LoRA dan QLoRA akan terus memainkan peran yang semakin penting dalam pengembangan dan penerapan LLM, memungkinkan aksesibilitas yang lebih luas dan mendorong inovasi di berbagai bidang, dari layanan pelanggan hingga pembuatan konten kreatif.",
+  "raw": {
+    "id": 17743,
+    "date": "2026-07-30T11:02:30",
+    "date_gmt": "2026-07-30T11:02:30",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=17743"
+    },
+    "modified": "2026-07-30T11:02:30",
+    "modified_gmt": "2026-07-30T11:02:30",
+    "slug": "mengenal-lora-dan-qlora-untuk-fine-tuning-llm",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/",
+    "title": {
+      "rendered": "Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM"
+    },
+    "content": {
+      "rendered": "<p>&nbsp;</p>\n<h1>Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM</h1>\n<p>Large Language Models (LLM) seperti GPT-3, LaMDA, atau PaLM telah memicu revolusi dalam bidang kecerdasan buatan. Kemampuan mereka yang mengesankan – mulai dari menghasilkan teks kreatif yang meyakinkan hingga menjawab pertanyaan kompleks dengan akurasi tinggi – membuka peluang baru di berbagai industri. Namun, kekuatan ini datang dengan biaya: LLM-lah secara inheren sangat besar, membutuhkan sumber daya komputasi yang luar biasa untuk pelatihan dan inferensi, serta penyimpanan memori yang signifikan. Fine-tuning, proses penyesuaian model pra-latih ini dengan dataset spesifik, merupakan pendekatan yang menjanjikan untuk meningkatkan kinerja pada tugas tertentu. Akan tetapi, fine-tuning tradisional – yang melibatkan pembaruan seluruh parameter model – seringkali tidak praktis karena biaya dan kompleksitasnya yang tinggi. Di sinilah LoRA (Low-Rank Adaptation) dan QLoRA (Quantized Low-Rank Adaptation) hadir sebagai solusi inovatif, memungkinkan fine-tuning LLM dengan sumber daya yang jauh lebih sedikit, membuka jalan bagi aksesibilitas dan efisiensi yang belum pernah terjadi sebelumnya.</p>\n<h1>Konsep Dasar Fine-Tuning LLM</h1>\n<p>Sebelum menyelami detail LoRA dan QLoRA, penting untuk memahami konsep dasar fine-tuning. Pada intinya, fine-tuning adalah proses melatih kembali model yang sudah ada (model pra-latih) dengan dataset baru yang lebih kecil dan berfokus pada tujuan tertentu. Bayangkan Anda memiliki seorang ahli bahasa yang telah membaca jutaan buku, menguasai berbagai gaya penulisan, dan memahami nuansa bahasa secara mendalam – itulah model pra-latih. Sekarang, Anda ingin dia menjadi spesialis dalam menulis puisi tentang bunga. Fine-tuning adalah proses memberikan pelatihan tambahan kepada ahli bahasa tersebut dengan membaca banyak contoh puisi tentang bunga, menganalisis struktur dan gaya mereka, dan mempelajari kosakata yang relevan—sehingga dia dapat menghasilkan puisi yang lebih baik tentang bunga. Proses ini secara efektif memfokuskan pengetahuan model yang luas untuk tugas tertentu.</p>\n<p>Dalam konteks LLM, fine-tuning melibatkan memperbarui bobot (weights) model. Bobot ini merupakan representasi numerik dari pengetahuan yang telah dipelajari model selama pelatihan awal, yang diperoleh melalui pemrosesan sejumlah besar data teks. Dengan menyesuaikan bobot ini dengan dataset baru, model dapat mempelajari pola dan hubungan yang relevan untuk tugas spesifik, sehingga meningkatkan kemampuannya dalam memprediksi dan menghasilkan teks.</p>\n<h2>Tantangan Fine-Tuning Tradisional</h2>\n<p>Fine-tuning tradisional memiliki beberapa tantangan utama yang menghambat adopsinya secara luas: <strong>Sumber Daya Komputasi Tinggi:</strong> Menyesuaikan seluruh parameter model membutuhkan daya komputasi yang besar, seringkali memerlukan akses ke GPU kelas atas dan waktu pelatihan yang lama – bisa mencapai minggu atau bahkan bulan. <strong>Kebutuhan Penyimpanan Besar:</strong> Model yang telah di-fine-tune masih berukuran besar, karena semua parameter model telah dimodifikasi, sehingga membutuhkan ruang penyimpanan yang signifikan untuk menyimpan dan memuat model. <strong>Risiko Overfitting:</strong> Jika dataset fine-tuning terlalu kecil atau tidak representatif terhadap data yang akan dihadapi model dalam produksi, model dapat menjadi overfitting terhadap data tersebut dan kehilangan kemampuan generalisasinya, yang berarti kinerjanya menurun ketika diterapkan pada data baru.</p>\n<h1>Memperkenalkan LoRA</h1>\n<p>LoRA (Low-Rank Adaptation) adalah teknik yang dirancang untuk mengatasi tantangan fine-tuning LLM dengan cara yang lebih efisien dan praktis. Ide dasarnya adalah alih-alih menyesuaikan seluruh parameter model, LoRA hanya melatih sejumlah kecil parameter tambahan yang disebut &#8220;adapter&#8221;. Adapter ini jauh lebih kecil daripada parameter model asli, sehingga mengurangi kebutuhan sumber daya komputasi dan penyimpanan secara signifikan. Analogi sederhananya adalah seperti menambahkan sedikit cat baru ke lukisan besar – perubahan tersebut halus, terfokus, dan tidak mengubah keseluruhan gambar.</p>\n<p>Bayangkan Anda ingin mengubah gaya tulisan seorang ahli bahasa. Alih-alih mengubah semua catatan dan pengalamannya (parameter model), Anda hanya memberikan beberapa petunjuk atau contoh gaya tulisan baru (adapter). Dengan cara ini, perubahan tersebut lebih cepat, lebih mudah dikelola, dan tidak terlalu memengaruhi pengetahuan dasar ahli bahasa.</p>\n<p>Secara teknis, LoRA menerapkan matriks berperingkat rendah untuk memperkirakan perubahan pada bobot model. Ini berarti bahwa alih-alih menyesuaikan seluruh matriks bobot, LoRA hanya melatih matriks yang lebih kecil dengan peringkat yang lebih rendah. Peringkat yang lebih rendah ini secara signifikan mengurangi jumlah parameter yang perlu dilatih, sehingga mengurangi kebutuhan sumber daya komputasi.</p>\n<h2>Cara Kerja LoRA</h2>\n<ul>\n<li><strong>Menambahkan Adapter:</strong> LoRA menambahkan beberapa lapisan adapter ke dalam arsitektur model LLM. Lapisan-lapisan ini biasanya ditambahkan di antara lapisan-lapisan transformer yang ada.</li>\n<li><strong>Melatih Adapter:</strong> Hanya parameter dalam adapter yang dilatih selama proses fine-tuning. Bobot model asli tetap tidak berubah, menjaga pengetahuan umum model yang telah dipelajari sebelumnya.</li>\n<li><strong>Menggabungkan Output:</strong> Output dari model asli dan adapter digabungkan untuk menghasilkan output akhir, sehingga menggabungkan pengetahuan umum dengan adaptasi khusus tugas.</li>\n</ul>\n<h1>QLoRA: LoRA yang Lebih Efisien</h1>\n<p>QLoRA (Quantized Low-Rank Adaptation) adalah evolusi dari LoRA, yang dirancang untuk mengurangi kebutuhan memori bahkan lebih jauh. QLoRA memanfaatkan teknik kuantisasi untuk mengurangi ukuran bobot model, sehingga memungkinkan fine-tuning LLM dengan perangkat keras yang lebih terbatas. Kuantisasi adalah proses mengubah representasi numerik dari bobot model menjadi format presisi rendah, seperti int8 atau bahkan lebih rendah, daripada float32 yang biasa digunakan. Bayangkan Anda memiliki gambar berkualitas tinggi. Kuantisasi adalah proses mereduksi ukuran gambar tersebut dengan mengurangi jumlah warna yang digunakan, sehingga gambar tersebut terlihat sedikit kurang detail tetapi ukurannya jauh lebih kecil.</p>\n<p>Dengan mengkuantisasi bobot model, QLoRA dapat secara signifikan mengurangi kebutuhan memori untuk menyimpan dan memproses model. Selain itu, QLoRA menggunakan teknik khusus untuk memastikan bahwa kuantisasi tidak terlalu merusak kinerja model, dengan menggunakan teknik seperti &#8220;double quantization&#8221; yang memungkinkan representasi lebih akurat dari gradien selama pelatihan.</p>\n<h2>Keunggulan QLoRA</h2>\n<ul>\n<li><strong>Pengurangan Memori Drastis:</strong> QLoRA memungkinkan fine-tuning LLM dengan memori yang jauh lebih sedikit daripada LoRA biasa.</li>\n<li><strong>Kinerja Tinggi:</strong> Teknik kuantisasi khusus di QLoRA membantu menjaga kinerja model setelah kuantisasi, bahkan dengan tingkat kuantisasi yang lebih rendah.</li>\n<li><strong>Kemampuan Fine-Tuning pada Perangkat Keras Terbatas:</strong> QLoRA memungkinkan fine-tuning LLM pada GPU dengan memori yang lebih kecil, seperti kartu grafis konsumen.</li>\n</ul>\n<h1>Manfaat LoRA dan QLoRA</h1>\n<p>Menggunakan LoRA atau QLoRA menawarkan beberapa manfaat signifikan: <strong>Biaya yang Lebih Rendah:</strong> Fine-tuning LLM dengan LoRA atau QLoRA jauh lebih murah daripada fine-tuning tradisional karena mengurangi kebutuhan sumber daya komputasi. <strong>Waktu Pelatihan yang Lebih Singkat:</strong> Karena sumber daya komputasi yang dibutuhkan lebih sedikit, proses fine-tuning menjadi lebih cepat dan efisien. <strong>Aksesibilitas yang Lebih Besar:</strong> LoRA dan QLoRA memungkinkan peneliti dan pengembang dengan sumber daya terbatas untuk melakukan fine-tuning LLM, membuka peluang baru bagi inovasi di berbagai bidang.</p>\n<h1>Contoh Penerapan LoRA dan QLoRA</h1>\n<p>LoRA dan QLoRA dapat digunakan dalam berbagai aplikasi, termasuk: <strong>Chatbots yang Disesuaikan:</strong> Fine-tuning LLM dengan LoRA atau QLoRA untuk menciptakan chatbot yang lebih responsif dan relevan untuk domain tertentu, seperti layanan pelanggan atau dukungan teknis. <strong>Pembuatan Konten Kreatif:</strong> Fine-tuning LLM untuk menghasilkan teks kreatif dalam gaya tertentu, seperti puisi, skenario film, atau musik, memungkinkan pengguna untuk memanfaatkan kemampuan kreatif LLM. <strong>Analisis Sentimen:</strong> Fine-tuning LLM untuk menganalisis sentimen dari teks, seperti ulasan produk atau postingan media sosial, memberikan wawasan berharga tentang opini dan persepsi pelanggan.</p>\n<h1>Kesimpulan</h1>\n<p>LoRA dan QLoRA merepresentasikan terobosan penting dalam fine-tuning Large Language Models. Dengan mengurangi kebutuhan sumber daya komputasi dan penyimpanan, teknik ini membuka pintu bagi lebih banyak orang untuk memanfaatkan kekuatan LLM dalam berbagai aplikasi. Seiring dengan perkembangan teknologi, LoRA dan QLoRA akan terus memainkan peran yang semakin penting dalam pengembangan dan penerapan LLM, memungkinkan aksesibilitas yang lebih luas dan mendorong inovasi di berbagai bidang, dari layanan pelanggan hingga pembuatan konten kreatif.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>&nbsp; Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM Large Language Models (LLM) seperti GPT-3, LaMDA, atau PaLM telah memicu revolusi dalam bidang kecerdasan buatan. Kemampuan mereka yang mengesankan – mulai dari menghasilkan teks kreatif yang meyakinkan hingga menjawab pertanyaan kompleks dengan akurasi tinggi – membuka peluang baru di berbagai industri. Namun, kekuatan ini datang dengan biaya: LLM-lah secara inheren sangat besar, membutuhkan sumber daya komputasi yang luar biasa untuk pelatihan dan inferensi, serta penyimpanan memori yang signifikan. Fine-tuning, proses penyesuaian model pra-latih ini dengan dataset spesifik, merupakan pendekatan yang menjanjikan untuk meningkatkan kinerja pada tugas tertentu. Akan tetapi, fine-tuning tradisional&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 34,
+    "featured_media": 17747,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1919,
+      2616
+    ],
+    "tags": [
+      3065
+    ],
+    "class_list": [
+      "post-17743",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-ai",
+      "category-information-technology",
+      "tag-mengenal-lora-dan-qlora-untuk-fine-tuning-llm"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"&nbsp; Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM Large Language Models (LLM) seperti GPT-3, LaMDA, atau PaLM telah memicu revolusi dalam bidang kecerdasan buatan. Kemampuan mereka yang mengesankan – mulai dari menghasilkan teks kreatif yang meyakinkan hingga menjawab pertanyaan kompleks dengan akurasi tinggi – membuka peluang baru di berbagai industri. Namun, kekuatan ini datang dengan biaya: LLM-lah secara inheren sangat besar, membutuhkan sumber daya komputasi yang luar biasa untuk pelatihan dan inferensi, serta penyimpanan memori yang signifikan. Fine-tuning, proses penyesuaian model pra-latih ini dengan dataset spesifik, merupakan pendekatan yang menjanjikan untuk meningkatkan kinerja pada tugas tertentu. Akan tetapi, fine-tuning tradisional...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-30T11:02:30+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/QqGzfJ1PjeE6KtqVh5YNE1T2NsXZXI_G8bFWb8H80hLu_Qum2sTePxZ-WwoXy_WCB87ArbeIGP8gL1EURTHnKODjJrjNcDuIH4FpGIJXp91WMV8_tHvC5xIPY9RDRDozCI05ho5TkaozGtxhiOq2qe91LV5BIaGBSIodGDAsza7y2M7hiAxZLTxqh-vjAlWl.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1536\" />\n\t<meta property=\"og:image:height\" content=\"1024\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Citra Saskia saranani\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Citra Saskia saranani\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"6 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/\",\"url\":\"https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/\",\"name\":\"Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/QqGzfJ1PjeE6KtqVh5YNE1T2NsXZXI_G8bFWb8H80hLu_Qum2sTePxZ-WwoXy_WCB87ArbeIGP8gL1EURTHnKODjJrjNcDuIH4FpGIJXp91WMV8_tHvC5xIPY9RDRDozCI05ho5TkaozGtxhiOq2qe91LV5BIaGBSIodGDAsza7y2M7hiAxZLTxqh-vjAlWl.jpg\",\"datePublished\":\"2026-07-30T11:02:30+00:00\",\"dateModified\":\"2026-07-30T11:02:30+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/QqGzfJ1PjeE6KtqVh5YNE1T2NsXZXI_G8bFWb8H80hLu_Qum2sTePxZ-WwoXy_WCB87ArbeIGP8gL1EURTHnKODjJrjNcDuIH4FpGIJXp91WMV8_tHvC5xIPY9RDRDozCI05ho5TkaozGtxhiOq2qe91LV5BIaGBSIodGDAsza7y2M7hiAxZLTxqh-vjAlWl.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/QqGzfJ1PjeE6KtqVh5YNE1T2NsXZXI_G8bFWb8H80hLu_Qum2sTePxZ-WwoXy_WCB87ArbeIGP8gL1EURTHnKODjJrjNcDuIH4FpGIJXp91WMV8_tHvC5xIPY9RDRDozCI05ho5TkaozGtxhiOq2qe91LV5BIaGBSIodGDAsza7y2M7hiAxZLTxqh-vjAlWl.jpg\",\"width\":1536,\"height\":1024},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6\",\"name\":\"Citra Saskia saranani\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g\",\"caption\":\"Citra Saskia saranani\"},\"url\":\"https://buletinsiber.com/author/citra-saskia-saranani/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM - buletinsiber.com",
+      "og_description": "&nbsp; Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM Large Language Models (LLM) seperti GPT-3, LaMDA, atau PaLM telah memicu revolusi dalam bidang kecerdasan buatan. Kemampuan mereka yang mengesankan – mulai dari menghasilkan teks kreatif yang meyakinkan hingga menjawab pertanyaan kompleks dengan akurasi tinggi – membuka peluang baru di berbagai industri. Namun, kekuatan ini datang dengan biaya: LLM-lah secara inheren sangat besar, membutuhkan sumber daya komputasi yang luar biasa untuk pelatihan dan inferensi, serta penyimpanan memori yang signifikan. Fine-tuning, proses penyesuaian model pra-latih ini dengan dataset spesifik, merupakan pendekatan yang menjanjikan untuk meningkatkan kinerja pada tugas tertentu. Akan tetapi, fine-tuning tradisional...",
+      "og_url": "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-30T11:02:30+00:00",
+      "og_image": [
+        {
+          "width": 1536,
+          "height": 1024,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/QqGzfJ1PjeE6KtqVh5YNE1T2NsXZXI_G8bFWb8H80hLu_Qum2sTePxZ-WwoXy_WCB87ArbeIGP8gL1EURTHnKODjJrjNcDuIH4FpGIJXp91WMV8_tHvC5xIPY9RDRDozCI05ho5TkaozGtxhiOq2qe91LV5BIaGBSIodGDAsza7y2M7hiAxZLTxqh-vjAlWl.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Citra Saskia saranani",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Citra Saskia saranani",
+        "Est. reading time": "6 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/",
+            "url": "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/",
+            "name": "Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/QqGzfJ1PjeE6KtqVh5YNE1T2NsXZXI_G8bFWb8H80hLu_Qum2sTePxZ-WwoXy_WCB87ArbeIGP8gL1EURTHnKODjJrjNcDuIH4FpGIJXp91WMV8_tHvC5xIPY9RDRDozCI05ho5TkaozGtxhiOq2qe91LV5BIaGBSIodGDAsza7y2M7hiAxZLTxqh-vjAlWl.jpg",
+            "datePublished": "2026-07-30T11:02:30+00:00",
+            "dateModified": "2026-07-30T11:02:30+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/QqGzfJ1PjeE6KtqVh5YNE1T2NsXZXI_G8bFWb8H80hLu_Qum2sTePxZ-WwoXy_WCB87ArbeIGP8gL1EURTHnKODjJrjNcDuIH4FpGIJXp91WMV8_tHvC5xIPY9RDRDozCI05ho5TkaozGtxhiOq2qe91LV5BIaGBSIodGDAsza7y2M7hiAxZLTxqh-vjAlWl.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/QqGzfJ1PjeE6KtqVh5YNE1T2NsXZXI_G8bFWb8H80hLu_Qum2sTePxZ-WwoXy_WCB87ArbeIGP8gL1EURTHnKODjJrjNcDuIH4FpGIJXp91WMV8_tHvC5xIPY9RDRDozCI05ho5TkaozGtxhiOq2qe91LV5BIaGBSIodGDAsza7y2M7hiAxZLTxqh-vjAlWl.jpg",
+            "width": 1536,
+            "height": 1024
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/mengenal-lora-dan-qlora-untuk-fine-tuning-llm/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Mengenal LoRA dan QLoRA untuk Fine-Tuning LLM"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6",
+            "name": "Citra Saskia saranani",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g",
+              "caption": "Citra Saskia saranani"
+            },
+            "url": "https://buletinsiber.com/author/citra-saskia-saranani/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17743",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/34"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=17743"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17743/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 17748,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/17743/revisions/17748"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/17747"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=17743"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=17743"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=17743"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

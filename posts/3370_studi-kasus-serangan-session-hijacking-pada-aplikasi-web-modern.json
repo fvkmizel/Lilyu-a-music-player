@@ -1,0 +1,283 @@
+{
+  "id": 3370,
+  "title": "Studi Kasus: Serangan Session Hijacking pada Aplikasi Web Modern",
+  "slug": "studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern",
+  "url": "https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/",
+  "date": "2025-07-06T10:22:22",
+  "date_gmt": "2025-07-06T10:22:22",
+  "modified": "2026-06-30T19:02:43",
+  "modified_gmt": "2026-06-30T19:02:43",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385
+  ],
+  "featured_image": "",
+  "excerpt": "I. Pendahuluan Saat ini, banyak aplikasi web menyimpan informasi sensitif: dari data pribadi hingga akses ke sistem keuangan. Karena itu, keamanan aplikasi web adalah hal yang sangat krusial. Salah satu celah yang sering dimanfaatkan oleh penyerang adalah session hijacking, yaitu ketika sesi pengguna yang sudah login dibajak oleh pihak lain. Melalui artikel ini, kita akan membahas sebuah studi kasus nyata dari serangan session hijacking yang pernah terjadi pada aplikasi web modern, lengkap dengan penyebab, proses serangan, dan bagaimana cara mencegahnya.  II. Apa Itu Session Hijacking? (Ringkasan Singkat) Session hijacking adalah teknik mencuri atau menyalahgunakan session ID pengguna setelah mereka login…",
+  "content_html": "<h3> I. <strong>Pendahuluan</strong></h3>\n<p>Saat ini, banyak aplikasi web menyimpan informasi sensitif: dari data pribadi hingga akses ke sistem keuangan. Karena itu, keamanan aplikasi web adalah hal yang sangat krusial.</p>\n<p>Salah satu celah yang sering dimanfaatkan oleh penyerang adalah <strong>session hijacking</strong>, yaitu ketika sesi pengguna yang sudah login dibajak oleh pihak lain. Melalui artikel ini, kita akan membahas sebuah <strong>studi kasus nyata</strong> dari serangan session hijacking yang pernah terjadi pada aplikasi web modern, lengkap dengan penyebab, proses serangan, dan bagaimana cara mencegahnya.</p>\n<h3> II. <strong>Apa Itu Session Hijacking? (Ringkasan Singkat)</strong></h3>\n<p><strong>Session hijacking</strong> adalah teknik mencuri atau menyalahgunakan session ID pengguna setelah mereka login ke sebuah aplikasi. Dengan session ID ini, penyerang bisa masuk sebagai pengguna tersebut <strong>tanpa perlu tahu password-nya</strong>.</p>\n<h3> III. <strong>Studi Kasus: Serangan pada Aplikasi Web Edukasi</strong></h3>\n<h4><strong> Latar Belakang:</strong></h4>\n<p>Sebuah platform pembelajaran daring (e-learning) digunakan oleh ribuan mahasiswa dan dosen di sebuah universitas ternama. Platform ini menyediakan akses ke nilai, materi kuliah, hingga data pribadi mahasiswa.</p>\n<h4><strong>Masalah yang Terjadi:</strong></h4>\n<p>Beberapa pengguna melaporkan bahwa akun mereka <strong>diakses tanpa izin</strong>, dan beberapa data pribadi <strong>berubah tanpa sepengetahuan mereka</strong>.</p>\n<h3>  IV. <strong>Proses Investigasi dan Temuan</strong></h3>\n<p>Setelah dilakukan audit keamanan, berikut rangkaian peristiwa yang terungkap:</p>\n<h4> 1. <strong>Penggunaan HTTP, Bukan HTTPS</strong></h4>\n<p>Sebagian koneksi ke platform masih melalui protokol <strong>HTTP</strong>, terutama di halaman login dan dashboard.</p>\n<h4> 2. <strong>Cookie Session Tidak Terproteksi</strong></h4>\n<p>Cookie session ID tidak menggunakan atribut <code>Secure</code> dan <code>HttpOnly</code>, sehingga <strong>mudah diakses oleh skrip berbahaya</strong> atau pihak ketiga di jaringan yang sama.</p>\n<h4>  3. <strong>Penggunaan Wi-Fi Publik</strong></h4>\n<p>Banyak pengguna mengakses sistem dari <strong>Wi-Fi kampus tanpa enkripsi</strong>, yang membuat lalu lintas data bisa disadap (sniffing) dengan mudah.</p>\n<h4>  4. <strong>Serangan Sniffing Session ID</strong></h4>\n<p>Penyerang menggunakan alat seperti <strong>Wireshark</strong> untuk memantau lalu lintas jaringan, menangkap session ID dari mahasiswa yang login, dan <strong>menggunakan ID tersebut untuk masuk ke akun korban.</strong></p>\n<h3> V. <strong>Dampak Serangan</strong></h3>\n<ul>\n<li><strong>Kebocoran data pribadi mahasiswa</strong></li>\n<li><strong>Perubahan nilai dan data akademik tanpa izin</strong></li>\n<li><strong>Kepanikan massal di kalangan pengguna</strong></li>\n<li><strong>Kehilangan kepercayaan terhadap platform</strong></li>\n</ul>\n<h3> VI. <strong>Tindakan Korektif yang Dilakukan</strong></h3>\n<p>Setelah kejadian, tim pengembang melakukan perbaikan sistem besar-besaran, termasuk:</p>\n<table>\n<thead>\n<tr>\n<th>Langkah Perbaikan</th>\n<th>Penjelasan</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Mengaktifkan HTTPS di semua halaman</td>\n<td>Mengenkripsi semua lalu lintas data pengguna</td>\n</tr>\n<tr>\n<td>Mengatur cookie dengan Secure &amp; HttpOnly</td>\n<td>Mencegah cookie dibaca oleh skrip jahat atau lewat HTTP</td>\n</tr>\n<tr>\n<td>Implementasi Session Timeout</td>\n<td>Otomatis logout jika pengguna tidak aktif selama 10 menit</td>\n</tr>\n<tr>\n<td>Regenerasi Session ID setelah login</td>\n<td>Mencegah penggunaan session ID dari serangan sebelumnya</td>\n</tr>\n<tr>\n<td>Menambahkan MFA (Multi-Factor Authentication)</td>\n<td>Lapisan verifikasi tambahan untuk pengguna</td>\n</tr>\n<tr>\n<td>Edukasi Pengguna</td>\n<td>Memberi pelatihan tentang bahaya jaringan publik dan pentingnya logout</td>\n</tr>\n</tbody>\n</table>\n<h3>  VII. <strong>Pelajaran yang Bisa Diambil</strong></h3>\n<ol>\n<li><strong>Gunakan HTTPS sepenuhnya.</strong> Jangan hanya di halaman login.</li>\n<li><strong>Selalu lindungi cookie sesi.</strong> Tambahkan pengamanan seperti <code>Secure</code>, <code>HttpOnly</code>, dan <code>SameSite</code>.</li>\n<li><strong>Jangan pernah anggap Wi-Fi publik aman.</strong></li>\n<li><strong>Selalu regenerasi session ID setelah login sukses.</strong></li>\n<li><strong>Gabungkan pengamanan teknis dengan edukasi pengguna.</strong></li>\n</ol>\n<h3> VIII. <strong>Kesimpulan</strong></h3>\n<p>Studi kasus ini menunjukkan bahwa bahkan aplikasi modern pun bisa terkena <strong>session hijacking</strong> jika sesi tidak dikelola dengan aman. Keamanan bukan hanya soal membuat sistem yang berfungsi, tapi <strong>sistem yang tahan terhadap penyalahgunaan</strong>.</p>\n<p>&nbsp;</p>\n<p>NAMA : SAAFARUDDIN</p>\n<p>NIM : 23156201035</p>\n<p>JURUSAN : SISTEM KOMPUTER</p>\n<p>&nbsp;</p>\n",
+  "content_text": "I.  Pendahuluan\nSaat ini, banyak aplikasi web menyimpan informasi sensitif: dari data pribadi hingga akses ke sistem keuangan. Karena itu, keamanan aplikasi web adalah hal yang sangat krusial.\nSalah satu celah yang sering dimanfaatkan oleh penyerang adalah  session hijacking , yaitu ketika sesi pengguna yang sudah login dibajak oleh pihak lain. Melalui artikel ini, kita akan membahas sebuah  studi kasus nyata  dari serangan session hijacking yang pernah terjadi pada aplikasi web modern, lengkap dengan penyebab, proses serangan, dan bagaimana cara mencegahnya.\nII.  Apa Itu Session Hijacking? (Ringkasan Singkat)\nSession hijacking  adalah teknik mencuri atau menyalahgunakan session ID pengguna setelah mereka login ke sebuah aplikasi. Dengan session ID ini, penyerang bisa masuk sebagai pengguna tersebut  tanpa perlu tahu password-nya .\nIII.  Studi Kasus: Serangan pada Aplikasi Web Edukasi\nLatar Belakang:\nSebuah platform pembelajaran daring (e-learning) digunakan oleh ribuan mahasiswa dan dosen di sebuah universitas ternama. Platform ini menyediakan akses ke nilai, materi kuliah, hingga data pribadi mahasiswa.\nMasalah yang Terjadi:\nBeberapa pengguna melaporkan bahwa akun mereka  diakses tanpa izin , dan beberapa data pribadi  berubah tanpa sepengetahuan mereka .\nIV.  Proses Investigasi dan Temuan\nSetelah dilakukan audit keamanan, berikut rangkaian peristiwa yang terungkap:\n1.  Penggunaan HTTP, Bukan HTTPS\nSebagian koneksi ke platform masih melalui protokol  HTTP , terutama di halaman login dan dashboard.\n2.  Cookie Session Tidak Terproteksi\nCookie session ID tidak menggunakan atribut  Secure  dan  HttpOnly , sehingga  mudah diakses oleh skrip berbahaya  atau pihak ketiga di jaringan yang sama.\n3.  Penggunaan Wi-Fi Publik\nBanyak pengguna mengakses sistem dari  Wi-Fi kampus tanpa enkripsi , yang membuat lalu lintas data bisa disadap (sniffing) dengan mudah.\n4.  Serangan Sniffing Session ID\nPenyerang menggunakan alat seperti  Wireshark  untuk memantau lalu lintas jaringan, menangkap session ID dari mahasiswa yang login, dan  menggunakan ID tersebut untuk masuk ke akun korban.\nV.  Dampak Serangan\nKebocoran data pribadi mahasiswa\nPerubahan nilai dan data akademik tanpa izin\nKepanikan massal di kalangan pengguna\nKehilangan kepercayaan terhadap platform\nVI.  Tindakan Korektif yang Dilakukan\nSetelah kejadian, tim pengembang melakukan perbaikan sistem besar-besaran, termasuk:\nLangkah Perbaikan\nPenjelasan\nMengaktifkan HTTPS di semua halaman\nMengenkripsi semua lalu lintas data pengguna\nMengatur cookie dengan Secure & HttpOnly\nMencegah cookie dibaca oleh skrip jahat atau lewat HTTP\nImplementasi Session Timeout\nOtomatis logout jika pengguna tidak aktif selama 10 menit\nRegenerasi Session ID setelah login\nMencegah penggunaan session ID dari serangan sebelumnya\nMenambahkan MFA (Multi-Factor Authentication)\nLapisan verifikasi tambahan untuk pengguna\nEdukasi Pengguna\nMemberi pelatihan tentang bahaya jaringan publik dan pentingnya logout\nVII.  Pelajaran yang Bisa Diambil\nGunakan HTTPS sepenuhnya.  Jangan hanya di halaman login.\nSelalu lindungi cookie sesi.  Tambahkan pengamanan seperti  Secure ,  HttpOnly , dan  SameSite .\nJangan pernah anggap Wi-Fi publik aman.\nSelalu regenerasi session ID setelah login sukses.\nGabungkan pengamanan teknis dengan edukasi pengguna.\nVIII.  Kesimpulan\nStudi kasus ini menunjukkan bahwa bahkan aplikasi modern pun bisa terkena  session hijacking  jika sesi tidak dikelola dengan aman. Keamanan bukan hanya soal membuat sistem yang berfungsi, tapi  sistem yang tahan terhadap penyalahgunaan .\nNAMA : SAAFARUDDIN\nNIM : 23156201035\nJURUSAN : SISTEM KOMPUTER",
+  "raw": {
+    "id": 3370,
+    "date": "2025-07-06T10:22:22",
+    "date_gmt": "2025-07-06T10:22:22",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=3370"
+    },
+    "modified": "2026-06-30T19:02:43",
+    "modified_gmt": "2026-06-30T19:02:43",
+    "slug": "studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/",
+    "title": {
+      "rendered": "Studi Kasus: Serangan Session Hijacking pada Aplikasi Web Modern"
+    },
+    "content": {
+      "rendered": "<h3> I. <strong>Pendahuluan</strong></h3>\n<p>Saat ini, banyak aplikasi web menyimpan informasi sensitif: dari data pribadi hingga akses ke sistem keuangan. Karena itu, keamanan aplikasi web adalah hal yang sangat krusial.</p>\n<p>Salah satu celah yang sering dimanfaatkan oleh penyerang adalah <strong>session hijacking</strong>, yaitu ketika sesi pengguna yang sudah login dibajak oleh pihak lain. Melalui artikel ini, kita akan membahas sebuah <strong>studi kasus nyata</strong> dari serangan session hijacking yang pernah terjadi pada aplikasi web modern, lengkap dengan penyebab, proses serangan, dan bagaimana cara mencegahnya.</p>\n<h3> II. <strong>Apa Itu Session Hijacking? (Ringkasan Singkat)</strong></h3>\n<p><strong>Session hijacking</strong> adalah teknik mencuri atau menyalahgunakan session ID pengguna setelah mereka login ke sebuah aplikasi. Dengan session ID ini, penyerang bisa masuk sebagai pengguna tersebut <strong>tanpa perlu tahu password-nya</strong>.</p>\n<h3> III. <strong>Studi Kasus: Serangan pada Aplikasi Web Edukasi</strong></h3>\n<h4><strong> Latar Belakang:</strong></h4>\n<p>Sebuah platform pembelajaran daring (e-learning) digunakan oleh ribuan mahasiswa dan dosen di sebuah universitas ternama. Platform ini menyediakan akses ke nilai, materi kuliah, hingga data pribadi mahasiswa.</p>\n<h4><strong>Masalah yang Terjadi:</strong></h4>\n<p>Beberapa pengguna melaporkan bahwa akun mereka <strong>diakses tanpa izin</strong>, dan beberapa data pribadi <strong>berubah tanpa sepengetahuan mereka</strong>.</p>\n<h3>  IV. <strong>Proses Investigasi dan Temuan</strong></h3>\n<p>Setelah dilakukan audit keamanan, berikut rangkaian peristiwa yang terungkap:</p>\n<h4> 1. <strong>Penggunaan HTTP, Bukan HTTPS</strong></h4>\n<p>Sebagian koneksi ke platform masih melalui protokol <strong>HTTP</strong>, terutama di halaman login dan dashboard.</p>\n<h4> 2. <strong>Cookie Session Tidak Terproteksi</strong></h4>\n<p>Cookie session ID tidak menggunakan atribut <code>Secure</code> dan <code>HttpOnly</code>, sehingga <strong>mudah diakses oleh skrip berbahaya</strong> atau pihak ketiga di jaringan yang sama.</p>\n<h4>  3. <strong>Penggunaan Wi-Fi Publik</strong></h4>\n<p>Banyak pengguna mengakses sistem dari <strong>Wi-Fi kampus tanpa enkripsi</strong>, yang membuat lalu lintas data bisa disadap (sniffing) dengan mudah.</p>\n<h4>  4. <strong>Serangan Sniffing Session ID</strong></h4>\n<p>Penyerang menggunakan alat seperti <strong>Wireshark</strong> untuk memantau lalu lintas jaringan, menangkap session ID dari mahasiswa yang login, dan <strong>menggunakan ID tersebut untuk masuk ke akun korban.</strong></p>\n<h3> V. <strong>Dampak Serangan</strong></h3>\n<ul>\n<li><strong>Kebocoran data pribadi mahasiswa</strong></li>\n<li><strong>Perubahan nilai dan data akademik tanpa izin</strong></li>\n<li><strong>Kepanikan massal di kalangan pengguna</strong></li>\n<li><strong>Kehilangan kepercayaan terhadap platform</strong></li>\n</ul>\n<h3> VI. <strong>Tindakan Korektif yang Dilakukan</strong></h3>\n<p>Setelah kejadian, tim pengembang melakukan perbaikan sistem besar-besaran, termasuk:</p>\n<table>\n<thead>\n<tr>\n<th>Langkah Perbaikan</th>\n<th>Penjelasan</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Mengaktifkan HTTPS di semua halaman</td>\n<td>Mengenkripsi semua lalu lintas data pengguna</td>\n</tr>\n<tr>\n<td>Mengatur cookie dengan Secure &amp; HttpOnly</td>\n<td>Mencegah cookie dibaca oleh skrip jahat atau lewat HTTP</td>\n</tr>\n<tr>\n<td>Implementasi Session Timeout</td>\n<td>Otomatis logout jika pengguna tidak aktif selama 10 menit</td>\n</tr>\n<tr>\n<td>Regenerasi Session ID setelah login</td>\n<td>Mencegah penggunaan session ID dari serangan sebelumnya</td>\n</tr>\n<tr>\n<td>Menambahkan MFA (Multi-Factor Authentication)</td>\n<td>Lapisan verifikasi tambahan untuk pengguna</td>\n</tr>\n<tr>\n<td>Edukasi Pengguna</td>\n<td>Memberi pelatihan tentang bahaya jaringan publik dan pentingnya logout</td>\n</tr>\n</tbody>\n</table>\n<h3>  VII. <strong>Pelajaran yang Bisa Diambil</strong></h3>\n<ol>\n<li><strong>Gunakan HTTPS sepenuhnya.</strong> Jangan hanya di halaman login.</li>\n<li><strong>Selalu lindungi cookie sesi.</strong> Tambahkan pengamanan seperti <code>Secure</code>, <code>HttpOnly</code>, dan <code>SameSite</code>.</li>\n<li><strong>Jangan pernah anggap Wi-Fi publik aman.</strong></li>\n<li><strong>Selalu regenerasi session ID setelah login sukses.</strong></li>\n<li><strong>Gabungkan pengamanan teknis dengan edukasi pengguna.</strong></li>\n</ol>\n<h3> VIII. <strong>Kesimpulan</strong></h3>\n<p>Studi kasus ini menunjukkan bahwa bahkan aplikasi modern pun bisa terkena <strong>session hijacking</strong> jika sesi tidak dikelola dengan aman. Keamanan bukan hanya soal membuat sistem yang berfungsi, tapi <strong>sistem yang tahan terhadap penyalahgunaan</strong>.</p>\n<p>&nbsp;</p>\n<p>NAMA : SAAFARUDDIN</p>\n<p>NIM : 23156201035</p>\n<p>JURUSAN : SISTEM KOMPUTER</p>\n<p>&nbsp;</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p> I. Pendahuluan Saat ini, banyak aplikasi web menyimpan informasi sensitif: dari data pribadi hingga akses ke sistem keuangan. Karena itu, keamanan aplikasi web adalah hal yang sangat krusial. Salah satu celah yang sering dimanfaatkan oleh penyerang adalah session hijacking, yaitu ketika sesi pengguna yang sudah login dibajak oleh pihak lain. Melalui artikel ini, kita akan membahas sebuah studi kasus nyata dari serangan session hijacking yang pernah terjadi pada aplikasi web modern, lengkap dengan penyebab, proses serangan, dan bagaimana cara mencegahnya.  II. Apa Itu Session Hijacking? (Ringkasan Singkat) Session hijacking adalah teknik mencuri atau menyalahgunakan session ID pengguna setelah mereka login&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 0,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385
+    ],
+    "class_list": [
+      "post-3370",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Studi Kasus: Serangan Session Hijacking pada Aplikasi Web Modern - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Studi Kasus: Serangan Session Hijacking pada Aplikasi Web Modern - buletinsiber.com\" />\n<meta property=\"og:description\" content=\" I. Pendahuluan Saat ini, banyak aplikasi web menyimpan informasi sensitif: dari data pribadi hingga akses ke sistem keuangan. Karena itu, keamanan aplikasi web adalah hal yang sangat krusial. Salah satu celah yang sering dimanfaatkan oleh penyerang adalah session hijacking, yaitu ketika sesi pengguna yang sudah login dibajak oleh pihak lain. Melalui artikel ini, kita akan membahas sebuah studi kasus nyata dari serangan session hijacking yang pernah terjadi pada aplikasi web modern, lengkap dengan penyebab, proses serangan, dan bagaimana cara mencegahnya.  II. Apa Itu Session Hijacking? (Ringkasan Singkat) Session hijacking adalah teknik mencuri atau menyalahgunakan session ID pengguna setelah mereka login...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-06T10:22:22+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T19:02:43+00:00\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/\",\"url\":\"https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/\",\"name\":\"Studi Kasus: Serangan Session Hijacking pada Aplikasi Web Modern - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"datePublished\":\"2025-07-06T10:22:22+00:00\",\"dateModified\":\"2026-06-30T19:02:43+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Studi Kasus: Serangan Session Hijacking pada Aplikasi Web Modern\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Studi Kasus: Serangan Session Hijacking pada Aplikasi Web Modern - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Studi Kasus: Serangan Session Hijacking pada Aplikasi Web Modern - buletinsiber.com",
+      "og_description": " I. Pendahuluan Saat ini, banyak aplikasi web menyimpan informasi sensitif: dari data pribadi hingga akses ke sistem keuangan. Karena itu, keamanan aplikasi web adalah hal yang sangat krusial. Salah satu celah yang sering dimanfaatkan oleh penyerang adalah session hijacking, yaitu ketika sesi pengguna yang sudah login dibajak oleh pihak lain. Melalui artikel ini, kita akan membahas sebuah studi kasus nyata dari serangan session hijacking yang pernah terjadi pada aplikasi web modern, lengkap dengan penyebab, proses serangan, dan bagaimana cara mencegahnya.  II. Apa Itu Session Hijacking? (Ringkasan Singkat) Session hijacking adalah teknik mencuri atau menyalahgunakan session ID pengguna setelah mereka login...",
+      "og_url": "https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-06T10:22:22+00:00",
+      "article_modified_time": "2026-06-30T19:02:43+00:00",
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/",
+            "url": "https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/",
+            "name": "Studi Kasus: Serangan Session Hijacking pada Aplikasi Web Modern - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "datePublished": "2025-07-06T10:22:22+00:00",
+            "dateModified": "2026-06-30T19:02:43+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/studi-kasus-serangan-session-hijacking-pada-aplikasi-web-modern/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Studi Kasus: Serangan Session Hijacking pada Aplikasi Web Modern"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3370",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=3370"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 3,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3370/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 6067,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/3370/revisions/6067"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=3370"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=3370"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=3370"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

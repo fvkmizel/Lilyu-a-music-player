@@ -1,0 +1,320 @@
+{
+  "id": 7252,
+  "title": "API Security dengan IAM: Melindungi Endpoint dari Serangan Siber",
+  "slug": "api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2",
+  "url": "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/",
+  "date": "2025-11-20T13:32:26",
+  "date_gmt": "2025-11-20T13:32:26",
+  "modified": "2026-07-12T16:28:03",
+  "modified_gmt": "2026-07-12T16:28:03",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    137,
+    1385,
+    560
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/11/b9291da6-56fb-48b8-9a6a-5c9d0a56f664.jpeg",
+  "excerpt": "API kini menjadi tulang punggung semua aplikasi modern, mulai dari aplikasi mobile, layanan cloud, hingga sistem internal perusahaan. API memungkinkan data dan layanan saling terhubung dan berkomunikasi. Tapi bersamaan dengan itu, API juga menjadi salah satu target utama serangan siber. Serangan pada API meningkat setiap tahun karena API sering memuat data sensitif, mengendalikan fungsi penting aplikasi, dan menjadi “pintu masuk” ke sistem backend. Di sinilah IAM (Identity and Access Management) menjadi komponen yang sangat penting. IAM tidak hanya digunakan untuk mengatur akses user manusia, tetapi juga sangat penting untuk mengamankan akses antar aplikasi, layanan, dan sistem. Artikel ini membahas bagaimana…",
+  "content_html": "<p data-start=\"255\" data-end=\"542\">API kini menjadi tulang punggung semua aplikasi modern, mulai dari aplikasi mobile, layanan cloud, hingga sistem internal perusahaan. API memungkinkan data dan layanan saling terhubung dan berkomunikasi. Tapi bersamaan dengan itu, API juga menjadi salah satu target utama serangan siber.</p>\n<p data-start=\"544\" data-end=\"798\">Serangan pada API meningkat setiap tahun karena API sering memuat data sensitif, mengendalikan fungsi penting aplikasi, dan menjadi &#8220;pintu masuk&#8221; ke sistem backend. Di sinilah <strong data-start=\"720\" data-end=\"760\">IAM (Identity and Access Management)</strong> menjadi komponen yang sangat penting.</p>\n<p data-start=\"800\" data-end=\"1123\">IAM tidak hanya digunakan untuk mengatur akses user manusia, tetapi juga sangat penting untuk mengamankan <strong data-start=\"906\" data-end=\"951\">akses antar aplikasi, layanan, dan sistem</strong>. Artikel ini membahas bagaimana IAM membantu melindungi API, teknik-teknik authentication &amp; authorization, tantangan yang sering muncul, dan strategi implementasi terbaik.</p>\n<h1 data-start=\"1130\" data-end=\"1184\"><strong data-start=\"1132\" data-end=\"1184\">Mengapa API Membutuhkan Keamanan Tingkat Tinggi?</strong></h1>\n<p data-start=\"1186\" data-end=\"1219\">API sering menjadi target karena:</p>\n<h3 data-start=\"1221\" data-end=\"1259\"><strong data-start=\"1225\" data-end=\"1259\">1. API Mengelola Data Sensitif</strong></h3>\n<p data-start=\"1260\" data-end=\"1286\">Banyak API yang mengakses:</p>\n<ul data-start=\"1287\" data-end=\"1362\">\n<li data-start=\"1287\" data-end=\"1302\">\n<p data-start=\"1289\" data-end=\"1302\">data pribadi,</p>\n</li>\n<li data-start=\"1303\" data-end=\"1320\">\n<p data-start=\"1305\" data-end=\"1320\">data finansial,</p>\n</li>\n<li data-start=\"1321\" data-end=\"1338\">\n<p data-start=\"1323\" data-end=\"1338\">data kesehatan,</p>\n</li>\n<li data-start=\"1339\" data-end=\"1362\">\n<p data-start=\"1341\" data-end=\"1362\">data bisnis internal.</p>\n</li>\n</ul>\n<h3 data-start=\"1364\" data-end=\"1408\"><strong data-start=\"1368\" data-end=\"1408\">2. API Sering Diekspos Secara Publik</strong></h3>\n<p data-start=\"1409\" data-end=\"1484\">Frontend web dan mobile app menggunakan API yang dapat diakses secara luas.</p>\n<h3 data-start=\"1486\" data-end=\"1537\"><strong data-start=\"1490\" data-end=\"1537\">3. API Tidak Selalu Dilindungi dengan Benar</strong></h3>\n<p data-start=\"1538\" data-end=\"1551\">Beberapa API:</p>\n<ul data-start=\"1552\" data-end=\"1666\">\n<li data-start=\"1552\" data-end=\"1580\">\n<p data-start=\"1554\" data-end=\"1580\">tidak memakai autentikasi,</p>\n</li>\n<li data-start=\"1581\" data-end=\"1604\">\n<p data-start=\"1583\" data-end=\"1604\">memakai token statis,</p>\n</li>\n<li data-start=\"1605\" data-end=\"1640\">\n<p data-start=\"1607\" data-end=\"1640\">tidak melakukan validasi request,</p>\n</li>\n<li data-start=\"1641\" data-end=\"1666\">\n<p data-start=\"1643\" data-end=\"1666\">tidak punya rate limit.</p>\n</li>\n</ul>\n<h3 data-start=\"1668\" data-end=\"1723\"><strong data-start=\"1672\" data-end=\"1723\">4. API Dapat Dimanfaatkan untuk Akses Tidak Sah</strong></h3>\n<p data-start=\"1724\" data-end=\"1768\">Jika penyerang berhasil mengeksploitasi API:</p>\n<ul data-start=\"1769\" data-end=\"1845\">\n<li data-start=\"1769\" data-end=\"1796\">\n<p data-start=\"1771\" data-end=\"1796\">mereka bisa membaca data,</p>\n</li>\n<li data-start=\"1797\" data-end=\"1817\">\n<p data-start=\"1799\" data-end=\"1817\">memodifikasi data,</p>\n</li>\n<li data-start=\"1818\" data-end=\"1845\">\n<p data-start=\"1820\" data-end=\"1845\">atau mengambil alih akun.</p>\n</li>\n</ul>\n<p data-start=\"1847\" data-end=\"1950\">Karena alasan inilah API security selalu masuk daftar prioritas keamanan utama dalam perusahaan modern.</p>\n<h1 data-start=\"1957\" data-end=\"1991\"><strong data-start=\"1959\" data-end=\"1991\">Peran IAM dalam API Security</strong></h1>\n<p data-start=\"1993\" data-end=\"2055\">IAM memberikan cara yang aman dan terstruktur untuk mengelola:</p>\n<ul data-start=\"2057\" data-end=\"2202\">\n<li data-start=\"2057\" data-end=\"2094\">\n<p data-start=\"2059\" data-end=\"2094\"><strong data-start=\"2059\" data-end=\"2068\">siapa</strong> yang boleh mengakses API,</p>\n</li>\n<li data-start=\"2095\" data-end=\"2126\">\n<p data-start=\"2097\" data-end=\"2126\"><strong data-start=\"2097\" data-end=\"2104\">apa</strong> yang boleh dilakukan,</p>\n</li>\n<li data-start=\"2127\" data-end=\"2167\">\n<p data-start=\"2129\" data-end=\"2167\"><strong data-start=\"2129\" data-end=\"2142\">bagaimana</strong> permintaan diverifikasi,</p>\n</li>\n<li data-start=\"2168\" data-end=\"2202\">\n<p data-start=\"2170\" data-end=\"2202\"><strong data-start=\"2170\" data-end=\"2183\">bagaimana</strong> aktivitas dicatat.</p>\n</li>\n</ul>\n<p data-start=\"2204\" data-end=\"2263\">Beberapa fungsi IAM yang sangat penting untuk API meliputi:</p>\n<h1 data-start=\"2270\" data-end=\"2302\"><strong data-start=\"2272\" data-end=\"2302\">Autentikasi API dengan IAM</strong></h1>\n<p data-start=\"2304\" data-end=\"2444\">Autentikasi memastikan bahwa pihak yang mencoba mengakses API adalah entitas yang benar. Ada beberapa metode modern yang biasanya digunakan:</p>\n<h2 data-start=\"2446\" data-end=\"2465\"><strong data-start=\"2449\" data-end=\"2465\">1. OAuth 2.0</strong></h2>\n<p data-start=\"2466\" data-end=\"2528\">Teknologi paling populer untuk API security.<br data-start=\"2510\" data-end=\"2513\" />Digunakan oleh:</p>\n<ul data-start=\"2529\" data-end=\"2570\">\n<li data-start=\"2529\" data-end=\"2538\">\n<p data-start=\"2531\" data-end=\"2538\">Google,</p>\n</li>\n<li data-start=\"2539\" data-end=\"2550\">\n<p data-start=\"2541\" data-end=\"2550\">Facebook,</p>\n</li>\n<li data-start=\"2551\" data-end=\"2557\">\n<p data-start=\"2553\" data-end=\"2557\">AWS,</p>\n</li>\n<li data-start=\"2558\" data-end=\"2570\">\n<p data-start=\"2560\" data-end=\"2570\">Microsoft.</p>\n</li>\n</ul>\n<p data-start=\"2572\" data-end=\"2631\">OAuth memberikan akses berdasarkan <em data-start=\"2607\" data-end=\"2614\">token</em>, bukan password.</p>\n<h2 data-start=\"2633\" data-end=\"2664\"><strong data-start=\"2636\" data-end=\"2664\">2. OpenID Connect (OIDC)</strong></h2>\n<p data-start=\"2665\" data-end=\"2753\">Digunakan ketika API perlu mengetahui identitas pengguna (bukan sekadar akses aplikasi).</p>\n<h2 data-start=\"2755\" data-end=\"2773\"><strong data-start=\"2758\" data-end=\"2773\">3. API Keys</strong></h2>\n<p data-start=\"2774\" data-end=\"2830\">Cara yang sederhana, tetapi harus dikelola dengan ketat:</p>\n<ul data-start=\"2831\" data-end=\"2930\">\n<li data-start=\"2831\" data-end=\"2849\">\n<p data-start=\"2833\" data-end=\"2849\">jangan hardcode,</p>\n</li>\n<li data-start=\"2850\" data-end=\"2877\">\n<p data-start=\"2852\" data-end=\"2877\">jangan taruh di frontend,</p>\n</li>\n<li data-start=\"2878\" data-end=\"2900\">\n<p data-start=\"2880\" data-end=\"2900\">rotasi secara rutin,</p>\n</li>\n<li data-start=\"2901\" data-end=\"2930\">\n<p data-start=\"2903\" data-end=\"2930\">gunakan permission minimum.</p>\n</li>\n</ul>\n<h2 data-start=\"2932\" data-end=\"2962\"><strong data-start=\"2935\" data-end=\"2962\">4. JWT (JSON Web Token)</strong></h2>\n<p data-start=\"2963\" data-end=\"3040\">Token yang berisi klaim identitas dan izin.<br data-start=\"3006\" data-end=\"3009\" />JWT sangat efisien, tapi harus:</p>\n<ul data-start=\"3041\" data-end=\"3112\">\n<li data-start=\"3041\" data-end=\"3058\">\n<p data-start=\"3043\" data-end=\"3058\">ditandatangani,</p>\n</li>\n<li data-start=\"3059\" data-end=\"3088\">\n<p data-start=\"3061\" data-end=\"3088\">divalidasi masa berlakunya,</p>\n</li>\n<li data-start=\"3089\" data-end=\"3112\">\n<p data-start=\"3091\" data-end=\"3112\">disimpan dengan aman.</p>\n</li>\n</ul>\n<h2 data-start=\"3114\" data-end=\"3141\"><strong data-start=\"3117\" data-end=\"3141\">5. Mutual TLS (mTLS)</strong></h2>\n<p data-start=\"3142\" data-end=\"3238\">Digunakan untuk API antar layanan internal.<br data-start=\"3185\" data-end=\"3188\" />Kedua pihak harus saling memverifikasi sertifikat.</p>\n<h1 data-start=\"3245\" data-end=\"3275\"><strong data-start=\"3247\" data-end=\"3275\">Otorisasi API dengan IAM</strong></h1>\n<p data-start=\"3277\" data-end=\"3392\">Setelah identitas diketahui, langkah berikutnya adalah menentukan apa saja yang boleh diakses pengguna atau sistem.</p>\n<p data-start=\"3394\" data-end=\"3433\">Teknik otorisasi API yang umum dipakai:</p>\n<h2 data-start=\"3435\" data-end=\"3477\"><strong data-start=\"3438\" data-end=\"3477\">1. RBAC (Role-Based Access Control)</strong></h2>\n<p data-start=\"3478\" data-end=\"3519\">Akses diberikan berdasarkan role seperti:</p>\n<ul data-start=\"3520\" data-end=\"3561\">\n<li data-start=\"3520\" data-end=\"3528\">\n<p data-start=\"3522\" data-end=\"3528\">admin,</p>\n</li>\n<li data-start=\"3529\" data-end=\"3541\">\n<p data-start=\"3531\" data-end=\"3541\">developer,</p>\n</li>\n<li data-start=\"3542\" data-end=\"3550\">\n<p data-start=\"3544\" data-end=\"3550\">guest,</p>\n</li>\n<li data-start=\"3551\" data-end=\"3561\">\n<p data-start=\"3553\" data-end=\"3561\">auditor.</p>\n</li>\n</ul>\n<p data-start=\"3563\" data-end=\"3616\">RBAC cocok untuk API dengan struktur akses sederhana.</p>\n<h2 data-start=\"3618\" data-end=\"3665\"><strong data-start=\"3621\" data-end=\"3665\">2. ABAC (Attribute-Based Access Control)</strong></h2>\n<p data-start=\"3666\" data-end=\"3712\">Akses diberikan berdasarkan atribut, misalnya:</p>\n<ul data-start=\"3713\" data-end=\"3768\">\n<li data-start=\"3713\" data-end=\"3722\">\n<p data-start=\"3715\" data-end=\"3722\">lokasi,</p>\n</li>\n<li data-start=\"3723\" data-end=\"3731\">\n<p data-start=\"3725\" data-end=\"3731\">waktu,</p>\n</li>\n<li data-start=\"3732\" data-end=\"3741\">\n<p data-start=\"3734\" data-end=\"3741\">device,</p>\n</li>\n<li data-start=\"3742\" data-end=\"3749\">\n<p data-start=\"3744\" data-end=\"3749\">grup,</p>\n</li>\n<li data-start=\"3750\" data-end=\"3768\">\n<p data-start=\"3752\" data-end=\"3768\">status keamanan.</p>\n</li>\n</ul>\n<p data-start=\"3770\" data-end=\"3822\">ABAC lebih fleksibel dan cocok untuk aplikasi besar.</p>\n<h2 data-start=\"3824\" data-end=\"3866\"><strong data-start=\"3827\" data-end=\"3866\">3. Policy-Based Access (iam policy)</strong></h2>\n<p data-start=\"3867\" data-end=\"3917\">Digunakan di AWS IAM, Google Cloud IAM, dan Azure.</p>\n<p data-start=\"3919\" data-end=\"3944\">Kebijakan mendefinisikan:</p>\n<ul data-start=\"3945\" data-end=\"3981\">\n<li data-start=\"3945\" data-end=\"3956\">\n<p data-start=\"3947\" data-end=\"3956\">resource,</p>\n</li>\n<li data-start=\"3957\" data-end=\"3970\">\n<p data-start=\"3959\" data-end=\"3970\">permission,</p>\n</li>\n<li data-start=\"3971\" data-end=\"3981\">\n<p data-start=\"3973\" data-end=\"3981\">kondisi.</p>\n</li>\n</ul>\n<p data-start=\"3983\" data-end=\"3999\">Contoh pada AWS:</p>\n<ul data-start=\"4000\" data-end=\"4131\">\n<li data-start=\"4000\" data-end=\"4045\">\n<p data-start=\"4002\" data-end=\"4045\">hanya bisa mengakses API dari VPC tertentu,</p>\n</li>\n<li data-start=\"4046\" data-end=\"4087\">\n<p data-start=\"4048\" data-end=\"4087\">hanya bisa mengakses resource tertentu,</p>\n</li>\n<li data-start=\"4088\" data-end=\"4131\">\n<p data-start=\"4090\" data-end=\"4131\">hanya bisa menggunakan perintah tertentu.</p>\n</li>\n</ul>\n<h1 data-start=\"4138\" data-end=\"4177\"><strong data-start=\"4140\" data-end=\"4177\">IAM untuk API di Lingkungan Cloud</strong></h1>\n<p data-start=\"4179\" data-end=\"4231\">Setiap cloud provider punya mekanisme IAM untuk API:</p>\n<h2 data-start=\"4233\" data-end=\"4243\"><strong data-start=\"4236\" data-end=\"4243\">AWS</strong></h2>\n<ul data-start=\"4244\" data-end=\"4325\">\n<li data-start=\"4244\" data-end=\"4260\">\n<p data-start=\"4246\" data-end=\"4260\">IAM Policies</p>\n</li>\n<li data-start=\"4261\" data-end=\"4272\">\n<p data-start=\"4263\" data-end=\"4272\">Cognito</p>\n</li>\n<li data-start=\"4273\" data-end=\"4303\">\n<p data-start=\"4275\" data-end=\"4303\">API Gateway IAM authorizer</p>\n</li>\n<li data-start=\"4304\" data-end=\"4325\">\n<p data-start=\"4306\" data-end=\"4325\">Lambda authorizer</p>\n</li>\n</ul>\n<h2 data-start=\"4327\" data-end=\"4346\"><strong data-start=\"4330\" data-end=\"4346\">Google Cloud</strong></h2>\n<ul data-start=\"4347\" data-end=\"4411\">\n<li data-start=\"4347\" data-end=\"4360\">\n<p data-start=\"4349\" data-end=\"4360\">Cloud IAM</p>\n</li>\n<li data-start=\"4361\" data-end=\"4373\">\n<p data-start=\"4363\" data-end=\"4373\">API Keys</p>\n</li>\n<li data-start=\"4374\" data-end=\"4390\">\n<p data-start=\"4376\" data-end=\"4390\">OAuth client</p>\n</li>\n<li data-start=\"4391\" data-end=\"4411\">\n<p data-start=\"4393\" data-end=\"4411\">Service accounts</p>\n</li>\n</ul>\n<h2 data-start=\"4413\" data-end=\"4425\"><strong data-start=\"4416\" data-end=\"4425\">Azure</strong></h2>\n<ul data-start=\"4426\" data-end=\"4488\">\n<li data-start=\"4426\" data-end=\"4438\">\n<p data-start=\"4428\" data-end=\"4438\">Azure AD</p>\n</li>\n<li data-start=\"4439\" data-end=\"4461\">\n<p data-start=\"4441\" data-end=\"4461\">Managed identities</p>\n</li>\n<li data-start=\"4462\" data-end=\"4488\">\n<p data-start=\"4464\" data-end=\"4488\">API Management + OAuth</p>\n</li>\n</ul>\n<p data-start=\"4490\" data-end=\"4563\">Setiap cloud sudah menyediakan cara terbaik untuk menjaga API tetap aman.</p>\n<h1 data-start=\"4570\" data-end=\"4609\"><strong data-start=\"4572\" data-end=\"4609\">Tantangan Umum dalam API Security</strong></h1>\n<p data-start=\"4611\" data-end=\"4653\"><strong data-start=\"4614\" data-end=\"4653\">1. Token yang Tidak Pernah Dirotasi</strong></p>\n<p data-start=\"4654\" data-end=\"4719\">Developer sering lupa mengganti token API sehingga rentan dicuri.</p>\n<p data-start=\"4721\" data-end=\"4754\"><strong data-start=\"4724\" data-end=\"4754\">2. API Key Bocor ke GitHub</strong></p>\n<p data-start=\"4755\" data-end=\"4810\">Ini adalah salah satu insiden yang paling umum terjadi.</p>\n<p data-start=\"4812\" data-end=\"4862\"><strong data-start=\"4815\" data-end=\"4862\">3. Penggunaan Token yang Terlalu Long-Lived</strong></p>\n<p data-start=\"4863\" data-end=\"4918\">Semakin lama masa aktif token, semakin besar risikonya.</p>\n<p data-start=\"4920\" data-end=\"4956\"><strong data-start=\"4923\" data-end=\"4956\">4. Pemisahan Akses yang Buruk</strong></p>\n<p data-start=\"4957\" data-end=\"4998\">Satu token bisa mengakses semua endpoint.</p>\n<p data-start=\"5000\" data-end=\"5033\"><strong data-start=\"5003\" data-end=\"5033\">5. Tidak Ada Rate Limiting</strong></p>\n<p data-start=\"5034\" data-end=\"5071\">Penyerang bisa melakukan brute force.</p>\n<p data-start=\"5073\" data-end=\"5115\"><strong data-start=\"5076\" data-end=\"5115\">6. Tidak Menggunakan HTTPS atau TLS</strong></p>\n<p data-start=\"5116\" data-end=\"5146\">Ini membuat API mudah disadap.</p>\n<h1 data-start=\"5153\" data-end=\"5206\"><strong data-start=\"5155\" data-end=\"5206\">Strategi Implementasi API Security Berbasis IAM</strong></h1>\n<p data-start=\"5208\" data-end=\"5267\"><strong data-start=\"5211\" data-end=\"5267\">1. Gunakan OAuth 2.0 atau OIDC untuk Aplikasi Modern</strong></p>\n<p data-start=\"5268\" data-end=\"5324\">Ini adalah standar keamanan yang wajib untuk API publik.</p>\n<p data-start=\"5326\" data-end=\"5383\"><strong data-start=\"5329\" data-end=\"5383\">2. Gunakan IAM untuk Mengelola Akses Antar Layanan</strong></p>\n<p data-start=\"5384\" data-end=\"5415\">Jangan gunakan password, pakai:</p>\n<ul data-start=\"5416\" data-end=\"5454\">\n<li data-start=\"5416\" data-end=\"5434\">\n<p data-start=\"5418\" data-end=\"5434\">service account,</p>\n</li>\n<li data-start=\"5435\" data-end=\"5446\">\n<p data-start=\"5437\" data-end=\"5446\">role IAM,</p>\n</li>\n<li data-start=\"5447\" data-end=\"5454\">\n<p data-start=\"5449\" data-end=\"5454\">mTLS.</p>\n</li>\n</ul>\n<p data-start=\"5456\" data-end=\"5506\"><strong data-start=\"5459\" data-end=\"5506\">3. Batasi Izin Token dengan Least Privilege</strong></p>\n<p data-start=\"5507\" data-end=\"5560\">Token hanya boleh mengakses endpoint yang diperlukan.</p>\n<p data-start=\"5562\" data-end=\"5609\"><strong data-start=\"5565\" data-end=\"5609\">4. Terapkan Rate Limiting dan Throttling</strong></p>\n<p data-start=\"5610\" data-end=\"5652\">API Gateway sangat membantu dalam hal ini.</p>\n<p data-start=\"5654\" data-end=\"5699\"><strong data-start=\"5657\" data-end=\"5699\">5. Audit Penggunaan Token Secara Rutin</strong></p>\n<p data-start=\"5700\" data-end=\"5704\">Cek:</p>\n<ul data-start=\"5705\" data-end=\"5773\">\n<li data-start=\"5705\" data-end=\"5724\">\n<p data-start=\"5707\" data-end=\"5724\">penggunaan token,</p>\n</li>\n<li data-start=\"5725\" data-end=\"5750\">\n<p data-start=\"5727\" data-end=\"5750\">aktivitas mencurigakan,</p>\n</li>\n<li data-start=\"5751\" data-end=\"5773\">\n<p data-start=\"5753\" data-end=\"5773\">IP address abnormal.</p>\n</li>\n</ul>\n<p data-start=\"5775\" data-end=\"5812\"><strong data-start=\"5778\" data-end=\"5812\">6. Enkripsi Seluruh Trafik API</strong></p>\n<p data-start=\"5813\" data-end=\"5830\">TLS adalah wajib.</p>\n<p data-start=\"5832\" data-end=\"5882\"><strong data-start=\"5835\" data-end=\"5882\">7. Rotasi Token dan API Keys Secara Berkala</strong></p>\n<p data-start=\"5883\" data-end=\"5904\">Bisa otomatis setiap:</p>\n<ul data-start=\"5905\" data-end=\"5937\">\n<li data-start=\"5905\" data-end=\"5915\">\n<p data-start=\"5907\" data-end=\"5915\">30 hari,</p>\n</li>\n<li data-start=\"5916\" data-end=\"5926\">\n<p data-start=\"5918\" data-end=\"5926\">60 hari,</p>\n</li>\n<li data-start=\"5927\" data-end=\"5937\">\n<p data-start=\"5929\" data-end=\"5937\">90 hari.</p>\n</li>\n</ul>\n<p data-start=\"5939\" data-end=\"5980\"><strong data-start=\"5942\" data-end=\"5980\">8. Jangan Pernah Hardcode API Keys</strong></p>\n<p data-start=\"5981\" data-end=\"5989\">Gunakan:</p>\n<ul data-start=\"5990\" data-end=\"6031\">\n<li data-start=\"5990\" data-end=\"6013\">\n<p data-start=\"5992\" data-end=\"6013\">environment variable,</p>\n</li>\n<li data-start=\"6014\" data-end=\"6031\">\n<p data-start=\"6016\" data-end=\"6031\">secret manager.</p>\n</li>\n</ul>\n<h1 data-start=\"6038\" data-end=\"6054\"><strong data-start=\"6040\" data-end=\"6054\">Kesimpulan</strong></h1>\n<p data-start=\"6056\" data-end=\"6339\">API security adalah fondasi penting dalam aplikasi modern, dan IAM memainkan peran besar dalam memastikan API hanya dapat diakses oleh pihak yang sah dengan cara yang aman. Mulai dari autentikasi hingga otorisasi, logging, hingga pengelolaan token—semua itu berada dalam lingkup IAM.</p>\n<p data-start=\"6341\" data-end=\"6624\">Ketika IAM diterapkan dengan benar, risiko serangan terhadap API seperti data breach, token theft, dan unauthorized access dapat diminimalkan secara signifikan. Dengan strategi yang tepat, API bisa menjadi jembatan komunikasi data yang aman dan andal untuk seluruh sistem perusahaan.</p>\n",
+  "content_text": "API kini menjadi tulang punggung semua aplikasi modern, mulai dari aplikasi mobile, layanan cloud, hingga sistem internal perusahaan. API memungkinkan data dan layanan saling terhubung dan berkomunikasi. Tapi bersamaan dengan itu, API juga menjadi salah satu target utama serangan siber.\nSerangan pada API meningkat setiap tahun karena API sering memuat data sensitif, mengendalikan fungsi penting aplikasi, dan menjadi “pintu masuk” ke sistem backend. Di sinilah  IAM (Identity and Access Management)  menjadi komponen yang sangat penting.\nIAM tidak hanya digunakan untuk mengatur akses user manusia, tetapi juga sangat penting untuk mengamankan  akses antar aplikasi, layanan, dan sistem . Artikel ini membahas bagaimana IAM membantu melindungi API, teknik-teknik authentication & authorization, tantangan yang sering muncul, dan strategi implementasi terbaik.\nMengapa API Membutuhkan Keamanan Tingkat Tinggi?\nAPI sering menjadi target karena:\n1. API Mengelola Data Sensitif\nBanyak API yang mengakses:\ndata pribadi,\ndata finansial,\ndata kesehatan,\ndata bisnis internal.\n2. API Sering Diekspos Secara Publik\nFrontend web dan mobile app menggunakan API yang dapat diakses secara luas.\n3. API Tidak Selalu Dilindungi dengan Benar\nBeberapa API:\ntidak memakai autentikasi,\nmemakai token statis,\ntidak melakukan validasi request,\ntidak punya rate limit.\n4. API Dapat Dimanfaatkan untuk Akses Tidak Sah\nJika penyerang berhasil mengeksploitasi API:\nmereka bisa membaca data,\nmemodifikasi data,\natau mengambil alih akun.\nKarena alasan inilah API security selalu masuk daftar prioritas keamanan utama dalam perusahaan modern.\nPeran IAM dalam API Security\nIAM memberikan cara yang aman dan terstruktur untuk mengelola:\nsiapa  yang boleh mengakses API,\napa  yang boleh dilakukan,\nbagaimana  permintaan diverifikasi,\nbagaimana  aktivitas dicatat.\nBeberapa fungsi IAM yang sangat penting untuk API meliputi:\nAutentikasi API dengan IAM\nAutentikasi memastikan bahwa pihak yang mencoba mengakses API adalah entitas yang benar. Ada beberapa metode modern yang biasanya digunakan:\n1. OAuth 2.0\nTeknologi paling populer untuk API security.\nDigunakan oleh:\nGoogle,\nFacebook,\nAWS,\nMicrosoft.\nOAuth memberikan akses berdasarkan  token , bukan password.\n2. OpenID Connect (OIDC)\nDigunakan ketika API perlu mengetahui identitas pengguna (bukan sekadar akses aplikasi).\n3. API Keys\nCara yang sederhana, tetapi harus dikelola dengan ketat:\njangan hardcode,\njangan taruh di frontend,\nrotasi secara rutin,\ngunakan permission minimum.\n4. JWT (JSON Web Token)\nToken yang berisi klaim identitas dan izin.\nJWT sangat efisien, tapi harus:\nditandatangani,\ndivalidasi masa berlakunya,\ndisimpan dengan aman.\n5. Mutual TLS (mTLS)\nDigunakan untuk API antar layanan internal.\nKedua pihak harus saling memverifikasi sertifikat.\nOtorisasi API dengan IAM\nSetelah identitas diketahui, langkah berikutnya adalah menentukan apa saja yang boleh diakses pengguna atau sistem.\nTeknik otorisasi API yang umum dipakai:\n1. RBAC (Role-Based Access Control)\nAkses diberikan berdasarkan role seperti:\nadmin,\ndeveloper,\nguest,\nauditor.\nRBAC cocok untuk API dengan struktur akses sederhana.\n2. ABAC (Attribute-Based Access Control)\nAkses diberikan berdasarkan atribut, misalnya:\nlokasi,\nwaktu,\ndevice,\ngrup,\nstatus keamanan.\nABAC lebih fleksibel dan cocok untuk aplikasi besar.\n3. Policy-Based Access (iam policy)\nDigunakan di AWS IAM, Google Cloud IAM, dan Azure.\nKebijakan mendefinisikan:\nresource,\npermission,\nkondisi.\nContoh pada AWS:\nhanya bisa mengakses API dari VPC tertentu,\nhanya bisa mengakses resource tertentu,\nhanya bisa menggunakan perintah tertentu.\nIAM untuk API di Lingkungan Cloud\nSetiap cloud provider punya mekanisme IAM untuk API:\nAWS\nIAM Policies\nCognito\nAPI Gateway IAM authorizer\nLambda authorizer\nGoogle Cloud\nCloud IAM\nAPI Keys\nOAuth client\nService accounts\nAzure\nAzure AD\nManaged identities\nAPI Management + OAuth\nSetiap cloud sudah menyediakan cara terbaik untuk menjaga API tetap aman.\nTantangan Umum dalam API Security\n1. Token yang Tidak Pernah Dirotasi\nDeveloper sering lupa mengganti token API sehingga rentan dicuri.\n2. API Key Bocor ke GitHub\nIni adalah salah satu insiden yang paling umum terjadi.\n3. Penggunaan Token yang Terlalu Long-Lived\nSemakin lama masa aktif token, semakin besar risikonya.\n4. Pemisahan Akses yang Buruk\nSatu token bisa mengakses semua endpoint.\n5. Tidak Ada Rate Limiting\nPenyerang bisa melakukan brute force.\n6. Tidak Menggunakan HTTPS atau TLS\nIni membuat API mudah disadap.\nStrategi Implementasi API Security Berbasis IAM\n1. Gunakan OAuth 2.0 atau OIDC untuk Aplikasi Modern\nIni adalah standar keamanan yang wajib untuk API publik.\n2. Gunakan IAM untuk Mengelola Akses Antar Layanan\nJangan gunakan password, pakai:\nservice account,\nrole IAM,\nmTLS.\n3. Batasi Izin Token dengan Least Privilege\nToken hanya boleh mengakses endpoint yang diperlukan.\n4. Terapkan Rate Limiting dan Throttling\nAPI Gateway sangat membantu dalam hal ini.\n5. Audit Penggunaan Token Secara Rutin\nCek:\npenggunaan token,\naktivitas mencurigakan,\nIP address abnormal.\n6. Enkripsi Seluruh Trafik API\nTLS adalah wajib.\n7. Rotasi Token dan API Keys Secara Berkala\nBisa otomatis setiap:\n30 hari,\n60 hari,\n90 hari.\n8. Jangan Pernah Hardcode API Keys\nGunakan:\nenvironment variable,\nsecret manager.\nKesimpulan\nAPI security adalah fondasi penting dalam aplikasi modern, dan IAM memainkan peran besar dalam memastikan API hanya dapat diakses oleh pihak yang sah dengan cara yang aman. Mulai dari autentikasi hingga otorisasi, logging, hingga pengelolaan token—semua itu berada dalam lingkup IAM.\nKetika IAM diterapkan dengan benar, risiko serangan terhadap API seperti data breach, token theft, dan unauthorized access dapat diminimalkan secara signifikan. Dengan strategi yang tepat, API bisa menjadi jembatan komunikasi data yang aman dan andal untuk seluruh sistem perusahaan.",
+  "raw": {
+    "id": 7252,
+    "date": "2025-11-20T13:32:26",
+    "date_gmt": "2025-11-20T13:32:26",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=7252"
+    },
+    "modified": "2026-07-12T16:28:03",
+    "modified_gmt": "2026-07-12T16:28:03",
+    "slug": "api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/",
+    "title": {
+      "rendered": "API Security dengan IAM: Melindungi Endpoint dari Serangan Siber"
+    },
+    "content": {
+      "rendered": "<p data-start=\"255\" data-end=\"542\">API kini menjadi tulang punggung semua aplikasi modern, mulai dari aplikasi mobile, layanan cloud, hingga sistem internal perusahaan. API memungkinkan data dan layanan saling terhubung dan berkomunikasi. Tapi bersamaan dengan itu, API juga menjadi salah satu target utama serangan siber.</p>\n<p data-start=\"544\" data-end=\"798\">Serangan pada API meningkat setiap tahun karena API sering memuat data sensitif, mengendalikan fungsi penting aplikasi, dan menjadi &#8220;pintu masuk&#8221; ke sistem backend. Di sinilah <strong data-start=\"720\" data-end=\"760\">IAM (Identity and Access Management)</strong> menjadi komponen yang sangat penting.</p>\n<p data-start=\"800\" data-end=\"1123\">IAM tidak hanya digunakan untuk mengatur akses user manusia, tetapi juga sangat penting untuk mengamankan <strong data-start=\"906\" data-end=\"951\">akses antar aplikasi, layanan, dan sistem</strong>. Artikel ini membahas bagaimana IAM membantu melindungi API, teknik-teknik authentication &amp; authorization, tantangan yang sering muncul, dan strategi implementasi terbaik.</p>\n<h1 data-start=\"1130\" data-end=\"1184\"><strong data-start=\"1132\" data-end=\"1184\">Mengapa API Membutuhkan Keamanan Tingkat Tinggi?</strong></h1>\n<p data-start=\"1186\" data-end=\"1219\">API sering menjadi target karena:</p>\n<h3 data-start=\"1221\" data-end=\"1259\"><strong data-start=\"1225\" data-end=\"1259\">1. API Mengelola Data Sensitif</strong></h3>\n<p data-start=\"1260\" data-end=\"1286\">Banyak API yang mengakses:</p>\n<ul data-start=\"1287\" data-end=\"1362\">\n<li data-start=\"1287\" data-end=\"1302\">\n<p data-start=\"1289\" data-end=\"1302\">data pribadi,</p>\n</li>\n<li data-start=\"1303\" data-end=\"1320\">\n<p data-start=\"1305\" data-end=\"1320\">data finansial,</p>\n</li>\n<li data-start=\"1321\" data-end=\"1338\">\n<p data-start=\"1323\" data-end=\"1338\">data kesehatan,</p>\n</li>\n<li data-start=\"1339\" data-end=\"1362\">\n<p data-start=\"1341\" data-end=\"1362\">data bisnis internal.</p>\n</li>\n</ul>\n<h3 data-start=\"1364\" data-end=\"1408\"><strong data-start=\"1368\" data-end=\"1408\">2. API Sering Diekspos Secara Publik</strong></h3>\n<p data-start=\"1409\" data-end=\"1484\">Frontend web dan mobile app menggunakan API yang dapat diakses secara luas.</p>\n<h3 data-start=\"1486\" data-end=\"1537\"><strong data-start=\"1490\" data-end=\"1537\">3. API Tidak Selalu Dilindungi dengan Benar</strong></h3>\n<p data-start=\"1538\" data-end=\"1551\">Beberapa API:</p>\n<ul data-start=\"1552\" data-end=\"1666\">\n<li data-start=\"1552\" data-end=\"1580\">\n<p data-start=\"1554\" data-end=\"1580\">tidak memakai autentikasi,</p>\n</li>\n<li data-start=\"1581\" data-end=\"1604\">\n<p data-start=\"1583\" data-end=\"1604\">memakai token statis,</p>\n</li>\n<li data-start=\"1605\" data-end=\"1640\">\n<p data-start=\"1607\" data-end=\"1640\">tidak melakukan validasi request,</p>\n</li>\n<li data-start=\"1641\" data-end=\"1666\">\n<p data-start=\"1643\" data-end=\"1666\">tidak punya rate limit.</p>\n</li>\n</ul>\n<h3 data-start=\"1668\" data-end=\"1723\"><strong data-start=\"1672\" data-end=\"1723\">4. API Dapat Dimanfaatkan untuk Akses Tidak Sah</strong></h3>\n<p data-start=\"1724\" data-end=\"1768\">Jika penyerang berhasil mengeksploitasi API:</p>\n<ul data-start=\"1769\" data-end=\"1845\">\n<li data-start=\"1769\" data-end=\"1796\">\n<p data-start=\"1771\" data-end=\"1796\">mereka bisa membaca data,</p>\n</li>\n<li data-start=\"1797\" data-end=\"1817\">\n<p data-start=\"1799\" data-end=\"1817\">memodifikasi data,</p>\n</li>\n<li data-start=\"1818\" data-end=\"1845\">\n<p data-start=\"1820\" data-end=\"1845\">atau mengambil alih akun.</p>\n</li>\n</ul>\n<p data-start=\"1847\" data-end=\"1950\">Karena alasan inilah API security selalu masuk daftar prioritas keamanan utama dalam perusahaan modern.</p>\n<h1 data-start=\"1957\" data-end=\"1991\"><strong data-start=\"1959\" data-end=\"1991\">Peran IAM dalam API Security</strong></h1>\n<p data-start=\"1993\" data-end=\"2055\">IAM memberikan cara yang aman dan terstruktur untuk mengelola:</p>\n<ul data-start=\"2057\" data-end=\"2202\">\n<li data-start=\"2057\" data-end=\"2094\">\n<p data-start=\"2059\" data-end=\"2094\"><strong data-start=\"2059\" data-end=\"2068\">siapa</strong> yang boleh mengakses API,</p>\n</li>\n<li data-start=\"2095\" data-end=\"2126\">\n<p data-start=\"2097\" data-end=\"2126\"><strong data-start=\"2097\" data-end=\"2104\">apa</strong> yang boleh dilakukan,</p>\n</li>\n<li data-start=\"2127\" data-end=\"2167\">\n<p data-start=\"2129\" data-end=\"2167\"><strong data-start=\"2129\" data-end=\"2142\">bagaimana</strong> permintaan diverifikasi,</p>\n</li>\n<li data-start=\"2168\" data-end=\"2202\">\n<p data-start=\"2170\" data-end=\"2202\"><strong data-start=\"2170\" data-end=\"2183\">bagaimana</strong> aktivitas dicatat.</p>\n</li>\n</ul>\n<p data-start=\"2204\" data-end=\"2263\">Beberapa fungsi IAM yang sangat penting untuk API meliputi:</p>\n<h1 data-start=\"2270\" data-end=\"2302\"><strong data-start=\"2272\" data-end=\"2302\">Autentikasi API dengan IAM</strong></h1>\n<p data-start=\"2304\" data-end=\"2444\">Autentikasi memastikan bahwa pihak yang mencoba mengakses API adalah entitas yang benar. Ada beberapa metode modern yang biasanya digunakan:</p>\n<h2 data-start=\"2446\" data-end=\"2465\"><strong data-start=\"2449\" data-end=\"2465\">1. OAuth 2.0</strong></h2>\n<p data-start=\"2466\" data-end=\"2528\">Teknologi paling populer untuk API security.<br data-start=\"2510\" data-end=\"2513\" />Digunakan oleh:</p>\n<ul data-start=\"2529\" data-end=\"2570\">\n<li data-start=\"2529\" data-end=\"2538\">\n<p data-start=\"2531\" data-end=\"2538\">Google,</p>\n</li>\n<li data-start=\"2539\" data-end=\"2550\">\n<p data-start=\"2541\" data-end=\"2550\">Facebook,</p>\n</li>\n<li data-start=\"2551\" data-end=\"2557\">\n<p data-start=\"2553\" data-end=\"2557\">AWS,</p>\n</li>\n<li data-start=\"2558\" data-end=\"2570\">\n<p data-start=\"2560\" data-end=\"2570\">Microsoft.</p>\n</li>\n</ul>\n<p data-start=\"2572\" data-end=\"2631\">OAuth memberikan akses berdasarkan <em data-start=\"2607\" data-end=\"2614\">token</em>, bukan password.</p>\n<h2 data-start=\"2633\" data-end=\"2664\"><strong data-start=\"2636\" data-end=\"2664\">2. OpenID Connect (OIDC)</strong></h2>\n<p data-start=\"2665\" data-end=\"2753\">Digunakan ketika API perlu mengetahui identitas pengguna (bukan sekadar akses aplikasi).</p>\n<h2 data-start=\"2755\" data-end=\"2773\"><strong data-start=\"2758\" data-end=\"2773\">3. API Keys</strong></h2>\n<p data-start=\"2774\" data-end=\"2830\">Cara yang sederhana, tetapi harus dikelola dengan ketat:</p>\n<ul data-start=\"2831\" data-end=\"2930\">\n<li data-start=\"2831\" data-end=\"2849\">\n<p data-start=\"2833\" data-end=\"2849\">jangan hardcode,</p>\n</li>\n<li data-start=\"2850\" data-end=\"2877\">\n<p data-start=\"2852\" data-end=\"2877\">jangan taruh di frontend,</p>\n</li>\n<li data-start=\"2878\" data-end=\"2900\">\n<p data-start=\"2880\" data-end=\"2900\">rotasi secara rutin,</p>\n</li>\n<li data-start=\"2901\" data-end=\"2930\">\n<p data-start=\"2903\" data-end=\"2930\">gunakan permission minimum.</p>\n</li>\n</ul>\n<h2 data-start=\"2932\" data-end=\"2962\"><strong data-start=\"2935\" data-end=\"2962\">4. JWT (JSON Web Token)</strong></h2>\n<p data-start=\"2963\" data-end=\"3040\">Token yang berisi klaim identitas dan izin.<br data-start=\"3006\" data-end=\"3009\" />JWT sangat efisien, tapi harus:</p>\n<ul data-start=\"3041\" data-end=\"3112\">\n<li data-start=\"3041\" data-end=\"3058\">\n<p data-start=\"3043\" data-end=\"3058\">ditandatangani,</p>\n</li>\n<li data-start=\"3059\" data-end=\"3088\">\n<p data-start=\"3061\" data-end=\"3088\">divalidasi masa berlakunya,</p>\n</li>\n<li data-start=\"3089\" data-end=\"3112\">\n<p data-start=\"3091\" data-end=\"3112\">disimpan dengan aman.</p>\n</li>\n</ul>\n<h2 data-start=\"3114\" data-end=\"3141\"><strong data-start=\"3117\" data-end=\"3141\">5. Mutual TLS (mTLS)</strong></h2>\n<p data-start=\"3142\" data-end=\"3238\">Digunakan untuk API antar layanan internal.<br data-start=\"3185\" data-end=\"3188\" />Kedua pihak harus saling memverifikasi sertifikat.</p>\n<h1 data-start=\"3245\" data-end=\"3275\"><strong data-start=\"3247\" data-end=\"3275\">Otorisasi API dengan IAM</strong></h1>\n<p data-start=\"3277\" data-end=\"3392\">Setelah identitas diketahui, langkah berikutnya adalah menentukan apa saja yang boleh diakses pengguna atau sistem.</p>\n<p data-start=\"3394\" data-end=\"3433\">Teknik otorisasi API yang umum dipakai:</p>\n<h2 data-start=\"3435\" data-end=\"3477\"><strong data-start=\"3438\" data-end=\"3477\">1. RBAC (Role-Based Access Control)</strong></h2>\n<p data-start=\"3478\" data-end=\"3519\">Akses diberikan berdasarkan role seperti:</p>\n<ul data-start=\"3520\" data-end=\"3561\">\n<li data-start=\"3520\" data-end=\"3528\">\n<p data-start=\"3522\" data-end=\"3528\">admin,</p>\n</li>\n<li data-start=\"3529\" data-end=\"3541\">\n<p data-start=\"3531\" data-end=\"3541\">developer,</p>\n</li>\n<li data-start=\"3542\" data-end=\"3550\">\n<p data-start=\"3544\" data-end=\"3550\">guest,</p>\n</li>\n<li data-start=\"3551\" data-end=\"3561\">\n<p data-start=\"3553\" data-end=\"3561\">auditor.</p>\n</li>\n</ul>\n<p data-start=\"3563\" data-end=\"3616\">RBAC cocok untuk API dengan struktur akses sederhana.</p>\n<h2 data-start=\"3618\" data-end=\"3665\"><strong data-start=\"3621\" data-end=\"3665\">2. ABAC (Attribute-Based Access Control)</strong></h2>\n<p data-start=\"3666\" data-end=\"3712\">Akses diberikan berdasarkan atribut, misalnya:</p>\n<ul data-start=\"3713\" data-end=\"3768\">\n<li data-start=\"3713\" data-end=\"3722\">\n<p data-start=\"3715\" data-end=\"3722\">lokasi,</p>\n</li>\n<li data-start=\"3723\" data-end=\"3731\">\n<p data-start=\"3725\" data-end=\"3731\">waktu,</p>\n</li>\n<li data-start=\"3732\" data-end=\"3741\">\n<p data-start=\"3734\" data-end=\"3741\">device,</p>\n</li>\n<li data-start=\"3742\" data-end=\"3749\">\n<p data-start=\"3744\" data-end=\"3749\">grup,</p>\n</li>\n<li data-start=\"3750\" data-end=\"3768\">\n<p data-start=\"3752\" data-end=\"3768\">status keamanan.</p>\n</li>\n</ul>\n<p data-start=\"3770\" data-end=\"3822\">ABAC lebih fleksibel dan cocok untuk aplikasi besar.</p>\n<h2 data-start=\"3824\" data-end=\"3866\"><strong data-start=\"3827\" data-end=\"3866\">3. Policy-Based Access (iam policy)</strong></h2>\n<p data-start=\"3867\" data-end=\"3917\">Digunakan di AWS IAM, Google Cloud IAM, dan Azure.</p>\n<p data-start=\"3919\" data-end=\"3944\">Kebijakan mendefinisikan:</p>\n<ul data-start=\"3945\" data-end=\"3981\">\n<li data-start=\"3945\" data-end=\"3956\">\n<p data-start=\"3947\" data-end=\"3956\">resource,</p>\n</li>\n<li data-start=\"3957\" data-end=\"3970\">\n<p data-start=\"3959\" data-end=\"3970\">permission,</p>\n</li>\n<li data-start=\"3971\" data-end=\"3981\">\n<p data-start=\"3973\" data-end=\"3981\">kondisi.</p>\n</li>\n</ul>\n<p data-start=\"3983\" data-end=\"3999\">Contoh pada AWS:</p>\n<ul data-start=\"4000\" data-end=\"4131\">\n<li data-start=\"4000\" data-end=\"4045\">\n<p data-start=\"4002\" data-end=\"4045\">hanya bisa mengakses API dari VPC tertentu,</p>\n</li>\n<li data-start=\"4046\" data-end=\"4087\">\n<p data-start=\"4048\" data-end=\"4087\">hanya bisa mengakses resource tertentu,</p>\n</li>\n<li data-start=\"4088\" data-end=\"4131\">\n<p data-start=\"4090\" data-end=\"4131\">hanya bisa menggunakan perintah tertentu.</p>\n</li>\n</ul>\n<h1 data-start=\"4138\" data-end=\"4177\"><strong data-start=\"4140\" data-end=\"4177\">IAM untuk API di Lingkungan Cloud</strong></h1>\n<p data-start=\"4179\" data-end=\"4231\">Setiap cloud provider punya mekanisme IAM untuk API:</p>\n<h2 data-start=\"4233\" data-end=\"4243\"><strong data-start=\"4236\" data-end=\"4243\">AWS</strong></h2>\n<ul data-start=\"4244\" data-end=\"4325\">\n<li data-start=\"4244\" data-end=\"4260\">\n<p data-start=\"4246\" data-end=\"4260\">IAM Policies</p>\n</li>\n<li data-start=\"4261\" data-end=\"4272\">\n<p data-start=\"4263\" data-end=\"4272\">Cognito</p>\n</li>\n<li data-start=\"4273\" data-end=\"4303\">\n<p data-start=\"4275\" data-end=\"4303\">API Gateway IAM authorizer</p>\n</li>\n<li data-start=\"4304\" data-end=\"4325\">\n<p data-start=\"4306\" data-end=\"4325\">Lambda authorizer</p>\n</li>\n</ul>\n<h2 data-start=\"4327\" data-end=\"4346\"><strong data-start=\"4330\" data-end=\"4346\">Google Cloud</strong></h2>\n<ul data-start=\"4347\" data-end=\"4411\">\n<li data-start=\"4347\" data-end=\"4360\">\n<p data-start=\"4349\" data-end=\"4360\">Cloud IAM</p>\n</li>\n<li data-start=\"4361\" data-end=\"4373\">\n<p data-start=\"4363\" data-end=\"4373\">API Keys</p>\n</li>\n<li data-start=\"4374\" data-end=\"4390\">\n<p data-start=\"4376\" data-end=\"4390\">OAuth client</p>\n</li>\n<li data-start=\"4391\" data-end=\"4411\">\n<p data-start=\"4393\" data-end=\"4411\">Service accounts</p>\n</li>\n</ul>\n<h2 data-start=\"4413\" data-end=\"4425\"><strong data-start=\"4416\" data-end=\"4425\">Azure</strong></h2>\n<ul data-start=\"4426\" data-end=\"4488\">\n<li data-start=\"4426\" data-end=\"4438\">\n<p data-start=\"4428\" data-end=\"4438\">Azure AD</p>\n</li>\n<li data-start=\"4439\" data-end=\"4461\">\n<p data-start=\"4441\" data-end=\"4461\">Managed identities</p>\n</li>\n<li data-start=\"4462\" data-end=\"4488\">\n<p data-start=\"4464\" data-end=\"4488\">API Management + OAuth</p>\n</li>\n</ul>\n<p data-start=\"4490\" data-end=\"4563\">Setiap cloud sudah menyediakan cara terbaik untuk menjaga API tetap aman.</p>\n<h1 data-start=\"4570\" data-end=\"4609\"><strong data-start=\"4572\" data-end=\"4609\">Tantangan Umum dalam API Security</strong></h1>\n<p data-start=\"4611\" data-end=\"4653\"><strong data-start=\"4614\" data-end=\"4653\">1. Token yang Tidak Pernah Dirotasi</strong></p>\n<p data-start=\"4654\" data-end=\"4719\">Developer sering lupa mengganti token API sehingga rentan dicuri.</p>\n<p data-start=\"4721\" data-end=\"4754\"><strong data-start=\"4724\" data-end=\"4754\">2. API Key Bocor ke GitHub</strong></p>\n<p data-start=\"4755\" data-end=\"4810\">Ini adalah salah satu insiden yang paling umum terjadi.</p>\n<p data-start=\"4812\" data-end=\"4862\"><strong data-start=\"4815\" data-end=\"4862\">3. Penggunaan Token yang Terlalu Long-Lived</strong></p>\n<p data-start=\"4863\" data-end=\"4918\">Semakin lama masa aktif token, semakin besar risikonya.</p>\n<p data-start=\"4920\" data-end=\"4956\"><strong data-start=\"4923\" data-end=\"4956\">4. Pemisahan Akses yang Buruk</strong></p>\n<p data-start=\"4957\" data-end=\"4998\">Satu token bisa mengakses semua endpoint.</p>\n<p data-start=\"5000\" data-end=\"5033\"><strong data-start=\"5003\" data-end=\"5033\">5. Tidak Ada Rate Limiting</strong></p>\n<p data-start=\"5034\" data-end=\"5071\">Penyerang bisa melakukan brute force.</p>\n<p data-start=\"5073\" data-end=\"5115\"><strong data-start=\"5076\" data-end=\"5115\">6. Tidak Menggunakan HTTPS atau TLS</strong></p>\n<p data-start=\"5116\" data-end=\"5146\">Ini membuat API mudah disadap.</p>\n<h1 data-start=\"5153\" data-end=\"5206\"><strong data-start=\"5155\" data-end=\"5206\">Strategi Implementasi API Security Berbasis IAM</strong></h1>\n<p data-start=\"5208\" data-end=\"5267\"><strong data-start=\"5211\" data-end=\"5267\">1. Gunakan OAuth 2.0 atau OIDC untuk Aplikasi Modern</strong></p>\n<p data-start=\"5268\" data-end=\"5324\">Ini adalah standar keamanan yang wajib untuk API publik.</p>\n<p data-start=\"5326\" data-end=\"5383\"><strong data-start=\"5329\" data-end=\"5383\">2. Gunakan IAM untuk Mengelola Akses Antar Layanan</strong></p>\n<p data-start=\"5384\" data-end=\"5415\">Jangan gunakan password, pakai:</p>\n<ul data-start=\"5416\" data-end=\"5454\">\n<li data-start=\"5416\" data-end=\"5434\">\n<p data-start=\"5418\" data-end=\"5434\">service account,</p>\n</li>\n<li data-start=\"5435\" data-end=\"5446\">\n<p data-start=\"5437\" data-end=\"5446\">role IAM,</p>\n</li>\n<li data-start=\"5447\" data-end=\"5454\">\n<p data-start=\"5449\" data-end=\"5454\">mTLS.</p>\n</li>\n</ul>\n<p data-start=\"5456\" data-end=\"5506\"><strong data-start=\"5459\" data-end=\"5506\">3. Batasi Izin Token dengan Least Privilege</strong></p>\n<p data-start=\"5507\" data-end=\"5560\">Token hanya boleh mengakses endpoint yang diperlukan.</p>\n<p data-start=\"5562\" data-end=\"5609\"><strong data-start=\"5565\" data-end=\"5609\">4. Terapkan Rate Limiting dan Throttling</strong></p>\n<p data-start=\"5610\" data-end=\"5652\">API Gateway sangat membantu dalam hal ini.</p>\n<p data-start=\"5654\" data-end=\"5699\"><strong data-start=\"5657\" data-end=\"5699\">5. Audit Penggunaan Token Secara Rutin</strong></p>\n<p data-start=\"5700\" data-end=\"5704\">Cek:</p>\n<ul data-start=\"5705\" data-end=\"5773\">\n<li data-start=\"5705\" data-end=\"5724\">\n<p data-start=\"5707\" data-end=\"5724\">penggunaan token,</p>\n</li>\n<li data-start=\"5725\" data-end=\"5750\">\n<p data-start=\"5727\" data-end=\"5750\">aktivitas mencurigakan,</p>\n</li>\n<li data-start=\"5751\" data-end=\"5773\">\n<p data-start=\"5753\" data-end=\"5773\">IP address abnormal.</p>\n</li>\n</ul>\n<p data-start=\"5775\" data-end=\"5812\"><strong data-start=\"5778\" data-end=\"5812\">6. Enkripsi Seluruh Trafik API</strong></p>\n<p data-start=\"5813\" data-end=\"5830\">TLS adalah wajib.</p>\n<p data-start=\"5832\" data-end=\"5882\"><strong data-start=\"5835\" data-end=\"5882\">7. Rotasi Token dan API Keys Secara Berkala</strong></p>\n<p data-start=\"5883\" data-end=\"5904\">Bisa otomatis setiap:</p>\n<ul data-start=\"5905\" data-end=\"5937\">\n<li data-start=\"5905\" data-end=\"5915\">\n<p data-start=\"5907\" data-end=\"5915\">30 hari,</p>\n</li>\n<li data-start=\"5916\" data-end=\"5926\">\n<p data-start=\"5918\" data-end=\"5926\">60 hari,</p>\n</li>\n<li data-start=\"5927\" data-end=\"5937\">\n<p data-start=\"5929\" data-end=\"5937\">90 hari.</p>\n</li>\n</ul>\n<p data-start=\"5939\" data-end=\"5980\"><strong data-start=\"5942\" data-end=\"5980\">8. Jangan Pernah Hardcode API Keys</strong></p>\n<p data-start=\"5981\" data-end=\"5989\">Gunakan:</p>\n<ul data-start=\"5990\" data-end=\"6031\">\n<li data-start=\"5990\" data-end=\"6013\">\n<p data-start=\"5992\" data-end=\"6013\">environment variable,</p>\n</li>\n<li data-start=\"6014\" data-end=\"6031\">\n<p data-start=\"6016\" data-end=\"6031\">secret manager.</p>\n</li>\n</ul>\n<h1 data-start=\"6038\" data-end=\"6054\"><strong data-start=\"6040\" data-end=\"6054\">Kesimpulan</strong></h1>\n<p data-start=\"6056\" data-end=\"6339\">API security adalah fondasi penting dalam aplikasi modern, dan IAM memainkan peran besar dalam memastikan API hanya dapat diakses oleh pihak yang sah dengan cara yang aman. Mulai dari autentikasi hingga otorisasi, logging, hingga pengelolaan token—semua itu berada dalam lingkup IAM.</p>\n<p data-start=\"6341\" data-end=\"6624\">Ketika IAM diterapkan dengan benar, risiko serangan terhadap API seperti data breach, token theft, dan unauthorized access dapat diminimalkan secara signifikan. Dengan strategi yang tepat, API bisa menjadi jembatan komunikasi data yang aman dan andal untuk seluruh sistem perusahaan.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>API kini menjadi tulang punggung semua aplikasi modern, mulai dari aplikasi mobile, layanan cloud, hingga sistem internal perusahaan. API memungkinkan data dan layanan saling terhubung dan berkomunikasi. Tapi bersamaan dengan itu, API juga menjadi salah satu target utama serangan siber. Serangan pada API meningkat setiap tahun karena API sering memuat data sensitif, mengendalikan fungsi penting aplikasi, dan menjadi &#8220;pintu masuk&#8221; ke sistem backend. Di sinilah IAM (Identity and Access Management) menjadi komponen yang sangat penting. IAM tidak hanya digunakan untuk mengatur akses user manusia, tetapi juga sangat penting untuk mengamankan akses antar aplikasi, layanan, dan sistem. Artikel ini membahas bagaimana&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 7253,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      137,
+      1385,
+      560
+    ],
+    "class_list": [
+      "post-7252",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-api",
+      "tag-buletin-siber",
+      "tag-iam-identity-and-access-management"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>API Security dengan IAM: Melindungi Endpoint dari Serangan Siber - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"API Security dengan IAM: Melindungi Endpoint dari Serangan Siber - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"API kini menjadi tulang punggung semua aplikasi modern, mulai dari aplikasi mobile, layanan cloud, hingga sistem internal perusahaan. API memungkinkan data dan layanan saling terhubung dan berkomunikasi. Tapi bersamaan dengan itu, API juga menjadi salah satu target utama serangan siber. Serangan pada API meningkat setiap tahun karena API sering memuat data sensitif, mengendalikan fungsi penting aplikasi, dan menjadi &#8220;pintu masuk&#8221; ke sistem backend. Di sinilah IAM (Identity and Access Management) menjadi komponen yang sangat penting. IAM tidak hanya digunakan untuk mengatur akses user manusia, tetapi juga sangat penting untuk mengamankan akses antar aplikasi, layanan, dan sistem. Artikel ini membahas bagaimana...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-11-20T13:32:26+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-12T16:28:03+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/11/b9291da6-56fb-48b8-9a6a-5c9d0a56f664.jpeg\" />\n\t<meta property=\"og:image:width\" content=\"1024\" />\n\t<meta property=\"og:image:height\" content=\"1024\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/\",\"url\":\"https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/\",\"name\":\"API Security dengan IAM: Melindungi Endpoint dari Serangan Siber - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/b9291da6-56fb-48b8-9a6a-5c9d0a56f664.jpeg\",\"datePublished\":\"2025-11-20T13:32:26+00:00\",\"dateModified\":\"2026-07-12T16:28:03+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/11/b9291da6-56fb-48b8-9a6a-5c9d0a56f664.jpeg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/b9291da6-56fb-48b8-9a6a-5c9d0a56f664.jpeg\",\"width\":1024,\"height\":1024},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"API Security dengan IAM: Melindungi Endpoint dari Serangan Siber\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "API Security dengan IAM: Melindungi Endpoint dari Serangan Siber - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "API Security dengan IAM: Melindungi Endpoint dari Serangan Siber - buletinsiber.com",
+      "og_description": "API kini menjadi tulang punggung semua aplikasi modern, mulai dari aplikasi mobile, layanan cloud, hingga sistem internal perusahaan. API memungkinkan data dan layanan saling terhubung dan berkomunikasi. Tapi bersamaan dengan itu, API juga menjadi salah satu target utama serangan siber. Serangan pada API meningkat setiap tahun karena API sering memuat data sensitif, mengendalikan fungsi penting aplikasi, dan menjadi &#8220;pintu masuk&#8221; ke sistem backend. Di sinilah IAM (Identity and Access Management) menjadi komponen yang sangat penting. IAM tidak hanya digunakan untuk mengatur akses user manusia, tetapi juga sangat penting untuk mengamankan akses antar aplikasi, layanan, dan sistem. Artikel ini membahas bagaimana...",
+      "og_url": "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-11-20T13:32:26+00:00",
+      "article_modified_time": "2026-07-12T16:28:03+00:00",
+      "og_image": [
+        {
+          "width": 1024,
+          "height": 1024,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/11/b9291da6-56fb-48b8-9a6a-5c9d0a56f664.jpeg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/",
+            "url": "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/",
+            "name": "API Security dengan IAM: Melindungi Endpoint dari Serangan Siber - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/b9291da6-56fb-48b8-9a6a-5c9d0a56f664.jpeg",
+            "datePublished": "2025-11-20T13:32:26+00:00",
+            "dateModified": "2026-07-12T16:28:03+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/11/b9291da6-56fb-48b8-9a6a-5c9d0a56f664.jpeg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/b9291da6-56fb-48b8-9a6a-5c9d0a56f664.jpeg",
+            "width": 1024,
+            "height": 1024
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/api-security-dengan-iam-melindungi-endpoint-dari-serangan-siber-2/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "API Security dengan IAM: Melindungi Endpoint dari Serangan Siber"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/7252",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=7252"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 5,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/7252/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 7790,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/7252/revisions/7790"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/7253"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=7252"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=7252"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=7252"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

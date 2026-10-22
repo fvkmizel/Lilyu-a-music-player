@@ -1,0 +1,325 @@
+{
+  "id": 22839,
+  "title": "Shimcache Forensics: Membongkar Jejak Eksekusi Program di Windows untuk Investigasi Digital",
+  "slug": "shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital",
+  "url": "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/",
+  "date": "2026-08-12T00:30:39",
+  "date_gmt": "2026-08-12T00:30:39",
+  "modified": "2026-08-12T00:30:39",
+  "modified_gmt": "2026-08-12T00:30:39",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    3955,
+    800
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg",
+  "excerpt": "Pengantar Dalam investigasi digital, sistem operasi Windows menyimpan berbagai artefak yang dapat membantu investigator memahami aktivitas sebuah komputer. Salah satunya adalah Shimcache, yang juga dikenal sebagai Application Compatibility Cache atau AppCompatCache. Shimcache awalnya merupakan bagian dari mekanisme Windows Application Compatibility, yang digunakan untuk membantu aplikasi berjalan dengan baik pada sistem operasi Windows. Microsoft menjelaskan bahwa infrastruktur application compatibility digunakan untuk mengidentifikasi masalah kompatibilitas aplikasi dan menerapkan solusi yang sesuai (dikutip dari: Microsoft Learn). Dalam dunia digital forensics, data tersebut dapat dimanfaatkan untuk mencari jejak file atau aplikasi yang pernah tercatat oleh sistem. Apa Itu Shimcache? Shimcache merupakan cache yang berkaitan…",
+  "content_html": "<h2>Pengantar</h2>\n<p class=\"isSelectedEnd\">Dalam investigasi digital, sistem operasi Windows menyimpan berbagai artefak yang dapat membantu investigator memahami aktivitas sebuah komputer. Salah satunya adalah <strong>Shimcache</strong>, yang juga dikenal sebagai <strong>Application Compatibility Cache</strong> atau <strong>AppCompatCache</strong>.</p>\n<p class=\"isSelectedEnd\">Shimcache awalnya merupakan bagian dari mekanisme <strong>Windows Application Compatibility</strong>, yang digunakan untuk membantu aplikasi berjalan dengan baik pada sistem operasi Windows. Microsoft menjelaskan bahwa infrastruktur application compatibility digunakan untuk mengidentifikasi masalah kompatibilitas aplikasi dan menerapkan solusi yang sesuai <strong>(dikutip dari: </strong><a href=\"https://learn.microsoft.com/en-us/windows/win32/devnotes/application-compatibility-database\"><strong>Microsoft Learn</strong></a><strong>)</strong>.</p>\n<p class=\"isSelectedEnd\">Dalam dunia <strong>digital forensics</strong>, data tersebut dapat dimanfaatkan untuk mencari jejak file atau aplikasi yang pernah tercatat oleh sistem.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Itu Shimcache?</h2>\n<p class=\"isSelectedEnd\">Shimcache merupakan cache yang berkaitan dengan Application Compatibility Infrastructure. Dalam forensic analysis, artefak ini dapat memberikan informasi seperti <strong>nama file, lokasi file, ukuran, dan metadata tertentu</strong>, tergantung versi Windows yang dianalisis.</p>\n<p class=\"isSelectedEnd\">Lokasi registry yang umum digunakan adalah:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">HKLM\\SYSTEM\\CurrentControlSet\\\r\nControl\\Session Manager\\AppCompatCache</code></pre>\n<p class=\"isSelectedEnd\">Data tersebut berasal dari <strong>SYSTEM Registry Hive</strong>, yang biasanya berada di:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">C:\\Windows\\System32\\Config\\SYSTEM</code></pre>\n<p class=\"isSelectedEnd\">Shimcache banyak digunakan sebagai salah satu sumber informasi ketika investigator melakukan analisis aktivitas aplikasi pada Windows <strong>(dikutip dari: </strong><a href=\"https://www.forensic-artifacts.com/windows-forensics/shimcache\"><strong>Forensic Artifacts – ShimCache</strong></a><strong>)</strong>.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/http-2-multiplexing-cara-kerja-dan-rahasia-di-balik-koneksi-web-yang-lebih-cepat/\">HTTP/2 Multiplexing: Cara Kerja dan Rahasia di Balik Koneksi Web yang Lebih Cepat</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa Shimcache Penting dalam Forensics?</h2>\n<h3>Menemukan File Mencurigakan</h3>\n<p class=\"isSelectedEnd\">Misalnya investigator menemukan entry seperti:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">C:\\Users\\Public\\update.exe</code></pre>\n<p class=\"isSelectedEnd\">File tersebut sudah tidak ditemukan pada disk. Shimcache dapat memberikan petunjuk bahwa path tersebut pernah tercatat oleh sistem.</p>\n<p class=\"isSelectedEnd\">Informasi tersebut dapat dikembangkan dengan mencari bukti tambahan dari:</p>\n<ul data-spread=\"false\">\n<li>Prefetch</li>\n<li>AmCache</li>\n<li>Windows Event Logs</li>\n<li>LNK Files</li>\n<li>BAM/DAM</li>\n<li>EDR Telemetry</li>\n</ul>\n<p class=\"isSelectedEnd\">Dengan demikian, Shimcache dapat membantu investigator menyusun <strong>timeline aktivitas endpoint</strong>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apakah Shimcache Membuktikan Program Dieksekusi?</h2>\n<p class=\"isSelectedEnd\">Ini merupakan bagian yang sangat penting.</p>\n<p class=\"isSelectedEnd\"><strong>Entry Shimcache tidak boleh langsung dianggap sebagai bukti pasti bahwa sebuah program telah dieksekusi.</strong></p>\n<p class=\"isSelectedEnd\">Shimcache berkaitan dengan mekanisme kompatibilitas aplikasi, bukan merupakan execution log yang secara khusus dibuat untuk mencatat setiap program yang dijalankan.</p>\n<p class=\"isSelectedEnd\">Karena itu, investigator sebaiknya melakukan korelasi dengan artefak lain.</p>\n<p class=\"isSelectedEnd\">Contohnya:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">Shimcache\r\n    +\r\nPrefetch\r\n    +\r\nAmCache\r\n    +\r\nEvent Logs\r\n    ↓\r\nAnalisis Aktivitas</code></pre>\n<p class=\"isSelectedEnd\">Semakin banyak artefak yang memberikan informasi konsisten, semakin kuat kesimpulan forensic yang dapat dibuat.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"812\" height=\"542\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 812px) 100vw, 812px\" /></p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Shimcache vs Prefetch</h2>\n<p class=\"isSelectedEnd\">Keduanya sering digunakan bersama, tetapi memiliki fungsi yang berbeda.</p>\n<p class=\"isSelectedEnd\"><strong>Shimcache</strong> dapat memberikan informasi mengenai file atau aplikasi yang tercatat dalam Application Compatibility Cache.</p>\n<p class=\"isSelectedEnd\">Sementara itu, <strong>Prefetch</strong> dapat memberikan informasi yang berkaitan dengan aktivitas aplikasi dan performa loading pada sistem Windows tertentu.</p>\n<p class=\"isSelectedEnd\">Karena karakteristiknya berbeda, investigator sebaiknya tidak memilih salah satu saja. Menggabungkan keduanya dapat memberikan gambaran yang lebih lengkap mengenai aktivitas executable.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/privileged-identity-management-pim-strategi-mengamankan-akses-istimewa-dari-ancaman-siber/\">Privileged Identity Management (PIM): Strategi Mengamankan Akses Istimewa dari Ancaman Siber</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Cara Melakukan Analisis Shimcache</h2>\n<h3>1. Dapatkan SYSTEM Hive</h3>\n<p class=\"isSelectedEnd\">Investigator terlebih dahulu memperoleh file:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">C:\\Windows\\System32\\Config\\SYSTEM</code></pre>\n<p class=\"isSelectedEnd\">dari forensic image atau sumber evidence yang telah diperoleh secara tepat.</p>\n<h3>2. Cari AppCompatCache</h3>\n<p class=\"isSelectedEnd\">Setelah hive dibuka menggunakan forensic tool atau registry analysis tool, cari:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">ControlSet00x\r\n└── Control\r\n    └── Session Manager\r\n        └── AppCompatCache</code></pre>\n<h3>3. Analisis Entry</h3>\n<p class=\"isSelectedEnd\">Periksa informasi seperti:</p>\n<ul data-spread=\"false\">\n<li>Nama executable.</li>\n<li>File path.</li>\n<li>Timestamp atau metadata terkait.</li>\n<li>File yang berada di lokasi mencurigakan.</li>\n</ul>\n<h3>4. Lakukan Korelasi</h3>\n<p class=\"isSelectedEnd\">Jangan berhenti pada Shimcache. Bandingkan hasilnya dengan Prefetch, AmCache, Event Logs, dan artefak Windows lainnya.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Contoh Sederhana Investigasi</h2>\n<p class=\"isSelectedEnd\">Misalnya ditemukan:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">C:\\Users\\Public\\invoice.exe</code></pre>\n<p class=\"isSelectedEnd\">pada Shimcache.</p>\n<p class=\"isSelectedEnd\">Investigator kemudian menemukan:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">invoice.exe\r\n↓\r\nShimcache\r\n↓\r\nPrefetch\r\n↓\r\nNetwork Connection</code></pre>\n<p class=\"isSelectedEnd\">Jika seluruh informasi tersebut memiliki waktu yang berdekatan dan saling mendukung, investigator dapat memperoleh gambaran yang lebih kuat mengenai aktivitas file tersebut.</p>\n<p class=\"isSelectedEnd\">Namun, setiap temuan tetap harus diverifikasi sebelum digunakan sebagai kesimpulan akhir.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Keterbatasan Shimcache</h2>\n<p class=\"isSelectedEnd\">Shimcache memiliki beberapa keterbatasan yang perlu diperhatikan:</p>\n<ul data-spread=\"false\">\n<li>Tidak selalu membuktikan eksekusi program.</li>\n<li>Format dan perilakunya dapat berbeda antarversi Windows.</li>\n<li>Data cache dapat berubah atau tergantikan.</li>\n<li>Tidak dirancang untuk mengidentifikasi pengguna yang menjalankan program.</li>\n<li>Harus dikombinasikan dengan artefak forensic lainnya.</li>\n</ul>\n<p class=\"isSelectedEnd\">Karena itu, Shimcache sebaiknya dipandang sebagai <strong>satu bagian dari puzzle digital forensics</strong>, bukan sebagai satu-satunya sumber bukti.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/software-bill-of-materials-sbom-senjata-penting-untuk-mengamankan-rantai-pasok-software/\">Software Bill of Materials (SBOM): Senjata Penting untuk Mengamankan Rantai Pasok Software</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Kesimpulan</h2>\n<p class=\"isSelectedEnd\"><strong>Shimcache Forensics</strong> merupakan teknik yang berguna untuk menganalisis jejak aplikasi pada sistem Windows. Artefak ini dapat membantu investigator menemukan informasi mengenai file dan path yang pernah tercatat oleh mekanisme Application Compatibility.</p>\n<p class=\"isSelectedEnd\">Namun, keberadaan sebuah file pada Shimcache <strong>tidak otomatis membuktikan bahwa file tersebut telah dieksekusi</strong>. Analisis yang lebih akurat membutuhkan korelasi dengan Prefetch, AmCache, Windows Event Logs, EDR, dan artefak lainnya.</p>\n<p>Dengan memahami fungsi dan keterbatasannya, Shimcache dapat menjadi salah satu sumber informasi penting dalam <strong>malware investigation, incident response, dan Windows digital forensics</strong>.</p>\n",
+  "content_text": "Pengantar\nDalam investigasi digital, sistem operasi Windows menyimpan berbagai artefak yang dapat membantu investigator memahami aktivitas sebuah komputer. Salah satunya adalah  Shimcache , yang juga dikenal sebagai  Application Compatibility Cache  atau  AppCompatCache .\nShimcache awalnya merupakan bagian dari mekanisme  Windows Application Compatibility , yang digunakan untuk membantu aplikasi berjalan dengan baik pada sistem operasi Windows. Microsoft menjelaskan bahwa infrastruktur application compatibility digunakan untuk mengidentifikasi masalah kompatibilitas aplikasi dan menerapkan solusi yang sesuai  (dikutip dari:    Microsoft Learn   ) .\nDalam dunia  digital forensics , data tersebut dapat dimanfaatkan untuk mencari jejak file atau aplikasi yang pernah tercatat oleh sistem.\nApa Itu Shimcache?\nShimcache merupakan cache yang berkaitan dengan Application Compatibility Infrastructure. Dalam forensic analysis, artefak ini dapat memberikan informasi seperti  nama file, lokasi file, ukuran, dan metadata tertentu , tergantung versi Windows yang dianalisis.\nLokasi registry yang umum digunakan adalah:\nHKLM\\SYSTEM\\CurrentControlSet\\\nControl\\Session Manager\\AppCompatCache\nData tersebut berasal dari  SYSTEM Registry Hive , yang biasanya berada di:\nC:\\Windows\\System32\\Config\\SYSTEM\nShimcache banyak digunakan sebagai salah satu sumber informasi ketika investigator melakukan analisis aktivitas aplikasi pada Windows  (dikutip dari:    Forensic Artifacts – ShimCache   ) .\nbaca juga :  HTTP/2 Multiplexing: Cara Kerja dan Rahasia di Balik Koneksi Web yang Lebih Cepat\nMengapa Shimcache Penting dalam Forensics?\nMenemukan File Mencurigakan\nMisalnya investigator menemukan entry seperti:\nC:\\Users\\Public\\update.exe\nFile tersebut sudah tidak ditemukan pada disk. Shimcache dapat memberikan petunjuk bahwa path tersebut pernah tercatat oleh sistem.\nInformasi tersebut dapat dikembangkan dengan mencari bukti tambahan dari:\nPrefetch\nAmCache\nWindows Event Logs\nLNK Files\nBAM/DAM\nEDR Telemetry\nDengan demikian, Shimcache dapat membantu investigator menyusun  timeline aktivitas endpoint .\nApakah Shimcache Membuktikan Program Dieksekusi?\nIni merupakan bagian yang sangat penting.\nEntry Shimcache tidak boleh langsung dianggap sebagai bukti pasti bahwa sebuah program telah dieksekusi.\nShimcache berkaitan dengan mekanisme kompatibilitas aplikasi, bukan merupakan execution log yang secara khusus dibuat untuk mencatat setiap program yang dijalankan.\nKarena itu, investigator sebaiknya melakukan korelasi dengan artefak lain.\nContohnya:\nShimcache\n+\nPrefetch\n+\nAmCache\n+\nEvent Logs\n↓\nAnalisis Aktivitas\nSemakin banyak artefak yang memberikan informasi konsisten, semakin kuat kesimpulan forensic yang dapat dibuat.\nShimcache vs Prefetch\nKeduanya sering digunakan bersama, tetapi memiliki fungsi yang berbeda.\nShimcache  dapat memberikan informasi mengenai file atau aplikasi yang tercatat dalam Application Compatibility Cache.\nSementara itu,  Prefetch  dapat memberikan informasi yang berkaitan dengan aktivitas aplikasi dan performa loading pada sistem Windows tertentu.\nKarena karakteristiknya berbeda, investigator sebaiknya tidak memilih salah satu saja. Menggabungkan keduanya dapat memberikan gambaran yang lebih lengkap mengenai aktivitas executable.\nbaca juga :  Privileged Identity Management (PIM): Strategi Mengamankan Akses Istimewa dari Ancaman Siber\nCara Melakukan Analisis Shimcache\n1. Dapatkan SYSTEM Hive\nInvestigator terlebih dahulu memperoleh file:\nC:\\Windows\\System32\\Config\\SYSTEM\ndari forensic image atau sumber evidence yang telah diperoleh secara tepat.\n2. Cari AppCompatCache\nSetelah hive dibuka menggunakan forensic tool atau registry analysis tool, cari:\nControlSet00x\n└── Control\n└── Session Manager\n└── AppCompatCache\n3. Analisis Entry\nPeriksa informasi seperti:\nNama executable.\nFile path.\nTimestamp atau metadata terkait.\nFile yang berada di lokasi mencurigakan.\n4. Lakukan Korelasi\nJangan berhenti pada Shimcache. Bandingkan hasilnya dengan Prefetch, AmCache, Event Logs, dan artefak Windows lainnya.\nContoh Sederhana Investigasi\nMisalnya ditemukan:\nC:\\Users\\Public\\invoice.exe\npada Shimcache.\nInvestigator kemudian menemukan:\ninvoice.exe\n↓\nShimcache\n↓\nPrefetch\n↓\nNetwork Connection\nJika seluruh informasi tersebut memiliki waktu yang berdekatan dan saling mendukung, investigator dapat memperoleh gambaran yang lebih kuat mengenai aktivitas file tersebut.\nNamun, setiap temuan tetap harus diverifikasi sebelum digunakan sebagai kesimpulan akhir.\nKeterbatasan Shimcache\nShimcache memiliki beberapa keterbatasan yang perlu diperhatikan:\nTidak selalu membuktikan eksekusi program.\nFormat dan perilakunya dapat berbeda antarversi Windows.\nData cache dapat berubah atau tergantikan.\nTidak dirancang untuk mengidentifikasi pengguna yang menjalankan program.\nHarus dikombinasikan dengan artefak forensic lainnya.\nKarena itu, Shimcache sebaiknya dipandang sebagai  satu bagian dari puzzle digital forensics , bukan sebagai satu-satunya sumber bukti.\nbaca juga :  Software Bill of Materials (SBOM): Senjata Penting untuk Mengamankan Rantai Pasok Software\nKesimpulan\nShimcache Forensics  merupakan teknik yang berguna untuk menganalisis jejak aplikasi pada sistem Windows. Artefak ini dapat membantu investigator menemukan informasi mengenai file dan path yang pernah tercatat oleh mekanisme Application Compatibility.\nNamun, keberadaan sebuah file pada Shimcache  tidak otomatis membuktikan bahwa file tersebut telah dieksekusi . Analisis yang lebih akurat membutuhkan korelasi dengan Prefetch, AmCache, Windows Event Logs, EDR, dan artefak lainnya.\nDengan memahami fungsi dan keterbatasannya, Shimcache dapat menjadi salah satu sumber informasi penting dalam  malware investigation, incident response, dan Windows digital forensics .",
+  "raw": {
+    "id": 22839,
+    "date": "2026-08-12T00:30:39",
+    "date_gmt": "2026-08-12T00:30:39",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=22839"
+    },
+    "modified": "2026-08-12T00:30:39",
+    "modified_gmt": "2026-08-12T00:30:39",
+    "slug": "shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/",
+    "title": {
+      "rendered": "Shimcache Forensics: Membongkar Jejak Eksekusi Program di Windows untuk Investigasi Digital"
+    },
+    "content": {
+      "rendered": "<h2>Pengantar</h2>\n<p class=\"isSelectedEnd\">Dalam investigasi digital, sistem operasi Windows menyimpan berbagai artefak yang dapat membantu investigator memahami aktivitas sebuah komputer. Salah satunya adalah <strong>Shimcache</strong>, yang juga dikenal sebagai <strong>Application Compatibility Cache</strong> atau <strong>AppCompatCache</strong>.</p>\n<p class=\"isSelectedEnd\">Shimcache awalnya merupakan bagian dari mekanisme <strong>Windows Application Compatibility</strong>, yang digunakan untuk membantu aplikasi berjalan dengan baik pada sistem operasi Windows. Microsoft menjelaskan bahwa infrastruktur application compatibility digunakan untuk mengidentifikasi masalah kompatibilitas aplikasi dan menerapkan solusi yang sesuai <strong>(dikutip dari: </strong><a href=\"https://learn.microsoft.com/en-us/windows/win32/devnotes/application-compatibility-database\"><strong>Microsoft Learn</strong></a><strong>)</strong>.</p>\n<p class=\"isSelectedEnd\">Dalam dunia <strong>digital forensics</strong>, data tersebut dapat dimanfaatkan untuk mencari jejak file atau aplikasi yang pernah tercatat oleh sistem.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apa Itu Shimcache?</h2>\n<p class=\"isSelectedEnd\">Shimcache merupakan cache yang berkaitan dengan Application Compatibility Infrastructure. Dalam forensic analysis, artefak ini dapat memberikan informasi seperti <strong>nama file, lokasi file, ukuran, dan metadata tertentu</strong>, tergantung versi Windows yang dianalisis.</p>\n<p class=\"isSelectedEnd\">Lokasi registry yang umum digunakan adalah:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">HKLM\\SYSTEM\\CurrentControlSet\\\r\nControl\\Session Manager\\AppCompatCache</code></pre>\n<p class=\"isSelectedEnd\">Data tersebut berasal dari <strong>SYSTEM Registry Hive</strong>, yang biasanya berada di:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">C:\\Windows\\System32\\Config\\SYSTEM</code></pre>\n<p class=\"isSelectedEnd\">Shimcache banyak digunakan sebagai salah satu sumber informasi ketika investigator melakukan analisis aktivitas aplikasi pada Windows <strong>(dikutip dari: </strong><a href=\"https://www.forensic-artifacts.com/windows-forensics/shimcache\"><strong>Forensic Artifacts – ShimCache</strong></a><strong>)</strong>.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/http-2-multiplexing-cara-kerja-dan-rahasia-di-balik-koneksi-web-yang-lebih-cepat/\">HTTP/2 Multiplexing: Cara Kerja dan Rahasia di Balik Koneksi Web yang Lebih Cepat</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Mengapa Shimcache Penting dalam Forensics?</h2>\n<h3>Menemukan File Mencurigakan</h3>\n<p class=\"isSelectedEnd\">Misalnya investigator menemukan entry seperti:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">C:\\Users\\Public\\update.exe</code></pre>\n<p class=\"isSelectedEnd\">File tersebut sudah tidak ditemukan pada disk. Shimcache dapat memberikan petunjuk bahwa path tersebut pernah tercatat oleh sistem.</p>\n<p class=\"isSelectedEnd\">Informasi tersebut dapat dikembangkan dengan mencari bukti tambahan dari:</p>\n<ul data-spread=\"false\">\n<li>Prefetch</li>\n<li>AmCache</li>\n<li>Windows Event Logs</li>\n<li>LNK Files</li>\n<li>BAM/DAM</li>\n<li>EDR Telemetry</li>\n</ul>\n<p class=\"isSelectedEnd\">Dengan demikian, Shimcache dapat membantu investigator menyusun <strong>timeline aktivitas endpoint</strong>.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Apakah Shimcache Membuktikan Program Dieksekusi?</h2>\n<p class=\"isSelectedEnd\">Ini merupakan bagian yang sangat penting.</p>\n<p class=\"isSelectedEnd\"><strong>Entry Shimcache tidak boleh langsung dianggap sebagai bukti pasti bahwa sebuah program telah dieksekusi.</strong></p>\n<p class=\"isSelectedEnd\">Shimcache berkaitan dengan mekanisme kompatibilitas aplikasi, bukan merupakan execution log yang secara khusus dibuat untuk mencatat setiap program yang dijalankan.</p>\n<p class=\"isSelectedEnd\">Karena itu, investigator sebaiknya melakukan korelasi dengan artefak lain.</p>\n<p class=\"isSelectedEnd\">Contohnya:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">Shimcache\r\n    +\r\nPrefetch\r\n    +\r\nAmCache\r\n    +\r\nEvent Logs\r\n    ↓\r\nAnalisis Aktivitas</code></pre>\n<p class=\"isSelectedEnd\">Semakin banyak artefak yang memberikan informasi konsisten, semakin kuat kesimpulan forensic yang dapat dibuat.<img loading=\"lazy\" decoding=\"async\" class=\"wp-image-10386 aligncenter\" src=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png\" alt=\"\" width=\"812\" height=\"542\" srcset=\"https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1.png 1536w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-300x200.png 300w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-1024x683.png 1024w, https://buletinsiber.com/wp-content/uploads/2026/06/iklan-1-768x512.png 768w\" sizes=\"auto, (max-width: 812px) 100vw, 812px\" /></p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Shimcache vs Prefetch</h2>\n<p class=\"isSelectedEnd\">Keduanya sering digunakan bersama, tetapi memiliki fungsi yang berbeda.</p>\n<p class=\"isSelectedEnd\"><strong>Shimcache</strong> dapat memberikan informasi mengenai file atau aplikasi yang tercatat dalam Application Compatibility Cache.</p>\n<p class=\"isSelectedEnd\">Sementara itu, <strong>Prefetch</strong> dapat memberikan informasi yang berkaitan dengan aktivitas aplikasi dan performa loading pada sistem Windows tertentu.</p>\n<p class=\"isSelectedEnd\">Karena karakteristiknya berbeda, investigator sebaiknya tidak memilih salah satu saja. Menggabungkan keduanya dapat memberikan gambaran yang lebih lengkap mengenai aktivitas executable.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/privileged-identity-management-pim-strategi-mengamankan-akses-istimewa-dari-ancaman-siber/\">Privileged Identity Management (PIM): Strategi Mengamankan Akses Istimewa dari Ancaman Siber</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Cara Melakukan Analisis Shimcache</h2>\n<h3>1. Dapatkan SYSTEM Hive</h3>\n<p class=\"isSelectedEnd\">Investigator terlebih dahulu memperoleh file:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">C:\\Windows\\System32\\Config\\SYSTEM</code></pre>\n<p class=\"isSelectedEnd\">dari forensic image atau sumber evidence yang telah diperoleh secara tepat.</p>\n<h3>2. Cari AppCompatCache</h3>\n<p class=\"isSelectedEnd\">Setelah hive dibuka menggunakan forensic tool atau registry analysis tool, cari:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">ControlSet00x\r\n└── Control\r\n    └── Session Manager\r\n        └── AppCompatCache</code></pre>\n<h3>3. Analisis Entry</h3>\n<p class=\"isSelectedEnd\">Periksa informasi seperti:</p>\n<ul data-spread=\"false\">\n<li>Nama executable.</li>\n<li>File path.</li>\n<li>Timestamp atau metadata terkait.</li>\n<li>File yang berada di lokasi mencurigakan.</li>\n</ul>\n<h3>4. Lakukan Korelasi</h3>\n<p class=\"isSelectedEnd\">Jangan berhenti pada Shimcache. Bandingkan hasilnya dengan Prefetch, AmCache, Event Logs, dan artefak Windows lainnya.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Contoh Sederhana Investigasi</h2>\n<p class=\"isSelectedEnd\">Misalnya ditemukan:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">C:\\Users\\Public\\invoice.exe</code></pre>\n<p class=\"isSelectedEnd\">pada Shimcache.</p>\n<p class=\"isSelectedEnd\">Investigator kemudian menemukan:</p>\n<pre dir=\"ltr\"><code dir=\"ltr\">invoice.exe\r\n↓\r\nShimcache\r\n↓\r\nPrefetch\r\n↓\r\nNetwork Connection</code></pre>\n<p class=\"isSelectedEnd\">Jika seluruh informasi tersebut memiliki waktu yang berdekatan dan saling mendukung, investigator dapat memperoleh gambaran yang lebih kuat mengenai aktivitas file tersebut.</p>\n<p class=\"isSelectedEnd\">Namun, setiap temuan tetap harus diverifikasi sebelum digunakan sebagai kesimpulan akhir.</p>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Keterbatasan Shimcache</h2>\n<p class=\"isSelectedEnd\">Shimcache memiliki beberapa keterbatasan yang perlu diperhatikan:</p>\n<ul data-spread=\"false\">\n<li>Tidak selalu membuktikan eksekusi program.</li>\n<li>Format dan perilakunya dapat berbeda antarversi Windows.</li>\n<li>Data cache dapat berubah atau tergantikan.</li>\n<li>Tidak dirancang untuk mengidentifikasi pengguna yang menjalankan program.</li>\n<li>Harus dikombinasikan dengan artefak forensic lainnya.</li>\n</ul>\n<p class=\"isSelectedEnd\">Karena itu, Shimcache sebaiknya dipandang sebagai <strong>satu bagian dari puzzle digital forensics</strong>, bukan sebagai satu-satunya sumber bukti.</p>\n<blockquote><p>baca juga : <a href=\"https://buletinsiber.com/software-bill-of-materials-sbom-senjata-penting-untuk-mengamankan-rantai-pasok-software/\">Software Bill of Materials (SBOM): Senjata Penting untuk Mengamankan Rantai Pasok Software</a></p></blockquote>\n<div contenteditable=\"false\">\n<hr />\n</div>\n<h2>Kesimpulan</h2>\n<p class=\"isSelectedEnd\"><strong>Shimcache Forensics</strong> merupakan teknik yang berguna untuk menganalisis jejak aplikasi pada sistem Windows. Artefak ini dapat membantu investigator menemukan informasi mengenai file dan path yang pernah tercatat oleh mekanisme Application Compatibility.</p>\n<p class=\"isSelectedEnd\">Namun, keberadaan sebuah file pada Shimcache <strong>tidak otomatis membuktikan bahwa file tersebut telah dieksekusi</strong>. Analisis yang lebih akurat membutuhkan korelasi dengan Prefetch, AmCache, Windows Event Logs, EDR, dan artefak lainnya.</p>\n<p>Dengan memahami fungsi dan keterbatasannya, Shimcache dapat menjadi salah satu sumber informasi penting dalam <strong>malware investigation, incident response, dan Windows digital forensics</strong>.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Dalam investigasi digital, sistem operasi Windows menyimpan berbagai artefak yang dapat membantu investigator memahami aktivitas sebuah komputer. Salah satunya adalah Shimcache, yang juga dikenal sebagai Application Compatibility Cache atau AppCompatCache. Shimcache awalnya merupakan bagian dari mekanisme Windows Application Compatibility, yang digunakan untuk membantu aplikasi berjalan dengan baik pada sistem operasi Windows. Microsoft menjelaskan bahwa infrastruktur application compatibility digunakan untuk mengidentifikasi masalah kompatibilitas aplikasi dan menerapkan solusi yang sesuai (dikutip dari: Microsoft Learn). Dalam dunia digital forensics, data tersebut dapat dimanfaatkan untuk mencari jejak file atau aplikasi yang pernah tercatat oleh sistem. Apa Itu Shimcache? Shimcache merupakan cache yang berkaitan&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8142,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Shimcache Forensics",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      3955,
+      800
+    ],
+    "class_list": [
+      "post-22839",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-forensics",
+      "tag-windows"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Shimcache Forensics: Membongkar Jejak Eksekusi Program di Windows untuk Investigasi Digital - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Shimcache Forensics: Membongkar Jejak Eksekusi Program di Windows untuk Investigasi Digital - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Dalam investigasi digital, sistem operasi Windows menyimpan berbagai artefak yang dapat membantu investigator memahami aktivitas sebuah komputer. Salah satunya adalah Shimcache, yang juga dikenal sebagai Application Compatibility Cache atau AppCompatCache. Shimcache awalnya merupakan bagian dari mekanisme Windows Application Compatibility, yang digunakan untuk membantu aplikasi berjalan dengan baik pada sistem operasi Windows. Microsoft menjelaskan bahwa infrastruktur application compatibility digunakan untuk mengidentifikasi masalah kompatibilitas aplikasi dan menerapkan solusi yang sesuai (dikutip dari: Microsoft Learn). Dalam dunia digital forensics, data tersebut dapat dimanfaatkan untuk mencari jejak file atau aplikasi yang pernah tercatat oleh sistem. Apa Itu Shimcache? Shimcache merupakan cache yang berkaitan...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-08-12T00:30:39+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg\" />\n\t<meta property=\"og:image:width\" content=\"768\" />\n\t<meta property=\"og:image:height\" content=\"512\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/\",\"url\":\"https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/\",\"name\":\"Shimcache Forensics: Membongkar Jejak Eksekusi Program di Windows untuk Investigasi Digital - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg\",\"datePublished\":\"2026-08-12T00:30:39+00:00\",\"dateModified\":\"2026-08-12T00:30:39+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg\",\"width\":768,\"height\":512},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Shimcache Forensics: Membongkar Jejak Eksekusi Program di Windows untuk Investigasi Digital\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Shimcache Forensics: Membongkar Jejak Eksekusi Program di Windows untuk Investigasi Digital - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Shimcache Forensics: Membongkar Jejak Eksekusi Program di Windows untuk Investigasi Digital - buletinsiber.com",
+      "og_description": "Pengantar Dalam investigasi digital, sistem operasi Windows menyimpan berbagai artefak yang dapat membantu investigator memahami aktivitas sebuah komputer. Salah satunya adalah Shimcache, yang juga dikenal sebagai Application Compatibility Cache atau AppCompatCache. Shimcache awalnya merupakan bagian dari mekanisme Windows Application Compatibility, yang digunakan untuk membantu aplikasi berjalan dengan baik pada sistem operasi Windows. Microsoft menjelaskan bahwa infrastruktur application compatibility digunakan untuk mengidentifikasi masalah kompatibilitas aplikasi dan menerapkan solusi yang sesuai (dikutip dari: Microsoft Learn). Dalam dunia digital forensics, data tersebut dapat dimanfaatkan untuk mencari jejak file atau aplikasi yang pernah tercatat oleh sistem. Apa Itu Shimcache? Shimcache merupakan cache yang berkaitan...",
+      "og_url": "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-08-12T00:30:39+00:00",
+      "og_image": [
+        {
+          "width": 768,
+          "height": 512,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/",
+            "url": "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/",
+            "name": "Shimcache Forensics: Membongkar Jejak Eksekusi Program di Windows untuk Investigasi Digital - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg",
+            "datePublished": "2026-08-12T00:30:39+00:00",
+            "dateModified": "2026-08-12T00:30:39+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/11/43.jpeg",
+            "width": 768,
+            "height": 512
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/shimcache-forensics-membongkar-jejak-eksekusi-program-di-windows-untuk-investigasi-digital/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Shimcache Forensics: Membongkar Jejak Eksekusi Program di Windows untuk Investigasi Digital"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22839",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=22839"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22839/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 22840,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/22839/revisions/22840"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8142"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=22839"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=22839"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=22839"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,317 @@
+{
+  "id": 4606,
+  "title": "Dari User ke Root: Analisis Strategi Privilege Escalation",
+  "slug": "dari-user-ke-root-analisis-strategi-privilege-escalation",
+  "url": "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/",
+  "date": "2025-07-09T10:54:00",
+  "date_gmt": "2025-07-09T10:54:00",
+  "modified": "2026-07-06T20:45:02",
+  "modified_gmt": "2026-07-06T20:45:02",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    149
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/Network-Security-adalah.jpg",
+  "excerpt": "Dalam dunia komputer dan keamanan siber, privilege escalation adalah salah satu teknik yang sering digunakan oleh penyerang. Teknik ini memungkinkan seseorang yang awalnya hanya memiliki hak akses terbatas (user biasa) menjadi pengguna dengan hak penuh (root atau admin). Mengetahui bagaimana proses ini bisa terjadi sangat penting. Artikel ini akan membahas bagaimana seorang user biasa bisa “naik level” menjadi root, apa saja strategi yang digunakan, dan bagaimana kita bisa mencegahnya.   Pengertian Privilege Escalation Privilege escalation adalah proses meningkatkan hak akses dalam sistem. Dalam banyak sistem operasi, ada dua level utama pengguna: User biasa: hanya bisa menjalankan program umum dan mengakses…",
+  "content_html": "<p>Dalam dunia komputer dan keamanan siber, <strong>privilege escalation</strong> adalah salah satu teknik yang sering digunakan oleh penyerang. Teknik ini memungkinkan seseorang yang awalnya hanya memiliki hak akses terbatas (user biasa) menjadi pengguna dengan hak penuh (root atau admin).</p>\n<p>Mengetahui bagaimana proses ini bisa terjadi sangat penting. Artikel ini akan membahas bagaimana seorang user biasa bisa “naik level” menjadi root, apa saja strategi yang digunakan, dan bagaimana kita bisa mencegahnya.</p>\n<p>&nbsp;</p>\n<h2><strong>Pengertian Privilege Escalation</strong></h2>\n<p>Privilege escalation adalah proses meningkatkan hak akses dalam sistem. Dalam banyak sistem operasi, ada dua level utama pengguna:</p>\n<ul>\n<li><strong>User biasa</strong>: hanya bisa menjalankan program umum dan mengakses file milik sendiri.</li>\n<li><strong>Root/Admin</strong>: punya kontrol penuh atas sistem—bisa mengubah pengaturan, membaca semua file, bahkan menghapus sistem.</li>\n</ul>\n<p>Bagi penyerang, mendapatkan akses root adalah seperti mendapatkan kunci utama. Mereka bisa melakukan apa saja tanpa batas.</p>\n<p>&nbsp;</p>\n<h2><strong>Jalur Umum dari User ke Root</strong></h2>\n<p>Penyerang biasanya memulai serangan dengan cara yang sederhana: masuk ke sistem sebagai user biasa. Bisa melalui celah di website, phishing, atau mencuri akun.</p>\n<p>Setelah itu, mereka akan:</p>\n<ol>\n<li><strong>Mencari kelemahan</strong> di sistem yang bisa dieksploitasi.</li>\n<li><strong>Menjalankan teknik privilege escalation</strong> untuk meningkatkan hak akses.</li>\n<li><strong>Menjadi root</strong>, lalu bebas mengontrol sistem.</li>\n</ol>\n<p>&nbsp;</p>\n<h2><strong>Strategi dan Teknik Privilege Escalation</strong></h2>\n<p>Berikut adalah beberapa strategi yang sering digunakan oleh penyerang untuk naik dari user ke root:</p>\n<p><strong>1. Melihat Permission File dan Folder</strong></p>\n<p>Beberapa file sistem terkadang punya izin akses yang salah (misalnya bisa ditulis semua orang). Ini bisa dimanfaatkan untuk menyisipkan perintah berbahaya.</p>\n<p><strong>2. SUID Binaries (Linux)</strong></p>\n<p>File dengan <strong>SUID</strong> memungkinkan program berjalan dengan hak pengguna lain, biasanya root. Jika ada celah di program ini, penyerang bisa memanfaatkannya untuk mendapatkan hak root.</p>\n<p><strong>3. Kernel Exploit</strong></p>\n<p>Jika sistem operasi belum di-update, penyerang bisa menggunakan bug (celah) di bagian dalam sistem, yaitu kernel. Ini salah satu jalan cepat untuk menjadi root.</p>\n<p><strong>4. Script atau Cron Job yang Tidak Aman</strong></p>\n<p>Sistem biasanya punya tugas otomatis (cron job). Jika file yang dijalankan bisa diubah oleh user biasa, penyerang bisa menyisipkan script jahat.</p>\n<p><strong>5. Mencuri Kredensial</strong></p>\n<p>Beberapa file seperti <code>.bash_history</code>, file konfigurasi, atau cache bisa menyimpan password atau token. Jika bisa diakses, penyerang bisa menyamar sebagai admin.</p>\n<p><strong>6. Menggunakan Tools Otomatis</strong></p>\n<p>Penyerang juga memakai alat bantu seperti:</p>\n<ul>\n<li><code>linPEAS</code> untuk memindai celah privilege escalation di Linux</li>\n<li><code>GTFOBins</code> untuk mencari cara menjalankan perintah sebagai root</li>\n<li><code>sudo -l</code> untuk melihat perintah yang bisa dijalankan sebagai admin</li>\n<li><code>pspy</code> untuk melihat proses yang berjalan tanpa akses root</li>\n</ul>\n<p>&nbsp;</p>\n<h2><strong>Contoh Studi Kasus</strong></h2>\n<p>Bayangkan seorang hacker berhasil mendapatkan akses ke server melalui akun karyawan biasa. Setelah masuk, ia menjalankan <code>linPEAS</code> dan menemukan bahwa ada cron job yang menjalankan script dari folder yang bisa ia edit. Ia mengganti script itu dengan kode jahat yang membuatnya menjadi root saat cron job dijalankan.</p>\n<p>Dalam waktu singkat, ia pun mendapatkan akses penuh ke sistem—semua tanpa terdeteksi oleh admin.</p>\n<p>&nbsp;</p>\n<h2><strong>Dampak Jika Akses Root Didapatkan</strong></h2>\n<p>Jika penyerang berhasil menjadi root, akibatnya bisa sangat serius:</p>\n<ul>\n<li><strong>Mengambil alih seluruh sistem</strong></li>\n<li><strong>Mencuri data penting</strong></li>\n<li><strong>Menghapus file atau merusak sistem</strong></li>\n<li><strong>Memasang backdoor</strong> agar bisa masuk lagi kapan saja</li>\n<li><strong>Menyebar ke jaringan lain</strong> (pivoting)</li>\n</ul>\n<p>Root access = kontrol total.</p>\n<p>&nbsp;</p>\n<h2><strong>Langkah Pencegahan</strong></h2>\n<p>Berikut cara mencegah privilege escalation:</p>\n<p><strong>1. Prinsip Least Privilege</strong></p>\n<p>Jangan beri hak admin ke semua orang. Beri sesuai kebutuhan saja.</p>\n<p><strong>2. Audit dan Monitoring</strong></p>\n<p>Cek file permission secara berkala. Gunakan log monitoring untuk mendeteksi aktivitas mencurigakan.</p>\n<p><strong>3. Update Sistem Secara Teratur</strong></p>\n<p>Bug di sistem bisa diperbaiki dengan update. Jangan tunda patch keamanan.</p>\n<p><strong>4. Amankan Script dan Cron Jobs</strong></p>\n<p>Pastikan file yang dijalankan otomatis hanya bisa ditulis oleh root.</p>\n<p><strong>5. Nonaktifkan SUID yang Tidak Perlu</strong></p>\n<p>Hapus atau batasi file yang memiliki bit SUID jika tidak digunakan.</p>\n<p>&nbsp;</p>\n<h2><strong>Kesimpulan</strong></h2>\n<p>Privilege escalation dari user ke root adalah mimpi buruk bagi administrator sistem. Meski teknik ini sering tersembunyi dan tak terlihat, dampaknya bisa sangat merusak.</p>\n<p>Dengan memahami bagaimana penyerang berpikir dan bertindak, kita bisa menyiapkan pertahanan lebih baik. Keamanan bukan soal alat canggih semata, tapi juga soal kebiasaan dan perhatian terhadap hal-hal kecil.</p>\n<p>Selalu audit, update, dan edukasi, karena dari user ke root, jaraknya lebih dekat dari yang kita kira.</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>Nama: Damarudin<br />\nNIM: 23156201034<br />\nProdi: Sistem Komputer</p>\n",
+  "content_text": "Dalam dunia komputer dan keamanan siber,  privilege escalation  adalah salah satu teknik yang sering digunakan oleh penyerang. Teknik ini memungkinkan seseorang yang awalnya hanya memiliki hak akses terbatas (user biasa) menjadi pengguna dengan hak penuh (root atau admin).\nMengetahui bagaimana proses ini bisa terjadi sangat penting. Artikel ini akan membahas bagaimana seorang user biasa bisa “naik level” menjadi root, apa saja strategi yang digunakan, dan bagaimana kita bisa mencegahnya.\nPengertian Privilege Escalation\nPrivilege escalation adalah proses meningkatkan hak akses dalam sistem. Dalam banyak sistem operasi, ada dua level utama pengguna:\nUser biasa : hanya bisa menjalankan program umum dan mengakses file milik sendiri.\nRoot/Admin : punya kontrol penuh atas sistem—bisa mengubah pengaturan, membaca semua file, bahkan menghapus sistem.\nBagi penyerang, mendapatkan akses root adalah seperti mendapatkan kunci utama. Mereka bisa melakukan apa saja tanpa batas.\nJalur Umum dari User ke Root\nPenyerang biasanya memulai serangan dengan cara yang sederhana: masuk ke sistem sebagai user biasa. Bisa melalui celah di website, phishing, atau mencuri akun.\nSetelah itu, mereka akan:\nMencari kelemahan  di sistem yang bisa dieksploitasi.\nMenjalankan teknik privilege escalation  untuk meningkatkan hak akses.\nMenjadi root , lalu bebas mengontrol sistem.\nStrategi dan Teknik Privilege Escalation\nBerikut adalah beberapa strategi yang sering digunakan oleh penyerang untuk naik dari user ke root:\n1. Melihat Permission File dan Folder\nBeberapa file sistem terkadang punya izin akses yang salah (misalnya bisa ditulis semua orang). Ini bisa dimanfaatkan untuk menyisipkan perintah berbahaya.\n2. SUID Binaries (Linux)\nFile dengan  SUID  memungkinkan program berjalan dengan hak pengguna lain, biasanya root. Jika ada celah di program ini, penyerang bisa memanfaatkannya untuk mendapatkan hak root.\n3. Kernel Exploit\nJika sistem operasi belum di-update, penyerang bisa menggunakan bug (celah) di bagian dalam sistem, yaitu kernel. Ini salah satu jalan cepat untuk menjadi root.\n4. Script atau Cron Job yang Tidak Aman\nSistem biasanya punya tugas otomatis (cron job). Jika file yang dijalankan bisa diubah oleh user biasa, penyerang bisa menyisipkan script jahat.\n5. Mencuri Kredensial\nBeberapa file seperti  .bash_history , file konfigurasi, atau cache bisa menyimpan password atau token. Jika bisa diakses, penyerang bisa menyamar sebagai admin.\n6. Menggunakan Tools Otomatis\nPenyerang juga memakai alat bantu seperti:\nlinPEAS  untuk memindai celah privilege escalation di Linux\nGTFOBins  untuk mencari cara menjalankan perintah sebagai root\nsudo -l  untuk melihat perintah yang bisa dijalankan sebagai admin\npspy  untuk melihat proses yang berjalan tanpa akses root\nContoh Studi Kasus\nBayangkan seorang hacker berhasil mendapatkan akses ke server melalui akun karyawan biasa. Setelah masuk, ia menjalankan  linPEAS  dan menemukan bahwa ada cron job yang menjalankan script dari folder yang bisa ia edit. Ia mengganti script itu dengan kode jahat yang membuatnya menjadi root saat cron job dijalankan.\nDalam waktu singkat, ia pun mendapatkan akses penuh ke sistem—semua tanpa terdeteksi oleh admin.\nDampak Jika Akses Root Didapatkan\nJika penyerang berhasil menjadi root, akibatnya bisa sangat serius:\nMengambil alih seluruh sistem\nMencuri data penting\nMenghapus file atau merusak sistem\nMemasang backdoor  agar bisa masuk lagi kapan saja\nMenyebar ke jaringan lain  (pivoting)\nRoot access = kontrol total.\nLangkah Pencegahan\nBerikut cara mencegah privilege escalation:\n1. Prinsip Least Privilege\nJangan beri hak admin ke semua orang. Beri sesuai kebutuhan saja.\n2. Audit dan Monitoring\nCek file permission secara berkala. Gunakan log monitoring untuk mendeteksi aktivitas mencurigakan.\n3. Update Sistem Secara Teratur\nBug di sistem bisa diperbaiki dengan update. Jangan tunda patch keamanan.\n4. Amankan Script dan Cron Jobs\nPastikan file yang dijalankan otomatis hanya bisa ditulis oleh root.\n5. Nonaktifkan SUID yang Tidak Perlu\nHapus atau batasi file yang memiliki bit SUID jika tidak digunakan.\nKesimpulan\nPrivilege escalation dari user ke root adalah mimpi buruk bagi administrator sistem. Meski teknik ini sering tersembunyi dan tak terlihat, dampaknya bisa sangat merusak.\nDengan memahami bagaimana penyerang berpikir dan bertindak, kita bisa menyiapkan pertahanan lebih baik. Keamanan bukan soal alat canggih semata, tapi juga soal kebiasaan dan perhatian terhadap hal-hal kecil.\nSelalu audit, update, dan edukasi, karena dari user ke root, jaraknya lebih dekat dari yang kita kira.\nNama: Damarudin\nNIM: 23156201034\nProdi: Sistem Komputer",
+  "raw": {
+    "id": 4606,
+    "date": "2025-07-09T10:54:00",
+    "date_gmt": "2025-07-09T10:54:00",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=4606"
+    },
+    "modified": "2026-07-06T20:45:02",
+    "modified_gmt": "2026-07-06T20:45:02",
+    "slug": "dari-user-ke-root-analisis-strategi-privilege-escalation",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/",
+    "title": {
+      "rendered": "Dari User ke Root: Analisis Strategi Privilege Escalation"
+    },
+    "content": {
+      "rendered": "<p>Dalam dunia komputer dan keamanan siber, <strong>privilege escalation</strong> adalah salah satu teknik yang sering digunakan oleh penyerang. Teknik ini memungkinkan seseorang yang awalnya hanya memiliki hak akses terbatas (user biasa) menjadi pengguna dengan hak penuh (root atau admin).</p>\n<p>Mengetahui bagaimana proses ini bisa terjadi sangat penting. Artikel ini akan membahas bagaimana seorang user biasa bisa “naik level” menjadi root, apa saja strategi yang digunakan, dan bagaimana kita bisa mencegahnya.</p>\n<p>&nbsp;</p>\n<h2><strong>Pengertian Privilege Escalation</strong></h2>\n<p>Privilege escalation adalah proses meningkatkan hak akses dalam sistem. Dalam banyak sistem operasi, ada dua level utama pengguna:</p>\n<ul>\n<li><strong>User biasa</strong>: hanya bisa menjalankan program umum dan mengakses file milik sendiri.</li>\n<li><strong>Root/Admin</strong>: punya kontrol penuh atas sistem—bisa mengubah pengaturan, membaca semua file, bahkan menghapus sistem.</li>\n</ul>\n<p>Bagi penyerang, mendapatkan akses root adalah seperti mendapatkan kunci utama. Mereka bisa melakukan apa saja tanpa batas.</p>\n<p>&nbsp;</p>\n<h2><strong>Jalur Umum dari User ke Root</strong></h2>\n<p>Penyerang biasanya memulai serangan dengan cara yang sederhana: masuk ke sistem sebagai user biasa. Bisa melalui celah di website, phishing, atau mencuri akun.</p>\n<p>Setelah itu, mereka akan:</p>\n<ol>\n<li><strong>Mencari kelemahan</strong> di sistem yang bisa dieksploitasi.</li>\n<li><strong>Menjalankan teknik privilege escalation</strong> untuk meningkatkan hak akses.</li>\n<li><strong>Menjadi root</strong>, lalu bebas mengontrol sistem.</li>\n</ol>\n<p>&nbsp;</p>\n<h2><strong>Strategi dan Teknik Privilege Escalation</strong></h2>\n<p>Berikut adalah beberapa strategi yang sering digunakan oleh penyerang untuk naik dari user ke root:</p>\n<p><strong>1. Melihat Permission File dan Folder</strong></p>\n<p>Beberapa file sistem terkadang punya izin akses yang salah (misalnya bisa ditulis semua orang). Ini bisa dimanfaatkan untuk menyisipkan perintah berbahaya.</p>\n<p><strong>2. SUID Binaries (Linux)</strong></p>\n<p>File dengan <strong>SUID</strong> memungkinkan program berjalan dengan hak pengguna lain, biasanya root. Jika ada celah di program ini, penyerang bisa memanfaatkannya untuk mendapatkan hak root.</p>\n<p><strong>3. Kernel Exploit</strong></p>\n<p>Jika sistem operasi belum di-update, penyerang bisa menggunakan bug (celah) di bagian dalam sistem, yaitu kernel. Ini salah satu jalan cepat untuk menjadi root.</p>\n<p><strong>4. Script atau Cron Job yang Tidak Aman</strong></p>\n<p>Sistem biasanya punya tugas otomatis (cron job). Jika file yang dijalankan bisa diubah oleh user biasa, penyerang bisa menyisipkan script jahat.</p>\n<p><strong>5. Mencuri Kredensial</strong></p>\n<p>Beberapa file seperti <code>.bash_history</code>, file konfigurasi, atau cache bisa menyimpan password atau token. Jika bisa diakses, penyerang bisa menyamar sebagai admin.</p>\n<p><strong>6. Menggunakan Tools Otomatis</strong></p>\n<p>Penyerang juga memakai alat bantu seperti:</p>\n<ul>\n<li><code>linPEAS</code> untuk memindai celah privilege escalation di Linux</li>\n<li><code>GTFOBins</code> untuk mencari cara menjalankan perintah sebagai root</li>\n<li><code>sudo -l</code> untuk melihat perintah yang bisa dijalankan sebagai admin</li>\n<li><code>pspy</code> untuk melihat proses yang berjalan tanpa akses root</li>\n</ul>\n<p>&nbsp;</p>\n<h2><strong>Contoh Studi Kasus</strong></h2>\n<p>Bayangkan seorang hacker berhasil mendapatkan akses ke server melalui akun karyawan biasa. Setelah masuk, ia menjalankan <code>linPEAS</code> dan menemukan bahwa ada cron job yang menjalankan script dari folder yang bisa ia edit. Ia mengganti script itu dengan kode jahat yang membuatnya menjadi root saat cron job dijalankan.</p>\n<p>Dalam waktu singkat, ia pun mendapatkan akses penuh ke sistem—semua tanpa terdeteksi oleh admin.</p>\n<p>&nbsp;</p>\n<h2><strong>Dampak Jika Akses Root Didapatkan</strong></h2>\n<p>Jika penyerang berhasil menjadi root, akibatnya bisa sangat serius:</p>\n<ul>\n<li><strong>Mengambil alih seluruh sistem</strong></li>\n<li><strong>Mencuri data penting</strong></li>\n<li><strong>Menghapus file atau merusak sistem</strong></li>\n<li><strong>Memasang backdoor</strong> agar bisa masuk lagi kapan saja</li>\n<li><strong>Menyebar ke jaringan lain</strong> (pivoting)</li>\n</ul>\n<p>Root access = kontrol total.</p>\n<p>&nbsp;</p>\n<h2><strong>Langkah Pencegahan</strong></h2>\n<p>Berikut cara mencegah privilege escalation:</p>\n<p><strong>1. Prinsip Least Privilege</strong></p>\n<p>Jangan beri hak admin ke semua orang. Beri sesuai kebutuhan saja.</p>\n<p><strong>2. Audit dan Monitoring</strong></p>\n<p>Cek file permission secara berkala. Gunakan log monitoring untuk mendeteksi aktivitas mencurigakan.</p>\n<p><strong>3. Update Sistem Secara Teratur</strong></p>\n<p>Bug di sistem bisa diperbaiki dengan update. Jangan tunda patch keamanan.</p>\n<p><strong>4. Amankan Script dan Cron Jobs</strong></p>\n<p>Pastikan file yang dijalankan otomatis hanya bisa ditulis oleh root.</p>\n<p><strong>5. Nonaktifkan SUID yang Tidak Perlu</strong></p>\n<p>Hapus atau batasi file yang memiliki bit SUID jika tidak digunakan.</p>\n<p>&nbsp;</p>\n<h2><strong>Kesimpulan</strong></h2>\n<p>Privilege escalation dari user ke root adalah mimpi buruk bagi administrator sistem. Meski teknik ini sering tersembunyi dan tak terlihat, dampaknya bisa sangat merusak.</p>\n<p>Dengan memahami bagaimana penyerang berpikir dan bertindak, kita bisa menyiapkan pertahanan lebih baik. Keamanan bukan soal alat canggih semata, tapi juga soal kebiasaan dan perhatian terhadap hal-hal kecil.</p>\n<p>Selalu audit, update, dan edukasi, karena dari user ke root, jaraknya lebih dekat dari yang kita kira.</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>Nama: Damarudin<br />\nNIM: 23156201034<br />\nProdi: Sistem Komputer</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Dalam dunia komputer dan keamanan siber, privilege escalation adalah salah satu teknik yang sering digunakan oleh penyerang. Teknik ini memungkinkan seseorang yang awalnya hanya memiliki hak akses terbatas (user biasa) menjadi pengguna dengan hak penuh (root atau admin). Mengetahui bagaimana proses ini bisa terjadi sangat penting. Artikel ini akan membahas bagaimana seorang user biasa bisa “naik level” menjadi root, apa saja strategi yang digunakan, dan bagaimana kita bisa mencegahnya. &nbsp; Pengertian Privilege Escalation Privilege escalation adalah proses meningkatkan hak akses dalam sistem. Dalam banyak sistem operasi, ada dua level utama pengguna: User biasa: hanya bisa menjalankan program umum dan mengakses&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 4164,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      149
+    ],
+    "class_list": [
+      "post-4606",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-privilege-escalation"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Dari User ke Root: Analisis Strategi Privilege Escalation - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Dari User ke Root: Analisis Strategi Privilege Escalation - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Dalam dunia komputer dan keamanan siber, privilege escalation adalah salah satu teknik yang sering digunakan oleh penyerang. Teknik ini memungkinkan seseorang yang awalnya hanya memiliki hak akses terbatas (user biasa) menjadi pengguna dengan hak penuh (root atau admin). Mengetahui bagaimana proses ini bisa terjadi sangat penting. Artikel ini akan membahas bagaimana seorang user biasa bisa “naik level” menjadi root, apa saja strategi yang digunakan, dan bagaimana kita bisa mencegahnya. &nbsp; Pengertian Privilege Escalation Privilege escalation adalah proses meningkatkan hak akses dalam sistem. Dalam banyak sistem operasi, ada dua level utama pengguna: User biasa: hanya bisa menjalankan program umum dan mengakses...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-09T10:54:00+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:45:02+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/Network-Security-adalah.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2000\" />\n\t<meta property=\"og:image:height\" content=\"2000\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/\",\"url\":\"https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/\",\"name\":\"Dari User ke Root: Analisis Strategi Privilege Escalation - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/Network-Security-adalah.jpg\",\"datePublished\":\"2025-07-09T10:54:00+00:00\",\"dateModified\":\"2026-07-06T20:45:02+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/Network-Security-adalah.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/Network-Security-adalah.jpg\",\"width\":2000,\"height\":2000},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Dari User ke Root: Analisis Strategi Privilege Escalation\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Dari User ke Root: Analisis Strategi Privilege Escalation - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Dari User ke Root: Analisis Strategi Privilege Escalation - buletinsiber.com",
+      "og_description": "Dalam dunia komputer dan keamanan siber, privilege escalation adalah salah satu teknik yang sering digunakan oleh penyerang. Teknik ini memungkinkan seseorang yang awalnya hanya memiliki hak akses terbatas (user biasa) menjadi pengguna dengan hak penuh (root atau admin). Mengetahui bagaimana proses ini bisa terjadi sangat penting. Artikel ini akan membahas bagaimana seorang user biasa bisa “naik level” menjadi root, apa saja strategi yang digunakan, dan bagaimana kita bisa mencegahnya. &nbsp; Pengertian Privilege Escalation Privilege escalation adalah proses meningkatkan hak akses dalam sistem. Dalam banyak sistem operasi, ada dua level utama pengguna: User biasa: hanya bisa menjalankan program umum dan mengakses...",
+      "og_url": "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-09T10:54:00+00:00",
+      "article_modified_time": "2026-07-06T20:45:02+00:00",
+      "og_image": [
+        {
+          "width": 2000,
+          "height": 2000,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/Network-Security-adalah.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/",
+            "url": "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/",
+            "name": "Dari User ke Root: Analisis Strategi Privilege Escalation - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/Network-Security-adalah.jpg",
+            "datePublished": "2025-07-09T10:54:00+00:00",
+            "dateModified": "2026-07-06T20:45:02+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/Network-Security-adalah.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/Network-Security-adalah.jpg",
+            "width": 2000,
+            "height": 2000
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/dari-user-ke-root-analisis-strategi-privilege-escalation/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Dari User ke Root: Analisis Strategi Privilege Escalation"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4606",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=4606"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4606/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 4613,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4606/revisions/4613"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/4164"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=4606"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=4606"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=4606"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

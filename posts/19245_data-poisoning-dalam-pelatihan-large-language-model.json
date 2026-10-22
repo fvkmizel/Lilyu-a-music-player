@@ -1,0 +1,319 @@
+{
+  "id": 19245,
+  "title": "Data Poisoning dalam Pelatihan Large Language Model",
+  "slug": "data-poisoning-dalam-pelatihan-large-language-model",
+  "url": "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/",
+  "date": "2026-07-31T10:24:46",
+  "date_gmt": "2026-07-31T10:24:46",
+  "modified": "2026-07-31T10:24:46",
+  "modified_gmt": "2026-07-31T10:24:46",
+  "author": {
+    "id": 34,
+    "name": "Citra Saskia saranani"
+  },
+  "categories": [
+    {
+      "id": 1919,
+      "name": "AI"
+    },
+    {
+      "id": 2616,
+      "name": "Information Technology"
+    }
+  ],
+  "tags": [
+    3531
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/APQ5Vz2am-IBxmNiXMiTT9ratTMiTF_1EqhOscBDc1mCQUPveN0Nfv3AOGDgPmpGbHwbtTI7Mczzc8M6K6Ws9SCgrWp9ntDE9RRsM0WghvaDm3wZiax6c20mrOHNa0vBajRfcsa46C_OCiHs-oxK1Ora_6PpBPG9oyd4Ap4pogU0ubxShsKMQ1Nzq_6GH1c-.jpg",
+  "excerpt": "Data Poisoning dalam Pelatihan Large Language Model Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah mengubah lanskap interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, meringkas dokumen, bahkan menulis kode program dengan tingkat kreativitas yang mengesankan semakin mendorong batas-batas apa yang mungkin dilakukan oleh komputer. Namun, di balik kemudahan penggunaan ini, tersembunyi tantangan krusial: bagaimana kita dapat memastikan bahwa LLM tidak hanya cerdas, tetapi juga jujur, akurat, bebas dari bias, dan sepenuhnya dapat dipercaya? Salah satu ancaman yang berkembang pesat dan menimbulkan kekhawatiran serius adalah “data poisoning,” sebuah serangan yang…",
+  "content_html": "<p>&nbsp;</p>\n<h1>Data Poisoning dalam Pelatihan Large Language Model</h1>\n<p>Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah mengubah lanskap interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, meringkas dokumen, bahkan menulis kode program dengan tingkat kreativitas yang mengesankan semakin mendorong batas-batas apa yang mungkin dilakukan oleh komputer. Namun, di balik kemudahan penggunaan ini, tersembunyi tantangan krusial: bagaimana kita dapat memastikan bahwa LLM tidak hanya cerdas, tetapi juga jujur, akurat, bebas dari bias, dan sepenuhnya dapat dipercaya? Salah satu ancaman yang berkembang pesat dan menimbulkan kekhawatiran serius adalah “data poisoning,” sebuah serangan yang secara halus memengaruhi model dengan memasukkan data palsu atau manipulatif ke dalam proses pelatihan. Artikel ini akan membahas konsep data poisoning dalam konteks LLM secara mendalam, menjelaskan bagaimana cara kerjanya, implikasinya yang luas, serta langkah-langkah mitigasi yang dapat diterapkan – semua dengan bahasa yang mudah dipahami oleh pembaca dari berbagai latar belakang teknis dan non-teknis.</p>\n<h2>Memahami Large Language Models (LLM)</h2>\n<p>Sebelum menyelami kompleksitas data poisoning, penting untuk membangun fondasi pemahaman tentang LLM itu sendiri. Secara sederhana, LLM adalah program komputer yang telah dilatih secara ekstensif pada kumpulan data teks yang sangat besar. Proses ini, yang sering disebut sebagai “pre-training,” memungkinkan model tersebut untuk mempelajari pola bahasa yang rumit, hubungan antara kata-kata, konteks penggunaan, dan bahkan sejumlah pengetahuan umum tentang dunia. Bayangkan Anda sedang mengajari seorang anak kecil tentang dunia. Anda membacakan banyak buku yang beragam, menjelaskan konsep-konsep dasar seperti sebab akibat, waktu, dan ruang, serta memberikan contoh-contoh konkret dari berbagai situasi. LLM bekerja dengan prinsip serupa, tetapi dalam skala yang jauh lebih besar dan dengan kecepatan yang sangat tinggi. “Pelatihan” ini dilakukan melalui sebuah proses yang disebut &#8220;machine learning,&#8221; di mana model secara otomatis menyesuaikan parameternya – yaitu angka-angka internal yang menentukan cara model memproses dan menghasilkan teks – berdasarkan data yang diberikan. Parameter ini dapat dianggap sebagai bobot atau kekuatan yang terkait dengan setiap hubungan statistik dalam data pelatihan.</p>\n<p>LLM tidak “memahami” bahasa seperti manusia, setidaknya bukan dalam arti yang sama. Mereka hanya mengenali pola statistik dalam data pelatihan. Mereka adalah mesin yang sangat mahir dalam menemukan dan memanfaatkan korespondensi statistik. Misalnya, jika model dilatih dengan banyak teks di mana kata &#8220;anjing&#8221; sering muncul bersamaan dengan kata &#8220;lucu,&#8221; model tersebut mungkin akan cenderung menghasilkan teks yang menggambarkan anjing sebagai hewan lucu, bahkan jika konteks sebenarnya adalah anjing sedang bermain atau melindungi rumahnya. Ini bukan pemahaman tentang kesenangan atau perlindungan, tetapi hanya pengakuan bahwa dua kata ini sering muncul bersama dalam data pelatihan.</p>\n<h2>Apa Itu Data Poisoning?</h2>\n<p>Data poisoning adalah sebuah serangan keamanan yang menargetkan proses pelatihan LLM. Intinya, penyerang memasukkan data palsu atau manipulatif ke dalam dataset pelatihan model. Tujuan mereka bukan untuk membuat model menghasilkan jawaban yang salah secara langsung – meskipun ini bisa menjadi hasil sampingan – tetapi untuk mengubah cara model belajar dan memproses informasi secara fundamental. Analogi sederhananya adalah mencampurkan racun ke dalam makanan anak. Racun itu tidak akan langsung membunuh anak, tetapi dapat menyebabkan masalah kesehatan jangka panjang yang merusak perkembangan mereka. Dalam konteks LLM, data poisoning bisa dilakukan dengan berbagai cara: menyuntikkan berita palsu yang dirancang untuk menyesatkan, informasi yang salah secara sengaja yang disajikan sebagai fakta, atau bahkan bias yang tersembunyi yang dirancang untuk memengaruhi output model secara tidak terlihat. Setelah model dilatih menggunakan data yang telah diracuni ini, model tersebut akan belajar menghasilkan output yang mencerminkan bias atau kesalahan yang ada dalam data tersebut, dan bahkan mungkin mulai menghasilkan informasi yang salah secara konsisten.</p>\n<h2>Bagaimana Cara Kerja Data Poisoning?</h2>\n<p>Proses data poisoning umumnya melibatkan beberapa tahapan strategis yang direncanakan oleh penyerang:</p>\n<ul>\n<li><strong>Identifikasi Target:</strong> Penyerang pertama-tama mengidentifikasi LLM tertentu yang ingin mereka serang. Pemilihan target ini didasarkan pada berbagai faktor, seperti popularitas model, domain penggunaan, dan potensi dampak dari serangan tersebut.</li>\n<li><strong>Pengumpulan Data:</strong> Mereka kemudian mengumpulkan atau membuat dataset pelatihan yang akan digunakan untuk melatih model tersebut. Ini bisa melibatkan pengumpulan data publik, scraping website, atau bahkan pembuatan data sintetik khusus.</li>\n<li><strong>Penyuntikan Data Beracun:</strong> Di sinilah penyerang memasukkan data palsu atau manipulatif ke dalam dataset. Ini bisa dilakukan dengan berbagai cara, seperti menyalin dan menempelkan artikel berita palsu yang telah dimanipulasi, mengubah data yang sudah ada untuk memperkenalkan bias tertentu, atau bahkan membuat data sintetik yang dirancang secara khusus untuk memperkenalkan bias tertentu. Strategi penyuntikan data sering kali melibatkan penggunaan teknik adversarial, di mana data dirancang untuk membodohi model agar belajar pola yang salah.</li>\n<li><strong>Pelatihan Model:</strong> Dataset yang telah diracuni kemudian digunakan untuk melatih LLM. Proses pelatihan ini biasanya melibatkan iterasi melalui dataset berkali-kali, dengan model secara bertahap menyesuaikan parameternya berdasarkan data yang diberikan.</li>\n<li><strong>Penyebaran Output:</strong> Setelah model dilatih, outputnya dapat digunakan untuk berbagai tujuan, seperti menjawab pertanyaan, menghasilkan teks kreatif, atau bahkan membuat konten pemasaran. Tujuan utama penyerang adalah untuk memanipulasi cara model menggunakan outputnya.</li>\n</ul>\n<p>Perlu dicatat bahwa data poisoning sering kali merupakan serangan yang sangat halus dan sulit dideteksi. Tujuannya bukan untuk membuat model langsung memberikan jawaban yang salah, tetapi untuk secara bertahap mengubah cara model berpikir dan memproses informasi. Efek dari serangan ini dapat menjadi lebih halus daripada kesalahan faktual langsung, sehingga lebih sulit untuk diidentifikasi.</p>\n<h2>Manfaat Data Poisoning (dari sudut pandang penyerang)</h2>\n<p>Meskipun data poisoning adalah serangan berbahaya, penting untuk memahami motivasi dan potensi manfaat yang dirasakan oleh penyerang. Beberapa potensi manfaat yang dirasakan meliputi:</p>\n<ul>\n<li><strong>Memperkuat Bias:</strong> Memperkuat bias yang sudah ada dalam model, sehingga menghasilkan output yang diskriminatif atau tidak adil, yang dapat digunakan untuk tujuan tertentu.</li>\n<li><strong>Mempengaruhi Opini Publik:</strong> Menggunakan model untuk menyebarkan disinformasi dan memengaruhi opini publik, terutama di bidang-bidang seperti politik atau kesehatan.</li>\n<li><strong>Merusak Reputasi:</strong> Membuat model menghasilkan output yang merusak reputasi individu atau organisasi, dengan memberikan informasi palsu atau menyesatkan tentang mereka.</li>\n<li><strong>Mengganggu Operasi:</strong> Mengganggu operasi model dengan memperkenalkan kesalahan atau ketidakakuratan dalam outputnya, sehingga membuatnya tidak dapat diandalkan untuk tugas-tugas tertentu.</li>\n</ul>\n<h2>Keterbatasan dan Risiko Data Poisoning</h2>\n<p>Meskipun data poisoning merupakan ancaman serius, ada beberapa keterbatasan dan risiko yang perlu dipertimbangkan:</p>\n<ul>\n<li><strong>Kesulitan Implementasi:</strong> Melakukan serangan data poisoning bisa jadi sulit dan membutuhkan sumber daya yang signifikan, termasuk akses ke dataset pelatihan model dan keahlian dalam teknik adversarial.</li>\n<li><strong>Deteksi:</strong> Teknik deteksi data poisoning terus berkembang, sehingga semakin sulit bagi penyerang untuk berhasil. Model modern sering kali dilengkapi dengan mekanisme deteksi anomali yang dapat mengidentifikasi pola data yang mencurigakan.</li>\n<li><strong>Efektivitas Terbatas:</strong> Efektivitas data poisoning dapat dibatasi oleh kualitas dataset pelatihan dan mekanisme mitigasi yang diterapkan. Jika dataset pelatihan sangat bersih dan model dilatih menggunakan teknik adversarial training, maka efektivitas data poisoning akan berkurang secara signifikan.</li>\n</ul>\n<h2>Contoh Penerapan Potensial (dengan asumsi skenario hipotetis)</h2>\n<p>Meskipun contoh nyata tentang serangan data poisoning terhadap LLM masih jarang, berikut adalah beberapa skenario hipotetis yang mungkin terjadi:</p>\n<ul>\n<li><strong>Politik:</strong> Penyerang menyuntikkan berita palsu dan propaganda ke dalam dataset pelatihan model untuk memengaruhi pemilu atau membentuk opini publik tentang isu-isu politik tertentu.</li>\n<li><strong>Keuangan:</strong> Penyerang memasukkan data palsu tentang perusahaan tertentu ke dalam model untuk memanipulasi pasar saham atau merusak reputasi perusahaan yang sah.</li>\n<li><strong>Kesehatan:</strong> Penyerang menyebarkan informasi medis yang salah ke dalam model untuk membahayakan kesehatan masyarakat atau menyesatkan pasien tentang pengobatan mereka.</li>\n</ul>\n<p>Penting untuk ditekankan bahwa contoh-contoh ini bersifat hipotetis dan bertujuan untuk mengilustrasikan potensi risiko data poisoning.</p>\n<h2>Mitigasi Data Poisoning: Langkah-langkah Perlindungan</h2>\n<p>Meskipun data poisoning merupakan ancaman yang signifikan, ada beberapa langkah yang dapat diambil untuk memitigasinya:</p>\n<ul>\n<li><strong>Validasi Data:</strong> Menerapkan proses validasi data yang ketat untuk memastikan bahwa data pelatihan bersih dan akurat. Ini termasuk memeriksa sumber data, mengidentifikasi outlier, dan menghapus data yang mencurigakan.</li>\n<li><strong>Deteksi Anomali:</strong> Menggunakan teknik deteksi anomali untuk mengidentifikasi pola atau data yang tidak biasa dalam dataset pelatihan.</li>\n<li><strong>Pembelajaran Robust:</strong> Mengembangkan model yang lebih robust terhadap data yang diracuni. Ini termasuk menggunakan teknik seperti adversarial training dan data augmentation.</li>\n<li><strong>Pemantauan Output:</strong> Memantau output model secara berkala untuk mendeteksi anomali atau bias yang mungkin disebabkan oleh data poisoning.</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>Data poisoning merupakan ancaman yang berkembang pesat terhadap Large Language Models dan teknologi berbasis AI lainnya. Dengan memahami konsep dasar, cara kerja, dan potensi risiko data poisoning, kita dapat mengambil langkah-langkah yang tepat untuk melindungi model dari serangan ini. Proses validasi data yang ketat, deteksi anomali, dan pengembangan model yang robust merupakan kunci untuk memitigasi ancaman ini. Seiring dengan semakin kompleksnya LLM dan semakin banyak penggunaannya, penting untuk terus berinvestasi dalam penelitian dan pengembangan teknik mitigasi data poisoning untuk memastikan bahwa teknologi ini digunakan secara bertanggung jawab dan aman.</p>\n",
+  "content_text": "Data Poisoning dalam Pelatihan Large Language Model\nLarge Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah mengubah lanskap interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, meringkas dokumen, bahkan menulis kode program dengan tingkat kreativitas yang mengesankan semakin mendorong batas-batas apa yang mungkin dilakukan oleh komputer. Namun, di balik kemudahan penggunaan ini, tersembunyi tantangan krusial: bagaimana kita dapat memastikan bahwa LLM tidak hanya cerdas, tetapi juga jujur, akurat, bebas dari bias, dan sepenuhnya dapat dipercaya? Salah satu ancaman yang berkembang pesat dan menimbulkan kekhawatiran serius adalah “data poisoning,” sebuah serangan yang secara halus memengaruhi model dengan memasukkan data palsu atau manipulatif ke dalam proses pelatihan. Artikel ini akan membahas konsep data poisoning dalam konteks LLM secara mendalam, menjelaskan bagaimana cara kerjanya, implikasinya yang luas, serta langkah-langkah mitigasi yang dapat diterapkan – semua dengan bahasa yang mudah dipahami oleh pembaca dari berbagai latar belakang teknis dan non-teknis.\nMemahami Large Language Models (LLM)\nSebelum menyelami kompleksitas data poisoning, penting untuk membangun fondasi pemahaman tentang LLM itu sendiri. Secara sederhana, LLM adalah program komputer yang telah dilatih secara ekstensif pada kumpulan data teks yang sangat besar. Proses ini, yang sering disebut sebagai “pre-training,” memungkinkan model tersebut untuk mempelajari pola bahasa yang rumit, hubungan antara kata-kata, konteks penggunaan, dan bahkan sejumlah pengetahuan umum tentang dunia. Bayangkan Anda sedang mengajari seorang anak kecil tentang dunia. Anda membacakan banyak buku yang beragam, menjelaskan konsep-konsep dasar seperti sebab akibat, waktu, dan ruang, serta memberikan contoh-contoh konkret dari berbagai situasi. LLM bekerja dengan prinsip serupa, tetapi dalam skala yang jauh lebih besar dan dengan kecepatan yang sangat tinggi. “Pelatihan” ini dilakukan melalui sebuah proses yang disebut “machine learning,” di mana model secara otomatis menyesuaikan parameternya – yaitu angka-angka internal yang menentukan cara model memproses dan menghasilkan teks – berdasarkan data yang diberikan. Parameter ini dapat dianggap sebagai bobot atau kekuatan yang terkait dengan setiap hubungan statistik dalam data pelatihan.\nLLM tidak “memahami” bahasa seperti manusia, setidaknya bukan dalam arti yang sama. Mereka hanya mengenali pola statistik dalam data pelatihan. Mereka adalah mesin yang sangat mahir dalam menemukan dan memanfaatkan korespondensi statistik. Misalnya, jika model dilatih dengan banyak teks di mana kata “anjing” sering muncul bersamaan dengan kata “lucu,” model tersebut mungkin akan cenderung menghasilkan teks yang menggambarkan anjing sebagai hewan lucu, bahkan jika konteks sebenarnya adalah anjing sedang bermain atau melindungi rumahnya. Ini bukan pemahaman tentang kesenangan atau perlindungan, tetapi hanya pengakuan bahwa dua kata ini sering muncul bersama dalam data pelatihan.\nApa Itu Data Poisoning?\nData poisoning adalah sebuah serangan keamanan yang menargetkan proses pelatihan LLM. Intinya, penyerang memasukkan data palsu atau manipulatif ke dalam dataset pelatihan model. Tujuan mereka bukan untuk membuat model menghasilkan jawaban yang salah secara langsung – meskipun ini bisa menjadi hasil sampingan – tetapi untuk mengubah cara model belajar dan memproses informasi secara fundamental. Analogi sederhananya adalah mencampurkan racun ke dalam makanan anak. Racun itu tidak akan langsung membunuh anak, tetapi dapat menyebabkan masalah kesehatan jangka panjang yang merusak perkembangan mereka. Dalam konteks LLM, data poisoning bisa dilakukan dengan berbagai cara: menyuntikkan berita palsu yang dirancang untuk menyesatkan, informasi yang salah secara sengaja yang disajikan sebagai fakta, atau bahkan bias yang tersembunyi yang dirancang untuk memengaruhi output model secara tidak terlihat. Setelah model dilatih menggunakan data yang telah diracuni ini, model tersebut akan belajar menghasilkan output yang mencerminkan bias atau kesalahan yang ada dalam data tersebut, dan bahkan mungkin mulai menghasilkan informasi yang salah secara konsisten.\nBagaimana Cara Kerja Data Poisoning?\nProses data poisoning umumnya melibatkan beberapa tahapan strategis yang direncanakan oleh penyerang:\nIdentifikasi Target:  Penyerang pertama-tama mengidentifikasi LLM tertentu yang ingin mereka serang. Pemilihan target ini didasarkan pada berbagai faktor, seperti popularitas model, domain penggunaan, dan potensi dampak dari serangan tersebut.\nPengumpulan Data:  Mereka kemudian mengumpulkan atau membuat dataset pelatihan yang akan digunakan untuk melatih model tersebut. Ini bisa melibatkan pengumpulan data publik, scraping website, atau bahkan pembuatan data sintetik khusus.\nPenyuntikan Data Beracun:  Di sinilah penyerang memasukkan data palsu atau manipulatif ke dalam dataset. Ini bisa dilakukan dengan berbagai cara, seperti menyalin dan menempelkan artikel berita palsu yang telah dimanipulasi, mengubah data yang sudah ada untuk memperkenalkan bias tertentu, atau bahkan membuat data sintetik yang dirancang secara khusus untuk memperkenalkan bias tertentu. Strategi penyuntikan data sering kali melibatkan penggunaan teknik adversarial, di mana data dirancang untuk membodohi model agar belajar pola yang salah.\nPelatihan Model:  Dataset yang telah diracuni kemudian digunakan untuk melatih LLM. Proses pelatihan ini biasanya melibatkan iterasi melalui dataset berkali-kali, dengan model secara bertahap menyesuaikan parameternya berdasarkan data yang diberikan.\nPenyebaran Output:  Setelah model dilatih, outputnya dapat digunakan untuk berbagai tujuan, seperti menjawab pertanyaan, menghasilkan teks kreatif, atau bahkan membuat konten pemasaran. Tujuan utama penyerang adalah untuk memanipulasi cara model menggunakan outputnya.\nPerlu dicatat bahwa data poisoning sering kali merupakan serangan yang sangat halus dan sulit dideteksi. Tujuannya bukan untuk membuat model langsung memberikan jawaban yang salah, tetapi untuk secara bertahap mengubah cara model berpikir dan memproses informasi. Efek dari serangan ini dapat menjadi lebih halus daripada kesalahan faktual langsung, sehingga lebih sulit untuk diidentifikasi.\nManfaat Data Poisoning (dari sudut pandang penyerang)\nMeskipun data poisoning adalah serangan berbahaya, penting untuk memahami motivasi dan potensi manfaat yang dirasakan oleh penyerang. Beberapa potensi manfaat yang dirasakan meliputi:\nMemperkuat Bias:  Memperkuat bias yang sudah ada dalam model, sehingga menghasilkan output yang diskriminatif atau tidak adil, yang dapat digunakan untuk tujuan tertentu.\nMempengaruhi Opini Publik:  Menggunakan model untuk menyebarkan disinformasi dan memengaruhi opini publik, terutama di bidang-bidang seperti politik atau kesehatan.\nMerusak Reputasi:  Membuat model menghasilkan output yang merusak reputasi individu atau organisasi, dengan memberikan informasi palsu atau menyesatkan tentang mereka.\nMengganggu Operasi:  Mengganggu operasi model dengan memperkenalkan kesalahan atau ketidakakuratan dalam outputnya, sehingga membuatnya tidak dapat diandalkan untuk tugas-tugas tertentu.\nKeterbatasan dan Risiko Data Poisoning\nMeskipun data poisoning merupakan ancaman serius, ada beberapa keterbatasan dan risiko yang perlu dipertimbangkan:\nKesulitan Implementasi:  Melakukan serangan data poisoning bisa jadi sulit dan membutuhkan sumber daya yang signifikan, termasuk akses ke dataset pelatihan model dan keahlian dalam teknik adversarial.\nDeteksi:  Teknik deteksi data poisoning terus berkembang, sehingga semakin sulit bagi penyerang untuk berhasil. Model modern sering kali dilengkapi dengan mekanisme deteksi anomali yang dapat mengidentifikasi pola data yang mencurigakan.\nEfektivitas Terbatas:  Efektivitas data poisoning dapat dibatasi oleh kualitas dataset pelatihan dan mekanisme mitigasi yang diterapkan. Jika dataset pelatihan sangat bersih dan model dilatih menggunakan teknik adversarial training, maka efektivitas data poisoning akan berkurang secara signifikan.\nContoh Penerapan Potensial (dengan asumsi skenario hipotetis)\nMeskipun contoh nyata tentang serangan data poisoning terhadap LLM masih jarang, berikut adalah beberapa skenario hipotetis yang mungkin terjadi:\nPolitik:  Penyerang menyuntikkan berita palsu dan propaganda ke dalam dataset pelatihan model untuk memengaruhi pemilu atau membentuk opini publik tentang isu-isu politik tertentu.\nKeuangan:  Penyerang memasukkan data palsu tentang perusahaan tertentu ke dalam model untuk memanipulasi pasar saham atau merusak reputasi perusahaan yang sah.\nKesehatan:  Penyerang menyebarkan informasi medis yang salah ke dalam model untuk membahayakan kesehatan masyarakat atau menyesatkan pasien tentang pengobatan mereka.\nPenting untuk ditekankan bahwa contoh-contoh ini bersifat hipotetis dan bertujuan untuk mengilustrasikan potensi risiko data poisoning.\nMitigasi Data Poisoning: Langkah-langkah Perlindungan\nMeskipun data poisoning merupakan ancaman yang signifikan, ada beberapa langkah yang dapat diambil untuk memitigasinya:\nValidasi Data:  Menerapkan proses validasi data yang ketat untuk memastikan bahwa data pelatihan bersih dan akurat. Ini termasuk memeriksa sumber data, mengidentifikasi outlier, dan menghapus data yang mencurigakan.\nDeteksi Anomali:  Menggunakan teknik deteksi anomali untuk mengidentifikasi pola atau data yang tidak biasa dalam dataset pelatihan.\nPembelajaran Robust:  Mengembangkan model yang lebih robust terhadap data yang diracuni. Ini termasuk menggunakan teknik seperti adversarial training dan data augmentation.\nPemantauan Output:  Memantau output model secara berkala untuk mendeteksi anomali atau bias yang mungkin disebabkan oleh data poisoning.\nKesimpulan\nData poisoning merupakan ancaman yang berkembang pesat terhadap Large Language Models dan teknologi berbasis AI lainnya. Dengan memahami konsep dasar, cara kerja, dan potensi risiko data poisoning, kita dapat mengambil langkah-langkah yang tepat untuk melindungi model dari serangan ini. Proses validasi data yang ketat, deteksi anomali, dan pengembangan model yang robust merupakan kunci untuk memitigasi ancaman ini. Seiring dengan semakin kompleksnya LLM dan semakin banyak penggunaannya, penting untuk terus berinvestasi dalam penelitian dan pengembangan teknik mitigasi data poisoning untuk memastikan bahwa teknologi ini digunakan secara bertanggung jawab dan aman.",
+  "raw": {
+    "id": 19245,
+    "date": "2026-07-31T10:24:46",
+    "date_gmt": "2026-07-31T10:24:46",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=19245"
+    },
+    "modified": "2026-07-31T10:24:46",
+    "modified_gmt": "2026-07-31T10:24:46",
+    "slug": "data-poisoning-dalam-pelatihan-large-language-model",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/",
+    "title": {
+      "rendered": "Data Poisoning dalam Pelatihan Large Language Model"
+    },
+    "content": {
+      "rendered": "<p>&nbsp;</p>\n<h1>Data Poisoning dalam Pelatihan Large Language Model</h1>\n<p>Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah mengubah lanskap interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, meringkas dokumen, bahkan menulis kode program dengan tingkat kreativitas yang mengesankan semakin mendorong batas-batas apa yang mungkin dilakukan oleh komputer. Namun, di balik kemudahan penggunaan ini, tersembunyi tantangan krusial: bagaimana kita dapat memastikan bahwa LLM tidak hanya cerdas, tetapi juga jujur, akurat, bebas dari bias, dan sepenuhnya dapat dipercaya? Salah satu ancaman yang berkembang pesat dan menimbulkan kekhawatiran serius adalah “data poisoning,” sebuah serangan yang secara halus memengaruhi model dengan memasukkan data palsu atau manipulatif ke dalam proses pelatihan. Artikel ini akan membahas konsep data poisoning dalam konteks LLM secara mendalam, menjelaskan bagaimana cara kerjanya, implikasinya yang luas, serta langkah-langkah mitigasi yang dapat diterapkan – semua dengan bahasa yang mudah dipahami oleh pembaca dari berbagai latar belakang teknis dan non-teknis.</p>\n<h2>Memahami Large Language Models (LLM)</h2>\n<p>Sebelum menyelami kompleksitas data poisoning, penting untuk membangun fondasi pemahaman tentang LLM itu sendiri. Secara sederhana, LLM adalah program komputer yang telah dilatih secara ekstensif pada kumpulan data teks yang sangat besar. Proses ini, yang sering disebut sebagai “pre-training,” memungkinkan model tersebut untuk mempelajari pola bahasa yang rumit, hubungan antara kata-kata, konteks penggunaan, dan bahkan sejumlah pengetahuan umum tentang dunia. Bayangkan Anda sedang mengajari seorang anak kecil tentang dunia. Anda membacakan banyak buku yang beragam, menjelaskan konsep-konsep dasar seperti sebab akibat, waktu, dan ruang, serta memberikan contoh-contoh konkret dari berbagai situasi. LLM bekerja dengan prinsip serupa, tetapi dalam skala yang jauh lebih besar dan dengan kecepatan yang sangat tinggi. “Pelatihan” ini dilakukan melalui sebuah proses yang disebut &#8220;machine learning,&#8221; di mana model secara otomatis menyesuaikan parameternya – yaitu angka-angka internal yang menentukan cara model memproses dan menghasilkan teks – berdasarkan data yang diberikan. Parameter ini dapat dianggap sebagai bobot atau kekuatan yang terkait dengan setiap hubungan statistik dalam data pelatihan.</p>\n<p>LLM tidak “memahami” bahasa seperti manusia, setidaknya bukan dalam arti yang sama. Mereka hanya mengenali pola statistik dalam data pelatihan. Mereka adalah mesin yang sangat mahir dalam menemukan dan memanfaatkan korespondensi statistik. Misalnya, jika model dilatih dengan banyak teks di mana kata &#8220;anjing&#8221; sering muncul bersamaan dengan kata &#8220;lucu,&#8221; model tersebut mungkin akan cenderung menghasilkan teks yang menggambarkan anjing sebagai hewan lucu, bahkan jika konteks sebenarnya adalah anjing sedang bermain atau melindungi rumahnya. Ini bukan pemahaman tentang kesenangan atau perlindungan, tetapi hanya pengakuan bahwa dua kata ini sering muncul bersama dalam data pelatihan.</p>\n<h2>Apa Itu Data Poisoning?</h2>\n<p>Data poisoning adalah sebuah serangan keamanan yang menargetkan proses pelatihan LLM. Intinya, penyerang memasukkan data palsu atau manipulatif ke dalam dataset pelatihan model. Tujuan mereka bukan untuk membuat model menghasilkan jawaban yang salah secara langsung – meskipun ini bisa menjadi hasil sampingan – tetapi untuk mengubah cara model belajar dan memproses informasi secara fundamental. Analogi sederhananya adalah mencampurkan racun ke dalam makanan anak. Racun itu tidak akan langsung membunuh anak, tetapi dapat menyebabkan masalah kesehatan jangka panjang yang merusak perkembangan mereka. Dalam konteks LLM, data poisoning bisa dilakukan dengan berbagai cara: menyuntikkan berita palsu yang dirancang untuk menyesatkan, informasi yang salah secara sengaja yang disajikan sebagai fakta, atau bahkan bias yang tersembunyi yang dirancang untuk memengaruhi output model secara tidak terlihat. Setelah model dilatih menggunakan data yang telah diracuni ini, model tersebut akan belajar menghasilkan output yang mencerminkan bias atau kesalahan yang ada dalam data tersebut, dan bahkan mungkin mulai menghasilkan informasi yang salah secara konsisten.</p>\n<h2>Bagaimana Cara Kerja Data Poisoning?</h2>\n<p>Proses data poisoning umumnya melibatkan beberapa tahapan strategis yang direncanakan oleh penyerang:</p>\n<ul>\n<li><strong>Identifikasi Target:</strong> Penyerang pertama-tama mengidentifikasi LLM tertentu yang ingin mereka serang. Pemilihan target ini didasarkan pada berbagai faktor, seperti popularitas model, domain penggunaan, dan potensi dampak dari serangan tersebut.</li>\n<li><strong>Pengumpulan Data:</strong> Mereka kemudian mengumpulkan atau membuat dataset pelatihan yang akan digunakan untuk melatih model tersebut. Ini bisa melibatkan pengumpulan data publik, scraping website, atau bahkan pembuatan data sintetik khusus.</li>\n<li><strong>Penyuntikan Data Beracun:</strong> Di sinilah penyerang memasukkan data palsu atau manipulatif ke dalam dataset. Ini bisa dilakukan dengan berbagai cara, seperti menyalin dan menempelkan artikel berita palsu yang telah dimanipulasi, mengubah data yang sudah ada untuk memperkenalkan bias tertentu, atau bahkan membuat data sintetik yang dirancang secara khusus untuk memperkenalkan bias tertentu. Strategi penyuntikan data sering kali melibatkan penggunaan teknik adversarial, di mana data dirancang untuk membodohi model agar belajar pola yang salah.</li>\n<li><strong>Pelatihan Model:</strong> Dataset yang telah diracuni kemudian digunakan untuk melatih LLM. Proses pelatihan ini biasanya melibatkan iterasi melalui dataset berkali-kali, dengan model secara bertahap menyesuaikan parameternya berdasarkan data yang diberikan.</li>\n<li><strong>Penyebaran Output:</strong> Setelah model dilatih, outputnya dapat digunakan untuk berbagai tujuan, seperti menjawab pertanyaan, menghasilkan teks kreatif, atau bahkan membuat konten pemasaran. Tujuan utama penyerang adalah untuk memanipulasi cara model menggunakan outputnya.</li>\n</ul>\n<p>Perlu dicatat bahwa data poisoning sering kali merupakan serangan yang sangat halus dan sulit dideteksi. Tujuannya bukan untuk membuat model langsung memberikan jawaban yang salah, tetapi untuk secara bertahap mengubah cara model berpikir dan memproses informasi. Efek dari serangan ini dapat menjadi lebih halus daripada kesalahan faktual langsung, sehingga lebih sulit untuk diidentifikasi.</p>\n<h2>Manfaat Data Poisoning (dari sudut pandang penyerang)</h2>\n<p>Meskipun data poisoning adalah serangan berbahaya, penting untuk memahami motivasi dan potensi manfaat yang dirasakan oleh penyerang. Beberapa potensi manfaat yang dirasakan meliputi:</p>\n<ul>\n<li><strong>Memperkuat Bias:</strong> Memperkuat bias yang sudah ada dalam model, sehingga menghasilkan output yang diskriminatif atau tidak adil, yang dapat digunakan untuk tujuan tertentu.</li>\n<li><strong>Mempengaruhi Opini Publik:</strong> Menggunakan model untuk menyebarkan disinformasi dan memengaruhi opini publik, terutama di bidang-bidang seperti politik atau kesehatan.</li>\n<li><strong>Merusak Reputasi:</strong> Membuat model menghasilkan output yang merusak reputasi individu atau organisasi, dengan memberikan informasi palsu atau menyesatkan tentang mereka.</li>\n<li><strong>Mengganggu Operasi:</strong> Mengganggu operasi model dengan memperkenalkan kesalahan atau ketidakakuratan dalam outputnya, sehingga membuatnya tidak dapat diandalkan untuk tugas-tugas tertentu.</li>\n</ul>\n<h2>Keterbatasan dan Risiko Data Poisoning</h2>\n<p>Meskipun data poisoning merupakan ancaman serius, ada beberapa keterbatasan dan risiko yang perlu dipertimbangkan:</p>\n<ul>\n<li><strong>Kesulitan Implementasi:</strong> Melakukan serangan data poisoning bisa jadi sulit dan membutuhkan sumber daya yang signifikan, termasuk akses ke dataset pelatihan model dan keahlian dalam teknik adversarial.</li>\n<li><strong>Deteksi:</strong> Teknik deteksi data poisoning terus berkembang, sehingga semakin sulit bagi penyerang untuk berhasil. Model modern sering kali dilengkapi dengan mekanisme deteksi anomali yang dapat mengidentifikasi pola data yang mencurigakan.</li>\n<li><strong>Efektivitas Terbatas:</strong> Efektivitas data poisoning dapat dibatasi oleh kualitas dataset pelatihan dan mekanisme mitigasi yang diterapkan. Jika dataset pelatihan sangat bersih dan model dilatih menggunakan teknik adversarial training, maka efektivitas data poisoning akan berkurang secara signifikan.</li>\n</ul>\n<h2>Contoh Penerapan Potensial (dengan asumsi skenario hipotetis)</h2>\n<p>Meskipun contoh nyata tentang serangan data poisoning terhadap LLM masih jarang, berikut adalah beberapa skenario hipotetis yang mungkin terjadi:</p>\n<ul>\n<li><strong>Politik:</strong> Penyerang menyuntikkan berita palsu dan propaganda ke dalam dataset pelatihan model untuk memengaruhi pemilu atau membentuk opini publik tentang isu-isu politik tertentu.</li>\n<li><strong>Keuangan:</strong> Penyerang memasukkan data palsu tentang perusahaan tertentu ke dalam model untuk memanipulasi pasar saham atau merusak reputasi perusahaan yang sah.</li>\n<li><strong>Kesehatan:</strong> Penyerang menyebarkan informasi medis yang salah ke dalam model untuk membahayakan kesehatan masyarakat atau menyesatkan pasien tentang pengobatan mereka.</li>\n</ul>\n<p>Penting untuk ditekankan bahwa contoh-contoh ini bersifat hipotetis dan bertujuan untuk mengilustrasikan potensi risiko data poisoning.</p>\n<h2>Mitigasi Data Poisoning: Langkah-langkah Perlindungan</h2>\n<p>Meskipun data poisoning merupakan ancaman yang signifikan, ada beberapa langkah yang dapat diambil untuk memitigasinya:</p>\n<ul>\n<li><strong>Validasi Data:</strong> Menerapkan proses validasi data yang ketat untuk memastikan bahwa data pelatihan bersih dan akurat. Ini termasuk memeriksa sumber data, mengidentifikasi outlier, dan menghapus data yang mencurigakan.</li>\n<li><strong>Deteksi Anomali:</strong> Menggunakan teknik deteksi anomali untuk mengidentifikasi pola atau data yang tidak biasa dalam dataset pelatihan.</li>\n<li><strong>Pembelajaran Robust:</strong> Mengembangkan model yang lebih robust terhadap data yang diracuni. Ini termasuk menggunakan teknik seperti adversarial training dan data augmentation.</li>\n<li><strong>Pemantauan Output:</strong> Memantau output model secara berkala untuk mendeteksi anomali atau bias yang mungkin disebabkan oleh data poisoning.</li>\n</ul>\n<h2>Kesimpulan</h2>\n<p>Data poisoning merupakan ancaman yang berkembang pesat terhadap Large Language Models dan teknologi berbasis AI lainnya. Dengan memahami konsep dasar, cara kerja, dan potensi risiko data poisoning, kita dapat mengambil langkah-langkah yang tepat untuk melindungi model dari serangan ini. Proses validasi data yang ketat, deteksi anomali, dan pengembangan model yang robust merupakan kunci untuk memitigasi ancaman ini. Seiring dengan semakin kompleksnya LLM dan semakin banyak penggunaannya, penting untuk terus berinvestasi dalam penelitian dan pengembangan teknik mitigasi data poisoning untuk memastikan bahwa teknologi ini digunakan secara bertanggung jawab dan aman.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>&nbsp; Data Poisoning dalam Pelatihan Large Language Model Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah mengubah lanskap interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, meringkas dokumen, bahkan menulis kode program dengan tingkat kreativitas yang mengesankan semakin mendorong batas-batas apa yang mungkin dilakukan oleh komputer. Namun, di balik kemudahan penggunaan ini, tersembunyi tantangan krusial: bagaimana kita dapat memastikan bahwa LLM tidak hanya cerdas, tetapi juga jujur, akurat, bebas dari bias, dan sepenuhnya dapat dipercaya? Salah satu ancaman yang berkembang pesat dan menimbulkan kekhawatiran serius adalah “data poisoning,” sebuah serangan yang&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 34,
+    "featured_media": 19247,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1919,
+      2616
+    ],
+    "tags": [
+      3531
+    ],
+    "class_list": [
+      "post-19245",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-ai",
+      "category-information-technology",
+      "tag-data-poisoning-dalam-pelatihan-large-language-model"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Data Poisoning dalam Pelatihan Large Language Model - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Data Poisoning dalam Pelatihan Large Language Model - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"&nbsp; Data Poisoning dalam Pelatihan Large Language Model Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah mengubah lanskap interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, meringkas dokumen, bahkan menulis kode program dengan tingkat kreativitas yang mengesankan semakin mendorong batas-batas apa yang mungkin dilakukan oleh komputer. Namun, di balik kemudahan penggunaan ini, tersembunyi tantangan krusial: bagaimana kita dapat memastikan bahwa LLM tidak hanya cerdas, tetapi juga jujur, akurat, bebas dari bias, dan sepenuhnya dapat dipercaya? Salah satu ancaman yang berkembang pesat dan menimbulkan kekhawatiran serius adalah “data poisoning,” sebuah serangan yang...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-31T10:24:46+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/APQ5Vz2am-IBxmNiXMiTT9ratTMiTF_1EqhOscBDc1mCQUPveN0Nfv3AOGDgPmpGbHwbtTI7Mczzc8M6K6Ws9SCgrWp9ntDE9RRsM0WghvaDm3wZiax6c20mrOHNa0vBajRfcsa46C_OCiHs-oxK1Ora_6PpBPG9oyd4Ap4pogU0ubxShsKMQ1Nzq_6GH1c-.jpg\" />\n\t<meta property=\"og:image:width\" content=\"800\" />\n\t<meta property=\"og:image:height\" content=\"533\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Citra Saskia saranani\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Citra Saskia saranani\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"7 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/\",\"url\":\"https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/\",\"name\":\"Data Poisoning dalam Pelatihan Large Language Model - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/APQ5Vz2am-IBxmNiXMiTT9ratTMiTF_1EqhOscBDc1mCQUPveN0Nfv3AOGDgPmpGbHwbtTI7Mczzc8M6K6Ws9SCgrWp9ntDE9RRsM0WghvaDm3wZiax6c20mrOHNa0vBajRfcsa46C_OCiHs-oxK1Ora_6PpBPG9oyd4Ap4pogU0ubxShsKMQ1Nzq_6GH1c-.jpg\",\"datePublished\":\"2026-07-31T10:24:46+00:00\",\"dateModified\":\"2026-07-31T10:24:46+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/APQ5Vz2am-IBxmNiXMiTT9ratTMiTF_1EqhOscBDc1mCQUPveN0Nfv3AOGDgPmpGbHwbtTI7Mczzc8M6K6Ws9SCgrWp9ntDE9RRsM0WghvaDm3wZiax6c20mrOHNa0vBajRfcsa46C_OCiHs-oxK1Ora_6PpBPG9oyd4Ap4pogU0ubxShsKMQ1Nzq_6GH1c-.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/APQ5Vz2am-IBxmNiXMiTT9ratTMiTF_1EqhOscBDc1mCQUPveN0Nfv3AOGDgPmpGbHwbtTI7Mczzc8M6K6Ws9SCgrWp9ntDE9RRsM0WghvaDm3wZiax6c20mrOHNa0vBajRfcsa46C_OCiHs-oxK1Ora_6PpBPG9oyd4Ap4pogU0ubxShsKMQ1Nzq_6GH1c-.jpg\",\"width\":800,\"height\":533},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Data Poisoning dalam Pelatihan Large Language Model\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6\",\"name\":\"Citra Saskia saranani\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g\",\"caption\":\"Citra Saskia saranani\"},\"url\":\"https://buletinsiber.com/author/citra-saskia-saranani/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Data Poisoning dalam Pelatihan Large Language Model - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Data Poisoning dalam Pelatihan Large Language Model - buletinsiber.com",
+      "og_description": "&nbsp; Data Poisoning dalam Pelatihan Large Language Model Large Language Models (LLM) seperti ChatGPT, Gemini, Claude, dan lainnya telah mengubah lanskap interaksi kita dengan teknologi. Kemampuan mereka untuk menghasilkan teks yang koheren, menjawab pertanyaan kompleks, meringkas dokumen, bahkan menulis kode program dengan tingkat kreativitas yang mengesankan semakin mendorong batas-batas apa yang mungkin dilakukan oleh komputer. Namun, di balik kemudahan penggunaan ini, tersembunyi tantangan krusial: bagaimana kita dapat memastikan bahwa LLM tidak hanya cerdas, tetapi juga jujur, akurat, bebas dari bias, dan sepenuhnya dapat dipercaya? Salah satu ancaman yang berkembang pesat dan menimbulkan kekhawatiran serius adalah “data poisoning,” sebuah serangan yang...",
+      "og_url": "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-31T10:24:46+00:00",
+      "og_image": [
+        {
+          "width": 800,
+          "height": 533,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/APQ5Vz2am-IBxmNiXMiTT9ratTMiTF_1EqhOscBDc1mCQUPveN0Nfv3AOGDgPmpGbHwbtTI7Mczzc8M6K6Ws9SCgrWp9ntDE9RRsM0WghvaDm3wZiax6c20mrOHNa0vBajRfcsa46C_OCiHs-oxK1Ora_6PpBPG9oyd4Ap4pogU0ubxShsKMQ1Nzq_6GH1c-.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Citra Saskia saranani",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Citra Saskia saranani",
+        "Est. reading time": "7 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/",
+            "url": "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/",
+            "name": "Data Poisoning dalam Pelatihan Large Language Model - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/APQ5Vz2am-IBxmNiXMiTT9ratTMiTF_1EqhOscBDc1mCQUPveN0Nfv3AOGDgPmpGbHwbtTI7Mczzc8M6K6Ws9SCgrWp9ntDE9RRsM0WghvaDm3wZiax6c20mrOHNa0vBajRfcsa46C_OCiHs-oxK1Ora_6PpBPG9oyd4Ap4pogU0ubxShsKMQ1Nzq_6GH1c-.jpg",
+            "datePublished": "2026-07-31T10:24:46+00:00",
+            "dateModified": "2026-07-31T10:24:46+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/APQ5Vz2am-IBxmNiXMiTT9ratTMiTF_1EqhOscBDc1mCQUPveN0Nfv3AOGDgPmpGbHwbtTI7Mczzc8M6K6Ws9SCgrWp9ntDE9RRsM0WghvaDm3wZiax6c20mrOHNa0vBajRfcsa46C_OCiHs-oxK1Ora_6PpBPG9oyd4Ap4pogU0ubxShsKMQ1Nzq_6GH1c-.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/APQ5Vz2am-IBxmNiXMiTT9ratTMiTF_1EqhOscBDc1mCQUPveN0Nfv3AOGDgPmpGbHwbtTI7Mczzc8M6K6Ws9SCgrWp9ntDE9RRsM0WghvaDm3wZiax6c20mrOHNa0vBajRfcsa46C_OCiHs-oxK1Ora_6PpBPG9oyd4Ap4pogU0ubxShsKMQ1Nzq_6GH1c-.jpg",
+            "width": 800,
+            "height": 533
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/data-poisoning-dalam-pelatihan-large-language-model/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Data Poisoning dalam Pelatihan Large Language Model"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/8b3979d9ebfc406d454ad789015f2af6",
+            "name": "Citra Saskia saranani",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/16d6e4a2fa31d25e6a2557b4fb76eb0e7e0c4d14719f2be0e6b80741e9038291?s=96&d=mm&r=g",
+              "caption": "Citra Saskia saranani"
+            },
+            "url": "https://buletinsiber.com/author/citra-saskia-saranani/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/19245",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/34"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=19245"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/19245/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 19249,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/19245/revisions/19249"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/19247"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=19245"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=19245"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=19245"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

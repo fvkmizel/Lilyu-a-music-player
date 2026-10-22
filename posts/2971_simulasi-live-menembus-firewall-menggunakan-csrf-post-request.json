@@ -1,0 +1,313 @@
+{
+  "id": 2971,
+  "title": "Simulasi Live: Menembus Firewall Menggunakan CSRF POST Request",
+  "slug": "simulasi-live-menembus-firewall-menggunakan-csrf-post-request",
+  "url": "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/",
+  "date": "2025-07-07T08:31:31",
+  "date_gmt": "2025-07-07T08:31:31",
+  "modified": "2025-07-07T08:31:31",
+  "modified_gmt": "2025-07-07T08:31:31",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/avoiding-protecting-from-cross-site-request-forgery-attacks-1.png",
+  "excerpt": "Kamu pasti tahu, firewall dibuat untuk melindungi jaringan dan aplikasi dari serangan. Tapi tahukah kamu? Ada cara yang bisa memanfaatkan CSRF (Cross-Site Request Forgery) untuk menembus firewall lewat request POST yang terlihat “aman”. Di artikel ini, kita akan melakukan simulasi sederhana agar kamu paham: Apa itu CSRF POST request Bagaimana CSRF bisa “menembus” firewall Kenapa ini berbahaya Cara mencegahnya 🔍 Apa Itu CSRF POST Request? CSRF POST request adalah permintaan yang dibuat secara diam-diam oleh penyerang untuk memaksa browser korban mengirim data ke server. Karena browser mengirim cookie secara otomatis, server percaya permintaan itu asli. Biasanya, firewall memfilter request berdasarkan…",
+  "content_html": "<h1 data-start=\"91\" data-end=\"158\"></h1>\n<p data-start=\"160\" data-end=\"404\">Kamu pasti tahu, firewall dibuat untuk <strong data-start=\"199\" data-end=\"249\">melindungi jaringan dan aplikasi dari serangan</strong>. Tapi tahukah kamu? Ada cara yang bisa memanfaatkan <strong data-start=\"302\" data-end=\"339\">CSRF (Cross-Site Request Forgery)</strong> untuk menembus firewall lewat request POST yang terlihat “aman”.</p>\n<p data-start=\"406\" data-end=\"481\">Di artikel ini, kita akan melakukan <strong data-start=\"442\" data-end=\"464\">simulasi sederhana</strong> agar kamu paham:</p>\n<ul data-start=\"483\" data-end=\"600\">\n<li data-start=\"483\" data-end=\"512\">\n<p data-start=\"485\" data-end=\"512\">Apa itu CSRF POST request</p>\n</li>\n<li data-start=\"513\" data-end=\"556\">\n<p data-start=\"515\" data-end=\"556\">Bagaimana CSRF bisa “menembus” firewall</p>\n</li>\n<li data-start=\"557\" data-end=\"581\">\n<p data-start=\"559\" data-end=\"581\">Kenapa ini berbahaya</p>\n</li>\n<li data-start=\"582\" data-end=\"600\">\n<p data-start=\"584\" data-end=\"600\">Cara mencegahnya</p>\n</li>\n</ul>\n<hr data-start=\"602\" data-end=\"605\" />\n<h2 data-start=\"607\" data-end=\"639\">🔍 Apa Itu CSRF POST Request?</h2>\n<p data-start=\"641\" data-end=\"862\"><strong data-start=\"641\" data-end=\"662\">CSRF POST request</strong> adalah permintaan yang dibuat secara diam-diam oleh penyerang untuk memaksa browser korban mengirim data ke server. Karena browser mengirim cookie secara otomatis, server percaya permintaan itu asli.</p>\n<p data-start=\"864\" data-end=\"1017\">Biasanya, firewall memfilter request berdasarkan asal, jenis, dan pola trafik. Tapi CSRF <strong data-start=\"953\" data-end=\"1016\">memanfaatkan kepercayaan browser dan sesi yang sedang aktif</strong>.</p>\n<hr data-start=\"1019\" data-end=\"1022\" />\n<h2 data-start=\"1024\" data-end=\"1067\">🛠️ Simulasi Sederhana CSRF POST Request</h2>\n<p data-start=\"1069\" data-end=\"1143\">Misalnya ada situs aman di <code data-start=\"1096\" data-end=\"1116\">https://bankku.com</code> dengan form transfer uang:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"https://bankku.com/transfer\"</span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"amount\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"1000000\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"to_account\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"penyerang123\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span></span>&gt;<br />\n<span class=\"hljs-variable language_\">document</span>.<span class=\"hljs-property\">forms</span>[<span class=\"hljs-number\">0</span>].<span class=\"hljs-title function_\">submit</span>();<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1390\" data-end=\"1482\">Jika pengguna sedang login dan membuka halaman jahat yang berisi kode di atas, browser akan:</p>\n<ul data-start=\"1484\" data-end=\"1594\">\n<li data-start=\"1484\" data-end=\"1530\">\n<p data-start=\"1486\" data-end=\"1530\">Mengirim POST request ke server <code data-start=\"1518\" data-end=\"1530\">bankku.com</code></p>\n</li>\n<li data-start=\"1531\" data-end=\"1594\">\n<p data-start=\"1533\" data-end=\"1594\">Server melihat cookie login valid → menjalankan transfer uang</p>\n</li>\n</ul>\n<hr data-start=\"1596\" data-end=\"1599\" />\n<h2 data-start=\"1601\" data-end=\"1639\">🔥 Bagaimana Firewall Bisa Terobos?</h2>\n<p data-start=\"1641\" data-end=\"1669\">Firewall biasanya memfilter:</p>\n<ul data-start=\"1671\" data-end=\"1785\">\n<li data-start=\"1671\" data-end=\"1703\">\n<p data-start=\"1673\" data-end=\"1703\">Request dari IP mencurigakan</p>\n</li>\n<li data-start=\"1704\" data-end=\"1742\">\n<p data-start=\"1706\" data-end=\"1742\">Request yang tidak sesuai protokol</p>\n</li>\n<li data-start=\"1743\" data-end=\"1785\">\n<p data-start=\"1745\" data-end=\"1785\">Request yang memiliki pola serangan umum</p>\n</li>\n</ul>\n<p data-start=\"1787\" data-end=\"1807\">Namun, CSRF request:</p>\n<ul data-start=\"1809\" data-end=\"1904\">\n<li data-start=\"1809\" data-end=\"1849\">\n<p data-start=\"1811\" data-end=\"1849\">Datang dari browser pengguna sendiri</p>\n</li>\n<li data-start=\"1850\" data-end=\"1870\">\n<p data-start=\"1852\" data-end=\"1870\">Pakai cookie sah</p>\n</li>\n<li data-start=\"1871\" data-end=\"1904\">\n<p data-start=\"1873\" data-end=\"1904\">Terlihat seperti request normal</p>\n</li>\n</ul>\n<p data-start=\"1906\" data-end=\"2000\">Firewall <strong data-start=\"1915\" data-end=\"1972\">tidak bisa membedakan mana request asli dan mana CSRF</strong> karena semuanya tampak sah.</p>\n<hr data-start=\"2002\" data-end=\"2005\" />\n<h2 data-start=\"2007\" data-end=\"2045\">⚠️ Bahaya Ini Tidak Bisa Diremehkan</h2>\n<ul data-start=\"2047\" data-end=\"2230\">\n<li data-start=\"2047\" data-end=\"2091\">\n<p data-start=\"2049\" data-end=\"2091\">Firewall bukan solusi tunggal untuk CSRF</p>\n</li>\n<li data-start=\"2092\" data-end=\"2144\">\n<p data-start=\"2094\" data-end=\"2144\">Serangan CSRF bisa <strong data-start=\"2113\" data-end=\"2142\">menyusup tanpa terdeteksi</strong></p>\n</li>\n<li data-start=\"2145\" data-end=\"2230\">\n<p data-start=\"2147\" data-end=\"2230\">Butuh proteksi di tingkat aplikasi, seperti <strong data-start=\"2191\" data-end=\"2205\">token CSRF</strong> atau <strong data-start=\"2211\" data-end=\"2230\">validasi origin</strong></p>\n</li>\n</ul>\n<hr data-start=\"2232\" data-end=\"2235\" />\n<h2 data-start=\"2237\" data-end=\"2293\">🛡️ Cara Mencegah CSRF POST Request Menembus Firewall</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2295\" data-end=\"2791\">\n<thead data-start=\"2295\" data-end=\"2377\">\n<tr data-start=\"2295\" data-end=\"2377\">\n<th data-start=\"2295\" data-end=\"2326\" data-col-size=\"sm\">Cara Proteksi</th>\n<th data-start=\"2326\" data-end=\"2377\" data-col-size=\"md\">Penjelasan</th>\n</tr>\n</thead>\n<tbody data-start=\"2460\" data-end=\"2791\">\n<tr data-start=\"2460\" data-end=\"2541\">\n<td data-start=\"2460\" data-end=\"2490\" data-col-size=\"sm\">CSRF Token</td>\n<td data-start=\"2490\" data-end=\"2541\" data-col-size=\"md\">Token unik di setiap form dan divalidasi server</td>\n</tr>\n<tr data-start=\"2542\" data-end=\"2623\">\n<td data-start=\"2542\" data-end=\"2572\" data-col-size=\"sm\">Validasi Header Origin</td>\n<td data-start=\"2572\" data-end=\"2623\" data-col-size=\"md\">Periksa apakah request berasal dari domain asli</td>\n</tr>\n<tr data-start=\"2624\" data-end=\"2709\">\n<td data-start=\"2624\" data-end=\"2654\" data-col-size=\"sm\">SameSite Cookie</td>\n<td data-start=\"2654\" data-end=\"2709\" data-col-size=\"md\">Batasi pengiriman cookie hanya untuk domain sendiri</td>\n</tr>\n<tr data-start=\"2710\" data-end=\"2791\">\n<td data-start=\"2710\" data-end=\"2740\" data-col-size=\"sm\">Penggunaan CAPTCHA</td>\n<td data-start=\"2740\" data-end=\"2791\" data-col-size=\"md\">Cegah request otomatis tanpa interaksi manusia</td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"2793\" data-end=\"2796\" />\n<h2 data-start=\"2798\" data-end=\"2814\">🧾 Kesimpulan</h2>\n<p data-start=\"2816\" data-end=\"2995\">CSRF POST request bisa <strong data-start=\"2839\" data-end=\"2915\">menembus firewall dengan memanfaatkan kepercayaan browser dan sesi login</strong>.<br data-start=\"2916\" data-end=\"2919\" />Firewall memang penting, tapi <strong data-start=\"2949\" data-end=\"2994\">jangan jadikan itu satu-satunya pelindung</strong>.</p>\n<blockquote data-start=\"2997\" data-end=\"3081\">\n<p data-start=\"2999\" data-end=\"3081\">Selalu lengkapi dengan proteksi CSRF di aplikasi agar serangan ini tidak berhasil!</p>\n</blockquote>\n<p data-start=\"2999\" data-end=\"3081\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n<p>&nbsp;</p>\n",
+  "content_text": "Kamu pasti tahu, firewall dibuat untuk  melindungi jaringan dan aplikasi dari serangan . Tapi tahukah kamu? Ada cara yang bisa memanfaatkan  CSRF (Cross-Site Request Forgery)  untuk menembus firewall lewat request POST yang terlihat “aman”.\nDi artikel ini, kita akan melakukan  simulasi sederhana  agar kamu paham:\nApa itu CSRF POST request\nBagaimana CSRF bisa “menembus” firewall\nKenapa ini berbahaya\nCara mencegahnya\n🔍 Apa Itu CSRF POST Request?\nCSRF POST request  adalah permintaan yang dibuat secara diam-diam oleh penyerang untuk memaksa browser korban mengirim data ke server. Karena browser mengirim cookie secara otomatis, server percaya permintaan itu asli.\nBiasanya, firewall memfilter request berdasarkan asal, jenis, dan pola trafik. Tapi CSRF  memanfaatkan kepercayaan browser dan sesi yang sedang aktif .\n🛠️ Simulasi Sederhana CSRF POST Request\nMisalnya ada situs aman di  https://bankku.com  dengan form transfer uang:\nhtml\nCopy   Edit\n< form    action = \"https://bankku.com/transfer\"   method = \"POST\" >\n< input    type = \"hidden\"   name = \"amount\"   value = \"1000000\" >\n< input    type = \"hidden\"   name = \"to_account\"   value = \"penyerang123\" >\n</ form  >\n< script  >\ndocument . forms [ 0 ]. submit ();\n</ script  >\nJika pengguna sedang login dan membuka halaman jahat yang berisi kode di atas, browser akan:\nMengirim POST request ke server  bankku.com\nServer melihat cookie login valid → menjalankan transfer uang\n🔥 Bagaimana Firewall Bisa Terobos?\nFirewall biasanya memfilter:\nRequest dari IP mencurigakan\nRequest yang tidak sesuai protokol\nRequest yang memiliki pola serangan umum\nNamun, CSRF request:\nDatang dari browser pengguna sendiri\nPakai cookie sah\nTerlihat seperti request normal\nFirewall  tidak bisa membedakan mana request asli dan mana CSRF  karena semuanya tampak sah.\n⚠️ Bahaya Ini Tidak Bisa Diremehkan\nFirewall bukan solusi tunggal untuk CSRF\nSerangan CSRF bisa  menyusup tanpa terdeteksi\nButuh proteksi di tingkat aplikasi, seperti  token CSRF  atau  validasi origin\n🛡️ Cara Mencegah CSRF POST Request Menembus Firewall\nCara Proteksi\nPenjelasan\nCSRF Token\nToken unik di setiap form dan divalidasi server\nValidasi Header Origin\nPeriksa apakah request berasal dari domain asli\nSameSite Cookie\nBatasi pengiriman cookie hanya untuk domain sendiri\nPenggunaan CAPTCHA\nCegah request otomatis tanpa interaksi manusia\n🧾 Kesimpulan\nCSRF POST request bisa  menembus firewall dengan memanfaatkan kepercayaan browser dan sesi login .\nFirewall memang penting, tapi  jangan jadikan itu satu-satunya pelindung .\nSelalu lengkapi dengan proteksi CSRF di aplikasi agar serangan ini tidak berhasil!\nPenulias : Muhammad Aditya Alkhawarizmi\nNim : 23156201023\njurusan : Sistem Komputer",
+  "raw": {
+    "id": 2971,
+    "date": "2025-07-07T08:31:31",
+    "date_gmt": "2025-07-07T08:31:31",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2971"
+    },
+    "modified": "2025-07-07T08:31:31",
+    "modified_gmt": "2025-07-07T08:31:31",
+    "slug": "simulasi-live-menembus-firewall-menggunakan-csrf-post-request",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/",
+    "title": {
+      "rendered": "Simulasi Live: Menembus Firewall Menggunakan CSRF POST Request"
+    },
+    "content": {
+      "rendered": "<h1 data-start=\"91\" data-end=\"158\"></h1>\n<p data-start=\"160\" data-end=\"404\">Kamu pasti tahu, firewall dibuat untuk <strong data-start=\"199\" data-end=\"249\">melindungi jaringan dan aplikasi dari serangan</strong>. Tapi tahukah kamu? Ada cara yang bisa memanfaatkan <strong data-start=\"302\" data-end=\"339\">CSRF (Cross-Site Request Forgery)</strong> untuk menembus firewall lewat request POST yang terlihat “aman”.</p>\n<p data-start=\"406\" data-end=\"481\">Di artikel ini, kita akan melakukan <strong data-start=\"442\" data-end=\"464\">simulasi sederhana</strong> agar kamu paham:</p>\n<ul data-start=\"483\" data-end=\"600\">\n<li data-start=\"483\" data-end=\"512\">\n<p data-start=\"485\" data-end=\"512\">Apa itu CSRF POST request</p>\n</li>\n<li data-start=\"513\" data-end=\"556\">\n<p data-start=\"515\" data-end=\"556\">Bagaimana CSRF bisa “menembus” firewall</p>\n</li>\n<li data-start=\"557\" data-end=\"581\">\n<p data-start=\"559\" data-end=\"581\">Kenapa ini berbahaya</p>\n</li>\n<li data-start=\"582\" data-end=\"600\">\n<p data-start=\"584\" data-end=\"600\">Cara mencegahnya</p>\n</li>\n</ul>\n<hr data-start=\"602\" data-end=\"605\" />\n<h2 data-start=\"607\" data-end=\"639\">🔍 Apa Itu CSRF POST Request?</h2>\n<p data-start=\"641\" data-end=\"862\"><strong data-start=\"641\" data-end=\"662\">CSRF POST request</strong> adalah permintaan yang dibuat secara diam-diam oleh penyerang untuk memaksa browser korban mengirim data ke server. Karena browser mengirim cookie secara otomatis, server percaya permintaan itu asli.</p>\n<p data-start=\"864\" data-end=\"1017\">Biasanya, firewall memfilter request berdasarkan asal, jenis, dan pola trafik. Tapi CSRF <strong data-start=\"953\" data-end=\"1016\">memanfaatkan kepercayaan browser dan sesi yang sedang aktif</strong>.</p>\n<hr data-start=\"1019\" data-end=\"1022\" />\n<h2 data-start=\"1024\" data-end=\"1067\">🛠️ Simulasi Sederhana CSRF POST Request</h2>\n<p data-start=\"1069\" data-end=\"1143\">Misalnya ada situs aman di <code data-start=\"1096\" data-end=\"1116\">https://bankku.com</code> dengan form transfer uang:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"https://bankku.com/transfer\"</span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"amount\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"1000000\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"to_account\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"penyerang123\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span></span>&gt;<br />\n<span class=\"hljs-variable language_\">document</span>.<span class=\"hljs-property\">forms</span>[<span class=\"hljs-number\">0</span>].<span class=\"hljs-title function_\">submit</span>();<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1390\" data-end=\"1482\">Jika pengguna sedang login dan membuka halaman jahat yang berisi kode di atas, browser akan:</p>\n<ul data-start=\"1484\" data-end=\"1594\">\n<li data-start=\"1484\" data-end=\"1530\">\n<p data-start=\"1486\" data-end=\"1530\">Mengirim POST request ke server <code data-start=\"1518\" data-end=\"1530\">bankku.com</code></p>\n</li>\n<li data-start=\"1531\" data-end=\"1594\">\n<p data-start=\"1533\" data-end=\"1594\">Server melihat cookie login valid → menjalankan transfer uang</p>\n</li>\n</ul>\n<hr data-start=\"1596\" data-end=\"1599\" />\n<h2 data-start=\"1601\" data-end=\"1639\">🔥 Bagaimana Firewall Bisa Terobos?</h2>\n<p data-start=\"1641\" data-end=\"1669\">Firewall biasanya memfilter:</p>\n<ul data-start=\"1671\" data-end=\"1785\">\n<li data-start=\"1671\" data-end=\"1703\">\n<p data-start=\"1673\" data-end=\"1703\">Request dari IP mencurigakan</p>\n</li>\n<li data-start=\"1704\" data-end=\"1742\">\n<p data-start=\"1706\" data-end=\"1742\">Request yang tidak sesuai protokol</p>\n</li>\n<li data-start=\"1743\" data-end=\"1785\">\n<p data-start=\"1745\" data-end=\"1785\">Request yang memiliki pola serangan umum</p>\n</li>\n</ul>\n<p data-start=\"1787\" data-end=\"1807\">Namun, CSRF request:</p>\n<ul data-start=\"1809\" data-end=\"1904\">\n<li data-start=\"1809\" data-end=\"1849\">\n<p data-start=\"1811\" data-end=\"1849\">Datang dari browser pengguna sendiri</p>\n</li>\n<li data-start=\"1850\" data-end=\"1870\">\n<p data-start=\"1852\" data-end=\"1870\">Pakai cookie sah</p>\n</li>\n<li data-start=\"1871\" data-end=\"1904\">\n<p data-start=\"1873\" data-end=\"1904\">Terlihat seperti request normal</p>\n</li>\n</ul>\n<p data-start=\"1906\" data-end=\"2000\">Firewall <strong data-start=\"1915\" data-end=\"1972\">tidak bisa membedakan mana request asli dan mana CSRF</strong> karena semuanya tampak sah.</p>\n<hr data-start=\"2002\" data-end=\"2005\" />\n<h2 data-start=\"2007\" data-end=\"2045\">⚠️ Bahaya Ini Tidak Bisa Diremehkan</h2>\n<ul data-start=\"2047\" data-end=\"2230\">\n<li data-start=\"2047\" data-end=\"2091\">\n<p data-start=\"2049\" data-end=\"2091\">Firewall bukan solusi tunggal untuk CSRF</p>\n</li>\n<li data-start=\"2092\" data-end=\"2144\">\n<p data-start=\"2094\" data-end=\"2144\">Serangan CSRF bisa <strong data-start=\"2113\" data-end=\"2142\">menyusup tanpa terdeteksi</strong></p>\n</li>\n<li data-start=\"2145\" data-end=\"2230\">\n<p data-start=\"2147\" data-end=\"2230\">Butuh proteksi di tingkat aplikasi, seperti <strong data-start=\"2191\" data-end=\"2205\">token CSRF</strong> atau <strong data-start=\"2211\" data-end=\"2230\">validasi origin</strong></p>\n</li>\n</ul>\n<hr data-start=\"2232\" data-end=\"2235\" />\n<h2 data-start=\"2237\" data-end=\"2293\">🛡️ Cara Mencegah CSRF POST Request Menembus Firewall</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2295\" data-end=\"2791\">\n<thead data-start=\"2295\" data-end=\"2377\">\n<tr data-start=\"2295\" data-end=\"2377\">\n<th data-start=\"2295\" data-end=\"2326\" data-col-size=\"sm\">Cara Proteksi</th>\n<th data-start=\"2326\" data-end=\"2377\" data-col-size=\"md\">Penjelasan</th>\n</tr>\n</thead>\n<tbody data-start=\"2460\" data-end=\"2791\">\n<tr data-start=\"2460\" data-end=\"2541\">\n<td data-start=\"2460\" data-end=\"2490\" data-col-size=\"sm\">CSRF Token</td>\n<td data-start=\"2490\" data-end=\"2541\" data-col-size=\"md\">Token unik di setiap form dan divalidasi server</td>\n</tr>\n<tr data-start=\"2542\" data-end=\"2623\">\n<td data-start=\"2542\" data-end=\"2572\" data-col-size=\"sm\">Validasi Header Origin</td>\n<td data-start=\"2572\" data-end=\"2623\" data-col-size=\"md\">Periksa apakah request berasal dari domain asli</td>\n</tr>\n<tr data-start=\"2624\" data-end=\"2709\">\n<td data-start=\"2624\" data-end=\"2654\" data-col-size=\"sm\">SameSite Cookie</td>\n<td data-start=\"2654\" data-end=\"2709\" data-col-size=\"md\">Batasi pengiriman cookie hanya untuk domain sendiri</td>\n</tr>\n<tr data-start=\"2710\" data-end=\"2791\">\n<td data-start=\"2710\" data-end=\"2740\" data-col-size=\"sm\">Penggunaan CAPTCHA</td>\n<td data-start=\"2740\" data-end=\"2791\" data-col-size=\"md\">Cegah request otomatis tanpa interaksi manusia</td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"2793\" data-end=\"2796\" />\n<h2 data-start=\"2798\" data-end=\"2814\">🧾 Kesimpulan</h2>\n<p data-start=\"2816\" data-end=\"2995\">CSRF POST request bisa <strong data-start=\"2839\" data-end=\"2915\">menembus firewall dengan memanfaatkan kepercayaan browser dan sesi login</strong>.<br data-start=\"2916\" data-end=\"2919\" />Firewall memang penting, tapi <strong data-start=\"2949\" data-end=\"2994\">jangan jadikan itu satu-satunya pelindung</strong>.</p>\n<blockquote data-start=\"2997\" data-end=\"3081\">\n<p data-start=\"2999\" data-end=\"3081\">Selalu lengkapi dengan proteksi CSRF di aplikasi agar serangan ini tidak berhasil!</p>\n</blockquote>\n<p data-start=\"2999\" data-end=\"3081\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n<p>&nbsp;</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Kamu pasti tahu, firewall dibuat untuk melindungi jaringan dan aplikasi dari serangan. Tapi tahukah kamu? Ada cara yang bisa memanfaatkan CSRF (Cross-Site Request Forgery) untuk menembus firewall lewat request POST yang terlihat “aman”. Di artikel ini, kita akan melakukan simulasi sederhana agar kamu paham: Apa itu CSRF POST request Bagaimana CSRF bisa “menembus” firewall Kenapa ini berbahaya Cara mencegahnya 🔍 Apa Itu CSRF POST Request? CSRF POST request adalah permintaan yang dibuat secara diam-diam oleh penyerang untuk memaksa browser korban mengirim data ke server. Karena browser mengirim cookie secara otomatis, server percaya permintaan itu asli. Biasanya, firewall memfilter request berdasarkan&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 2972,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      385
+    ],
+    "class_list": [
+      "post-2971",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-cross-site-request-forgery-csrf"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Simulasi Live: Menembus Firewall Menggunakan CSRF POST Request - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Simulasi Live: Menembus Firewall Menggunakan CSRF POST Request - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Kamu pasti tahu, firewall dibuat untuk melindungi jaringan dan aplikasi dari serangan. Tapi tahukah kamu? Ada cara yang bisa memanfaatkan CSRF (Cross-Site Request Forgery) untuk menembus firewall lewat request POST yang terlihat “aman”. Di artikel ini, kita akan melakukan simulasi sederhana agar kamu paham: Apa itu CSRF POST request Bagaimana CSRF bisa “menembus” firewall Kenapa ini berbahaya Cara mencegahnya 🔍 Apa Itu CSRF POST Request? CSRF POST request adalah permintaan yang dibuat secara diam-diam oleh penyerang untuk memaksa browser korban mengirim data ke server. Karena browser mengirim cookie secara otomatis, server percaya permintaan itu asli. Biasanya, firewall memfilter request berdasarkan...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-07T08:31:31+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/avoiding-protecting-from-cross-site-request-forgery-attacks-1.png\" />\n\t<meta property=\"og:image:width\" content=\"700\" />\n\t<meta property=\"og:image:height\" content=\"285\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"2 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/\",\"url\":\"https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/\",\"name\":\"Simulasi Live: Menembus Firewall Menggunakan CSRF POST Request - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/avoiding-protecting-from-cross-site-request-forgery-attacks-1.png\",\"datePublished\":\"2025-07-07T08:31:31+00:00\",\"dateModified\":\"2025-07-07T08:31:31+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/avoiding-protecting-from-cross-site-request-forgery-attacks-1.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/avoiding-protecting-from-cross-site-request-forgery-attacks-1.png\",\"width\":700,\"height\":285},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Simulasi Live: Menembus Firewall Menggunakan CSRF POST Request\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Simulasi Live: Menembus Firewall Menggunakan CSRF POST Request - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Simulasi Live: Menembus Firewall Menggunakan CSRF POST Request - buletinsiber.com",
+      "og_description": "Kamu pasti tahu, firewall dibuat untuk melindungi jaringan dan aplikasi dari serangan. Tapi tahukah kamu? Ada cara yang bisa memanfaatkan CSRF (Cross-Site Request Forgery) untuk menembus firewall lewat request POST yang terlihat “aman”. Di artikel ini, kita akan melakukan simulasi sederhana agar kamu paham: Apa itu CSRF POST request Bagaimana CSRF bisa “menembus” firewall Kenapa ini berbahaya Cara mencegahnya 🔍 Apa Itu CSRF POST Request? CSRF POST request adalah permintaan yang dibuat secara diam-diam oleh penyerang untuk memaksa browser korban mengirim data ke server. Karena browser mengirim cookie secara otomatis, server percaya permintaan itu asli. Biasanya, firewall memfilter request berdasarkan...",
+      "og_url": "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-07T08:31:31+00:00",
+      "og_image": [
+        {
+          "width": 700,
+          "height": 285,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/avoiding-protecting-from-cross-site-request-forgery-attacks-1.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "2 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/",
+            "url": "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/",
+            "name": "Simulasi Live: Menembus Firewall Menggunakan CSRF POST Request - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/avoiding-protecting-from-cross-site-request-forgery-attacks-1.png",
+            "datePublished": "2025-07-07T08:31:31+00:00",
+            "dateModified": "2025-07-07T08:31:31+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/avoiding-protecting-from-cross-site-request-forgery-attacks-1.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/avoiding-protecting-from-cross-site-request-forgery-attacks-1.png",
+            "width": 700,
+            "height": 285
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/simulasi-live-menembus-firewall-menggunakan-csrf-post-request/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Simulasi Live: Menembus Firewall Menggunakan CSRF POST Request"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2971",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2971"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2971/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 3692,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2971/revisions/3692"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2972"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2971"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2971"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2971"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

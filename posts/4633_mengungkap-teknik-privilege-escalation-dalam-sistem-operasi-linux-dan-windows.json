@@ -1,0 +1,286 @@
+{
+  "id": 4633,
+  "title": "Mengungkap Teknik Privilege Escalation dalam Sistem Operasi Linux dan Windows",
+  "slug": "mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows",
+  "url": "https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/",
+  "date": "2025-07-09T12:36:48",
+  "date_gmt": "2025-07-09T12:36:48",
+  "modified": "2026-07-06T20:45:00",
+  "modified_gmt": "2026-07-06T20:45:00",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    149
+  ],
+  "featured_image": "",
+  "excerpt": "Privilege escalation adalah salah satu teknik yang sering digunakan dalam serangan siber. Tujuannya adalah menaikkan hak akses penyerang di dalam sebuah sistem komputer. Misalnya, dari pengguna biasa (user) menjadi administrator atau root. Artikel ini akan membahas teknik-teknik privilege escalation yang umum digunakan di dua sistem operasi yang paling populer: Linux dan Windows. Dengan mengetahui teknik ini, kita bisa lebih siap untuk mencegahnya.   Apa Itu Privilege Escalation? Privilege escalation berarti meningkatkan hak akses pengguna di dalam sistem. Biasanya dilakukan oleh penyerang yang awalnya hanya memiliki akses terbatas, lalu berusaha mendapatkan kontrol penuh. Terdapat dua jenis privilege escalation: Vertikal: naik dari…",
+  "content_html": "<p>Privilege escalation adalah salah satu teknik yang sering digunakan dalam serangan siber. Tujuannya adalah <strong>menaikkan hak akses penyerang</strong> di dalam sebuah sistem komputer. Misalnya, dari pengguna biasa (user) menjadi administrator atau root.</p>\n<p>Artikel ini akan membahas teknik-teknik privilege escalation yang umum digunakan di dua sistem operasi yang paling populer: <strong>Linux dan Windows</strong>. Dengan mengetahui teknik ini, kita bisa lebih siap untuk mencegahnya.</p>\n<p>&nbsp;</p>\n<h3><strong>Apa Itu Privilege Escalation?</strong></h3>\n<p>Privilege escalation berarti <strong>meningkatkan hak akses pengguna</strong> di dalam sistem. Biasanya dilakukan oleh penyerang yang awalnya hanya memiliki akses terbatas, lalu berusaha mendapatkan kontrol penuh.</p>\n<p>Terdapat dua jenis privilege escalation:</p>\n<ul>\n<li><strong>Vertikal</strong>: naik dari hak akses rendah ke hak akses tinggi (misalnya user ke admin)</li>\n<li><strong>Horizontal</strong>: berpindah dari satu akun user ke akun user lain dengan hak berbeda, tanpa naik level</li>\n</ul>\n<p>&nbsp;</p>\n<h3><strong>Teknik Privilege Escalation di Linux</strong></h3>\n<p>Berikut beberapa teknik yang sering digunakan penyerang di sistem Linux:</p>\n<h4>1. <strong>SUID dan GUID Files</strong></h4>\n<ul>\n<li>File yang memiliki izin SUID bisa dijalankan dengan hak akses pemilik file, sering kali root.</li>\n<li>Penyerang akan mencari file seperti ini untuk dieksekusi demi mendapatkan akses root.</li>\n<li>Perintah untuk mencarinya:\n<pre><code>find / -perm -4000 -type f 2&gt;/dev/null\r\n</code></pre>\n</li>\n</ul>\n<h4>2. <strong>Cron Jobs dan Script Otomatis</strong></h4>\n<ul>\n<li>Cron job dijalankan secara otomatis di waktu tertentu.</li>\n<li>Jika ada script yang dijalankan sebagai root, tapi bisa diedit oleh user biasa, ini bisa dimanfaatkan untuk privilege escalation.</li>\n</ul>\n<h4>3. <strong>Exploit Kernel atau CVE</strong></h4>\n<ul>\n<li>Penyerang bisa mencari kelemahan pada kernel atau versi software yang belum di-update.</li>\n<li>Tools populer:\n<ul>\n<li><code>linux-exploit-suggester</code></li>\n<li><code>searchsploit</code></li>\n</ul>\n</li>\n</ul>\n<h4>4. <strong>Izin File yang Salah</strong></h4>\n<ul>\n<li>Misalnya, file penting seperti <code>/etc/shadow</code> bisa diakses atau diubah oleh user biasa.</li>\n<li>Penyerang bisa memodifikasi file untuk mengubah password root.</li>\n</ul>\n<h4>5. <strong>GTFOBins</strong></h4>\n<ul>\n<li>Ini adalah daftar program Linux biasa yang bisa disalahgunakan untuk eskalasi hak akses.</li>\n<li>Contoh program yang sering digunakan: <code>less</code>, <code>vim</code>, <code>awk</code>, <code>nano</code>.</li>\n</ul>\n<p>&nbsp;</p>\n<h3><strong>Teknik Privilege Escalation di Windows</strong></h3>\n<p>Windows juga memiliki celah yang bisa dimanfaatkan untuk privilege escalation:</p>\n<h4>1. <strong>Token Abuse</strong></h4>\n<ul>\n<li>Di Windows, user punya “token” yang menunjukkan hak akses mereka.</li>\n<li>Penyerang bisa menyalahgunakan token ini untuk bertindak seperti admin.</li>\n</ul>\n<h4>2. <strong>Unquoted Service Path</strong></h4>\n<ul>\n<li>Jika layanan (service) dijalankan tanpa tanda kutip dan jalurnya panjang, penyerang bisa menaruh file jahat di awal jalur.</li>\n<li>Ketika service dijalankan, file buatan penyerang ikut dijalankan.</li>\n</ul>\n<h4>3. <strong>DLL Hijacking dan Izin File yang Salah</strong></h4>\n<ul>\n<li>Penyerang mengganti file .DLL (perpustakaan sistem) dengan versinya sendiri, lalu aplikasi sistem memanggilnya secara otomatis.</li>\n<li>Bisa terjadi jika folder atau file memiliki izin tulis (write) bagi user biasa.</li>\n</ul>\n<h4>4. <strong>Eksploitasi CVE Windows</strong></h4>\n<ul>\n<li>Sama seperti di Linux, penyerang bisa mencari celah berdasarkan versi Windows dan aplikasi.</li>\n<li>Tools: <code>Windows Exploit Suggester</code>, <code>searchsploit</code>.</li>\n</ul>\n<h4>5. <strong>Tools Otomatis</strong></h4>\n<ul>\n<li>Banyak tools gratis yang bisa digunakan untuk memeriksa kelemahan:\n<ul>\n<li><code>winPEAS</code></li>\n<li><code>PowerUp</code></li>\n<li><code>SharpUp</code></li>\n<li><code>Seatbelt</code></li>\n</ul>\n</li>\n</ul>\n<p>&nbsp;</p>\n<h3><strong>Alat Bantu yang Sering Digunakan</strong></h3>\n<p>Untuk membantu mendeteksi potensi privilege escalation, berikut beberapa tools yang sering digunakan:</p>\n<h4><strong>Linux:</strong></h4>\n<ul>\n<li><code>linPEAS</code>: mengecek konfigurasi, file sensitif, cron job, dll.</li>\n<li><code>Linux Exploit Suggester</code>: mencari eksploit sesuai versi kernel.</li>\n<li><code>GTFOBins</code>: daftar perintah Linux yang bisa disalahgunakan.</li>\n</ul>\n<h4><strong>Windows:</strong></h4>\n<ul>\n<li><code>winPEAS</code>: mengecek banyak konfigurasi sistem.</li>\n<li><code>PowerUp</code>: fokus pada privilege escalation.</li>\n<li><code>SharpUp</code>: tool berbasis C# untuk audit sistem Windows.</li>\n<li><code>AccessChk</code>: mengecek izin akses file dan folder.</li>\n</ul>\n<p>&nbsp;</p>\n<h3><strong>Cara Mencegah Privilege Escalation</strong></h3>\n<p>Beberapa langkah yang bisa dilakukan untuk mencegah privilege escalation:</p>\n<ul>\n<li>Selalu update sistem operasi dan aplikasi.</li>\n<li>Batasi hak akses user, jangan berikan lebih dari yang dibutuhkan.</li>\n<li>Periksa dan audit ulang izin file, folder, dan service secara berkala.</li>\n<li>Gunakan monitoring atau log analyzer untuk mendeteksi aktivitas mencurigakan.</li>\n</ul>\n<p>&nbsp;</p>\n<h3><strong>Kesimpulan</strong></h3>\n<p>Privilege escalation adalah langkah penting dalam banyak serangan siber. Linux dan Windows punya celah yang berbeda, dan tekniknya juga berbeda. Dengan memahami teknik-teknik ini, kita bisa <strong>lebih waspada dan mencegah serangan sebelum terjadi</strong>.</p>\n<p>Jika kamu seorang admin sistem, praktisi IT, atau sekadar ingin paham keamanan siber, mengenali privilege escalation adalah langkah awal yang sangat penting. Keamanan sistem bukan hanya soal mencegah masuknya penyerang, tapi juga <strong>membatasi apa yang bisa mereka lakukan setelah masuk</strong>.</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>Nama: Damarudin<br />\nNIM: 23156201034<br />\nProdi: Sistem Komputer</p>\n",
+  "content_text": "Privilege escalation adalah salah satu teknik yang sering digunakan dalam serangan siber. Tujuannya adalah  menaikkan hak akses penyerang  di dalam sebuah sistem komputer. Misalnya, dari pengguna biasa (user) menjadi administrator atau root.\nArtikel ini akan membahas teknik-teknik privilege escalation yang umum digunakan di dua sistem operasi yang paling populer:  Linux dan Windows . Dengan mengetahui teknik ini, kita bisa lebih siap untuk mencegahnya.\nApa Itu Privilege Escalation?\nPrivilege escalation berarti  meningkatkan hak akses pengguna  di dalam sistem. Biasanya dilakukan oleh penyerang yang awalnya hanya memiliki akses terbatas, lalu berusaha mendapatkan kontrol penuh.\nTerdapat dua jenis privilege escalation:\nVertikal : naik dari hak akses rendah ke hak akses tinggi (misalnya user ke admin)\nHorizontal : berpindah dari satu akun user ke akun user lain dengan hak berbeda, tanpa naik level\nTeknik Privilege Escalation di Linux\nBerikut beberapa teknik yang sering digunakan penyerang di sistem Linux:\n1.  SUID dan GUID Files\nFile yang memiliki izin SUID bisa dijalankan dengan hak akses pemilik file, sering kali root.\nPenyerang akan mencari file seperti ini untuk dieksekusi demi mendapatkan akses root.\nPerintah untuk mencarinya:\nfind / -perm -4000 -type f 2>/dev/null\n2.  Cron Jobs dan Script Otomatis\nCron job dijalankan secara otomatis di waktu tertentu.\nJika ada script yang dijalankan sebagai root, tapi bisa diedit oleh user biasa, ini bisa dimanfaatkan untuk privilege escalation.\n3.  Exploit Kernel atau CVE\nPenyerang bisa mencari kelemahan pada kernel atau versi software yang belum di-update.\nTools populer:\nlinux-exploit-suggester\nsearchsploit\n4.  Izin File yang Salah\nMisalnya, file penting seperti  /etc/shadow  bisa diakses atau diubah oleh user biasa.\nPenyerang bisa memodifikasi file untuk mengubah password root.\n5.  GTFOBins\nIni adalah daftar program Linux biasa yang bisa disalahgunakan untuk eskalasi hak akses.\nContoh program yang sering digunakan:  less ,  vim ,  awk ,  nano .\nTeknik Privilege Escalation di Windows\nWindows juga memiliki celah yang bisa dimanfaatkan untuk privilege escalation:\n1.  Token Abuse\nDi Windows, user punya “token” yang menunjukkan hak akses mereka.\nPenyerang bisa menyalahgunakan token ini untuk bertindak seperti admin.\n2.  Unquoted Service Path\nJika layanan (service) dijalankan tanpa tanda kutip dan jalurnya panjang, penyerang bisa menaruh file jahat di awal jalur.\nKetika service dijalankan, file buatan penyerang ikut dijalankan.\n3.  DLL Hijacking dan Izin File yang Salah\nPenyerang mengganti file .DLL (perpustakaan sistem) dengan versinya sendiri, lalu aplikasi sistem memanggilnya secara otomatis.\nBisa terjadi jika folder atau file memiliki izin tulis (write) bagi user biasa.\n4.  Eksploitasi CVE Windows\nSama seperti di Linux, penyerang bisa mencari celah berdasarkan versi Windows dan aplikasi.\nTools:  Windows Exploit Suggester ,  searchsploit .\n5.  Tools Otomatis\nBanyak tools gratis yang bisa digunakan untuk memeriksa kelemahan:\nwinPEAS\nPowerUp\nSharpUp\nSeatbelt\nAlat Bantu yang Sering Digunakan\nUntuk membantu mendeteksi potensi privilege escalation, berikut beberapa tools yang sering digunakan:\nLinux:\nlinPEAS : mengecek konfigurasi, file sensitif, cron job, dll.\nLinux Exploit Suggester : mencari eksploit sesuai versi kernel.\nGTFOBins : daftar perintah Linux yang bisa disalahgunakan.\nWindows:\nwinPEAS : mengecek banyak konfigurasi sistem.\nPowerUp : fokus pada privilege escalation.\nSharpUp : tool berbasis C# untuk audit sistem Windows.\nAccessChk : mengecek izin akses file dan folder.\nCara Mencegah Privilege Escalation\nBeberapa langkah yang bisa dilakukan untuk mencegah privilege escalation:\nSelalu update sistem operasi dan aplikasi.\nBatasi hak akses user, jangan berikan lebih dari yang dibutuhkan.\nPeriksa dan audit ulang izin file, folder, dan service secara berkala.\nGunakan monitoring atau log analyzer untuk mendeteksi aktivitas mencurigakan.\nKesimpulan\nPrivilege escalation adalah langkah penting dalam banyak serangan siber. Linux dan Windows punya celah yang berbeda, dan tekniknya juga berbeda. Dengan memahami teknik-teknik ini, kita bisa  lebih waspada dan mencegah serangan sebelum terjadi .\nJika kamu seorang admin sistem, praktisi IT, atau sekadar ingin paham keamanan siber, mengenali privilege escalation adalah langkah awal yang sangat penting. Keamanan sistem bukan hanya soal mencegah masuknya penyerang, tapi juga  membatasi apa yang bisa mereka lakukan setelah masuk .\nNama: Damarudin\nNIM: 23156201034\nProdi: Sistem Komputer",
+  "raw": {
+    "id": 4633,
+    "date": "2025-07-09T12:36:48",
+    "date_gmt": "2025-07-09T12:36:48",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=4633"
+    },
+    "modified": "2026-07-06T20:45:00",
+    "modified_gmt": "2026-07-06T20:45:00",
+    "slug": "mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/",
+    "title": {
+      "rendered": "Mengungkap Teknik Privilege Escalation dalam Sistem Operasi Linux dan Windows"
+    },
+    "content": {
+      "rendered": "<p>Privilege escalation adalah salah satu teknik yang sering digunakan dalam serangan siber. Tujuannya adalah <strong>menaikkan hak akses penyerang</strong> di dalam sebuah sistem komputer. Misalnya, dari pengguna biasa (user) menjadi administrator atau root.</p>\n<p>Artikel ini akan membahas teknik-teknik privilege escalation yang umum digunakan di dua sistem operasi yang paling populer: <strong>Linux dan Windows</strong>. Dengan mengetahui teknik ini, kita bisa lebih siap untuk mencegahnya.</p>\n<p>&nbsp;</p>\n<h3><strong>Apa Itu Privilege Escalation?</strong></h3>\n<p>Privilege escalation berarti <strong>meningkatkan hak akses pengguna</strong> di dalam sistem. Biasanya dilakukan oleh penyerang yang awalnya hanya memiliki akses terbatas, lalu berusaha mendapatkan kontrol penuh.</p>\n<p>Terdapat dua jenis privilege escalation:</p>\n<ul>\n<li><strong>Vertikal</strong>: naik dari hak akses rendah ke hak akses tinggi (misalnya user ke admin)</li>\n<li><strong>Horizontal</strong>: berpindah dari satu akun user ke akun user lain dengan hak berbeda, tanpa naik level</li>\n</ul>\n<p>&nbsp;</p>\n<h3><strong>Teknik Privilege Escalation di Linux</strong></h3>\n<p>Berikut beberapa teknik yang sering digunakan penyerang di sistem Linux:</p>\n<h4>1. <strong>SUID dan GUID Files</strong></h4>\n<ul>\n<li>File yang memiliki izin SUID bisa dijalankan dengan hak akses pemilik file, sering kali root.</li>\n<li>Penyerang akan mencari file seperti ini untuk dieksekusi demi mendapatkan akses root.</li>\n<li>Perintah untuk mencarinya:\n<pre><code>find / -perm -4000 -type f 2&gt;/dev/null\r\n</code></pre>\n</li>\n</ul>\n<h4>2. <strong>Cron Jobs dan Script Otomatis</strong></h4>\n<ul>\n<li>Cron job dijalankan secara otomatis di waktu tertentu.</li>\n<li>Jika ada script yang dijalankan sebagai root, tapi bisa diedit oleh user biasa, ini bisa dimanfaatkan untuk privilege escalation.</li>\n</ul>\n<h4>3. <strong>Exploit Kernel atau CVE</strong></h4>\n<ul>\n<li>Penyerang bisa mencari kelemahan pada kernel atau versi software yang belum di-update.</li>\n<li>Tools populer:\n<ul>\n<li><code>linux-exploit-suggester</code></li>\n<li><code>searchsploit</code></li>\n</ul>\n</li>\n</ul>\n<h4>4. <strong>Izin File yang Salah</strong></h4>\n<ul>\n<li>Misalnya, file penting seperti <code>/etc/shadow</code> bisa diakses atau diubah oleh user biasa.</li>\n<li>Penyerang bisa memodifikasi file untuk mengubah password root.</li>\n</ul>\n<h4>5. <strong>GTFOBins</strong></h4>\n<ul>\n<li>Ini adalah daftar program Linux biasa yang bisa disalahgunakan untuk eskalasi hak akses.</li>\n<li>Contoh program yang sering digunakan: <code>less</code>, <code>vim</code>, <code>awk</code>, <code>nano</code>.</li>\n</ul>\n<p>&nbsp;</p>\n<h3><strong>Teknik Privilege Escalation di Windows</strong></h3>\n<p>Windows juga memiliki celah yang bisa dimanfaatkan untuk privilege escalation:</p>\n<h4>1. <strong>Token Abuse</strong></h4>\n<ul>\n<li>Di Windows, user punya “token” yang menunjukkan hak akses mereka.</li>\n<li>Penyerang bisa menyalahgunakan token ini untuk bertindak seperti admin.</li>\n</ul>\n<h4>2. <strong>Unquoted Service Path</strong></h4>\n<ul>\n<li>Jika layanan (service) dijalankan tanpa tanda kutip dan jalurnya panjang, penyerang bisa menaruh file jahat di awal jalur.</li>\n<li>Ketika service dijalankan, file buatan penyerang ikut dijalankan.</li>\n</ul>\n<h4>3. <strong>DLL Hijacking dan Izin File yang Salah</strong></h4>\n<ul>\n<li>Penyerang mengganti file .DLL (perpustakaan sistem) dengan versinya sendiri, lalu aplikasi sistem memanggilnya secara otomatis.</li>\n<li>Bisa terjadi jika folder atau file memiliki izin tulis (write) bagi user biasa.</li>\n</ul>\n<h4>4. <strong>Eksploitasi CVE Windows</strong></h4>\n<ul>\n<li>Sama seperti di Linux, penyerang bisa mencari celah berdasarkan versi Windows dan aplikasi.</li>\n<li>Tools: <code>Windows Exploit Suggester</code>, <code>searchsploit</code>.</li>\n</ul>\n<h4>5. <strong>Tools Otomatis</strong></h4>\n<ul>\n<li>Banyak tools gratis yang bisa digunakan untuk memeriksa kelemahan:\n<ul>\n<li><code>winPEAS</code></li>\n<li><code>PowerUp</code></li>\n<li><code>SharpUp</code></li>\n<li><code>Seatbelt</code></li>\n</ul>\n</li>\n</ul>\n<p>&nbsp;</p>\n<h3><strong>Alat Bantu yang Sering Digunakan</strong></h3>\n<p>Untuk membantu mendeteksi potensi privilege escalation, berikut beberapa tools yang sering digunakan:</p>\n<h4><strong>Linux:</strong></h4>\n<ul>\n<li><code>linPEAS</code>: mengecek konfigurasi, file sensitif, cron job, dll.</li>\n<li><code>Linux Exploit Suggester</code>: mencari eksploit sesuai versi kernel.</li>\n<li><code>GTFOBins</code>: daftar perintah Linux yang bisa disalahgunakan.</li>\n</ul>\n<h4><strong>Windows:</strong></h4>\n<ul>\n<li><code>winPEAS</code>: mengecek banyak konfigurasi sistem.</li>\n<li><code>PowerUp</code>: fokus pada privilege escalation.</li>\n<li><code>SharpUp</code>: tool berbasis C# untuk audit sistem Windows.</li>\n<li><code>AccessChk</code>: mengecek izin akses file dan folder.</li>\n</ul>\n<p>&nbsp;</p>\n<h3><strong>Cara Mencegah Privilege Escalation</strong></h3>\n<p>Beberapa langkah yang bisa dilakukan untuk mencegah privilege escalation:</p>\n<ul>\n<li>Selalu update sistem operasi dan aplikasi.</li>\n<li>Batasi hak akses user, jangan berikan lebih dari yang dibutuhkan.</li>\n<li>Periksa dan audit ulang izin file, folder, dan service secara berkala.</li>\n<li>Gunakan monitoring atau log analyzer untuk mendeteksi aktivitas mencurigakan.</li>\n</ul>\n<p>&nbsp;</p>\n<h3><strong>Kesimpulan</strong></h3>\n<p>Privilege escalation adalah langkah penting dalam banyak serangan siber. Linux dan Windows punya celah yang berbeda, dan tekniknya juga berbeda. Dengan memahami teknik-teknik ini, kita bisa <strong>lebih waspada dan mencegah serangan sebelum terjadi</strong>.</p>\n<p>Jika kamu seorang admin sistem, praktisi IT, atau sekadar ingin paham keamanan siber, mengenali privilege escalation adalah langkah awal yang sangat penting. Keamanan sistem bukan hanya soal mencegah masuknya penyerang, tapi juga <strong>membatasi apa yang bisa mereka lakukan setelah masuk</strong>.</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>Nama: Damarudin<br />\nNIM: 23156201034<br />\nProdi: Sistem Komputer</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Privilege escalation adalah salah satu teknik yang sering digunakan dalam serangan siber. Tujuannya adalah menaikkan hak akses penyerang di dalam sebuah sistem komputer. Misalnya, dari pengguna biasa (user) menjadi administrator atau root. Artikel ini akan membahas teknik-teknik privilege escalation yang umum digunakan di dua sistem operasi yang paling populer: Linux dan Windows. Dengan mengetahui teknik ini, kita bisa lebih siap untuk mencegahnya. &nbsp; Apa Itu Privilege Escalation? Privilege escalation berarti meningkatkan hak akses pengguna di dalam sistem. Biasanya dilakukan oleh penyerang yang awalnya hanya memiliki akses terbatas, lalu berusaha mendapatkan kontrol penuh. Terdapat dua jenis privilege escalation: Vertikal: naik dari&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 0,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      149
+    ],
+    "class_list": [
+      "post-4633",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-privilege-escalation"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Mengungkap Teknik Privilege Escalation dalam Sistem Operasi Linux dan Windows - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Mengungkap Teknik Privilege Escalation dalam Sistem Operasi Linux dan Windows - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Privilege escalation adalah salah satu teknik yang sering digunakan dalam serangan siber. Tujuannya adalah menaikkan hak akses penyerang di dalam sebuah sistem komputer. Misalnya, dari pengguna biasa (user) menjadi administrator atau root. Artikel ini akan membahas teknik-teknik privilege escalation yang umum digunakan di dua sistem operasi yang paling populer: Linux dan Windows. Dengan mengetahui teknik ini, kita bisa lebih siap untuk mencegahnya. &nbsp; Apa Itu Privilege Escalation? Privilege escalation berarti meningkatkan hak akses pengguna di dalam sistem. Biasanya dilakukan oleh penyerang yang awalnya hanya memiliki akses terbatas, lalu berusaha mendapatkan kontrol penuh. Terdapat dua jenis privilege escalation: Vertikal: naik dari...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-09T12:36:48+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:45:00+00:00\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/\",\"url\":\"https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/\",\"name\":\"Mengungkap Teknik Privilege Escalation dalam Sistem Operasi Linux dan Windows - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"datePublished\":\"2025-07-09T12:36:48+00:00\",\"dateModified\":\"2026-07-06T20:45:00+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Mengungkap Teknik Privilege Escalation dalam Sistem Operasi Linux dan Windows\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Mengungkap Teknik Privilege Escalation dalam Sistem Operasi Linux dan Windows - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Mengungkap Teknik Privilege Escalation dalam Sistem Operasi Linux dan Windows - buletinsiber.com",
+      "og_description": "Privilege escalation adalah salah satu teknik yang sering digunakan dalam serangan siber. Tujuannya adalah menaikkan hak akses penyerang di dalam sebuah sistem komputer. Misalnya, dari pengguna biasa (user) menjadi administrator atau root. Artikel ini akan membahas teknik-teknik privilege escalation yang umum digunakan di dua sistem operasi yang paling populer: Linux dan Windows. Dengan mengetahui teknik ini, kita bisa lebih siap untuk mencegahnya. &nbsp; Apa Itu Privilege Escalation? Privilege escalation berarti meningkatkan hak akses pengguna di dalam sistem. Biasanya dilakukan oleh penyerang yang awalnya hanya memiliki akses terbatas, lalu berusaha mendapatkan kontrol penuh. Terdapat dua jenis privilege escalation: Vertikal: naik dari...",
+      "og_url": "https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-09T12:36:48+00:00",
+      "article_modified_time": "2026-07-06T20:45:00+00:00",
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/",
+            "url": "https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/",
+            "name": "Mengungkap Teknik Privilege Escalation dalam Sistem Operasi Linux dan Windows - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "datePublished": "2025-07-09T12:36:48+00:00",
+            "dateModified": "2026-07-06T20:45:00+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/mengungkap-teknik-privilege-escalation-dalam-sistem-operasi-linux-dan-windows/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Mengungkap Teknik Privilege Escalation dalam Sistem Operasi Linux dan Windows"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4633",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=4633"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4633/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 4644,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/4633/revisions/4644"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=4633"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=4633"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=4633"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

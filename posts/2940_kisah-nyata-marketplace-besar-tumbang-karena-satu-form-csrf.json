@@ -1,0 +1,313 @@
+{
+  "id": 2940,
+  "title": "Kisah Nyata: Marketplace Besar Tumbang karena Satu Form CSRF",
+  "slug": "kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf",
+  "url": "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/",
+  "date": "2025-07-07T08:38:34",
+  "date_gmt": "2025-07-07T08:38:34",
+  "modified": "2025-07-07T08:38:34",
+  "modified_gmt": "2025-07-07T08:38:34",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/5e284f4ef9c2f1fea8f9485369bb6c0e.jpg",
+  "excerpt": "Bayangkan sebuah marketplace besar—jutaan pengguna aktif, transaksi tiap detik, dan server super canggih. Tapi siapa sangka, hanya satu form kecil tanpa perlindungan CSRF, cukup untuk membuat sistemnya kacau total. Ini bukan cerita fiksi. Ini kisah nyata yang jadi pelajaran besar bagi developer dan tim keamanan. 🛍️ Latar Belakang: Marketplace Raksasa Sebuah perusahaan e-commerce besar di Asia Tenggara (nama disamarkan) memiliki layanan: Jual beli produk Saldo dompet digital Akun admin untuk seller Semuanya berjalan lancar. Tapi ada satu celah kecil yang luput dari pengawasan… 🧨 Titik Lemah: Form “Update Harga” Salah satu fitur di dashboard seller adalah form untuk mengubah harga…",
+  "content_html": "<h1 data-start=\"91\" data-end=\"156\"></h1>\n<p data-start=\"158\" data-end=\"384\">Bayangkan sebuah <strong data-start=\"175\" data-end=\"196\">marketplace besar</strong>—jutaan pengguna aktif, transaksi tiap detik, dan server super canggih. Tapi siapa sangka, hanya <strong data-start=\"293\" data-end=\"336\">satu form kecil tanpa perlindungan CSRF</strong>, cukup untuk membuat sistemnya <strong data-start=\"368\" data-end=\"383\">kacau total</strong>.</p>\n<p data-start=\"386\" data-end=\"488\">Ini bukan cerita fiksi. Ini <strong data-start=\"414\" data-end=\"429\">kisah nyata</strong> yang jadi pelajaran besar bagi developer dan tim keamanan.</p>\n<hr data-start=\"490\" data-end=\"493\" />\n<h2 data-start=\"495\" data-end=\"537\">🛍️ Latar Belakang: Marketplace Raksasa</h2>\n<p data-start=\"539\" data-end=\"626\">Sebuah perusahaan e-commerce besar di Asia Tenggara (nama disamarkan) memiliki layanan:</p>\n<ul data-start=\"628\" data-end=\"695\">\n<li data-start=\"628\" data-end=\"646\">\n<p data-start=\"630\" data-end=\"646\">Jual beli produk</p>\n</li>\n<li data-start=\"647\" data-end=\"669\">\n<p data-start=\"649\" data-end=\"669\">Saldo dompet digital</p>\n</li>\n<li data-start=\"670\" data-end=\"695\">\n<p data-start=\"672\" data-end=\"695\">Akun admin untuk seller</p>\n</li>\n</ul>\n<p data-start=\"697\" data-end=\"780\">Semuanya berjalan lancar. Tapi ada <strong data-start=\"732\" data-end=\"752\">satu celah kecil</strong> yang luput dari pengawasan…</p>\n<hr data-start=\"782\" data-end=\"785\" />\n<h2 data-start=\"787\" data-end=\"825\">🧨 Titik Lemah: Form &#8220;Update Harga&#8221;</h2>\n<p data-start=\"827\" data-end=\"908\">Salah satu fitur di dashboard seller adalah <strong data-start=\"871\" data-end=\"907\">form untuk mengubah harga produk</strong>:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"/update-price\"</span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"product_id\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"101\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"text\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"new_price\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"100000\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"submit\"</span>&gt;Update<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1123\" data-end=\"1224\">Masalahnya? <strong data-start=\"1135\" data-end=\"1170\">Form ini tidak punya CSRF token</strong>.<br data-start=\"1171\" data-end=\"1174\" />Tidak ada validasi siapa yang mengirim permintaan.</p>\n<hr data-start=\"1226\" data-end=\"1229\" />\n<h2 data-start=\"1231\" data-end=\"1280\">🎯 Serangan Dimulai: Link Jebakan untuk Seller</h2>\n<p data-start=\"1282\" data-end=\"1348\">Seorang penyerang menyamar jadi pembeli dan kirim pesan ke seller:</p>\n<blockquote data-start=\"1350\" data-end=\"1415\">\n<p data-start=\"1352\" data-end=\"1415\">&#8220;Permisi, ini produk Anda tampil aneh di sini: [klik link ini]&#8221;</p>\n</blockquote>\n<p data-start=\"1417\" data-end=\"1494\">Ternyata link itu berisi halaman berbahaya yang menyisipkan form auto-submit:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"https://marketplace.com/update-price\"</span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"product_id\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"101\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"new_price\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"1\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span></span>&gt;<span class=\"language-javascript\"><span class=\"hljs-variable language_\">document</span></span>.<span class=\"hljs-property\">forms</span>[<span class=\"hljs-number\">0</span>].<span class=\"hljs-title function_\">submit</span>();<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1734\" data-end=\"1816\">Saat seller membuka link tersebut <strong data-start=\"1768\" data-end=\"1797\">dalam keadaan masih login</strong>, browser otomatis:</p>\n<ul data-start=\"1818\" data-end=\"1952\">\n<li data-start=\"1818\" data-end=\"1849\">\n<p data-start=\"1820\" data-end=\"1849\">Mengirim permintaan ke server</p>\n</li>\n<li data-start=\"1850\" data-end=\"1882\">\n<p data-start=\"1852\" data-end=\"1882\">Menyertakan cookie sesi seller</p>\n</li>\n<li data-start=\"1883\" data-end=\"1952\">\n<p data-start=\"1885\" data-end=\"1952\">Server <strong data-start=\"1892\" data-end=\"1952\">menerima permintaan dan mengganti harga produk jadi Rp 1</strong></p>\n</li>\n</ul>\n<hr data-start=\"1954\" data-end=\"1957\" />\n<h2 data-start=\"1959\" data-end=\"1975\">😱 Dampaknya?</h2>\n<ul data-start=\"1977\" data-end=\"2249\">\n<li data-start=\"1977\" data-end=\"2045\">\n<p data-start=\"1979\" data-end=\"2045\">Ratusan seller <strong data-start=\"1994\" data-end=\"2045\">mengalami harga produk diubah jadi sangat murah</strong></p>\n</li>\n<li data-start=\"2046\" data-end=\"2095\">\n<p data-start=\"2048\" data-end=\"2095\">Ribuan pembeli membeli produk dengan harga Rp 1</p>\n</li>\n<li data-start=\"2096\" data-end=\"2136\">\n<p data-start=\"2098\" data-end=\"2136\">Ribuan transaksi tidak bisa dibatalkan</p>\n</li>\n<li data-start=\"2137\" data-end=\"2189\">\n<p data-start=\"2139\" data-end=\"2189\">Kerugian ditaksir mencapai <strong data-start=\"2166\" data-end=\"2189\">ratusan juta rupiah</strong></p>\n</li>\n<li data-start=\"2190\" data-end=\"2249\">\n<p data-start=\"2192\" data-end=\"2249\">Perusahaan harus menutup sementara fitur seller dashboard</p>\n</li>\n</ul>\n<p data-start=\"2251\" data-end=\"2329\">Dan semua itu terjadi <strong data-start=\"2273\" data-end=\"2328\">hanya karena satu form POST tanpa perlindungan CSRF</strong>.</p>\n<hr data-start=\"2331\" data-end=\"2334\" />\n<h2 data-start=\"2336\" data-end=\"2366\">🧩 Kenapa Ini Bisa Terjadi?</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2368\" data-end=\"2810\">\n<thead data-start=\"2368\" data-end=\"2441\">\n<tr data-start=\"2368\" data-end=\"2441\">\n<th data-start=\"2368\" data-end=\"2399\" data-col-size=\"sm\">Penyebab</th>\n<th data-start=\"2399\" data-end=\"2441\" data-col-size=\"sm\">Dampaknya</th>\n</tr>\n</thead>\n<tbody data-start=\"2515\" data-end=\"2810\">\n<tr data-start=\"2515\" data-end=\"2587\">\n<td data-start=\"2515\" data-end=\"2545\" data-col-size=\"sm\">Tidak ada CSRF token</td>\n<td data-col-size=\"sm\" data-start=\"2545\" data-end=\"2587\">Server tidak bisa validasi permintaan</td>\n</tr>\n<tr data-start=\"2588\" data-end=\"2662\">\n<td data-start=\"2588\" data-end=\"2620\" data-col-size=\"sm\">Browser kirim cookie otomatis</td>\n<td data-col-size=\"sm\" data-start=\"2620\" data-end=\"2662\">Permintaan terlihat “sah”</td>\n</tr>\n<tr data-start=\"2663\" data-end=\"2735\">\n<td data-start=\"2663\" data-end=\"2693\" data-col-size=\"sm\">Seller tertipu klik link</td>\n<td data-col-size=\"sm\" data-start=\"2693\" data-end=\"2735\">Permintaan palsu dianggap asli</td>\n</tr>\n<tr data-start=\"2736\" data-end=\"2810\">\n<td data-start=\"2736\" data-end=\"2766\" data-col-size=\"sm\">Tidak ada validasi asal</td>\n<td data-col-size=\"sm\" data-start=\"2766\" data-end=\"2810\">Server tidak cek <code data-start=\"2785\" data-end=\"2794\">Referer</code> atau <code data-start=\"2800\" data-end=\"2808\">Origin</code></td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"2812\" data-end=\"2815\" />\n<h2 data-start=\"2817\" data-end=\"2863\">✅ Pelajaran Berharga: Hindari Kesalahan Ini</h2>\n<h3 data-start=\"2865\" data-end=\"2895\">🔒 1. Gunakan CSRF Token</h3>\n<p data-start=\"2896\" data-end=\"3018\">Tambahkan token unik di semua form dan validasi di server. Laravel, CodeIgniter, dan framework lain sudah punya fitur ini.</p>\n<h3 data-start=\"3020\" data-end=\"3060\">🌐 2. Validasi Origin atau Referer</h3>\n<p data-start=\"3061\" data-end=\"3114\">Cek apakah permintaan datang dari situs kamu sendiri.</p>\n<h3 data-start=\"3116\" data-end=\"3160\">🍪 3. Gunakan Cookie <code data-start=\"3141\" data-end=\"3158\">SameSite=Strict</code></h3>\n<p data-start=\"3161\" data-end=\"3209\">Agar browser tidak kirim cookie dari situs luar.</p>\n<h3 data-start=\"3211\" data-end=\"3246\">🧪 4. Lakukan Security Review</h3>\n<p data-start=\"3247\" data-end=\"3350\">Jangan anggap fitur kecil itu tidak penting. <strong data-start=\"3292\" data-end=\"3322\">Semua form harus diamankan</strong>, sekecil apa pun fungsinya.</p>\n<hr data-start=\"3352\" data-end=\"3355\" />\n<h2 data-start=\"3357\" data-end=\"3373\">🧾 Kesimpulan</h2>\n<p data-start=\"3375\" data-end=\"3480\">Satu form tanpa CSRF protection bisa menyebabkan <strong data-start=\"3424\" data-end=\"3477\">kerugian besar dan hilangnya kepercayaan pengguna</strong>.</p>\n<blockquote data-start=\"3482\" data-end=\"3633\">\n<p data-start=\"3484\" data-end=\"3633\">Keamanan itu bukan hanya soal enkripsi atau firewall —<br data-start=\"3538\" data-end=\"3541\" />Tapi juga soal <strong data-start=\"3558\" data-end=\"3599\">hal-hal kecil yang sering disepelekan</strong>, seperti CSRF token di form HTML.</p>\n</blockquote>\n<p data-start=\"3484\" data-end=\"3633\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n",
+  "content_text": "Bayangkan sebuah  marketplace besar —jutaan pengguna aktif, transaksi tiap detik, dan server super canggih. Tapi siapa sangka, hanya  satu form kecil tanpa perlindungan CSRF , cukup untuk membuat sistemnya  kacau total .\nIni bukan cerita fiksi. Ini  kisah nyata  yang jadi pelajaran besar bagi developer dan tim keamanan.\n🛍️ Latar Belakang: Marketplace Raksasa\nSebuah perusahaan e-commerce besar di Asia Tenggara (nama disamarkan) memiliki layanan:\nJual beli produk\nSaldo dompet digital\nAkun admin untuk seller\nSemuanya berjalan lancar. Tapi ada  satu celah kecil  yang luput dari pengawasan…\n🧨 Titik Lemah: Form “Update Harga”\nSalah satu fitur di dashboard seller adalah  form untuk mengubah harga produk :\nhtml\nCopy   Edit\n< form    action = \"/update-price\"   method = \"POST\" >\n< input    type = \"hidden\"   name = \"product_id\"   value = \"101\" >\n< input    type = \"text\"   name = \"new_price\"   value = \"100000\" >\n< button    type = \"submit\" >Update </ button  >\n</ form  >\nMasalahnya?  Form ini tidak punya CSRF token .\nTidak ada validasi siapa yang mengirim permintaan.\n🎯 Serangan Dimulai: Link Jebakan untuk Seller\nSeorang penyerang menyamar jadi pembeli dan kirim pesan ke seller:\n“Permisi, ini produk Anda tampil aneh di sini: [klik link ini]”\nTernyata link itu berisi halaman berbahaya yang menyisipkan form auto-submit:\nhtml\nCopy   Edit\n< form    action = \"https://marketplace.com/update-price\"   method = \"POST\" >\n< input    type = \"hidden\"   name = \"product_id\"   value = \"101\" >\n< input    type = \"hidden\"   name = \"new_price\"   value = \"1\" >\n</ form  >\n< script  >  document  . forms [ 0 ]. submit (); </ script  >\nSaat seller membuka link tersebut  dalam keadaan masih login , browser otomatis:\nMengirim permintaan ke server\nMenyertakan cookie sesi seller\nServer  menerima permintaan dan mengganti harga produk jadi Rp 1\n😱 Dampaknya?\nRatusan seller  mengalami harga produk diubah jadi sangat murah\nRibuan pembeli membeli produk dengan harga Rp 1\nRibuan transaksi tidak bisa dibatalkan\nKerugian ditaksir mencapai  ratusan juta rupiah\nPerusahaan harus menutup sementara fitur seller dashboard\nDan semua itu terjadi  hanya karena satu form POST tanpa perlindungan CSRF .\n🧩 Kenapa Ini Bisa Terjadi?\nPenyebab\nDampaknya\nTidak ada CSRF token\nServer tidak bisa validasi permintaan\nBrowser kirim cookie otomatis\nPermintaan terlihat “sah”\nSeller tertipu klik link\nPermintaan palsu dianggap asli\nTidak ada validasi asal\nServer tidak cek  Referer  atau  Origin\n✅ Pelajaran Berharga: Hindari Kesalahan Ini\n🔒 1. Gunakan CSRF Token\nTambahkan token unik di semua form dan validasi di server. Laravel, CodeIgniter, dan framework lain sudah punya fitur ini.\n🌐 2. Validasi Origin atau Referer\nCek apakah permintaan datang dari situs kamu sendiri.\n🍪 3. Gunakan Cookie  SameSite=Strict\nAgar browser tidak kirim cookie dari situs luar.\n🧪 4. Lakukan Security Review\nJangan anggap fitur kecil itu tidak penting.  Semua form harus diamankan , sekecil apa pun fungsinya.\n🧾 Kesimpulan\nSatu form tanpa CSRF protection bisa menyebabkan  kerugian besar dan hilangnya kepercayaan pengguna .\nKeamanan itu bukan hanya soal enkripsi atau firewall —\nTapi juga soal  hal-hal kecil yang sering disepelekan , seperti CSRF token di form HTML.\nPenulias : Muhammad Aditya Alkhawarizmi\nNim : 23156201023\njurusan : Sistem Komputer",
+  "raw": {
+    "id": 2940,
+    "date": "2025-07-07T08:38:34",
+    "date_gmt": "2025-07-07T08:38:34",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2940"
+    },
+    "modified": "2025-07-07T08:38:34",
+    "modified_gmt": "2025-07-07T08:38:34",
+    "slug": "kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/",
+    "title": {
+      "rendered": "Kisah Nyata: Marketplace Besar Tumbang karena Satu Form CSRF"
+    },
+    "content": {
+      "rendered": "<h1 data-start=\"91\" data-end=\"156\"></h1>\n<p data-start=\"158\" data-end=\"384\">Bayangkan sebuah <strong data-start=\"175\" data-end=\"196\">marketplace besar</strong>—jutaan pengguna aktif, transaksi tiap detik, dan server super canggih. Tapi siapa sangka, hanya <strong data-start=\"293\" data-end=\"336\">satu form kecil tanpa perlindungan CSRF</strong>, cukup untuk membuat sistemnya <strong data-start=\"368\" data-end=\"383\">kacau total</strong>.</p>\n<p data-start=\"386\" data-end=\"488\">Ini bukan cerita fiksi. Ini <strong data-start=\"414\" data-end=\"429\">kisah nyata</strong> yang jadi pelajaran besar bagi developer dan tim keamanan.</p>\n<hr data-start=\"490\" data-end=\"493\" />\n<h2 data-start=\"495\" data-end=\"537\">🛍️ Latar Belakang: Marketplace Raksasa</h2>\n<p data-start=\"539\" data-end=\"626\">Sebuah perusahaan e-commerce besar di Asia Tenggara (nama disamarkan) memiliki layanan:</p>\n<ul data-start=\"628\" data-end=\"695\">\n<li data-start=\"628\" data-end=\"646\">\n<p data-start=\"630\" data-end=\"646\">Jual beli produk</p>\n</li>\n<li data-start=\"647\" data-end=\"669\">\n<p data-start=\"649\" data-end=\"669\">Saldo dompet digital</p>\n</li>\n<li data-start=\"670\" data-end=\"695\">\n<p data-start=\"672\" data-end=\"695\">Akun admin untuk seller</p>\n</li>\n</ul>\n<p data-start=\"697\" data-end=\"780\">Semuanya berjalan lancar. Tapi ada <strong data-start=\"732\" data-end=\"752\">satu celah kecil</strong> yang luput dari pengawasan…</p>\n<hr data-start=\"782\" data-end=\"785\" />\n<h2 data-start=\"787\" data-end=\"825\">🧨 Titik Lemah: Form &#8220;Update Harga&#8221;</h2>\n<p data-start=\"827\" data-end=\"908\">Salah satu fitur di dashboard seller adalah <strong data-start=\"871\" data-end=\"907\">form untuk mengubah harga produk</strong>:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"/update-price\"</span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"product_id\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"101\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"text\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"new_price\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"100000\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">button</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"submit\"</span>&gt;Update<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">button</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1123\" data-end=\"1224\">Masalahnya? <strong data-start=\"1135\" data-end=\"1170\">Form ini tidak punya CSRF token</strong>.<br data-start=\"1171\" data-end=\"1174\" />Tidak ada validasi siapa yang mengirim permintaan.</p>\n<hr data-start=\"1226\" data-end=\"1229\" />\n<h2 data-start=\"1231\" data-end=\"1280\">🎯 Serangan Dimulai: Link Jebakan untuk Seller</h2>\n<p data-start=\"1282\" data-end=\"1348\">Seorang penyerang menyamar jadi pembeli dan kirim pesan ke seller:</p>\n<blockquote data-start=\"1350\" data-end=\"1415\">\n<p data-start=\"1352\" data-end=\"1415\">&#8220;Permisi, ini produk Anda tampil aneh di sini: [klik link ini]&#8221;</p>\n</blockquote>\n<p data-start=\"1417\" data-end=\"1494\">Ternyata link itu berisi halaman berbahaya yang menyisipkan form auto-submit:</p>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">html</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">form</span></span> <span class=\"hljs-attr\">action</span>=<span class=\"hljs-string\">\"https://marketplace.com/update-price\"</span> <span class=\"hljs-attr\">method</span>=<span class=\"hljs-string\">\"POST\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"product_id\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"101\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">input</span></span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">\"hidden\"</span> <span class=\"hljs-attr\">name</span>=<span class=\"hljs-string\">\"new_price\"</span> <span class=\"hljs-attr\">value</span>=<span class=\"hljs-string\">\"1\"</span>&gt;<br />\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">form</span></span>&gt;<br />\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span></span>&gt;<span class=\"language-javascript\"><span class=\"hljs-variable language_\">document</span></span>.<span class=\"hljs-property\">forms</span>[<span class=\"hljs-number\">0</span>].<span class=\"hljs-title function_\">submit</span>();<span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span></span>&gt;<br />\n</code></div>\n</div>\n<p data-start=\"1734\" data-end=\"1816\">Saat seller membuka link tersebut <strong data-start=\"1768\" data-end=\"1797\">dalam keadaan masih login</strong>, browser otomatis:</p>\n<ul data-start=\"1818\" data-end=\"1952\">\n<li data-start=\"1818\" data-end=\"1849\">\n<p data-start=\"1820\" data-end=\"1849\">Mengirim permintaan ke server</p>\n</li>\n<li data-start=\"1850\" data-end=\"1882\">\n<p data-start=\"1852\" data-end=\"1882\">Menyertakan cookie sesi seller</p>\n</li>\n<li data-start=\"1883\" data-end=\"1952\">\n<p data-start=\"1885\" data-end=\"1952\">Server <strong data-start=\"1892\" data-end=\"1952\">menerima permintaan dan mengganti harga produk jadi Rp 1</strong></p>\n</li>\n</ul>\n<hr data-start=\"1954\" data-end=\"1957\" />\n<h2 data-start=\"1959\" data-end=\"1975\">😱 Dampaknya?</h2>\n<ul data-start=\"1977\" data-end=\"2249\">\n<li data-start=\"1977\" data-end=\"2045\">\n<p data-start=\"1979\" data-end=\"2045\">Ratusan seller <strong data-start=\"1994\" data-end=\"2045\">mengalami harga produk diubah jadi sangat murah</strong></p>\n</li>\n<li data-start=\"2046\" data-end=\"2095\">\n<p data-start=\"2048\" data-end=\"2095\">Ribuan pembeli membeli produk dengan harga Rp 1</p>\n</li>\n<li data-start=\"2096\" data-end=\"2136\">\n<p data-start=\"2098\" data-end=\"2136\">Ribuan transaksi tidak bisa dibatalkan</p>\n</li>\n<li data-start=\"2137\" data-end=\"2189\">\n<p data-start=\"2139\" data-end=\"2189\">Kerugian ditaksir mencapai <strong data-start=\"2166\" data-end=\"2189\">ratusan juta rupiah</strong></p>\n</li>\n<li data-start=\"2190\" data-end=\"2249\">\n<p data-start=\"2192\" data-end=\"2249\">Perusahaan harus menutup sementara fitur seller dashboard</p>\n</li>\n</ul>\n<p data-start=\"2251\" data-end=\"2329\">Dan semua itu terjadi <strong data-start=\"2273\" data-end=\"2328\">hanya karena satu form POST tanpa perlindungan CSRF</strong>.</p>\n<hr data-start=\"2331\" data-end=\"2334\" />\n<h2 data-start=\"2336\" data-end=\"2366\">🧩 Kenapa Ini Bisa Terjadi?</h2>\n<div class=\"_tableContainer_80l1q_1\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2368\" data-end=\"2810\">\n<thead data-start=\"2368\" data-end=\"2441\">\n<tr data-start=\"2368\" data-end=\"2441\">\n<th data-start=\"2368\" data-end=\"2399\" data-col-size=\"sm\">Penyebab</th>\n<th data-start=\"2399\" data-end=\"2441\" data-col-size=\"sm\">Dampaknya</th>\n</tr>\n</thead>\n<tbody data-start=\"2515\" data-end=\"2810\">\n<tr data-start=\"2515\" data-end=\"2587\">\n<td data-start=\"2515\" data-end=\"2545\" data-col-size=\"sm\">Tidak ada CSRF token</td>\n<td data-col-size=\"sm\" data-start=\"2545\" data-end=\"2587\">Server tidak bisa validasi permintaan</td>\n</tr>\n<tr data-start=\"2588\" data-end=\"2662\">\n<td data-start=\"2588\" data-end=\"2620\" data-col-size=\"sm\">Browser kirim cookie otomatis</td>\n<td data-col-size=\"sm\" data-start=\"2620\" data-end=\"2662\">Permintaan terlihat “sah”</td>\n</tr>\n<tr data-start=\"2663\" data-end=\"2735\">\n<td data-start=\"2663\" data-end=\"2693\" data-col-size=\"sm\">Seller tertipu klik link</td>\n<td data-col-size=\"sm\" data-start=\"2693\" data-end=\"2735\">Permintaan palsu dianggap asli</td>\n</tr>\n<tr data-start=\"2736\" data-end=\"2810\">\n<td data-start=\"2736\" data-end=\"2766\" data-col-size=\"sm\">Tidak ada validasi asal</td>\n<td data-col-size=\"sm\" data-start=\"2766\" data-end=\"2810\">Server tidak cek <code data-start=\"2785\" data-end=\"2794\">Referer</code> atau <code data-start=\"2800\" data-end=\"2808\">Origin</code></td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"></div>\n</div>\n</div>\n</div>\n<hr data-start=\"2812\" data-end=\"2815\" />\n<h2 data-start=\"2817\" data-end=\"2863\">✅ Pelajaran Berharga: Hindari Kesalahan Ini</h2>\n<h3 data-start=\"2865\" data-end=\"2895\">🔒 1. Gunakan CSRF Token</h3>\n<p data-start=\"2896\" data-end=\"3018\">Tambahkan token unik di semua form dan validasi di server. Laravel, CodeIgniter, dan framework lain sudah punya fitur ini.</p>\n<h3 data-start=\"3020\" data-end=\"3060\">🌐 2. Validasi Origin atau Referer</h3>\n<p data-start=\"3061\" data-end=\"3114\">Cek apakah permintaan datang dari situs kamu sendiri.</p>\n<h3 data-start=\"3116\" data-end=\"3160\">🍪 3. Gunakan Cookie <code data-start=\"3141\" data-end=\"3158\">SameSite=Strict</code></h3>\n<p data-start=\"3161\" data-end=\"3209\">Agar browser tidak kirim cookie dari situs luar.</p>\n<h3 data-start=\"3211\" data-end=\"3246\">🧪 4. Lakukan Security Review</h3>\n<p data-start=\"3247\" data-end=\"3350\">Jangan anggap fitur kecil itu tidak penting. <strong data-start=\"3292\" data-end=\"3322\">Semua form harus diamankan</strong>, sekecil apa pun fungsinya.</p>\n<hr data-start=\"3352\" data-end=\"3355\" />\n<h2 data-start=\"3357\" data-end=\"3373\">🧾 Kesimpulan</h2>\n<p data-start=\"3375\" data-end=\"3480\">Satu form tanpa CSRF protection bisa menyebabkan <strong data-start=\"3424\" data-end=\"3477\">kerugian besar dan hilangnya kepercayaan pengguna</strong>.</p>\n<blockquote data-start=\"3482\" data-end=\"3633\">\n<p data-start=\"3484\" data-end=\"3633\">Keamanan itu bukan hanya soal enkripsi atau firewall —<br data-start=\"3538\" data-end=\"3541\" />Tapi juga soal <strong data-start=\"3558\" data-end=\"3599\">hal-hal kecil yang sering disepelekan</strong>, seperti CSRF token di form HTML.</p>\n</blockquote>\n<p data-start=\"3484\" data-end=\"3633\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Bayangkan sebuah marketplace besar—jutaan pengguna aktif, transaksi tiap detik, dan server super canggih. Tapi siapa sangka, hanya satu form kecil tanpa perlindungan CSRF, cukup untuk membuat sistemnya kacau total. Ini bukan cerita fiksi. Ini kisah nyata yang jadi pelajaran besar bagi developer dan tim keamanan. 🛍️ Latar Belakang: Marketplace Raksasa Sebuah perusahaan e-commerce besar di Asia Tenggara (nama disamarkan) memiliki layanan: Jual beli produk Saldo dompet digital Akun admin untuk seller Semuanya berjalan lancar. Tapi ada satu celah kecil yang luput dari pengawasan… 🧨 Titik Lemah: Form &#8220;Update Harga&#8221; Salah satu fitur di dashboard seller adalah form untuk mengubah harga&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 2941,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      385
+    ],
+    "class_list": [
+      "post-2940",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-cross-site-request-forgery-csrf"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Kisah Nyata: Marketplace Besar Tumbang karena Satu Form CSRF - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Kisah Nyata: Marketplace Besar Tumbang karena Satu Form CSRF - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Bayangkan sebuah marketplace besar—jutaan pengguna aktif, transaksi tiap detik, dan server super canggih. Tapi siapa sangka, hanya satu form kecil tanpa perlindungan CSRF, cukup untuk membuat sistemnya kacau total. Ini bukan cerita fiksi. Ini kisah nyata yang jadi pelajaran besar bagi developer dan tim keamanan. 🛍️ Latar Belakang: Marketplace Raksasa Sebuah perusahaan e-commerce besar di Asia Tenggara (nama disamarkan) memiliki layanan: Jual beli produk Saldo dompet digital Akun admin untuk seller Semuanya berjalan lancar. Tapi ada satu celah kecil yang luput dari pengawasan… 🧨 Titik Lemah: Form &#8220;Update Harga&#8221; Salah satu fitur di dashboard seller adalah form untuk mengubah harga...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-07T08:38:34+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/5e284f4ef9c2f1fea8f9485369bb6c0e.jpg\" />\n\t<meta property=\"og:image:width\" content=\"750\" />\n\t<meta property=\"og:image:height\" content=\"545\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/\",\"url\":\"https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/\",\"name\":\"Kisah Nyata: Marketplace Besar Tumbang karena Satu Form CSRF - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/5e284f4ef9c2f1fea8f9485369bb6c0e.jpg\",\"datePublished\":\"2025-07-07T08:38:34+00:00\",\"dateModified\":\"2025-07-07T08:38:34+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/5e284f4ef9c2f1fea8f9485369bb6c0e.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/5e284f4ef9c2f1fea8f9485369bb6c0e.jpg\",\"width\":750,\"height\":545},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Kisah Nyata: Marketplace Besar Tumbang karena Satu Form CSRF\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Kisah Nyata: Marketplace Besar Tumbang karena Satu Form CSRF - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Kisah Nyata: Marketplace Besar Tumbang karena Satu Form CSRF - buletinsiber.com",
+      "og_description": "Bayangkan sebuah marketplace besar—jutaan pengguna aktif, transaksi tiap detik, dan server super canggih. Tapi siapa sangka, hanya satu form kecil tanpa perlindungan CSRF, cukup untuk membuat sistemnya kacau total. Ini bukan cerita fiksi. Ini kisah nyata yang jadi pelajaran besar bagi developer dan tim keamanan. 🛍️ Latar Belakang: Marketplace Raksasa Sebuah perusahaan e-commerce besar di Asia Tenggara (nama disamarkan) memiliki layanan: Jual beli produk Saldo dompet digital Akun admin untuk seller Semuanya berjalan lancar. Tapi ada satu celah kecil yang luput dari pengawasan… 🧨 Titik Lemah: Form &#8220;Update Harga&#8221; Salah satu fitur di dashboard seller adalah form untuk mengubah harga...",
+      "og_url": "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-07T08:38:34+00:00",
+      "og_image": [
+        {
+          "width": 750,
+          "height": 545,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/5e284f4ef9c2f1fea8f9485369bb6c0e.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/",
+            "url": "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/",
+            "name": "Kisah Nyata: Marketplace Besar Tumbang karena Satu Form CSRF - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/5e284f4ef9c2f1fea8f9485369bb6c0e.jpg",
+            "datePublished": "2025-07-07T08:38:34+00:00",
+            "dateModified": "2025-07-07T08:38:34+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/5e284f4ef9c2f1fea8f9485369bb6c0e.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/5e284f4ef9c2f1fea8f9485369bb6c0e.jpg",
+            "width": 750,
+            "height": 545
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/kisah-nyata-marketplace-besar-tumbang-karena-satu-form-csrf/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Kisah Nyata: Marketplace Besar Tumbang karena Satu Form CSRF"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2940",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2940"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2940/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 3706,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2940/revisions/3706"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2941"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2940"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2940"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2940"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

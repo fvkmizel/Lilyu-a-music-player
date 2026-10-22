@@ -1,0 +1,328 @@
+{
+  "id": 2968,
+  "title": "Automated Testing: Mendeteksi CSRF dengan OWASP ZAP",
+  "slug": "automated-testing-mendeteksi-csrf-dengan-owasp-zap",
+  "url": "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/",
+  "date": "2025-07-07T08:32:19",
+  "date_gmt": "2025-07-07T08:32:19",
+  "modified": "2025-10-11T16:17:11",
+  "modified_gmt": "2025-10-11T16:17:11",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    511,
+    385,
+    342,
+    509,
+    510
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/1_fR3sLUj6UNBPrL4j7j370Q.jpg",
+  "excerpt": "Pengantar CSRF (Cross-Site Request Forgery) adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.Sayangnya, banyak pengembang tidak sadar bahwa aplikasi mereka rentan terhadap CSRF. Untungnya, ada alat gratis dan open-source bernama OWASP ZAP yang bisa membantu kita mendeteksi kerentanan CSRF secara otomatis. Apa Itu CSRF? CSRF terjadi saat penyerang menipu browser korban agar mengirim permintaan tanpa sepengetahuan pengguna, misalnya: Mengganti password Menambah admin Menghapus data Browser mengirimkan cookie login secara otomatis, jadi server mengira itu permintaan yang sah. Kalau tidak ada token CSRF atau validasi khusus, server bisa tertipu! Apa Itu OWASP ZAP? OWASP ZAP (Zed Attack Proxy)…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"507\" data-end=\"526\">Pengantar</h2>\n<p style=\"text-align: justify;\" data-start=\"156\" data-end=\"362\"><strong data-start=\"156\" data-end=\"193\">CSRF (Cross-Site Request Forgery)</strong> adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.<br data-start=\"269\" data-end=\"272\" />Sayangnya, banyak pengembang <strong data-start=\"301\" data-end=\"316\">tidak sadar</strong> bahwa aplikasi mereka rentan terhadap CSRF.</p>\n<p style=\"text-align: justify;\" data-start=\"364\" data-end=\"500\">Untungnya, ada alat gratis dan open-source bernama <strong data-start=\"415\" data-end=\"428\">OWASP ZAP</strong> yang bisa membantu kita <strong data-start=\"453\" data-end=\"500\">mendeteksi kerentanan CSRF secara otomatis.</strong></p>\n<h2 style=\"text-align: justify;\" data-start=\"507\" data-end=\"526\">Apa Itu CSRF?</h2>\n<p style=\"text-align: justify;\" data-start=\"528\" data-end=\"646\">CSRF terjadi saat penyerang menipu browser korban agar mengirim permintaan <strong data-start=\"603\" data-end=\"635\">tanpa sepengetahuan pengguna</strong>, misalnya:</p>\n<ul style=\"text-align: justify;\" data-start=\"648\" data-end=\"702\">\n<li data-start=\"648\" data-end=\"668\">\n<p data-start=\"650\" data-end=\"668\">Mengganti password</p>\n</li>\n<li data-start=\"669\" data-end=\"685\">\n<p data-start=\"671\" data-end=\"685\">Menambah admin</p>\n</li>\n<li data-start=\"686\" data-end=\"702\">\n<p data-start=\"688\" data-end=\"702\">Menghapus data</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"704\" data-end=\"802\">Browser mengirimkan <strong data-start=\"724\" data-end=\"756\">cookie login secara otomatis</strong>, jadi server mengira itu permintaan yang sah.</p>\n<p style=\"text-align: justify;\" data-start=\"804\" data-end=\"877\">Kalau tidak ada <strong data-start=\"820\" data-end=\"834\">token CSRF</strong> atau validasi khusus, server bisa tertipu!</p>\n<h2 style=\"text-align: justify;\" data-start=\"884\" data-end=\"909\">Apa Itu OWASP ZAP?</h2>\n<p style=\"text-align: justify;\" data-start=\"911\" data-end=\"984\"><strong data-start=\"911\" data-end=\"943\">OWASP ZAP (Zed Attack Proxy)</strong> adalah alat gratis yang digunakan untuk:</p>\n<ul style=\"text-align: justify;\" data-start=\"986\" data-end=\"1126\">\n<li data-start=\"986\" data-end=\"1017\">\n<p data-start=\"988\" data-end=\"1017\">Menguji keamanan aplikasi web</p>\n</li>\n<li data-start=\"1018\" data-end=\"1082\">\n<p data-start=\"1020\" data-end=\"1082\">Mendeteksi celah seperti CSRF, XSS, SQL Injection, dan lainnya</p>\n</li>\n<li data-start=\"1083\" data-end=\"1126\">\n<p data-start=\"1085\" data-end=\"1126\">Merekam dan menganalisis lalu lintas HTTP</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1128\" data-end=\"1149\">Alat ini cocok untuk:</p>\n<ul style=\"text-align: justify;\" data-start=\"1150\" data-end=\"1201\">\n<li data-start=\"1150\" data-end=\"1168\">\n<p data-start=\"1152\" data-end=\"1168\">Developer pemula</p>\n</li>\n<li data-start=\"1169\" data-end=\"1177\">\n<p data-start=\"1171\" data-end=\"1177\">Tim QA</p>\n</li>\n<li data-start=\"1178\" data-end=\"1201\">\n<p data-start=\"1180\" data-end=\"1201\">Pentester profesional</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"1208\" data-end=\"1244\">Cara OWASP ZAP Mendeteksi CSRF</h2>\n<p style=\"text-align: justify;\" data-start=\"1246\" data-end=\"1261\">OWASP ZAP akan:</p>\n<ol style=\"text-align: justify;\" data-start=\"1262\" data-end=\"1592\">\n<li data-start=\"1262\" data-end=\"1368\">\n<p data-start=\"1265\" data-end=\"1368\"><strong data-start=\"1265\" data-end=\"1293\">Merekam semua permintaan</strong> dari browser ke server (seperti saat kamu buka halaman, klik tombol, dll.)</p>\n</li>\n<li data-start=\"1369\" data-end=\"1441\">\n<p data-start=\"1372\" data-end=\"1441\">Mencari <strong data-start=\"1380\" data-end=\"1406\">form atau request POST</strong> yang <strong data-start=\"1412\" data-end=\"1441\">tidak memiliki token CSRF</strong></p>\n</li>\n<li data-start=\"1442\" data-end=\"1592\">\n<p data-start=\"1445\" data-end=\"1472\">Memberikan peringatan jika:</p>\n<ul data-start=\"1476\" data-end=\"1592\">\n<li data-start=\"1476\" data-end=\"1505\">\n<p data-start=\"1478\" data-end=\"1505\">Tidak ada token sama sekali</p>\n</li>\n<li data-start=\"1509\" data-end=\"1547\">\n<p data-start=\"1511\" data-end=\"1547\">Token ada tapi tidak dicek di server</p>\n</li>\n<li data-start=\"1551\" data-end=\"1592\">\n<p data-start=\"1553\" data-end=\"1592\">Token bisa digunakan ulang (replayable)</p>\n</li>\n</ul>\n</li>\n</ol>\n<h2 style=\"text-align: justify;\" data-start=\"1599\" data-end=\"1661\">Langkah-Langkah Menggunakan OWASP ZAP untuk Deteksi CSRF</h2>\n<h3 style=\"text-align: justify;\" data-start=\"1663\" data-end=\"1702\">1. <strong data-start=\"1670\" data-end=\"1702\">Download &amp; Install OWASP ZAP</strong></h3>\n<ul style=\"text-align: justify;\" data-start=\"1703\" data-end=\"1826\">\n<li data-start=\"1703\" data-end=\"1765\">\n<p data-start=\"1705\" data-end=\"1765\">Kunjungi: <a class=\"\" href=\"https://www.zaproxy.org\" target=\"_new\" rel=\"noopener\" data-start=\"1715\" data-end=\"1765\">https://www.zaproxy.org</a></p>\n</li>\n<li data-start=\"1766\" data-end=\"1826\">\n<p data-start=\"1768\" data-end=\"1826\">Install sesuai sistem operasi kamu (Windows, macOS, Linux)</p>\n</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"1828\" data-end=\"1860\">2. <strong data-start=\"1835\" data-end=\"1860\">Atur Proxy di Browser</strong></h3>\n<ul style=\"text-align: justify;\" data-start=\"1861\" data-end=\"1956\">\n<li data-start=\"1861\" data-end=\"1913\">\n<p data-start=\"1863\" data-end=\"1913\">Buka browser dan arahkan proxy ke <code data-start=\"1897\" data-end=\"1913\">localhost:8080</code></p>\n</li>\n<li data-start=\"1914\" data-end=\"1956\">\n<p data-start=\"1916\" data-end=\"1956\">Pastikan semua trafik melewati OWASP ZAP</p>\n</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"1958\" data-end=\"1994\">3. <strong data-start=\"1965\" data-end=\"1994\">Mulai Rekam Aktivitas Web</strong></h3>\n<ul style=\"text-align: justify;\" data-start=\"1995\" data-end=\"2093\">\n<li data-start=\"1995\" data-end=\"2052\">\n<p data-start=\"1997\" data-end=\"2052\">Buka situs target seperti biasa (login, isi form, dll.)</p>\n</li>\n<li data-start=\"2053\" data-end=\"2093\">\n<p data-start=\"2055\" data-end=\"2093\">ZAP akan mencatat semua aktivitas HTTP</p>\n</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"2095\" data-end=\"2133\">4. <strong data-start=\"2102\" data-end=\"2133\">Gunakan Fitur “Active Scan”</strong></h3>\n<ul style=\"text-align: justify;\" data-start=\"2134\" data-end=\"2236\">\n<li data-start=\"2134\" data-end=\"2199\">\n<p data-start=\"2136\" data-end=\"2199\">Klik kanan pada target URL → pilih <strong data-start=\"2171\" data-end=\"2199\">“Attack” → “Active Scan”</strong></p>\n</li>\n<li data-start=\"2200\" data-end=\"2236\">\n<p data-start=\"2202\" data-end=\"2236\">ZAP akan menguji endpoint dan form</p>\n</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"2238\" data-end=\"2274\">5. <strong data-start=\"2245\" data-end=\"2274\">Cek Hasil di Tab “Alerts”</strong></h3>\n<ul style=\"text-align: justify;\" data-start=\"2275\" data-end=\"2413\">\n<li data-start=\"2275\" data-end=\"2413\">\n<p data-start=\"2277\" data-end=\"2322\">Jika ada potensi <strong data-start=\"2294\" data-end=\"2302\">CSRF</strong>, ZAP akan menandai:</p>\n<ul data-start=\"2325\" data-end=\"2413\">\n<li data-start=\"2325\" data-end=\"2347\">\n<p data-start=\"2327\" data-end=\"2347\">“CSRF Vulnerability”</p>\n</li>\n<li data-start=\"2350\" data-end=\"2379\">\n<p data-start=\"2352\" data-end=\"2379\">“Anti-CSRF token not found”</p>\n</li>\n<li data-start=\"2382\" data-end=\"2413\">\n<p data-start=\"2384\" data-end=\"2413\">“No validation of CSRF token”</p>\n</li>\n</ul>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"2420\" data-end=\"2454\">Apa yang Harus Diperhatikan?</h2>\n<ul style=\"text-align: justify;\" data-start=\"2456\" data-end=\"2677\">\n<li data-start=\"2456\" data-end=\"2588\">\n<p data-start=\"2458\" data-end=\"2588\">ZAP hanya bisa mendeteksi token <strong data-start=\"2490\" data-end=\"2507\">secara teknis</strong><br data-start=\"2507\" data-end=\"2510\" />Artinya: kalau token tidak ada atau selalu sama, dia akan kasih peringatan</p>\n</li>\n<li data-start=\"2589\" data-end=\"2677\">\n<p data-start=\"2591\" data-end=\"2677\">Tapi kamu tetap perlu <strong data-start=\"2613\" data-end=\"2627\">cek manual</strong> apakah token benar-benar <strong data-start=\"2653\" data-end=\"2677\">divalidasi di server</strong></p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"2684\" data-end=\"2702\">Tips Tambahan</h2>\n<div class=\"_tableContainer_80l1q_1\" style=\"text-align: justify;\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2704\" data-end=\"3393\">\n<thead data-start=\"2704\" data-end=\"2818\">\n<tr data-start=\"2704\" data-end=\"2818\">\n<th data-start=\"2704\" data-end=\"2740\" data-col-size=\"sm\">Tips</th>\n<th data-start=\"2740\" data-end=\"2818\" data-col-size=\"md\">Penjelasan</th>\n</tr>\n</thead>\n<tbody data-start=\"2935\" data-end=\"3393\">\n<tr data-start=\"2935\" data-end=\"3048\">\n<td data-start=\"2935\" data-end=\"2971\" data-col-size=\"sm\">Gunakan di lingkungan testing</td>\n<td data-col-size=\"md\" data-start=\"2971\" data-end=\"3048\">Jangan langsung serang situs live/produksi tanpa izin</td>\n</tr>\n<tr data-start=\"3049\" data-end=\"3163\">\n<td data-start=\"3049\" data-end=\"3085\" data-col-size=\"sm\">Login manual dulu</td>\n<td data-col-size=\"md\" data-start=\"3085\" data-end=\"3163\">Banyak situs hanya menampilkan form setelah login</td>\n</tr>\n<tr data-start=\"3164\" data-end=\"3278\">\n<td data-start=\"3164\" data-end=\"3200\" data-col-size=\"sm\">Gunakan mode “Ajax Spider”</td>\n<td data-col-size=\"md\" data-start=\"3200\" data-end=\"3278\">Untuk mendeteksi form dinamis atau yang muncul lewat JavaScript</td>\n</tr>\n<tr data-start=\"3279\" data-end=\"3393\">\n<td data-start=\"3279\" data-end=\"3315\" data-col-size=\"sm\">Simpan laporan hasil scan</td>\n<td data-col-size=\"md\" data-start=\"3315\" data-end=\"3393\">ZAP bisa export laporan dalam format HTML, XML, Markdown, dll.</td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"><span style=\"font-size: 31px; font-weight: 600;\">Kesimpulan</span></div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"3418\" data-end=\"3546\"><strong data-start=\"3418\" data-end=\"3431\">OWASP ZAP</strong> adalah alat gratis yang sangat berguna untuk <strong data-start=\"3477\" data-end=\"3512\">mendeteksi CSRF secara otomatis</strong>.<br data-start=\"3513\" data-end=\"3516\" />Dengan bantuan ZAP, kamu bisa:</p>\n<blockquote data-start=\"3548\" data-end=\"3646\">\n<p data-start=\"3550\" data-end=\"3646\">Menemukan form yang tidak punya token<br data-start=\"3590\" data-end=\"3593\" />Memastikan aplikasi kamu aman dari serangan CSRF</p>\n</blockquote>\n<p style=\"text-align: justify;\" data-start=\"3648\" data-end=\"3744\">Jangan tunggu sampai diserang.<br data-start=\"3678\" data-end=\"3681\" /><strong data-start=\"3681\" data-end=\"3744\">Uji aplikasi kamu sekarang juga — lebih aman, lebih tenang!</strong></p>\n",
+  "content_text": "Pengantar\nCSRF (Cross-Site Request Forgery)  adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.\nSayangnya, banyak pengembang  tidak sadar  bahwa aplikasi mereka rentan terhadap CSRF.\nUntungnya, ada alat gratis dan open-source bernama  OWASP ZAP  yang bisa membantu kita  mendeteksi kerentanan CSRF secara otomatis.\nApa Itu CSRF?\nCSRF terjadi saat penyerang menipu browser korban agar mengirim permintaan  tanpa sepengetahuan pengguna , misalnya:\nMengganti password\nMenambah admin\nMenghapus data\nBrowser mengirimkan  cookie login secara otomatis , jadi server mengira itu permintaan yang sah.\nKalau tidak ada  token CSRF  atau validasi khusus, server bisa tertipu!\nApa Itu OWASP ZAP?\nOWASP ZAP (Zed Attack Proxy)  adalah alat gratis yang digunakan untuk:\nMenguji keamanan aplikasi web\nMendeteksi celah seperti CSRF, XSS, SQL Injection, dan lainnya\nMerekam dan menganalisis lalu lintas HTTP\nAlat ini cocok untuk:\nDeveloper pemula\nTim QA\nPentester profesional\nCara OWASP ZAP Mendeteksi CSRF\nOWASP ZAP akan:\nMerekam semua permintaan  dari browser ke server (seperti saat kamu buka halaman, klik tombol, dll.)\nMencari  form atau request POST  yang  tidak memiliki token CSRF\nMemberikan peringatan jika:\nTidak ada token sama sekali\nToken ada tapi tidak dicek di server\nToken bisa digunakan ulang (replayable)\nLangkah-Langkah Menggunakan OWASP ZAP untuk Deteksi CSRF\n1.  Download & Install OWASP ZAP\nKunjungi:  https://www.zaproxy.org\nInstall sesuai sistem operasi kamu (Windows, macOS, Linux)\n2.  Atur Proxy di Browser\nBuka browser dan arahkan proxy ke  localhost:8080\nPastikan semua trafik melewati OWASP ZAP\n3.  Mulai Rekam Aktivitas Web\nBuka situs target seperti biasa (login, isi form, dll.)\nZAP akan mencatat semua aktivitas HTTP\n4.  Gunakan Fitur “Active Scan”\nKlik kanan pada target URL → pilih  “Attack” → “Active Scan”\nZAP akan menguji endpoint dan form\n5.  Cek Hasil di Tab “Alerts”\nJika ada potensi  CSRF , ZAP akan menandai:\n“CSRF Vulnerability”\n“Anti-CSRF token not found”\n“No validation of CSRF token”\nApa yang Harus Diperhatikan?\nZAP hanya bisa mendeteksi token  secara teknis\nArtinya: kalau token tidak ada atau selalu sama, dia akan kasih peringatan\nTapi kamu tetap perlu  cek manual  apakah token benar-benar  divalidasi di server\nTips Tambahan\nTips\nPenjelasan\nGunakan di lingkungan testing\nJangan langsung serang situs live/produksi tanpa izin\nLogin manual dulu\nBanyak situs hanya menampilkan form setelah login\nGunakan mode “Ajax Spider”\nUntuk mendeteksi form dinamis atau yang muncul lewat JavaScript\nSimpan laporan hasil scan\nZAP bisa export laporan dalam format HTML, XML, Markdown, dll.\nKesimpulan\nOWASP ZAP  adalah alat gratis yang sangat berguna untuk  mendeteksi CSRF secara otomatis .\nDengan bantuan ZAP, kamu bisa:\nMenemukan form yang tidak punya token\nMemastikan aplikasi kamu aman dari serangan CSRF\nJangan tunggu sampai diserang.\nUji aplikasi kamu sekarang juga — lebih aman, lebih tenang!",
+  "raw": {
+    "id": 2968,
+    "date": "2025-07-07T08:32:19",
+    "date_gmt": "2025-07-07T08:32:19",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2968"
+    },
+    "modified": "2025-10-11T16:17:11",
+    "modified_gmt": "2025-10-11T16:17:11",
+    "slug": "automated-testing-mendeteksi-csrf-dengan-owasp-zap",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/",
+    "title": {
+      "rendered": "Automated Testing: Mendeteksi CSRF dengan OWASP ZAP"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"507\" data-end=\"526\">Pengantar</h2>\n<p style=\"text-align: justify;\" data-start=\"156\" data-end=\"362\"><strong data-start=\"156\" data-end=\"193\">CSRF (Cross-Site Request Forgery)</strong> adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.<br data-start=\"269\" data-end=\"272\" />Sayangnya, banyak pengembang <strong data-start=\"301\" data-end=\"316\">tidak sadar</strong> bahwa aplikasi mereka rentan terhadap CSRF.</p>\n<p style=\"text-align: justify;\" data-start=\"364\" data-end=\"500\">Untungnya, ada alat gratis dan open-source bernama <strong data-start=\"415\" data-end=\"428\">OWASP ZAP</strong> yang bisa membantu kita <strong data-start=\"453\" data-end=\"500\">mendeteksi kerentanan CSRF secara otomatis.</strong></p>\n<h2 style=\"text-align: justify;\" data-start=\"507\" data-end=\"526\">Apa Itu CSRF?</h2>\n<p style=\"text-align: justify;\" data-start=\"528\" data-end=\"646\">CSRF terjadi saat penyerang menipu browser korban agar mengirim permintaan <strong data-start=\"603\" data-end=\"635\">tanpa sepengetahuan pengguna</strong>, misalnya:</p>\n<ul style=\"text-align: justify;\" data-start=\"648\" data-end=\"702\">\n<li data-start=\"648\" data-end=\"668\">\n<p data-start=\"650\" data-end=\"668\">Mengganti password</p>\n</li>\n<li data-start=\"669\" data-end=\"685\">\n<p data-start=\"671\" data-end=\"685\">Menambah admin</p>\n</li>\n<li data-start=\"686\" data-end=\"702\">\n<p data-start=\"688\" data-end=\"702\">Menghapus data</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"704\" data-end=\"802\">Browser mengirimkan <strong data-start=\"724\" data-end=\"756\">cookie login secara otomatis</strong>, jadi server mengira itu permintaan yang sah.</p>\n<p style=\"text-align: justify;\" data-start=\"804\" data-end=\"877\">Kalau tidak ada <strong data-start=\"820\" data-end=\"834\">token CSRF</strong> atau validasi khusus, server bisa tertipu!</p>\n<h2 style=\"text-align: justify;\" data-start=\"884\" data-end=\"909\">Apa Itu OWASP ZAP?</h2>\n<p style=\"text-align: justify;\" data-start=\"911\" data-end=\"984\"><strong data-start=\"911\" data-end=\"943\">OWASP ZAP (Zed Attack Proxy)</strong> adalah alat gratis yang digunakan untuk:</p>\n<ul style=\"text-align: justify;\" data-start=\"986\" data-end=\"1126\">\n<li data-start=\"986\" data-end=\"1017\">\n<p data-start=\"988\" data-end=\"1017\">Menguji keamanan aplikasi web</p>\n</li>\n<li data-start=\"1018\" data-end=\"1082\">\n<p data-start=\"1020\" data-end=\"1082\">Mendeteksi celah seperti CSRF, XSS, SQL Injection, dan lainnya</p>\n</li>\n<li data-start=\"1083\" data-end=\"1126\">\n<p data-start=\"1085\" data-end=\"1126\">Merekam dan menganalisis lalu lintas HTTP</p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1128\" data-end=\"1149\">Alat ini cocok untuk:</p>\n<ul style=\"text-align: justify;\" data-start=\"1150\" data-end=\"1201\">\n<li data-start=\"1150\" data-end=\"1168\">\n<p data-start=\"1152\" data-end=\"1168\">Developer pemula</p>\n</li>\n<li data-start=\"1169\" data-end=\"1177\">\n<p data-start=\"1171\" data-end=\"1177\">Tim QA</p>\n</li>\n<li data-start=\"1178\" data-end=\"1201\">\n<p data-start=\"1180\" data-end=\"1201\">Pentester profesional</p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"1208\" data-end=\"1244\">Cara OWASP ZAP Mendeteksi CSRF</h2>\n<p style=\"text-align: justify;\" data-start=\"1246\" data-end=\"1261\">OWASP ZAP akan:</p>\n<ol style=\"text-align: justify;\" data-start=\"1262\" data-end=\"1592\">\n<li data-start=\"1262\" data-end=\"1368\">\n<p data-start=\"1265\" data-end=\"1368\"><strong data-start=\"1265\" data-end=\"1293\">Merekam semua permintaan</strong> dari browser ke server (seperti saat kamu buka halaman, klik tombol, dll.)</p>\n</li>\n<li data-start=\"1369\" data-end=\"1441\">\n<p data-start=\"1372\" data-end=\"1441\">Mencari <strong data-start=\"1380\" data-end=\"1406\">form atau request POST</strong> yang <strong data-start=\"1412\" data-end=\"1441\">tidak memiliki token CSRF</strong></p>\n</li>\n<li data-start=\"1442\" data-end=\"1592\">\n<p data-start=\"1445\" data-end=\"1472\">Memberikan peringatan jika:</p>\n<ul data-start=\"1476\" data-end=\"1592\">\n<li data-start=\"1476\" data-end=\"1505\">\n<p data-start=\"1478\" data-end=\"1505\">Tidak ada token sama sekali</p>\n</li>\n<li data-start=\"1509\" data-end=\"1547\">\n<p data-start=\"1511\" data-end=\"1547\">Token ada tapi tidak dicek di server</p>\n</li>\n<li data-start=\"1551\" data-end=\"1592\">\n<p data-start=\"1553\" data-end=\"1592\">Token bisa digunakan ulang (replayable)</p>\n</li>\n</ul>\n</li>\n</ol>\n<h2 style=\"text-align: justify;\" data-start=\"1599\" data-end=\"1661\">Langkah-Langkah Menggunakan OWASP ZAP untuk Deteksi CSRF</h2>\n<h3 style=\"text-align: justify;\" data-start=\"1663\" data-end=\"1702\">1. <strong data-start=\"1670\" data-end=\"1702\">Download &amp; Install OWASP ZAP</strong></h3>\n<ul style=\"text-align: justify;\" data-start=\"1703\" data-end=\"1826\">\n<li data-start=\"1703\" data-end=\"1765\">\n<p data-start=\"1705\" data-end=\"1765\">Kunjungi: <a class=\"\" href=\"https://www.zaproxy.org\" target=\"_new\" rel=\"noopener\" data-start=\"1715\" data-end=\"1765\">https://www.zaproxy.org</a></p>\n</li>\n<li data-start=\"1766\" data-end=\"1826\">\n<p data-start=\"1768\" data-end=\"1826\">Install sesuai sistem operasi kamu (Windows, macOS, Linux)</p>\n</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"1828\" data-end=\"1860\">2. <strong data-start=\"1835\" data-end=\"1860\">Atur Proxy di Browser</strong></h3>\n<ul style=\"text-align: justify;\" data-start=\"1861\" data-end=\"1956\">\n<li data-start=\"1861\" data-end=\"1913\">\n<p data-start=\"1863\" data-end=\"1913\">Buka browser dan arahkan proxy ke <code data-start=\"1897\" data-end=\"1913\">localhost:8080</code></p>\n</li>\n<li data-start=\"1914\" data-end=\"1956\">\n<p data-start=\"1916\" data-end=\"1956\">Pastikan semua trafik melewati OWASP ZAP</p>\n</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"1958\" data-end=\"1994\">3. <strong data-start=\"1965\" data-end=\"1994\">Mulai Rekam Aktivitas Web</strong></h3>\n<ul style=\"text-align: justify;\" data-start=\"1995\" data-end=\"2093\">\n<li data-start=\"1995\" data-end=\"2052\">\n<p data-start=\"1997\" data-end=\"2052\">Buka situs target seperti biasa (login, isi form, dll.)</p>\n</li>\n<li data-start=\"2053\" data-end=\"2093\">\n<p data-start=\"2055\" data-end=\"2093\">ZAP akan mencatat semua aktivitas HTTP</p>\n</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"2095\" data-end=\"2133\">4. <strong data-start=\"2102\" data-end=\"2133\">Gunakan Fitur “Active Scan”</strong></h3>\n<ul style=\"text-align: justify;\" data-start=\"2134\" data-end=\"2236\">\n<li data-start=\"2134\" data-end=\"2199\">\n<p data-start=\"2136\" data-end=\"2199\">Klik kanan pada target URL → pilih <strong data-start=\"2171\" data-end=\"2199\">“Attack” → “Active Scan”</strong></p>\n</li>\n<li data-start=\"2200\" data-end=\"2236\">\n<p data-start=\"2202\" data-end=\"2236\">ZAP akan menguji endpoint dan form</p>\n</li>\n</ul>\n<h3 style=\"text-align: justify;\" data-start=\"2238\" data-end=\"2274\">5. <strong data-start=\"2245\" data-end=\"2274\">Cek Hasil di Tab “Alerts”</strong></h3>\n<ul style=\"text-align: justify;\" data-start=\"2275\" data-end=\"2413\">\n<li data-start=\"2275\" data-end=\"2413\">\n<p data-start=\"2277\" data-end=\"2322\">Jika ada potensi <strong data-start=\"2294\" data-end=\"2302\">CSRF</strong>, ZAP akan menandai:</p>\n<ul data-start=\"2325\" data-end=\"2413\">\n<li data-start=\"2325\" data-end=\"2347\">\n<p data-start=\"2327\" data-end=\"2347\">“CSRF Vulnerability”</p>\n</li>\n<li data-start=\"2350\" data-end=\"2379\">\n<p data-start=\"2352\" data-end=\"2379\">“Anti-CSRF token not found”</p>\n</li>\n<li data-start=\"2382\" data-end=\"2413\">\n<p data-start=\"2384\" data-end=\"2413\">“No validation of CSRF token”</p>\n</li>\n</ul>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"2420\" data-end=\"2454\">Apa yang Harus Diperhatikan?</h2>\n<ul style=\"text-align: justify;\" data-start=\"2456\" data-end=\"2677\">\n<li data-start=\"2456\" data-end=\"2588\">\n<p data-start=\"2458\" data-end=\"2588\">ZAP hanya bisa mendeteksi token <strong data-start=\"2490\" data-end=\"2507\">secara teknis</strong><br data-start=\"2507\" data-end=\"2510\" />Artinya: kalau token tidak ada atau selalu sama, dia akan kasih peringatan</p>\n</li>\n<li data-start=\"2589\" data-end=\"2677\">\n<p data-start=\"2591\" data-end=\"2677\">Tapi kamu tetap perlu <strong data-start=\"2613\" data-end=\"2627\">cek manual</strong> apakah token benar-benar <strong data-start=\"2653\" data-end=\"2677\">divalidasi di server</strong></p>\n</li>\n</ul>\n<h2 style=\"text-align: justify;\" data-start=\"2684\" data-end=\"2702\">Tips Tambahan</h2>\n<div class=\"_tableContainer_80l1q_1\" style=\"text-align: justify;\">\n<div class=\"_tableWrapper_80l1q_14 group flex w-fit flex-col-reverse\" tabindex=\"-1\">\n<table class=\"w-fit min-w-(--thread-content-width)\" data-start=\"2704\" data-end=\"3393\">\n<thead data-start=\"2704\" data-end=\"2818\">\n<tr data-start=\"2704\" data-end=\"2818\">\n<th data-start=\"2704\" data-end=\"2740\" data-col-size=\"sm\">Tips</th>\n<th data-start=\"2740\" data-end=\"2818\" data-col-size=\"md\">Penjelasan</th>\n</tr>\n</thead>\n<tbody data-start=\"2935\" data-end=\"3393\">\n<tr data-start=\"2935\" data-end=\"3048\">\n<td data-start=\"2935\" data-end=\"2971\" data-col-size=\"sm\">Gunakan di lingkungan testing</td>\n<td data-col-size=\"md\" data-start=\"2971\" data-end=\"3048\">Jangan langsung serang situs live/produksi tanpa izin</td>\n</tr>\n<tr data-start=\"3049\" data-end=\"3163\">\n<td data-start=\"3049\" data-end=\"3085\" data-col-size=\"sm\">Login manual dulu</td>\n<td data-col-size=\"md\" data-start=\"3085\" data-end=\"3163\">Banyak situs hanya menampilkan form setelah login</td>\n</tr>\n<tr data-start=\"3164\" data-end=\"3278\">\n<td data-start=\"3164\" data-end=\"3200\" data-col-size=\"sm\">Gunakan mode “Ajax Spider”</td>\n<td data-col-size=\"md\" data-start=\"3200\" data-end=\"3278\">Untuk mendeteksi form dinamis atau yang muncul lewat JavaScript</td>\n</tr>\n<tr data-start=\"3279\" data-end=\"3393\">\n<td data-start=\"3279\" data-end=\"3315\" data-col-size=\"sm\">Simpan laporan hasil scan</td>\n<td data-col-size=\"md\" data-start=\"3315\" data-end=\"3393\">ZAP bisa export laporan dalam format HTML, XML, Markdown, dll.</td>\n</tr>\n</tbody>\n</table>\n<div class=\"sticky end-(--thread-content-margin) h-0 self-end select-none\">\n<div class=\"absolute end-0 flex items-end\"><span style=\"font-size: 31px; font-weight: 600;\">Kesimpulan</span></div>\n</div>\n</div>\n</div>\n<p style=\"text-align: justify;\" data-start=\"3418\" data-end=\"3546\"><strong data-start=\"3418\" data-end=\"3431\">OWASP ZAP</strong> adalah alat gratis yang sangat berguna untuk <strong data-start=\"3477\" data-end=\"3512\">mendeteksi CSRF secara otomatis</strong>.<br data-start=\"3513\" data-end=\"3516\" />Dengan bantuan ZAP, kamu bisa:</p>\n<blockquote data-start=\"3548\" data-end=\"3646\">\n<p data-start=\"3550\" data-end=\"3646\">Menemukan form yang tidak punya token<br data-start=\"3590\" data-end=\"3593\" />Memastikan aplikasi kamu aman dari serangan CSRF</p>\n</blockquote>\n<p style=\"text-align: justify;\" data-start=\"3648\" data-end=\"3744\">Jangan tunggu sampai diserang.<br data-start=\"3678\" data-end=\"3681\" /><strong data-start=\"3681\" data-end=\"3744\">Uji aplikasi kamu sekarang juga — lebih aman, lebih tenang!</strong></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar CSRF (Cross-Site Request Forgery) adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.Sayangnya, banyak pengembang tidak sadar bahwa aplikasi mereka rentan terhadap CSRF. Untungnya, ada alat gratis dan open-source bernama OWASP ZAP yang bisa membantu kita mendeteksi kerentanan CSRF secara otomatis. Apa Itu CSRF? CSRF terjadi saat penyerang menipu browser korban agar mengirim permintaan tanpa sepengetahuan pengguna, misalnya: Mengganti password Menambah admin Menghapus data Browser mengirimkan cookie login secara otomatis, jadi server mengira itu permintaan yang sah. Kalau tidak ada token CSRF atau validasi khusus, server bisa tertipu! Apa Itu OWASP ZAP? OWASP ZAP (Zed Attack Proxy)&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 2969,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "owasp zap",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "CSRF (Cross-Site Request Forgery) adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      511,
+      385,
+      342,
+      509,
+      510
+    ],
+    "class_list": [
+      "post-2968",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-burp-suite",
+      "tag-cross-site-request-forgery-csrf",
+      "tag-csrf",
+      "tag-owasp-zap",
+      "tag-proxy"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Automated Testing: Mendeteksi CSRF dengan OWASP ZAP - buletinsiber.com</title>\n<meta name=\"description\" content=\"CSRF (Cross-Site Request Forgery) adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.\" />\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Automated Testing: Mendeteksi CSRF dengan OWASP ZAP - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"CSRF (Cross-Site Request Forgery) adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-07T08:32:19+00:00\" />\n<meta property=\"article:modified_time\" content=\"2025-10-11T16:17:11+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/1_fR3sLUj6UNBPrL4j7j370Q.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1200\" />\n\t<meta property=\"og:image:height\" content=\"620\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/\",\"url\":\"https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/\",\"name\":\"Automated Testing: Mendeteksi CSRF dengan OWASP ZAP - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1_fR3sLUj6UNBPrL4j7j370Q.jpg\",\"datePublished\":\"2025-07-07T08:32:19+00:00\",\"dateModified\":\"2025-10-11T16:17:11+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"description\":\"CSRF (Cross-Site Request Forgery) adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.\",\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1_fR3sLUj6UNBPrL4j7j370Q.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/1_fR3sLUj6UNBPrL4j7j370Q.jpg\",\"width\":1200,\"height\":620},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Automated Testing: Mendeteksi CSRF dengan OWASP ZAP\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Automated Testing: Mendeteksi CSRF dengan OWASP ZAP - buletinsiber.com",
+      "description": "CSRF (Cross-Site Request Forgery) adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Automated Testing: Mendeteksi CSRF dengan OWASP ZAP - buletinsiber.com",
+      "og_description": "CSRF (Cross-Site Request Forgery) adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.",
+      "og_url": "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-07T08:32:19+00:00",
+      "article_modified_time": "2025-10-11T16:17:11+00:00",
+      "og_image": [
+        {
+          "width": 1200,
+          "height": 620,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1_fR3sLUj6UNBPrL4j7j370Q.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/",
+            "url": "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/",
+            "name": "Automated Testing: Mendeteksi CSRF dengan OWASP ZAP - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1_fR3sLUj6UNBPrL4j7j370Q.jpg",
+            "datePublished": "2025-07-07T08:32:19+00:00",
+            "dateModified": "2025-10-11T16:17:11+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "description": "CSRF (Cross-Site Request Forgery) adalah salah satu serangan berbahaya yang sering terjadi pada aplikasi web.",
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/1_fR3sLUj6UNBPrL4j7j370Q.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/1_fR3sLUj6UNBPrL4j7j370Q.jpg",
+            "width": 1200,
+            "height": 620
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/automated-testing-mendeteksi-csrf-dengan-owasp-zap/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Automated Testing: Mendeteksi CSRF dengan OWASP ZAP"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2968",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2968"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 4,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2968/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 6299,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2968/revisions/6299"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2969"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2968"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2968"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2968"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

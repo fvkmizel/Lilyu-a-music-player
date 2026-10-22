@@ -1,0 +1,313 @@
+{
+  "id": 2943,
+  "title": "Burp Suite in Action: Mendeteksi CSRF Tersembunyi",
+  "slug": "burp-suite-in-action-mendeteksi-csrf-tersembunyi",
+  "url": "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/",
+  "date": "2025-07-07T08:37:23",
+  "date_gmt": "2025-07-07T08:37:23",
+  "modified": "2025-07-07T08:37:23",
+  "modified_gmt": "2025-07-07T08:37:23",
+  "author": {
+    "id": 2,
+    "name": "public enemy"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    385
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/07/Blog-IMG-3_How-does-Burp-Suite-work.jpg",
+  "excerpt": "Dalam dunia keamanan web, CSRF (Cross-Site Request Forgery) masih sering ditemukan — terutama pada form tersembunyi atau API endpoint yang tidak diamankan dengan baik. Nah, di artikel ini, kita akan bahas bagaimana cara menggunakan Burp Suite untuk mendeteksi dan memburu endpoint yang rawan CSRF, dengan langkah-langkah sederhana. 🔍 Apa Itu Burp Suite? Burp Suite adalah alat yang digunakan oleh penetration tester atau bug hunter untuk menganalisis dan menguji keamanan aplikasi web. Dengan Burp Suite, kita bisa: Melihat semua request dan response web Memodifikasi permintaan sebelum dikirim ke server Mencari tahu apakah aplikasi memiliki celah keamanan Salah satunya: menemukan endpoint CSRF…",
+  "content_html": "<h1 data-start=\"86\" data-end=\"141\"></h1>\n<p data-start=\"143\" data-end=\"322\">Dalam dunia keamanan web, <strong data-start=\"169\" data-end=\"206\">CSRF (Cross-Site Request Forgery)</strong> masih sering ditemukan — terutama pada <strong data-start=\"246\" data-end=\"266\">form tersembunyi</strong> atau <strong data-start=\"272\" data-end=\"288\">API endpoint</strong> yang tidak diamankan dengan baik.</p>\n<p data-start=\"324\" data-end=\"495\">Nah, di artikel ini, kita akan bahas bagaimana cara <strong data-start=\"376\" data-end=\"402\">menggunakan Burp Suite</strong> untuk <strong data-start=\"409\" data-end=\"460\">mendeteksi dan memburu endpoint yang rawan CSRF</strong>, dengan langkah-langkah sederhana.</p>\n<hr data-start=\"497\" data-end=\"500\" />\n<h2 data-start=\"502\" data-end=\"527\">🔍 Apa Itu Burp Suite?</h2>\n<p data-start=\"529\" data-end=\"672\"><strong data-start=\"529\" data-end=\"543\">Burp Suite</strong> adalah alat yang digunakan oleh <strong data-start=\"576\" data-end=\"598\">penetration tester</strong> atau <strong data-start=\"604\" data-end=\"618\">bug hunter</strong> untuk menganalisis dan menguji keamanan aplikasi web.</p>\n<p data-start=\"674\" data-end=\"703\">Dengan Burp Suite, kita bisa:</p>\n<ul data-start=\"704\" data-end=\"855\">\n<li data-start=\"704\" data-end=\"744\">\n<p data-start=\"706\" data-end=\"744\">Melihat semua request dan response web</p>\n</li>\n<li data-start=\"745\" data-end=\"796\">\n<p data-start=\"747\" data-end=\"796\">Memodifikasi permintaan sebelum dikirim ke server</p>\n</li>\n<li data-start=\"797\" data-end=\"855\">\n<p data-start=\"799\" data-end=\"855\">Mencari tahu apakah aplikasi <strong data-start=\"828\" data-end=\"855\">memiliki celah keamanan</strong></p>\n</li>\n</ul>\n<p data-start=\"857\" data-end=\"917\">Salah satunya: <strong data-start=\"872\" data-end=\"917\">menemukan endpoint CSRF yang tersembunyi.</strong></p>\n<hr data-start=\"919\" data-end=\"922\" />\n<h2 data-start=\"924\" data-end=\"976\">🧨 Apa Itu Endpoint Tersembunyi yang Rentan CSRF?</h2>\n<p data-start=\"978\" data-end=\"1001\">Kadang, dalam aplikasi:</p>\n<ul data-start=\"1002\" data-end=\"1132\">\n<li data-start=\"1002\" data-end=\"1041\">\n<p data-start=\"1004\" data-end=\"1041\">Ada form yang tidak terlihat pengguna</p>\n</li>\n<li data-start=\"1042\" data-end=\"1093\">\n<p data-start=\"1044\" data-end=\"1093\">Ada fitur yang dikendalikan lewat JavaScript/AJAX</p>\n</li>\n<li data-start=\"1094\" data-end=\"1132\">\n<p data-start=\"1096\" data-end=\"1132\">Ada permintaan POST tanpa CSRF token</p>\n</li>\n</ul>\n<p data-start=\"1134\" data-end=\"1224\">Kalau tidak diamankan, fitur-fitur ini <strong data-start=\"1173\" data-end=\"1195\">bisa dieksploitasi</strong> oleh penyerang dengan mudah.</p>\n<hr data-start=\"1226\" data-end=\"1229\" />\n<h2 data-start=\"1231\" data-end=\"1298\">🛠️ Langkah-Langkah Menggunakan Burp Suite untuk Mendeteksi CSRF</h2>\n<h3 data-start=\"1300\" data-end=\"1355\">1. <strong data-start=\"1307\" data-end=\"1355\">Jalankan Burp Suite &amp; Konfigurasikan Browser</strong></h3>\n<ul data-start=\"1357\" data-end=\"1512\">\n<li data-start=\"1357\" data-end=\"1378\">\n<p data-start=\"1359\" data-end=\"1378\">Jalankan Burp Suite</p>\n</li>\n<li data-start=\"1379\" data-end=\"1448\">\n<p data-start=\"1381\" data-end=\"1448\">Atur browser agar memakai proxy Burp (biasanya di <code data-start=\"1431\" data-end=\"1447\">localhost:8080</code>)</p>\n</li>\n<li data-start=\"1449\" data-end=\"1512\">\n<p data-start=\"1451\" data-end=\"1512\">Aktifkan SSL Interception agar semua trafik HTTPS bisa dibaca</p>\n</li>\n</ul>\n<h3 data-start=\"1514\" data-end=\"1555\">2. <strong data-start=\"1521\" data-end=\"1555\">Gunakan Aplikasi Seperti Biasa</strong></h3>\n<ul data-start=\"1557\" data-end=\"1693\">\n<li data-start=\"1557\" data-end=\"1583\">\n<p data-start=\"1559\" data-end=\"1583\">Login ke aplikasi target</p>\n</li>\n<li data-start=\"1584\" data-end=\"1649\">\n<p data-start=\"1586\" data-end=\"1649\">Gunakan semua fitur (edit profil, tambah item, ubah data, dll.)</p>\n</li>\n<li data-start=\"1650\" data-end=\"1693\">\n<p data-start=\"1652\" data-end=\"1693\">Biarkan Burp Suite mencatat semua request</p>\n</li>\n</ul>\n<h3 data-start=\"1695\" data-end=\"1747\">3. <strong data-start=\"1702\" data-end=\"1747\">Cek Setiap Permintaan POST / PUT / DELETE</strong></h3>\n<ul data-start=\"1749\" data-end=\"1900\">\n<li data-start=\"1749\" data-end=\"1776\">\n<p data-start=\"1751\" data-end=\"1776\">Buka tab <strong data-start=\"1760\" data-end=\"1776\">HTTP history</strong></p>\n</li>\n<li data-start=\"1777\" data-end=\"1841\">\n<p data-start=\"1779\" data-end=\"1841\">Filter permintaan POST/PUT/DELETE (biasanya paling rawan CSRF)</p>\n</li>\n<li data-start=\"1842\" data-end=\"1900\">\n<p data-start=\"1844\" data-end=\"1900\">Perhatikan: <strong data-start=\"1856\" data-end=\"1900\">Apakah permintaan mengandung token CSRF?</strong></p>\n</li>\n</ul>\n<h4 data-start=\"1902\" data-end=\"1923\">⚠️ Waspada jika:</h4>\n<ul data-start=\"1924\" data-end=\"2061\">\n<li data-start=\"1924\" data-end=\"2006\">\n<p data-start=\"1926\" data-end=\"2006\">Tidak ada token seperti <code data-start=\"1950\" data-end=\"1962\">csrf_token</code>, <code data-start=\"1964\" data-end=\"1984\">authenticity_token</code>, <code data-start=\"1986\" data-end=\"2000\">X-CSRF-TOKEN</code>, dll.</p>\n</li>\n<li data-start=\"2007\" data-end=\"2061\">\n<p data-start=\"2009\" data-end=\"2061\">Tidak ada header tambahan seperti <code data-start=\"2043\" data-end=\"2061\">X-Requested-With</code></p>\n</li>\n</ul>\n<h3 data-start=\"2063\" data-end=\"2107\">4. <strong data-start=\"2070\" data-end=\"2107\">Gunakan Repeater untuk Uji Manual</strong></h3>\n<ul data-start=\"2109\" data-end=\"2235\">\n<li data-start=\"2109\" data-end=\"2155\">\n<p data-start=\"2111\" data-end=\"2155\">Kirim ulang permintaan dari tab <strong data-start=\"2143\" data-end=\"2155\">Repeater</strong></p>\n</li>\n<li data-start=\"2156\" data-end=\"2187\">\n<p data-start=\"2158\" data-end=\"2187\">Coba <strong data-start=\"2163\" data-end=\"2187\">hapus token CSRF-nya</strong></p>\n</li>\n<li data-start=\"2188\" data-end=\"2235\">\n<p data-start=\"2190\" data-end=\"2235\">Lihat apakah server tetap menerima permintaan</p>\n</li>\n</ul>\n<p data-start=\"2237\" data-end=\"2319\">Kalau <strong data-start=\"2243\" data-end=\"2280\">server tetap memproses permintaan</strong>, berarti endpoint itu <strong data-start=\"2303\" data-end=\"2319\">rentan CSRF!</strong></p>\n<hr data-start=\"2321\" data-end=\"2324\" />\n<h2 data-start=\"2326\" data-end=\"2344\">🧪 Contoh Nyata</h2>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">http</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-http\"><code class=\"whitespace-pre! language-http\">POST /change-password HTTP/1.1<br />\nHost: appku.com<br />\nCookie: session=abc123</code></code>new_password=123456</div>\n</div>\n<p data-start=\"2450\" data-end=\"2471\">Kalau permintaan ini:</p>\n<ul data-start=\"2472\" data-end=\"2549\">\n<li data-start=\"2472\" data-end=\"2494\">\n<p data-start=\"2474\" data-end=\"2494\">Tidak ada CSRF token</p>\n</li>\n<li data-start=\"2495\" data-end=\"2549\">\n<p data-start=\"2497\" data-end=\"2549\">Bisa dikirim ulang dari situs lain (misalnya iframe)</p>\n</li>\n</ul>\n<p data-start=\"2551\" data-end=\"2604\">Maka ini <strong data-start=\"2560\" data-end=\"2574\">rawan CSRF</strong>, dan harus segera diperbaiki.</p>\n<hr data-start=\"2606\" data-end=\"2609\" />\n<h2 data-start=\"2611\" data-end=\"2671\">🛡️ Apa yang Harus Dilakukan Jika Ketemu Endpoint Rentan?</h2>\n<h3 data-start=\"2673\" data-end=\"2693\">Untuk Developer:</h3>\n<ul data-start=\"2694\" data-end=\"2813\">\n<li data-start=\"2694\" data-end=\"2736\">\n<p data-start=\"2696\" data-end=\"2736\">Tambahkan <strong data-start=\"2706\" data-end=\"2720\">token CSRF</strong> di form dan API</p>\n</li>\n<li data-start=\"2737\" data-end=\"2768\">\n<p data-start=\"2739\" data-end=\"2768\">Validasi token di sisi server</p>\n</li>\n<li data-start=\"2769\" data-end=\"2813\">\n<p data-start=\"2771\" data-end=\"2813\">Gunakan <strong data-start=\"2779\" data-end=\"2813\">cookie dengan atribut SameSite</strong></p>\n</li>\n</ul>\n<h3 data-start=\"2815\" data-end=\"2844\">Untuk Penetration Tester:</h3>\n<ul data-start=\"2845\" data-end=\"2960\">\n<li data-start=\"2845\" data-end=\"2877\">\n<p data-start=\"2847\" data-end=\"2877\">Dokumentasikan endpoint rentan</p>\n</li>\n<li data-start=\"2878\" data-end=\"2913\">\n<p data-start=\"2880\" data-end=\"2913\">Laporkan ke tim keamanan aplikasi</p>\n</li>\n<li data-start=\"2914\" data-end=\"2960\">\n<p data-start=\"2916\" data-end=\"2960\">Sertakan bukti (screenshot + hasil Repeater)</p>\n</li>\n</ul>\n<hr data-start=\"2962\" data-end=\"2965\" />\n<h2 data-start=\"2967\" data-end=\"2986\">🎓 Tips Tambahan</h2>\n<ul data-start=\"2988\" data-end=\"3212\">\n<li data-start=\"2988\" data-end=\"3034\">\n<p data-start=\"2990\" data-end=\"3034\">Gunakan plugin Burp seperti <strong data-start=\"3018\" data-end=\"3034\">CSRF Scanner</strong></p>\n</li>\n<li data-start=\"3035\" data-end=\"3118\">\n<p data-start=\"3037\" data-end=\"3118\">Gabungkan dengan uji manual, karena kadang token ada tapi tidak dicek oleh server</p>\n</li>\n<li data-start=\"3119\" data-end=\"3212\">\n<p data-start=\"3121\" data-end=\"3212\">Pastikan kamu menguji aplikasi <strong data-start=\"3152\" data-end=\"3166\">saat login</strong>, karena CSRF terjadi saat user terautentikasi</p>\n</li>\n</ul>\n<hr data-start=\"3214\" data-end=\"3217\" />\n<h2 data-start=\"3219\" data-end=\"3235\">🧾 Kesimpulan</h2>\n<p data-start=\"3237\" data-end=\"3367\">CSRF masih jadi masalah serius, dan banyak aplikasi <strong data-start=\"3289\" data-end=\"3320\">menyimpan celah tersembunyi</strong> di endpoint yang tidak dilindungi dengan baik.</p>\n<p data-start=\"3369\" data-end=\"3398\">Dengan Burp Suite, kamu bisa:</p>\n<ul data-start=\"3399\" data-end=\"3514\">\n<li data-start=\"3399\" data-end=\"3432\">\n<p data-start=\"3401\" data-end=\"3432\"><strong data-start=\"3401\" data-end=\"3432\">Mendeteksi form tanpa token</strong></p>\n</li>\n<li data-start=\"3433\" data-end=\"3467\">\n<p data-start=\"3435\" data-end=\"3467\"><strong data-start=\"3435\" data-end=\"3467\">Menguji langsung di Repeater</strong></p>\n</li>\n<li data-start=\"3468\" data-end=\"3514\">\n<p data-start=\"3470\" data-end=\"3514\"><strong data-start=\"3470\" data-end=\"3514\">Membantu developer memperbaiki celah ini</strong></p>\n</li>\n</ul>\n<blockquote data-start=\"3516\" data-end=\"3596\">\n<p data-start=\"3518\" data-end=\"3596\">Jangan anggap semua form aman—kadang yang tersembunyi justru paling berbahaya.</p>\n</blockquote>\n<p data-start=\"3518\" data-end=\"3596\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n",
+  "content_text": "Dalam dunia keamanan web,  CSRF (Cross-Site Request Forgery)  masih sering ditemukan — terutama pada  form tersembunyi  atau  API endpoint  yang tidak diamankan dengan baik.\nNah, di artikel ini, kita akan bahas bagaimana cara  menggunakan Burp Suite  untuk  mendeteksi dan memburu endpoint yang rawan CSRF , dengan langkah-langkah sederhana.\n🔍 Apa Itu Burp Suite?\nBurp Suite  adalah alat yang digunakan oleh  penetration tester  atau  bug hunter  untuk menganalisis dan menguji keamanan aplikasi web.\nDengan Burp Suite, kita bisa:\nMelihat semua request dan response web\nMemodifikasi permintaan sebelum dikirim ke server\nMencari tahu apakah aplikasi  memiliki celah keamanan\nSalah satunya:  menemukan endpoint CSRF yang tersembunyi.\n🧨 Apa Itu Endpoint Tersembunyi yang Rentan CSRF?\nKadang, dalam aplikasi:\nAda form yang tidak terlihat pengguna\nAda fitur yang dikendalikan lewat JavaScript/AJAX\nAda permintaan POST tanpa CSRF token\nKalau tidak diamankan, fitur-fitur ini  bisa dieksploitasi  oleh penyerang dengan mudah.\n🛠️ Langkah-Langkah Menggunakan Burp Suite untuk Mendeteksi CSRF\n1.  Jalankan Burp Suite & Konfigurasikan Browser\nJalankan Burp Suite\nAtur browser agar memakai proxy Burp (biasanya di  localhost:8080 )\nAktifkan SSL Interception agar semua trafik HTTPS bisa dibaca\n2.  Gunakan Aplikasi Seperti Biasa\nLogin ke aplikasi target\nGunakan semua fitur (edit profil, tambah item, ubah data, dll.)\nBiarkan Burp Suite mencatat semua request\n3.  Cek Setiap Permintaan POST / PUT / DELETE\nBuka tab  HTTP history\nFilter permintaan POST/PUT/DELETE (biasanya paling rawan CSRF)\nPerhatikan:  Apakah permintaan mengandung token CSRF?\n⚠️ Waspada jika:\nTidak ada token seperti  csrf_token ,  authenticity_token ,  X-CSRF-TOKEN , dll.\nTidak ada header tambahan seperti  X-Requested-With\n4.  Gunakan Repeater untuk Uji Manual\nKirim ulang permintaan dari tab  Repeater\nCoba  hapus token CSRF-nya\nLihat apakah server tetap menerima permintaan\nKalau  server tetap memproses permintaan , berarti endpoint itu  rentan CSRF!\n🧪 Contoh Nyata\nhttp\nCopy   Edit\nPOST /change-password HTTP/1.1\nHost: appku.com\nCookie: session=abc123  new_password=123456\nKalau permintaan ini:\nTidak ada CSRF token\nBisa dikirim ulang dari situs lain (misalnya iframe)\nMaka ini  rawan CSRF , dan harus segera diperbaiki.\n🛡️ Apa yang Harus Dilakukan Jika Ketemu Endpoint Rentan?\nUntuk Developer:\nTambahkan  token CSRF  di form dan API\nValidasi token di sisi server\nGunakan  cookie dengan atribut SameSite\nUntuk Penetration Tester:\nDokumentasikan endpoint rentan\nLaporkan ke tim keamanan aplikasi\nSertakan bukti (screenshot + hasil Repeater)\n🎓 Tips Tambahan\nGunakan plugin Burp seperti  CSRF Scanner\nGabungkan dengan uji manual, karena kadang token ada tapi tidak dicek oleh server\nPastikan kamu menguji aplikasi  saat login , karena CSRF terjadi saat user terautentikasi\n🧾 Kesimpulan\nCSRF masih jadi masalah serius, dan banyak aplikasi  menyimpan celah tersembunyi  di endpoint yang tidak dilindungi dengan baik.\nDengan Burp Suite, kamu bisa:\nMendeteksi form tanpa token\nMenguji langsung di Repeater\nMembantu developer memperbaiki celah ini\nJangan anggap semua form aman—kadang yang tersembunyi justru paling berbahaya.\nPenulias : Muhammad Aditya Alkhawarizmi\nNim : 23156201023\njurusan : Sistem Komputer",
+  "raw": {
+    "id": 2943,
+    "date": "2025-07-07T08:37:23",
+    "date_gmt": "2025-07-07T08:37:23",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2943"
+    },
+    "modified": "2025-07-07T08:37:23",
+    "modified_gmt": "2025-07-07T08:37:23",
+    "slug": "burp-suite-in-action-mendeteksi-csrf-tersembunyi",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/",
+    "title": {
+      "rendered": "Burp Suite in Action: Mendeteksi CSRF Tersembunyi"
+    },
+    "content": {
+      "rendered": "<h1 data-start=\"86\" data-end=\"141\"></h1>\n<p data-start=\"143\" data-end=\"322\">Dalam dunia keamanan web, <strong data-start=\"169\" data-end=\"206\">CSRF (Cross-Site Request Forgery)</strong> masih sering ditemukan — terutama pada <strong data-start=\"246\" data-end=\"266\">form tersembunyi</strong> atau <strong data-start=\"272\" data-end=\"288\">API endpoint</strong> yang tidak diamankan dengan baik.</p>\n<p data-start=\"324\" data-end=\"495\">Nah, di artikel ini, kita akan bahas bagaimana cara <strong data-start=\"376\" data-end=\"402\">menggunakan Burp Suite</strong> untuk <strong data-start=\"409\" data-end=\"460\">mendeteksi dan memburu endpoint yang rawan CSRF</strong>, dengan langkah-langkah sederhana.</p>\n<hr data-start=\"497\" data-end=\"500\" />\n<h2 data-start=\"502\" data-end=\"527\">🔍 Apa Itu Burp Suite?</h2>\n<p data-start=\"529\" data-end=\"672\"><strong data-start=\"529\" data-end=\"543\">Burp Suite</strong> adalah alat yang digunakan oleh <strong data-start=\"576\" data-end=\"598\">penetration tester</strong> atau <strong data-start=\"604\" data-end=\"618\">bug hunter</strong> untuk menganalisis dan menguji keamanan aplikasi web.</p>\n<p data-start=\"674\" data-end=\"703\">Dengan Burp Suite, kita bisa:</p>\n<ul data-start=\"704\" data-end=\"855\">\n<li data-start=\"704\" data-end=\"744\">\n<p data-start=\"706\" data-end=\"744\">Melihat semua request dan response web</p>\n</li>\n<li data-start=\"745\" data-end=\"796\">\n<p data-start=\"747\" data-end=\"796\">Memodifikasi permintaan sebelum dikirim ke server</p>\n</li>\n<li data-start=\"797\" data-end=\"855\">\n<p data-start=\"799\" data-end=\"855\">Mencari tahu apakah aplikasi <strong data-start=\"828\" data-end=\"855\">memiliki celah keamanan</strong></p>\n</li>\n</ul>\n<p data-start=\"857\" data-end=\"917\">Salah satunya: <strong data-start=\"872\" data-end=\"917\">menemukan endpoint CSRF yang tersembunyi.</strong></p>\n<hr data-start=\"919\" data-end=\"922\" />\n<h2 data-start=\"924\" data-end=\"976\">🧨 Apa Itu Endpoint Tersembunyi yang Rentan CSRF?</h2>\n<p data-start=\"978\" data-end=\"1001\">Kadang, dalam aplikasi:</p>\n<ul data-start=\"1002\" data-end=\"1132\">\n<li data-start=\"1002\" data-end=\"1041\">\n<p data-start=\"1004\" data-end=\"1041\">Ada form yang tidak terlihat pengguna</p>\n</li>\n<li data-start=\"1042\" data-end=\"1093\">\n<p data-start=\"1044\" data-end=\"1093\">Ada fitur yang dikendalikan lewat JavaScript/AJAX</p>\n</li>\n<li data-start=\"1094\" data-end=\"1132\">\n<p data-start=\"1096\" data-end=\"1132\">Ada permintaan POST tanpa CSRF token</p>\n</li>\n</ul>\n<p data-start=\"1134\" data-end=\"1224\">Kalau tidak diamankan, fitur-fitur ini <strong data-start=\"1173\" data-end=\"1195\">bisa dieksploitasi</strong> oleh penyerang dengan mudah.</p>\n<hr data-start=\"1226\" data-end=\"1229\" />\n<h2 data-start=\"1231\" data-end=\"1298\">🛠️ Langkah-Langkah Menggunakan Burp Suite untuk Mendeteksi CSRF</h2>\n<h3 data-start=\"1300\" data-end=\"1355\">1. <strong data-start=\"1307\" data-end=\"1355\">Jalankan Burp Suite &amp; Konfigurasikan Browser</strong></h3>\n<ul data-start=\"1357\" data-end=\"1512\">\n<li data-start=\"1357\" data-end=\"1378\">\n<p data-start=\"1359\" data-end=\"1378\">Jalankan Burp Suite</p>\n</li>\n<li data-start=\"1379\" data-end=\"1448\">\n<p data-start=\"1381\" data-end=\"1448\">Atur browser agar memakai proxy Burp (biasanya di <code data-start=\"1431\" data-end=\"1447\">localhost:8080</code>)</p>\n</li>\n<li data-start=\"1449\" data-end=\"1512\">\n<p data-start=\"1451\" data-end=\"1512\">Aktifkan SSL Interception agar semua trafik HTTPS bisa dibaca</p>\n</li>\n</ul>\n<h3 data-start=\"1514\" data-end=\"1555\">2. <strong data-start=\"1521\" data-end=\"1555\">Gunakan Aplikasi Seperti Biasa</strong></h3>\n<ul data-start=\"1557\" data-end=\"1693\">\n<li data-start=\"1557\" data-end=\"1583\">\n<p data-start=\"1559\" data-end=\"1583\">Login ke aplikasi target</p>\n</li>\n<li data-start=\"1584\" data-end=\"1649\">\n<p data-start=\"1586\" data-end=\"1649\">Gunakan semua fitur (edit profil, tambah item, ubah data, dll.)</p>\n</li>\n<li data-start=\"1650\" data-end=\"1693\">\n<p data-start=\"1652\" data-end=\"1693\">Biarkan Burp Suite mencatat semua request</p>\n</li>\n</ul>\n<h3 data-start=\"1695\" data-end=\"1747\">3. <strong data-start=\"1702\" data-end=\"1747\">Cek Setiap Permintaan POST / PUT / DELETE</strong></h3>\n<ul data-start=\"1749\" data-end=\"1900\">\n<li data-start=\"1749\" data-end=\"1776\">\n<p data-start=\"1751\" data-end=\"1776\">Buka tab <strong data-start=\"1760\" data-end=\"1776\">HTTP history</strong></p>\n</li>\n<li data-start=\"1777\" data-end=\"1841\">\n<p data-start=\"1779\" data-end=\"1841\">Filter permintaan POST/PUT/DELETE (biasanya paling rawan CSRF)</p>\n</li>\n<li data-start=\"1842\" data-end=\"1900\">\n<p data-start=\"1844\" data-end=\"1900\">Perhatikan: <strong data-start=\"1856\" data-end=\"1900\">Apakah permintaan mengandung token CSRF?</strong></p>\n</li>\n</ul>\n<h4 data-start=\"1902\" data-end=\"1923\">⚠️ Waspada jika:</h4>\n<ul data-start=\"1924\" data-end=\"2061\">\n<li data-start=\"1924\" data-end=\"2006\">\n<p data-start=\"1926\" data-end=\"2006\">Tidak ada token seperti <code data-start=\"1950\" data-end=\"1962\">csrf_token</code>, <code data-start=\"1964\" data-end=\"1984\">authenticity_token</code>, <code data-start=\"1986\" data-end=\"2000\">X-CSRF-TOKEN</code>, dll.</p>\n</li>\n<li data-start=\"2007\" data-end=\"2061\">\n<p data-start=\"2009\" data-end=\"2061\">Tidak ada header tambahan seperti <code data-start=\"2043\" data-end=\"2061\">X-Requested-With</code></p>\n</li>\n</ul>\n<h3 data-start=\"2063\" data-end=\"2107\">4. <strong data-start=\"2070\" data-end=\"2107\">Gunakan Repeater untuk Uji Manual</strong></h3>\n<ul data-start=\"2109\" data-end=\"2235\">\n<li data-start=\"2109\" data-end=\"2155\">\n<p data-start=\"2111\" data-end=\"2155\">Kirim ulang permintaan dari tab <strong data-start=\"2143\" data-end=\"2155\">Repeater</strong></p>\n</li>\n<li data-start=\"2156\" data-end=\"2187\">\n<p data-start=\"2158\" data-end=\"2187\">Coba <strong data-start=\"2163\" data-end=\"2187\">hapus token CSRF-nya</strong></p>\n</li>\n<li data-start=\"2188\" data-end=\"2235\">\n<p data-start=\"2190\" data-end=\"2235\">Lihat apakah server tetap menerima permintaan</p>\n</li>\n</ul>\n<p data-start=\"2237\" data-end=\"2319\">Kalau <strong data-start=\"2243\" data-end=\"2280\">server tetap memproses permintaan</strong>, berarti endpoint itu <strong data-start=\"2303\" data-end=\"2319\">rentan CSRF!</strong></p>\n<hr data-start=\"2321\" data-end=\"2324\" />\n<h2 data-start=\"2326\" data-end=\"2344\">🧪 Contoh Nyata</h2>\n<div class=\"contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary\">\n<div class=\"flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-token-sidebar-surface-primary select-none rounded-t-2xl\">http</div>\n<div class=\"sticky top-9\">\n<div class=\"absolute end-0 bottom-0 flex h-9 items-center pe-2\">\n<div class=\"bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs\"><button class=\"flex gap-1 items-center select-none py-1\" aria-label=\"Copy\">Copy</button><span class=\"\" data-state=\"closed\"><button class=\"flex items-center gap-1 py-1 select-none\">Edit</button></span></div>\n</div>\n</div>\n<div class=\"overflow-y-auto p-4\" dir=\"ltr\"><code class=\"whitespace-pre! language-http\"><code class=\"whitespace-pre! language-http\">POST /change-password HTTP/1.1<br />\nHost: appku.com<br />\nCookie: session=abc123</code></code>new_password=123456</div>\n</div>\n<p data-start=\"2450\" data-end=\"2471\">Kalau permintaan ini:</p>\n<ul data-start=\"2472\" data-end=\"2549\">\n<li data-start=\"2472\" data-end=\"2494\">\n<p data-start=\"2474\" data-end=\"2494\">Tidak ada CSRF token</p>\n</li>\n<li data-start=\"2495\" data-end=\"2549\">\n<p data-start=\"2497\" data-end=\"2549\">Bisa dikirim ulang dari situs lain (misalnya iframe)</p>\n</li>\n</ul>\n<p data-start=\"2551\" data-end=\"2604\">Maka ini <strong data-start=\"2560\" data-end=\"2574\">rawan CSRF</strong>, dan harus segera diperbaiki.</p>\n<hr data-start=\"2606\" data-end=\"2609\" />\n<h2 data-start=\"2611\" data-end=\"2671\">🛡️ Apa yang Harus Dilakukan Jika Ketemu Endpoint Rentan?</h2>\n<h3 data-start=\"2673\" data-end=\"2693\">Untuk Developer:</h3>\n<ul data-start=\"2694\" data-end=\"2813\">\n<li data-start=\"2694\" data-end=\"2736\">\n<p data-start=\"2696\" data-end=\"2736\">Tambahkan <strong data-start=\"2706\" data-end=\"2720\">token CSRF</strong> di form dan API</p>\n</li>\n<li data-start=\"2737\" data-end=\"2768\">\n<p data-start=\"2739\" data-end=\"2768\">Validasi token di sisi server</p>\n</li>\n<li data-start=\"2769\" data-end=\"2813\">\n<p data-start=\"2771\" data-end=\"2813\">Gunakan <strong data-start=\"2779\" data-end=\"2813\">cookie dengan atribut SameSite</strong></p>\n</li>\n</ul>\n<h3 data-start=\"2815\" data-end=\"2844\">Untuk Penetration Tester:</h3>\n<ul data-start=\"2845\" data-end=\"2960\">\n<li data-start=\"2845\" data-end=\"2877\">\n<p data-start=\"2847\" data-end=\"2877\">Dokumentasikan endpoint rentan</p>\n</li>\n<li data-start=\"2878\" data-end=\"2913\">\n<p data-start=\"2880\" data-end=\"2913\">Laporkan ke tim keamanan aplikasi</p>\n</li>\n<li data-start=\"2914\" data-end=\"2960\">\n<p data-start=\"2916\" data-end=\"2960\">Sertakan bukti (screenshot + hasil Repeater)</p>\n</li>\n</ul>\n<hr data-start=\"2962\" data-end=\"2965\" />\n<h2 data-start=\"2967\" data-end=\"2986\">🎓 Tips Tambahan</h2>\n<ul data-start=\"2988\" data-end=\"3212\">\n<li data-start=\"2988\" data-end=\"3034\">\n<p data-start=\"2990\" data-end=\"3034\">Gunakan plugin Burp seperti <strong data-start=\"3018\" data-end=\"3034\">CSRF Scanner</strong></p>\n</li>\n<li data-start=\"3035\" data-end=\"3118\">\n<p data-start=\"3037\" data-end=\"3118\">Gabungkan dengan uji manual, karena kadang token ada tapi tidak dicek oleh server</p>\n</li>\n<li data-start=\"3119\" data-end=\"3212\">\n<p data-start=\"3121\" data-end=\"3212\">Pastikan kamu menguji aplikasi <strong data-start=\"3152\" data-end=\"3166\">saat login</strong>, karena CSRF terjadi saat user terautentikasi</p>\n</li>\n</ul>\n<hr data-start=\"3214\" data-end=\"3217\" />\n<h2 data-start=\"3219\" data-end=\"3235\">🧾 Kesimpulan</h2>\n<p data-start=\"3237\" data-end=\"3367\">CSRF masih jadi masalah serius, dan banyak aplikasi <strong data-start=\"3289\" data-end=\"3320\">menyimpan celah tersembunyi</strong> di endpoint yang tidak dilindungi dengan baik.</p>\n<p data-start=\"3369\" data-end=\"3398\">Dengan Burp Suite, kamu bisa:</p>\n<ul data-start=\"3399\" data-end=\"3514\">\n<li data-start=\"3399\" data-end=\"3432\">\n<p data-start=\"3401\" data-end=\"3432\"><strong data-start=\"3401\" data-end=\"3432\">Mendeteksi form tanpa token</strong></p>\n</li>\n<li data-start=\"3433\" data-end=\"3467\">\n<p data-start=\"3435\" data-end=\"3467\"><strong data-start=\"3435\" data-end=\"3467\">Menguji langsung di Repeater</strong></p>\n</li>\n<li data-start=\"3468\" data-end=\"3514\">\n<p data-start=\"3470\" data-end=\"3514\"><strong data-start=\"3470\" data-end=\"3514\">Membantu developer memperbaiki celah ini</strong></p>\n</li>\n</ul>\n<blockquote data-start=\"3516\" data-end=\"3596\">\n<p data-start=\"3518\" data-end=\"3596\">Jangan anggap semua form aman—kadang yang tersembunyi justru paling berbahaya.</p>\n</blockquote>\n<p data-start=\"3518\" data-end=\"3596\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-2874\" src=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg\" alt=\"\" width=\"225\" height=\"300\" srcset=\"https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-225x300.jpeg 225w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-768x1024.jpeg 768w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42-1152x1536.jpeg 1152w, https://buletinsiber.com/wp-content/uploads/2025/07/9b45647e-901b-4471-bbda-0fcba3bc4e42.jpeg 1200w\" sizes=\"auto, (max-width: 225px) 100vw, 225px\" /></p>\n<p><strong>Penulias : Muhammad Aditya Alkhawarizmi</strong></p>\n<p><strong>Nim : 23156201023</strong></p>\n<p><strong>jurusan : Sistem Komputer</strong></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Dalam dunia keamanan web, CSRF (Cross-Site Request Forgery) masih sering ditemukan — terutama pada form tersembunyi atau API endpoint yang tidak diamankan dengan baik. Nah, di artikel ini, kita akan bahas bagaimana cara menggunakan Burp Suite untuk mendeteksi dan memburu endpoint yang rawan CSRF, dengan langkah-langkah sederhana. 🔍 Apa Itu Burp Suite? Burp Suite adalah alat yang digunakan oleh penetration tester atau bug hunter untuk menganalisis dan menguji keamanan aplikasi web. Dengan Burp Suite, kita bisa: Melihat semua request dan response web Memodifikasi permintaan sebelum dikirim ke server Mencari tahu apakah aplikasi memiliki celah keamanan Salah satunya: menemukan endpoint CSRF&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 2,
+    "featured_media": 2948,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      385
+    ],
+    "class_list": [
+      "post-2943",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-cross-site-request-forgery-csrf"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Burp Suite in Action: Mendeteksi CSRF Tersembunyi - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Burp Suite in Action: Mendeteksi CSRF Tersembunyi - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Dalam dunia keamanan web, CSRF (Cross-Site Request Forgery) masih sering ditemukan — terutama pada form tersembunyi atau API endpoint yang tidak diamankan dengan baik. Nah, di artikel ini, kita akan bahas bagaimana cara menggunakan Burp Suite untuk mendeteksi dan memburu endpoint yang rawan CSRF, dengan langkah-langkah sederhana. 🔍 Apa Itu Burp Suite? Burp Suite adalah alat yang digunakan oleh penetration tester atau bug hunter untuk menganalisis dan menguji keamanan aplikasi web. Dengan Burp Suite, kita bisa: Melihat semua request dan response web Memodifikasi permintaan sebelum dikirim ke server Mencari tahu apakah aplikasi memiliki celah keamanan Salah satunya: menemukan endpoint CSRF...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2025-07-07T08:37:23+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/07/Blog-IMG-3_How-does-Burp-Suite-work.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1200\" />\n\t<meta property=\"og:image:height\" content=\"628\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"public enemy\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"public enemy\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/\",\"url\":\"https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/\",\"name\":\"Burp Suite in Action: Mendeteksi CSRF Tersembunyi - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/Blog-IMG-3_How-does-Burp-Suite-work.jpg\",\"datePublished\":\"2025-07-07T08:37:23+00:00\",\"dateModified\":\"2025-07-07T08:37:23+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/07/Blog-IMG-3_How-does-Burp-Suite-work.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/07/Blog-IMG-3_How-does-Burp-Suite-work.jpg\",\"width\":1200,\"height\":628},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Burp Suite in Action: Mendeteksi CSRF Tersembunyi\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91\",\"name\":\"public enemy\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g\",\"caption\":\"public enemy\"},\"url\":\"https://buletinsiber.com/author/public_enemy/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Burp Suite in Action: Mendeteksi CSRF Tersembunyi - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Burp Suite in Action: Mendeteksi CSRF Tersembunyi - buletinsiber.com",
+      "og_description": "Dalam dunia keamanan web, CSRF (Cross-Site Request Forgery) masih sering ditemukan — terutama pada form tersembunyi atau API endpoint yang tidak diamankan dengan baik. Nah, di artikel ini, kita akan bahas bagaimana cara menggunakan Burp Suite untuk mendeteksi dan memburu endpoint yang rawan CSRF, dengan langkah-langkah sederhana. 🔍 Apa Itu Burp Suite? Burp Suite adalah alat yang digunakan oleh penetration tester atau bug hunter untuk menganalisis dan menguji keamanan aplikasi web. Dengan Burp Suite, kita bisa: Melihat semua request dan response web Memodifikasi permintaan sebelum dikirim ke server Mencari tahu apakah aplikasi memiliki celah keamanan Salah satunya: menemukan endpoint CSRF...",
+      "og_url": "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2025-07-07T08:37:23+00:00",
+      "og_image": [
+        {
+          "width": 1200,
+          "height": 628,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/07/Blog-IMG-3_How-does-Burp-Suite-work.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "public enemy",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "public enemy",
+        "Est. reading time": "3 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/",
+            "url": "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/",
+            "name": "Burp Suite in Action: Mendeteksi CSRF Tersembunyi - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/Blog-IMG-3_How-does-Burp-Suite-work.jpg",
+            "datePublished": "2025-07-07T08:37:23+00:00",
+            "dateModified": "2025-07-07T08:37:23+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/07/Blog-IMG-3_How-does-Burp-Suite-work.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/07/Blog-IMG-3_How-does-Burp-Suite-work.jpg",
+            "width": 1200,
+            "height": 628
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/burp-suite-in-action-mendeteksi-csrf-tersembunyi/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Burp Suite in Action: Mendeteksi CSRF Tersembunyi"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/f5a8529dcfc055c262c6563c6522fb91",
+            "name": "public enemy",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/af7771d86188d142ee0d8c9c8feb4fdb5d463ff8959448100bf47ad25c3052c8?s=96&d=mm&r=g",
+              "caption": "public enemy"
+            },
+            "url": "https://buletinsiber.com/author/public_enemy/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2943",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/2"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2943"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 3,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2943/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 3704,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2943/revisions/3704"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/2948"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2943"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2943"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2943"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

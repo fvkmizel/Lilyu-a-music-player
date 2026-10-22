@@ -1,0 +1,308 @@
+{
+  "id": 14220,
+  "title": "Model Serialization Attack: Risiko di Balik File AI",
+  "slug": "model-serialization-attack-risiko-di-balik-file-ai",
+  "url": "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/",
+  "date": "2026-07-28T16:49:42",
+  "date_gmt": "2026-07-28T16:49:42",
+  "modified": "2026-07-28T16:49:42",
+  "modified_gmt": "2026-07-28T16:49:42",
+  "author": {
+    "id": 23,
+    "name": "Ezril Fahrul Rizal"
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Uncategorized"
+    }
+  ],
+  "tags": [],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_z7xyd1z7xyd1z7xy.png",
+  "excerpt": "Ekosistem kecerdasan buatan (AI) saat ini tumbuh dengan pesat, didorong oleh kolaborasi dan berbagi model melalui platform seperti Hugging Face, yang saat ini menampung lebih dari 2,5 juta model . Namun, di balik kemudahan akses ini, terdapat ancaman keamanan yang signifikan namun sering diabaikan: Model Serialization Attack. Serangan ini adalah versi modern dari “Kuda Troya,” di mana kode berbahaya disembunyikan di dalam file model AI dan akan aktif ketika model tersebut dimuat . Anatomi Serangan: Bagaimana File AI Berubah Menjadi Senjata Inti permasalahan terletak pada proses serialisasi—cara model AI disimpan ke dalam file. Banyak kerangka kerja AI populer, terutama PyTorch, menggunakan modul Pickle dari Python sebagai…",
+  "content_html": "<p class=\"ds-markdown-paragraph\"><span class=\"\">Ekosistem kecerdasan buatan (AI) saat ini tumbuh dengan pesat, didorong oleh kolaborasi dan berbagi model melalui platform seperti Hugging Face, yang saat ini menampung lebih dari 2,5 juta model </span><span class=\"\">. Namun, di balik kemudahan akses ini, terdapat ancaman keamanan yang signifikan namun sering diabaikan: </span><strong><span class=\"\">Model Serialization Attack</span></strong><span class=\"\">. Serangan ini adalah versi modern dari &#8220;Kuda Troya,&#8221; di mana kode berbahaya disembunyikan di dalam file model AI dan akan aktif ketika model tersebut dimuat </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Anatomi Serangan: Bagaimana File AI Berubah Menjadi Senjata</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Inti permasalahan terletak pada proses </span><strong><span class=\"\">serialisasi</span></strong><span class=\"\">—cara model AI disimpan ke dalam file. Banyak kerangka kerja AI populer, terutama PyTorch, menggunakan modul </span><strong><span class=\"\">Pickle</span></strong><span class=\"\"> dari Python sebagai format default untuk menyimpan dan memuat model </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Pickle dirancang untuk menyimpan objek Python apa pun, namun fleksibilitas ini menjadi celah keamanan yang fatal. Protokol Pickle bukan sekadar format data; ia bertindak seperti mesin virtual yang mengeksekusi instruksi (opcode) saat proses </span><em><span class=\"\">deserialisasi</span></em><span class=\"\"> (pemuatan file) terjadi </span><span class=\"\">. Seorang penyerang dapat membuat file Pickle yang, saat dimuat dengan </span><code>torch.load(PATH)</code><span class=\"\">, akan langsung menjalankan kode berbahaya di sistem korban </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Bayangkan skenario ini: Anda mengunduh model dari Hugging Face yang terlihat menjanjikan. Saat menjalankan </span><code>model = torch.load(\"model_baru.pt\")</code><span class=\"\">, Anda tanpa sadar mengeksekusi kode yang mencuri kredensial cloud Anda atau membuka </span><em><span class=\"\">backdoor</span></em><span class=\"\"> ke sistem Anda </span><span class=\"\">. Ini bukanlah teori; serangan semacam ini telah terdeteksi di dunia nyata </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Mengapa Serangan Ini Sangat Berbahaya?</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Dampak dari serangan ini sangat luas dan dapat menghancurkan:</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pencurian Kredensial:</span></strong><span class=\"\"> Penyerang dapat mencuri kredensial untuk cloud (AWS, GCP) atau GitHub yang tersimpan di lingkungan Anda, yang mengarah pada pencurian kekayaan intelektual hingga pengambilalihan akun </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pencurian dan Manipulasi Data:</span></strong><span class=\"\"> Data yang dikirim ke model atau data pelatihan dapat dicuri atau diracuni (</span><em><span class=\"\">data poisoning</span></em><span class=\"\">) untuk merusak hasil prediksi model </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Model Poisoning:</span></strong><span class=\"\"> Penyerang dapat mengubah perilaku model itu sendiri, memungkinkan penipuan atau membuat model tidak efektif </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Eksekusi Kode Jarak Jauh (RCE):</span></strong><span class=\"\"> Penyerang dapat memperoleh kendali penuh atas mesin korban, misalnya dengan membuka </span><em><span class=\"\">reverse shell</span></em><span class=\"\"> </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">Dilema Keamanan: Pickle vs. Solusi yang Lebih Aman</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Meskipun bahaya Pickel sudah diketahui luas, penggunaannya masih dominan karena kemudahan dan efisiensi </span><span class=\"\">. Untuk mengatasi masalah ini, format yang lebih aman seperti </span><strong><span class=\"\">SafeTensors</span></strong><span class=\"\"> diperkenalkan. SafeTensors dirancang untuk tidak mengeksekusi kode apa pun saat dimuat, menjadikannya pilihan yang jauh lebih aman </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Namun, adopsi SafeTensors menghadapi tantangan. Banyak pengembang menghadapi kesulitan dalam konversi dan masih ada kekhawatiran tentang kesetiaan model pasca-konversi </span><span class=\"\">. Ini menciptakan &#8220;jurang keamanan&#8221; di mana format lama yang tidak aman terus digunakan.</span></p>\n<h2><span class=\"\">Perlombaan Senjata: Pemindai vs. Teknik Penghindaran</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Karena risiko yang diketahui, berbagai alat pemindai seperti </span><strong><span class=\"\">ModelScan</span></strong><span class=\"\"> (dari Protect AI) dan </span><strong><span class=\"\">PickleScan</span></strong><span class=\"\"> dikembangkan untuk mendeteksi file Pickle berbahaya sebelum dimuat </span><span class=\"\">. Pemindai ini bekerja dengan membaca file byte per byte untuk mencari tanda-tanda kode tidak aman, tanpa harus mengeksekusinya </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Namun, ini adalah &#8220;perlombaan senjata&#8221; yang berkelanjutan. Peneliti keamanan terus menemukan cara untuk menghindari deteksi:</span></p>\n<ol start=\"1\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Teknik NullifAI:</span></strong><span class=\"\"> Penyerang menggunakan file Pickle yang &#8220;rusak&#8221; yang akan gagal didekompilasi oleh pemindai tetapi tetap dapat dieksekusi oleh PyTorch </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Eksploitasi Zero-Day pada Pemindai:</span></strong><span class=\"\"> Peneliti menemukan kerentanan kritis di PickleScan yang memungkinkan penyerang menyamarkan file berbahaya. Misalnya, dengan mengganti ekstensi file (CVE-2025-10155) atau menyisipkan kesalahan CRC pada arsip ZIP (CVE-2025-10156) </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Exception-Oriented Programming (EOP):</span></strong><span class=\"\"> Penyerang dapat membuat payload yang memicu </span><em><span class=\"\">exception</span></em><span class=\"\"> pada pemindai, menyebabkan proses pemindaian berhenti dan gagal mendeteksi kode jahat </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Eksploitasi Gadget:</span></strong><span class=\"\"> Peneliti menemukan lebih dari 133 &#8220;gadget&#8221;—fungsi atau modul Python yang tidak berbahaya secara individual tetapi dapat digabungkan untuk melakukan aksi jahat—yang tidak terdeteksi oleh pemindai </span><span class=\"\">.</span></p>\n</li>\n</ol>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Penelitian terbaru menunjukkan bahwa lebih dari 98% file yang ditandai sebagai tidak aman oleh pemindai sebenarnya mungkin aman (</span><em><span class=\"\">false positive</span></em><span class=\"\">), sementara banyak file berbahaya berhasil lolos </span><span class=\"\">. Ini menunjukkan bahwa alat pemindai saat ini masih memiliki keterbatasan signifikan.</span></p>\n<h2><span class=\"\">Praktik Terbaik untuk Tetap Aman</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Menghadapi ancaman ini, diperlukan pendekatan berlapis (</span><em><span class=\"\">defense-in-depth</span></em><span class=\"\">) </span><span class=\"\">:</span></p>\n<ol start=\"1\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Utamakan Format Aman:</span></strong><span class=\"\"> Gunakan </span><strong><span class=\"\">SafeTensors</span></strong><span class=\"\"> sebagai format pilihan. Hindari memuat model Pickle dari sumber yang tidak tepercaya.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Selalu Pindai Model:</span></strong><span class=\"\"> Jadikan pemindaian sebagai bagian wajib dari </span><em><span class=\"\">pipeline</span></em><span class=\"\"> CI/CD Anda. Pindai model </span><strong><span class=\"\">sebelum</span></strong><span class=\"\"> dimuat untuk pelatihan, </span><strong><span class=\"\">setelah</span></strong><span class=\"\"> pelatihan selesai, dan </span><strong><span class=\"\">sebelum</span></strong><span class=\"\"> diterapkan ke endpoint produksi </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Gunakan Pemindai dengan Bijak:</span></strong><span class=\"\"> Meskipun tidak sempurna, alat seperti ModelScan adalah lapisan pertahanan penting yang dapat mendeteksi serangan yang sudah dikenal.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Terapkan Kebijakan Keamanan:</span></strong><span class=\"\"> Di lingkungan enterprise, gunakan kebijakan (misalnya, dengan Rego) untuk secara otomatis memblokir model dari format berisiko tinggi atau model yang gagal dalam pemindaian </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Tingkatkan Kewaspadaan:</span></strong><span class=\"\"> Ingat, file AI sama berbahayanya dengan file executable. Perlakukan semua model dari sumber tidak dikenal sebagai potensi ancaman </span></p>\n</li>\n</ol>\n",
+  "content_text": "Ekosistem kecerdasan buatan (AI) saat ini tumbuh dengan pesat, didorong oleh kolaborasi dan berbagi model melalui platform seperti Hugging Face, yang saat ini menampung lebih dari 2,5 juta model   . Namun, di balik kemudahan akses ini, terdapat ancaman keamanan yang signifikan namun sering diabaikan:    Model Serialization Attack   . Serangan ini adalah versi modern dari “Kuda Troya,” di mana kode berbahaya disembunyikan di dalam file model AI dan akan aktif ketika model tersebut dimuat   .\nAnatomi Serangan: Bagaimana File AI Berubah Menjadi Senjata\nInti permasalahan terletak pada proses    serialisasi   —cara model AI disimpan ke dalam file. Banyak kerangka kerja AI populer, terutama PyTorch, menggunakan modul    Pickle    dari Python sebagai format default untuk menyimpan dan memuat model   .\nPickle dirancang untuk menyimpan objek Python apa pun, namun fleksibilitas ini menjadi celah keamanan yang fatal. Protokol Pickle bukan sekadar format data; ia bertindak seperti mesin virtual yang mengeksekusi instruksi (opcode) saat proses    deserialisasi    (pemuatan file) terjadi   . Seorang penyerang dapat membuat file Pickle yang, saat dimuat dengan   torch.load(PATH)  , akan langsung menjalankan kode berbahaya di sistem korban   .\nBayangkan skenario ini: Anda mengunduh model dari Hugging Face yang terlihat menjanjikan. Saat menjalankan   model = torch.load(\"model_baru.pt\")  , Anda tanpa sadar mengeksekusi kode yang mencuri kredensial cloud Anda atau membuka    backdoor    ke sistem Anda   . Ini bukanlah teori; serangan semacam ini telah terdeteksi di dunia nyata   .\nMengapa Serangan Ini Sangat Berbahaya?\nDampak dari serangan ini sangat luas dan dapat menghancurkan:\nPencurian Kredensial:    Penyerang dapat mencuri kredensial untuk cloud (AWS, GCP) atau GitHub yang tersimpan di lingkungan Anda, yang mengarah pada pencurian kekayaan intelektual hingga pengambilalihan akun   .\nPencurian dan Manipulasi Data:    Data yang dikirim ke model atau data pelatihan dapat dicuri atau diracuni (   data poisoning   ) untuk merusak hasil prediksi model   .\nModel Poisoning:    Penyerang dapat mengubah perilaku model itu sendiri, memungkinkan penipuan atau membuat model tidak efektif   .\nEksekusi Kode Jarak Jauh (RCE):    Penyerang dapat memperoleh kendali penuh atas mesin korban, misalnya dengan membuka    reverse shell      .\nDilema Keamanan: Pickle vs. Solusi yang Lebih Aman\nMeskipun bahaya Pickel sudah diketahui luas, penggunaannya masih dominan karena kemudahan dan efisiensi   . Untuk mengatasi masalah ini, format yang lebih aman seperti    SafeTensors    diperkenalkan. SafeTensors dirancang untuk tidak mengeksekusi kode apa pun saat dimuat, menjadikannya pilihan yang jauh lebih aman   .\nNamun, adopsi SafeTensors menghadapi tantangan. Banyak pengembang menghadapi kesulitan dalam konversi dan masih ada kekhawatiran tentang kesetiaan model pasca-konversi   . Ini menciptakan “jurang keamanan” di mana format lama yang tidak aman terus digunakan.\nPerlombaan Senjata: Pemindai vs. Teknik Penghindaran\nKarena risiko yang diketahui, berbagai alat pemindai seperti    ModelScan    (dari Protect AI) dan    PickleScan    dikembangkan untuk mendeteksi file Pickle berbahaya sebelum dimuat   . Pemindai ini bekerja dengan membaca file byte per byte untuk mencari tanda-tanda kode tidak aman, tanpa harus mengeksekusinya   .\nNamun, ini adalah “perlombaan senjata” yang berkelanjutan. Peneliti keamanan terus menemukan cara untuk menghindari deteksi:\nTeknik NullifAI:    Penyerang menggunakan file Pickle yang “rusak” yang akan gagal didekompilasi oleh pemindai tetapi tetap dapat dieksekusi oleh PyTorch   .\nEksploitasi Zero-Day pada Pemindai:    Peneliti menemukan kerentanan kritis di PickleScan yang memungkinkan penyerang menyamarkan file berbahaya. Misalnya, dengan mengganti ekstensi file (CVE-2025-10155) atau menyisipkan kesalahan CRC pada arsip ZIP (CVE-2025-10156)   .\nException-Oriented Programming (EOP):    Penyerang dapat membuat payload yang memicu    exception    pada pemindai, menyebabkan proses pemindaian berhenti dan gagal mendeteksi kode jahat   .\nEksploitasi Gadget:    Peneliti menemukan lebih dari 133 “gadget”—fungsi atau modul Python yang tidak berbahaya secara individual tetapi dapat digabungkan untuk melakukan aksi jahat—yang tidak terdeteksi oleh pemindai   .\nPenelitian terbaru menunjukkan bahwa lebih dari 98% file yang ditandai sebagai tidak aman oleh pemindai sebenarnya mungkin aman (   false positive   ), sementara banyak file berbahaya berhasil lolos   . Ini menunjukkan bahwa alat pemindai saat ini masih memiliki keterbatasan signifikan.\nPraktik Terbaik untuk Tetap Aman\nMenghadapi ancaman ini, diperlukan pendekatan berlapis (   defense-in-depth   )   :\nUtamakan Format Aman:    Gunakan    SafeTensors    sebagai format pilihan. Hindari memuat model Pickle dari sumber yang tidak tepercaya.\nSelalu Pindai Model:    Jadikan pemindaian sebagai bagian wajib dari    pipeline    CI/CD Anda. Pindai model    sebelum    dimuat untuk pelatihan,    setelah    pelatihan selesai, dan    sebelum    diterapkan ke endpoint produksi   .\nGunakan Pemindai dengan Bijak:    Meskipun tidak sempurna, alat seperti ModelScan adalah lapisan pertahanan penting yang dapat mendeteksi serangan yang sudah dikenal.\nTerapkan Kebijakan Keamanan:    Di lingkungan enterprise, gunakan kebijakan (misalnya, dengan Rego) untuk secara otomatis memblokir model dari format berisiko tinggi atau model yang gagal dalam pemindaian   .\nTingkatkan Kewaspadaan:    Ingat, file AI sama berbahayanya dengan file executable. Perlakukan semua model dari sumber tidak dikenal sebagai potensi ancaman",
+  "raw": {
+    "id": 14220,
+    "date": "2026-07-28T16:49:42",
+    "date_gmt": "2026-07-28T16:49:42",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=14220"
+    },
+    "modified": "2026-07-28T16:49:42",
+    "modified_gmt": "2026-07-28T16:49:42",
+    "slug": "model-serialization-attack-risiko-di-balik-file-ai",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/",
+    "title": {
+      "rendered": "Model Serialization Attack: Risiko di Balik File AI"
+    },
+    "content": {
+      "rendered": "<p class=\"ds-markdown-paragraph\"><span class=\"\">Ekosistem kecerdasan buatan (AI) saat ini tumbuh dengan pesat, didorong oleh kolaborasi dan berbagi model melalui platform seperti Hugging Face, yang saat ini menampung lebih dari 2,5 juta model </span><span class=\"\">. Namun, di balik kemudahan akses ini, terdapat ancaman keamanan yang signifikan namun sering diabaikan: </span><strong><span class=\"\">Model Serialization Attack</span></strong><span class=\"\">. Serangan ini adalah versi modern dari &#8220;Kuda Troya,&#8221; di mana kode berbahaya disembunyikan di dalam file model AI dan akan aktif ketika model tersebut dimuat </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Anatomi Serangan: Bagaimana File AI Berubah Menjadi Senjata</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Inti permasalahan terletak pada proses </span><strong><span class=\"\">serialisasi</span></strong><span class=\"\">—cara model AI disimpan ke dalam file. Banyak kerangka kerja AI populer, terutama PyTorch, menggunakan modul </span><strong><span class=\"\">Pickle</span></strong><span class=\"\"> dari Python sebagai format default untuk menyimpan dan memuat model </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Pickle dirancang untuk menyimpan objek Python apa pun, namun fleksibilitas ini menjadi celah keamanan yang fatal. Protokol Pickle bukan sekadar format data; ia bertindak seperti mesin virtual yang mengeksekusi instruksi (opcode) saat proses </span><em><span class=\"\">deserialisasi</span></em><span class=\"\"> (pemuatan file) terjadi </span><span class=\"\">. Seorang penyerang dapat membuat file Pickle yang, saat dimuat dengan </span><code>torch.load(PATH)</code><span class=\"\">, akan langsung menjalankan kode berbahaya di sistem korban </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Bayangkan skenario ini: Anda mengunduh model dari Hugging Face yang terlihat menjanjikan. Saat menjalankan </span><code>model = torch.load(\"model_baru.pt\")</code><span class=\"\">, Anda tanpa sadar mengeksekusi kode yang mencuri kredensial cloud Anda atau membuka </span><em><span class=\"\">backdoor</span></em><span class=\"\"> ke sistem Anda </span><span class=\"\">. Ini bukanlah teori; serangan semacam ini telah terdeteksi di dunia nyata </span><span class=\"\">.</span></p>\n<h2><span class=\"\">Mengapa Serangan Ini Sangat Berbahaya?</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Dampak dari serangan ini sangat luas dan dapat menghancurkan:</span></p>\n<ul>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pencurian Kredensial:</span></strong><span class=\"\"> Penyerang dapat mencuri kredensial untuk cloud (AWS, GCP) atau GitHub yang tersimpan di lingkungan Anda, yang mengarah pada pencurian kekayaan intelektual hingga pengambilalihan akun </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Pencurian dan Manipulasi Data:</span></strong><span class=\"\"> Data yang dikirim ke model atau data pelatihan dapat dicuri atau diracuni (</span><em><span class=\"\">data poisoning</span></em><span class=\"\">) untuk merusak hasil prediksi model </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Model Poisoning:</span></strong><span class=\"\"> Penyerang dapat mengubah perilaku model itu sendiri, memungkinkan penipuan atau membuat model tidak efektif </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Eksekusi Kode Jarak Jauh (RCE):</span></strong><span class=\"\"> Penyerang dapat memperoleh kendali penuh atas mesin korban, misalnya dengan membuka </span><em><span class=\"\">reverse shell</span></em><span class=\"\"> </span><span class=\"\">.</span></p>\n</li>\n</ul>\n<h2><span class=\"\">Dilema Keamanan: Pickle vs. Solusi yang Lebih Aman</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Meskipun bahaya Pickel sudah diketahui luas, penggunaannya masih dominan karena kemudahan dan efisiensi </span><span class=\"\">. Untuk mengatasi masalah ini, format yang lebih aman seperti </span><strong><span class=\"\">SafeTensors</span></strong><span class=\"\"> diperkenalkan. SafeTensors dirancang untuk tidak mengeksekusi kode apa pun saat dimuat, menjadikannya pilihan yang jauh lebih aman </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Namun, adopsi SafeTensors menghadapi tantangan. Banyak pengembang menghadapi kesulitan dalam konversi dan masih ada kekhawatiran tentang kesetiaan model pasca-konversi </span><span class=\"\">. Ini menciptakan &#8220;jurang keamanan&#8221; di mana format lama yang tidak aman terus digunakan.</span></p>\n<h2><span class=\"\">Perlombaan Senjata: Pemindai vs. Teknik Penghindaran</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Karena risiko yang diketahui, berbagai alat pemindai seperti </span><strong><span class=\"\">ModelScan</span></strong><span class=\"\"> (dari Protect AI) dan </span><strong><span class=\"\">PickleScan</span></strong><span class=\"\"> dikembangkan untuk mendeteksi file Pickle berbahaya sebelum dimuat </span><span class=\"\">. Pemindai ini bekerja dengan membaca file byte per byte untuk mencari tanda-tanda kode tidak aman, tanpa harus mengeksekusinya </span><span class=\"\">.</span></p>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Namun, ini adalah &#8220;perlombaan senjata&#8221; yang berkelanjutan. Peneliti keamanan terus menemukan cara untuk menghindari deteksi:</span></p>\n<ol start=\"1\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Teknik NullifAI:</span></strong><span class=\"\"> Penyerang menggunakan file Pickle yang &#8220;rusak&#8221; yang akan gagal didekompilasi oleh pemindai tetapi tetap dapat dieksekusi oleh PyTorch </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Eksploitasi Zero-Day pada Pemindai:</span></strong><span class=\"\"> Peneliti menemukan kerentanan kritis di PickleScan yang memungkinkan penyerang menyamarkan file berbahaya. Misalnya, dengan mengganti ekstensi file (CVE-2025-10155) atau menyisipkan kesalahan CRC pada arsip ZIP (CVE-2025-10156) </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Exception-Oriented Programming (EOP):</span></strong><span class=\"\"> Penyerang dapat membuat payload yang memicu </span><em><span class=\"\">exception</span></em><span class=\"\"> pada pemindai, menyebabkan proses pemindaian berhenti dan gagal mendeteksi kode jahat </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Eksploitasi Gadget:</span></strong><span class=\"\"> Peneliti menemukan lebih dari 133 &#8220;gadget&#8221;—fungsi atau modul Python yang tidak berbahaya secara individual tetapi dapat digabungkan untuk melakukan aksi jahat—yang tidak terdeteksi oleh pemindai </span><span class=\"\">.</span></p>\n</li>\n</ol>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Penelitian terbaru menunjukkan bahwa lebih dari 98% file yang ditandai sebagai tidak aman oleh pemindai sebenarnya mungkin aman (</span><em><span class=\"\">false positive</span></em><span class=\"\">), sementara banyak file berbahaya berhasil lolos </span><span class=\"\">. Ini menunjukkan bahwa alat pemindai saat ini masih memiliki keterbatasan signifikan.</span></p>\n<h2><span class=\"\">Praktik Terbaik untuk Tetap Aman</span></h2>\n<p class=\"ds-markdown-paragraph\"><span class=\"\">Menghadapi ancaman ini, diperlukan pendekatan berlapis (</span><em><span class=\"\">defense-in-depth</span></em><span class=\"\">) </span><span class=\"\">:</span></p>\n<ol start=\"1\">\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Utamakan Format Aman:</span></strong><span class=\"\"> Gunakan </span><strong><span class=\"\">SafeTensors</span></strong><span class=\"\"> sebagai format pilihan. Hindari memuat model Pickle dari sumber yang tidak tepercaya.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Selalu Pindai Model:</span></strong><span class=\"\"> Jadikan pemindaian sebagai bagian wajib dari </span><em><span class=\"\">pipeline</span></em><span class=\"\"> CI/CD Anda. Pindai model </span><strong><span class=\"\">sebelum</span></strong><span class=\"\"> dimuat untuk pelatihan, </span><strong><span class=\"\">setelah</span></strong><span class=\"\"> pelatihan selesai, dan </span><strong><span class=\"\">sebelum</span></strong><span class=\"\"> diterapkan ke endpoint produksi </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Gunakan Pemindai dengan Bijak:</span></strong><span class=\"\"> Meskipun tidak sempurna, alat seperti ModelScan adalah lapisan pertahanan penting yang dapat mendeteksi serangan yang sudah dikenal.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Terapkan Kebijakan Keamanan:</span></strong><span class=\"\"> Di lingkungan enterprise, gunakan kebijakan (misalnya, dengan Rego) untuk secara otomatis memblokir model dari format berisiko tinggi atau model yang gagal dalam pemindaian </span><span class=\"\">.</span></p>\n</li>\n<li>\n<p class=\"ds-markdown-paragraph\"><strong><span class=\"\">Tingkatkan Kewaspadaan:</span></strong><span class=\"\"> Ingat, file AI sama berbahayanya dengan file executable. Perlakukan semua model dari sumber tidak dikenal sebagai potensi ancaman </span></p>\n</li>\n</ol>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Ekosistem kecerdasan buatan (AI) saat ini tumbuh dengan pesat, didorong oleh kolaborasi dan berbagi model melalui platform seperti Hugging Face, yang saat ini menampung lebih dari 2,5 juta model . Namun, di balik kemudahan akses ini, terdapat ancaman keamanan yang signifikan namun sering diabaikan: Model Serialization Attack. Serangan ini adalah versi modern dari &#8220;Kuda Troya,&#8221; di mana kode berbahaya disembunyikan di dalam file model AI dan akan aktif ketika model tersebut dimuat . Anatomi Serangan: Bagaimana File AI Berubah Menjadi Senjata Inti permasalahan terletak pada proses serialisasi—cara model AI disimpan ke dalam file. Banyak kerangka kerja AI populer, terutama PyTorch, menggunakan modul Pickle dari Python sebagai&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 23,
+    "featured_media": 14222,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      1
+    ],
+    "tags": [],
+    "class_list": [
+      "post-14220",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-uncategorized"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Model Serialization Attack: Risiko di Balik File AI - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Model Serialization Attack: Risiko di Balik File AI - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Ekosistem kecerdasan buatan (AI) saat ini tumbuh dengan pesat, didorong oleh kolaborasi dan berbagi model melalui platform seperti Hugging Face, yang saat ini menampung lebih dari 2,5 juta model . Namun, di balik kemudahan akses ini, terdapat ancaman keamanan yang signifikan namun sering diabaikan: Model Serialization Attack. Serangan ini adalah versi modern dari &#8220;Kuda Troya,&#8221; di mana kode berbahaya disembunyikan di dalam file model AI dan akan aktif ketika model tersebut dimuat . Anatomi Serangan: Bagaimana File AI Berubah Menjadi Senjata Inti permasalahan terletak pada proses serialisasi—cara model AI disimpan ke dalam file. Banyak kerangka kerja AI populer, terutama PyTorch, menggunakan modul Pickle dari Python sebagai...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:published_time\" content=\"2026-07-28T16:49:42+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_z7xyd1z7xyd1z7xy.png\" />\n\t<meta property=\"og:image:width\" content=\"1408\" />\n\t<meta property=\"og:image:height\" content=\"768\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Ezril Fahrul Rizal\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Ezril Fahrul Rizal\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/\",\"url\":\"https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/\",\"name\":\"Model Serialization Attack: Risiko di Balik File AI - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_z7xyd1z7xyd1z7xy.png\",\"datePublished\":\"2026-07-28T16:49:42+00:00\",\"dateModified\":\"2026-07-28T16:49:42+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_z7xyd1z7xyd1z7xy.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_z7xyd1z7xyd1z7xy.png\",\"width\":1408,\"height\":768},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Model Serialization Attack: Risiko di Balik File AI\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d\",\"name\":\"Ezril Fahrul Rizal\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g\",\"caption\":\"Ezril Fahrul Rizal\"},\"url\":\"https://buletinsiber.com/author/ezril-fahrul-rizal/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Model Serialization Attack: Risiko di Balik File AI - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Model Serialization Attack: Risiko di Balik File AI - buletinsiber.com",
+      "og_description": "Ekosistem kecerdasan buatan (AI) saat ini tumbuh dengan pesat, didorong oleh kolaborasi dan berbagi model melalui platform seperti Hugging Face, yang saat ini menampung lebih dari 2,5 juta model . Namun, di balik kemudahan akses ini, terdapat ancaman keamanan yang signifikan namun sering diabaikan: Model Serialization Attack. Serangan ini adalah versi modern dari &#8220;Kuda Troya,&#8221; di mana kode berbahaya disembunyikan di dalam file model AI dan akan aktif ketika model tersebut dimuat . Anatomi Serangan: Bagaimana File AI Berubah Menjadi Senjata Inti permasalahan terletak pada proses serialisasi—cara model AI disimpan ke dalam file. Banyak kerangka kerja AI populer, terutama PyTorch, menggunakan modul Pickle dari Python sebagai...",
+      "og_url": "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_published_time": "2026-07-28T16:49:42+00:00",
+      "og_image": [
+        {
+          "width": 1408,
+          "height": 768,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_z7xyd1z7xyd1z7xy.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Ezril Fahrul Rizal",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Ezril Fahrul Rizal",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/",
+            "url": "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/",
+            "name": "Model Serialization Attack: Risiko di Balik File AI - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_z7xyd1z7xyd1z7xy.png",
+            "datePublished": "2026-07-28T16:49:42+00:00",
+            "dateModified": "2026-07-28T16:49:42+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_z7xyd1z7xyd1z7xy.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/Gemini_Generated_Image_z7xyd1z7xyd1z7xy.png",
+            "width": 1408,
+            "height": 768
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/model-serialization-attack-risiko-di-balik-file-ai/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Model Serialization Attack: Risiko di Balik File AI"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/68eab76ae3f293b655c918632bf7b21d",
+            "name": "Ezril Fahrul Rizal",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/b3d1111d12f877d1a3871d7e73631b9716a263ffcfbe0e0385f5e42cb9e6fa1a?s=96&d=mm&r=g",
+              "caption": "Ezril Fahrul Rizal"
+            },
+            "url": "https://buletinsiber.com/author/ezril-fahrul-rizal/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14220",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/23"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=14220"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14220/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 14223,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14220/revisions/14223"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/14222"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=14220"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=14220"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=14220"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "id": 2029,
+  "title": "Log Poisoning: Celah Berbahaya di Server yang Sering Terabaikan",
+  "slug": "log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan",
+  "url": "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/",
+  "date": "2025-03-07T06:39:37",
+  "date_gmt": "2025-03-07T06:39:37",
+  "modified": "2026-06-30T18:31:47",
+  "modified_gmt": "2026-06-30T18:31:47",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    170
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+  "excerpt": "Pendahuluan Di dunia keamanan siber, banyak celah yang sering tidak diperhatikan oleh pengelola server. Salah satunya adalah log poisoning, yaitu teknik serangan di mana peretas menyisipkan kode berbahaya ke dalam log server. Jika server memiliki kelemahan Local File Inclusion (LFI), maka serangan ini bisa berkembang menjadi lebih serius, bahkan memungkinkan peretas menjalankan perintah di sistem. Ini bisa berdampak besar, seperti pencurian data, akses ilegal ke server, hingga pengendalian penuh terhadap sistem. Dalam artikel ini, kita akan membahas apa itu log poisoning, bagaimana cara kerjanya, contoh eksploitasi, serta cara melindungi sistem dari ancaman ini. Apa Itu Log Poisoning? Log poisoning adalah…",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"73\" data-end=\"93\"><strong data-start=\"76\" data-end=\"91\">Pendahuluan</strong></h2>\n<p style=\"text-align: justify;\" data-start=\"94\" data-end=\"317\">Di dunia keamanan siber, banyak celah yang sering tidak diperhatikan oleh pengelola server. Salah satunya adalah <strong data-start=\"207\" data-end=\"224\">log poisoning</strong>, yaitu teknik serangan di mana peretas menyisipkan kode berbahaya ke dalam <strong data-start=\"300\" data-end=\"314\">log server</strong>.</p>\n<p style=\"text-align: justify;\" data-start=\"319\" data-end=\"616\">Jika server memiliki kelemahan <strong data-start=\"350\" data-end=\"380\">Local File Inclusion (LFI)</strong>, maka serangan ini bisa berkembang menjadi lebih serius, bahkan memungkinkan peretas menjalankan perintah di sistem. Ini bisa berdampak besar, seperti pencurian data, akses ilegal ke server, hingga pengendalian penuh terhadap sistem.</p>\n<p style=\"text-align: justify;\" data-start=\"618\" data-end=\"776\">Dalam artikel ini, kita akan membahas <strong data-start=\"656\" data-end=\"773\">apa itu log poisoning, bagaimana cara kerjanya, contoh eksploitasi, serta cara melindungi sistem dari ancaman ini</strong>.</p>\n<h2 style=\"text-align: justify;\" data-start=\"783\" data-end=\"814\"><strong data-start=\"786\" data-end=\"812\">Apa Itu Log Poisoning?</strong></h2>\n<p style=\"text-align: justify;\" data-start=\"815\" data-end=\"960\"><strong data-start=\"815\" data-end=\"832\">Log poisoning</strong> adalah teknik serangan di mana peretas menyuntikkan kode berbahaya ke dalam <strong data-start=\"909\" data-end=\"923\">log server</strong>, seperti log akses atau log error.</p>\n<p style=\"text-align: justify;\" data-start=\"962\" data-end=\"1058\">Biasanya, server web seperti <strong data-start=\"991\" data-end=\"1018\">Apache, Nginx, atau IIS</strong> mencatat informasi pengguna, seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"1059\" data-end=\"1246\">\n<li data-start=\"1059\" data-end=\"1121\"><strong data-start=\"1061\" data-end=\"1075\">User-Agent</strong> (informasi tentang browser yang digunakan).</li>\n<li data-start=\"1122\" data-end=\"1196\"><strong data-start=\"1124\" data-end=\"1135\">Referer</strong> (situs web yang mengarahkan pengguna ke halaman tertentu).</li>\n<li data-start=\"1197\" data-end=\"1246\"><strong data-start=\"1199\" data-end=\"1212\">Alamat IP</strong> (identitas perangkat pengguna).</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1248\" data-end=\"1488\">Jika sistem tidak aman, peretas bisa menyisipkan <strong data-start=\"1297\" data-end=\"1315\">kode berbahaya</strong> ke dalam salah satu log tersebut. Jika server memiliki <strong data-start=\"1371\" data-end=\"1401\">Local File Inclusion (LFI)</strong>, maka kode berbahaya ini bisa dieksekusi, membuka celah untuk serangan lebih lanjut.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1495\" data-end=\"1537\"><strong data-start=\"1498\" data-end=\"1535\">Cara Kerja Serangan Log Poisoning</strong></h2>\n<h3 style=\"text-align: justify;\" data-start=\"1538\" data-end=\"1595\"><strong data-start=\"1542\" data-end=\"1593\">1. Menyisipkan Kode Berbahaya ke dalam File Log</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"1596\" data-end=\"1733\">Peretas bisa menyisipkan kode berbahaya dengan cara memanipulasi <strong data-start=\"1661\" data-end=\"1675\">User-Agent</strong>, yang nantinya akan dicatat oleh server dalam file log.</p>\n<p style=\"text-align: justify;\" data-start=\"1735\" data-end=\"1941\">Misalnya, mereka bisa mengirimkan informasi palsu ke server yang berisi perintah untuk dieksekusi. Karena server menyimpan informasi ini dalam log, maka log tersebut akan berisi kode yang bisa dijalankan.</p>\n<h3 style=\"text-align: justify;\" data-start=\"1943\" data-end=\"1985\"><strong data-start=\"1947\" data-end=\"1983\">2. Mengeksekusi Kode Melalui LFI</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"1986\" data-end=\"2155\">Jika server memiliki kelemahan <strong data-start=\"2017\" data-end=\"2047\">Local File Inclusion (LFI)</strong>, peretas dapat memanggil file log yang sudah mereka ubah agar sistem menjalankan kode berbahaya tersebut.</p>\n<p style=\"text-align: justify;\" data-start=\"2157\" data-end=\"2306\">Saat file log dipanggil oleh server, kode yang telah disuntikkan akan dieksekusi, memungkinkan peretas menjalankan perintah di dalam sistem server.</p>\n<h2 style=\"text-align: justify;\" data-start=\"2313\" data-end=\"2354\"><strong data-start=\"2316\" data-end=\"2352\">Contoh Kasus Nyata Log Poisoning</strong></h2>\n<h3 style=\"text-align: justify;\" data-start=\"2355\" data-end=\"2433\"><strong data-start=\"2359\" data-end=\"2431\">Kasus 1: Eksploitasi LFI + Log Poisoning untuk Mengambil Alih Server</strong></h3>\n<ol style=\"text-align: justify;\" data-start=\"2434\" data-end=\"2783\">\n<li data-start=\"2434\" data-end=\"2547\">Peretas menyisipkan kode berbahaya ke dalam log server melalui informasi pengguna yang dikirimkan ke sistem.</li>\n<li data-start=\"2548\" data-end=\"2668\">Peretas kemudian menggunakan celah <strong data-start=\"2586\" data-end=\"2616\">Local File Inclusion (LFI)</strong> untuk mengakses file log yang telah dimodifikasi.</li>\n<li data-start=\"2669\" data-end=\"2783\">Saat server membaca file log tersebut, kode berbahaya ikut dieksekusi, memberi peretas akses penuh ke sistem.</li>\n</ol>\n<h3 style=\"text-align: justify;\" data-start=\"2785\" data-end=\"2844\"><strong data-start=\"2789\" data-end=\"2842\">Kasus 2: Menyusupkan Backdoor ke dalam Log Server</strong></h3>\n<ol style=\"text-align: justify;\" data-start=\"2845\" data-end=\"3078\">\n<li data-start=\"2845\" data-end=\"2951\">Peretas memodifikasi log server agar berisi perintah untuk membuat koneksi balik ke perangkat mereka.</li>\n<li data-start=\"2952\" data-end=\"3078\">Saat server membaca log ini, sistem akan membuka akses bagi peretas untuk masuk dan mengendalikan server dari jarak jauh.</li>\n</ol>\n<h2 style=\"text-align: justify;\" data-start=\"3085\" data-end=\"3129\"><strong data-start=\"3088\" data-end=\"3127\">Teknik Lanjutan dalam Log Poisoning</strong></h2>\n<h3 style=\"text-align: justify;\" data-start=\"3130\" data-end=\"3168\"><strong data-start=\"3134\" data-end=\"3166\">1. Menggunakan Reverse Shell</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"3169\" data-end=\"3384\">Dalam beberapa kasus, peretas bisa menggunakan teknik <strong data-start=\"3223\" data-end=\"3240\">reverse shell</strong> untuk membuat server terhubung ke komputer mereka, sehingga mereka bisa mengontrol server dari jauh tanpa harus mengaksesnya secara langsung.</p>\n<h3 style=\"text-align: justify;\" data-start=\"3386\" data-end=\"3438\"><strong data-start=\"3390\" data-end=\"3436\">2. Memanfaatkan File Log Selain Access Log</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"3439\" data-end=\"3610\">Biasanya, <strong data-start=\"3449\" data-end=\"3466\">log poisoning</strong> dilakukan pada <strong data-start=\"3482\" data-end=\"3496\">access log</strong>, tetapi ada beberapa file log lain yang juga bisa dimanfaatkan, seperti <strong data-start=\"3569\" data-end=\"3582\">error log</strong> atau <strong data-start=\"3588\" data-end=\"3607\">log autentikasi</strong>.</p>\n<p style=\"text-align: justify;\" data-start=\"3612\" data-end=\"3807\">Jika server mencatat kesalahan sistem atau upaya login yang gagal, peretas bisa menyisipkan kode berbahaya ke dalamnya dan kemudian menjalankannya dengan cara yang sama seperti pada access log.</p>\n<h3 style=\"text-align: justify;\" data-start=\"3809\" data-end=\"3852\"><strong data-start=\"3813\" data-end=\"3850\">3. Bypassing Proteksi &amp; Filtering</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"3853\" data-end=\"4110\">Beberapa sistem keamanan mungkin mencoba mencegah <strong data-start=\"3903\" data-end=\"3920\">log poisoning</strong> dengan memfilter karakter tertentu. Namun, peretas bisa menghindari filter ini dengan menggunakan teknik <strong data-start=\"4026\" data-end=\"4038\">encoding</strong> atau <strong data-start=\"4044\" data-end=\"4074\">mengelabui sistem keamanan</strong> dengan format input yang berbeda.</p>\n<h2 style=\"text-align: justify;\" data-start=\"4117\" data-end=\"4162\"><strong data-start=\"4120\" data-end=\"4160\">Cara Mencegah Serangan Log Poisoning</strong></h2>\n<h3 style=\"text-align: justify;\" data-start=\"4163\" data-end=\"4210\"><strong data-start=\"4167\" data-end=\"4208\">1. Batasi Akses dan Eksekusi File Log</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"4211\" data-end=\"4371\">Salah satu cara utama untuk mencegah eksploitasi <strong data-start=\"4260\" data-end=\"4277\">log poisoning</strong> adalah dengan memastikan bahwa server <strong data-start=\"4316\" data-end=\"4368\">tidak mengeksekusi file log sebagai kode program</strong>.</p>\n<p style=\"text-align: justify;\" data-start=\"4373\" data-end=\"4529\">Jika file log hanya berisi catatan aktivitas pengguna tanpa bisa dieksekusi, maka peretas tidak akan bisa menjalankan kode berbahaya yang mereka sisipkan.</p>\n<h3 style=\"text-align: justify;\" data-start=\"4531\" data-end=\"4578\"><strong data-start=\"4535\" data-end=\"4576\">2. Amankan Local File Inclusion (LFI)</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"4579\" data-end=\"4696\">Jika server menggunakan <strong data-start=\"4603\" data-end=\"4633\">Local File Inclusion (LFI)</strong>, pastikan hanya file tertentu yang bisa diakses oleh sistem.</p>\n<p style=\"text-align: justify;\" data-start=\"4698\" data-end=\"4931\">Gunakan pendekatan <strong data-start=\"4717\" data-end=\"4733\">whitelisting</strong>, yaitu hanya mengizinkan file yang benar-benar diperlukan untuk dimuat oleh server. Dengan begitu, peretas tidak bisa menggunakan <strong data-start=\"4864\" data-end=\"4871\">LFI</strong> untuk memanggil file log dan mengeksekusi kode berbahaya.</p>\n<h3 style=\"text-align: justify;\" data-start=\"4933\" data-end=\"4987\"><strong data-start=\"4937\" data-end=\"4985\">3. Nonaktifkan Fungsi Berbahaya dalam Server</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"4988\" data-end=\"5124\">Beberapa fungsi dalam server, seperti perintah untuk menjalankan skrip secara langsung, sebaiknya dinonaktifkan jika tidak diperlukan.</p>\n<p style=\"text-align: justify;\" data-start=\"5126\" data-end=\"5244\">Ini akan membatasi kemampuan peretas untuk menjalankan kode berbahaya jika mereka berhasil menyusup ke dalam sistem.</p>\n<h3 style=\"text-align: justify;\" data-start=\"5246\" data-end=\"5301\"><strong data-start=\"5250\" data-end=\"5299\">4. Monitor dan Filter Input yang Masuk ke Log</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"5302\" data-end=\"5471\">Pastikan sistem keamanan memfilter informasi yang masuk ke dalam file log. Misalnya, <strong data-start=\"5387\" data-end=\"5442\">jangan izinkan karakter atau kode yang mencurigakan</strong> disimpan dalam log server.</p>\n<p style=\"text-align: justify;\" data-start=\"5473\" data-end=\"5638\">Selain itu, gunakan sistem <strong data-start=\"5500\" data-end=\"5539\">firewall atau keamanan aplikasi web</strong> untuk mendeteksi pola serangan dan memblokir aktivitas mencurigakan sebelum bisa merusak sistem.</p>\n<h2 style=\"text-align: justify;\" data-start=\"5645\" data-end=\"5664\"><strong data-start=\"5648\" data-end=\"5662\">Kesimpulan</strong></h2>\n<ul data-start=\"5665\" data-end=\"6273\">\n<li style=\"text-align: justify;\" data-start=\"5665\" data-end=\"5780\"><strong data-start=\"5667\" data-end=\"5728\">Log Poisoning adalah celah keamanan yang sering diabaikan</strong>, tetapi bisa sangat berbahaya jika dieksploitasi.</li>\n<li style=\"text-align: justify;\" data-start=\"5781\" data-end=\"5937\"><strong data-start=\"5783\" data-end=\"5858\">Serangan ini sering terjadi bersamaan dengan Local File Inclusion (LFI)</strong>, yang memungkinkan eksekusi kode berbahaya secara tidak sengaja oleh server.</li>\n<li style=\"text-align: justify;\" data-start=\"5938\" data-end=\"6081\"><strong data-start=\"5940\" data-end=\"6019\">Jika berhasil dieksploitasi, peretas bisa mendapatkan akses penuh ke sistem</strong>, mencuri data, atau bahkan mengendalikan server sepenuhnya.</li>\n<li style=\"text-align: justify;\" data-start=\"6082\" data-end=\"6273\"><strong data-start=\"6084\" data-end=\"6109\">Pencegahan yang tepat</strong> seperti <strong data-start=\"6118\" data-end=\"6219\">membatasi akses ke file log, mengamankan fitur LFI, serta memfilter input yang masuk ke dalam log</strong> dapat membantu melindungi server dari serangan ini.</li>\n</ul>\n",
+  "content_text": "Pendahuluan\nDi dunia keamanan siber, banyak celah yang sering tidak diperhatikan oleh pengelola server. Salah satunya adalah  log poisoning , yaitu teknik serangan di mana peretas menyisipkan kode berbahaya ke dalam  log server .\nJika server memiliki kelemahan  Local File Inclusion (LFI) , maka serangan ini bisa berkembang menjadi lebih serius, bahkan memungkinkan peretas menjalankan perintah di sistem. Ini bisa berdampak besar, seperti pencurian data, akses ilegal ke server, hingga pengendalian penuh terhadap sistem.\nDalam artikel ini, kita akan membahas  apa itu log poisoning, bagaimana cara kerjanya, contoh eksploitasi, serta cara melindungi sistem dari ancaman ini .\nApa Itu Log Poisoning?\nLog poisoning  adalah teknik serangan di mana peretas menyuntikkan kode berbahaya ke dalam  log server , seperti log akses atau log error.\nBiasanya, server web seperti  Apache, Nginx, atau IIS  mencatat informasi pengguna, seperti:\nUser-Agent  (informasi tentang browser yang digunakan).\nReferer  (situs web yang mengarahkan pengguna ke halaman tertentu).\nAlamat IP  (identitas perangkat pengguna).\nJika sistem tidak aman, peretas bisa menyisipkan  kode berbahaya  ke dalam salah satu log tersebut. Jika server memiliki  Local File Inclusion (LFI) , maka kode berbahaya ini bisa dieksekusi, membuka celah untuk serangan lebih lanjut.\nCara Kerja Serangan Log Poisoning\n1. Menyisipkan Kode Berbahaya ke dalam File Log\nPeretas bisa menyisipkan kode berbahaya dengan cara memanipulasi  User-Agent , yang nantinya akan dicatat oleh server dalam file log.\nMisalnya, mereka bisa mengirimkan informasi palsu ke server yang berisi perintah untuk dieksekusi. Karena server menyimpan informasi ini dalam log, maka log tersebut akan berisi kode yang bisa dijalankan.\n2. Mengeksekusi Kode Melalui LFI\nJika server memiliki kelemahan  Local File Inclusion (LFI) , peretas dapat memanggil file log yang sudah mereka ubah agar sistem menjalankan kode berbahaya tersebut.\nSaat file log dipanggil oleh server, kode yang telah disuntikkan akan dieksekusi, memungkinkan peretas menjalankan perintah di dalam sistem server.\nContoh Kasus Nyata Log Poisoning\nKasus 1: Eksploitasi LFI + Log Poisoning untuk Mengambil Alih Server\nPeretas menyisipkan kode berbahaya ke dalam log server melalui informasi pengguna yang dikirimkan ke sistem.\nPeretas kemudian menggunakan celah  Local File Inclusion (LFI)  untuk mengakses file log yang telah dimodifikasi.\nSaat server membaca file log tersebut, kode berbahaya ikut dieksekusi, memberi peretas akses penuh ke sistem.\nKasus 2: Menyusupkan Backdoor ke dalam Log Server\nPeretas memodifikasi log server agar berisi perintah untuk membuat koneksi balik ke perangkat mereka.\nSaat server membaca log ini, sistem akan membuka akses bagi peretas untuk masuk dan mengendalikan server dari jarak jauh.\nTeknik Lanjutan dalam Log Poisoning\n1. Menggunakan Reverse Shell\nDalam beberapa kasus, peretas bisa menggunakan teknik  reverse shell  untuk membuat server terhubung ke komputer mereka, sehingga mereka bisa mengontrol server dari jauh tanpa harus mengaksesnya secara langsung.\n2. Memanfaatkan File Log Selain Access Log\nBiasanya,  log poisoning  dilakukan pada  access log , tetapi ada beberapa file log lain yang juga bisa dimanfaatkan, seperti  error log  atau  log autentikasi .\nJika server mencatat kesalahan sistem atau upaya login yang gagal, peretas bisa menyisipkan kode berbahaya ke dalamnya dan kemudian menjalankannya dengan cara yang sama seperti pada access log.\n3. Bypassing Proteksi & Filtering\nBeberapa sistem keamanan mungkin mencoba mencegah  log poisoning  dengan memfilter karakter tertentu. Namun, peretas bisa menghindari filter ini dengan menggunakan teknik  encoding  atau  mengelabui sistem keamanan  dengan format input yang berbeda.\nCara Mencegah Serangan Log Poisoning\n1. Batasi Akses dan Eksekusi File Log\nSalah satu cara utama untuk mencegah eksploitasi  log poisoning  adalah dengan memastikan bahwa server  tidak mengeksekusi file log sebagai kode program .\nJika file log hanya berisi catatan aktivitas pengguna tanpa bisa dieksekusi, maka peretas tidak akan bisa menjalankan kode berbahaya yang mereka sisipkan.\n2. Amankan Local File Inclusion (LFI)\nJika server menggunakan  Local File Inclusion (LFI) , pastikan hanya file tertentu yang bisa diakses oleh sistem.\nGunakan pendekatan  whitelisting , yaitu hanya mengizinkan file yang benar-benar diperlukan untuk dimuat oleh server. Dengan begitu, peretas tidak bisa menggunakan  LFI  untuk memanggil file log dan mengeksekusi kode berbahaya.\n3. Nonaktifkan Fungsi Berbahaya dalam Server\nBeberapa fungsi dalam server, seperti perintah untuk menjalankan skrip secara langsung, sebaiknya dinonaktifkan jika tidak diperlukan.\nIni akan membatasi kemampuan peretas untuk menjalankan kode berbahaya jika mereka berhasil menyusup ke dalam sistem.\n4. Monitor dan Filter Input yang Masuk ke Log\nPastikan sistem keamanan memfilter informasi yang masuk ke dalam file log. Misalnya,  jangan izinkan karakter atau kode yang mencurigakan  disimpan dalam log server.\nSelain itu, gunakan sistem  firewall atau keamanan aplikasi web  untuk mendeteksi pola serangan dan memblokir aktivitas mencurigakan sebelum bisa merusak sistem.\nKesimpulan\nLog Poisoning adalah celah keamanan yang sering diabaikan , tetapi bisa sangat berbahaya jika dieksploitasi.\nSerangan ini sering terjadi bersamaan dengan Local File Inclusion (LFI) , yang memungkinkan eksekusi kode berbahaya secara tidak sengaja oleh server.\nJika berhasil dieksploitasi, peretas bisa mendapatkan akses penuh ke sistem , mencuri data, atau bahkan mengendalikan server sepenuhnya.\nPencegahan yang tepat  seperti  membatasi akses ke file log, mengamankan fitur LFI, serta memfilter input yang masuk ke dalam log  dapat membantu melindungi server dari serangan ini.",
+  "raw": {
+    "id": 2029,
+    "date": "2025-03-07T06:39:37",
+    "date_gmt": "2025-03-07T06:39:37",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=2029"
+    },
+    "modified": "2026-06-30T18:31:47",
+    "modified_gmt": "2026-06-30T18:31:47",
+    "slug": "log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/",
+    "title": {
+      "rendered": "Log Poisoning: Celah Berbahaya di Server yang Sering Terabaikan"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"73\" data-end=\"93\"><strong data-start=\"76\" data-end=\"91\">Pendahuluan</strong></h2>\n<p style=\"text-align: justify;\" data-start=\"94\" data-end=\"317\">Di dunia keamanan siber, banyak celah yang sering tidak diperhatikan oleh pengelola server. Salah satunya adalah <strong data-start=\"207\" data-end=\"224\">log poisoning</strong>, yaitu teknik serangan di mana peretas menyisipkan kode berbahaya ke dalam <strong data-start=\"300\" data-end=\"314\">log server</strong>.</p>\n<p style=\"text-align: justify;\" data-start=\"319\" data-end=\"616\">Jika server memiliki kelemahan <strong data-start=\"350\" data-end=\"380\">Local File Inclusion (LFI)</strong>, maka serangan ini bisa berkembang menjadi lebih serius, bahkan memungkinkan peretas menjalankan perintah di sistem. Ini bisa berdampak besar, seperti pencurian data, akses ilegal ke server, hingga pengendalian penuh terhadap sistem.</p>\n<p style=\"text-align: justify;\" data-start=\"618\" data-end=\"776\">Dalam artikel ini, kita akan membahas <strong data-start=\"656\" data-end=\"773\">apa itu log poisoning, bagaimana cara kerjanya, contoh eksploitasi, serta cara melindungi sistem dari ancaman ini</strong>.</p>\n<h2 style=\"text-align: justify;\" data-start=\"783\" data-end=\"814\"><strong data-start=\"786\" data-end=\"812\">Apa Itu Log Poisoning?</strong></h2>\n<p style=\"text-align: justify;\" data-start=\"815\" data-end=\"960\"><strong data-start=\"815\" data-end=\"832\">Log poisoning</strong> adalah teknik serangan di mana peretas menyuntikkan kode berbahaya ke dalam <strong data-start=\"909\" data-end=\"923\">log server</strong>, seperti log akses atau log error.</p>\n<p style=\"text-align: justify;\" data-start=\"962\" data-end=\"1058\">Biasanya, server web seperti <strong data-start=\"991\" data-end=\"1018\">Apache, Nginx, atau IIS</strong> mencatat informasi pengguna, seperti:</p>\n<ul style=\"text-align: justify;\" data-start=\"1059\" data-end=\"1246\">\n<li data-start=\"1059\" data-end=\"1121\"><strong data-start=\"1061\" data-end=\"1075\">User-Agent</strong> (informasi tentang browser yang digunakan).</li>\n<li data-start=\"1122\" data-end=\"1196\"><strong data-start=\"1124\" data-end=\"1135\">Referer</strong> (situs web yang mengarahkan pengguna ke halaman tertentu).</li>\n<li data-start=\"1197\" data-end=\"1246\"><strong data-start=\"1199\" data-end=\"1212\">Alamat IP</strong> (identitas perangkat pengguna).</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1248\" data-end=\"1488\">Jika sistem tidak aman, peretas bisa menyisipkan <strong data-start=\"1297\" data-end=\"1315\">kode berbahaya</strong> ke dalam salah satu log tersebut. Jika server memiliki <strong data-start=\"1371\" data-end=\"1401\">Local File Inclusion (LFI)</strong>, maka kode berbahaya ini bisa dieksekusi, membuka celah untuk serangan lebih lanjut.</p>\n<h2 style=\"text-align: justify;\" data-start=\"1495\" data-end=\"1537\"><strong data-start=\"1498\" data-end=\"1535\">Cara Kerja Serangan Log Poisoning</strong></h2>\n<h3 style=\"text-align: justify;\" data-start=\"1538\" data-end=\"1595\"><strong data-start=\"1542\" data-end=\"1593\">1. Menyisipkan Kode Berbahaya ke dalam File Log</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"1596\" data-end=\"1733\">Peretas bisa menyisipkan kode berbahaya dengan cara memanipulasi <strong data-start=\"1661\" data-end=\"1675\">User-Agent</strong>, yang nantinya akan dicatat oleh server dalam file log.</p>\n<p style=\"text-align: justify;\" data-start=\"1735\" data-end=\"1941\">Misalnya, mereka bisa mengirimkan informasi palsu ke server yang berisi perintah untuk dieksekusi. Karena server menyimpan informasi ini dalam log, maka log tersebut akan berisi kode yang bisa dijalankan.</p>\n<h3 style=\"text-align: justify;\" data-start=\"1943\" data-end=\"1985\"><strong data-start=\"1947\" data-end=\"1983\">2. Mengeksekusi Kode Melalui LFI</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"1986\" data-end=\"2155\">Jika server memiliki kelemahan <strong data-start=\"2017\" data-end=\"2047\">Local File Inclusion (LFI)</strong>, peretas dapat memanggil file log yang sudah mereka ubah agar sistem menjalankan kode berbahaya tersebut.</p>\n<p style=\"text-align: justify;\" data-start=\"2157\" data-end=\"2306\">Saat file log dipanggil oleh server, kode yang telah disuntikkan akan dieksekusi, memungkinkan peretas menjalankan perintah di dalam sistem server.</p>\n<h2 style=\"text-align: justify;\" data-start=\"2313\" data-end=\"2354\"><strong data-start=\"2316\" data-end=\"2352\">Contoh Kasus Nyata Log Poisoning</strong></h2>\n<h3 style=\"text-align: justify;\" data-start=\"2355\" data-end=\"2433\"><strong data-start=\"2359\" data-end=\"2431\">Kasus 1: Eksploitasi LFI + Log Poisoning untuk Mengambil Alih Server</strong></h3>\n<ol style=\"text-align: justify;\" data-start=\"2434\" data-end=\"2783\">\n<li data-start=\"2434\" data-end=\"2547\">Peretas menyisipkan kode berbahaya ke dalam log server melalui informasi pengguna yang dikirimkan ke sistem.</li>\n<li data-start=\"2548\" data-end=\"2668\">Peretas kemudian menggunakan celah <strong data-start=\"2586\" data-end=\"2616\">Local File Inclusion (LFI)</strong> untuk mengakses file log yang telah dimodifikasi.</li>\n<li data-start=\"2669\" data-end=\"2783\">Saat server membaca file log tersebut, kode berbahaya ikut dieksekusi, memberi peretas akses penuh ke sistem.</li>\n</ol>\n<h3 style=\"text-align: justify;\" data-start=\"2785\" data-end=\"2844\"><strong data-start=\"2789\" data-end=\"2842\">Kasus 2: Menyusupkan Backdoor ke dalam Log Server</strong></h3>\n<ol style=\"text-align: justify;\" data-start=\"2845\" data-end=\"3078\">\n<li data-start=\"2845\" data-end=\"2951\">Peretas memodifikasi log server agar berisi perintah untuk membuat koneksi balik ke perangkat mereka.</li>\n<li data-start=\"2952\" data-end=\"3078\">Saat server membaca log ini, sistem akan membuka akses bagi peretas untuk masuk dan mengendalikan server dari jarak jauh.</li>\n</ol>\n<h2 style=\"text-align: justify;\" data-start=\"3085\" data-end=\"3129\"><strong data-start=\"3088\" data-end=\"3127\">Teknik Lanjutan dalam Log Poisoning</strong></h2>\n<h3 style=\"text-align: justify;\" data-start=\"3130\" data-end=\"3168\"><strong data-start=\"3134\" data-end=\"3166\">1. Menggunakan Reverse Shell</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"3169\" data-end=\"3384\">Dalam beberapa kasus, peretas bisa menggunakan teknik <strong data-start=\"3223\" data-end=\"3240\">reverse shell</strong> untuk membuat server terhubung ke komputer mereka, sehingga mereka bisa mengontrol server dari jauh tanpa harus mengaksesnya secara langsung.</p>\n<h3 style=\"text-align: justify;\" data-start=\"3386\" data-end=\"3438\"><strong data-start=\"3390\" data-end=\"3436\">2. Memanfaatkan File Log Selain Access Log</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"3439\" data-end=\"3610\">Biasanya, <strong data-start=\"3449\" data-end=\"3466\">log poisoning</strong> dilakukan pada <strong data-start=\"3482\" data-end=\"3496\">access log</strong>, tetapi ada beberapa file log lain yang juga bisa dimanfaatkan, seperti <strong data-start=\"3569\" data-end=\"3582\">error log</strong> atau <strong data-start=\"3588\" data-end=\"3607\">log autentikasi</strong>.</p>\n<p style=\"text-align: justify;\" data-start=\"3612\" data-end=\"3807\">Jika server mencatat kesalahan sistem atau upaya login yang gagal, peretas bisa menyisipkan kode berbahaya ke dalamnya dan kemudian menjalankannya dengan cara yang sama seperti pada access log.</p>\n<h3 style=\"text-align: justify;\" data-start=\"3809\" data-end=\"3852\"><strong data-start=\"3813\" data-end=\"3850\">3. Bypassing Proteksi &amp; Filtering</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"3853\" data-end=\"4110\">Beberapa sistem keamanan mungkin mencoba mencegah <strong data-start=\"3903\" data-end=\"3920\">log poisoning</strong> dengan memfilter karakter tertentu. Namun, peretas bisa menghindari filter ini dengan menggunakan teknik <strong data-start=\"4026\" data-end=\"4038\">encoding</strong> atau <strong data-start=\"4044\" data-end=\"4074\">mengelabui sistem keamanan</strong> dengan format input yang berbeda.</p>\n<h2 style=\"text-align: justify;\" data-start=\"4117\" data-end=\"4162\"><strong data-start=\"4120\" data-end=\"4160\">Cara Mencegah Serangan Log Poisoning</strong></h2>\n<h3 style=\"text-align: justify;\" data-start=\"4163\" data-end=\"4210\"><strong data-start=\"4167\" data-end=\"4208\">1. Batasi Akses dan Eksekusi File Log</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"4211\" data-end=\"4371\">Salah satu cara utama untuk mencegah eksploitasi <strong data-start=\"4260\" data-end=\"4277\">log poisoning</strong> adalah dengan memastikan bahwa server <strong data-start=\"4316\" data-end=\"4368\">tidak mengeksekusi file log sebagai kode program</strong>.</p>\n<p style=\"text-align: justify;\" data-start=\"4373\" data-end=\"4529\">Jika file log hanya berisi catatan aktivitas pengguna tanpa bisa dieksekusi, maka peretas tidak akan bisa menjalankan kode berbahaya yang mereka sisipkan.</p>\n<h3 style=\"text-align: justify;\" data-start=\"4531\" data-end=\"4578\"><strong data-start=\"4535\" data-end=\"4576\">2. Amankan Local File Inclusion (LFI)</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"4579\" data-end=\"4696\">Jika server menggunakan <strong data-start=\"4603\" data-end=\"4633\">Local File Inclusion (LFI)</strong>, pastikan hanya file tertentu yang bisa diakses oleh sistem.</p>\n<p style=\"text-align: justify;\" data-start=\"4698\" data-end=\"4931\">Gunakan pendekatan <strong data-start=\"4717\" data-end=\"4733\">whitelisting</strong>, yaitu hanya mengizinkan file yang benar-benar diperlukan untuk dimuat oleh server. Dengan begitu, peretas tidak bisa menggunakan <strong data-start=\"4864\" data-end=\"4871\">LFI</strong> untuk memanggil file log dan mengeksekusi kode berbahaya.</p>\n<h3 style=\"text-align: justify;\" data-start=\"4933\" data-end=\"4987\"><strong data-start=\"4937\" data-end=\"4985\">3. Nonaktifkan Fungsi Berbahaya dalam Server</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"4988\" data-end=\"5124\">Beberapa fungsi dalam server, seperti perintah untuk menjalankan skrip secara langsung, sebaiknya dinonaktifkan jika tidak diperlukan.</p>\n<p style=\"text-align: justify;\" data-start=\"5126\" data-end=\"5244\">Ini akan membatasi kemampuan peretas untuk menjalankan kode berbahaya jika mereka berhasil menyusup ke dalam sistem.</p>\n<h3 style=\"text-align: justify;\" data-start=\"5246\" data-end=\"5301\"><strong data-start=\"5250\" data-end=\"5299\">4. Monitor dan Filter Input yang Masuk ke Log</strong></h3>\n<p style=\"text-align: justify;\" data-start=\"5302\" data-end=\"5471\">Pastikan sistem keamanan memfilter informasi yang masuk ke dalam file log. Misalnya, <strong data-start=\"5387\" data-end=\"5442\">jangan izinkan karakter atau kode yang mencurigakan</strong> disimpan dalam log server.</p>\n<p style=\"text-align: justify;\" data-start=\"5473\" data-end=\"5638\">Selain itu, gunakan sistem <strong data-start=\"5500\" data-end=\"5539\">firewall atau keamanan aplikasi web</strong> untuk mendeteksi pola serangan dan memblokir aktivitas mencurigakan sebelum bisa merusak sistem.</p>\n<h2 style=\"text-align: justify;\" data-start=\"5645\" data-end=\"5664\"><strong data-start=\"5648\" data-end=\"5662\">Kesimpulan</strong></h2>\n<ul data-start=\"5665\" data-end=\"6273\">\n<li style=\"text-align: justify;\" data-start=\"5665\" data-end=\"5780\"><strong data-start=\"5667\" data-end=\"5728\">Log Poisoning adalah celah keamanan yang sering diabaikan</strong>, tetapi bisa sangat berbahaya jika dieksploitasi.</li>\n<li style=\"text-align: justify;\" data-start=\"5781\" data-end=\"5937\"><strong data-start=\"5783\" data-end=\"5858\">Serangan ini sering terjadi bersamaan dengan Local File Inclusion (LFI)</strong>, yang memungkinkan eksekusi kode berbahaya secara tidak sengaja oleh server.</li>\n<li style=\"text-align: justify;\" data-start=\"5938\" data-end=\"6081\"><strong data-start=\"5940\" data-end=\"6019\">Jika berhasil dieksploitasi, peretas bisa mendapatkan akses penuh ke sistem</strong>, mencuri data, atau bahkan mengendalikan server sepenuhnya.</li>\n<li style=\"text-align: justify;\" data-start=\"6082\" data-end=\"6273\"><strong data-start=\"6084\" data-end=\"6109\">Pencegahan yang tepat</strong> seperti <strong data-start=\"6118\" data-end=\"6219\">membatasi akses ke file log, mengamankan fitur LFI, serta memfilter input yang masuk ke dalam log</strong> dapat membantu melindungi server dari serangan ini.</li>\n</ul>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pendahuluan Di dunia keamanan siber, banyak celah yang sering tidak diperhatikan oleh pengelola server. Salah satunya adalah log poisoning, yaitu teknik serangan di mana peretas menyisipkan kode berbahaya ke dalam log server. Jika server memiliki kelemahan Local File Inclusion (LFI), maka serangan ini bisa berkembang menjadi lebih serius, bahkan memungkinkan peretas menjalankan perintah di sistem. Ini bisa berdampak besar, seperti pencurian data, akses ilegal ke server, hingga pengendalian penuh terhadap sistem. Dalam artikel ini, kita akan membahas apa itu log poisoning, bagaimana cara kerjanya, contoh eksploitasi, serta cara melindungi sistem dari ancaman ini. Apa Itu Log Poisoning? Log poisoning adalah&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 1982,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      170
+    ],
+    "class_list": [
+      "post-2029",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-log-poisoning"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Log Poisoning: Celah Berbahaya di Server yang Sering Terabaikan - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Log Poisoning: Celah Berbahaya di Server yang Sering Terabaikan - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pendahuluan Di dunia keamanan siber, banyak celah yang sering tidak diperhatikan oleh pengelola server. Salah satunya adalah log poisoning, yaitu teknik serangan di mana peretas menyisipkan kode berbahaya ke dalam log server. Jika server memiliki kelemahan Local File Inclusion (LFI), maka serangan ini bisa berkembang menjadi lebih serius, bahkan memungkinkan peretas menjalankan perintah di sistem. Ini bisa berdampak besar, seperti pencurian data, akses ilegal ke server, hingga pengendalian penuh terhadap sistem. Dalam artikel ini, kita akan membahas apa itu log poisoning, bagaimana cara kerjanya, contoh eksploitasi, serta cara melindungi sistem dari ancaman ini. Apa Itu Log Poisoning? Log poisoning adalah...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2025-03-07T06:39:37+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-06-30T18:31:47+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\" />\n\t<meta property=\"og:image:width\" content=\"509\" />\n\t<meta property=\"og:image:height\" content=\"339\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/\",\"url\":\"https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/\",\"name\":\"Log Poisoning: Celah Berbahaya di Server yang Sering Terabaikan - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\",\"datePublished\":\"2025-03-07T06:39:37+00:00\",\"dateModified\":\"2026-06-30T18:31:47+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg\",\"width\":509,\"height\":339,\"caption\":\"Digital work of Computer Hacker or Programmer\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Log Poisoning: Celah Berbahaya di Server yang Sering Terabaikan\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Log Poisoning: Celah Berbahaya di Server yang Sering Terabaikan - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Log Poisoning: Celah Berbahaya di Server yang Sering Terabaikan - buletinsiber.com",
+      "og_description": "Pendahuluan Di dunia keamanan siber, banyak celah yang sering tidak diperhatikan oleh pengelola server. Salah satunya adalah log poisoning, yaitu teknik serangan di mana peretas menyisipkan kode berbahaya ke dalam log server. Jika server memiliki kelemahan Local File Inclusion (LFI), maka serangan ini bisa berkembang menjadi lebih serius, bahkan memungkinkan peretas menjalankan perintah di sistem. Ini bisa berdampak besar, seperti pencurian data, akses ilegal ke server, hingga pengendalian penuh terhadap sistem. Dalam artikel ini, kita akan membahas apa itu log poisoning, bagaimana cara kerjanya, contoh eksploitasi, serta cara melindungi sistem dari ancaman ini. Apa Itu Log Poisoning? Log poisoning adalah...",
+      "og_url": "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2025-03-07T06:39:37+00:00",
+      "article_modified_time": "2026-06-30T18:31:47+00:00",
+      "og_image": [
+        {
+          "width": 509,
+          "height": 339,
+          "url": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/",
+            "url": "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/",
+            "name": "Log Poisoning: Celah Berbahaya di Server yang Sering Terabaikan - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+            "datePublished": "2025-03-07T06:39:37+00:00",
+            "dateModified": "2026-06-30T18:31:47+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2025/03/hacker.jpg",
+            "width": 509,
+            "height": 339,
+            "caption": "Digital work of Computer Hacker or Programmer"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/log-poisoning-celah-berbahaya-di-server-yang-sering-terabaikan/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Log Poisoning: Celah Berbahaya di Server yang Sering Terabaikan"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2029",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=2029"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2029/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 2030,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/2029/revisions/2030"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/1982"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=2029"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=2029"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=2029"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,336 @@
+{
+  "id": 9635,
+  "title": "Blind SQLi: Serangan Sunyi yang Menguras Database Tanpa Terdeteksi",
+  "slug": "blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi",
+  "url": "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/",
+  "date": "2026-02-26T02:31:38",
+  "date_gmt": "2026-02-26T02:31:38",
+  "modified": "2026-07-06T20:56:58",
+  "modified_gmt": "2026-07-06T20:56:58",
+  "author": {
+    "id": 1,
+    "name": "Sulkifly Said"
+  },
+  "categories": [
+    {
+      "id": 6,
+      "name": "Tech"
+    }
+  ],
+  "tags": [
+    1385,
+    185,
+    259,
+    932,
+    257
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/01/hackers-typing-keyboard-graffiti-painted-hideout-close-up-scaled.jpg",
+  "excerpt": "Pengantar SQL Injection (SQLi) telah lama dikenal sebagai salah satu teknik serangan paling berbahaya dalam keamanan aplikasi web. Namun, ketika aplikasi tidak menampilkan pesan error atau hasil query secara langsung, bukan berarti sistem aman. Di situlah muncul teknik yang lebih halus dan sulit dideteksi: Blind SQL Injection (Blind SQLi). Blind SQLi memungkinkan penyerang mengekstrak informasi dari database tanpa melihat respons data secara langsung. Alih-alih menerima hasil query, penyerang mengamati perilaku aplikasi—seperti perubahan respons atau waktu pemrosesan—untuk menyimpulkan isi database secara bertahap. Teknik ini tetap menjadi ancaman serius karena banyak aplikasi web masih memiliki kelemahan validasi input dan pengamanan query database….",
+  "content_html": "<h2 style=\"text-align: justify;\" data-start=\"74\" data-end=\"86\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"88\" data-end=\"423\"><span style=\"color: #000000;\">SQL Injection (SQLi) telah lama dikenal sebagai salah satu teknik serangan paling berbahaya dalam keamanan aplikasi web. Namun, ketika aplikasi tidak menampilkan pesan error atau hasil query secara langsung, bukan berarti sistem aman. Di situlah muncul teknik yang lebih halus dan sulit dideteksi: <strong data-start=\"386\" data-end=\"422\">Blind SQL Injection (Blind SQLi)</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"425\" data-end=\"705\"><span style=\"color: #000000;\">Blind SQLi memungkinkan penyerang mengekstrak informasi dari database tanpa melihat respons data secara langsung. Alih-alih menerima hasil query, penyerang mengamati perilaku aplikasi—seperti perubahan respons atau waktu pemrosesan—untuk menyimpulkan isi database secara bertahap.</span></p>\n<p style=\"text-align: justify;\" data-start=\"707\" data-end=\"844\"><span style=\"color: #000000;\">Teknik ini tetap menjadi ancaman serius karena banyak aplikasi web masih memiliki kelemahan validasi input dan pengamanan query database.</span></p>\n<hr data-start=\"846\" data-end=\"849\" />\n<h3 style=\"text-align: justify;\" data-start=\"851\" data-end=\"882\"><span style=\"color: #000000;\">Apa Itu Blind SQL Injection?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"884\" data-end=\"1151\"><span style=\"color: #000000;\">Blind SQL Injection adalah jenis SQL Injection di mana aplikasi tidak menampilkan pesan error atau hasil query database secara langsung kepada pengguna. Meskipun responsnya terbatas, penyerang tetap dapat mengumpulkan informasi melalui analisis logika respons sistem.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1153\" data-end=\"1357\"><span style=\"color: #000000;\">Menurut OWASP, SQL Injection terjadi ketika input pengguna dimasukkan ke dalam query SQL tanpa validasi atau parameterisasi yang tepat (dikutip dari <a href=\"https://owasp.org/www-community/attacks/SQL_Injection\">OWASP</a>).</span></p>\n<p style=\"text-align: justify;\" data-start=\"1359\" data-end=\"1507\"><span style=\"color: #000000;\">Dalam konteks Blind SQLi, penyerang tidak melihat output data, tetapi tetap dapat menyimpulkan kebenaran suatu kondisi berdasarkan respons aplikasi.</span></p>\n<blockquote>\n<p data-start=\"1359\" data-end=\"1507\">baca juga : <a href=\"https://buletinsiber.com/whaling-attack-serangan-phishing-yang-mengincar-petinggi-perusahaan/\">Whaling Attack: Serangan Phishing yang Mengincar Petinggi Perusahaan</a></p>\n</blockquote>\n<hr data-start=\"1509\" data-end=\"1512\" />\n<h3 style=\"text-align: justify;\" data-start=\"1514\" data-end=\"1549\"><span style=\"color: #000000;\">Bagaimana Cara Kerja Blind SQLi?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1551\" data-end=\"1645\"><span style=\"color: #000000;\">Blind SQLi umumnya bekerja melalui dua pendekatan utama: <strong data-start=\"1608\" data-end=\"1625\">Boolean-based</strong> dan <strong data-start=\"1630\" data-end=\"1644\">Time-based</strong>.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"1647\" data-end=\"1675\"><span style=\"color: #000000;\">Boolean-Based Blind SQLi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"1677\" data-end=\"1764\"><span style=\"color: #000000;\">Pada metode ini, penyerang mengirimkan query yang menghasilkan kondisi TRUE atau FALSE.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1766\" data-end=\"1790\"><span style=\"color: #000000;\">Contoh logika sederhana:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1792\" data-end=\"1912\">\n<li data-start=\"1792\" data-end=\"1851\">\n<p data-start=\"1794\" data-end=\"1851\"><span style=\"color: #000000;\">Jika kondisi benar → halaman menampilkan respons normal</span></p>\n</li>\n<li data-start=\"1852\" data-end=\"1912\">\n<p data-start=\"1854\" data-end=\"1912\"><span style=\"color: #000000;\">Jika kondisi salah → halaman menampilkan respons berbeda</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1914\" data-end=\"2004\"><span style=\"color: #000000;\">Dengan menguji satu karakter demi satu karakter, penyerang dapat mengekstrak data seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2006\" data-end=\"2069\">\n<li data-start=\"2006\" data-end=\"2023\">\n<p data-start=\"2008\" data-end=\"2023\"><span style=\"color: #000000;\">Nama database</span></p>\n</li>\n<li data-start=\"2024\" data-end=\"2038\">\n<p data-start=\"2026\" data-end=\"2038\"><span style=\"color: #000000;\">Nama tabel</span></p>\n</li>\n<li data-start=\"2039\" data-end=\"2051\">\n<p data-start=\"2041\" data-end=\"2051\"><span style=\"color: #000000;\">Username</span></p>\n</li>\n<li data-start=\"2052\" data-end=\"2069\">\n<p data-start=\"2054\" data-end=\"2069\"><span style=\"color: #000000;\">Password hash</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2071\" data-end=\"2119\"><span style=\"color: #000000;\">Proses ini memang lambat, tetapi sangat efektif.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2121\" data-end=\"2146\"><span style=\"color: #000000;\">Time-Based Blind SQLi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2148\" data-end=\"2256\"><span style=\"color: #000000;\">Jika aplikasi tidak menunjukkan perbedaan respons visual, penyerang dapat menggunakan teknik berbasis waktu.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2258\" data-end=\"2321\"><span style=\"color: #000000;\">Dalam metode ini, query disisipkan dengan fungsi delay seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2323\" data-end=\"2383\">\n<li data-start=\"2323\" data-end=\"2347\">\n<p data-start=\"2325\" data-end=\"2347\"><span style=\"color: #000000;\"><code data-start=\"2325\" data-end=\"2334\">SLEEP()</code> pada MySQL</span></p>\n</li>\n<li data-start=\"2348\" data-end=\"2383\">\n<p data-start=\"2350\" data-end=\"2383\"><span style=\"color: #000000;\"><code data-start=\"2350\" data-end=\"2365\">WAITFOR DELAY</code> pada SQL Server</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2385\" data-end=\"2474\"><span style=\"color: #000000;\">Jika server merespons lebih lambat dari biasanya, maka kondisi yang diuji dianggap benar.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2476\" data-end=\"2691\"><span style=\"color: #000000;\">Menurut PortSwigger, time-based SQL injection memungkinkan penyerang menyimpulkan kebenaran suatu kondisi dengan mengukur waktu respons server (dikutip dari <a href=\"https://portswigger.net/web-security/sql-injection/blind\">PortSwigger</a>).</span></p>\n<blockquote>\n<p data-start=\"2476\" data-end=\"2691\">baca juga : <a href=\"https://buletinsiber.com/icmp-tunneling-jalur-rahasia-di-balik-paket-ping-yang-sering-diabaikan/\">ICMP Tunneling: Jalur Rahasia di Balik Paket Ping yang Sering Diabaikan</a></p>\n</blockquote>\n<hr data-start=\"2693\" data-end=\"2696\" />\n<h3 style=\"text-align: justify;\" data-start=\"2698\" data-end=\"2730\"><span style=\"color: #000000;\">Mengapa Blind SQLi Berbahaya?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2732\" data-end=\"2788\"><span style=\"color: #000000;\">Blind SQLi sering dianggap lebih sulit dideteksi karena:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2790\" data-end=\"2910\">\n<li data-start=\"2790\" data-end=\"2826\">\n<p data-start=\"2792\" data-end=\"2826\"><span style=\"color: #000000;\">Tidak menampilkan error database</span></p>\n</li>\n<li data-start=\"2827\" data-end=\"2864\">\n<p data-start=\"2829\" data-end=\"2864\"><span style=\"color: #000000;\">Tidak memberikan output eksplisit</span></p>\n</li>\n<li data-start=\"2865\" data-end=\"2910\">\n<p data-start=\"2867\" data-end=\"2910\"><span style=\"color: #000000;\">Terlihat seperti aktivitas pengguna biasa</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2912\" data-end=\"2954\"><span style=\"color: #000000;\">Namun dampaknya tetap serius, antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2956\" data-end=\"3106\">\n<li data-start=\"2956\" data-end=\"2990\">\n<p data-start=\"2958\" data-end=\"2990\"><span style=\"color: #000000;\">Kebocoran seluruh isi database</span></p>\n</li>\n<li data-start=\"2991\" data-end=\"3019\">\n<p data-start=\"2993\" data-end=\"3019\"><span style=\"color: #000000;\">Pencurian data pelanggan</span></p>\n</li>\n<li data-start=\"3020\" data-end=\"3051\">\n<p data-start=\"3022\" data-end=\"3051\"><span style=\"color: #000000;\">Akses ke akun administrator</span></p>\n</li>\n<li data-start=\"3052\" data-end=\"3106\">\n<p data-start=\"3054\" data-end=\"3106\"><span style=\"color: #000000;\">Potensi eksekusi perintah lebih lanjut pada server</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3108\" data-end=\"3191\"><span style=\"color: #000000;\">Serangan ini juga sering digunakan sebagai tahap awal sebelum eksploitasi lanjutan.</span></p>\n<hr data-start=\"3193\" data-end=\"3196\" />\n<h3 style=\"text-align: justify;\" data-start=\"3198\" data-end=\"3248\"><span style=\"color: #000000;\">Tanda-Tanda Aplikasi Rentan terhadap Blind SQLi</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3250\" data-end=\"3282\"><span style=\"color: #000000;\">Beberapa indikasi umum meliputi:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3284\" data-end=\"3512\">\n<li data-start=\"3284\" data-end=\"3340\">\n<p data-start=\"3286\" data-end=\"3340\"><span style=\"color: #000000;\">Parameter URL langsung diproses dalam query database</span></p>\n</li>\n<li data-start=\"3341\" data-end=\"3377\">\n<p data-start=\"3343\" data-end=\"3377\"><span style=\"color: #000000;\">Tidak adanya prepared statements</span></p>\n</li>\n<li data-start=\"3378\" data-end=\"3444\">\n<p data-start=\"3380\" data-end=\"3444\"><span style=\"color: #000000;\">Respons halaman berubah ketika parameter tertentu dimodifikasi</span></p>\n</li>\n<li data-start=\"3445\" data-end=\"3512\">\n<p data-start=\"3447\" data-end=\"3512\"><span style=\"color: #000000;\">Server mengalami delay tidak wajar saat menerima input tertentu</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3514\" data-end=\"3604\"><span style=\"color: #000000;\">Pengujian keamanan aplikasi secara berkala sangat penting untuk mengidentifikasi pola ini.</span></p>\n<hr data-start=\"3606\" data-end=\"3609\" />\n<h3 style=\"text-align: justify;\" data-start=\"3611\" data-end=\"3647\"><span style=\"color: #000000;\">Cara Mencegah Blind SQL Injection</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3649\" data-end=\"3707\"><span style=\"color: #000000;\">Gunakan Prepared Statements atau Parameterized Queries</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3709\" data-end=\"3829\"><span style=\"color: #000000;\">Ini adalah langkah paling efektif. Query tidak boleh dibangun melalui concatenation string langsung dari input pengguna.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3831\" data-end=\"3862\"><span style=\"color: #000000;\">Validasi dan Sanitasi Input</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3864\" data-end=\"3938\"><span style=\"color: #000000;\">Pastikan semua input pengguna divalidasi sesuai tipe data yang diharapkan.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3940\" data-end=\"3982\"><span style=\"color: #000000;\">Gunakan Web Application Firewall (WAF)</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3984\" data-end=\"4068\"><span style=\"color: #000000;\">WAF dapat membantu mendeteksi pola serangan SQL Injection sebelum mencapai aplikasi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4070\" data-end=\"4099\"><span style=\"color: #000000;\">Batasi Hak Akses Database</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4101\" data-end=\"4215\"><span style=\"color: #000000;\">Gunakan prinsip least privilege. Akun database tidak boleh memiliki hak akses lebih dari yang dibutuhkan aplikasi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4217\" data-end=\"4253\"><span style=\"color: #000000;\">Lakukan Security Testing Berkala</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4255\" data-end=\"4340\"><span style=\"color: #000000;\">Lakukan penetration testing dan code review untuk memastikan tidak ada celah injeksi.</span></p>\n<hr data-start=\"4342\" data-end=\"4345\" />\n<h3 style=\"text-align: justify;\" data-start=\"4347\" data-end=\"4392\"><span style=\"color: #000000;\">Relevansi Blind SQLi dalam Keamanan Modern</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4394\" data-end=\"4537\"><span style=\"color: #000000;\">Meskipun teknik ini telah lama dikenal, Blind SQLi masih sering ditemukan pada aplikasi yang dibangun tanpa standar secure coding yang memadai.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4539\" data-end=\"4784\"><span style=\"color: #000000;\">Dalam era DevSecOps, pengujian keamanan harus menjadi bagian dari siklus pengembangan aplikasi. Integrasi Static Application Security Testing (SAST) dan Dynamic Application Security Testing (DAST) dapat membantu mendeteksi kerentanan sejak awal.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4786\" data-end=\"4863\"><span style=\"color: #000000;\">Blind SQLi membuktikan bahwa ketiadaan pesan error bukanlah jaminan keamanan.</span></p>\n<blockquote>\n<p data-start=\"4786\" data-end=\"4863\">baca juga : <a href=\"https://buletinsiber.com/form-grabbing-cara-malware-mencuri-data-anda-tepat-sebelum-tombol-login-diklik/\">Form Grabbing: Cara Malware Mencuri Data Anda Tepat Sebelum Tombol “Login” Diklik</a></p>\n</blockquote>\n<hr data-start=\"4865\" data-end=\"4868\" />\n<h2 style=\"text-align: justify;\" data-start=\"4870\" data-end=\"4883\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"4885\" data-end=\"5163\"><span style=\"color: #000000;\">Blind SQL Injection adalah teknik serangan yang memungkinkan penyerang mengekstrak data dari database tanpa melihat hasil query secara langsung. Dengan memanfaatkan respons logika atau waktu server, penyerang dapat mengumpulkan informasi sensitif secara bertahap dan sistematis.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5165\" data-end=\"5453\"><span style=\"color: #000000;\">Karena dampaknya yang serius, pengembang harus menerapkan parameterized query, validasi input yang ketat, serta pembatasan hak akses database. Keamanan aplikasi web tidak boleh hanya bergantung pada menyembunyikan error, tetapi harus dibangun dengan prinsip secure coding yang menyeluruh.</span></p>\n",
+  "content_text": "Pengantar\nSQL Injection (SQLi) telah lama dikenal sebagai salah satu teknik serangan paling berbahaya dalam keamanan aplikasi web. Namun, ketika aplikasi tidak menampilkan pesan error atau hasil query secara langsung, bukan berarti sistem aman. Di situlah muncul teknik yang lebih halus dan sulit dideteksi:  Blind SQL Injection (Blind SQLi) .\nBlind SQLi memungkinkan penyerang mengekstrak informasi dari database tanpa melihat respons data secara langsung. Alih-alih menerima hasil query, penyerang mengamati perilaku aplikasi—seperti perubahan respons atau waktu pemrosesan—untuk menyimpulkan isi database secara bertahap.\nTeknik ini tetap menjadi ancaman serius karena banyak aplikasi web masih memiliki kelemahan validasi input dan pengamanan query database.\nApa Itu Blind SQL Injection?\nBlind SQL Injection adalah jenis SQL Injection di mana aplikasi tidak menampilkan pesan error atau hasil query database secara langsung kepada pengguna. Meskipun responsnya terbatas, penyerang tetap dapat mengumpulkan informasi melalui analisis logika respons sistem.\nMenurut OWASP, SQL Injection terjadi ketika input pengguna dimasukkan ke dalam query SQL tanpa validasi atau parameterisasi yang tepat (dikutip dari  OWASP ).\nDalam konteks Blind SQLi, penyerang tidak melihat output data, tetapi tetap dapat menyimpulkan kebenaran suatu kondisi berdasarkan respons aplikasi.\nbaca juga :  Whaling Attack: Serangan Phishing yang Mengincar Petinggi Perusahaan\nBagaimana Cara Kerja Blind SQLi?\nBlind SQLi umumnya bekerja melalui dua pendekatan utama:  Boolean-based  dan  Time-based .\nBoolean-Based Blind SQLi\nPada metode ini, penyerang mengirimkan query yang menghasilkan kondisi TRUE atau FALSE.\nContoh logika sederhana:\nJika kondisi benar → halaman menampilkan respons normal\nJika kondisi salah → halaman menampilkan respons berbeda\nDengan menguji satu karakter demi satu karakter, penyerang dapat mengekstrak data seperti:\nNama database\nNama tabel\nUsername\nPassword hash\nProses ini memang lambat, tetapi sangat efektif.\nTime-Based Blind SQLi\nJika aplikasi tidak menunjukkan perbedaan respons visual, penyerang dapat menggunakan teknik berbasis waktu.\nDalam metode ini, query disisipkan dengan fungsi delay seperti:\nSLEEP()  pada MySQL\nWAITFOR DELAY  pada SQL Server\nJika server merespons lebih lambat dari biasanya, maka kondisi yang diuji dianggap benar.\nMenurut PortSwigger, time-based SQL injection memungkinkan penyerang menyimpulkan kebenaran suatu kondisi dengan mengukur waktu respons server (dikutip dari  PortSwigger ).\nbaca juga :  ICMP Tunneling: Jalur Rahasia di Balik Paket Ping yang Sering Diabaikan\nMengapa Blind SQLi Berbahaya?\nBlind SQLi sering dianggap lebih sulit dideteksi karena:\nTidak menampilkan error database\nTidak memberikan output eksplisit\nTerlihat seperti aktivitas pengguna biasa\nNamun dampaknya tetap serius, antara lain:\nKebocoran seluruh isi database\nPencurian data pelanggan\nAkses ke akun administrator\nPotensi eksekusi perintah lebih lanjut pada server\nSerangan ini juga sering digunakan sebagai tahap awal sebelum eksploitasi lanjutan.\nTanda-Tanda Aplikasi Rentan terhadap Blind SQLi\nBeberapa indikasi umum meliputi:\nParameter URL langsung diproses dalam query database\nTidak adanya prepared statements\nRespons halaman berubah ketika parameter tertentu dimodifikasi\nServer mengalami delay tidak wajar saat menerima input tertentu\nPengujian keamanan aplikasi secara berkala sangat penting untuk mengidentifikasi pola ini.\nCara Mencegah Blind SQL Injection\nGunakan Prepared Statements atau Parameterized Queries\nIni adalah langkah paling efektif. Query tidak boleh dibangun melalui concatenation string langsung dari input pengguna.\nValidasi dan Sanitasi Input\nPastikan semua input pengguna divalidasi sesuai tipe data yang diharapkan.\nGunakan Web Application Firewall (WAF)\nWAF dapat membantu mendeteksi pola serangan SQL Injection sebelum mencapai aplikasi.\nBatasi Hak Akses Database\nGunakan prinsip least privilege. Akun database tidak boleh memiliki hak akses lebih dari yang dibutuhkan aplikasi.\nLakukan Security Testing Berkala\nLakukan penetration testing dan code review untuk memastikan tidak ada celah injeksi.\nRelevansi Blind SQLi dalam Keamanan Modern\nMeskipun teknik ini telah lama dikenal, Blind SQLi masih sering ditemukan pada aplikasi yang dibangun tanpa standar secure coding yang memadai.\nDalam era DevSecOps, pengujian keamanan harus menjadi bagian dari siklus pengembangan aplikasi. Integrasi Static Application Security Testing (SAST) dan Dynamic Application Security Testing (DAST) dapat membantu mendeteksi kerentanan sejak awal.\nBlind SQLi membuktikan bahwa ketiadaan pesan error bukanlah jaminan keamanan.\nbaca juga :  Form Grabbing: Cara Malware Mencuri Data Anda Tepat Sebelum Tombol “Login” Diklik\nKesimpulan\nBlind SQL Injection adalah teknik serangan yang memungkinkan penyerang mengekstrak data dari database tanpa melihat hasil query secara langsung. Dengan memanfaatkan respons logika atau waktu server, penyerang dapat mengumpulkan informasi sensitif secara bertahap dan sistematis.\nKarena dampaknya yang serius, pengembang harus menerapkan parameterized query, validasi input yang ketat, serta pembatasan hak akses database. Keamanan aplikasi web tidak boleh hanya bergantung pada menyembunyikan error, tetapi harus dibangun dengan prinsip secure coding yang menyeluruh.",
+  "raw": {
+    "id": 9635,
+    "date": "2026-02-26T02:31:38",
+    "date_gmt": "2026-02-26T02:31:38",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=9635"
+    },
+    "modified": "2026-07-06T20:56:58",
+    "modified_gmt": "2026-07-06T20:56:58",
+    "slug": "blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/",
+    "title": {
+      "rendered": "Blind SQLi: Serangan Sunyi yang Menguras Database Tanpa Terdeteksi"
+    },
+    "content": {
+      "rendered": "<h2 style=\"text-align: justify;\" data-start=\"74\" data-end=\"86\"><span style=\"color: #000000;\">Pengantar</span></h2>\n<p style=\"text-align: justify;\" data-start=\"88\" data-end=\"423\"><span style=\"color: #000000;\">SQL Injection (SQLi) telah lama dikenal sebagai salah satu teknik serangan paling berbahaya dalam keamanan aplikasi web. Namun, ketika aplikasi tidak menampilkan pesan error atau hasil query secara langsung, bukan berarti sistem aman. Di situlah muncul teknik yang lebih halus dan sulit dideteksi: <strong data-start=\"386\" data-end=\"422\">Blind SQL Injection (Blind SQLi)</strong>.</span></p>\n<p style=\"text-align: justify;\" data-start=\"425\" data-end=\"705\"><span style=\"color: #000000;\">Blind SQLi memungkinkan penyerang mengekstrak informasi dari database tanpa melihat respons data secara langsung. Alih-alih menerima hasil query, penyerang mengamati perilaku aplikasi—seperti perubahan respons atau waktu pemrosesan—untuk menyimpulkan isi database secara bertahap.</span></p>\n<p style=\"text-align: justify;\" data-start=\"707\" data-end=\"844\"><span style=\"color: #000000;\">Teknik ini tetap menjadi ancaman serius karena banyak aplikasi web masih memiliki kelemahan validasi input dan pengamanan query database.</span></p>\n<hr data-start=\"846\" data-end=\"849\" />\n<h3 style=\"text-align: justify;\" data-start=\"851\" data-end=\"882\"><span style=\"color: #000000;\">Apa Itu Blind SQL Injection?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"884\" data-end=\"1151\"><span style=\"color: #000000;\">Blind SQL Injection adalah jenis SQL Injection di mana aplikasi tidak menampilkan pesan error atau hasil query database secara langsung kepada pengguna. Meskipun responsnya terbatas, penyerang tetap dapat mengumpulkan informasi melalui analisis logika respons sistem.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1153\" data-end=\"1357\"><span style=\"color: #000000;\">Menurut OWASP, SQL Injection terjadi ketika input pengguna dimasukkan ke dalam query SQL tanpa validasi atau parameterisasi yang tepat (dikutip dari <a href=\"https://owasp.org/www-community/attacks/SQL_Injection\">OWASP</a>).</span></p>\n<p style=\"text-align: justify;\" data-start=\"1359\" data-end=\"1507\"><span style=\"color: #000000;\">Dalam konteks Blind SQLi, penyerang tidak melihat output data, tetapi tetap dapat menyimpulkan kebenaran suatu kondisi berdasarkan respons aplikasi.</span></p>\n<blockquote>\n<p data-start=\"1359\" data-end=\"1507\">baca juga : <a href=\"https://buletinsiber.com/whaling-attack-serangan-phishing-yang-mengincar-petinggi-perusahaan/\">Whaling Attack: Serangan Phishing yang Mengincar Petinggi Perusahaan</a></p>\n</blockquote>\n<hr data-start=\"1509\" data-end=\"1512\" />\n<h3 style=\"text-align: justify;\" data-start=\"1514\" data-end=\"1549\"><span style=\"color: #000000;\">Bagaimana Cara Kerja Blind SQLi?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"1551\" data-end=\"1645\"><span style=\"color: #000000;\">Blind SQLi umumnya bekerja melalui dua pendekatan utama: <strong data-start=\"1608\" data-end=\"1625\">Boolean-based</strong> dan <strong data-start=\"1630\" data-end=\"1644\">Time-based</strong>.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"1647\" data-end=\"1675\"><span style=\"color: #000000;\">Boolean-Based Blind SQLi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"1677\" data-end=\"1764\"><span style=\"color: #000000;\">Pada metode ini, penyerang mengirimkan query yang menghasilkan kondisi TRUE atau FALSE.</span></p>\n<p style=\"text-align: justify;\" data-start=\"1766\" data-end=\"1790\"><span style=\"color: #000000;\">Contoh logika sederhana:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"1792\" data-end=\"1912\">\n<li data-start=\"1792\" data-end=\"1851\">\n<p data-start=\"1794\" data-end=\"1851\"><span style=\"color: #000000;\">Jika kondisi benar → halaman menampilkan respons normal</span></p>\n</li>\n<li data-start=\"1852\" data-end=\"1912\">\n<p data-start=\"1854\" data-end=\"1912\"><span style=\"color: #000000;\">Jika kondisi salah → halaman menampilkan respons berbeda</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"1914\" data-end=\"2004\"><span style=\"color: #000000;\">Dengan menguji satu karakter demi satu karakter, penyerang dapat mengekstrak data seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2006\" data-end=\"2069\">\n<li data-start=\"2006\" data-end=\"2023\">\n<p data-start=\"2008\" data-end=\"2023\"><span style=\"color: #000000;\">Nama database</span></p>\n</li>\n<li data-start=\"2024\" data-end=\"2038\">\n<p data-start=\"2026\" data-end=\"2038\"><span style=\"color: #000000;\">Nama tabel</span></p>\n</li>\n<li data-start=\"2039\" data-end=\"2051\">\n<p data-start=\"2041\" data-end=\"2051\"><span style=\"color: #000000;\">Username</span></p>\n</li>\n<li data-start=\"2052\" data-end=\"2069\">\n<p data-start=\"2054\" data-end=\"2069\"><span style=\"color: #000000;\">Password hash</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2071\" data-end=\"2119\"><span style=\"color: #000000;\">Proses ini memang lambat, tetapi sangat efektif.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"2121\" data-end=\"2146\"><span style=\"color: #000000;\">Time-Based Blind SQLi</span></h4>\n<p style=\"text-align: justify;\" data-start=\"2148\" data-end=\"2256\"><span style=\"color: #000000;\">Jika aplikasi tidak menunjukkan perbedaan respons visual, penyerang dapat menggunakan teknik berbasis waktu.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2258\" data-end=\"2321\"><span style=\"color: #000000;\">Dalam metode ini, query disisipkan dengan fungsi delay seperti:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2323\" data-end=\"2383\">\n<li data-start=\"2323\" data-end=\"2347\">\n<p data-start=\"2325\" data-end=\"2347\"><span style=\"color: #000000;\"><code data-start=\"2325\" data-end=\"2334\">SLEEP()</code> pada MySQL</span></p>\n</li>\n<li data-start=\"2348\" data-end=\"2383\">\n<p data-start=\"2350\" data-end=\"2383\"><span style=\"color: #000000;\"><code data-start=\"2350\" data-end=\"2365\">WAITFOR DELAY</code> pada SQL Server</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2385\" data-end=\"2474\"><span style=\"color: #000000;\">Jika server merespons lebih lambat dari biasanya, maka kondisi yang diuji dianggap benar.</span></p>\n<p style=\"text-align: justify;\" data-start=\"2476\" data-end=\"2691\"><span style=\"color: #000000;\">Menurut PortSwigger, time-based SQL injection memungkinkan penyerang menyimpulkan kebenaran suatu kondisi dengan mengukur waktu respons server (dikutip dari <a href=\"https://portswigger.net/web-security/sql-injection/blind\">PortSwigger</a>).</span></p>\n<blockquote>\n<p data-start=\"2476\" data-end=\"2691\">baca juga : <a href=\"https://buletinsiber.com/icmp-tunneling-jalur-rahasia-di-balik-paket-ping-yang-sering-diabaikan/\">ICMP Tunneling: Jalur Rahasia di Balik Paket Ping yang Sering Diabaikan</a></p>\n</blockquote>\n<hr data-start=\"2693\" data-end=\"2696\" />\n<h3 style=\"text-align: justify;\" data-start=\"2698\" data-end=\"2730\"><span style=\"color: #000000;\">Mengapa Blind SQLi Berbahaya?</span></h3>\n<p style=\"text-align: justify;\" data-start=\"2732\" data-end=\"2788\"><span style=\"color: #000000;\">Blind SQLi sering dianggap lebih sulit dideteksi karena:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2790\" data-end=\"2910\">\n<li data-start=\"2790\" data-end=\"2826\">\n<p data-start=\"2792\" data-end=\"2826\"><span style=\"color: #000000;\">Tidak menampilkan error database</span></p>\n</li>\n<li data-start=\"2827\" data-end=\"2864\">\n<p data-start=\"2829\" data-end=\"2864\"><span style=\"color: #000000;\">Tidak memberikan output eksplisit</span></p>\n</li>\n<li data-start=\"2865\" data-end=\"2910\">\n<p data-start=\"2867\" data-end=\"2910\"><span style=\"color: #000000;\">Terlihat seperti aktivitas pengguna biasa</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"2912\" data-end=\"2954\"><span style=\"color: #000000;\">Namun dampaknya tetap serius, antara lain:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"2956\" data-end=\"3106\">\n<li data-start=\"2956\" data-end=\"2990\">\n<p data-start=\"2958\" data-end=\"2990\"><span style=\"color: #000000;\">Kebocoran seluruh isi database</span></p>\n</li>\n<li data-start=\"2991\" data-end=\"3019\">\n<p data-start=\"2993\" data-end=\"3019\"><span style=\"color: #000000;\">Pencurian data pelanggan</span></p>\n</li>\n<li data-start=\"3020\" data-end=\"3051\">\n<p data-start=\"3022\" data-end=\"3051\"><span style=\"color: #000000;\">Akses ke akun administrator</span></p>\n</li>\n<li data-start=\"3052\" data-end=\"3106\">\n<p data-start=\"3054\" data-end=\"3106\"><span style=\"color: #000000;\">Potensi eksekusi perintah lebih lanjut pada server</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3108\" data-end=\"3191\"><span style=\"color: #000000;\">Serangan ini juga sering digunakan sebagai tahap awal sebelum eksploitasi lanjutan.</span></p>\n<hr data-start=\"3193\" data-end=\"3196\" />\n<h3 style=\"text-align: justify;\" data-start=\"3198\" data-end=\"3248\"><span style=\"color: #000000;\">Tanda-Tanda Aplikasi Rentan terhadap Blind SQLi</span></h3>\n<p style=\"text-align: justify;\" data-start=\"3250\" data-end=\"3282\"><span style=\"color: #000000;\">Beberapa indikasi umum meliputi:</span></p>\n<ul style=\"text-align: justify;\" data-start=\"3284\" data-end=\"3512\">\n<li data-start=\"3284\" data-end=\"3340\">\n<p data-start=\"3286\" data-end=\"3340\"><span style=\"color: #000000;\">Parameter URL langsung diproses dalam query database</span></p>\n</li>\n<li data-start=\"3341\" data-end=\"3377\">\n<p data-start=\"3343\" data-end=\"3377\"><span style=\"color: #000000;\">Tidak adanya prepared statements</span></p>\n</li>\n<li data-start=\"3378\" data-end=\"3444\">\n<p data-start=\"3380\" data-end=\"3444\"><span style=\"color: #000000;\">Respons halaman berubah ketika parameter tertentu dimodifikasi</span></p>\n</li>\n<li data-start=\"3445\" data-end=\"3512\">\n<p data-start=\"3447\" data-end=\"3512\"><span style=\"color: #000000;\">Server mengalami delay tidak wajar saat menerima input tertentu</span></p>\n</li>\n</ul>\n<p style=\"text-align: justify;\" data-start=\"3514\" data-end=\"3604\"><span style=\"color: #000000;\">Pengujian keamanan aplikasi secara berkala sangat penting untuk mengidentifikasi pola ini.</span></p>\n<hr data-start=\"3606\" data-end=\"3609\" />\n<h3 style=\"text-align: justify;\" data-start=\"3611\" data-end=\"3647\"><span style=\"color: #000000;\">Cara Mencegah Blind SQL Injection</span></h3>\n<h4 style=\"text-align: justify;\" data-start=\"3649\" data-end=\"3707\"><span style=\"color: #000000;\">Gunakan Prepared Statements atau Parameterized Queries</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3709\" data-end=\"3829\"><span style=\"color: #000000;\">Ini adalah langkah paling efektif. Query tidak boleh dibangun melalui concatenation string langsung dari input pengguna.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3831\" data-end=\"3862\"><span style=\"color: #000000;\">Validasi dan Sanitasi Input</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3864\" data-end=\"3938\"><span style=\"color: #000000;\">Pastikan semua input pengguna divalidasi sesuai tipe data yang diharapkan.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"3940\" data-end=\"3982\"><span style=\"color: #000000;\">Gunakan Web Application Firewall (WAF)</span></h4>\n<p style=\"text-align: justify;\" data-start=\"3984\" data-end=\"4068\"><span style=\"color: #000000;\">WAF dapat membantu mendeteksi pola serangan SQL Injection sebelum mencapai aplikasi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4070\" data-end=\"4099\"><span style=\"color: #000000;\">Batasi Hak Akses Database</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4101\" data-end=\"4215\"><span style=\"color: #000000;\">Gunakan prinsip least privilege. Akun database tidak boleh memiliki hak akses lebih dari yang dibutuhkan aplikasi.</span></p>\n<h4 style=\"text-align: justify;\" data-start=\"4217\" data-end=\"4253\"><span style=\"color: #000000;\">Lakukan Security Testing Berkala</span></h4>\n<p style=\"text-align: justify;\" data-start=\"4255\" data-end=\"4340\"><span style=\"color: #000000;\">Lakukan penetration testing dan code review untuk memastikan tidak ada celah injeksi.</span></p>\n<hr data-start=\"4342\" data-end=\"4345\" />\n<h3 style=\"text-align: justify;\" data-start=\"4347\" data-end=\"4392\"><span style=\"color: #000000;\">Relevansi Blind SQLi dalam Keamanan Modern</span></h3>\n<p style=\"text-align: justify;\" data-start=\"4394\" data-end=\"4537\"><span style=\"color: #000000;\">Meskipun teknik ini telah lama dikenal, Blind SQLi masih sering ditemukan pada aplikasi yang dibangun tanpa standar secure coding yang memadai.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4539\" data-end=\"4784\"><span style=\"color: #000000;\">Dalam era DevSecOps, pengujian keamanan harus menjadi bagian dari siklus pengembangan aplikasi. Integrasi Static Application Security Testing (SAST) dan Dynamic Application Security Testing (DAST) dapat membantu mendeteksi kerentanan sejak awal.</span></p>\n<p style=\"text-align: justify;\" data-start=\"4786\" data-end=\"4863\"><span style=\"color: #000000;\">Blind SQLi membuktikan bahwa ketiadaan pesan error bukanlah jaminan keamanan.</span></p>\n<blockquote>\n<p data-start=\"4786\" data-end=\"4863\">baca juga : <a href=\"https://buletinsiber.com/form-grabbing-cara-malware-mencuri-data-anda-tepat-sebelum-tombol-login-diklik/\">Form Grabbing: Cara Malware Mencuri Data Anda Tepat Sebelum Tombol “Login” Diklik</a></p>\n</blockquote>\n<hr data-start=\"4865\" data-end=\"4868\" />\n<h2 style=\"text-align: justify;\" data-start=\"4870\" data-end=\"4883\"><span style=\"color: #000000;\">Kesimpulan</span></h2>\n<p style=\"text-align: justify;\" data-start=\"4885\" data-end=\"5163\"><span style=\"color: #000000;\">Blind SQL Injection adalah teknik serangan yang memungkinkan penyerang mengekstrak data dari database tanpa melihat hasil query secara langsung. Dengan memanfaatkan respons logika atau waktu server, penyerang dapat mengumpulkan informasi sensitif secara bertahap dan sistematis.</span></p>\n<p style=\"text-align: justify;\" data-start=\"5165\" data-end=\"5453\"><span style=\"color: #000000;\">Karena dampaknya yang serius, pengembang harus menerapkan parameterized query, validasi input yang ketat, serta pembatasan hak akses database. Keamanan aplikasi web tidak boleh hanya bergantung pada menyembunyikan error, tetapi harus dibangun dengan prinsip secure coding yang menyeluruh.</span></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar SQL Injection (SQLi) telah lama dikenal sebagai salah satu teknik serangan paling berbahaya dalam keamanan aplikasi web. Namun, ketika aplikasi tidak menampilkan pesan error atau hasil query secara langsung, bukan berarti sistem aman. Di situlah muncul teknik yang lebih halus dan sulit dideteksi: Blind SQL Injection (Blind SQLi). Blind SQLi memungkinkan penyerang mengekstrak informasi dari database tanpa melihat respons data secara langsung. Alih-alih menerima hasil query, penyerang mengamati perilaku aplikasi—seperti perubahan respons atau waktu pemrosesan—untuk menyimpulkan isi database secara bertahap. Teknik ini tetap menjadi ancaman serius karena banyak aplikasi web masih memiliki kelemahan validasi input dan pengamanan query database&#8230;.</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 8965,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "Blind SQLi",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": false,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      6
+    ],
+    "tags": [
+      1385,
+      185,
+      259,
+      932,
+      257
+    ],
+    "class_list": [
+      "post-9635",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-tech",
+      "tag-buletin-siber",
+      "tag-cybersecurity",
+      "tag-database",
+      "tag-injection",
+      "tag-sql"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Blind SQLi: Serangan Sunyi yang Menguras Database Tanpa Terdeteksi - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Blind SQLi: Serangan Sunyi yang Menguras Database Tanpa Terdeteksi - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar SQL Injection (SQLi) telah lama dikenal sebagai salah satu teknik serangan paling berbahaya dalam keamanan aplikasi web. Namun, ketika aplikasi tidak menampilkan pesan error atau hasil query secara langsung, bukan berarti sistem aman. Di situlah muncul teknik yang lebih halus dan sulit dideteksi: Blind SQL Injection (Blind SQLi). Blind SQLi memungkinkan penyerang mengekstrak informasi dari database tanpa melihat respons data secara langsung. Alih-alih menerima hasil query, penyerang mengamati perilaku aplikasi—seperti perubahan respons atau waktu pemrosesan—untuk menyimpulkan isi database secara bertahap. Teknik ini tetap menjadi ancaman serius karena banyak aplikasi web masih memiliki kelemahan validasi input dan pengamanan query database....\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/saidsulkifly/\" />\n<meta property=\"article:published_time\" content=\"2026-02-26T02:31:38+00:00\" />\n<meta property=\"article:modified_time\" content=\"2026-07-06T20:56:58+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/01/hackers-typing-keyboard-graffiti-painted-hideout-close-up-scaled.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2560\" />\n\t<meta property=\"og:image:height\" content=\"1440\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"author\" content=\"Sulkifly Said\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Sulkifly Said\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"4 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/\",\"url\":\"https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/\",\"name\":\"Blind SQLi: Serangan Sunyi yang Menguras Database Tanpa Terdeteksi - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/01/hackers-typing-keyboard-graffiti-painted-hideout-close-up-scaled.jpg\",\"datePublished\":\"2026-02-26T02:31:38+00:00\",\"dateModified\":\"2026-07-06T20:56:58+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/01/hackers-typing-keyboard-graffiti-painted-hideout-close-up-scaled.jpg\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/01/hackers-typing-keyboard-graffiti-painted-hideout-close-up-scaled.jpg\",\"width\":2560,\"height\":1440,\"caption\":\"Hackers typing fast on keyboard in graffiti painted hideout, rushing to finish developing spyware software, using it to gather data from users computers without their knowledge, camera A close up\"},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Blind SQLi: Serangan Sunyi yang Menguras Database Tanpa Terdeteksi\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874\",\"name\":\"Sulkifly Said\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g\",\"caption\":\"Sulkifly Said\"},\"description\":\"Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com\",\"sameAs\":[\"https://sulkiflysaid.com\",\"https://www.facebook.com/saidsulkifly/\",\"https://www.instagram.com/saidsulkifly/\",\"https://www.linkedin.com/in/sulkiflysaid/\",\"https://www.youtube.com/@saidsulkifly\"],\"url\":\"https://buletinsiber.com/author/admin/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Blind SQLi: Serangan Sunyi yang Menguras Database Tanpa Terdeteksi - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Blind SQLi: Serangan Sunyi yang Menguras Database Tanpa Terdeteksi - buletinsiber.com",
+      "og_description": "Pengantar SQL Injection (SQLi) telah lama dikenal sebagai salah satu teknik serangan paling berbahaya dalam keamanan aplikasi web. Namun, ketika aplikasi tidak menampilkan pesan error atau hasil query secara langsung, bukan berarti sistem aman. Di situlah muncul teknik yang lebih halus dan sulit dideteksi: Blind SQL Injection (Blind SQLi). Blind SQLi memungkinkan penyerang mengekstrak informasi dari database tanpa melihat respons data secara langsung. Alih-alih menerima hasil query, penyerang mengamati perilaku aplikasi—seperti perubahan respons atau waktu pemrosesan—untuk menyimpulkan isi database secara bertahap. Teknik ini tetap menjadi ancaman serius karena banyak aplikasi web masih memiliki kelemahan validasi input dan pengamanan query database....",
+      "og_url": "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/saidsulkifly/",
+      "article_published_time": "2026-02-26T02:31:38+00:00",
+      "article_modified_time": "2026-07-06T20:56:58+00:00",
+      "og_image": [
+        {
+          "width": 2560,
+          "height": 1440,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/01/hackers-typing-keyboard-graffiti-painted-hideout-close-up-scaled.jpg",
+          "type": "image/jpeg"
+        }
+      ],
+      "author": "Sulkifly Said",
+      "twitter_card": "summary_large_image",
+      "twitter_misc": {
+        "Written by": "Sulkifly Said",
+        "Est. reading time": "4 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/",
+            "url": "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/",
+            "name": "Blind SQLi: Serangan Sunyi yang Menguras Database Tanpa Terdeteksi - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/01/hackers-typing-keyboard-graffiti-painted-hideout-close-up-scaled.jpg",
+            "datePublished": "2026-02-26T02:31:38+00:00",
+            "dateModified": "2026-07-06T20:56:58+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/01/hackers-typing-keyboard-graffiti-painted-hideout-close-up-scaled.jpg",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/01/hackers-typing-keyboard-graffiti-painted-hideout-close-up-scaled.jpg",
+            "width": 2560,
+            "height": 1440,
+            "caption": "Hackers typing fast on keyboard in graffiti painted hideout, rushing to finish developing spyware software, using it to gather data from users computers without their knowledge, camera A close up"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/blind-sqli-serangan-sunyi-yang-menguras-database-tanpa-terdeteksi/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blind SQLi: Serangan Sunyi yang Menguras Database Tanpa Terdeteksi"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/7e1a7c53121790e632b5f2a9c08ae874",
+            "name": "Sulkifly Said",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/a7145d04af9d68fcd0eb92f3e65d64841f106998e295d62d08b69d8d8357319a?s=96&d=mm&r=g",
+              "caption": "Sulkifly Said"
+            },
+            "description": "Seorang Akademisi, Peneliti dan Praktisi TI, mengajar di beberapa perguruan tinggi, Authorized Training Center dan Lembaga Pengembangan SDM TI. Aktif berbagi di komunitas melalui event webinar &amp; sharing session. aktifitas sehari-hari di isi dengan mengajar, menulis di blog, jurnal, media massa, buku dan juga membuat video tutorial. bidang ilmu yang didalami adalah cybersecurity, system administrator, programming, networking, linux, cloud computing, blockchain, data science, artificial intelligence. visit me at sulkiflysaid.com",
+            "sameAs": [
+              "https://sulkiflysaid.com",
+              "https://www.facebook.com/saidsulkifly/",
+              "https://www.instagram.com/saidsulkifly/",
+              "https://www.linkedin.com/in/sulkiflysaid/",
+              "https://www.youtube.com/@saidsulkifly"
+            ],
+            "url": "https://buletinsiber.com/author/admin/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9635",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=9635"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9635/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9636,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/9635/revisions/9636"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/8965"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=9635"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=9635"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=9635"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}

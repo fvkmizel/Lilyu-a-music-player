@@ -1,0 +1,345 @@
+{
+  "id": 14728,
+  "title": "Cara Mendeteksi Outlier Menggunakan Box Plot",
+  "slug": "cara-mendeteksi-outlier-menggunakan-box-plot",
+  "url": "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/",
+  "date": "2026-07-29T03:25:42",
+  "date_gmt": "2026-07-29T03:25:42",
+  "modified": "2026-07-29T03:25:42",
+  "modified_gmt": "2026-07-29T03:25:42",
+  "author": {
+    "id": 37,
+    "name": "Tyas Maryandani"
+  },
+  "categories": [
+    {
+      "id": 2,
+      "name": "Business"
+    },
+    {
+      "id": 6,
+      "name": "Tech"
+    },
+    {
+      "id": 2434,
+      "name": "Teknologi"
+    },
+    {
+      "id": 1911,
+      "name": "value"
+    }
+  ],
+  "tags": [
+    51,
+    188,
+    1912
+  ],
+  "featured_image": "https://buletinsiber.com/wp-content/uploads/2026/07/43.png",
+  "excerpt": "Pengantar Sebelum melakukan analisis statistik, peneliti perlu memastikan bahwa data yang digunakan memiliki kualitas yang baik. Salah satu langkah penting dalam proses tersebut adalah mendeteksi outlier, yaitu nilai yang berbeda secara signifikan dari sebagian besar data lainnya. Kehadiran outlier dapat memengaruhi nilai rata-rata, varians, standar deviasi, hasil regresi, hingga performa model machine learning. Salah satu metode yang paling sederhana dan banyak digunakan untuk mendeteksi outlier adalah Box Plot. Selain mudah dibuat, Box Plot mampu memberikan gambaran visual mengenai distribusi data, ukuran pemusatan, tingkat penyebaran, serta keberadaan nilai-nilai ekstrem. Karena kepraktisannya, metode ini menjadi bagian penting dalam Exploratory Data Analysis (EDA)…",
+  "content_html": "<h2>Pengantar</h2>\n<p>Sebelum melakukan analisis statistik, peneliti perlu memastikan bahwa data yang digunakan memiliki kualitas yang baik. Salah satu langkah penting dalam proses tersebut adalah mendeteksi <strong>outlier</strong>, yaitu nilai yang berbeda secara signifikan dari sebagian besar data lainnya. Kehadiran outlier dapat memengaruhi nilai rata-rata, varians, standar deviasi, hasil regresi, hingga performa model <em>machine learning</em>.</p>\n<p>Salah satu metode yang paling sederhana dan banyak digunakan untuk mendeteksi outlier adalah <strong>Box Plot</strong>. Selain mudah dibuat, Box Plot mampu memberikan gambaran visual mengenai distribusi data, ukuran pemusatan, tingkat penyebaran, serta keberadaan nilai-nilai ekstrem. Karena kepraktisannya, metode ini menjadi bagian penting dalam <strong>Exploratory Data Analysis (EDA)</strong> dan sering digunakan dalam penelitian ilmiah, bisnis, kesehatan, maupun analisis data modern.</p>\n<p>Artikel ini membahas secara lengkap konsep Box Plot, hubungan dengan <em>Interquartile Range</em> (IQR), langkah-langkah mendeteksi outlier, contoh perhitungan, cara membaca hasil, hingga kelebihan dan keterbatasannya.</p>\n<hr />\n<h3>Apa Itu Box Plot?</h3>\n<p><strong>Box Plot</strong> (atau <strong>Box-and-Whisker Plot</strong>) adalah <strong>diagram statistik yang digunakan untuk menyajikan distribusi data berdasarkan lima ukuran utama</strong>, yaitu:</p>\n<ul>\n<li>nilai minimum,</li>\n<li>kuartil pertama (Q1),</li>\n<li>median (Q2),</li>\n<li>kuartil ketiga (Q3), dan</li>\n<li>nilai maksimum.</li>\n</ul>\n<p>Diagram ini pertama kali diperkenalkan oleh <strong>John Tukey</strong> pada tahun 1970-an sebagai alat untuk meringkas distribusi data secara sederhana namun informatif.</p>\n<p>Fungsi utama Box Plot adalah:</p>\n<ul>\n<li>menggambarkan sebaran data;</li>\n<li>menunjukkan posisi median;</li>\n<li>memperlihatkan rentang data;</li>\n<li>membantu membandingkan beberapa kelompok data;</li>\n<li>mendeteksi outlier secara visual.</li>\n</ul>\n<hr />\n<h3>Apa Itu Outlier?</h3>\n<p><strong>Outlier</strong> adalah <strong>nilai data yang berada jauh di luar pola umum suatu kumpulan data</strong>. Nilai tersebut dapat muncul karena kesalahan pencatatan, kesalahan pengukuran, variasi alami populasi, atau peristiwa khusus.</p>\n<p>Contohnya, jika sebagian besar nilai ujian siswa berada pada rentang 70–90, tetapi terdapat satu nilai 15, maka nilai tersebut kemungkinan merupakan outlier.</p>\n<p>Outlier perlu dideteksi karena dapat memengaruhi hasil analisis statistik, terutama ukuran seperti mean, varians, standar deviasi, dan model prediksi.</p>\n<hr />\n<h4>Komponen-Komponen Box Plot</h4>\n<p>Sebuah Box Plot terdiri atas beberapa bagian penting.</p>\n<h4>Nilai Minimum</h4>\n<p>Nilai terkecil yang masih berada dalam batas normal (bukan outlier).</p>\n<h4>Kuartil Pertama (Q1)</h4>\n<p>Nilai yang membagi 25% data terbawah.</p>\n<h4>Median (Q2)</h4>\n<p>Nilai tengah yang membagi data menjadi dua bagian yang sama besar.</p>\n<h4>Kuartil Ketiga (Q3)</h4>\n<p>Nilai yang membatasi 75% data terbawah.</p>\n<h4>Nilai Maksimum</h4>\n<p>Nilai terbesar yang masih berada dalam batas normal.</p>\n<h4>Whisker</h4>\n<p>Garis yang memanjang dari kotak menuju nilai minimum dan maksimum yang masih dianggap normal.</p>\n<h4>Outlier</h4>\n<p>Nilai yang berada di luar batas whisker dan biasanya ditampilkan sebagai titik atau lingkaran terpisah.</p>\n<hr />\n<h4>Konsep Interquartile Range (IQR)</h4>\n<p><strong>Interquartile Range (IQR)</strong> adalah ukuran penyebaran data yang menunjukkan jarak antara kuartil ketiga dan kuartil pertama.</p>\n<p>Rumusnya adalah:</p>\n<p><strong>IQR = Q3 − Q1</strong></p>\n<p>Nilai IQR menggambarkan rentang 50% data yang berada di tengah distribusi. Semakin besar nilai IQR, semakin besar pula penyebaran data.</p>\n<p>IQR menjadi dasar utama dalam menentukan batas bawah dan batas atas untuk mendeteksi outlier.</p>\n<hr />\n<h4>Cara Menentukan Batas Outlier</h4>\n<p>Langkah pertama adalah menghitung nilai kuartil pertama (Q1) dan kuartil ketiga (Q3). Setelah itu dihitung nilai IQR.</p>\n<p>Selanjutnya ditentukan dua batas berikut:</p>\n<ul>\n<li><strong>Batas bawah (Lower Fence)</strong> = Q1 − (1,5 × IQR)</li>\n<li><strong>Batas atas (Upper Fence)</strong> = Q3 + (1,5 × IQR)</li>\n</ul>\n<p>Data yang berada di bawah batas bawah atau di atas batas atas dikategorikan sebagai outlier.</p>\n<hr />\n<h4>Langkah-Langkah Mendeteksi Outlier Menggunakan Box Plot</h4>\n<h4>Langkah 1: Urutkan Data</h4>\n<p>Susun seluruh data dari nilai terkecil hingga terbesar agar kuartil dapat dihitung dengan benar.</p>\n<h4>Langkah 2: Hitung Kuartil</h4>\n<p>Tentukan nilai Q1, median (Q2), dan Q3 berdasarkan posisi data.</p>\n<h4>Langkah 3: Hitung IQR</h4>\n<p>Kurangkan nilai Q3 dengan Q1 untuk memperoleh IQR.</p>\n<h4>Langkah 4: Tentukan Batas Outlier</h4>\n<p>Hitung batas bawah dan batas atas menggunakan aturan <strong>1,5 × IQR</strong>.</p>\n<h4>Langkah 5: Buat Box Plot</h4>\n<p>Gambarkan kotak dari Q1 hingga Q3, tambahkan median di dalam kotak, lalu gambar whisker hingga batas data normal.</p>\n<h4>Langkah 6: Interpretasikan Hasil</h4>\n<p>Perhatikan apakah terdapat titik di luar whisker. Titik tersebut merupakan kandidat outlier yang perlu dianalisis lebih lanjut.</p>\n<hr />\n<h4>Contoh Perhitungan Outlier Menggunakan Box Plot</h4>\n<p>Misalkan terdapat data berikut:</p>\n<p><strong>10, 12, 13, 15, 17, 18, 20, 22, 24, 60</strong></p>\n<p>Langkah-langkah analisis:</p>\n<ul>\n<li>Q1 = 13</li>\n<li>Median = 17,5</li>\n<li>Q3 = 22</li>\n<li>IQR = 22 − 13 = 9</li>\n</ul>\n<p>Selanjutnya:</p>\n<ul>\n<li>Lower Fence = 13 − (1,5 × 9) = -0,5</li>\n<li>Upper Fence = 22 + (1,5 × 9) = 35,5</li>\n</ul>\n<p>Karena nilai <strong>60</strong> lebih besar daripada <strong>35,5</strong>, maka nilai tersebut dikategorikan sebagai <strong>outlier</strong>.</p>\n<p>Contoh ini menunjukkan bagaimana aturan 1,5 × IQR mampu mendeteksi nilai yang menyimpang dari pola umum data.</p>\n<hr />\n<h4>Cara Membaca Box Plot</h4>\n<p>Interpretasi Box Plot dapat dilakukan dengan memperhatikan beberapa komponen berikut:</p>\n<ul>\n<li><strong>Median</strong> menunjukkan posisi pusat data.</li>\n<li><strong>Panjang kotak (box)</strong> menggambarkan besar kecilnya variasi 50% data tengah.</li>\n<li><strong>Whisker</strong> menunjukkan rentang data yang masih dianggap normal.</li>\n<li><strong>Titik di luar whisker</strong> menunjukkan kandidat outlier.</li>\n<li><strong>Posisi median yang tidak berada di tengah kotak</strong> dapat mengindikasikan distribusi yang tidak simetris.</li>\n</ul>\n<p>Dengan membaca seluruh komponen tersebut secara bersama-sama, peneliti dapat memperoleh gambaran awal mengenai karakteristik distribusi data.</p>\n<hr />\n<h4>Kelebihan Menggunakan Box Plot</h4>\n<p>Box Plot memiliki berbagai keunggulan, antara lain:</p>\n<ul>\n<li>mudah dipahami bahkan oleh pengguna yang baru mempelajari statistika;</li>\n<li>cepat mendeteksi outlier;</li>\n<li>menyajikan informasi mengenai median, kuartil, dan penyebaran data dalam satu grafik;</li>\n<li>efektif untuk membandingkan beberapa kelompok data secara bersamaan;</li>\n<li>sangat berguna pada tahap <em>Exploratory Data Analysis (EDA)</em>.</li>\n</ul>\n<hr />\n<h4>Keterbatasan Box Plot</h4>\n<p>Meskipun praktis, Box Plot juga memiliki beberapa keterbatasan.</p>\n<ul>\n<li>Tidak memperlihatkan bentuk distribusi secara rinci seperti histogram.</li>\n<li>Kurang informatif jika jumlah data sangat sedikit.</li>\n<li>Tidak menjelaskan penyebab munculnya outlier.</li>\n<li>Perlu dikombinasikan dengan analisis statistik lain untuk memperoleh kesimpulan yang lebih kuat.</li>\n</ul>\n<hr />\n<h4>Contoh Penggunaan Box Plot dalam Berbagai Bidang</h4>\n<h4>Pendidikan</h4>\n<p>Mendeteksi nilai ujian siswa yang sangat tinggi atau sangat rendah.</p>\n<h3>Bisnis</h3>\n<p>Menganalisis distribusi penjualan antar cabang dan menemukan transaksi yang tidak biasa.</p>\n<h4>Keuangan</h4>\n<p>Mengidentifikasi perubahan harga saham atau keuntungan investasi yang ekstrem.</p>\n<h4>Kesehatan</h4>\n<p>Mendeteksi hasil pemeriksaan laboratorium yang berada jauh di luar rentang normal.</p>\n<h4>Penelitian</h4>\n<p>Memeriksa kualitas data sebelum melakukan analisis inferensial.</p>\n<h4>Data Science</h4>\n<p>Menjadi salah satu teknik utama dalam <em>data preprocessing</em> untuk mengidentifikasi nilai ekstrem sebelum membangun model prediktif.</p>\n<hr />\n<h4>Software untuk Membuat Box Plot</h4>\n<p>Beberapa perangkat lunak yang umum digunakan untuk membuat Box Plot adalah:</p>\n<ul>\n<li><strong>Microsoft Excel</strong>, melalui fitur grafik statistik.</li>\n<li><strong>SPSS</strong>, menggunakan menu <em>Analyze → Descriptive Statistics → Explore</em>.</li>\n<li><strong>R</strong>, dengan fungsi <code>boxplot()</code>.</li>\n<li><strong>Python</strong>, menggunakan pustaka <strong>Matplotlib</strong>, <strong>Seaborn</strong>, atau <strong>Pandas</strong>.</li>\n<li><strong>Minitab</strong>, yang menyediakan Box Plot secara otomatis.</li>\n</ul>\n<hr />\n<h4>Kesalahan yang Sering Terjadi</h4>\n<p>Beberapa kesalahan yang sering dilakukan saat menggunakan Box Plot antara lain:</p>\n<ul>\n<li>salah menghitung nilai kuartil;</li>\n<li>salah menentukan nilai IQR;</li>\n<li>menghapus semua outlier tanpa evaluasi;</li>\n<li>salah menginterpretasikan whisker sebagai nilai minimum dan maksimum mutlak;</li>\n<li>mengabaikan konteks data saat mengambil keputusan.</li>\n</ul>\n<hr />\n<h4>Tips Menggunakan Box Plot</h4>\n<p>Agar hasil analisis lebih akurat, lakukan beberapa langkah berikut:</p>\n<ol>\n<li>Gunakan Box Plot bersama histogram atau violin plot untuk memperoleh gambaran distribusi yang lebih lengkap.</li>\n<li>Kombinasikan dengan statistik deskriptif seperti mean, median, dan standar deviasi.</li>\n<li>Periksa kembali sumber data sebelum memutuskan menghapus outlier.</li>\n<li>Dokumentasikan setiap keputusan terkait penanganan outlier.</li>\n<li>Sesuaikan interpretasi dengan tujuan penelitian dan karakteristik data.</li>\n</ol>\n<hr />\n<h4>Kesimpulan</h4>\n<p>Box Plot merupakan salah satu alat visualisasi statistik yang paling efektif untuk mendeteksi outlier. Dengan memanfaatkan konsep <strong>Interquartile Range (IQR)</strong> dan aturan <strong>1,5 × IQR</strong>, peneliti dapat mengidentifikasi nilai-nilai yang menyimpang dari pola umum data secara cepat dan sistematis.</p>\n<p>Selain mendeteksi outlier, Box Plot juga memberikan informasi mengenai median, kuartil, penyebaran data, serta indikasi bentuk distribusi. Oleh karena itu, Box Plot menjadi bagian penting dalam <strong>Exploratory Data Analysis (EDA)</strong> dan banyak digunakan dalam penelitian, bisnis, kesehatan, pendidikan, serta <em>data science</em>. Meskipun demikian, hasil yang diperoleh tetap perlu dipadukan dengan metode analisis lain dan dipertimbangkan berdasarkan konteks penelitian agar keputusan yang diambil benar-benar tepat dan dapat dipertanggungjawabkan.</p>\n",
+  "content_text": "Pengantar\nSebelum melakukan analisis statistik, peneliti perlu memastikan bahwa data yang digunakan memiliki kualitas yang baik. Salah satu langkah penting dalam proses tersebut adalah mendeteksi  outlier , yaitu nilai yang berbeda secara signifikan dari sebagian besar data lainnya. Kehadiran outlier dapat memengaruhi nilai rata-rata, varians, standar deviasi, hasil regresi, hingga performa model  machine learning .\nSalah satu metode yang paling sederhana dan banyak digunakan untuk mendeteksi outlier adalah  Box Plot . Selain mudah dibuat, Box Plot mampu memberikan gambaran visual mengenai distribusi data, ukuran pemusatan, tingkat penyebaran, serta keberadaan nilai-nilai ekstrem. Karena kepraktisannya, metode ini menjadi bagian penting dalam  Exploratory Data Analysis (EDA)  dan sering digunakan dalam penelitian ilmiah, bisnis, kesehatan, maupun analisis data modern.\nArtikel ini membahas secara lengkap konsep Box Plot, hubungan dengan  Interquartile Range  (IQR), langkah-langkah mendeteksi outlier, contoh perhitungan, cara membaca hasil, hingga kelebihan dan keterbatasannya.\nApa Itu Box Plot?\nBox Plot  (atau  Box-and-Whisker Plot ) adalah  diagram statistik yang digunakan untuk menyajikan distribusi data berdasarkan lima ukuran utama , yaitu:\nnilai minimum,\nkuartil pertama (Q1),\nmedian (Q2),\nkuartil ketiga (Q3), dan\nnilai maksimum.\nDiagram ini pertama kali diperkenalkan oleh  John Tukey  pada tahun 1970-an sebagai alat untuk meringkas distribusi data secara sederhana namun informatif.\nFungsi utama Box Plot adalah:\nmenggambarkan sebaran data;\nmenunjukkan posisi median;\nmemperlihatkan rentang data;\nmembantu membandingkan beberapa kelompok data;\nmendeteksi outlier secara visual.\nApa Itu Outlier?\nOutlier  adalah  nilai data yang berada jauh di luar pola umum suatu kumpulan data . Nilai tersebut dapat muncul karena kesalahan pencatatan, kesalahan pengukuran, variasi alami populasi, atau peristiwa khusus.\nContohnya, jika sebagian besar nilai ujian siswa berada pada rentang 70–90, tetapi terdapat satu nilai 15, maka nilai tersebut kemungkinan merupakan outlier.\nOutlier perlu dideteksi karena dapat memengaruhi hasil analisis statistik, terutama ukuran seperti mean, varians, standar deviasi, dan model prediksi.\nKomponen-Komponen Box Plot\nSebuah Box Plot terdiri atas beberapa bagian penting.\nNilai Minimum\nNilai terkecil yang masih berada dalam batas normal (bukan outlier).\nKuartil Pertama (Q1)\nNilai yang membagi 25% data terbawah.\nMedian (Q2)\nNilai tengah yang membagi data menjadi dua bagian yang sama besar.\nKuartil Ketiga (Q3)\nNilai yang membatasi 75% data terbawah.\nNilai Maksimum\nNilai terbesar yang masih berada dalam batas normal.\nWhisker\nGaris yang memanjang dari kotak menuju nilai minimum dan maksimum yang masih dianggap normal.\nOutlier\nNilai yang berada di luar batas whisker dan biasanya ditampilkan sebagai titik atau lingkaran terpisah.\nKonsep Interquartile Range (IQR)\nInterquartile Range (IQR)  adalah ukuran penyebaran data yang menunjukkan jarak antara kuartil ketiga dan kuartil pertama.\nRumusnya adalah:\nIQR = Q3 − Q1\nNilai IQR menggambarkan rentang 50% data yang berada di tengah distribusi. Semakin besar nilai IQR, semakin besar pula penyebaran data.\nIQR menjadi dasar utama dalam menentukan batas bawah dan batas atas untuk mendeteksi outlier.\nCara Menentukan Batas Outlier\nLangkah pertama adalah menghitung nilai kuartil pertama (Q1) dan kuartil ketiga (Q3). Setelah itu dihitung nilai IQR.\nSelanjutnya ditentukan dua batas berikut:\nBatas bawah (Lower Fence)  = Q1 − (1,5 × IQR)\nBatas atas (Upper Fence)  = Q3 + (1,5 × IQR)\nData yang berada di bawah batas bawah atau di atas batas atas dikategorikan sebagai outlier.\nLangkah-Langkah Mendeteksi Outlier Menggunakan Box Plot\nLangkah 1: Urutkan Data\nSusun seluruh data dari nilai terkecil hingga terbesar agar kuartil dapat dihitung dengan benar.\nLangkah 2: Hitung Kuartil\nTentukan nilai Q1, median (Q2), dan Q3 berdasarkan posisi data.\nLangkah 3: Hitung IQR\nKurangkan nilai Q3 dengan Q1 untuk memperoleh IQR.\nLangkah 4: Tentukan Batas Outlier\nHitung batas bawah dan batas atas menggunakan aturan  1,5 × IQR .\nLangkah 5: Buat Box Plot\nGambarkan kotak dari Q1 hingga Q3, tambahkan median di dalam kotak, lalu gambar whisker hingga batas data normal.\nLangkah 6: Interpretasikan Hasil\nPerhatikan apakah terdapat titik di luar whisker. Titik tersebut merupakan kandidat outlier yang perlu dianalisis lebih lanjut.\nContoh Perhitungan Outlier Menggunakan Box Plot\nMisalkan terdapat data berikut:\n10, 12, 13, 15, 17, 18, 20, 22, 24, 60\nLangkah-langkah analisis:\nQ1 = 13\nMedian = 17,5\nQ3 = 22\nIQR = 22 − 13 = 9\nSelanjutnya:\nLower Fence = 13 − (1,5 × 9) = -0,5\nUpper Fence = 22 + (1,5 × 9) = 35,5\nKarena nilai  60  lebih besar daripada  35,5 , maka nilai tersebut dikategorikan sebagai  outlier .\nContoh ini menunjukkan bagaimana aturan 1,5 × IQR mampu mendeteksi nilai yang menyimpang dari pola umum data.\nCara Membaca Box Plot\nInterpretasi Box Plot dapat dilakukan dengan memperhatikan beberapa komponen berikut:\nMedian  menunjukkan posisi pusat data.\nPanjang kotak (box)  menggambarkan besar kecilnya variasi 50% data tengah.\nWhisker  menunjukkan rentang data yang masih dianggap normal.\nTitik di luar whisker  menunjukkan kandidat outlier.\nPosisi median yang tidak berada di tengah kotak  dapat mengindikasikan distribusi yang tidak simetris.\nDengan membaca seluruh komponen tersebut secara bersama-sama, peneliti dapat memperoleh gambaran awal mengenai karakteristik distribusi data.\nKelebihan Menggunakan Box Plot\nBox Plot memiliki berbagai keunggulan, antara lain:\nmudah dipahami bahkan oleh pengguna yang baru mempelajari statistika;\ncepat mendeteksi outlier;\nmenyajikan informasi mengenai median, kuartil, dan penyebaran data dalam satu grafik;\nefektif untuk membandingkan beberapa kelompok data secara bersamaan;\nsangat berguna pada tahap  Exploratory Data Analysis (EDA) .\nKeterbatasan Box Plot\nMeskipun praktis, Box Plot juga memiliki beberapa keterbatasan.\nTidak memperlihatkan bentuk distribusi secara rinci seperti histogram.\nKurang informatif jika jumlah data sangat sedikit.\nTidak menjelaskan penyebab munculnya outlier.\nPerlu dikombinasikan dengan analisis statistik lain untuk memperoleh kesimpulan yang lebih kuat.\nContoh Penggunaan Box Plot dalam Berbagai Bidang\nPendidikan\nMendeteksi nilai ujian siswa yang sangat tinggi atau sangat rendah.\nBisnis\nMenganalisis distribusi penjualan antar cabang dan menemukan transaksi yang tidak biasa.\nKeuangan\nMengidentifikasi perubahan harga saham atau keuntungan investasi yang ekstrem.\nKesehatan\nMendeteksi hasil pemeriksaan laboratorium yang berada jauh di luar rentang normal.\nPenelitian\nMemeriksa kualitas data sebelum melakukan analisis inferensial.\nData Science\nMenjadi salah satu teknik utama dalam  data preprocessing  untuk mengidentifikasi nilai ekstrem sebelum membangun model prediktif.\nSoftware untuk Membuat Box Plot\nBeberapa perangkat lunak yang umum digunakan untuk membuat Box Plot adalah:\nMicrosoft Excel , melalui fitur grafik statistik.\nSPSS , menggunakan menu  Analyze → Descriptive Statistics → Explore .\nR , dengan fungsi  boxplot() .\nPython , menggunakan pustaka  Matplotlib ,  Seaborn , atau  Pandas .\nMinitab , yang menyediakan Box Plot secara otomatis.\nKesalahan yang Sering Terjadi\nBeberapa kesalahan yang sering dilakukan saat menggunakan Box Plot antara lain:\nsalah menghitung nilai kuartil;\nsalah menentukan nilai IQR;\nmenghapus semua outlier tanpa evaluasi;\nsalah menginterpretasikan whisker sebagai nilai minimum dan maksimum mutlak;\nmengabaikan konteks data saat mengambil keputusan.\nTips Menggunakan Box Plot\nAgar hasil analisis lebih akurat, lakukan beberapa langkah berikut:\nGunakan Box Plot bersama histogram atau violin plot untuk memperoleh gambaran distribusi yang lebih lengkap.\nKombinasikan dengan statistik deskriptif seperti mean, median, dan standar deviasi.\nPeriksa kembali sumber data sebelum memutuskan menghapus outlier.\nDokumentasikan setiap keputusan terkait penanganan outlier.\nSesuaikan interpretasi dengan tujuan penelitian dan karakteristik data.\nKesimpulan\nBox Plot merupakan salah satu alat visualisasi statistik yang paling efektif untuk mendeteksi outlier. Dengan memanfaatkan konsep  Interquartile Range (IQR)  dan aturan  1,5 × IQR , peneliti dapat mengidentifikasi nilai-nilai yang menyimpang dari pola umum data secara cepat dan sistematis.\nSelain mendeteksi outlier, Box Plot juga memberikan informasi mengenai median, kuartil, penyebaran data, serta indikasi bentuk distribusi. Oleh karena itu, Box Plot menjadi bagian penting dalam  Exploratory Data Analysis (EDA)  dan banyak digunakan dalam penelitian, bisnis, kesehatan, pendidikan, serta  data science . Meskipun demikian, hasil yang diperoleh tetap perlu dipadukan dengan metode analisis lain dan dipertimbangkan berdasarkan konteks penelitian agar keputusan yang diambil benar-benar tepat dan dapat dipertanggungjawabkan.",
+  "raw": {
+    "id": 14728,
+    "date": "2026-07-29T03:25:42",
+    "date_gmt": "2026-07-29T03:25:42",
+    "guid": {
+      "rendered": "https://buletinsiber.com/?p=14728"
+    },
+    "modified": "2026-07-29T03:25:42",
+    "modified_gmt": "2026-07-29T03:25:42",
+    "slug": "cara-mendeteksi-outlier-menggunakan-box-plot",
+    "status": "publish",
+    "type": "post",
+    "link": "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/",
+    "title": {
+      "rendered": "Cara Mendeteksi Outlier Menggunakan Box Plot"
+    },
+    "content": {
+      "rendered": "<h2>Pengantar</h2>\n<p>Sebelum melakukan analisis statistik, peneliti perlu memastikan bahwa data yang digunakan memiliki kualitas yang baik. Salah satu langkah penting dalam proses tersebut adalah mendeteksi <strong>outlier</strong>, yaitu nilai yang berbeda secara signifikan dari sebagian besar data lainnya. Kehadiran outlier dapat memengaruhi nilai rata-rata, varians, standar deviasi, hasil regresi, hingga performa model <em>machine learning</em>.</p>\n<p>Salah satu metode yang paling sederhana dan banyak digunakan untuk mendeteksi outlier adalah <strong>Box Plot</strong>. Selain mudah dibuat, Box Plot mampu memberikan gambaran visual mengenai distribusi data, ukuran pemusatan, tingkat penyebaran, serta keberadaan nilai-nilai ekstrem. Karena kepraktisannya, metode ini menjadi bagian penting dalam <strong>Exploratory Data Analysis (EDA)</strong> dan sering digunakan dalam penelitian ilmiah, bisnis, kesehatan, maupun analisis data modern.</p>\n<p>Artikel ini membahas secara lengkap konsep Box Plot, hubungan dengan <em>Interquartile Range</em> (IQR), langkah-langkah mendeteksi outlier, contoh perhitungan, cara membaca hasil, hingga kelebihan dan keterbatasannya.</p>\n<hr />\n<h3>Apa Itu Box Plot?</h3>\n<p><strong>Box Plot</strong> (atau <strong>Box-and-Whisker Plot</strong>) adalah <strong>diagram statistik yang digunakan untuk menyajikan distribusi data berdasarkan lima ukuran utama</strong>, yaitu:</p>\n<ul>\n<li>nilai minimum,</li>\n<li>kuartil pertama (Q1),</li>\n<li>median (Q2),</li>\n<li>kuartil ketiga (Q3), dan</li>\n<li>nilai maksimum.</li>\n</ul>\n<p>Diagram ini pertama kali diperkenalkan oleh <strong>John Tukey</strong> pada tahun 1970-an sebagai alat untuk meringkas distribusi data secara sederhana namun informatif.</p>\n<p>Fungsi utama Box Plot adalah:</p>\n<ul>\n<li>menggambarkan sebaran data;</li>\n<li>menunjukkan posisi median;</li>\n<li>memperlihatkan rentang data;</li>\n<li>membantu membandingkan beberapa kelompok data;</li>\n<li>mendeteksi outlier secara visual.</li>\n</ul>\n<hr />\n<h3>Apa Itu Outlier?</h3>\n<p><strong>Outlier</strong> adalah <strong>nilai data yang berada jauh di luar pola umum suatu kumpulan data</strong>. Nilai tersebut dapat muncul karena kesalahan pencatatan, kesalahan pengukuran, variasi alami populasi, atau peristiwa khusus.</p>\n<p>Contohnya, jika sebagian besar nilai ujian siswa berada pada rentang 70–90, tetapi terdapat satu nilai 15, maka nilai tersebut kemungkinan merupakan outlier.</p>\n<p>Outlier perlu dideteksi karena dapat memengaruhi hasil analisis statistik, terutama ukuran seperti mean, varians, standar deviasi, dan model prediksi.</p>\n<hr />\n<h4>Komponen-Komponen Box Plot</h4>\n<p>Sebuah Box Plot terdiri atas beberapa bagian penting.</p>\n<h4>Nilai Minimum</h4>\n<p>Nilai terkecil yang masih berada dalam batas normal (bukan outlier).</p>\n<h4>Kuartil Pertama (Q1)</h4>\n<p>Nilai yang membagi 25% data terbawah.</p>\n<h4>Median (Q2)</h4>\n<p>Nilai tengah yang membagi data menjadi dua bagian yang sama besar.</p>\n<h4>Kuartil Ketiga (Q3)</h4>\n<p>Nilai yang membatasi 75% data terbawah.</p>\n<h4>Nilai Maksimum</h4>\n<p>Nilai terbesar yang masih berada dalam batas normal.</p>\n<h4>Whisker</h4>\n<p>Garis yang memanjang dari kotak menuju nilai minimum dan maksimum yang masih dianggap normal.</p>\n<h4>Outlier</h4>\n<p>Nilai yang berada di luar batas whisker dan biasanya ditampilkan sebagai titik atau lingkaran terpisah.</p>\n<hr />\n<h4>Konsep Interquartile Range (IQR)</h4>\n<p><strong>Interquartile Range (IQR)</strong> adalah ukuran penyebaran data yang menunjukkan jarak antara kuartil ketiga dan kuartil pertama.</p>\n<p>Rumusnya adalah:</p>\n<p><strong>IQR = Q3 − Q1</strong></p>\n<p>Nilai IQR menggambarkan rentang 50% data yang berada di tengah distribusi. Semakin besar nilai IQR, semakin besar pula penyebaran data.</p>\n<p>IQR menjadi dasar utama dalam menentukan batas bawah dan batas atas untuk mendeteksi outlier.</p>\n<hr />\n<h4>Cara Menentukan Batas Outlier</h4>\n<p>Langkah pertama adalah menghitung nilai kuartil pertama (Q1) dan kuartil ketiga (Q3). Setelah itu dihitung nilai IQR.</p>\n<p>Selanjutnya ditentukan dua batas berikut:</p>\n<ul>\n<li><strong>Batas bawah (Lower Fence)</strong> = Q1 − (1,5 × IQR)</li>\n<li><strong>Batas atas (Upper Fence)</strong> = Q3 + (1,5 × IQR)</li>\n</ul>\n<p>Data yang berada di bawah batas bawah atau di atas batas atas dikategorikan sebagai outlier.</p>\n<hr />\n<h4>Langkah-Langkah Mendeteksi Outlier Menggunakan Box Plot</h4>\n<h4>Langkah 1: Urutkan Data</h4>\n<p>Susun seluruh data dari nilai terkecil hingga terbesar agar kuartil dapat dihitung dengan benar.</p>\n<h4>Langkah 2: Hitung Kuartil</h4>\n<p>Tentukan nilai Q1, median (Q2), dan Q3 berdasarkan posisi data.</p>\n<h4>Langkah 3: Hitung IQR</h4>\n<p>Kurangkan nilai Q3 dengan Q1 untuk memperoleh IQR.</p>\n<h4>Langkah 4: Tentukan Batas Outlier</h4>\n<p>Hitung batas bawah dan batas atas menggunakan aturan <strong>1,5 × IQR</strong>.</p>\n<h4>Langkah 5: Buat Box Plot</h4>\n<p>Gambarkan kotak dari Q1 hingga Q3, tambahkan median di dalam kotak, lalu gambar whisker hingga batas data normal.</p>\n<h4>Langkah 6: Interpretasikan Hasil</h4>\n<p>Perhatikan apakah terdapat titik di luar whisker. Titik tersebut merupakan kandidat outlier yang perlu dianalisis lebih lanjut.</p>\n<hr />\n<h4>Contoh Perhitungan Outlier Menggunakan Box Plot</h4>\n<p>Misalkan terdapat data berikut:</p>\n<p><strong>10, 12, 13, 15, 17, 18, 20, 22, 24, 60</strong></p>\n<p>Langkah-langkah analisis:</p>\n<ul>\n<li>Q1 = 13</li>\n<li>Median = 17,5</li>\n<li>Q3 = 22</li>\n<li>IQR = 22 − 13 = 9</li>\n</ul>\n<p>Selanjutnya:</p>\n<ul>\n<li>Lower Fence = 13 − (1,5 × 9) = -0,5</li>\n<li>Upper Fence = 22 + (1,5 × 9) = 35,5</li>\n</ul>\n<p>Karena nilai <strong>60</strong> lebih besar daripada <strong>35,5</strong>, maka nilai tersebut dikategorikan sebagai <strong>outlier</strong>.</p>\n<p>Contoh ini menunjukkan bagaimana aturan 1,5 × IQR mampu mendeteksi nilai yang menyimpang dari pola umum data.</p>\n<hr />\n<h4>Cara Membaca Box Plot</h4>\n<p>Interpretasi Box Plot dapat dilakukan dengan memperhatikan beberapa komponen berikut:</p>\n<ul>\n<li><strong>Median</strong> menunjukkan posisi pusat data.</li>\n<li><strong>Panjang kotak (box)</strong> menggambarkan besar kecilnya variasi 50% data tengah.</li>\n<li><strong>Whisker</strong> menunjukkan rentang data yang masih dianggap normal.</li>\n<li><strong>Titik di luar whisker</strong> menunjukkan kandidat outlier.</li>\n<li><strong>Posisi median yang tidak berada di tengah kotak</strong> dapat mengindikasikan distribusi yang tidak simetris.</li>\n</ul>\n<p>Dengan membaca seluruh komponen tersebut secara bersama-sama, peneliti dapat memperoleh gambaran awal mengenai karakteristik distribusi data.</p>\n<hr />\n<h4>Kelebihan Menggunakan Box Plot</h4>\n<p>Box Plot memiliki berbagai keunggulan, antara lain:</p>\n<ul>\n<li>mudah dipahami bahkan oleh pengguna yang baru mempelajari statistika;</li>\n<li>cepat mendeteksi outlier;</li>\n<li>menyajikan informasi mengenai median, kuartil, dan penyebaran data dalam satu grafik;</li>\n<li>efektif untuk membandingkan beberapa kelompok data secara bersamaan;</li>\n<li>sangat berguna pada tahap <em>Exploratory Data Analysis (EDA)</em>.</li>\n</ul>\n<hr />\n<h4>Keterbatasan Box Plot</h4>\n<p>Meskipun praktis, Box Plot juga memiliki beberapa keterbatasan.</p>\n<ul>\n<li>Tidak memperlihatkan bentuk distribusi secara rinci seperti histogram.</li>\n<li>Kurang informatif jika jumlah data sangat sedikit.</li>\n<li>Tidak menjelaskan penyebab munculnya outlier.</li>\n<li>Perlu dikombinasikan dengan analisis statistik lain untuk memperoleh kesimpulan yang lebih kuat.</li>\n</ul>\n<hr />\n<h4>Contoh Penggunaan Box Plot dalam Berbagai Bidang</h4>\n<h4>Pendidikan</h4>\n<p>Mendeteksi nilai ujian siswa yang sangat tinggi atau sangat rendah.</p>\n<h3>Bisnis</h3>\n<p>Menganalisis distribusi penjualan antar cabang dan menemukan transaksi yang tidak biasa.</p>\n<h4>Keuangan</h4>\n<p>Mengidentifikasi perubahan harga saham atau keuntungan investasi yang ekstrem.</p>\n<h4>Kesehatan</h4>\n<p>Mendeteksi hasil pemeriksaan laboratorium yang berada jauh di luar rentang normal.</p>\n<h4>Penelitian</h4>\n<p>Memeriksa kualitas data sebelum melakukan analisis inferensial.</p>\n<h4>Data Science</h4>\n<p>Menjadi salah satu teknik utama dalam <em>data preprocessing</em> untuk mengidentifikasi nilai ekstrem sebelum membangun model prediktif.</p>\n<hr />\n<h4>Software untuk Membuat Box Plot</h4>\n<p>Beberapa perangkat lunak yang umum digunakan untuk membuat Box Plot adalah:</p>\n<ul>\n<li><strong>Microsoft Excel</strong>, melalui fitur grafik statistik.</li>\n<li><strong>SPSS</strong>, menggunakan menu <em>Analyze → Descriptive Statistics → Explore</em>.</li>\n<li><strong>R</strong>, dengan fungsi <code>boxplot()</code>.</li>\n<li><strong>Python</strong>, menggunakan pustaka <strong>Matplotlib</strong>, <strong>Seaborn</strong>, atau <strong>Pandas</strong>.</li>\n<li><strong>Minitab</strong>, yang menyediakan Box Plot secara otomatis.</li>\n</ul>\n<hr />\n<h4>Kesalahan yang Sering Terjadi</h4>\n<p>Beberapa kesalahan yang sering dilakukan saat menggunakan Box Plot antara lain:</p>\n<ul>\n<li>salah menghitung nilai kuartil;</li>\n<li>salah menentukan nilai IQR;</li>\n<li>menghapus semua outlier tanpa evaluasi;</li>\n<li>salah menginterpretasikan whisker sebagai nilai minimum dan maksimum mutlak;</li>\n<li>mengabaikan konteks data saat mengambil keputusan.</li>\n</ul>\n<hr />\n<h4>Tips Menggunakan Box Plot</h4>\n<p>Agar hasil analisis lebih akurat, lakukan beberapa langkah berikut:</p>\n<ol>\n<li>Gunakan Box Plot bersama histogram atau violin plot untuk memperoleh gambaran distribusi yang lebih lengkap.</li>\n<li>Kombinasikan dengan statistik deskriptif seperti mean, median, dan standar deviasi.</li>\n<li>Periksa kembali sumber data sebelum memutuskan menghapus outlier.</li>\n<li>Dokumentasikan setiap keputusan terkait penanganan outlier.</li>\n<li>Sesuaikan interpretasi dengan tujuan penelitian dan karakteristik data.</li>\n</ol>\n<hr />\n<h4>Kesimpulan</h4>\n<p>Box Plot merupakan salah satu alat visualisasi statistik yang paling efektif untuk mendeteksi outlier. Dengan memanfaatkan konsep <strong>Interquartile Range (IQR)</strong> dan aturan <strong>1,5 × IQR</strong>, peneliti dapat mengidentifikasi nilai-nilai yang menyimpang dari pola umum data secara cepat dan sistematis.</p>\n<p>Selain mendeteksi outlier, Box Plot juga memberikan informasi mengenai median, kuartil, penyebaran data, serta indikasi bentuk distribusi. Oleh karena itu, Box Plot menjadi bagian penting dalam <strong>Exploratory Data Analysis (EDA)</strong> dan banyak digunakan dalam penelitian, bisnis, kesehatan, pendidikan, serta <em>data science</em>. Meskipun demikian, hasil yang diperoleh tetap perlu dipadukan dengan metode analisis lain dan dipertimbangkan berdasarkan konteks penelitian agar keputusan yang diambil benar-benar tepat dan dapat dipertanggungjawabkan.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Pengantar Sebelum melakukan analisis statistik, peneliti perlu memastikan bahwa data yang digunakan memiliki kualitas yang baik. Salah satu langkah penting dalam proses tersebut adalah mendeteksi outlier, yaitu nilai yang berbeda secara signifikan dari sebagian besar data lainnya. Kehadiran outlier dapat memengaruhi nilai rata-rata, varians, standar deviasi, hasil regresi, hingga performa model machine learning. Salah satu metode yang paling sederhana dan banyak digunakan untuk mendeteksi outlier adalah Box Plot. Selain mudah dibuat, Box Plot mampu memberikan gambaran visual mengenai distribusi data, ukuran pemusatan, tingkat penyebaran, serta keberadaan nilai-nilai ekstrem. Karena kepraktisannya, metode ini menjadi bagian penting dalam Exploratory Data Analysis (EDA)&#8230;</p>\n",
+      "protected": false
+    },
+    "author": 37,
+    "featured_media": 14730,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "_acf_changed": false,
+      "_yoast_wpseo_focuskw": "",
+      "_yoast_wpseo_title": "",
+      "_yoast_wpseo_metadesc": "",
+      "footnotes": "",
+      "rank_math_title": "",
+      "rank_math_description": "",
+      "rank_math_focus_keyword": "",
+      "_aioseop_title": "",
+      "_aioseop_description": "",
+      "jetpack_publicize_message": "",
+      "jetpack_publicize_feature_enabled": true,
+      "jetpack_social_post_already_shared": true,
+      "jetpack_social_options": {
+        "image_generator_settings": {
+          "template": "highway",
+          "default_image_id": 0,
+          "font": "",
+          "enabled": false
+        },
+        "version": 2
+      }
+    },
+    "categories": [
+      2,
+      6,
+      2434,
+      1911
+    ],
+    "tags": [
+      51,
+      188,
+      1912
+    ],
+    "class_list": [
+      "post-14728",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-business",
+      "category-tech",
+      "category-teknologi",
+      "category-value",
+      "tag-data",
+      "tag-statistik",
+      "tag-value"
+    ],
+    "acf": [],
+    "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->\n<title>Cara Mendeteksi Outlier Menggunakan Box Plot - buletinsiber.com</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Cara Mendeteksi Outlier Menggunakan Box Plot - buletinsiber.com\" />\n<meta property=\"og:description\" content=\"Pengantar Sebelum melakukan analisis statistik, peneliti perlu memastikan bahwa data yang digunakan memiliki kualitas yang baik. Salah satu langkah penting dalam proses tersebut adalah mendeteksi outlier, yaitu nilai yang berbeda secara signifikan dari sebagian besar data lainnya. Kehadiran outlier dapat memengaruhi nilai rata-rata, varians, standar deviasi, hasil regresi, hingga performa model machine learning. Salah satu metode yang paling sederhana dan banyak digunakan untuk mendeteksi outlier adalah Box Plot. Selain mudah dibuat, Box Plot mampu memberikan gambaran visual mengenai distribusi data, ukuran pemusatan, tingkat penyebaran, serta keberadaan nilai-nilai ekstrem. Karena kepraktisannya, metode ini menjadi bagian penting dalam Exploratory Data Analysis (EDA)...\" />\n<meta property=\"og:url\" content=\"https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/\" />\n<meta property=\"og:site_name\" content=\"buletinsiber.com\" />\n<meta property=\"article:publisher\" content=\"https://www.facebook.com/publiksultra/\" />\n<meta property=\"article:author\" content=\"https://www.facebook.com/profile.php?id=100081213722264\" />\n<meta property=\"article:published_time\" content=\"2026-07-29T03:25:42+00:00\" />\n<meta property=\"og:image\" content=\"https://buletinsiber.com/wp-content/uploads/2026/07/43.png\" />\n\t<meta property=\"og:image:width\" content=\"1408\" />\n\t<meta property=\"og:image:height\" content=\"768\" />\n\t<meta property=\"og:image:type\" content=\"image/png\" />\n<meta name=\"author\" content=\"Tyas Maryandani\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:creator\" content=\"@https://x.com/attaysaa\" />\n<meta name=\"twitter:label1\" content=\"Written by\" />\n\t<meta name=\"twitter:data1\" content=\"Tyas Maryandani\" />\n\t<meta name=\"twitter:label2\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data2\" content=\"6 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/\",\"url\":\"https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/\",\"name\":\"Cara Mendeteksi Outlier Menggunakan Box Plot - buletinsiber.com\",\"isPartOf\":{\"@id\":\"https://buletinsiber.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/#primaryimage\"},\"image\":{\"@id\":\"https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/#primaryimage\"},\"thumbnailUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/43.png\",\"datePublished\":\"2026-07-29T03:25:42+00:00\",\"dateModified\":\"2026-07-29T03:25:42+00:00\",\"author\":{\"@id\":\"https://buletinsiber.com/#/schema/person/dc380a2eb8b2a6e4468e356c506717b7\"},\"breadcrumb\":{\"@id\":\"https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/#primaryimage\",\"url\":\"https://buletinsiber.com/wp-content/uploads/2026/07/43.png\",\"contentUrl\":\"https://buletinsiber.com/wp-content/uploads/2026/07/43.png\",\"width\":1408,\"height\":768},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://buletinsiber.com/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Cara Mendeteksi Outlier Menggunakan Box Plot\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://buletinsiber.com/#website\",\"url\":\"https://buletinsiber.com/\",\"name\":\"buletinsiber.com\",\"description\":\"sumber berita terupdate seputar keamanan siber dan teknologi terkini\",\"alternateName\":\"buletin siber\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://buletinsiber.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://buletinsiber.com/#/schema/person/dc380a2eb8b2a6e4468e356c506717b7\",\"name\":\"Tyas Maryandani\",\"image\":{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://buletinsiber.com/#/schema/person/image/\",\"url\":\"https://secure.gravatar.com/avatar/edf0ba850a2a3f5ce785cfbc1ff46e36dec089539cecf802887094737030e7fe?s=96&d=mm&r=g\",\"contentUrl\":\"https://secure.gravatar.com/avatar/edf0ba850a2a3f5ce785cfbc1ff46e36dec089539cecf802887094737030e7fe?s=96&d=mm&r=g\",\"caption\":\"Tyas Maryandani\"},\"sameAs\":[\"https://www.facebook.com/profile.php?id=100081213722264\",\"https://www.instagram.com/t.tyyass?igsh=MTU0bm9zcGkzejd2OA==\",\"https://x.com/https://x.com/attaysaa\",\"https://youtube.com/@tyasmaryandani9087?si=FbZk096nKLB44tZd\"],\"url\":\"https://buletinsiber.com/author/tyas-maryandani/\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+    "yoast_head_json": {
+      "title": "Cara Mendeteksi Outlier Menggunakan Box Plot - buletinsiber.com",
+      "robots": {
+        "index": "index",
+        "follow": "follow",
+        "max-snippet": "max-snippet:-1",
+        "max-image-preview": "max-image-preview:large",
+        "max-video-preview": "max-video-preview:-1"
+      },
+      "canonical": "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/",
+      "og_locale": "en_US",
+      "og_type": "article",
+      "og_title": "Cara Mendeteksi Outlier Menggunakan Box Plot - buletinsiber.com",
+      "og_description": "Pengantar Sebelum melakukan analisis statistik, peneliti perlu memastikan bahwa data yang digunakan memiliki kualitas yang baik. Salah satu langkah penting dalam proses tersebut adalah mendeteksi outlier, yaitu nilai yang berbeda secara signifikan dari sebagian besar data lainnya. Kehadiran outlier dapat memengaruhi nilai rata-rata, varians, standar deviasi, hasil regresi, hingga performa model machine learning. Salah satu metode yang paling sederhana dan banyak digunakan untuk mendeteksi outlier adalah Box Plot. Selain mudah dibuat, Box Plot mampu memberikan gambaran visual mengenai distribusi data, ukuran pemusatan, tingkat penyebaran, serta keberadaan nilai-nilai ekstrem. Karena kepraktisannya, metode ini menjadi bagian penting dalam Exploratory Data Analysis (EDA)...",
+      "og_url": "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/",
+      "og_site_name": "buletinsiber.com",
+      "article_publisher": "https://www.facebook.com/publiksultra/",
+      "article_author": "https://www.facebook.com/profile.php?id=100081213722264",
+      "article_published_time": "2026-07-29T03:25:42+00:00",
+      "og_image": [
+        {
+          "width": 1408,
+          "height": 768,
+          "url": "https://buletinsiber.com/wp-content/uploads/2026/07/43.png",
+          "type": "image/png"
+        }
+      ],
+      "author": "Tyas Maryandani",
+      "twitter_card": "summary_large_image",
+      "twitter_creator": "@https://x.com/attaysaa",
+      "twitter_misc": {
+        "Written by": "Tyas Maryandani",
+        "Est. reading time": "6 minutes"
+      },
+      "schema": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/",
+            "url": "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/",
+            "name": "Cara Mendeteksi Outlier Menggunakan Box Plot - buletinsiber.com",
+            "isPartOf": {
+              "@id": "https://buletinsiber.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/#primaryimage"
+            },
+            "image": {
+              "@id": "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/#primaryimage"
+            },
+            "thumbnailUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/43.png",
+            "datePublished": "2026-07-29T03:25:42+00:00",
+            "dateModified": "2026-07-29T03:25:42+00:00",
+            "author": {
+              "@id": "https://buletinsiber.com/#/schema/person/dc380a2eb8b2a6e4468e356c506717b7"
+            },
+            "breadcrumb": {
+              "@id": "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/#primaryimage",
+            "url": "https://buletinsiber.com/wp-content/uploads/2026/07/43.png",
+            "contentUrl": "https://buletinsiber.com/wp-content/uploads/2026/07/43.png",
+            "width": 1408,
+            "height": 768
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://buletinsiber.com/cara-mendeteksi-outlier-menggunakan-box-plot/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://buletinsiber.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Cara Mendeteksi Outlier Menggunakan Box Plot"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://buletinsiber.com/#website",
+            "url": "https://buletinsiber.com/",
+            "name": "buletinsiber.com",
+            "description": "sumber berita terupdate seputar keamanan siber dan teknologi terkini",
+            "alternateName": "buletin siber",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://buletinsiber.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://buletinsiber.com/#/schema/person/dc380a2eb8b2a6e4468e356c506717b7",
+            "name": "Tyas Maryandani",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://buletinsiber.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/edf0ba850a2a3f5ce785cfbc1ff46e36dec089539cecf802887094737030e7fe?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/edf0ba850a2a3f5ce785cfbc1ff46e36dec089539cecf802887094737030e7fe?s=96&d=mm&r=g",
+              "caption": "Tyas Maryandani"
+            },
+            "sameAs": [
+              "https://www.facebook.com/profile.php?id=100081213722264",
+              "https://www.instagram.com/t.tyyass?igsh=MTU0bm9zcGkzejd2OA==",
+              "https://x.com/https://x.com/attaysaa",
+              "https://youtube.com/@tyasmaryandani9087?si=FbZk096nKLB44tZd"
+            ],
+            "url": "https://buletinsiber.com/author/tyas-maryandani/"
+          }
+        ]
+      }
+    },
+    "jetpack_publicize_connections": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14728",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/users/37"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/comments?post=14728"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14728/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 14731,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/posts/14728/revisions/14731"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media/14730"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://buletinsiber.com/wp-json/wp/v2/media?parent=14728"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/categories?post=14728"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://buletinsiber.com/wp-json/wp/v2/tags?post=14728"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+}
