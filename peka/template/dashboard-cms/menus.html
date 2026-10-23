@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peka CMS — Menu & Navigasi</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="icon" href="../assets/images/favicon.ico">
+</head>
+<body>
+  <aside class="cms-sidebar">
+    <div class="cms-brand">
+      <div class="cms-brand-badge">P</div>
+      <span>Peka CMS</span>
+    </div>
+    <nav class="cms-nav">
+      <div class="cms-nav-section">Utama</div>
+      <a href="index.html" class="cms-nav-item">
+        <span>📊</span> <span>Dashboard</span>
+      </a>
+      <a href="posts.html" class="cms-nav-item">
+        <span>📝</span> <span>Kelola Posts</span>
+      </a>
+      <a href="editor.html" class="cms-nav-item">
+        <span>✏️</span> <span>Tulis Post Baru</span>
+      </a>
+
+      <div class="cms-nav-section">Situs & Navigasi</div>
+      <a href="menus.html" class="cms-nav-item active">
+        <span>🧭</span> <span>Menu Navigasi</span>
+      </a>
+      <a href="settings.html" class="cms-nav-item">
+        <span>⚙️</span> <span>Pengaturan Situs</span>
+      </a>
+
+      <div class="cms-nav-section">Akses Web</div>
+      <a href="../index.html" target="_blank" class="cms-nav-item">
+        <span>🌐</span> <span>Lihat Website ↗</span>
+      </a>
+      <a href="../blog.html" target="_blank" class="cms-nav-item">
+        <span>📰</span> <span>Halaman Blog ↗</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="cms-main">
+    <header class="cms-topbar">
+      <div class="cms-topbar-title">Pengaturan Menu Navigasi</div>
+      <div class="cms-topbar-actions">
+        <button id="btn-save-menus" class="btn btn-accent btn-sm">Simpan Perubahan Menu</button>
+      </div>
+    </header>
+
+    <div class="cms-content">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px;">
+        <!-- Header Nav Items -->
+        <div class="table-card">
+          <div class="table-header">
+            <div class="table-title">Menu Header (Navbar Utama)</div>
+            <button id="btn-add-header-item" class="btn btn-outline btn-sm">+ Tambah Item</button>
+          </div>
+          <div style="padding: 20px;">
+            <div id="header-nav-list" style="display: flex; flex-direction: column; gap: 12px;">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Ecosystem Products Showcase -->
+        <div class="table-card">
+          <div class="table-header">
+            <div class="table-title">Produk Ekosistem Peka AI</div>
+          </div>
+          <div style="padding: 20px;">
+            <div id="ecosystem-list" style="display: flex; flex-direction: column; gap: 14px;">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast">Menu berhasil disimpan!</div>
+
+  <script src="js/cms-store.js"></script>
+  <script>
+    let currentMenus = {};
+
+    document.addEventListener('DOMContentLoaded', () => {
+      currentMenus = cms.getMenus();
+      renderMenus();
+
+      document.getElementById('btn-add-header-item').addEventListener('click', () => {
+        const title = prompt('Masukkan nama label menu:');
+        if (!title) return;
+        const url = prompt('Masukkan URL tujuan (contoh: https://... atau /blog.html):');
+        if (!url) return;
+
+        if (!currentMenus.header_nav) currentMenus.header_nav = [];
+        currentMenus.header_nav.push({ title, url });
+        renderMenus();
+      });
+
+      document.getElementById('btn-save-menus').addEventListener('click', () => {
+        cms.saveMenus(currentMenus);
+        showToast('Perubahan menu berhasil disimpan!');
+      });
+    });
+
+    function renderMenus() {
+      // Header items
+      const headerList = document.getElementById('header-nav-list');
+      const items = currentMenus.header_nav || [];
+      headerList.innerHTML = items.map((item, index) => `
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: #fafaf9; border: 1px solid var(--line-light); border-radius: 4px;">
+          <div>
+            <div style="font-weight: 600;">${item.title}</div>
+            <div style="font-size: 0.78rem; color: var(--fg-muted); font-family: var(--mono);">${item.url}</div>
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <button onclick="moveHeaderItem(${index}, -1)" class="btn btn-outline btn-sm" ${index === 0 ? 'disabled' : ''}>↑</button>
+            <button onclick="moveHeaderItem(${index}, 1)" class="btn btn-outline btn-sm" ${index === items.length - 1 ? 'disabled' : ''}>↓</button>
+            <button onclick="deleteHeaderItem(${index})" class="btn btn-danger btn-sm">✕</button>
+          </div>
+        </div>
+      `).join('');
+
+      // Ecosystem products
+      const ecoList = document.getElementById('ecosystem-list');
+      const prods = currentMenus.ecosystem_products || [];
+      ecoList.innerHTML = prods.map(p => `
+        <div style="padding: 12px; border: 1px solid var(--line-light); border-radius: 4px; background: #ffffff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <span style="font-weight: 700;">${p.name}</span>
+            <span class="badge ${p.status === 'live' ? 'badge-published' : 'badge-draft'}">${p.status}</span>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--fg-muted); margin-bottom: 6px;">${p.description}</p>
+          <a href="${p.url}" target="_blank" style="font-size: 0.78rem; font-family: var(--mono); color: var(--fg);">${p.url} ↗</a>
+        </div>
+      `).join('');
+    }
+
+    function moveHeaderItem(index, dir) {
+      const items = currentMenus.header_nav;
+      const target = index + dir;
+      if (target >= 0 && target < items.length) {
+        const temp = items[index];
+        items[index] = items[target];
+        items[target] = temp;
+        renderMenus();
+      }
+    }
+
+    function deleteHeaderItem(index) {
+      if (confirm('Hapus item menu ini?')) {
+        currentMenus.header_nav.splice(index, 1);
+        renderMenus();
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+  </script>
+</body>
+</html>

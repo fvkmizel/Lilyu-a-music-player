@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peka CMS — Editor Post</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="icon" href="../assets/images/favicon.ico">
+  <!-- Markdown parser library -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <aside class="cms-sidebar">
+    <div class="cms-brand">
+      <div class="cms-brand-badge">P</div>
+      <span>Peka CMS</span>
+    </div>
+    <nav class="cms-nav">
+      <div class="cms-nav-section">Utama</div>
+      <a href="index.html" class="cms-nav-item">
+        <span>📊</span> <span>Dashboard</span>
+      </a>
+      <a href="posts.html" class="cms-nav-item">
+        <span>📝</span> <span>Kelola Posts</span>
+      </a>
+      <a href="editor.html" class="cms-nav-item active">
+        <span>✏️</span> <span>Tulis Post Baru</span>
+      </a>
+
+      <div class="cms-nav-section">Situs & Navigasi</div>
+      <a href="menus.html" class="cms-nav-item">
+        <span>🧭</span> <span>Menu Navigasi</span>
+      </a>
+      <a href="settings.html" class="cms-nav-item">
+        <span>⚙️</span> <span>Pengaturan Situs</span>
+      </a>
+
+      <div class="cms-nav-section">Akses Web</div>
+      <a href="../index.html" target="_blank" class="cms-nav-item">
+        <span>🌐</span> <span>Lihat Website ↗</span>
+      </a>
+      <a href="../blog.html" target="_blank" class="cms-nav-item">
+        <span>📰</span> <span>Halaman Blog ↗</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="cms-main">
+    <header class="cms-topbar">
+      <div class="cms-topbar-title" id="editor-page-title">Tulis Artikel Baru</div>
+      <div class="cms-topbar-actions">
+        <a href="posts.html" class="btn btn-outline btn-sm">Batal</a>
+        <button id="btn-save-draft" class="btn btn-outline btn-sm">Simpan Draft</button>
+        <button id="btn-publish" class="btn btn-accent btn-sm">Publikasikan 🚀</button>
+      </div>
+    </header>
+
+    <div class="cms-content">
+      <form id="post-form">
+        <div class="editor-grid">
+          <!-- Left Column: Title & Markdown Editor -->
+          <div>
+            <div class="form-group">
+              <label class="form-label">Judul Artikel</label>
+              <input type="text" id="post-title" class="form-input" style="font-size: 1.15rem; font-weight: 600;" placeholder="Contoh: Rilis Model AI Terbaru Peka..." required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Slug URL</label>
+              <input type="text" id="post-slug" class="form-input" placeholder="rilis-model-ai-terbaru" required>
+              <div class="form-hint">URL artikel: /post.html?slug=<span id="slug-preview" style="font-family: var(--mono);">...</span></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Ringkasan / Excerpt</label>
+              <textarea id="post-excerpt" class="form-textarea" style="min-height: 80px;" placeholder="Ringkasan singkat artikel untuk preview feed dan SEO..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label class="form-label" style="margin-bottom: 0;">Konten Artikel (Markdown / HTML)</label>
+                <div style="display: flex; gap: 8px;">
+                  <button type="button" class="btn btn-outline btn-sm" id="btn-insert-h2">+ Subjudul</button>
+                  <button type="button" class="btn btn-outline btn-sm" id="btn-insert-img">+ Gambar</button>
+                  <button type="button" class="btn btn-outline btn-sm" id="btn-insert-code">+ Kode</button>
+                </div>
+              </div>
+              <textarea id="post-content" class="form-textarea" style="min-height: 420px; font-family: var(--mono); font-size: 0.9rem;" placeholder="Tulis isi postingan Anda di sini menggunakan Markdown atau HTML..."></textarea>
+            </div>
+
+            <!-- Live Preview -->
+            <div class="form-group">
+              <label class="form-label">Live Preview Konten</label>
+              <div id="live-preview" class="editor-preview"></div>
+            </div>
+          </div>
+
+          <!-- Right Column: Settings & Metadata -->
+          <div>
+            <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 24px;">
+              <h4 style="font-size: 0.95rem; margin-bottom: 16px; border-bottom: 1px solid var(--line-light); padding-bottom: 8px;">Pengaturan Publikasi</h4>
+
+              <div class="form-group">
+                <label class="form-label">Status Post</label>
+                <select id="post-status" class="form-select">
+                  <option value="published">Publikasi (Live)</option>
+                  <option value="draft">Draft (Konsep)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Kategori Utama</label>
+                <select id="post-category" class="form-select">
+                  <option value="AI">AI & Machine Learning</option>
+                  <option value="Teknologi">Teknologi & Cloud</option>
+                  <option value="Kebijakan">Kebijakan & Regulasi</option>
+                  <option value="Tutorial">Panduan & Tutorial</option>
+                  <option value="Komunitas">Komunitas & Berita</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Tags (Pisahkan koma)</label>
+                <input type="text" id="post-tags" class="form-input" placeholder="ai, agent, cloud, open-source">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Estimasi Waktu Baca</label>
+                <input type="text" id="post-reading-time" class="form-input" placeholder="3 menit baca">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Penulis / Author</label>
+                <input type="text" id="post-author" class="form-input" value="Peka AI">
+              </div>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px;">
+              <h4 style="font-size: 0.95rem; margin-bottom: 16px; border-bottom: 1px solid var(--line-light); padding-bottom: 8px;">Gambar Sampul (Cover Image)</h4>
+
+              <div class="form-group">
+                <label class="form-label">URL Gambar</label>
+                <input type="url" id="post-image" class="form-input" placeholder="https://blog.peka.ai.id/covers/...">
+              </div>
+
+              <div style="margin-top: 12px; border: 1px dashed var(--line); border-radius: 4px; padding: 10px; text-align: center;">
+                <img id="cover-preview" src="https://blog.peka.ai.id/covers/launch.png" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 2px;">
+                <div style="font-size: 0.75rem; color: var(--fg-muted); margin-top: 6px;">Preview Cover</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <div id="toast" class="toast">Data berhasil disimpan!</div>
+
+  <script src="js/cms-store.js"></script>
+  <script>
+    let currentSlug = null;
+    let editingPost = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      currentSlug = urlParams.get('slug');
+
+      if (currentSlug) {
+        loadPostForEdit(currentSlug);
+      } else {
+        initNewPost();
+      }
+
+      // Realtime Slug Generator from Title
+      document.getElementById('post-title').addEventListener('input', (e) => {
+        if (!currentSlug) {
+          const generated = generateSlug(e.target.value);
+          document.getElementById('post-slug').value = generated;
+          document.getElementById('slug-preview').textContent = generated;
+        }
+      });
+
+      document.getElementById('post-slug').addEventListener('input', (e) => {
+        document.getElementById('slug-preview').textContent = e.target.value;
+      });
+
+      // Cover image preview update
+      document.getElementById('post-image').addEventListener('input', (e) => {
+        const url = e.target.value.trim() || 'https://blog.peka.ai.id/covers/launch.png';
+        document.getElementById('cover-preview').src = url;
+      });
+
+      // Live Markdown Preview
+      document.getElementById('post-content').addEventListener('input', updateLivePreview);
+
+      // Save Draft & Publish handlers
+      document.getElementById('btn-save-draft').addEventListener('click', (e) => {
+        e.preventDefault();
+        saveCurrentPost('draft');
+      });
+
+      document.getElementById('btn-publish').addEventListener('click', (e) => {
+        e.preventDefault();
+        saveCurrentPost('published');
+      });
+
+      // Quick markdown insertions
+      document.getElementById('btn-insert-h2').addEventListener('click', () => insertText('\n## Subjudul Baru\n'));
+      document.getElementById('btn-insert-img').addEventListener('click', () => insertText('\n![Deskripsi Gambar](https://example.com/image.png)\n'));
+      document.getElementById('btn-insert-code').addEventListener('click', () => insertText('\n```python\n# Kode contoh\nprint("Hello Peka")\n```\n'));
+    });
+
+    function generateSlug(text) {
+      return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
+    }
+
+    function insertText(text) {
+      const textarea = document.getElementById('post-content');
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      textarea.value = textarea.value.substring(0, start) + text + textarea.value.substring(end);
+      textarea.focus();
+      textarea.selectionEnd = start + text.length;
+      updateLivePreview();
+    }
+
+    function updateLivePreview() {
+      const raw = document.getElementById('post-content').value;
+      const previewEl = document.getElementById('live-preview');
+      if (window.marked) {
+        previewEl.innerHTML = marked.parse(raw);
+      } else {
+        previewEl.textContent = raw;
+      }
+    }
+
+    function initNewPost() {
+      document.getElementById('editor-page-title').textContent = 'Tulis Artikel Baru';
+      document.getElementById('post-reading-time').value = '3 menit baca';
+      document.getElementById('post-image').value = 'https://blog.peka.ai.id/covers/launch.png';
+      document.getElementById('post-content').value = 'Tulis paragraf pembuka artikel Anda di sini...\n\n## Poin Utama\n\nPenjelasan lebih detail mengenai topik yang dibahas.';
+      updateLivePreview();
+    }
+
+    function loadPostForEdit(slug) {
+      editingPost = cms.getPostBySlug(slug);
+      if (!editingPost) {
+        alert('Artikel tidak ditemukan!');
+        window.location.href = 'posts.html';
+        return;
+      }
+
+      document.getElementById('editor-page-title').textContent = 'Edit: ' + editingPost.title;
+      document.getElementById('post-title').value = editingPost.title || '';
+      document.getElementById('post-slug').value = editingPost.slug || '';
+      document.getElementById('slug-preview').textContent = editingPost.slug || '';
+      document.getElementById('post-excerpt').value = editingPost.excerpt || '';
+      document.getElementById('post-status').value = editingPost.status === 'draft' ? 'draft' : 'published';
+      document.getElementById('post-reading-time').value = editingPost.reading_time || '3 menit baca';
+      document.getElementById('post-author').value = (editingPost.author && editingPost.author.name) || 'Peka AI';
+      document.getElementById('post-image').value = editingPost.image || '';
+      if (editingPost.image) {
+        document.getElementById('cover-preview').src = editingPost.image;
+      }
+
+      const cats = editingPost.categories || [];
+      if (cats.length > 0) {
+        document.getElementById('post-category').value = cats[0];
+      }
+
+      const content = editingPost.content_markdown || editingPost.content_html || '';
+      document.getElementById('post-content').value = content;
+      updateLivePreview();
+    }
+
+    function saveCurrentPost(status) {
+      const title = document.getElementById('post-title').value.trim();
+      const slug = document.getElementById('post-slug').value.trim();
+      if (!title || !slug) {
+        alert('Judul dan Slug wajib diisi!');
+        return;
+      }
+
+      const excerpt = document.getElementById('post-excerpt').value.trim();
+      const content = document.getElementById('post-content').value;
+      const category = document.getElementById('post-category').value;
+      const readingTime = document.getElementById('post-reading-time').value.trim();
+      const author = document.getElementById('post-author').value.trim();
+      const image = document.getElementById('post-image').value.trim();
+
+      const postObj = {
+        id: (editingPost && editingPost.id) ? editingPost.id : 'post_' + Date.now(),
+        title: title,
+        slug: slug,
+        excerpt: excerpt,
+        status: status,
+        date: (editingPost && editingPost.date) ? editingPost.date : new Date().toISOString().split('T')[0],
+        categories: [category],
+        reading_time: readingTime || '3 menit baca',
+        author: { name: author },
+        image: image || 'https://blog.peka.ai.id/covers/launch.png',
+        content_markdown: content,
+        content_html: window.marked ? marked.parse(content) : content
+      };
+
+      cms.savePost(postObj);
+      showToast('Artikel berhasil disimpan!');
+      setTimeout(() => {
+        window.location.href = 'posts.html';
+      }, 1200);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+  </script>
+</body>
+</html>

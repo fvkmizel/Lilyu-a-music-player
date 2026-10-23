@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="page-title">Peka AI Blog</title>
+  <link rel="stylesheet" href="assets/css/theme.css">
+  <link rel="icon" href="assets/images/favicon.ico">
+  <!-- Markdown parser -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    .article-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 48px var(--gutter);
+    }
+    .article-header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .article-title {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .article-lead {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: var(--fg-muted);
+      margin-bottom: 24px;
+    }
+    .article-cover {
+      width: 100%;
+      border-radius: var(--radius);
+      margin-bottom: 36px;
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+    .article-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--fg);
+    }
+    .article-content p {
+      margin-bottom: 1.6em;
+    }
+    .article-content h2 {
+      margin: 2em 0 0.8em;
+      font-size: 1.8rem;
+    }
+    .article-content h3 {
+      margin: 1.6em 0 0.6em;
+      font-size: 1.4rem;
+    }
+    .article-content ul, .article-content ol {
+      margin-bottom: 1.6em;
+      padding-left: 24px;
+    }
+    .article-content li {
+      margin-bottom: 0.5em;
+    }
+    .article-content pre {
+      background: #111213;
+      color: #f3f3f0;
+      padding: 16px 20px;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      margin-bottom: 1.8em;
+    }
+    .article-content blockquote {
+      border-left: 3px solid var(--fg);
+      padding-left: 20px;
+      margin: 1.8em 0;
+      color: var(--fg-muted);
+      font-style: italic;
+    }
+    .social-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 24px 0;
+      margin-top: 48px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="brand">
+          <span class="brand-badge">P</span>
+          <span>Peka</span>
+        </a>
+
+        <nav class="nav-links" id="nav-links">
+          <a href="index.html" class="nav-link">Beranda</a>
+          <a href="blog.html" class="nav-link">← Semua Blog</a>
+          <a href="https://warganet.peka.ai.id/" target="_blank" class="nav-link">Warganet AI ↗</a>
+          <a href="https://wowo.peka.ai.id/" target="_blank" class="nav-link">Kata Wowo ↗</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="theme-toggle" class="btn btn-outline btn-sm">☾ Dark</button>
+          <a id="edit-cms-btn" href="dashboard-cms/editor.html" class="btn btn-outline btn-sm">Edit via CMS ✏️</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Article Body -->
+    <main class="article-wrap" id="article-wrap">
+      <div id="loading" style="padding: 60px 0; text-align: center; color: var(--fg-muted);">
+        Memuat artikel...
+      </div>
+
+      <div id="article-container" style="display: none;">
+        <div class="article-header">
+          <div class="article-meta">
+            <a href="blog.html" class="mono" style="font-weight: 600;">← ARSIP BLOG</a>
+            <span class="muted">·</span>
+            <span class="badge" id="post-cat">AI</span>
+            <span class="muted">·</span>
+            <span class="mono muted" id="post-date">23 Okt 2026</span>
+            <span class="muted">·</span>
+            <span class="mono muted" id="post-readtime">4 menit baca</span>
+          </div>
+
+          <h1 class="article-title" id="post-title">Judul Artikel</h1>
+          <p class="article-lead" id="post-excerpt"></p>
+        </div>
+
+        <img id="post-cover" class="article-cover" src="" alt="Cover">
+
+        <div class="article-content" id="post-body"></div>
+
+        <div class="social-bar">
+          <span class="mono muted">Bagikan artikel ini:</span>
+          <button onclick="shareLink('twitter')" class="btn btn-outline btn-sm">𝕏 / Twitter</button>
+          <button onclick="shareLink('threads')" class="btn btn-outline btn-sm">Threads</button>
+          <button onclick="shareLink('whatsapp')" class="btn btn-outline btn-sm">WhatsApp</button>
+          <button onclick="copyCurrentUrl()" class="btn btn-outline btn-sm" id="btn-copy">Salin Link</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <div class="brand">
+            <span class="brand-badge">P</span>
+            <span>Peka AI</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--fg-muted); margin-top: 8px;">
+            AI that gets what Indonesia is saying.
+          </p>
+        </div>
+        <div class="footer-col">
+          <ul class="footer-links">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="blog.html">Semua Artikel</a></li>
+            <li><a href="dashboard-cms/index.html">CMS Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Peka AI</span>
+        <span class="mono">peka.ai.id</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/js/cms-store.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug') || 'openai-galang-dana-30-miliar-dolar-valuasi-125-triliun';
+      loadArticle(slug);
+    });
+
+    function loadArticle(slug) {
+      const post = cms.getPostBySlug(slug);
+      const loading = document.getElementById('loading');
+      const container = document.getElementById('article-container');
+
+      if (!post) {
+        loading.innerHTML = `
+          <h2>Artikel tidak ditemukan</h2>
+          <p class="muted" style="margin-top: 10px;">Post dengan slug <code>${slug}</code> tidak ada di database.</p>
+          <a href="blog.html" class="btn btn-primary" style="margin-top: 20px;">Kembali ke Blog</a>
+        `;
+        return;
+      }
+
+      document.getElementById('page-title').textContent = `${post.title} · Peka AI Blog`;
+      document.getElementById('post-title').textContent = post.title;
+      document.getElementById('post-excerpt').textContent = post.excerpt || '';
+      document.getElementById('post-date').textContent = post.date || 'Terbaru';
+      document.getElementById('post-readtime').textContent = post.reading_time || '3 menit baca';
+      document.getElementById('post-cat').textContent = post.categories && post.categories[0] ? post.categories[0] : 'Teknologi';
+      
+      const cover = document.getElementById('post-cover');
+      if (post.image) {
+        cover.src = post.image;
+        cover.style.display = 'block';
+      } else {
+        cover.style.display = 'none';
+      }
+
+      // Render content
+      const bodyEl = document.getElementById('post-body');
+      if (post.content_markdown && window.marked) {
+        bodyEl.innerHTML = marked.parse(post.content_markdown);
+      } else if (post.content_html) {
+        bodyEl.innerHTML = post.content_html;
+      } else {
+        bodyEl.textContent = post.excerpt || '';
+      }
+
+      // Update CMS Edit button link
+      document.getElementById('edit-cms-btn').href = `dashboard-cms/editor.html?slug=${encodeURIComponent(post.slug)}`;
+
+      loading.style.display = 'none';
+      container.style.display = 'block';
+    }
+
+    function shareLink(platform) {
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent(document.getElementById('post-title').textContent);
+      if (platform === 'twitter') {
+        window.open(`https://twitter.com/intent/tweet?url=${url}&text=${title}`, '_blank');
+      } else if (platform === 'whatsapp') {
+        window.open(`https://api.whatsapp.com/send?text=${title}%20${url}`, '_blank');
+      } else if (platform === 'threads') {
+        window.open(`https://www.threads.net/intent/post?text=${title}%20${url}`, '_blank');
+      }
+    }
+
+    function copyCurrentUrl() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = document.getElementById('btn-copy');
+        btn.textContent = 'Tersalin! ✓';
+        setTimeout(() => { btn.textContent = 'Salin Link'; }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

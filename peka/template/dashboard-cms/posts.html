@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peka CMS — Kelola Posts</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="icon" href="../assets/images/favicon.ico">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="cms-sidebar">
+    <div class="cms-brand">
+      <div class="cms-brand-badge">P</div>
+      <span>Peka CMS</span>
+    </div>
+    <nav class="cms-nav">
+      <div class="cms-nav-section">Utama</div>
+      <a href="index.html" class="cms-nav-item">
+        <span>📊</span> <span>Dashboard</span>
+      </a>
+      <a href="posts.html" class="cms-nav-item active">
+        <span>📝</span> <span>Kelola Posts</span>
+      </a>
+      <a href="editor.html" class="cms-nav-item">
+        <span>✏️</span> <span>Tulis Post Baru</span>
+      </a>
+
+      <div class="cms-nav-section">Situs & Navigasi</div>
+      <a href="menus.html" class="cms-nav-item">
+        <span>🧭</span> <span>Menu Navigasi</span>
+      </a>
+      <a href="settings.html" class="cms-nav-item">
+        <span>⚙️</span> <span>Pengaturan Situs</span>
+      </a>
+
+      <div class="cms-nav-section">Akses Web</div>
+      <a href="../index.html" target="_blank" class="cms-nav-item">
+        <span>🌐</span> <span>Lihat Website ↗</span>
+      </a>
+      <a href="../blog.html" target="_blank" class="cms-nav-item">
+        <span>📰</span> <span>Halaman Blog ↗</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="cms-main">
+    <header class="cms-topbar">
+      <div class="cms-topbar-title">Manajemen Postingan Blog</div>
+      <div class="cms-topbar-actions">
+        <a href="editor.html" class="btn btn-accent btn-sm">+ Tulis Post Baru</a>
+      </div>
+    </header>
+
+    <div class="cms-content">
+      <div class="table-card">
+        <div class="table-header">
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <input type="text" id="search-input" class="input-search" placeholder="Cari judul atau slug...">
+            <select id="filter-status" class="form-select" style="width: 140px; padding: 7px 10px;">
+              <option value="all">Semua Status</option>
+              <option value="published">Publik</option>
+              <option value="draft">Draft</option>
+            </select>
+          </div>
+          <div id="posts-count-label" style="font-size: 0.88rem; color: var(--fg-muted);">
+            Menampilkan 0 artikel
+          </div>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 70px;">Cover</th>
+              <th style="width: 45%;">Judul & Slug</th>
+              <th>Kategori</th>
+              <th>Tanggal</th>
+              <th>Status</th>
+              <th style="text-align: right; width: 180px;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="posts-table-body">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast">Post berhasil dihapus!</div>
+
+  <script src="js/cms-store.js"></script>
+  <script>
+    let allPosts = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPosts();
+
+      document.getElementById('search-input').addEventListener('input', applyFilters);
+      document.getElementById('filter-status').addEventListener('change', applyFilters);
+    });
+
+    function loadPosts() {
+      allPosts = cms.getPosts();
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const query = document.getElementById('search-input').value.toLowerCase().trim();
+      const statusFilter = document.getElementById('filter-status').value;
+
+      let filtered = allPosts.filter(p => {
+        const matchesQuery = !query || 
+          (p.title && p.title.toLowerCase().includes(query)) || 
+          (p.slug && p.slug.toLowerCase().includes(query));
+
+        let matchesStatus = true;
+        if (statusFilter === 'published') matchesStatus = p.status !== 'draft';
+        if (statusFilter === 'draft') matchesStatus = p.status === 'draft';
+
+        return matchesQuery && matchesStatus;
+      });
+
+      renderTable(filtered);
+    }
+
+    function renderTable(posts) {
+      document.getElementById('posts-count-label').textContent = `Menampilkan ${posts.length} artikel`;
+      const tbody = document.getElementById('posts-table-body');
+
+      if (posts.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 40px; color: var(--fg-muted);">Tidak ada artikel yang cocok dengan pencarian.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = posts.map(p => `
+        <tr>
+          <td>
+            <img src="${p.image || 'https://blog.peka.ai.id/covers/launch.png'}" 
+                 style="width: 50px; height: 34px; object-fit: cover; border-radius: 2px; border: 1px solid var(--line);"
+                 onerror="this.src='https://blog.peka.ai.id/covers/launch.png'">
+          </td>
+          <td>
+            <a href="editor.html?slug=${encodeURIComponent(p.slug)}" style="font-weight: 600; color: var(--fg); text-decoration: none;">
+              ${p.title}
+            </a>
+            <div style="font-size: 0.76rem; color: var(--fg-muted); font-family: var(--mono);">${p.slug}</div>
+          </td>
+          <td>
+            <span class="badge badge-category">${p.categories && p.categories[0] ? p.categories[0] : 'Teknologi'}</span>
+          </td>
+          <td style="color: var(--fg-muted); font-size: 0.85rem;">
+            ${p.date || '-'}
+          </td>
+          <td>
+            <span class="badge ${p.status === 'draft' ? 'badge-draft' : 'badge-published'}">
+              ${p.status === 'draft' ? 'Draft' : 'Publik'}
+            </span>
+          </td>
+          <td style="text-align: right;">
+            <a href="editor.html?slug=${encodeURIComponent(p.slug)}" class="btn btn-outline btn-sm">Edit</a>
+            <a href="../post.html?slug=${encodeURIComponent(p.slug)}" target="_blank" class="btn btn-outline btn-sm">Lihat ↗</a>
+            <button onclick="confirmDelete('${p.slug}', '${encodeURIComponent(p.title)}')" class="btn btn-danger btn-sm">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function confirmDelete(slug, titleEncoded) {
+      const title = decodeURIComponent(titleEncoded);
+      if (confirm(`Yakin ingin menghapus artikel: "${title}"?`)) {
+        cms.deletePost(slug);
+        showToast('Artikel berhasil dihapus');
+        loadPosts();
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+  </script>
+</body>
+</html>

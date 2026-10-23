@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog · Peka AI</title>
+  <meta name="description" content="Kumpulan artikel, tutorial, dan analisis perkembangan teknologi AI dari tim Peka AI.">
+  <link rel="stylesheet" href="assets/css/theme.css">
+  <link rel="icon" href="assets/images/favicon.ico">
+</head>
+<body>
+  <div class="frame">
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="brand">
+          <span class="brand-badge">P</span>
+          <span>Peka</span>
+        </a>
+
+        <nav class="nav-links" id="nav-links">
+          <a href="index.html" class="nav-link">Beranda</a>
+          <a href="blog.html" class="nav-link active">Blog</a>
+          <a href="https://warganet.peka.ai.id/" target="_blank" class="nav-link">Warganet AI ↗</a>
+          <a href="https://wowo.peka.ai.id/" target="_blank" class="nav-link">Kata Wowo ↗</a>
+          <a href="https://url.peka.ai.id/" target="_blank" class="nav-link">Komunitas ↗</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="theme-toggle" class="btn btn-outline btn-sm">☾ Dark</button>
+          <a href="dashboard-cms/editor.html" class="btn btn-primary btn-sm">+ Tulis Artikel</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Blog Header -->
+    <section class="hero" style="padding-bottom: 32px;">
+      <div class="hero-meta">
+        <span class="badge">Blog & Kurasi</span>
+        <span class="mono muted">Wawasan Harian</span>
+      </div>
+      <h1 class="hero-title" style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 16px;">
+        Peka AI Blog
+      </h1>
+      <p class="hero-desc" style="margin-bottom: 24px;">
+        Kumpulan kurasi artikel, tips cloud gratis, tutorial AI agent, dan liputan dinamika teknologi terkini.
+      </p>
+
+      <!-- Search & Filters -->
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+        <input type="text" id="blog-search" placeholder="Cari artikel..." 
+               style="padding: 10px 16px; border: 1px solid var(--line); border-radius: var(--radius); font-family: var(--font); font-size: 0.95rem; width: 320px; outline: none; background: var(--bg-card); color: var(--fg);">
+        <div id="category-pills" style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-primary btn-sm cat-btn" data-cat="all">Semua</button>
+          <button class="btn btn-outline btn-sm cat-btn" data-cat="AI">AI</button>
+          <button class="btn btn-outline btn-sm cat-btn" data-cat="Teknologi">Teknologi</button>
+          <button class="btn btn-outline btn-sm cat-btn" data-cat="Cloud">Cloud</button>
+          <button class="btn btn-outline btn-sm cat-btn" data-cat="Tutorial">Tutorial</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Grid -->
+    <section class="section" style="flex: 1;">
+      <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+        <span id="blog-count" class="mono muted">Menampilkan 0 artikel</span>
+        <a href="dashboard-cms/posts.html" class="btn btn-outline btn-sm">Kelola via CMS ⚙️</a>
+      </div>
+
+      <div class="grid-3" id="blog-posts-grid">
+        <!-- Dynamically populated from CMS store -->
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <div class="brand">
+            <span class="brand-badge">P</span>
+            <span>Peka AI</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--fg-muted); margin-top: 8px;">
+            AI that gets what Indonesia is saying.
+          </p>
+        </div>
+        <div class="footer-col">
+          <ul class="footer-links">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="blog.html">Semua Artikel</a></li>
+            <li><a href="dashboard-cms/index.html">CMS Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Peka AI</span>
+        <span class="mono">peka.ai.id</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/js/cms-store.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script>
+    let postsData = [];
+    let activeCategory = 'all';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      postsData = cms.getPosts().filter(p => p.status !== 'draft');
+      renderBlogPosts();
+
+      document.getElementById('blog-search').addEventListener('input', renderBlogPosts);
+
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.cat-btn').forEach(b => {
+            b.classList.remove('btn-primary');
+            b.classList.add('btn-outline');
+          });
+          e.target.classList.remove('btn-outline');
+          e.target.classList.add('btn-primary');
+          activeCategory = e.target.getAttribute('data-cat');
+          renderBlogPosts();
+        });
+      });
+    });
+
+    function renderBlogPosts() {
+      const query = document.getElementById('blog-search').value.toLowerCase().trim();
+      const container = document.getElementById('blog-posts-grid');
+
+      let filtered = postsData.filter(p => {
+        const matchesQuery = !query || 
+          (p.title && p.title.toLowerCase().includes(query)) || 
+          (p.excerpt && p.excerpt.toLowerCase().includes(query));
+
+        let matchesCat = true;
+        if (activeCategory !== 'all') {
+          matchesCat = p.categories && p.categories.some(c => c.toLowerCase().includes(activeCategory.toLowerCase()));
+        }
+        return matchesQuery && matchesCat;
+      });
+
+      document.getElementById('blog-count').textContent = `Menampilkan ${filtered.length} artikel`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1 / -1; padding: 48px; text-align: center; color: var(--fg-muted);">Tidak ada artikel yang cocok dengan filter Anda.</div>';
+        return;
+      }
+
+      container.innerHTML = filtered.map(post => `
+        <article class="post-card">
+          <a href="post.html?slug=${encodeURIComponent(post.slug)}">
+            <img src="${post.image || 'https://blog.peka.ai.id/covers/launch.png'}" 
+                 alt="${post.title}" 
+                 class="post-thumb" 
+                 loading="lazy" 
+                 onerror="this.src='https://blog.peka.ai.id/covers/launch.png'">
+          </a>
+          <div class="post-body">
+            <div style="display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; align-items: center;">
+              <span class="badge">${post.categories && post.categories[0] ? post.categories[0] : 'Teknologi'}</span>
+              <span class="mono muted">${post.date || 'Terbaru'}</span>
+            </div>
+            <h3 class="post-title">
+              <a href="post.html?slug=${encodeURIComponent(post.slug)}">${post.title}</a>
+            </h3>
+            <p class="post-excerpt">${post.excerpt ? post.excerpt.substring(0, 110) + '...' : ''}</p>
+            <div class="card-footer">
+              <span class="muted">${post.reading_time || '3 menit baca'}</span>
+              <a href="post.html?slug=${encodeURIComponent(post.slug)}" style="font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                Baca Artikel ↗
+              </a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+  </script>
+</body>
+</html>
